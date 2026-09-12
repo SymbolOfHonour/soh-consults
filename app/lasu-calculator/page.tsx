@@ -20,6 +20,7 @@ type RequirementGroup = {
   label: string;
   subjects?: string[];
   category?: SubjectCategory;
+  anySubject?: boolean;
   required: number;
 };
 
@@ -30,6 +31,8 @@ type CourseRequirement = {
   oneOfOlevel?: RequirementGroup[];
   minimumRelevantCredits: number;
 };
+
+const LASU_CUTOFF_MARK = 195;
 
 const gradePoints: Record<string, number> = {
   A1: 8,
@@ -43,7 +46,17 @@ const gradePoints: Record<string, number> = {
   F9: 0,
 };
 
-const grades = ["A1", "B2", "B3", "C4", "C5", "C6", "D7", "E8", "F9"];
+const grades = [
+  "A1",
+  "B2",
+  "B3",
+  "C4",
+  "C5",
+  "C6",
+  "D7",
+  "E8",
+  "F9",
+];
 
 const jambSubjects = [
   "Accounting",
@@ -204,7 +217,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Economics"],
     oneOfJamb: [
       {
-        label: "Any Social Science subject",
+        label: "Relevant Social Science subject",
         category: "socialScience",
         required: 1,
       },
@@ -216,7 +229,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     ],
     oneOfOlevel: [
       {
-        label: "Any Social Science subject",
+        label: "Relevant Social Science subject",
         category: "socialScience",
         required: 1,
       },
@@ -228,7 +241,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Economics"],
     oneOfJamb: [
       {
-        label: "Any Social Science subject",
+        label: "Relevant Social Science subject",
         category: "socialScience",
         required: 1,
       },
@@ -240,7 +253,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     ],
     oneOfOlevel: [
       {
-        label: "Any Social Science subject",
+        label: "Relevant Social Science subjects",
         category: "socialScience",
         required: 2,
       },
@@ -252,7 +265,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Economics"],
     oneOfJamb: [
       {
-        label: "Any Social Science subject",
+        label: "Relevant Social Science subject",
         category: "socialScience",
         required: 1,
       },
@@ -264,7 +277,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     ],
     oneOfOlevel: [
       {
-        label: "Any Social Science subject",
+        label: "Relevant Social Science subjects",
         category: "socialScience",
         required: 2,
       },
@@ -276,7 +289,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Economics"],
     oneOfJamb: [
       {
-        label: "Any Social Science subject",
+        label: "Relevant Social Science subject",
         category: "socialScience",
         required: 1,
       },
@@ -288,7 +301,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     ],
     oneOfOlevel: [
       {
-        label: "Any Social Science subject",
+        label: "Relevant Social Science subjects",
         category: "socialScience",
         required: 2,
       },
@@ -300,7 +313,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Economics"],
     oneOfJamb: [
       {
-        label: "Any Social Science subject",
+        label: "Relevant Social Science subjects",
         category: "socialScience",
         required: 1,
       },
@@ -399,7 +412,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Economics"],
     oneOfJamb: [
       {
-        label: "Third JAMB subject",
+        label: "Relevant subject",
         subjects: ["Government", "Geography", "Commerce", "Accounting"],
         required: 1,
       },
@@ -630,7 +643,8 @@ const courseRequirements: Record<string, CourseRequirement> = {
           "Geography",
           "Christian Religious Studies",
           "Islamic Religious Studies",
-          "Commerce",
+          "French",
+          "Music",
         ],
         required: 2,
       },
@@ -675,11 +689,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
         required: 1,
       },
     ],
-    requiredOlevel: [
-      "English Language",
-      "Literature-in-English",
-      "Government",
-    ],
+    requiredOlevel: ["English Language", "Literature-in-English", "Government"],
     oneOfOlevel: [
       {
         label: "Relevant subjects",
@@ -718,11 +728,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
         required: 1,
       },
     ],
-    requiredOlevel: [
-      "English Language",
-      "Literature-in-English",
-      "Government",
-    ],
+    requiredOlevel: ["English Language", "Literature-in-English", "Government"],
     oneOfOlevel: [
       {
         label: "Relevant subjects",
@@ -825,10 +831,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
         required: 2,
       },
     ],
-    requiredOlevel: [
-      "English Language",
-      "Christian Religious Studies",
-    ],
+    requiredOlevel: ["English Language", "Christian Religious Studies"],
     oneOfOlevel: [
       {
         label: "Relevant subjects",
@@ -947,6 +950,26 @@ const courseRequirements: Record<string, CourseRequirement> = {
           "Visual Art",
         ],
         required: 3,
+      },
+    ],
+    minimumRelevantCredits: 5,
+  },
+
+  Philosophy: {
+    requiredJamb: [],
+    oneOfJamb: [
+      {
+        label: "Any three JAMB subjects",
+        anySubject: true,
+        required: 3,
+      },
+    ],
+    requiredOlevel: ["English Language"],
+    oneOfOlevel: [
+      {
+        label: "Any four additional O-Level subjects",
+        anySubject: true,
+        required: 4,
       },
     ],
     minimumRelevantCredits: 5,
@@ -1222,7 +1245,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Biology", "Chemistry"],
     oneOfJamb: [
       {
-        label: "Third JAMB subject",
+        label: "Additional relevant subject",
         subjects: ["Physics", "Agricultural Science"],
         required: 1,
       },
@@ -1253,7 +1276,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     ],
     oneOfOlevel: [
       {
-        label: "Additional relevant subject",
+        label: "Additional science subject",
         subjects: ["Biology", "Agriculture", "Further Mathematics"],
         required: 1,
       },
@@ -1271,7 +1294,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     ],
     oneOfOlevel: [
       {
-        label: "Additional relevant subject",
+        label: "Additional science subject",
         subjects: ["Further Mathematics", "Biology", "Agriculture"],
         required: 1,
       },
@@ -1289,7 +1312,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     ],
     oneOfOlevel: [
       {
-        label: "Additional relevant subject",
+        label: "Additional science subject",
         subjects: [
           "Further Mathematics",
           "Biology",
@@ -1312,7 +1335,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     ],
     oneOfOlevel: [
       {
-        label: "Additional relevant subject",
+        label: "Additional science subject",
         subjects: ["Biology", "Agriculture", "Further Mathematics"],
         required: 1,
       },
@@ -1400,7 +1423,11 @@ const courseRequirements: Record<string, CourseRequirement> = {
     oneOfOlevel: [
       {
         label: "Additional relevant subject",
-        subjects: ["Further Mathematics", "Technical Drawing", "Biology"],
+        subjects: [
+          "Further Mathematics",
+          "Technical Drawing",
+          "Biology",
+        ],
         required: 1,
       },
     ],
@@ -1411,7 +1438,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Physics"],
     oneOfJamb: [
       {
-        label: "Third JAMB subject",
+        label: "Additional relevant subject",
         subjects: [
           "Chemistry",
           "Economics",
@@ -1448,7 +1475,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Physics"],
     oneOfJamb: [
       {
-        label: "Third JAMB subject",
+        label: "Additional relevant subject",
         subjects: [
           "Chemistry",
           "Economics",
@@ -1485,7 +1512,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Physics"],
     oneOfJamb: [
       {
-        label: "Third JAMB subject",
+        label: "Additional relevant subject",
         subjects: [
           "Chemistry",
           "Economics",
@@ -1522,7 +1549,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Physics"],
     oneOfJamb: [
       {
-        label: "Third JAMB subject",
+        label: "Additional relevant subject",
         subjects: [
           "Chemistry",
           "Economics",
@@ -1559,8 +1586,15 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: [],
     oneOfJamb: [
       {
-        label: "Science JAMB subjects",
-        subjects: ["Biology", "Chemistry", "Physics"],
+        label: "Any three science subjects",
+        subjects: [
+          "Biology",
+          "Chemistry",
+          "Physics",
+          "Agricultural Science",
+          "Geography",
+          "Further Mathematics",
+        ],
         required: 3,
       },
     ],
@@ -1591,7 +1625,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     ],
     oneOfOlevel: [
       {
-        label: "Additional relevant subjects",
+        label: "Relevant subjects",
         subjects: [
           "Chemistry",
           "Further Mathematics",
@@ -1637,8 +1671,8 @@ const courseRequirements: Record<string, CourseRequirement> = {
           "Civic Education",
           "Christian Religious Studies",
           "Islamic Studies",
-          "French",
           "Arabic",
+          "French",
           "Music",
           "Visual Art",
         ],
@@ -1652,7 +1686,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: [],
     oneOfJamb: [
       {
-        label: "Relevant JAMB subjects",
+        label: "Relevant Arts subjects",
         category: "artsRelated",
         required: 3,
       },
@@ -1660,7 +1694,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredOlevel: ["English Language", "General Mathematics"],
     oneOfOlevel: [
       {
-        label: "Relevant subjects",
+        label: "Relevant Arts subjects",
         category: "artsRelated",
         required: 3,
       },
@@ -1672,7 +1706,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: [],
     oneOfJamb: [
       {
-        label: "Relevant JAMB subjects",
+        label: "Relevant Social Science subjects",
         category: "socialScience",
         required: 3,
       },
@@ -1680,7 +1714,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredOlevel: ["English Language", "General Mathematics"],
     oneOfOlevel: [
       {
-        label: "Relevant subjects",
+        label: "Relevant Social Science subjects",
         category: "socialScience",
         required: 3,
       },
@@ -1692,7 +1726,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: [],
     oneOfJamb: [
       {
-        label: "Relevant JAMB subjects",
+        label: "Relevant Social Science subjects",
         category: "socialScience",
         required: 3,
       },
@@ -1700,7 +1734,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredOlevel: ["English Language", "General Mathematics"],
     oneOfOlevel: [
       {
-        label: "Relevant subjects",
+        label: "Relevant Social Science subjects",
         category: "socialScience",
         required: 3,
       },
@@ -1712,7 +1746,7 @@ const courseRequirements: Record<string, CourseRequirement> = {
     requiredJamb: ["Mathematics", "Physics"],
     oneOfJamb: [
       {
-        label: "Third JAMB subject",
+        label: "Additional relevant subject",
         subjects: ["Chemistry", "Economics", "Geography"],
         required: 1,
       },
@@ -1776,6 +1810,10 @@ const courses = Object.keys(courseRequirements).sort((a, b) =>
 );
 
 function getGroupSubjects(group: RequirementGroup): string[] {
+  if (group.anySubject) {
+    return [];
+  }
+
   if (group.subjects) {
     return group.subjects;
   }
@@ -1793,810 +1831,2010 @@ function uniqueValues(values: string[]) {
 
 function countSatisfiedSubjects(
   selectedSubjects: string[],
-  group: RequirementGroup
+  group: RequirementGroup,
+  excludedSubjects: string[] = []
 ) {
+  const filtered = uniqueValues(selectedSubjects).filter(
+    (subject) => !excludedSubjects.includes(subject)
+  );
+
+  if (group.anySubject) {
+    return filtered.length;
+  }
+
   const allowed = getGroupSubjects(group);
 
-  return selectedSubjects.filter((subject) =>
+  return filtered.filter((subject) =>
     allowed.includes(subject)
   ).length;
 }
 
 function groupSatisfied(
   selectedSubjects: string[],
-  group: RequirementGroup
+  group: RequirementGroup,
+  excludedSubjects: string[] = []
 ) {
-  return countSatisfiedSubjects(selectedSubjects, group) >= group.required;
+  return (
+    countSatisfiedSubjects(
+      selectedSubjects,
+      group,
+      excludedSubjects
+    ) >= group.required
+  );
 }
 
-function getRelevantSubjectPool(requirement: CourseRequirement) {
+function getRelevantSubjectPool(
+  requirement: CourseRequirement
+) {
+  const groups = requirement.oneOfOlevel ?? [];
+
   const subjects = [
     ...requirement.requiredOlevel,
-    ...(requirement.oneOfOlevel ?? []).flatMap(getGroupSubjects),
+    ...groups.flatMap((group) =>
+      group.anySubject
+        ? oLevelSubjects
+        : getGroupSubjects(group)
+    ),
   ];
 
   return uniqueValues(subjects);
 }
 
-export default function LASUCalculator() {
-  const [course, setCourse] = useState("");
-  const [jambScore, setJambScore] = useState("");
-  const [jambElectives, setJambElectives] = useState<string[]>([
-    "",
-    "",
-    "",
-  ]);
+/* -------------------------------------------------------
+   PDF GENERATOR
+------------------------------------------------------- */
 
-  const [oLevel, setOLevel] = useState<OLevelEntry[]>(
-    Array.from({ length: 5 }, () => ({
-      subject: "",
-      grade: "",
-    }))
+function escapePdfText(text: string) {
+  return text
+    .replace(/[^\x20-\x7E]/g, "")
+    .replace(/\\/g, "\\\\")
+    .replace(/\(/g, "\\(")
+    .replace(/\)/g, "\\)");
+}
+
+function createPdfDocument(lines: string[]) {
+  const pageWidth = 595;
+  const pageHeight = 842;
+  const leftMargin = 45;
+  const rightMargin = 45;
+  const topMargin = 55;
+  const bottomMargin = 55;
+  const lineHeight = 15;
+  const usableHeight =
+    pageHeight - topMargin - bottomMargin;
+  const maxLinesPerPage = Math.floor(
+    usableHeight / lineHeight
   );
 
-  const [checked, setChecked] = useState(false);
+  const cleanedLines = lines
+    .map((line) =>
+      line
+        .replace(/[^\x20-\x7E]/g, "")
+        .replace(/\s+/g, " ")
+        .trim()
+    )
+    .flatMap((line) => {
+      if (!line) return [""];
+      return wrapPdfLine(
+        line,
+        pageWidth - leftMargin - rightMargin,
+        10
+      );
+    });
 
-  const requirement = course ? courseRequirements[course] : undefined;
+  const pages: string[][] = [];
 
-  const selectedOLevelSubjects = useMemo(
-    () => oLevel.map((entry) => entry.subject).filter(Boolean),
-    [oLevel]
-  );
-
-  const selectedJambSubjects = useMemo(
-    () => jambElectives.filter(Boolean),
-    [jambElectives]
-  );
-
-  const duplicateOLevelSubjects = useMemo(() => {
-    const subjects = selectedOLevelSubjects;
-
-    return subjects.filter(
-      (subject, index) => subjects.indexOf(subject) !== index
-    );
-  }, [selectedOLevelSubjects]);
-
-  const duplicateJambSubjects = useMemo(() => {
-    const subjects = selectedJambSubjects;
-
-    return subjects.filter(
-      (subject, index) => subjects.indexOf(subject) !== index
-    );
-  }, [selectedJambSubjects]);
-
-  /*
-   * NEW LASU AGGREGATE FORMULA
-   *
-   * JAMB = JAMB SCORE x 0.15
-   *
-   * Maximum JAMB points:
-   * 400 x 0.15 = 60
-   *
-   * O-Level:
-   * Best 5 relevant subjects
-   *
-   * A1 = 8
-   * B2 = 7
-   * B3 = 6
-   * C4 = 5
-   * C5 = 4
-   * C6 = 3
-   *
-   * Maximum O-Level points:
-   * 8 x 5 = 40
-   *
-   * Maximum aggregate:
-   * 60 + 40 = 100
-   */
-
-  const liveCalculator = useMemo(() => {
-    const numericJambScore = Number(jambScore);
-
-    const validJambScore =
-      jambScore !== "" &&
-      Number.isFinite(numericJambScore) &&
-      numericJambScore >= 0 &&
-      numericJambScore <= 400;
-
-    const jambPoints = validJambScore
-      ? numericJambScore * 0.15
-      : 0;
-
-    const relevantPool = requirement
-      ? getRelevantSubjectPool(requirement)
-      : [];
-
-    const relevantEntries = oLevel.filter(
-      (entry) =>
-        entry.subject &&
-        entry.grade &&
-        (!requirement || relevantPool.includes(entry.subject)) &&
-        gradePoints[entry.grade] !== undefined &&
-        gradePoints[entry.grade] > 0
-    );
-
-    const bestFive = [...relevantEntries]
-      .sort(
-        (a, b) =>
-          (gradePoints[b.grade] ?? 0) -
-          (gradePoints[a.grade] ?? 0)
+  for (
+    let i = 0;
+    i < cleanedLines.length;
+    i += maxLinesPerPage
+  ) {
+    pages.push(
+      cleanedLines.slice(
+        i,
+        i + maxLinesPerPage
       )
-      .slice(0, 5);
-
-    const oLevelPoints = bestFive.reduce(
-      (total, entry) =>
-        total + (gradePoints[entry.grade] ?? 0),
-      0
     );
+  }
 
-    const aggregate = jambPoints + oLevelPoints;
+  if (pages.length === 0) {
+    pages.push(["LASU Eligibility Report"]);
+  }
 
-    return {
-      validJambScore,
-      jambPoints,
-      oLevelPoints,
-      aggregate,
-      bestFive,
-      creditCount: relevantEntries.length,
-    };
-  }, [jambScore, oLevel, requirement]);
+  const catalogObject = 1;
+  const pagesObject = 2;
+  const regularFontObject = 3;
+  const boldFontObject = 4;
 
-  const validation = useMemo(() => {
-    if (!requirement) {
-      return {
-        eligible: false,
-        jambValid: false,
-        oLevelValid: false,
-        messages: [],
-        score: null as number | null,
-        bestFive: [] as OLevelEntry[],
-      };
+  const pageObjects = pages.map(
+    (_, index) =>
+      5 + index * 2
+  );
+
+  const contentObjects = pages.map(
+    (_, index) =>
+      6 + index * 2
+  );
+
+  const maxObject =
+    4 + pages.length * 2;
+
+  const objects = new Map<
+    number,
+    string
+  >();
+
+  objects.set(
+    catalogObject,
+    `<< /Type /Catalog /Pages ${pagesObject} 0 R >>`
+  );
+
+  objects.set(
+    pagesObject,
+    `<< /Type /Pages /Kids [${pageObjects
+      .map(
+        (number) =>
+          `${number} 0 R`
+      )
+      .join(" ")}] /Count ${pages.length} >>`
+  );
+
+  objects.set(
+    regularFontObject,
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>"
+  );
+
+  objects.set(
+    boldFontObject,
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>"
+  );
+
+  pages.forEach(
+    (page, pageIndex) => {
+      const pageObject =
+        pageObjects[pageIndex];
+
+      const contentObject =
+        contentObjects[pageIndex];
+
+      const textCommands: string[] = [
+        "BT",
+      ];
+
+      page.forEach(
+        (line, lineIndex) => {
+          const y =
+            pageHeight -
+            topMargin -
+            lineIndex *
+              lineHeight;
+
+          const isHeading =
+            [
+              "S.O.H CONSULTS",
+              "LASU AGGREGATE & ELIGIBILITY REPORT",
+              "Candidate Information",
+              "JAMB UTME",
+              "O-LEVEL RESULTS",
+              "BEST FIVE RELEVANT O-LEVEL RESULTS",
+              "AGGREGATE",
+              "ASSESSMENT",
+              "Validation Notes",
+              "IMPORTANT DISCLAIMER",
+            ].includes(line);
+
+          textCommands.push(
+            isHeading
+              ? "/F2 10 Tf"
+              : "/F1 9 Tf"
+          );
+
+          textCommands.push(
+            `1 0 0 1 ${leftMargin} ${y} Tm`
+          );
+
+          textCommands.push(
+            `(${escapePdfText(
+              line
+            )}) Tj`
+          );
+        }
+      );
+
+      textCommands.push("ET");
+
+      const stream =
+        textCommands.join(
+          "\n"
+        );
+
+      objects.set(
+        pageObject,
+        `<< /Type /Page /Parent ${pagesObject} 0 R /MediaBox [0 0 ${pageWidth} ${pageHeight}] /Resources << /Font << /F1 ${regularFontObject} 0 R /F2 ${boldFontObject} 0 R >> >> /Contents ${contentObject} 0 R >>`
+      );
+
+      objects.set(
+        contentObject,
+        `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`
+      );
     }
+  );
 
-    const messages: string[] = [];
-    const numericJambScore = Number(jambScore);
+  let pdf = "%PDF-1.4\n";
+
+  const offsets: number[] =
+    new Array(
+      maxObject + 1
+    ).fill(0);
+
+  for (
+    let objectNumber = 1;
+    objectNumber <= maxObject;
+    objectNumber++
+  ) {
+    offsets[objectNumber] =
+      pdf.length;
+
+    pdf += `${objectNumber} 0 obj\n`;
+    pdf += `${
+      objects.get(
+        objectNumber
+      ) ?? ""
+    }\n`;
+    pdf += "endobj\n";
+  }
+
+  const xrefOffset =
+    pdf.length;
+
+  pdf += `xref\n`;
+  pdf += `0 ${
+    maxObject + 1
+  }\n`;
+  pdf +=
+    "0000000000 65535 f \n";
+
+  for (
+    let objectNumber = 1;
+    objectNumber <= maxObject;
+    objectNumber++
+  ) {
+    pdf += `${String(
+      offsets[objectNumber]
+    ).padStart(
+      10,
+      "0"
+    )} 00000 n \n`;
+  }
+
+  pdf += `trailer\n`;
+  pdf += `<< /Size ${
+    maxObject + 1
+  } /Root ${catalogObject} 0 R >>\n`;
+  pdf += `startxref\n`;
+  pdf += `${xrefOffset}\n`;
+  pdf += "%%EOF";
+
+  return pdf;
+}
+
+function wrapPdfLine(
+  text: string,
+  maxWidth: number,
+  fontSize: number
+) {
+  const approximateCharWidth =
+    fontSize * 0.52;
+
+  const maxCharacters = Math.max(
+    20,
+    Math.floor(
+      maxWidth /
+        approximateCharWidth
+    )
+  );
+
+  if (
+    text.length <=
+    maxCharacters
+  ) {
+    return [text];
+  }
+
+  const words =
+    text.split(" ");
+
+  const lines: string[] = [];
+
+  let current = "";
+
+  words.forEach((word) => {
+    const candidate = current
+      ? `${current} ${word}`
+      : word;
 
     if (
-      jambScore === "" ||
-      !Number.isFinite(numericJambScore) ||
-      numericJambScore < 0 ||
-      numericJambScore > 400
+      candidate.length <=
+      maxCharacters
     ) {
-      messages.push("Enter a valid JAMB score between 0 and 400.");
-    }
-
-    if (selectedJambSubjects.length !== 3) {
-      messages.push(
-        "Select exactly 3 JAMB subjects apart from Use of English."
-      );
-    }
-
-    if (duplicateJambSubjects.length > 0) {
-      messages.push("JAMB subjects must not be repeated.");
-    }
-
-    for (const subject of requirement.requiredJamb) {
-      if (!selectedJambSubjects.includes(subject)) {
-        messages.push(`${subject} is required for JAMB.`);
+      current = candidate;
+    } else {
+      if (current) {
+        lines.push(current);
       }
+
+      current = word;
     }
+  });
 
-    for (const group of requirement.oneOfJamb ?? []) {
-      if (!groupSatisfied(selectedJambSubjects, group)) {
-        messages.push(
-          `${group.label}: select at least ${group.required} qualifying subject${
-            group.required > 1 ? "s" : ""
-          }.`
-        );
-      }
-    }
+  if (current) {
+    lines.push(current);
+  }
 
-    if (oLevel.length < 5 || oLevel.length > 9) {
-      messages.push("Enter between 5 and 9 O-Level subjects.");
-    }
+  return lines;
+}
 
-    if (duplicateOLevelSubjects.length > 0) {
-      messages.push("O-Level subjects must not be repeated.");
-    }
+/* -------------------------------------------------------
+   REPORT HELPERS
+------------------------------------------------------- */
 
-    const creditEntries = oLevel.filter(
-      (entry) =>
-        entry.subject &&
-        entry.grade &&
-        gradePoints[entry.grade] !== undefined &&
-        gradePoints[entry.grade] > 0
-    );
-
-    if (creditEntries.length < requirement.minimumRelevantCredits) {
-      messages.push(
-        `You need at least ${requirement.minimumRelevantCredits} relevant O-Level credits.`
-      );
-    }
-
-    for (const subject of requirement.requiredOlevel) {
-      const entry = oLevel.find(
-        (item) => item.subject === subject
-      );
-
-      if (!entry) {
-        messages.push(`${subject} is required at O-Level.`);
-      } else if (
-        !entry.grade ||
-        gradePoints[entry.grade] === undefined ||
-        gradePoints[entry.grade] <= 0
-      ) {
-        messages.push(
-          `${subject} must have a credit grade of C6 or better.`
-        );
-      }
-    }
-
-    for (const group of requirement.oneOfOlevel ?? []) {
-      const qualifyingEntries = oLevel.filter(
-        (entry) =>
-          entry.subject &&
-          entry.grade &&
-          gradePoints[entry.grade] > 0 &&
-          getGroupSubjects(group).includes(entry.subject)
-      );
-
-      if (qualifyingEntries.length < group.required) {
-        messages.push(
-          `${group.label}: select at least ${group.required} qualifying subject${
-            group.required > 1 ? "s" : ""
-          } with a credit grade.`
-        );
-      }
-    }
-
-    const relevantPool = getRelevantSubjectPool(requirement);
-
-    const relevantEntries = oLevel.filter(
-      (entry) =>
-        entry.subject &&
-        relevantPool.includes(entry.subject) &&
-        gradePoints[entry.grade] !== undefined &&
-        gradePoints[entry.grade] > 0
-    );
-
-    const bestFive = [...relevantEntries]
-      .sort(
-        (a, b) =>
-          (gradePoints[b.grade] ?? 0) -
-          (gradePoints[a.grade] ?? 0)
+function getSafeCandidateName(
+  candidateName: string
+) {
+  return (
+    candidateName
+      .trim()
+      .replace(
+        /[^a-zA-Z0-9]+/g,
+        "_"
       )
-      .slice(0, 5);
+      .replace(
+        /^_+|_+$/g,
+        ""
+      ) ||
+    "Candidate"
+  );
+}
 
-    if (bestFive.length < 5) {
-      messages.push(
-        "At least 5 relevant credit grades are required to calculate the aggregate."
-      );
+function wrapText(
+  context: CanvasRenderingContext2D,
+  text: string,
+  maxWidth: number
+) {
+  const words =
+    text.split(" ");
+
+  const lines: string[] = [];
+
+  let currentLine = "";
+
+  words.forEach(
+    (word) => {
+      const testLine =
+        currentLine
+          ? `${currentLine} ${word}`
+          : word;
+
+      if (
+        context.measureText(
+          testLine
+        ).width <=
+        maxWidth
+      ) {
+        currentLine =
+          testLine;
+      } else {
+        if (currentLine) {
+          lines.push(
+            currentLine
+          );
+        }
+
+        currentLine = word;
+      }
     }
+  );
 
-    const jambValid =
-      jambScore !== "" &&
-      Number.isFinite(numericJambScore) &&
-      numericJambScore >= 0 &&
-      numericJambScore <= 400 &&
-      selectedJambSubjects.length === 3 &&
-      duplicateJambSubjects.length === 0 &&
-      requirement.requiredJamb.every((subject) =>
-        selectedJambSubjects.includes(subject)
-      ) &&
-      (requirement.oneOfJamb ?? []).every((group) =>
-        groupSatisfied(selectedJambSubjects, group)
-      );
+  if (currentLine) {
+    lines.push(
+      currentLine
+    );
+  }
 
-    const oLevelValid =
-      oLevel.length >= 5 &&
-      oLevel.length <= 9 &&
-      duplicateOLevelSubjects.length === 0 &&
-      requirement.requiredOlevel.every((subject) => {
-        const entry = oLevel.find(
-          (item) => item.subject === subject
-        );
+  return lines;
+}
 
-        return (
-          entry &&
-          entry.grade &&
-          gradePoints[entry.grade] !== undefined &&
-          gradePoints[entry.grade] > 0
-        );
-      }) &&
-      (requirement.oneOfOlevel ?? []).every((group) => {
-        const qualifyingEntries = oLevel.filter(
+function createReportLines(
+  candidateName: string,
+  course: string,
+  jambScore: string,
+  selectedJambSubjects: string[],
+  completedOLevelResults: OLevelEntry[],
+  validation: {
+    eligible: boolean;
+    jambCutoffValid: boolean;
+    messages: string[];
+    score: number | null;
+    bestFive: OLevelEntry[];
+  },
+  liveCalculator: {
+    jambPoints: number;
+    oLevelPoints: number;
+  }
+) {
+  const status =
+    validation.eligible
+      ? "ELIGIBLE"
+      : "NOT ELIGIBLE";
+
+  const reportJambSubjects = [
+    "Use of English",
+    ...selectedJambSubjects,
+  ];
+
+  const reportOLevelResults =
+    completedOLevelResults.length >
+    0
+      ? completedOLevelResults.map(
+          (entry) =>
+            `${entry.subject}: ${entry.grade}`
+        )
+      : [
+          "No completed O-Level result entered",
+        ];
+
+  const bestFiveResults =
+    validation.bestFive.length >
+    0
+      ? validation.bestFive.map(
+          (entry) =>
+            `${entry.subject}: ${entry.grade}`
+        )
+      : ["Not available"];
+
+  return [
+    "S.O.H CONSULTS",
+    "LASU AGGREGATE & ELIGIBILITY REPORT",
+    "",
+    "Candidate Information",
+    `Candidate Name: ${
+      candidateName.trim() ||
+      "Not provided"
+    }`,
+    `Selected Course: ${
+      course || "Not selected"
+    }`,
+    `Eligibility Status: ${status}`,
+    "",
+    "JAMB UTME",
+    `JAMB Score: ${
+      jambScore || "Not provided"
+    }`,
+    `LASU Minimum Cut-off: ${LASU_CUTOFF_MARK}`,
+    `JAMB Cut-off Status: ${
+      validation.jambCutoffValid
+        ? "Passed"
+        : "Failed"
+    }`,
+    `JAMB Points: ${liveCalculator.jambPoints.toFixed(
+      2
+    )} / 60`,
+    "Selected JAMB Subjects:",
+    ...reportJambSubjects.map(
+      (subject) =>
+        `- ${subject}`
+    ),
+    "",
+    "O-LEVEL RESULTS",
+    `Completed Results: ${completedOLevelResults.length} / 9`,
+    ...reportOLevelResults.map(
+      (result) =>
+        `- ${result}`
+    ),
+    "",
+    "BEST FIVE RELEVANT O-LEVEL RESULTS",
+    ...bestFiveResults.map(
+      (result) =>
+        `- ${result}`
+    ),
+    "",
+    "AGGREGATE",
+    `O-Level Points: ${liveCalculator.oLevelPoints} / 40`,
+    `Estimated Aggregate: ${
+      validation.score !==
+      null
+        ? `${validation.score.toFixed(
+            2
+          )} / 100`
+        : "Not available"
+    }`,
+    "",
+    "ASSESSMENT",
+    validation.eligible
+      ? "The candidate satisfies the entered LASU screening requirements for the selected course."
+      : "The candidate does not satisfy one or more of the entered LASU screening requirements.",
+    "",
+    "Validation Notes",
+    ...(validation.messages
+      .length > 0
+      ? validation.messages
+          .slice(0, 12)
+          .map(
+            (message) =>
+              `- ${message}`
+          )
+      : [
+          "- No validation errors.",
+        ]),
+    "",
+    "IMPORTANT DISCLAIMER",
+    "This report is generated by S.O.H CONSULTS for guidance and self-screening purposes.",
+    "It is not an official LASU admission letter, screening result, or guarantee of admission.",
+    "LASU Course Requirements Checker: https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
+    "Requirements are presented by LASU as listed in the JAMB Brochure.",
+    `Generated: ${new Date().toLocaleString(
+      "en-NG"
+    )}`,
+  ];
+}
+
+export default function LASUCalculator() {
+  const [candidateName, setCandidateName] =
+    useState("");
+
+  const [course, setCourse] =
+    useState("");
+
+  const [jambScore, setJambScore] =
+    useState("");
+
+  const [jambElectives, setJambElectives] =
+    useState<string[]>([
+      "",
+      "",
+      "",
+    ]);
+
+  const [oLevel, setOLevel] =
+    useState<OLevelEntry[]>([
+      {
+        subject:
+          "English Language",
+        grade: "",
+      },
+      ...Array.from(
+        { length: 8 },
+        () => ({
+          subject: "",
+          grade: "",
+        })
+      ),
+    ]);
+
+  const [checked, setChecked] =
+    useState(false);
+
+  const requirement =
+    course
+      ? courseRequirements[
+          course
+        ]
+      : undefined;
+
+  const completedOLevelResults =
+    useMemo(
+      () =>
+        oLevel.filter(
+          (entry) =>
+            entry.subject &&
+            entry.grade
+        ),
+      [oLevel]
+    );
+
+  const selectedJambSubjects =
+    useMemo(
+      () =>
+        jambElectives.filter(
+          Boolean
+        ),
+      [jambElectives]
+    );
+
+  const liveCalculator =
+    useMemo(() => {
+      const numericJambScore =
+        Number(jambScore);
+
+      const validJambScore =
+        jambScore !== "" &&
+        Number.isFinite(
+          numericJambScore
+        ) &&
+        numericJambScore >= 0 &&
+        numericJambScore <= 400;
+
+      const jambPoints =
+        validJambScore
+          ? numericJambScore *
+            0.15
+          : 0;
+
+      const relevantPool =
+        requirement
+          ? getRelevantSubjectPool(
+              requirement
+            )
+          : [];
+
+      const relevantEntries =
+        oLevel.filter(
           (entry) =>
             entry.subject &&
             entry.grade &&
-            gradePoints[entry.grade] > 0 &&
-            getGroupSubjects(group).includes(entry.subject)
+            (!requirement ||
+              relevantPool.includes(
+                entry.subject
+              )) &&
+            gradePoints[
+              entry.grade
+            ] !==
+              undefined &&
+            gradePoints[
+              entry.grade
+            ] > 0
         );
 
-        return qualifyingEntries.length >= group.required;
-      }) &&
-      creditEntries.length >= requirement.minimumRelevantCredits &&
-      bestFive.length >= 5;
+      const bestFive = [
+        ...relevantEntries,
+      ]
+        .sort(
+          (a, b) =>
+            (gradePoints[
+              b.grade
+            ] ?? 0) -
+            (gradePoints[
+              a.grade
+            ] ?? 0)
+        )
+        .slice(0, 5);
 
-    let score: number | null = null;
+      const oLevelPoints =
+        bestFive.reduce(
+          (
+            total,
+            entry
+          ) =>
+            total +
+            (gradePoints[
+              entry.grade
+            ] ?? 0),
+          0
+        );
 
-    if (jambValid && oLevelValid) {
-      const jambPoints = numericJambScore * 0.15;
+      const aggregate =
+        jambPoints +
+        oLevelPoints;
 
-      const oLevelPoints = bestFive.reduce(
-        (total, entry) =>
-          total + (gradePoints[entry.grade] ?? 0),
-        0
-      );
-
-      score = Number(
-        (jambPoints + oLevelPoints).toFixed(2)
-      );
-    }
-
-    return {
-      eligible: jambValid && oLevelValid,
-      jambValid,
-      oLevelValid,
-      messages,
-      score,
-      bestFive,
-    };
-  }, [
-    requirement,
-    jambScore,
-    selectedJambSubjects,
-    selectedOLevelSubjects,
-    duplicateJambSubjects,
-    duplicateOLevelSubjects,
-    oLevel,
-  ]);
-
-  function updateJambSubject(index: number, value: string) {
-    setChecked(false);
-
-    setJambElectives((current) => {
-      const next = [...current];
-      next[index] = value;
-      return next;
-    });
-  }
-
-  function updateOLevelSubject(index: number, value: string) {
-    setChecked(false);
-
-    setOLevel((current) => {
-      const next = [...current];
-
-      next[index] = {
-        ...next[index],
-        subject: value,
+      return {
+        validJambScore,
+        jambPoints,
+        oLevelPoints,
+        aggregate,
+        bestFive,
+        creditCount:
+          relevantEntries.length,
       };
-
-      return next;
-    });
-  }
-
-  function updateOLevelGrade(index: number, value: string) {
-    setChecked(false);
-
-    setOLevel((current) => {
-      const next = [...current];
-
-      next[index] = {
-        ...next[index],
-        grade: value,
-      };
-
-      return next;
-    });
-  }
-
-  function addOLevelRow() {
-    if (oLevel.length >= 9) return;
-
-    setChecked(false);
-
-    setOLevel((current) => [
-      ...current,
-      {
-        subject: "",
-        grade: "",
-      },
+    }, [
+      jambScore,
+      oLevel,
+      requirement,
     ]);
-  }
 
-  function removeOLevelRow(index: number) {
-    if (oLevel.length <= 5) return;
+  const validation =
+    useMemo(() => {
+      const messages: string[] =
+        [];
 
+      if (
+        !candidateName.trim()
+      ) {
+        messages.push(
+          "Enter the candidate name."
+        );
+      }
+
+      if (!course) {
+        messages.push(
+          "Select a course."
+        );
+      }
+
+      if (!jambScore) {
+        messages.push(
+          "Enter your JAMB score."
+        );
+      }
+
+      const numericJambScore =
+        Number(jambScore);
+
+      const jambScoreValid =
+        jambScore !== "" &&
+        Number.isFinite(
+          numericJambScore
+        ) &&
+        numericJambScore >= 0 &&
+        numericJambScore <= 400;
+
+      const jambCutoffValid =
+        jambScoreValid &&
+        numericJambScore >=
+          LASU_CUTOFF_MARK;
+
+      if (
+        jambScoreValid &&
+        !jambCutoffValid
+      ) {
+        messages.push(
+          `JAMB score below LASU minimum cut-off mark of ${LASU_CUTOFF_MARK}. Candidate is disqualified.`
+        );
+      }
+
+      if (!requirement) {
+        messages.push(
+          "Select a course to continue."
+        );
+      }
+
+      const duplicateJambSubjects =
+        uniqueValues(
+          selectedJambSubjects
+        ).length !==
+        selectedJambSubjects.length;
+
+      if (
+        selectedJambSubjects.length !==
+        3
+      ) {
+        messages.push(
+          "Select exactly 3 JAMB subjects in addition to Use of English."
+        );
+      }
+
+      if (
+        duplicateJambSubjects
+      ) {
+        messages.push(
+          "JAMB subjects must not contain duplicates."
+        );
+      }
+
+      let jambValid = false;
+
+      if (requirement) {
+        const requiredJambSatisfied =
+          requirement.requiredJamb.every(
+            (subject) =>
+              selectedJambSubjects.includes(
+                subject
+              )
+          );
+
+        const oneOfJambSatisfied =
+          requirement.oneOfJamb?.every(
+            (group) =>
+              groupSatisfied(
+                selectedJambSubjects,
+                group
+              )
+          ) ?? true;
+
+        jambValid =
+          selectedJambSubjects.length ===
+            3 &&
+          !duplicateJambSubjects &&
+          requiredJambSatisfied &&
+          oneOfJambSatisfied &&
+          jambCutoffValid;
+
+        if (
+          !requiredJambSatisfied
+        ) {
+          requirement.requiredJamb.forEach(
+            (subject) => {
+              if (
+                !selectedJambSubjects.includes(
+                  subject
+                )
+              ) {
+                messages.push(
+                  `${subject} is required for ${course}.`
+                );
+              }
+            }
+          );
+        }
+
+        requirement.oneOfJamb?.forEach(
+          (group) => {
+            if (
+              !groupSatisfied(
+                selectedJambSubjects,
+                group
+              )
+            ) {
+              messages.push(
+                `${group.label}: select at least ${group.required} qualifying subject(s).`
+              );
+            }
+          }
+        );
+      }
+
+      const duplicateOLevelSubjects =
+        uniqueValues(
+          completedOLevelResults.map(
+            (entry) =>
+              entry.subject
+          )
+        ).length !==
+        completedOLevelResults.length;
+
+      if (
+        completedOLevelResults.length <
+          5 ||
+        completedOLevelResults.length >
+          9
+      ) {
+        messages.push(
+          "Select between 5 and 9 completed O-Level results."
+        );
+      }
+
+      if (
+        duplicateOLevelSubjects
+      ) {
+        messages.push(
+          "O-Level subjects must not contain duplicates."
+        );
+      }
+
+      let oLevelValid = false;
+
+      if (requirement) {
+        const creditEntries =
+          completedOLevelResults.filter(
+            (entry) =>
+              gradePoints[
+                entry.grade
+              ] !==
+                undefined &&
+              gradePoints[
+                entry.grade
+              ] > 0
+          );
+
+        const requiredOlevelSatisfied =
+          requirement.requiredOlevel.every(
+            (subject) =>
+              completedOLevelResults.some(
+                (entry) =>
+                  entry.subject ===
+                    subject &&
+                  (gradePoints[
+                    entry.grade
+                  ] ?? 0) > 0
+              )
+          );
+
+        const oneOfOlevelSatisfied =
+          requirement.oneOfOlevel?.every(
+            (group) =>
+              groupSatisfied(
+                completedOLevelResults
+                  .filter(
+                    (entry) =>
+                      (gradePoints[
+                        entry.grade
+                      ] ?? 0) > 0
+                  )
+                  .map(
+                    (entry) =>
+                      entry.subject
+                  ),
+                group,
+                group.anySubject
+                  ? requirement.requiredOlevel
+                  : []
+              )
+          ) ?? true;
+
+        const relevantPool =
+          getRelevantSubjectPool(
+            requirement
+          );
+
+        const relevantCredits =
+          completedOLevelResults.filter(
+            (entry) =>
+              relevantPool.includes(
+                entry.subject
+              ) &&
+              (gradePoints[
+                entry.grade
+              ] ?? 0) > 0
+          );
+
+        const bestFive = [
+          ...relevantCredits,
+        ]
+          .sort(
+            (a, b) =>
+              (gradePoints[
+                b.grade
+              ] ?? 0) -
+              (gradePoints[
+                a.grade
+              ] ?? 0)
+          )
+          .slice(0, 5);
+
+        const hasFiveRelevantCredits =
+          bestFive.length >= 5;
+
+        if (
+          !requiredOlevelSatisfied
+        ) {
+          requirement.requiredOlevel.forEach(
+            (subject) => {
+              const hasCredit =
+                completedOLevelResults.some(
+                  (entry) =>
+                    entry.subject ===
+                      subject &&
+                    (gradePoints[
+                      entry.grade
+                    ] ?? 0) > 0
+                );
+
+              if (!hasCredit) {
+                messages.push(
+                  `${subject} requires a credit pass.`
+                );
+              }
+            }
+          );
+        }
+
+        requirement.oneOfOlevel?.forEach(
+          (group) => {
+            if (
+              !groupSatisfied(
+                completedOLevelResults
+                  .filter(
+                    (entry) =>
+                      (gradePoints[
+                        entry.grade
+                      ] ?? 0) > 0
+                  )
+                  .map(
+                    (entry) =>
+                      entry.subject
+                  ),
+                group,
+                group.anySubject
+                  ? requirement.requiredOlevel
+                  : []
+              )
+            ) {
+              messages.push(
+                `${group.label}: select at least ${group.required} qualifying O-Level subject(s) with credit passes.`
+              );
+            }
+          }
+        );
+
+        if (
+          creditEntries.length <
+          requirement.minimumRelevantCredits
+        ) {
+          messages.push(
+            `At least ${requirement.minimumRelevantCredits} relevant O-Level credit passes are required.`
+          );
+        }
+
+        if (
+          !hasFiveRelevantCredits
+        ) {
+          messages.push(
+            "At least five relevant O-Level credit passes are required for the aggregate calculation."
+          );
+        }
+
+        oLevelValid =
+          completedOLevelResults.length >=
+            5 &&
+          completedOLevelResults.length <=
+            9 &&
+          !duplicateOLevelSubjects &&
+          requiredOlevelSatisfied &&
+          oneOfOlevelSatisfied &&
+          creditEntries.length >=
+            requirement.minimumRelevantCredits &&
+          hasFiveRelevantCredits;
+      }
+
+      const score =
+        jambScoreValid &&
+        oLevelValid
+          ? liveCalculator.aggregate
+          : null;
+
+      return {
+        eligible:
+          candidateName.trim()
+            .length > 0 &&
+          jambValid &&
+          oLevelValid &&
+          jambCutoffValid,
+
+        jambValid,
+        oLevelValid,
+        jambScoreValid,
+        jambCutoffValid,
+        messages,
+        score,
+        bestFive:
+          liveCalculator.bestFive,
+      };
+    }, [
+      candidateName,
+      course,
+      jambScore,
+      selectedJambSubjects,
+      completedOLevelResults,
+      requirement,
+      liveCalculator,
+    ]);
+
+  function updateJambSubject(
+    index: number,
+    value: string
+  ) {
     setChecked(false);
 
-    setOLevel((current) =>
-      current.filter((_, i) => i !== index)
+    setJambElectives(
+      (current) => {
+        if (
+          value &&
+          current.some(
+            (
+              subject,
+              optionIndex
+            ) =>
+              optionIndex !==
+                index &&
+              subject ===
+                value
+          )
+        ) {
+          return current;
+        }
+
+        const next = [
+          ...current,
+        ];
+
+        next[index] =
+          value;
+
+        return next;
+      }
+    );
+  }
+
+  function updateOLevelSubject(
+    index: number,
+    value: string
+  ) {
+    setChecked(false);
+
+    setOLevel(
+      (current) => {
+        if (
+          value &&
+          current.some(
+            (
+              entry,
+              optionIndex
+            ) =>
+              optionIndex !==
+                index &&
+              entry.subject ===
+                value
+          )
+        ) {
+          return current;
+        }
+
+        const next = [
+          ...current,
+        ];
+
+        next[index] = {
+          ...next[index],
+          subject: value,
+        };
+
+        return next;
+      }
+    );
+  }
+
+  function updateOLevelGrade(
+    index: number,
+    value: string
+  ) {
+    setChecked(false);
+
+    setOLevel(
+      (current) => {
+        const next = [
+          ...current,
+        ];
+
+        next[index] = {
+          ...next[index],
+          grade: value,
+        };
+
+        return next;
+      }
     );
   }
 
   function resetCalculator() {
+    setCandidateName("");
     setCourse("");
     setJambScore("");
-    setJambElectives(["", "", ""]);
 
-    setOLevel(
-      Array.from({ length: 5 }, () => ({
-        subject: "",
+    setJambElectives([
+      "",
+      "",
+      "",
+    ]);
+
+    setOLevel([
+      {
+        subject:
+          "English Language",
         grade: "",
-      }))
-    );
+      },
+      ...Array.from(
+        { length: 8 },
+        () => ({
+          subject: "",
+          grade: "",
+        })
+      ),
+    ]);
 
     setChecked(false);
   }
 
-  const requirementText = requirement
-    ? [
-        ...requirement.requiredOlevel,
-        ...(requirement.oneOfOlevel ?? []).map(
-          (group) =>
-            `${group.label}: ${getGroupSubjects(group).join(", ")}`
-        ),
-      ]
-    : [];
+  function getCurrentReportLines() {
+    return createReportLines(
+      candidateName,
+      course,
+      jambScore,
+      selectedJambSubjects,
+      completedOLevelResults,
+      validation,
+      liveCalculator
+    );
+  }
+
+  function downloadEligibilityReportPDF() {
+    const lines =
+      getCurrentReportLines();
+
+    const pdf =
+      createPdfDocument(
+        lines
+      );
+
+    const blob =
+      new Blob(
+        [pdf],
+        {
+          type: "application/pdf",
+        }
+      );
+
+    const url =
+      URL.createObjectURL(
+        blob
+      );
+
+    const link =
+      document.createElement(
+        "a"
+      );
+
+    link.href = url;
+
+    const safeCandidateName =
+      getSafeCandidateName(
+        candidateName
+      );
+
+    link.download =
+      `LASU_Eligibility_Report_${safeCandidateName}.pdf`;
+
+    document.body.appendChild(
+      link
+    );
+
+    link.click();
+
+    document.body.removeChild(
+      link
+    );
+
+    setTimeout(() => {
+      URL.revokeObjectURL(
+        url
+      );
+    }, 1000);
+  }
+
+  function downloadEligibilityReportJPG() {
+    if (
+      typeof document ===
+      "undefined"
+    ) {
+      return;
+    }
+
+    const lines =
+      getCurrentReportLines();
+
+    const canvas =
+      document.createElement(
+        "canvas"
+      );
+
+    const width = 1400;
+    const padding = 80;
+    const lineWidth =
+      width -
+      padding * 2;
+
+    const measuringContext =
+      canvas.getContext(
+        "2d"
+      );
+
+    if (!measuringContext) {
+      return;
+    }
+
+    measuringContext.font =
+      "400 20px Arial";
+
+    const wrappedLines =
+      lines.flatMap(
+        (line) =>
+          line
+            ? wrapText(
+                measuringContext,
+                line,
+                lineWidth
+              )
+            : [""]
+      );
+
+    const estimatedHeight =
+      Math.max(
+        1100,
+        360 +
+          wrappedLines.length *
+            38 +
+          160
+      );
+
+    canvas.width = width;
+    canvas.height =
+      estimatedHeight;
+
+    const context =
+      canvas.getContext(
+        "2d"
+      );
+
+    if (!context) {
+      return;
+    }
+
+    context.fillStyle =
+      "#f8fafc";
+
+    context.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+    context.fillStyle =
+      "#15803d";
+
+    context.fillRect(
+      0,
+      0,
+      width,
+      220
+    );
+
+    context.fillStyle =
+      "#ffffff";
+
+    context.font =
+      "800 38px Arial";
+
+    context.fillText(
+      "S.O.H CONSULTS",
+      padding,
+      72
+    );
+
+    context.font =
+      "800 46px Arial";
+
+    context.fillText(
+      "LASU Aggregate & Eligibility Report",
+      padding,
+      130
+    );
+
+    context.font =
+      "400 22px Arial";
+
+    context.fillText(
+      `LASU Minimum UTME Cut-off: ${LASU_CUTOFF_MARK}`,
+      padding,
+      178
+    );
+
+    let y = 275;
+
+    const status =
+      validation.eligible
+        ? "ELIGIBLE"
+        : "NOT ELIGIBLE";
+
+    context.fillStyle =
+      validation.eligible
+        ? "#dcfce7"
+        : "#fee2e2";
+
+    context.fillRect(
+      padding,
+      y - 35,
+      lineWidth,
+      100
+    );
+
+    context.fillStyle =
+      validation.eligible
+        ? "#166534"
+        : "#991b1b";
+
+    context.font =
+      "800 34px Arial";
+
+    context.fillText(
+      `Eligibility Status: ${status}`,
+      padding + 25,
+      y + 10
+    );
+
+    context.font =
+      "600 20px Arial";
+
+    context.fillText(
+      `Candidate: ${
+        candidateName.trim() ||
+        "Not provided"
+      }`,
+      padding + 25,
+      y + 45
+    );
+
+    y += 125;
+
+    const sectionTitles = [
+      "Candidate Information",
+      "JAMB UTME",
+      "O-LEVEL RESULTS",
+      "BEST FIVE RELEVANT O-LEVEL RESULTS",
+      "AGGREGATE",
+      "ASSESSMENT",
+      "Validation Notes",
+      "IMPORTANT DISCLAIMER",
+    ];
+
+    lines.forEach(
+      (line) => {
+        if (
+          sectionTitles.includes(
+            line
+          )
+        ) {
+          context.font =
+            "800 27px Arial";
+
+          context.fillStyle =
+            "#166534";
+
+          context.fillText(
+            line,
+            padding,
+            y
+          );
+
+          y += 42;
+
+          return;
+        }
+
+        if (!line) {
+          y += 15;
+          return;
+        }
+
+        context.font =
+          "400 20px Arial";
+
+        context.fillStyle =
+          "#334155";
+
+        const wrapped =
+          wrapText(
+            context,
+            line,
+            lineWidth
+          );
+
+        wrapped.forEach(
+          (
+            wrappedLine
+          ) => {
+            context.fillText(
+              wrappedLine,
+              padding,
+              y
+            );
+
+            y += 31;
+          }
+        );
+
+        y += 8;
+      }
+    );
+
+    context.font =
+      "400 16px Arial";
+
+    context.fillStyle =
+      "#64748b";
+
+    context.fillText(
+      "Generated by S.O.H CONSULTS • For guidance and self-screening purposes only.",
+      padding,
+      canvas.height - 45
+    );
+
+    const safeCandidateName =
+      getSafeCandidateName(
+        candidateName
+      );
+
+    canvas.toBlob(
+      (blob) => {
+        if (!blob) {
+          return;
+        }
+
+        const url =
+          URL.createObjectURL(
+            blob
+          );
+
+        const link =
+          document.createElement(
+            "a"
+          );
+
+        link.href = url;
+
+        link.download =
+          `LASU_Eligibility_Report_${safeCandidateName}.jpg`;
+
+        document.body.appendChild(
+          link
+        );
+
+        link.click();
+
+        document.body.removeChild(
+          link
+        );
+
+        setTimeout(() => {
+          URL.revokeObjectURL(
+            url
+          );
+        }, 1000);
+      },
+      "image/jpeg",
+      0.95
+    );
+  }
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-8 rounded-3xl bg-gradient-to-br from-green-700 via-green-600 to-emerald-500 p-6 text-white shadow-xl sm:p-8">
-          <div className="max-w-3xl">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-green-100">
+      <div className="mx-auto max-w-7xl">
+        <header className="overflow-hidden rounded-3xl bg-gradient-to-br from-green-700 via-green-600 to-emerald-500 p-6 text-white shadow-xl sm:p-8">
+          <div className="max-w-4xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-green-100">
               S.O.H CONSULTS
             </p>
 
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
               LASU Aggregate & Eligibility Checker
             </h1>
 
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-green-50 sm:text-base">
-              Check your LASU UTME and O-Level subject eligibility and
-              estimate your aggregate using the current checker rules.
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-green-50 sm:text-base">
+              Check your estimated LASU aggregate and
+              course eligibility using your JAMB score,
+              JAMB subjects and O-Level results.
             </p>
-          </div>
-        </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+            <div className="mt-5 inline-flex rounded-full bg-white/15 px-4 py-2 text-xs font-bold backdrop-blur">
+              LASU UTME minimum cut-off:{" "}
+              {LASU_CUTOFF_MARK}
+            </div>
+          </div>
+        </header>
+
+        <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
           <section className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200 sm:p-7">
-            <div className="mb-7">
-              <h2 className="text-xl font-bold">
-                1. Select your course
+            <div>
+              <h2 className="text-xl font-black text-slate-900">
+                Candidate Information
               </h2>
 
               <p className="mt-1 text-sm text-slate-500">
-                Choose the programme you intend to study.
+                Enter the candidate's details before
+                checking eligibility.
               </p>
-            </div>
 
-            <select
-              value={course}
-              onChange={(event) => {
-                setCourse(event.target.value);
-                setChecked(false);
-              }}
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
-            >
-              <option value="">Select course</option>
+              <div className="mt-5">
+                <label className="mb-2 block text-sm font-semibold text-slate-700">
+                  Candidate Name
+                </label>
 
-              {courses.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
+                <input
+                  type="text"
+                  placeholder="Enter candidate full name"
+                  value={candidateName}
+                  onChange={(event) => {
+                    setCandidateName(
+                      event.target.value
+                    );
 
-            {course && requirement && (
-              <div className="mt-5 rounded-2xl border border-green-100 bg-green-50 p-4">
-                <p className="text-sm font-bold text-green-900">
-                  {course} requirement summary
-                </p>
-
-                <div className="mt-3 space-y-2 text-sm text-green-900">
-                  {requirementText.map((item, index) => (
-                    <div
-                      key={`${item}-${index}`}
-                      className="flex gap-2"
-                    >
-                      <span className="font-bold">•</span>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div className="mt-8">
-              <div className="mb-5">
-                <h2 className="text-xl font-bold">
-                  2. JAMB subjects
-                </h2>
-
-                <p className="mt-1 text-sm text-slate-500">
-                  Use of English is compulsory and is automatically
-                  included. Select your other three JAMB subjects.
-                </p>
-              </div>
-
-              <div className="grid gap-4">
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-slate-700">
-                    1. Use of English
-                  </label>
-
-                  <input
-                    value="Use of English"
-                    disabled
-                    className="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-500"
-                  />
-                </div>
-
-                {jambElectives.map((subject, index) => (
-                  <div key={index}>
-                    <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      {index + 2}. JAMB subject
-                    </label>
-
-                    <select
-                      value={subject}
-                      onChange={(event) =>
-                        updateJambSubject(
-                          index,
-                          event.target.value
-                        )
-                      }
-                      className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
-                    >
-                      <option value="">Select subject</option>
-
-                      {jambSubjects.map((item) => (
-                        <option
-                          key={item}
-                          value={item}
-                          disabled={
-                            selectedJambSubjects.includes(item) &&
-                            subject !== item
-                          }
-                        >
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                ))}
+                    setChecked(false);
+                  }}
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
+                />
               </div>
 
               <div className="mt-5">
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
-                  JAMB UTME Score
+                  Select Course
+                </label>
+
+                <select
+                  value={course}
+                  onChange={(event) => {
+                    setCourse(
+                      event.target.value
+                    );
+
+                    setChecked(false);
+                  }}
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
+                >
+                  <option value="">
+                    Select your course
+                  </option>
+
+                  {courses.map(
+                    (item) => (
+                      <option
+                        key={item}
+                        value={item}
+                      >
+                        {item}
+                      </option>
+                    )
+                  )}
+                </select>
+              </div>
+            </div>
+
+            <div className="mt-8 border-t border-slate-200 pt-7">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-xl font-black text-slate-900">
+                    JAMB UTME
+                  </h2>
+
+                  <p className="mt-1 text-sm text-slate-500">
+                    Enter your JAMB score and select
+                    your three UTME subjects in addition
+                    to compulsory Use of English.
+                  </p>
+                </div>
+
+                <div className="rounded-full bg-green-50 px-3 py-1.5 text-xs font-bold text-green-700">
+                  Minimum:{" "}
+                  {LASU_CUTOFF_MARK}
+                </div>
+              </div>
+
+              <div className="mt-5">
+                <label className="mb-2 block text-sm font-semibold text-slate-700">
+                  JAMB Score
                 </label>
 
                 <input
                   type="number"
                   min="0"
                   max="400"
-                  inputMode="numeric"
-                  placeholder="Enter your JAMB score (0 - 400)"
+                  placeholder="e.g. 245"
                   value={jambScore}
                   onChange={(event) => {
-                    const value = event.target.value;
+                    setJambScore(
+                      event.target.value
+                    );
 
-                    if (
-                      value === "" ||
-                      (Number(value) >= 0 &&
-                        Number(value) <= 400)
-                    ) {
-                      setJambScore(value);
-                      setChecked(false);
-                    }
+                    setChecked(false);
                   }}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
+                  className={`w-full rounded-xl border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
+                    jambScore !== "" &&
+                    Number(jambScore) <
+                      LASU_CUTOFF_MARK
+                      ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring-red-100"
+                      : "border-slate-300 bg-white focus:border-green-600 focus:ring-green-100"
+                  }`}
                 />
 
-                <p className="mt-2 text-xs text-slate-400">
-                  JAMB contributes 60% of the aggregate. Your JAMB
-                  score is multiplied by 0.15.
+                {jambScore !== "" &&
+                  Number(jambScore) <
+                    LASU_CUTOFF_MARK && (
+                    <p className="mt-2 text-xs font-semibold text-red-600">
+                      JAMB score below{" "}
+                      {LASU_CUTOFF_MARK}.
+                      Candidate is
+                      disqualified for
+                      LASU screening.
+                    </p>
+                  )}
+              </div>
+
+              <div className="mt-5">
+                <label className="mb-2 block text-sm font-semibold text-slate-700">
+                  UTME Subject 1
+                </label>
+
+                <input
+                  type="text"
+                  value="Use of English"
+                  disabled
+                  className="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-500"
+                />
+
+                <p className="mt-2 text-xs font-semibold text-green-700">
+                  Compulsory
                 </p>
               </div>
 
-              <div className="mt-5 overflow-hidden rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
-                <div className="border-b border-green-100 px-5 py-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-green-600">
-                        Live Calculator
-                      </p>
+              <div className="mt-5 grid gap-4 sm:grid-cols-3">
+                {jambElectives.map(
+                  (value, index) => (
+                    <div key={index}>
+                      <label className="mb-2 block text-sm font-semibold text-slate-700">
+                        UTME Subject{" "}
+                        {index + 2}
+                      </label>
 
-                      <h3 className="mt-1 text-lg font-extrabold text-green-950">
-                        Your aggregate updates instantly
-                      </h3>
-                    </div>
-
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-600 text-lg font-black text-white">
-                      =
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid gap-3 p-5 sm:grid-cols-3">
-                  <div className="rounded-xl bg-white p-4 ring-1 ring-green-100">
-                    <p className="text-xs font-semibold text-slate-500">
-                      JAMB Points
-                    </p>
-
-                    <p className="mt-1 text-2xl font-black text-green-800">
-                      {liveCalculator.jambPoints.toFixed(2)}
-                      <span className="ml-1 text-xs font-bold text-slate-400">
-                        / 60
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="rounded-xl bg-white p-4 ring-1 ring-green-100">
-                    <p className="text-xs font-semibold text-slate-500">
-                      O-Level Points
-                    </p>
-
-                    <p className="mt-1 text-2xl font-black text-green-800">
-                      {liveCalculator.oLevelPoints}
-                      <span className="ml-1 text-xs font-bold text-slate-400">
-                        / 40
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="rounded-xl bg-green-700 p-4 text-white shadow-sm">
-                    <p className="text-xs font-semibold text-green-100">
-                      Live Aggregate
-                    </p>
-
-                    <p className="mt-1 text-3xl font-black">
-                      {liveCalculator.aggregate.toFixed(2)}
-                      <span className="ml-1 text-xs font-bold text-green-200">
-                        / 100
-                      </span>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="px-5 pb-5">
-                  {!course ? (
-                    <p className="rounded-xl bg-white/70 p-3 text-xs leading-5 text-slate-500">
-                      Select a course to calculate your O-Level
-                      points based on that course&apos;s relevant
-                      subjects.
-                    </p>
-                  ) : liveCalculator.creditCount < 5 ? (
-                    <p className="rounded-xl bg-white/70 p-3 text-xs leading-5 text-slate-500">
-                      Enter at least 5 relevant O-Level credit grades
-                      to complete the aggregate. Current relevant
-                      credits:{" "}
-                      <span className="font-bold">
-                        {liveCalculator.creditCount}/5
-                      </span>
-                    </p>
-                  ) : (
-                    <p className="rounded-xl bg-white/70 p-3 text-xs leading-5 text-green-800">
-                      Calculated using JAMB × 0.15 plus the best five
-                      relevant O-Level grades.
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-9">
-              <div className="mb-5 flex items-end justify-between gap-4">
-                <div>
-                  <h2 className="text-xl font-bold">
-                    3. O-Level results
-                  </h2>
-
-                  <p className="mt-1 text-sm text-slate-500">
-                    Enter between 5 and 9 subjects and select your
-                    grades.
-                  </p>
-                </div>
-
-                <span className="shrink-0 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-                  {oLevel.length}/9
-                </span>
-              </div>
-
-              <div className="space-y-3">
-                {oLevel.map((entry, index) => (
-                  <div
-                    key={index}
-                    className="grid gap-3 rounded-2xl border border-slate-200 p-3 sm:grid-cols-[1fr_150px_auto]"
-                  >
-                    <select
-                      value={entry.subject}
-                      onChange={(event) =>
-                        updateOLevelSubject(
-                          index,
-                          event.target.value
-                        )
-                      }
-                      className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
-                    >
-                      <option value="">
-                        Select O-Level subject
-                      </option>
-
-                      {oLevelSubjects.map((item) => (
-                        <option
-                          key={item}
-                          value={item}
-                          disabled={
-                            selectedOLevelSubjects.includes(item) &&
-                            entry.subject !== item
-                          }
-                        >
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-
-                    <select
-                      value={entry.grade}
-                      onChange={(event) =>
-                        updateOLevelGrade(
-                          index,
-                          event.target.value
-                        )
-                      }
-                      className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
-                    >
-                      <option value="">Grade</option>
-
-                      {grades.map((grade) => (
-                        <option key={grade} value={grade}>
-                          {grade}
-                        </option>
-                      ))}
-                    </select>
-
-                    {oLevel.length > 5 ? (
-                      <button
-                        type="button"
-                        onClick={() => removeOLevelRow(index)}
-                        className="rounded-xl border border-red-200 px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-50"
+                      <select
+                        value={value}
+                        onChange={(event) =>
+                          updateJambSubject(
+                            index,
+                            event.target.value
+                          )
+                        }
+                        className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
                       >
-                        Remove
-                      </button>
-                    ) : (
-                      <div />
-                    )}
-                  </div>
-                ))}
+                        <option value="">
+                          Select subject
+                        </option>
+
+                        {jambSubjects.map(
+                          (subject) => (
+                            <option
+                              key={subject}
+                              value={subject}
+                              disabled={jambElectives.some(
+                                (
+                                  selected,
+                                  optionIndex
+                                ) =>
+                                  optionIndex !==
+                                    index &&
+                                  selected ===
+                                    subject
+                              )}
+                            >
+                              {subject}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
+                  )
+                )}
               </div>
 
-              {oLevel.length < 9 && (
-                <button
-                  type="button"
-                  onClick={addOLevelRow}
-                  className="mt-4 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-bold text-green-700 transition hover:bg-green-100"
-                >
-                  + Add another subject
-                </button>
+              {course ===
+                "Philosophy" && (
+                <div className="mt-4 rounded-xl bg-blue-50 px-4 py-3 text-sm leading-6 text-blue-800 ring-1 ring-blue-100">
+                  <span className="font-bold">
+                    Philosophy:
+                  </span>{" "}
+                  Use of English is
+                  compulsory, while the
+                  other three JAMB
+                  subjects can be any
+                  JAMB subjects.
+                </div>
               )}
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 border-t border-slate-200 pt-7">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-xl font-black text-slate-900">
+                    O-Level Results
+                  </h2>
+
+                  <p className="mt-1 text-sm text-slate-500">
+                    Enter 5 to 9 O-Level results and
+                    select your grades. English Language
+                    is compulsory.
+                  </p>
+                </div>
+
+                <div className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-black text-slate-700">
+                  {
+                    completedOLevelResults.length
+                  }
+                  /9
+                </div>
+              </div>
+
+              <div className="mt-5 space-y-3">
+                {oLevel.map(
+                  (entry, index) => (
+                    <div
+                      key={index}
+                      className="grid gap-3 sm:grid-cols-[1fr_150px]"
+                    >
+                      <div>
+                        {index ===
+                        0 ? (
+                          <input
+                            value="English Language"
+                            disabled
+                            className="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-500"
+                          />
+                        ) : (
+                          <select
+                            value={
+                              entry.subject
+                            }
+                            onChange={(
+                              event
+                            ) =>
+                              updateOLevelSubject(
+                                index,
+                                event.target.value
+                              )
+                            }
+                            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
+                          >
+                            <option value="">
+                              Select O-Level subject
+                            </option>
+
+                            {oLevelSubjects
+                              .filter(
+                                (
+                                  item
+                                ) =>
+                                  item !==
+                                  "English Language"
+                              )
+                              .map(
+                                (
+                                  subject
+                                ) => (
+                                  <option
+                                    key={
+                                      subject
+                                    }
+                                    value={
+                                      subject
+                                    }
+                                    disabled={oLevel.some(
+                                      (
+                                        selected,
+                                        optionIndex
+                                      ) =>
+                                        optionIndex !==
+                                          index &&
+                                        selected.subject ===
+                                          subject
+                                    )}
+                                  >
+                                    {
+                                      subject
+                                    }
+                                  </option>
+                                )
+                              )}
+                          </select>
+                        )}
+                      </div>
+
+                      <select
+                        value={
+                          entry.grade
+                        }
+                        onChange={(
+                          event
+                        ) =>
+                          updateOLevelGrade(
+                            index,
+                            event.target.value
+                          )
+                        }
+                        className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
+                      >
+                        <option value="">
+                          Select grade
+                        </option>
+
+                        {grades.map(
+                          (grade) => (
+                            <option
+                              key={
+                                grade
+                              }
+                              value={
+                                grade
+                              }
+                            >
+                              {grade}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
+                  )
+                )}
+              </div>
+
+              <p className="mt-4 text-xs leading-5 text-slate-500">
+                You may enter between 5 and 9
+                O-Level results. English Language is
+                compulsory.
+              </p>
+            </div>
+
+            <div className="mt-8 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-bold text-slate-700">
+                    Live Aggregate
+                  </p>
+
+                  <p className="mt-1 text-xs text-slate-500">
+                    Based on your current entries.
+                  </p>
+                </div>
+
+                <p className="text-2xl font-black text-green-700">
+                  {liveCalculator.aggregate.toFixed(
+                    2
+                  )}
+                  /100
+                </p>
+              </div>
+
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
+                  <p className="text-xs text-slate-500">
+                    JAMB Points
+                  </p>
+
+                  <p className="mt-1 text-lg font-black">
+                    {liveCalculator.jambPoints.toFixed(
+                      2
+                    )}
+                    /60
+                  </p>
+                </div>
+
+                <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
+                  <p className="text-xs text-slate-500">
+                    O-Level Points
+                  </p>
+
+                  <p className="mt-1 text-lg font-black">
+                    {
+                      liveCalculator.oLevelPoints
+                    }
+                    /40
+                  </p>
+                </div>
+
+                <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
+                  <p className="text-xs text-slate-500">
+                    Relevant Credits
+                  </p>
+
+                  <p className="mt-1 text-lg font-black">
+                    {
+                      liveCalculator.creditCount
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
-                onClick={() => setChecked(true)}
-                className="flex-1 rounded-xl bg-green-700 px-5 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-green-800"
+                onClick={() =>
+                  setChecked(true)
+                }
+                className="flex-1 rounded-xl bg-green-700 px-5 py-3.5 text-sm font-black text-white transition hover:bg-green-800"
               >
                 Check Eligibility
               </button>
 
               <button
                 type="button"
-                onClick={resetCalculator}
+                onClick={
+                  resetCalculator
+                }
                 className="rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50"
               >
                 Reset
@@ -2604,189 +3842,343 @@ export default function LASUCalculator() {
             </div>
 
             {checked && (
-              <div
-                className={`mt-7 rounded-2xl border p-5 ${
-                  validation.eligible
-                    ? "border-green-200 bg-green-50"
-                    : "border-red-200 bg-red-50"
-                }`}
-              >
-                <div className="flex items-start gap-3">
-                  <div
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg font-black ${
-                      validation.eligible
-                        ? "bg-green-600 text-white"
-                        : "bg-red-600 text-white"
-                    }`}
-                  >
-                    {validation.eligible ? "✓" : "!"}
-                  </div>
+              <div className="mt-7">
+                <div
+                  className={`rounded-2xl p-5 ring-1 ${
+                    validation.eligible
+                      ? "bg-green-50 text-green-900 ring-green-200"
+                      : "bg-red-50 text-red-900 ring-red-200"
+                  }`}
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-wider">
+                        Eligibility Result
+                      </p>
 
-                  <div className="min-w-0">
-                    <h3
-                      className={`text-lg font-extrabold ${
-                        validation.eligible
-                          ? "text-green-900"
-                          : "text-red-900"
-                      }`}
-                    >
-                      {validation.eligible
-                        ? "You meet the selected requirements"
-                        : "Requirements not yet satisfied"}
-                    </h3>
+                      <h3 className="mt-1 text-2xl font-black">
+                        {validation.eligible
+                          ? "Eligible"
+                          : "Not Eligible"}
+                      </h3>
 
-                    {validation.eligible &&
-                    validation.score !== null ? (
-                      <div className="mt-4">
-                        <p className="text-sm font-medium text-green-800">
-                          Estimated LASU aggregate
+                      <p className="mt-2 text-sm font-semibold">
+                        Candidate:{" "}
+                        {candidateName.trim() ||
+                          "Not provided"}
+                      </p>
+
+                      {course && (
+                        <p className="mt-1 text-sm">
+                          Course:{" "}
+                          {course}
+                        </p>
+                      )}
+                    </div>
+
+                    {validation.score !==
+                      null && (
+                      <div className="rounded-xl bg-white px-5 py-3 text-center shadow-sm ring-1 ring-black/5">
+                        <p className="text-xs text-slate-500">
+                          Estimated Aggregate
                         </p>
 
-                        <p className="mt-1 text-4xl font-black text-green-900">
-                          {validation.score}
-                          <span className="ml-1 text-base font-bold">
-                            / 100
-                          </span>
+                        <p className="text-2xl font-black text-green-700">
+                          {validation.score.toFixed(
+                            2
+                          )}
+                          /100
                         </p>
-
-                        <p className="mt-2 text-xs leading-5 text-green-800">
-                          JAMB contributes up to 60 points and O-Level
-                          contributes up to 40 points. This is an
-                          eligibility and aggregate estimate, not an
-                          admission guarantee or official LASU
-                          screening result.
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="mt-4 space-y-2">
-                        {validation.messages.map(
-                          (message, index) => (
-                            <p
-                              key={`${message}-${index}`}
-                              className="text-sm leading-5 text-red-800"
-                            >
-                              • {message}
-                            </p>
-                          )
-                        )}
                       </div>
                     )}
                   </div>
+
+                  {!validation.jambCutoffValid &&
+                    jambScore !== "" && (
+                      <div className="mt-4 rounded-xl bg-red-100 p-3 text-sm font-bold text-red-800">
+                        JAMB score is below LASU's
+                        minimum cut-off mark of{" "}
+                        {
+                          LASU_CUTOFF_MARK
+                        }
+                        . The candidate is
+                        disqualified regardless of
+                        the calculated aggregate.
+                      </div>
+                    )}
+
+                  {validation.messages.length >
+                    0 && (
+                    <div className="mt-5 rounded-xl bg-white/70 p-4">
+                      <p className="text-sm font-black">
+                        Requirements to review
+                      </p>
+
+                      <ul className="mt-2 space-y-1.5 text-sm">
+                        {validation.messages
+                          .slice(
+                            0,
+                            10
+                          )
+                          .map(
+                            (
+                              message,
+                              index
+                            ) => (
+                              <li
+                                key={
+                                  index
+                                }
+                                className="flex gap-2"
+                              >
+                                <span>
+                                  •
+                                </span>
+
+                                <span>
+                                  {
+                                    message
+                                  }
+                                </span>
+                              </li>
+                            )
+                          )}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div className="mt-5 rounded-xl bg-white p-4 ring-1 ring-slate-200">
+                    <p className="text-sm font-bold text-slate-800">
+                      JAMB subjects entered
+                    </p>
+
+                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                      {[
+                        "Use of English",
+                        ...selectedJambSubjects,
+                      ].map(
+                        (
+                          subject,
+                          index
+                        ) => (
+                          <div
+                            key={`${subject}-${index}`}
+                            className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 text-sm"
+                          >
+                            <span className="font-medium text-slate-700">
+                              {
+                                subject
+                              }
+                            </span>
+
+                            {index ===
+                              0 && (
+                              <span className="font-black text-green-700">
+                                Compulsory
+                              </span>
+                            )}
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 rounded-xl bg-white p-4 ring-1 ring-slate-200">
+                    <p className="text-sm font-bold text-slate-800">
+                      O-Level results entered
+                    </p>
+
+                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                      {completedOLevelResults.map(
+                        (
+                          entry,
+                          index
+                        ) => (
+                          <div
+                            key={`${entry.subject}-${index}`}
+                            className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 text-sm"
+                          >
+                            <span className="font-medium text-slate-700">
+                              {
+                                entry.subject
+                              }
+                            </span>
+
+                            <span className="font-black text-green-700">
+                              {
+                                entry.grade
+                              }
+                            </span>
+                          </div>
+                        )
+                      )}
+                    </div>
+
+                    {completedOLevelResults.length ===
+                      0 && (
+                      <p className="mt-2 text-sm text-slate-500">
+                        No completed O-Level result
+                        has been entered yet.
+                      </p>
+                    )}
+                  </div>
+
+                  {validation.bestFive.length >
+                    0 && (
+                    <div className="mt-4 rounded-xl bg-white p-4 ring-1 ring-slate-200">
+                      <p className="text-sm font-bold text-slate-800">
+                        Best five relevant O-Level
+                        results
+                      </p>
+
+                      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                        {validation.bestFive.map(
+                          (
+                            entry,
+                            index
+                          ) => (
+                            <div
+                              key={`${entry.subject}-${index}`}
+                              className="flex items-center justify-between rounded-lg bg-green-50 px-3 py-2 text-sm"
+                            >
+                              <span className="font-medium text-slate-700">
+                                {
+                                  entry.subject
+                                }
+                              </span>
+
+                              <span className="font-black text-green-700">
+                                {
+                                  entry.grade
+                                }
+                              </span>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                    <button
+                      type="button"
+                      onClick={
+                        downloadEligibilityReportPDF
+                      }
+                      className="w-full rounded-xl bg-slate-900 px-4 py-3.5 text-sm font-black text-white transition hover:bg-slate-800"
+                    >
+                      📄 Download Report
+                      (PDF)
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={
+                        downloadEligibilityReportJPG
+                      }
+                      className="w-full rounded-xl bg-green-700 px-4 py-3.5 text-sm font-black text-white transition hover:bg-green-800"
+                    >
+                      🖼️ Download Report
+                      (JPG)
+                    </button>
+                  </div>
+
+                  <p className="mt-3 text-center text-xs text-slate-500">
+                    Download your complete
+                    eligibility report as a PDF or
+                    JPG image.
+                  </p>
                 </div>
               </div>
             )}
           </section>
 
-          <aside className="space-y-5">
+          <aside className="h-fit space-y-5">
             <div className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-              <h2 className="text-lg font-extrabold">
+              <h2 className="text-lg font-black text-slate-900">
                 How the checker works
               </h2>
 
               <div className="mt-4 space-y-4">
                 <div>
                   <p className="text-sm font-bold text-slate-800">
-                    JAMB
+                    1. JAMB score
                   </p>
 
-                  <p className="mt-1 text-sm leading-5 text-slate-500">
-                    Use of English is fixed, while three additional
-                    JAMB subjects are checked against the selected
-                    course.
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-sm font-bold text-slate-800">
-                    O-Level
-                  </p>
-
-                  <p className="mt-1 text-sm leading-5 text-slate-500">
-                    Compulsory subjects and alternative subject groups
-                    are checked individually.
+                  <p className="mt-1 text-sm leading-6 text-slate-500">
+                    LASU's current minimum UTME score
+                    for the 2026/2027 screening is
+                    195.
                   </p>
                 </div>
 
                 <div>
                   <p className="text-sm font-bold text-slate-800">
-                    Aggregate formula
+                    2. JAMB subjects
                   </p>
 
-                  <p className="mt-1 text-sm leading-5 text-slate-500">
-                    JAMB score × 0.15 gives a maximum of 60 points.
-                    The best five relevant O-Level grades contribute a
-                    maximum of 40 points.
+                  <p className="mt-1 text-sm leading-6 text-slate-500">
+                    Use of English is compulsory, plus
+                    three additional UTME subjects that
+                    are checked against the selected
+                    course requirements.
                   </p>
                 </div>
 
                 <div>
                   <p className="text-sm font-bold text-slate-800">
-                    Grade points
+                    3. O-Level
                   </p>
 
-                  <p className="mt-1 text-sm leading-5 text-slate-500">
-                    A1 = 8, B2 = 7, B3 = 6, C4 = 5, C5 = 4 and C6 =
-                    3. D7, E8 and F9 do not contribute points.
+                  <p className="mt-1 text-sm leading-6 text-slate-500">
+                    Relevant O-Level credits are
+                    checked against the selected
+                    course requirements.
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-bold text-slate-800">
+                    4. Aggregate
+                  </p>
+
+                  <p className="mt-1 text-sm leading-6 text-slate-500">
+                    JAMB contributes up to 60 points
+                    and the best five relevant O-Level
+                    grades contribute up to 40 points.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-3xl bg-slate-900 p-5 text-white shadow-sm">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-400">
-                Important
-              </p>
-
-              <h2 className="mt-2 text-lg font-extrabold">
-                Check before submitting
-              </h2>
-
-              <p className="mt-2 text-sm leading-6 text-slate-300">
-                Always confirm your final eligibility against the
-                official LASU admission requirements and your actual
-                JAMB/O-Level records before making an admission
-                decision.
-              </p>
-
-              <a
-                href="https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex rounded-xl bg-white px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-100"
-              >
-                View LASU requirements
-              </a>
-            </div>
-
-            <div className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
+            <div className="rounded-3xl bg-green-700 p-5 text-white shadow-sm">
+              <p className="text-xs font-black uppercase tracking-wider text-green-100">
                 S.O.H CONSULTS
               </p>
 
-              <h2 className="mt-2 text-lg font-extrabold">
-                Your Guide. Your Success.
+              <h2 className="mt-2 text-xl font-black">
+                Need admission guidance?
               </h2>
 
-              <p className="mt-2 text-sm leading-6 text-slate-500">
-                Admission guidance, registration support and student
-                consultation.
+              <p className="mt-2 text-sm leading-6 text-green-50">
+                Get guidance with LASU admission
+                screening, registration and related
+                admission processes.
               </p>
 
-              <a
-                href="https://wa.me/2348182141088"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-green-600 px-4 py-3 text-sm font-bold text-white transition hover:bg-green-700"
-              >
-                Chat on WhatsApp
-              </a>
+              <div className="mt-4 rounded-xl bg-white/10 px-4 py-3 text-sm font-bold">
+                WhatsApp: 0818 214 1088
+              </div>
             </div>
           </aside>
         </div>
 
-        <footer className="mt-8 pb-4 text-center text-xs text-slate-400">
-          © {new Date().getFullYear()} S.O.H CONSULTS. Eligibility
-          checker for guidance purposes.
+        <footer className="mt-8 rounded-2xl bg-slate-900 px-5 py-5 text-center text-xs leading-5 text-slate-400">
+          S.O.H CONSULTS • LASU Aggregate &
+          Eligibility Checker
+          <br />
+          For guidance purposes only. This checker
+          does not guarantee admission.
         </footer>
       </div>
     </main>
