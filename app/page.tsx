@@ -102,7 +102,7 @@ export default function Home() {
               educational updates and consultation from S.O.H CONSULTS.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
 
               <a
                 href="#opportunities"
@@ -110,6 +110,13 @@ export default function Home() {
               >
                 Explore Opportunities
               </a>
+
+              <Link
+                href="/lasu-calculator"
+                className="rounded-xl bg-white px-6 py-3 text-center text-sm font-bold text-green-700 hover:bg-green-50"
+              >
+                LASU Aggregate Calculator
+              </Link>
 
               <a
                 href={whatsappLink(
