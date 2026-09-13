@@ -50,6 +50,8 @@ export default function OpportunitiesPage() {
             <a href="/" className="transition hover:text-green-700">Home</a>
             <a href="/updates" className="transition hover:text-green-700">Latest Updates</a>
             <a href="/opportunities" className="text-green-700">Opportunities</a>
+            <a href="/deadlines" className="transition hover:text-green-700">Deadlines</a>
+            <a href="/guides" className="transition hover:text-green-700">Guides</a>
             <a href="/lasu-calculator" className="transition hover:text-green-700">LASU Calculator</a>
           </nav>
 

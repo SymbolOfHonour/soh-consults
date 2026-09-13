@@ -1,0 +1,4 @@
+"use client";
+import { useEffect, useState } from "react";
+type InstallPromptEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{outcome:"accepted"|"dismissed"}> };
+export default function InstallApp(){const [promptEvent,setPromptEvent]=useState<InstallPromptEvent|null>(null);useEffect(()=>{const handler=(event:Event)=>{event.preventDefault();setPromptEvent(event as InstallPromptEvent)};window.addEventListener("beforeinstallprompt",handler);return()=>window.removeEventListener("beforeinstallprompt",handler)},[]);if(!promptEvent)return null;return <button onClick={async()=>{await promptEvent.prompt();await promptEvent.userChoice;setPromptEvent(null)}} className="fixed bottom-4 right-4 z-[70] rounded-full bg-green-700 px-5 py-3 text-sm font-black text-white shadow-xl hover:bg-green-800" style={{color:"#fff"}} aria-label="Install S.O.H CONSULTS app">Install S.O.H App</button>}

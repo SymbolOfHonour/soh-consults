@@ -75,9 +75,43 @@ export default function Home() {
             <a href="/opportunities" className="transition hover:text-green-700">
               Opportunities
             </a>
+            <a href="/deadlines" className="transition hover:text-green-700">
+              Deadlines
+            </a>
+            <a href="/guides" className="transition hover:text-green-700">
+              Guides
+            </a>
             <a href="/#founder" className="transition hover:text-green-700">
               Meet the Founder
             </a>
+            <a
+              href="/deadlines"
+              className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100 text-2xl">⏰</div>
+              <h3 className="mt-5 text-2xl font-black text-gray-950">Deadline Tracker</h3>
+              <p className="mt-3 leading-7 text-gray-600">
+                Track known admission deadlines and see how much time remains before applications close.
+              </p>
+              <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
+                Track Deadlines →
+              </span>
+            </a>
+
+            <a
+              href="/guides"
+              className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100 text-2xl">📚</div>
+              <h3 className="mt-5 text-2xl font-black text-gray-950">Admission Guides</h3>
+              <p className="mt-3 leading-7 text-gray-600">
+                Understand JAMB CAPS statuses, O'Level uploads and important admission next steps.
+              </p>
+              <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
+                Open Knowledge Hub →
+              </span>
+            </a>
+
             <a
               href="/lasu-calculator"
               className="transition hover:text-green-700"
@@ -295,7 +329,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
             <a
               href="/updates"
               className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
@@ -684,6 +718,12 @@ export default function Home() {
               </a>
               <a href="/opportunities" className="hover:text-white">
                 Opportunities
+              </a>
+              <a href="/deadlines" className="hover:text-white">
+                Deadlines
+              </a>
+              <a href="/guides" className="hover:text-white">
+                Guides
               </a>
               <a href="/#founder" className="hover:text-white">
                 Meet the Founder

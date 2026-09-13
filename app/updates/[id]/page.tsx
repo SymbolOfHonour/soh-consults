@@ -1,6 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import { updates } from "../../../data/updates";
 import SiteContact from "../../components/SiteContact";
 
@@ -11,6 +12,7 @@ const whatsappLink = (message: string) =>
 
 export default function UpdateDetailsPage() {
   const params = useParams();
+  const [copied, setCopied] = useState(false);
   const id = Number(params.id);
 
   const update = updates.find((item) => item.id === id);
@@ -90,6 +92,23 @@ export default function UpdateDetailsPage() {
       </main>
     );
   }
+
+  const relatedUpdates = updates
+    .filter((item) => item.id !== update.id && (item.category === update.category || item.institution === update.institution))
+    .slice(0, 3);
+
+  const shareUrl = typeof window !== "undefined" ? window.location.href : `https://soh-consults.vercel.app/updates/${update.id}`;
+  const shareText = `${update.title} | S.O.H CONSULTS`;
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   const detailSections = update.details
     .split("\n\n")
@@ -208,6 +227,33 @@ export default function UpdateDetailsPage() {
               })}
             </div>
 
+            <div className="mt-10 border-t border-gray-200 pt-7">
+              <h3 className="text-lg font-black text-gray-900">Share this update</h3>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl bg-green-700 px-5 py-3 text-sm font-black text-white"
+                  style={{ color: "#ffffff" }}
+                >
+                  Share on WhatsApp
+                </a>
+                <button onClick={copyLink} className="rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-black text-gray-900">
+                  {copied ? "Link Copied ✓" : "Copy Link"}
+                </button>
+                <a
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-black text-gray-900"
+                  style={{ color: "#111827" }}
+                >
+                  Share on Facebook
+                </a>
+              </div>
+            </div>
+
             {(update.source || update.sourceUrl) && (
               <div className="mt-10 border-t border-gray-200 pt-6">
                 <p className="text-sm font-bold text-gray-500">Source</p>
@@ -226,6 +272,21 @@ export default function UpdateDetailsPage() {
                     {update.source}
                   </p>
                 )}
+              </div>
+            )}
+
+            {relatedUpdates.length > 0 && (
+              <div className="mt-10 border-t border-gray-200 pt-8">
+                <h3 className="text-xl font-black text-gray-900">Related Updates</h3>
+                <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  {relatedUpdates.map((item) => (
+                    <a key={item.id} href={`/updates/${item.id}`} className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-green-300 hover:bg-green-50">
+                      <p className="text-xs font-black uppercase tracking-wide text-green-700">{item.institution} · {item.category}</p>
+                      <p className="mt-2 font-black leading-6 text-gray-900">{item.title}</p>
+                      <p className="mt-2 text-sm text-gray-600">{item.date}</p>
+                    </a>
+                  ))}
+                </div>
               </div>
             )}
 

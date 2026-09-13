@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import PWARegister from "./components/PWARegister";
+import InstallApp from "./components/InstallApp";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,6 +70,9 @@ export const metadata: Metadata = {
     siteName: "S.O.H CONSULTS",
   },
 
+  manifest: "/manifest.webmanifest",
+  themeColor: "#15803d",
+
   verification: {
     google: "BdoiW3GoHdajYLbbLSmm-UQpo3YrjBAAWT2NpoKTcBs",
   },
@@ -91,7 +96,9 @@ export default function RootLayout({
       </head>
 
       <body className="min-h-full flex flex-col">
+        <PWARegister />
         {children}
+        <InstallApp />
       </body>
     </html>
   );

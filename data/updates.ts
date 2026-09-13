@@ -13,6 +13,7 @@ export type Update = {
   opportunityStatus?: string;
   opportunityDeadline?: string;
   deadline?: string;
+  deadlineISO?: string;
   sourceUrl?: string;
   source?: string;
 };
