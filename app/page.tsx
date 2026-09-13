@@ -65,68 +65,27 @@ export default function Home() {
             />
           </a>
 
-          <nav className="hidden items-center gap-6 text-sm font-semibold md:flex">
-            <a href="/" className="transition hover:text-green-700">
+          <nav className="hidden items-center gap-4 text-xs font-semibold lg:flex xl:gap-6 xl:text-sm">
+            <a href="/" className="whitespace-nowrap transition hover:text-green-700">
               Home
             </a>
-            <a href="/updates" className="transition hover:text-green-700">
-              Latest Updates
+            <a href="/updates" className="whitespace-nowrap transition hover:text-green-700">
+              Updates
             </a>
-            <a href="/opportunities" className="transition hover:text-green-700">
+            <a href="/opportunities" className="whitespace-nowrap transition hover:text-green-700">
               Opportunities
             </a>
-            <a href="/deadlines" className="transition hover:text-green-700">
+            <a href="/deadlines" className="whitespace-nowrap transition hover:text-green-700">
               Deadlines
             </a>
-            <a href="/guides" className="transition hover:text-green-700">
+            <a href="/guides" className="whitespace-nowrap transition hover:text-green-700">
               Guides
             </a>
-            <a href="/#founder" className="transition hover:text-green-700">
-              Meet the Founder
-            </a>
-            <a
-              href="/deadlines"
-              className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100 text-2xl">⏰</div>
-              <h3 className="mt-5 text-2xl font-black text-gray-950">Deadline Tracker</h3>
-              <p className="mt-3 leading-7 text-gray-600">
-                Track known admission deadlines and see how much time remains before applications close.
-              </p>
-              <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
-                Track Deadlines →
-              </span>
-            </a>
-
-            <a
-              href="/guides"
-              className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100 text-2xl">📚</div>
-              <h3 className="mt-5 text-2xl font-black text-gray-950">Admission Guides</h3>
-              <p className="mt-3 leading-7 text-gray-600">
-                Understand JAMB CAPS statuses, O'Level uploads and important admission next steps.
-              </p>
-              <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
-                Open Knowledge Hub →
-              </span>
-            </a>
-
             <a
               href="/lasu-calculator"
-              className="transition hover:text-green-700"
+              className="whitespace-nowrap transition hover:text-green-700"
             >
               LASU Calculator
-            </a>
-            <a
-              href={whatsappLink(
-                "Hello S.O.H CONSULTS, I need admission guidance. Please assist me."
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition hover:text-green-700"
-            >
-              Get Guidance
             </a>
           </nav>
 
@@ -325,11 +284,11 @@ export default function Home() {
             </p>
 <p className="mt-4 leading-7 text-gray-600">
               Open our dedicated pages for current admission opportunities,
-              important education updates and the LASU aggregate calculator.
+              important education updates, deadlines, admission guides and the LASU aggregate calculator.
             </p>
           </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             <a
               href="/updates"
               className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
@@ -355,6 +314,34 @@ export default function Home() {
               </p>
               <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
                 Explore Opportunities →
+              </span>
+            </a>
+
+            <a
+              href="/deadlines"
+              className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100 text-2xl">⏰</div>
+              <h3 className="mt-5 text-2xl font-black text-gray-950">Deadline Tracker</h3>
+              <p className="mt-3 leading-7 text-gray-600">
+                Track known admission deadlines and see how much time remains before applications close.
+              </p>
+              <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
+                Track Deadlines →
+              </span>
+            </a>
+
+            <a
+              href="/guides"
+              className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100 text-2xl">📚</div>
+              <h3 className="mt-5 text-2xl font-black text-gray-950">Admission Guides</h3>
+              <p className="mt-3 leading-7 text-gray-600">
+                Understand JAMB CAPS statuses, O'Level uploads and important admission next steps.
+              </p>
+              <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
+                Open Knowledge Hub →
               </span>
             </a>
 
