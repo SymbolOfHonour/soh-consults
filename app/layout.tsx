@@ -17,47 +17,82 @@ export const metadata: Metadata = {
     default: "S.O.H CONSULTS | Admission, Education & Consultation",
     template: "%s | S.O.H CONSULTS",
   },
+
   description:
     "S.O.H CONSULTS provides admission guidance, educational updates, JAMB support, application assistance and the LASU Aggregate & Eligibility Checker.",
+
   keywords: [
     "S.O.H CONSULTS",
     "LASU aggregate calculator",
     "LASU admission",
+    "LASU admission calculator",
+    "LASU eligibility checker",
     "admission opportunities Nigeria",
     "JAMB services",
+    "JAMB admission",
     "education updates Nigeria",
     "admission guidance",
+    "Post UTME registration",
+    "Direct Entry admission",
   ],
-  authors: [{ name: "S.O.H CONSULTS" }],
+
+  authors: [
+    {
+      name: "S.O.H CONSULTS",
+    },
+  ],
+
   creator: "S.O.H CONSULTS",
   publisher: "S.O.H CONSULTS",
+
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
+
   openGraph: {
     type: "website",
     title: "S.O.H CONSULTS | Admission, Education & Consultation",
+
     description:
       "Admission guidance, educational opportunities, JAMB support and the LASU Aggregate & Eligibility Checker.",
+
     siteName: "S.O.H CONSULTS",
   },
+
   verification: {
     google: "BdoiW3GoHdajYLbbLSmm-UQpo3YrjBAAWT2NpoKTcBs",
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="BdoiW3GoHdajYLbbLSmm-UQpo3YrjBAAWT2NpoKTcBs"
+        />
+      </head>
+
+      <body className="min-h-full flex flex-col">
+        {children}
+      </body>
     </html>
   );
 }
