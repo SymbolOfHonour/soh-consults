@@ -4718,14 +4718,14 @@ export default function LASUCalculator() {
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <a
               href="/updates"
-              className="rounded-xl bg-slate-900 px-5 py-3 text-center text-sm font-black text-white transition hover:bg-slate-800"
+              className="rounded-xl bg-green-700 px-5 py-3 text-center text-sm font-black text-white transition hover:bg-green-800"
             >
               View LASU &amp; Admission Updates
             </a>
 
             <a
               href="/opportunities"
-              className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-center text-sm font-black text-slate-700 transition hover:bg-slate-50"
+              className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-center text-sm font-black text-slate-900 transition hover:bg-slate-50"
             >
               Explore Admission Opportunities
             </a>
