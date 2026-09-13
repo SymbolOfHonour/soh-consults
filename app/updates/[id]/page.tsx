@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { updates } from "../../data/updates";
+import { updates } from "../../../data/updates";
 import SiteContact from "../../components/SiteContact";
 
 const WHATSAPP_NUMBER = "2348182141088";
