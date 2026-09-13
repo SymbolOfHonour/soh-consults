@@ -122,6 +122,19 @@ export const opportunities: Opportunity[] = [
 
 export const updates: Update[] = [
   {
+    id: 14,
+    category: "JAMB",
+    institution: "JAMB / NBTE",
+    title:
+      "𝐅𝐞𝐝 𝐆𝐨𝐯𝐭 𝐀𝐩𝐩𝐫𝐨𝐯𝐞𝐬 𝐓𝐚𝐤𝐞𝐨𝐯𝐞𝐫 𝐎𝐟 𝐇𝐍𝐃 𝐀𝐝𝐦𝐢𝐬𝐬𝐢𝐨𝐧𝐬 𝐁𝐲 𝐉𝐀𝐌𝐁",
+    date: "13 September 2026",
+    summary:
+      "The federal government has approved the takeover of Higher National Diploma admissions by the Joint Admissions and Matriculation Board (JAMB), with all HND admissions to be processed through JAMB from the current admission session.",
+    details:
+      "The federal government has approved the takeover of Higher National Diploma admissions by the Joint Admissions and Matriculation Board (JAMB).\n\nThe move is aimed at ending illegal and compromised admissions in polytechnics and other institutions offering HND programmes.\n\nThe National Board for Technical Education (NBTE), disclosed this in a circular dated September 9, 2026 signed by its executive secretary, Prof Idris Bugaje, which was obtained by LEADERSHIP Weekend yesterday.\n\nThe circular followed a meeting between the Minister of Education, Dr Tunji Alausa, and key stakeholders, including JAMB, the National Youth Service Corps, NBTE and the Federal Ministry of Education.\n\nUnder the new arrangement, all HND admissions across institutions are to be processed through JAMB from the current admission session.\n\nAccording to NBTE, the centralised system is intended to address irregularities in the admission process and prevent situations where students with questionable admissions are later denied mobilisation for the NYSC after completing their HND programmes.\n\nThe board said, “All HND admissions in all institutions shall from this session be taken over by JAMB to provide centralised process and avoid illegal and compromised admissions, jeopardising students’ mobilisation for NYSC after HND.”\n\nIt added that the Federal Ministry of Education would issue a detailed statement on the new arrangement next week.\n\nNBTE also said it would immediately develop comprehensive HND admission guidelines and submit them to JAMB to guide the digital admission platform.\n\n“The decisions taken and approved by the Hon Minister for immediate implementation are as follows: All HND admissions in all Institutions shall from this session be taken over by JAMB to provide centralised process and avoid illegal and compromised admissions, jeopardising students mobilisation for NYSC after HND. The FME shall issue a statement on this next week with further details,” the circular stated.\n\nThe guidelines, according to the board, will address issues including the required waiting period for National Diploma holders before proceeding to HND, as well as exemptions for certain ND health-related programmes.\n\nThe board also announced a new ceiling for part-time National Diploma admissions, following the decision to bring all part-time ND admissions under JAMB.\n\nIt said the proportion of part-time students would now be limited to 50 per cent of an institution’s approved full-time admission quota.\n\n“Now that all part-time ND admissions are under the JAMB, the proportion of part-time students is pegged at 50 per cent of the approved full-time quota,” the circular stated.\n\nThe federal government also reaffirmed an earlier NBTE directive concerning holders of combined NCE and HND qualifications and their eligibility for NYSC mobilisation.\n\nNBTE had, in a circular issued on September 7, prohibited the presentation of candidates with an NCE/HND combination for NYSC mobilisation.",
+    jamb: true,
+  },
+  {
     id: 13,
     category: "Admission",
     institution: "LASU",
