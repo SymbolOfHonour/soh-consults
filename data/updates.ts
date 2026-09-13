@@ -12,6 +12,9 @@ export type Update = {
   opportunityProgramme?: string;
   opportunityStatus?: string;
   opportunityDeadline?: string;
+  deadline?: string;
+  sourceUrl?: string;
+  source?: string;
 };
 
 export type Opportunity = {
