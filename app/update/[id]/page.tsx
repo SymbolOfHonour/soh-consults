@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { updates } from "../../../data/updates";
+import SiteContact from "../../components/SiteContact";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -210,6 +211,8 @@ export default async function UpdatePage({ params }: PageProps) {
       </article>
 
       {/* FOOTER */}
+      <SiteContact />
+
       <footer className="mt-12 bg-green-900 px-4 py-8 text-center text-sm text-green-100">
         <p className="font-semibold text-white">
           S.O.H CONSULTS

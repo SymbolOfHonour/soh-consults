@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { jsPDF } from "jspdf";
+import SiteContact from "../components/SiteContact";
 
 type Programme = {
   id: string;
@@ -4589,6 +4590,8 @@ export default function LASUCalculator() {
             </div>
           </aside>
         </div>
+
+        <SiteContact />
 
         <footer className="mt-8 rounded-2xl bg-slate-900 px-5 py-5 text-center text-xs leading-5 text-slate-400">
           S.O.H CONSULTS • LASU Aggregate & Eligibility Checker

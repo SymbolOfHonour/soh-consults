@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { updates } from "../../data/updates";
 import { opportunities } from "../../data/opportunities";
+import SiteContact from "../components/SiteContact";
 
 const WHATSAPP_NUMBER = "2348182141088";
 
@@ -212,6 +213,8 @@ export default function UpdatesPage() {
       </section>
 
       {/* FOOTER */}
+      <SiteContact />
+
       <footer className="bg-green-900 px-4 py-8 text-center text-sm text-green-100">
 
         <p className="font-semibold text-white">

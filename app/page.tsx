@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { opportunities, updates } from "../data/updates";
+
 
 const WHATSAPP_NUMBER = "2348182141088";
+const INSTAGRAM_URL = "https://www.instagram.com/oluyepeadetayo/";
 
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -47,51 +48,9 @@ const services = [
   },
 ];
 
-const updateCategories = [
-  "All",
-  "JAMB",
-  "Admission List",
-  "Admission",
-];
-
-const opportunityCategories = [
-  "All",
-  "Universities",
-  "Polytechnics",
-  "Colleges",
-  "Other",
-];
 
 export default function Home() {
-  const [openUpdate, setOpenUpdate] = useState<number | null>(13);
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [activeOpportunityCategory, setActiveOpportunityCategory] =
-    useState("All");
-
-  const filteredUpdates =
-    activeCategory === "All"
-      ? updates
-      : updates.filter((item) => item.category === activeCategory);
-
-  const updateOpportunities = updates
-    .filter((item) => item.isOpportunity)
-    .map((item) => ({
-      institution: item.institution,
-      programme: item.opportunityProgramme || item.title,
-      category: item.opportunityCategory || "Other",
-      status: item.opportunityStatus || "OPEN",
-      deadline: item.opportunityDeadline || "Check latest deadline",
-      description: item.summary,
-    }));
-
-  const allOpportunities = [...updateOpportunities, ...opportunities];
-
-  const filteredOpportunities =
-    activeOpportunityCategory === "All"
-      ? allOpportunities
-      : allOpportunities.filter(
-          (item) => item.category === activeOpportunityCategory
-        );
+  const [showServices, setShowServices] = useState(false);
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
@@ -110,11 +69,14 @@ export default function Home() {
             <a href="/" className="transition hover:text-green-700">
               Home
             </a>
-            <a href="/#updates" className="transition hover:text-green-700">
+            <a href="/updates" className="transition hover:text-green-700">
               Latest Updates
             </a>
-            <a href="/#opportunities" className="transition hover:text-green-700">
+            <a href="/opportunities" className="transition hover:text-green-700">
               Opportunities
+            </a>
+            <a href="/#founder" className="transition hover:text-green-700">
+              Meet the Founder
             </a>
             <a
               href="/lasu-calculator"
@@ -172,7 +134,7 @@ export default function Home() {
 
             <div className="mt-8 flex flex-wrap gap-4">
               <a
-                href="/#opportunities"
+                href="/opportunities"
                 className="rounded-full bg-white px-7 py-4 font-black !text-green-800 shadow-md transition hover:bg-green-50 hover:!text-green-950"
               >
                 Explore Opportunities
@@ -275,375 +237,105 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
-              <div
-                key={service.title}
-                className="rounded-2xl border border-gray-100 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="text-4xl">{service.icon}</div>
-
-                <h3 className="mt-5 text-xl font-black">
-                  {service.title}
-                </h3>
-
-                <p className="mt-3 leading-7 text-gray-600">
-                  {service.description}
-                </p>
-
-                <a
-                  href={whatsappLink(
-                    `Hello S.O.H CONSULTS, I am interested in your ${service.title} service. Please guide me.`
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-block font-bold text-green-700 hover:text-green-900"
-                >
-                  Get Assistance →
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ADMISSION OPPORTUNITIES */}
-      <section id="opportunities" className="scroll-mt-24 py-20">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <div className="max-w-2xl">
-              <p className="font-bold uppercase tracking-widest text-green-700">
-                Admission Opportunities
-              </p>
-
-              <h2 className="mt-3 text-3xl font-black sm:text-4xl">
-                Find your next opportunity
-              </h2>
-
-              <p className="mt-4 leading-7 text-gray-600">
-                Explore current admission opportunities across universities,
-                polytechnics, colleges and other programmes.
-              </p>
-            </div>
-
-            <a
-              href={whatsappLink(
-                "Hello S.O.H CONSULTS, please send me the latest available admission opportunities."
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-green-700 px-6 py-3 text-center font-bold text-white transition hover:bg-green-800"
+          <div className="mt-7">
+            <button
+              type="button"
+              onClick={() => setShowServices((current) => !current)}
+              aria-expanded={showServices}
+              className="inline-flex items-center gap-2 rounded-full bg-green-700 px-6 py-3 font-black text-white shadow-sm transition hover:bg-green-800"
             >
-              Ask for More Opportunities
-            </a>
-          </div>
+              {showServices ? "Hide Services ↑" : "View Our Services ↓"}
+            </button>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {opportunityCategories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveOpportunityCategory(category)}
-                className={`rounded-full px-5 py-2.5 text-sm font-bold transition ${
-                  activeOpportunityCategory === category
-                    ? "bg-green-700 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-green-50"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredOpportunities.map((item) => (
-              <div
-                key={`${item.institution}-${item.programme}`}
-                className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="border-b border-gray-100 bg-gray-50 p-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-sm font-bold uppercase tracking-wide text-green-700">
-                        {item.category}
-                      </p>
-
-                      <h3 className="mt-2 text-xl font-black">
-                        {item.institution}
-                      </h3>
-                    </div>
-
-                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-black text-green-800">
-                      {item.status}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <h4 className="font-black">{item.programme}</h4>
-
-                  <p className="mt-3 text-sm leading-6 text-gray-600">
-                    {item.description}
-                  </p>
-
-                  <div className="mt-5 rounded-xl bg-gray-50 p-4">
-                    <p className="text-xs font-bold uppercase tracking-wide text-gray-500">
-                      Deadline
-                    </p>
-                    <p className="mt-1 font-bold text-gray-900">
-                      {item.deadline}
-                    </p>
-                  </div>
-
-                  <div className="mt-5 flex gap-3">
-                    <a
-                      href={whatsappLink(
-                        `Hello S.O.H CONSULTS, I am interested in the ${item.institution} ${item.programme} opportunity. Please guide me on the application process.`
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 rounded-xl bg-green-700 px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-green-800"
-                    >
-                      Apply Now
-                    </a>
-
-                    <a
-                      href={whatsappLink(
-                        `Hello S.O.H CONSULTS, I need guidance about the ${item.institution} ${item.programme} opportunity.`
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-xl border border-green-700 px-4 py-3 text-center text-sm font-bold text-green-700 transition hover:bg-green-50"
-                    >
-                      Guidance
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* LATEST UPDATES */}
-      <section id="updates" className="scroll-mt-24 bg-gray-50 py-20">
-        <div className="mx-auto max-w-5xl px-5 lg:px-8">
-          <div className="text-center">
-            <p className="font-bold uppercase tracking-widest text-green-700">
-              Latest Updates
-            </p>
-
-            <h2 className="mt-3 text-3xl font-black sm:text-4xl">
-              Stay updated on admissions
-            </h2>
-
-            <p className="mx-auto mt-4 max-w-2xl leading-7 text-gray-600">
-              Important admission and education updates, simplified for
-              students and applicants.
-            </p>
-          </div>
-
-          <div className="mt-8 flex flex-wrap justify-center gap-2">
-            {updateCategories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`rounded-full px-5 py-2.5 text-sm font-bold transition ${
-                  activeCategory === category
-                    ? "bg-green-700 text-white"
-                    : "bg-white text-gray-700 hover:bg-green-50"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
-          <div className="mt-10 space-y-5">
-            {filteredUpdates.map((item) => {
-              const isOpen = openUpdate === item.id;
-
-              return (
-                <article
-                  key={item.id}
-                  className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
-                >
-                  <button
-                    onClick={() =>
-                      setOpenUpdate(isOpen ? null : item.id)
-                    }
-                    className="w-full p-6 text-left"
+            {showServices && (
+              <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {services.map((service) => (
+                  <div
+                    key={service.title}
+                    className="rounded-2xl border border-gray-100 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                   >
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-black text-green-800">
-                            {item.category}
-                          </span>
+                    <div className="text-4xl">{service.icon}</div>
 
-                          <span className="text-xs font-semibold text-gray-500">
-                            {item.date}
-                          </span>
-                        </div>
+                    <h3 className="mt-5 text-xl font-black">
+                      {service.title}
+                    </h3>
 
-                        <h3 className="mt-3 text-xl font-black">
-                          {item.title}
-                        </h3>
+                    <p className="mt-3 leading-7 text-gray-600">
+                      {service.description}
+                    </p>
 
-                        <p className="mt-2 leading-7 text-gray-600">
-                          {item.summary}
-                        </p>
-                      </div>
-
-                      <span className="shrink-0 text-2xl font-bold text-green-700">
-                        {isOpen ? "−" : "+"}
-                      </span>
-                    </div>
-                  </button>
-
-                  {isOpen && (
-                    <div className="border-t border-gray-100 px-6 pb-6 pt-5">
-                      {item.jamb ? (
-                        <div className="space-y-6 leading-7 text-gray-700">
-                          <div>
-                            <p className="font-black text-gray-900">
-                              🚨 NEW JAMB ADMISSION STATUS UPDATE
-                            </p>
-
-                            <p className="mt-3">
-                              JAMB has updated the admission status portal,
-                              and candidates may now see{" "}
-                              <strong>PROPOSED</strong>,{" "}
-                              <strong>RECOMMENDED</strong> or{" "}
-                              <strong>APPROVED</strong> during the admission
-                              process.
-                            </p>
-                          </div>
-
-                          <div className="rounded-2xl bg-yellow-50 p-5">
-                            <h4 className="font-black text-gray-900">
-                              🟡 PROPOSED FOR ADMISSION BY YOUR INSTITUTION
-                            </h4>
-
-                            <p className="mt-2">
-                              This means your institution has proposed you for
-                              admission. Your admission is being processed,
-                              but it has not yet reached the final JAMB
-                              approval stage.
-                            </p>
-                          </div>
-
-                          <div className="rounded-2xl bg-orange-50 p-5">
-                            <h4 className="font-black text-gray-900">
-                              🟠 RECOMMENDED FOR ADMISSION
-                            </h4>
-
-                            <p className="mt-2">
-                              This means your admission has progressed from the
-                              proposal stage to the recommendation stage. Your
-                              institution has put you forward for admission,
-                              and the recommendation is now being processed
-                              for JAMB's approval.
-                            </p>
-                          </div>
-
-                          <div className="rounded-2xl bg-green-50 p-5">
-                            <h4 className="font-black text-gray-900">
-                              🟢 APPROVED FOR ADMISSION
-                            </h4>
-
-                            <p className="mt-2">
-                              This means JAMB has approved the admission
-                              recommendation. 🎉 Your admission has passed the
-                              approval stage, and you can proceed to accept
-                              the admission when the option becomes available
-                              on your CAPS portal.
-                            </p>
-                          </div>
-
-                          <div className="rounded-2xl border border-gray-200 p-5">
-                            <h4 className="font-black text-gray-900">
-                              In simple terms:
-                            </h4>
-
-                            <ul className="mt-3 space-y-2">
-                              <li>
-                                <strong>PROPOSED</strong> = Your institution
-                                has proposed you for admission.
-                              </li>
-                              <li>
-                                <strong>RECOMMENDED</strong> = Your admission
-                                has progressed further and has been
-                                recommended for JAMB's approval.
-                              </li>
-                              <li>
-                                <strong>APPROVED</strong> = JAMB has approved
-                                the admission. 🎉
-                              </li>
-                            </ul>
-                          </div>
-
-                          <div>
-                            <p>
-                              If you are seeing{" "}
-                              <strong>PROPOSED</strong> or{" "}
-                              <strong>RECOMMENDED</strong>,{" "}
-                              <strong>DON'T PANIC.</strong> Your admission is
-                              still progressing through the process. Keep
-                              checking your CAPS portal for updates.
-                            </p>
-
-                            <p className="mt-3">
-                              If you see <strong>APPROVED</strong>,
-                              congratulations! 🎉
-                            </p>
-                          </div>
-
-                          <a
-                            href={whatsappLink(
-                              "Hello S.O.H CONSULTS, I am seeing a JAMB admission status of PROPOSED/RECOMMENDED/APPROVED and I need help understanding what to do next."
-                            )}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block rounded-xl bg-green-700 px-5 py-4 text-center font-black text-white transition hover:bg-green-800"
-                          >
-                            Need Help? Chat With S.O.H CONSULTS on WhatsApp
-                          </a>
-                        </div>
-                      ) : (
-                        <div>
-                          <p className="whitespace-pre-line leading-7 text-gray-700">
-                            {item.details}
-                          </p>
-
-                          <a
-                            href={whatsappLink(
-                              `Hello S.O.H CONSULTS, I want more information about the ${item.institution} ${item.title}. Please guide me.`
-                            )}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-6 inline-block rounded-xl bg-green-700 px-6 py-3 font-bold text-white transition hover:bg-green-800"
-                          >
-                            Get Assistance on WhatsApp
-                          </a>
-                        </div>
+                    <a
+                      href={whatsappLink(
+                        `Hello S.O.H CONSULTS, I am interested in your ${service.title} service. Please guide me.`
                       )}
-                    </div>
-                  )}
-                </article>
-              );
-            })}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-block font-bold text-green-700 hover:text-green-900"
+                    >
+                      Get Assistance →
+                    </a>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* QUICK ACCESS */}
+      <section className="bg-gray-50 py-20">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="font-bold uppercase tracking-widest text-green-700">
+              Explore S.O.H CONSULTS
+            </p>
+<p className="mt-4 leading-7 text-gray-600">
+              Open our dedicated pages for current admission opportunities,
+              important education updates and the LASU aggregate calculator.
+            </p>
           </div>
 
-          <div className="mt-10 text-center">
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
             <a
-              href={whatsappLink(
-                "Hello S.O.H CONSULTS, please send me the latest admission updates and opportunities."
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded-full border-2 border-green-700 px-7 py-3 font-bold text-green-700 transition hover:bg-green-700 hover:text-white"
+              href="/updates"
+              className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
             >
-              Get More Updates
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100 text-2xl">📰</div>
+              <h3 className="mt-5 text-2xl font-black text-gray-950">Latest Updates</h3>
+              <p className="mt-3 leading-7 text-gray-600">
+                Read important admission, JAMB and education updates in one dedicated space.
+              </p>
+              <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
+                View Latest Updates →
+              </span>
+            </a>
+
+            <a
+              href="/opportunities"
+              className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100 text-2xl">🎓</div>
+              <h3 className="mt-5 text-2xl font-black text-gray-950">Admission Opportunities</h3>
+              <p className="mt-3 leading-7 text-gray-600">
+                Browse available university, polytechnic, college and other admission opportunities.
+              </p>
+              <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
+                Explore Opportunities →
+              </span>
+            </a>
+
+            <a
+              href="/lasu-calculator"
+              className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100 text-2xl">🧮</div>
+              <h3 className="mt-5 text-2xl font-black text-gray-950">LASU Calculator</h3>
+              <p className="mt-3 leading-7 text-gray-600">
+                Check your LASU aggregate score and programme eligibility using the dedicated calculator.
+              </p>
+              <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
+                Open Calculator →
+              </span>
             </a>
           </div>
         </div>
@@ -710,6 +402,154 @@ export default function Home() {
               >
                 Talk to Us
               </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* MEET THE FOUNDER */}
+      <section
+        id="founder"
+        className="scroll-mt-24 overflow-hidden bg-gradient-to-br from-white via-green-50/40 to-white py-20"
+      >
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div className="relative">
+              <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-green-100 blur-2xl" />
+              <div className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-red-100 blur-2xl" />
+
+              <div className="relative overflow-hidden rounded-3xl border border-green-100 bg-green-950 shadow-2xl">
+                <img
+                  src="/founder.jpg"
+                  alt="Oluyepe Adetayo Sunday, Founder of S.O.H CONSULTS"
+                  className="aspect-[4/5] w-full object-cover object-top"
+                />
+
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent px-7 pb-7 pt-24 text-white">
+                  <p className="text-2xl font-black">Your Guide.</p>
+                  <p className="text-2xl font-black text-green-300">
+                    Your Success.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="h-0.5 w-10 bg-green-700" />
+                <p className="font-black uppercase tracking-[0.28em] text-green-700">
+                  Meet the Founder
+                </p>
+              </div>
+
+              <h2 className="mt-5 text-4xl font-black leading-tight text-gray-950 sm:text-5xl">
+                Oluyepe Adetayo Sunday
+              </h2>
+
+              <p className="mt-3 text-xl font-black text-green-700">
+                Founder, S.O.H CONSULTS
+              </p>
+              <p className="mt-1 font-semibold tracking-wide text-gray-500">
+                B.Sc. Marketing
+              </p>
+
+              <div className="mt-7 space-y-5 leading-8 text-gray-600">
+                <p>
+                  Oluyepe Adetayo Sunday is the Founder of{" "}
+                  <strong className="text-green-800">S.O.H CONSULTS</strong>, an
+                  educational support and consulting brand built from years of
+                  firsthand experience navigating the admission process and
+                  helping students do the same.
+                </p>
+
+                <p>
+                  His journey into the university was not straightforward. After
+                  several attempts at gaining admission, he eventually earned
+                  admission into Lagos State University, where he studied
+                  Marketing. That experience shaped a simple conviction:{" "}
+                  <strong className="text-gray-900">
+                    students should not have to navigate important educational
+                    decisions without access to clear, reliable guidance.
+                  </strong>
+                </p>
+
+                <p>
+                  What began as helping prospective students understand
+                  admissions has grown into{" "}
+                  <strong className="text-green-800">S.O.H CONSULTS</strong>,
+                  providing admission guidance, registration assistance, JAMB
+                  services, documentation support and timely educational
+                  information to students and applicants.
+                </p>
+
+                <p>
+                  Beyond entrepreneurship, Oluyepe developed extensive leadership
+                  experience during his university years, culminating in his
+                  service as{" "}
+                  <strong className="text-gray-900">
+                    General Secretary of the Lagos State University Students&apos;
+                    Union
+                  </strong>
+                  , where he contributed to the administration of the students&apos;
+                  union across the university&apos;s campuses.
+                </p>
+
+                <p>
+                  Today, his focus is on growing{" "}
+                  <strong className="text-green-800">S.O.H CONSULTS</strong> into
+                  a trusted education and consulting brand that helps people make
+                  informed decisions and successfully navigate opportunities.
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a
+                  href="https://wa.me/2348182141088"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-green-700 px-6 py-3.5 font-black text-white shadow-sm transition hover:bg-green-800"
+                >
+                  WhatsApp: 0818 214 1088
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/adetayo-sunday-oluyepe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border-2 border-green-700 bg-white px-6 py-3 font-black text-green-800 transition hover:bg-green-50"
+                >
+                  LinkedIn Profile
+                </a>
+              </div>
+
+              <div className="mt-9 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-2xl border border-green-100 bg-white p-5 shadow-sm">
+                  <div className="text-2xl">🎓</div>
+                  <p className="mt-3 font-black text-gray-900">B.Sc. Marketing</p>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Lagos State University
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-red-100 bg-white p-5 shadow-sm">
+                  <div className="text-2xl">👥</div>
+                  <p className="mt-3 font-black text-gray-900">Student Leader</p>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Former LASUSU General Secretary
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-green-100 bg-white p-5 shadow-sm">
+                  <div className="text-2xl">🌱</div>
+                  <p className="mt-3 font-black text-gray-900">
+                    Education Advocate
+                  </p>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Helping students succeed
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -789,12 +629,26 @@ export default function Home() {
                   </p>
                 </a>
 
-                <div className="rounded-2xl bg-white/10 p-5">
-                  <p className="text-sm font-bold uppercase tracking-wide text-green-300">
-                    Instagram
-                  </p>
-                  <p className="mt-1 font-black">S.O.H EDU-HUB</p>
-                </div>
+                {INSTAGRAM_URL ? (
+                  <a
+                    href={INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50"
+                  >
+                    <p className="text-sm font-bold uppercase tracking-wide text-green-700">
+                      Instagram
+                    </p>
+                    <p className="mt-1 font-black">S.O.H EDU-HUB</p>
+                  </a>
+                ) : (
+                  <div className="rounded-2xl bg-white/10 p-5">
+                    <p className="text-sm font-bold uppercase tracking-wide text-green-300">
+                      Instagram
+                    </p>
+                    <p className="mt-1 font-black">S.O.H EDU-HUB</p>
+                  </div>
+                )}
 
                 <a
                   href="https://whatsapp.com/channel/0029VbD6QQp3GJP68dl9TK29"
@@ -825,11 +679,14 @@ export default function Home() {
 
           <div className="text-sm sm:text-right">
             <div className="mb-3 flex flex-wrap gap-x-4 gap-y-2 sm:justify-end">
-              <a href="/#updates" className="hover:text-white">
+              <a href="/updates" className="hover:text-white">
                 Latest Updates
               </a>
-              <a href="/#opportunities" className="hover:text-white">
+              <a href="/opportunities" className="hover:text-white">
                 Opportunities
+              </a>
+              <a href="/#founder" className="hover:text-white">
+                Meet the Founder
               </a>
               <a href="/lasu-calculator" className="hover:text-white">
                 LASU Calculator
