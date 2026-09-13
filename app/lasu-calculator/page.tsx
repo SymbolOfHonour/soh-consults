@@ -3757,6 +3757,46 @@ export default function LASUCalculator() {
     <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <header className="overflow-hidden rounded-3xl bg-gradient-to-br from-green-700 via-green-600 to-emerald-500 p-6 text-white shadow-xl sm:p-8">
+          <nav className="mb-6 flex flex-wrap items-center gap-2">
+            <a
+              href="/"
+              className="rounded-full bg-white px-4 py-2 text-xs font-black transition hover:bg-green-50"
+              style={{ color: "#15803d" }}
+            >
+              Home
+            </a>
+
+            <a
+              href="/#updates"
+              className="rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white backdrop-blur transition hover:bg-white/25"
+            >
+              Latest Updates
+            </a>
+
+            <a
+              href="/#opportunities"
+              className="rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white backdrop-blur transition hover:bg-white/25"
+            >
+              Opportunities
+            </a>
+
+            <a
+              href="/lasu-calculator"
+              className="rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white backdrop-blur transition hover:bg-white/25"
+            >
+              LASU Calculator
+            </a>
+
+            <a
+              href="https://wa.me/2348182141088?text=Hello%20S.O.H%20CONSULTS%2C%20I%20need%20admission%20guidance."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white backdrop-blur transition hover:bg-white/25"
+            >
+              Get Guidance
+            </a>
+          </nav>
+
           <div className="max-w-4xl">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-green-100">
               S.O.H CONSULTS
@@ -4526,14 +4566,26 @@ export default function LASUCalculator() {
                 Get guidance with LASU admission screening, registration and related admission processes.
               </p>
 
-              <a
-                href="https://wa.me/2348182141088?text=Hello%20S.O.H%20CONSULTS%2C%20I%20need%20assistance."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 block rounded-xl bg-white/10 px-4 py-3 text-center text-sm font-bold transition hover:bg-white/20"
-              >
-                WhatsApp: 0818 214 1088
-              </a>
+              <div className="mt-4 space-y-3">
+                <a
+                  href="https://wa.me/2348182141088?text=Hello%20S.O.H%20CONSULTS%2C%20I%20need%20assistance."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-xl bg-white/10 px-4 py-3 text-center text-sm font-bold transition hover:bg-white/20"
+                >
+                  💬 Chat with us on WhatsApp
+                </a>
+
+                <a
+                  href="https://whatsapp.com/channel/0029VbD6QQp3GJP68dl9TK29"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-xl bg-white px-4 py-3 text-center text-sm font-black transition hover:bg-green-50"
+                  style={{ color: "#15803d" }}
+                >
+                  📢 Join our WhatsApp Channel
+                </a>
+              </div>
             </div>
           </aside>
         </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { opportunities, updates } from "../data/updates";
 
 const WHATSAPP_NUMBER = "2348182141088";
 
@@ -47,6 +46,246 @@ const services = [
   },
 ];
 
+const opportunities = [
+  {
+    institution: "FUOYE",
+    programme: "Post UTME / Undergraduate Admission",
+    category: "Universities",
+    status: "OPEN",
+    deadline: "Check latest deadline",
+    description:
+      "Federal University Oye-Ekiti admission information for the 2026/2027 academic session.",
+  },
+  {
+    institution: "UNILAG",
+    programme: "Direct Entry Screening",
+    category: "Universities",
+    status: "OPEN",
+    deadline: "Check latest deadline",
+    description:
+      "University of Lagos Direct Entry screening information for the 2026/2027 academic session.",
+  },
+  {
+    institution: "FUOTUOKE",
+    programme: "Post UTME / Undergraduate Admission",
+    category: "Universities",
+    status: "OPEN",
+    deadline: "Check latest deadline",
+    description:
+      "Federal University Otuoke Post UTME admission opportunity for 2026/2027.",
+  },
+  {
+    institution: "FUOTUOKE",
+    programme: "Part-Time Degree Admission",
+    category: "Universities",
+    status: "OPEN",
+    deadline: "Check latest deadline",
+    description:
+      "Part-Time degree admission opportunity for the 2026/2027 academic session.",
+  },
+  {
+    institution: "FEDPONAM",
+    programme: "ND Post UTME Admission",
+    category: "Polytechnics",
+    status: "OPEN",
+    deadline: "Check latest deadline",
+    description:
+      "Federal Polytechnic Kaura-Namoda ND admission opportunity for 2026/2027.",
+  },
+  {
+    institution: "FEDPONAM",
+    programme: "HND Admission",
+    category: "Polytechnics",
+    status: "OPEN",
+    deadline: "Check latest deadline",
+    description:
+      "Federal Polytechnic Kaura-Namoda HND admission opportunity for 2026/2027.",
+  },
+  {
+    institution: "BIDAPOLY",
+    programme: "ND Full-Time Admission",
+    category: "Polytechnics",
+    status: "OPEN",
+    deadline: "Check latest deadline",
+    description:
+      "Federal Polytechnic Bida admission information for ND Full-Time applicants.",
+  },
+  {
+    institution: "FCE Iwo",
+    programme: "NCE Post UTME",
+    category: "Colleges",
+    status: "OPEN",
+    deadline: "Check latest deadline",
+    description:
+      "Federal College of Education Iwo NCE admission opportunity for 2026/2027.",
+  },
+  {
+    institution: "NAUB",
+    programme: "IJMB Admission",
+    category: "Other",
+    status: "OPEN",
+    deadline: "Check latest deadline",
+    description:
+      "Nigerian Army University Biu IJMB admission opportunity for 2026/2027.",
+  },
+  {
+    institution: "NAUB",
+    programme: "Diploma Admission",
+    category: "Other",
+    status: "OPEN",
+    deadline: "Check latest deadline",
+    description:
+      "Nigerian Army University Biu Diploma admission opportunity for 2026/2027.",
+  },
+];
+
+const updates = [
+  {
+    id: 1,
+    category: "Admission List",
+    institution: "AFUED",
+    title:
+      "AFUED Admission List for 2026/2027 Academic Session",
+    date: "11 September 2026",
+    summary:
+      "Adeyemi Federal University of Education, Ondo has released admission information for the 2026/2027 academic session.",
+    details:
+      "Candidates who applied to Adeyemi Federal University of Education should check their admission status and follow the institution's instructions for the next stage of the admission process.",
+  },
+  {
+    id: 2,
+    category: "Admission List",
+    institution: "UNIMED",
+    title:
+      "UNIMED Admission List for 2026/2027 Academic Session",
+    date: "11 September 2026",
+    summary:
+      "University of Medical Sciences, Ondo has released admission information for the 2026/2027 academic session.",
+    details:
+      "Candidates who applied to UNIMED should monitor their admission status and complete any required steps once their admission is available.",
+  },
+  {
+    id: 3,
+    category: "Admission List",
+    institution: "ZAMSUT",
+    title:
+      "ZAMSUT Admission List for 2026/2027 Academic Session",
+    date: "11 September 2026",
+    summary:
+      "Zamfara State University has released admission information for the 2026/2027 academic session.",
+    details:
+      "Applicants should check their admission status and follow the university's instructions regarding acceptance and registration.",
+  },
+  {
+    id: 4,
+    category: "Admission List",
+    institution: "SSU",
+    title:
+      "SSU Admission List for 2026/2027 Academic Session",
+    date: "11 September 2026",
+    summary:
+      "Sokoto State University has released admission information for the 2026/2027 academic session.",
+    details:
+      "Candidates who applied to SSU should check their admission status and proceed with the necessary admission steps where applicable.",
+  },
+  {
+    id: 5,
+    category: "Admission List",
+    institution: "FUOYE",
+    title:
+      "FUOYE Admission List for 2026/2027 Academic Session",
+    date: "11 September 2026",
+    summary:
+      "Federal University Oye-Ekiti has released admission information for the 2026/2027 academic session.",
+    details:
+      "Candidates should monitor their admission status and follow the university's instructions for acceptance and registration.",
+  },
+  {
+    id: 6,
+    category: "Admission",
+    institution: "BIDAPOLY",
+    title:
+      "BIDAPOLY Admission List for 2026/2027 ND Full-Time Applicants",
+    date: "11 September 2026",
+    summary:
+      "Federal Polytechnic Bida has released admission information for ND Full-Time applicants.",
+    details:
+      "Applicants should check their admission status and follow the institution's instructions for the next stage of the admission process.",
+  },
+  {
+    id: 7,
+    category: "Admission",
+    institution: "FCE Iwo",
+    title:
+      "FCE Iwo Post UTME Form for 2026/2027 NCE Admission",
+    date: "11 September 2026",
+    summary:
+      "Federal College of Education, Iwo has announced its NCE Post UTME admission opportunity for 2026/2027.",
+    details:
+      "Interested candidates should confirm eligibility and application requirements before proceeding with registration.",
+  },
+  {
+    id: 8,
+    category: "Admission",
+    institution: "UNILAG",
+    title:
+      "UNILAG Direct Entry Screening Form for 2026/2027",
+    date: "11 September 2026",
+    summary:
+      "University of Lagos has released information regarding its Direct Entry screening exercise.",
+    details:
+      "Eligible Direct Entry candidates should review the requirements and complete the necessary screening process.",
+  },
+  {
+    id: 9,
+    category: "Admission",
+    institution: "FEDPONAM",
+    title:
+      "FEDPONAM HND Admission Form for 2026/2027",
+    date: "11 September 2026",
+    summary:
+      "Federal Polytechnic Kaura-Namoda has announced HND admission information for the 2026/2027 academic session.",
+    details:
+      "Prospective HND applicants should confirm the available programmes, requirements and application procedure.",
+  },
+  {
+    id: 10,
+    category: "Admission",
+    institution: "FUOTUOKE",
+    title:
+      "FUOTUOKE Post UTME Form for 2026/2027 Undergraduate Admission",
+    date: "11 September 2026",
+    summary:
+      "Federal University Otuoke has released Post UTME admission information for the 2026/2027 session.",
+    details:
+      "Interested candidates should verify eligibility and application requirements before proceeding.",
+  },
+  {
+    id: 11,
+    category: "Admission",
+    institution: "SAZU",
+    title:
+      "SAZU Admission List for 2026/2027 Academic Session",
+    date: "11 September 2026",
+    summary:
+      "Sa'adu Zungur University has released updated admission information covering multiple batches.",
+    details:
+      "Candidates should check their admission status and follow the university's instructions for the next stage.",
+  },
+  {
+    id: 12,
+    category: "JAMB",
+    institution: "JAMB",
+    title: "New JAMB Admission Status Update",
+    date: "Latest Update",
+    summary:
+      "JAMB admission status may now show PROPOSED, RECOMMENDED or APPROVED during the admission process.",
+    details:
+      "JAMB has updated the admission status portal, and candidates may now see PROPOSED, RECOMMENDED or APPROVED during the admission process.",
+    jamb: true,
+  },
+];
+
 const updateCategories = [
   "All",
   "JAMB",
@@ -63,7 +302,7 @@ const opportunityCategories = [
 ];
 
 export default function Home() {
-  const [openUpdate, setOpenUpdate] = useState<number | null>(13);
+  const [openUpdate, setOpenUpdate] = useState<number | null>(12);
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeOpportunityCategory, setActiveOpportunityCategory] =
     useState("All");
@@ -73,23 +312,10 @@ export default function Home() {
       ? updates
       : updates.filter((item) => item.category === activeCategory);
 
-  const updateOpportunities = updates
-    .filter((item) => item.isOpportunity)
-    .map((item) => ({
-      institution: item.institution,
-      programme: item.opportunityProgramme || item.title,
-      category: item.opportunityCategory || "Other",
-      status: item.opportunityStatus || "OPEN",
-      deadline: item.opportunityDeadline || "Check latest deadline",
-      description: item.summary,
-    }));
-
-  const allOpportunities = [...updateOpportunities, ...opportunities];
-
   const filteredOpportunities =
     activeOpportunityCategory === "All"
-      ? allOpportunities
-      : allOpportunities.filter(
+      ? opportunities
+      : opportunities.filter(
           (item) => item.category === activeOpportunityCategory
         );
 
@@ -98,39 +324,35 @@ export default function Home() {
       {/* HEADER */}
       <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <a href="/" className="flex items-center gap-3">
+          <a href="#home" className="flex items-center gap-3">
             <img
-              src="/soh-logo.jpg"
+              src="/logo.png"
               alt="S.O.H CONSULTS"
               className="h-16 w-auto object-contain"
             />
           </a>
 
-          <nav className="hidden items-center gap-6 text-sm font-semibold md:flex">
-            <a href="/" className="transition hover:text-green-700">
+          <nav className="hidden items-center gap-7 text-sm font-semibold md:flex">
+            <a href="#home" className="transition hover:text-green-700">
               Home
             </a>
-            <a href="/#updates" className="transition hover:text-green-700">
-              Latest Updates
+            <a href="#services" className="transition hover:text-green-700">
+              Services
             </a>
-            <a href="/#opportunities" className="transition hover:text-green-700">
+            <a
+              href="#opportunities"
+              className="transition hover:text-green-700"
+            >
               Opportunities
             </a>
-            <a
-              href="/lasu-calculator"
-              className="transition hover:text-green-700"
-            >
-              LASU Calculator
+            <a href="#updates" className="transition hover:text-green-700">
+              Latest Updates
             </a>
-            <a
-              href={whatsappLink(
-                "Hello S.O.H CONSULTS, I need admission guidance. Please assist me."
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition hover:text-green-700"
-            >
-              Get Guidance
+            <a href="#about" className="transition hover:text-green-700">
+              About
+            </a>
+            <a href="#contact" className="transition hover:text-green-700">
+              Contact
             </a>
           </nav>
 
@@ -172,17 +394,10 @@ export default function Home() {
 
             <div className="mt-8 flex flex-wrap gap-4">
               <a
-                href="/#opportunities"
-                className="rounded-full bg-white px-7 py-4 font-black !text-green-800 shadow-md transition hover:bg-green-50 hover:!text-green-950"
+                href="#opportunities"
+                className="rounded-full bg-white px-7 py-4 font-bold text-green-900 transition hover:bg-green-50"
               >
                 Explore Opportunities
-              </a>
-
-              <a
-                href="/lasu-calculator"
-                className="rounded-full bg-green-300 px-7 py-4 font-bold text-green-950 transition hover:bg-green-200"
-              >
-                LASU Aggregate Calculator
               </a>
 
               <a
@@ -257,7 +472,7 @@ export default function Home() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="scroll-mt-24 bg-gray-50 py-20">
+      <section id="services" className="bg-gray-50 py-20">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="max-w-2xl">
             <p className="font-bold uppercase tracking-widest text-green-700">
@@ -308,7 +523,7 @@ export default function Home() {
       </section>
 
       {/* ADMISSION OPPORTUNITIES */}
-      <section id="opportunities" className="scroll-mt-24 py-20">
+      <section id="opportunities" className="py-20">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div className="max-w-2xl">
@@ -425,7 +640,7 @@ export default function Home() {
       </section>
 
       {/* LATEST UPDATES */}
-      <section id="updates" className="scroll-mt-24 bg-gray-50 py-20">
+      <section id="updates" className="bg-gray-50 py-20">
         <div className="mx-auto max-w-5xl px-5 lg:px-8">
           <div className="text-center">
             <p className="font-bold uppercase tracking-widest text-green-700">
@@ -611,7 +826,7 @@ export default function Home() {
                         </div>
                       ) : (
                         <div>
-                          <p className="whitespace-pre-line leading-7 text-gray-700">
+                          <p className="leading-7 text-gray-700">
                             {item.details}
                           </p>
 
@@ -706,7 +921,7 @@ export default function Home() {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-block rounded-full bg-white px-7 py-3 font-black !text-green-900 shadow-md transition hover:bg-green-50 hover:!text-green-950"
+                className="mt-8 inline-block rounded-full bg-white px-7 py-3 font-black text-green-900 transition hover:bg-green-50"
               >
                 Talk to Us
               </a>
@@ -716,7 +931,7 @@ export default function Home() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="scroll-mt-24 bg-gray-50 py-20">
+      <section id="about" className="bg-gray-50 py-20">
         <div className="mx-auto max-w-5xl px-5 text-center lg:px-8">
           <p className="font-bold uppercase tracking-widest text-green-700">
             About S.O.H CONSULTS
@@ -741,7 +956,7 @@ export default function Home() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="scroll-mt-24 py-20">
+      <section id="contact" className="py-20">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="rounded-3xl bg-green-900 p-8 text-white sm:p-12">
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
@@ -795,20 +1010,6 @@ export default function Home() {
                   </p>
                   <p className="mt-1 font-black">S.O.H EDU-HUB</p>
                 </div>
-
-                <a
-                  href="https://whatsapp.com/channel/0029VbD6QQp3GJP68dl9TK29"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50"
-                >
-                  <p className="text-sm font-bold uppercase tracking-wide text-green-700">
-                    WhatsApp Channel
-                  </p>
-                  <p className="mt-1 font-black">
-                    Join S.O.H CONSULTS Updates
-                  </p>
-                </a>
               </div>
             </div>
           </div>
@@ -824,25 +1025,6 @@ export default function Home() {
           </div>
 
           <div className="text-sm sm:text-right">
-            <div className="mb-3 flex flex-wrap gap-x-4 gap-y-2 sm:justify-end">
-              <a href="/#updates" className="hover:text-white">
-                Latest Updates
-              </a>
-              <a href="/#opportunities" className="hover:text-white">
-                Opportunities
-              </a>
-              <a href="/lasu-calculator" className="hover:text-white">
-                LASU Calculator
-              </a>
-              <a
-                href="https://whatsapp.com/channel/0029VbD6QQp3GJP68dl9TK29"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white"
-              >
-                WhatsApp Channel
-              </a>
-            </div>
             <p>Admission • Education • Consultation</p>
             <p className="mt-1">
               © {new Date().getFullYear()} S.O.H CONSULTS. All rights reserved.
