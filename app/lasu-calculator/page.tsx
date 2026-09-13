@@ -1,35 +1,35 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { jsPDF } from "jspdf";
+
+type Programme = {
+  id: string;
+  name: string;
+};
+
+type LasuRequirement = {
+  success: boolean;
+  source?: string;
+  courseId?: string;
+  programme?: string;
+  oLevel?: string;
+  utme?: string;
+  retrievedAt?: string;
+  error?: string;
+};
 
 type OLevelEntry = {
   subject: string;
   grade: string;
 };
 
-type SubjectCategory =
-  | "socialScience"
-  | "science"
-  | "arts"
-  | "business"
-  | "commercial"
-  | "scienceRelated"
-  | "artsRelated";
-
-type RequirementGroup = {
-  label: string;
-  subjects?: string[];
-  category?: SubjectCategory;
-  anySubject?: boolean;
-  required: number;
-};
-
-type CourseRequirement = {
-  requiredJamb: string[];
-  oneOfJamb?: RequirementGroup[];
-  requiredOlevel: string[];
-  oneOfOlevel?: RequirementGroup[];
-  minimumRelevantCredits: number;
+type ParsedRequirement = {
+  required: string[];
+  alternatives: string[];
+  alternativeCategories: string[];
+  alternativesRequired: number;
+  unrestricted: boolean;
 };
 
 const LASU_CUTOFF_MARK = 195;
@@ -123,2066 +123,632 @@ const oLevelSubjects = [
   "Yoruba Language",
 ].sort((a, b) => a.localeCompare(b));
 
-const subjectCategories: Record<SubjectCategory, string[]> = {
-  socialScience: [
-    "Economics",
-    "Government",
-    "Geography",
-    "Commerce",
+const jambAliases: Record<string, string[]> = {
+  Accounting: ["accounting", "acc"],
+  "Agricultural Science": [
+    "agricultural science",
+    "agriculture",
+    "agric",
+  ],
+  Arabic: ["arabic"],
+  Biology: ["biology", "bio"],
+  Chemistry: ["chemistry", "che"],
+  "Christian Religious Studies": [
+    "christian religious studies",
+    "christian religious knowledge",
+    "crs",
+    "crk",
+  ],
+  Commerce: ["commerce"],
+  "Computer Studies": [
+    "computer studies",
+    "computer science",
+  ],
+  Economics: ["economics", "eco"],
+  French: ["french"],
+  "Further Mathematics": [
+    "further mathematics",
+    "further maths",
+  ],
+  Geography: ["geography", "geo"],
+  Government: ["government", "gov"],
+  Hausa: ["hausa"],
+  History: ["history"],
+  Igbo: ["igbo"],
+  "Islamic Religious Studies": [
+    "islamic religious studies",
+    "islamic studies",
+    "irs",
+    "irk",
+  ],
+  "Literature in English": [
+    "literature in english",
+    "literature-in-english",
+    "literature",
+    "lit",
+  ],
+  Mathematics: [
+    "mathematics",
+    "maths",
+    "mat",
+  ],
+  Music: ["music"],
+  Physics: ["physics", "phy"],
+  Yoruba: ["yoruba"],
+};
+
+const oLevelAliases: Record<string, string[]> = {
+  Accounting: ["accounting"],
+  Agriculture: [
+    "agriculture",
+    "agricultural science",
+  ],
+  Arabic: ["arabic"],
+  Biology: ["biology"],
+  Chemistry: ["chemistry"],
+  "Christian Religious Studies": [
+    "christian religious studies",
+    "christian religious knowledge",
+    "crs",
+    "crk",
+  ],
+  "Civic Education": [
+    "civic education",
+  ],
+  Commerce: ["commerce"],
+  Economics: ["economics"],
+  "English Language": [
+    "english language",
+    "english",
+  ],
+  French: ["french"],
+  "Further Mathematics": [
+    "further mathematics",
+    "further maths",
+  ],
+  "General Mathematics": [
+    "general mathematics",
+    "mathematics",
+    "maths",
+  ],
+  Geography: ["geography"],
+  Government: ["government"],
+  "Hausa Language": [
+    "hausa language",
+    "hausa",
+  ],
+  "Igbo Language": [
+    "igbo language",
+    "igbo",
+  ],
+  "Islamic Studies": [
+    "islamic studies",
+    "islamic religious studies",
+    "irs",
+    "irk",
+  ],
+  "Literature-in-English": [
+    "literature-in-english",
+    "literature in english",
+    "literature",
+  ],
+  Marketing: ["marketing"],
+  Music: ["music"],
+  "Nigerian History": [
+    "nigerian history",
+    "history",
+  ],
+  Physics: ["physics"],
+  "Technical Drawing": [
+    "technical drawing",
+  ],
+  "Visual Art": [
+    "visual art",
+    "fine art",
+    "fine arts",
+  ],
+  "Yoruba Language": [
+    "yoruba language",
+    "yoruba",
+  ],
+};
+
+const jambSubjectCategories: Record<string, string[]> = {
+  "Social Science": [
     "Accounting",
-    "Marketing",
-    "Insurance",
-    "History",
-    "Civic Education",
-    "Nigerian History",
+    "Commerce",
+    "Economics",
+    "Geography",
+    "Government",
   ],
 
-  science: [
+  Science: [
+    "Agricultural Science",
     "Biology",
     "Chemistry",
-    "Physics",
-    "Agriculture",
-    "Agricultural Science",
+    "Computer Studies",
     "Further Mathematics",
-    "Geography",
+    "Mathematics",
+    "Physics",
   ],
 
-  arts: [
-    "Literature-in-English",
-    "Literature in English",
-    "History",
-    "Government",
-    "Geography",
-    "Christian Religious Studies",
-    "Islamic Religious Studies",
-    "Islamic Studies",
+  Arts: [
     "Arabic",
+    "Christian Religious Studies",
     "French",
+    "Government",
+    "History",
+    "Islamic Religious Studies",
+    "Literature in English",
     "Music",
     "Yoruba",
-    "Yoruba Language",
-    "Hausa",
-    "Hausa Language",
-    "Igbo",
-    "Igbo Language",
-    "Visual Art",
   ],
 
-  business: [
+  Commercial: [
     "Accounting",
     "Commerce",
-    "Marketing",
     "Economics",
-    "Insurance",
+    "Government",
   ],
+};
 
-  commercial: [
+const oLevelSubjectCategories: Record<string, string[]> = {
+  "Social Science": [
     "Accounting",
     "Commerce",
-    "Marketing",
     "Economics",
-    "Insurance",
+    "Geography",
+    "Government",
+    "Marketing",
   ],
 
-  scienceRelated: [
+  Science: [
+    "Agriculture",
     "Biology",
     "Chemistry",
-    "Physics",
-    "Agriculture",
     "Further Mathematics",
-    "Geography",
-    "Computer Hardware and GSM Repairs",
-    "Technical Drawing",
+    "General Mathematics",
+    "Physics",
   ],
 
-  artsRelated: [
-    "Literature-in-English",
-    "Government",
-    "History",
-    "Nigerian History",
-    "Economics",
-    "Geography",
-    "Civic Education",
-    "Christian Religious Studies",
-    "Islamic Studies",
+  Arts: [
     "Arabic",
+    "Christian Religious Studies",
     "French",
+    "Government",
+    "Islamic Studies",
+    "Literature-in-English",
     "Music",
+    "Nigerian History",
     "Visual Art",
+    "Yoruba Language",
+  ],
+
+  Commercial: [
+    "Accounting",
+    "Commerce",
+    "Economics",
+    "Government",
+    "Marketing",
   ],
 };
-
-const courseRequirements: Record<string, CourseRequirement> = {
-  Accounting: {
-    requiredJamb: ["Mathematics", "Economics"],
-    oneOfJamb: [
-      {
-        label: "Relevant Social Science subject",
-        category: "socialScience",
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Economics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Relevant Social Science subject",
-        category: "socialScience",
-        required: 1,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Banking and Finance": {
-    requiredJamb: ["Mathematics", "Economics"],
-    oneOfJamb: [
-      {
-        label: "Relevant Social Science subject",
-        category: "socialScience",
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Economics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Relevant Social Science subjects",
-        category: "socialScience",
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Business Administration": {
-    requiredJamb: ["Mathematics", "Economics"],
-    oneOfJamb: [
-      {
-        label: "Relevant Social Science subject",
-        category: "socialScience",
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Economics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Relevant Social Science subjects",
-        category: "socialScience",
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Insurance: {
-    requiredJamb: ["Mathematics", "Economics"],
-    oneOfJamb: [
-      {
-        label: "Relevant Social Science subject",
-        category: "socialScience",
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Economics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Relevant Social Science subjects",
-        category: "socialScience",
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Industrial Relations and Personnel Management": {
-    requiredJamb: ["Mathematics", "Economics"],
-    oneOfJamb: [
-      {
-        label: "Relevant Social Science subjects",
-        category: "socialScience",
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Economics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Relevant Social Science subjects",
-        category: "socialScience",
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Marketing: {
-    requiredJamb: ["Mathematics"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Economics",
-          "Commerce",
-          "Accounting",
-          "Government",
-          "Geography",
-          "Marketing",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "General Mathematics"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Marketing",
-          "Economics",
-          "Commerce",
-          "Accounting",
-          "Geography",
-          "Government",
-          "Civic Education",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Public Administration": {
-    requiredJamb: ["Government"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Economics",
-          "History",
-          "Geography",
-          "Literature in English",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Government",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Economics",
-          "History",
-          "Geography",
-          "Literature-in-English",
-          "Christian Religious Studies",
-          "Islamic Studies",
-          "Civic Education",
-          "Commerce",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Economics: {
-    requiredJamb: ["Mathematics", "Economics"],
-    oneOfJamb: [
-      {
-        label: "Relevant subject",
-        subjects: ["Government", "Geography", "Commerce", "Accounting"],
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Economics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "Geography",
-          "Commerce",
-          "Accounting",
-          "History",
-          "Civic Education",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Political Science": {
-    requiredJamb: ["Government"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "History",
-          "Economics",
-          "Geography",
-          "Literature in English",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Government",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Geography",
-          "Civic Education",
-          "Literature-in-English",
-          "Christian Religious Studies",
-          "Islamic Studies",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Psychology: {
-    requiredJamb: ["Biology"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Economics",
-          "Government",
-          "Geography",
-          "Literature in English",
-          "Chemistry",
-          "Physics",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "General Mathematics"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Biology",
-          "Economics",
-          "Government",
-          "Geography",
-          "Civic Education",
-          "Literature-in-English",
-          "Chemistry",
-          "Physics",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Sociology: {
-    requiredJamb: ["Mathematics"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Economics",
-          "Government",
-          "Geography",
-          "History",
-          "Literature in English",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "General Mathematics"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Economics",
-          "Government",
-          "Geography",
-          "History",
-          "Nigerian History",
-          "Civic Education",
-          "Literature-in-English",
-          "Biology",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Geography and Planning": {
-    requiredJamb: ["Geography"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Economics",
-          "Government",
-          "Biology",
-          "Chemistry",
-          "Physics",
-          "Agricultural Science",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Geography",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Economics",
-          "Government",
-          "Biology",
-          "Chemistry",
-          "Physics",
-          "Agriculture",
-          "Civic Education",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "English Language": {
-    requiredJamb: ["Literature in English"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "History",
-          "Economics",
-          "Geography",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-          "French",
-          "Music",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "Literature-in-English"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Geography",
-          "Civic Education",
-          "Christian Religious Studies",
-          "Islamic Studies",
-          "French",
-          "Arabic",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Mass Communication": {
-    requiredJamb: ["Literature in English"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "History",
-          "Economics",
-          "Geography",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-          "French",
-          "Music",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "Literature-in-English"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "Economics",
-          "History",
-          "Nigerian History",
-          "Geography",
-          "Commerce",
-          "Marketing",
-          "Civic Education",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Common Law": {
-    requiredJamb: [],
-    oneOfJamb: [
-      {
-        label: "Law UTME subjects",
-        subjects: ["Literature in English", "Government"],
-        required: 2,
-      },
-      {
-        label: "Additional relevant subject",
-        subjects: [
-          "History",
-          "Economics",
-          "Geography",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-        ],
-        required: 1,
-      },
-    ],
-    requiredOlevel: ["English Language", "Literature-in-English", "Government"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Geography",
-          "Christian Religious Studies",
-          "Islamic Studies",
-          "Civic Education",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Civil Law": {
-    requiredJamb: [],
-    oneOfJamb: [
-      {
-        label: "Law UTME subjects",
-        subjects: ["Literature in English", "Government"],
-        required: 2,
-      },
-      {
-        label: "Additional relevant subject",
-        subjects: [
-          "History",
-          "Economics",
-          "Geography",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-        ],
-        required: 1,
-      },
-    ],
-    requiredOlevel: ["English Language", "Literature-in-English", "Government"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Geography",
-          "Christian Religious Studies",
-          "Islamic Studies",
-          "Civic Education",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "History and International Studies": {
-    requiredJamb: ["History"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "Economics",
-          "Geography",
-          "Literature in English",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "Nigerian History"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "Economics",
-          "Geography",
-          "Literature-in-English",
-          "Christian Religious Studies",
-          "Islamic Studies",
-          "Civic Education",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Arabic Language and Literature": {
-    requiredJamb: ["Arabic"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Literature in English",
-          "Government",
-          "History",
-          "Economics",
-          "Islamic Religious Studies",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "Arabic"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Literature-in-English",
-          "Government",
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Islamic Studies",
-          "Civic Education",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Christian Religious Studies": {
-    requiredJamb: ["Christian Religious Studies"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "History",
-          "Government",
-          "Economics",
-          "Literature in English",
-          "Geography",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "Christian Religious Studies"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Literature-in-English",
-          "Geography",
-          "Civic Education",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Islamic Studies": {
-    requiredJamb: ["Islamic Religious Studies"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "History",
-          "Government",
-          "Economics",
-          "Literature in English",
-          "Geography",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "Islamic Studies"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Literature-in-English",
-          "Geography",
-          "Civic Education",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  French: {
-    requiredJamb: ["French"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Literature in English",
-          "Government",
-          "History",
-          "Economics",
-          "Geography",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "French"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Literature-in-English",
-          "Government",
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Geography",
-          "Civic Education",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Music: {
-    requiredJamb: ["Music"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Literature in English",
-          "Government",
-          "History",
-          "Economics",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "Music"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Literature-in-English",
-          "Government",
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Christian Religious Studies",
-          "Islamic Studies",
-          "Civic Education",
-          "Visual Art",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Philosophy: {
-    requiredJamb: [],
-    oneOfJamb: [
-      {
-        label: "Any three JAMB subjects",
-        anySubject: true,
-        required: 3,
-      },
-    ],
-    requiredOlevel: ["English Language"],
-    oneOfOlevel: [
-      {
-        label: "Any four additional O-Level subjects",
-        anySubject: true,
-        required: 4,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Theatre Arts": {
-    requiredJamb: ["Literature in English"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "History",
-          "Economics",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-          "Music",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "Literature-in-English"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Geography",
-          "Civic Education",
-          "Christian Religious Studies",
-          "Islamic Studies",
-          "Music",
-          "Visual Art",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Theatre Arts and Music": {
-    requiredJamb: ["Literature in English"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "History",
-          "Economics",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-          "Music",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "Literature-in-English"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Geography",
-          "Civic Education",
-          "Christian Religious Studies",
-          "Islamic Studies",
-          "Music",
-          "Visual Art",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Yoruba Language and Communication Arts": {
-    requiredJamb: ["Yoruba"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Literature in English",
-          "Government",
-          "History",
-          "Economics",
-          "Geography",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "Yoruba Language"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Literature-in-English",
-          "Government",
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Geography",
-          "Civic Education",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Medicine: {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Medicine and Surgery": {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Dentistry: {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Dental Surgery": {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Nursing Science": {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Medical Laboratory Science": {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Pharmacology: {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Physiotherapy: {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Physiology: {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Biochemistry: {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Microbiology: {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Botany: {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Zoology: {
-    requiredJamb: ["Biology", "Chemistry", "Physics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-      "Physics",
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Fisheries and Aquatic Biology": {
-    requiredJamb: ["Biology", "Chemistry"],
-    oneOfJamb: [
-      {
-        label: "Additional relevant subject",
-        subjects: ["Physics", "Agricultural Science"],
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Biology",
-      "Chemistry",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional relevant subject",
-        subjects: ["Physics", "Agriculture", "Geography"],
-        required: 1,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Chemistry: {
-    requiredJamb: ["Chemistry", "Physics", "Mathematics"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Chemistry",
-      "Physics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional science subject",
-        subjects: ["Biology", "Agriculture", "Further Mathematics"],
-        required: 1,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Physics: {
-    requiredJamb: ["Physics", "Mathematics", "Chemistry"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-      "Chemistry",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional science subject",
-        subjects: ["Further Mathematics", "Biology", "Agriculture"],
-        required: 1,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Mathematics: {
-    requiredJamb: ["Mathematics", "Physics", "Chemistry"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-      "Chemistry",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional science subject",
-        subjects: [
-          "Further Mathematics",
-          "Biology",
-          "Agriculture",
-          "Economics",
-        ],
-        required: 1,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Chemical and Polymer Engineering": {
-    requiredJamb: ["Mathematics", "Physics", "Chemistry"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-      "Chemistry",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional science subject",
-        subjects: ["Biology", "Agriculture", "Further Mathematics"],
-        required: 1,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Civil Engineering": {
-    requiredJamb: ["Mathematics", "Physics", "Chemistry"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-      "Chemistry",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional relevant subject",
-        subjects: [
-          "Further Mathematics",
-          "Technical Drawing",
-          "Biology",
-          "Agriculture",
-        ],
-        required: 1,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Mechanical Engineering": {
-    requiredJamb: ["Mathematics", "Physics", "Chemistry"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-      "Chemistry",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional relevant subject",
-        subjects: [
-          "Further Mathematics",
-          "Technical Drawing",
-          "Biology",
-          "Agriculture",
-        ],
-        required: 1,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Electronic and Computer Engineering": {
-    requiredJamb: ["Mathematics", "Physics", "Chemistry"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-      "Chemistry",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional relevant subject",
-        subjects: [
-          "Further Mathematics",
-          "Technical Drawing",
-          "Biology",
-          "Computer Hardware and GSM Repairs",
-        ],
-        required: 1,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Aerospace Engineering": {
-    requiredJamb: ["Mathematics", "Physics", "Chemistry"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-      "Chemistry",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional relevant subject",
-        subjects: [
-          "Further Mathematics",
-          "Technical Drawing",
-          "Biology",
-        ],
-        required: 1,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Computer Science": {
-    requiredJamb: ["Mathematics", "Physics"],
-    oneOfJamb: [
-      {
-        label: "Additional relevant subject",
-        subjects: [
-          "Chemistry",
-          "Economics",
-          "Biology",
-          "Further Mathematics",
-          "Computer Studies",
-        ],
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional relevant subjects",
-        subjects: [
-          "Chemistry",
-          "Biology",
-          "Further Mathematics",
-          "Computer Hardware and GSM Repairs",
-          "Economics",
-          "Agriculture",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Software Engineering": {
-    requiredJamb: ["Mathematics", "Physics"],
-    oneOfJamb: [
-      {
-        label: "Additional relevant subject",
-        subjects: [
-          "Chemistry",
-          "Economics",
-          "Biology",
-          "Further Mathematics",
-          "Computer Studies",
-        ],
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional relevant subjects",
-        subjects: [
-          "Chemistry",
-          "Biology",
-          "Further Mathematics",
-          "Computer Hardware and GSM Repairs",
-          "Economics",
-          "Agriculture",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Cyber Security": {
-    requiredJamb: ["Mathematics", "Physics"],
-    oneOfJamb: [
-      {
-        label: "Additional relevant subject",
-        subjects: [
-          "Chemistry",
-          "Economics",
-          "Biology",
-          "Further Mathematics",
-          "Computer Studies",
-        ],
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional relevant subjects",
-        subjects: [
-          "Chemistry",
-          "Biology",
-          "Further Mathematics",
-          "Computer Hardware and GSM Repairs",
-          "Economics",
-          "Agriculture",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Information Technology": {
-    requiredJamb: ["Mathematics", "Physics"],
-    oneOfJamb: [
-      {
-        label: "Additional relevant subject",
-        subjects: [
-          "Chemistry",
-          "Economics",
-          "Biology",
-          "Further Mathematics",
-          "Computer Studies",
-        ],
-        required: 1,
-      },
-    ],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Additional relevant subjects",
-        subjects: [
-          "Chemistry",
-          "Biology",
-          "Further Mathematics",
-          "Computer Hardware and GSM Repairs",
-          "Economics",
-          "Agriculture",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Science Education": {
-    requiredJamb: [],
-    oneOfJamb: [
-      {
-        label: "Any three science subjects",
-        subjects: [
-          "Biology",
-          "Chemistry",
-          "Physics",
-          "Agricultural Science",
-          "Geography",
-          "Further Mathematics",
-        ],
-        required: 3,
-      },
-    ],
-    requiredOlevel: ["English Language", "General Mathematics"],
-    oneOfOlevel: [
-      {
-        label: "Science subjects",
-        subjects: [
-          "Biology",
-          "Chemistry",
-          "Physics",
-          "Agriculture",
-          "Further Mathematics",
-          "Geography",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Technology Education": {
-    requiredJamb: ["Mathematics", "Physics", "Chemistry"],
-    requiredOlevel: [
-      "English Language",
-      "General Mathematics",
-      "Physics",
-    ],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Chemistry",
-          "Further Mathematics",
-          "Technical Drawing",
-          "Computer Hardware and GSM Repairs",
-          "Agriculture",
-        ],
-        required: 2,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Arts Education": {
-    requiredJamb: ["Literature in English"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Government",
-          "History",
-          "Economics",
-          "Geography",
-          "Christian Religious Studies",
-          "Islamic Religious Studies",
-          "French",
-          "Music",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language"],
-    oneOfOlevel: [
-      {
-        label: "Arts subjects",
-        subjects: [
-          "Literature-in-English",
-          "Government",
-          "History",
-          "Nigerian History",
-          "Economics",
-          "Geography",
-          "Civic Education",
-          "Christian Religious Studies",
-          "Islamic Studies",
-          "Arabic",
-          "French",
-          "Music",
-          "Visual Art",
-        ],
-        required: 4,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Early Childhood Education": {
-    requiredJamb: [],
-    oneOfJamb: [
-      {
-        label: "Relevant Arts subjects",
-        category: "artsRelated",
-        required: 3,
-      },
-    ],
-    requiredOlevel: ["English Language", "General Mathematics"],
-    oneOfOlevel: [
-      {
-        label: "Relevant Arts subjects",
-        category: "artsRelated",
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Educational Management": {
-    requiredJamb: [],
-    oneOfJamb: [
-      {
-        label: "Relevant Social Science subjects",
-        category: "socialScience",
-        required: 3,
-      },
-    ],
-    requiredOlevel: ["English Language", "General Mathematics"],
-    oneOfOlevel: [
-      {
-        label: "Relevant Social Science subjects",
-        category: "socialScience",
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Guidance and Counselling": {
-    requiredJamb: [],
-    oneOfJamb: [
-      {
-        label: "Relevant Social Science subjects",
-        category: "socialScience",
-        required: 3,
-      },
-    ],
-    requiredOlevel: ["English Language", "General Mathematics"],
-    oneOfOlevel: [
-      {
-        label: "Relevant Social Science subjects",
-        category: "socialScience",
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  Architecture: {
-    requiredJamb: ["Mathematics", "Physics"],
-    oneOfJamb: [
-      {
-        label: "Additional relevant subject",
-        subjects: ["Chemistry", "Economics", "Geography"],
-        required: 1,
-      },
-    ],
-    requiredOlevel: ["English Language", "General Mathematics"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Physics",
-          "Chemistry",
-          "Technical Drawing",
-          "Visual Art",
-          "Geography",
-          "Further Mathematics",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-
-  "Transport Management": {
-    requiredJamb: ["Mathematics"],
-    oneOfJamb: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Economics",
-          "Geography",
-          "Government",
-          "Commerce",
-          "Accounting",
-          "Physics",
-        ],
-        required: 2,
-      },
-    ],
-    requiredOlevel: ["English Language", "General Mathematics"],
-    oneOfOlevel: [
-      {
-        label: "Relevant subjects",
-        subjects: [
-          "Economics",
-          "Geography",
-          "Government",
-          "Commerce",
-          "Accounting",
-          "Physics",
-          "Civic Education",
-        ],
-        required: 3,
-      },
-    ],
-    minimumRelevantCredits: 5,
-  },
-};
-
-const courses = Object.keys(courseRequirements).sort((a, b) =>
-  a.localeCompare(b)
-);
-
-function getGroupSubjects(group: RequirementGroup): string[] {
-  if (group.anySubject) {
-    return [];
-  }
-
-  if (group.subjects) {
-    return group.subjects;
-  }
-
-  if (group.category) {
-    return subjectCategories[group.category] ?? [];
-  }
-
-  return [];
-}
 
 function uniqueValues(values: string[]) {
-  return [...new Set(values)];
+  return [...new Set(values.filter(Boolean))];
 }
 
-function countSatisfiedSubjects(
-  selectedSubjects: string[],
-  group: RequirementGroup,
-  excludedSubjects: string[] = []
+function normaliseText(text: string) {
+  return text
+    .replace(/\s+/g, " ")
+    .replace(/\s+,/g, ",")
+    .trim();
+}
+
+function containsWord(text: string, value: string) {
+  return text
+    .toLowerCase()
+    .includes(value.toLowerCase());
+}
+
+function extractSubjects(
+  text: string,
+  aliases: Record<string, string[]>
 ) {
-  const filtered = uniqueValues(selectedSubjects).filter(
-    (subject) => !excludedSubjects.includes(subject)
+  const lower = ` ${text
+    .toLowerCase()
+    .replace(/[()]/g, " ")} `;
+
+  const found: string[] = [];
+
+  Object.entries(aliases).forEach(
+    ([canonical, possibleNames]) => {
+      const matched =
+        possibleNames.some((alias) => {
+          if (alias.length <= 3) {
+            const regex =
+              new RegExp(
+                `(^|[^a-z])${alias.replace(
+                  /[.*+?^${}()|[\]\\]/g,
+                  "\\$&"
+                )}([^a-z]|$)`,
+                "i"
+              );
+
+            return regex.test(lower);
+          }
+
+          return containsWord(
+            lower,
+            alias
+          );
+        });
+
+      if (matched) {
+        found.push(canonical);
+      }
+    }
   );
 
-  if (group.anySubject) {
-    return filtered.length;
+  return uniqueValues(found);
+}
+
+function wordToNumber(value: string) {
+  const cleaned =
+    value.toLowerCase().trim();
+
+  const map: Record<string, number> = {
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+  };
+
+  if (map[cleaned]) {
+    return map[cleaned];
   }
 
-  const allowed = getGroupSubjects(group);
+  const numeric =
+    Number(cleaned);
 
-  return filtered.filter((subject) =>
-    allowed.includes(subject)
-  ).length;
-}
-
-function groupSatisfied(
-  selectedSubjects: string[],
-  group: RequirementGroup,
-  excludedSubjects: string[] = []
-) {
-  return (
-    countSatisfiedSubjects(
-      selectedSubjects,
-      group,
-      excludedSubjects
-    ) >= group.required
-  );
-}
-
-function getRelevantSubjectPool(
-  requirement: CourseRequirement
-) {
-  const groups = requirement.oneOfOlevel ?? [];
-
-  const subjects = [
-    ...requirement.requiredOlevel,
-    ...groups.flatMap((group) =>
-      group.anySubject
-        ? oLevelSubjects
-        : getGroupSubjects(group)
-    ),
-  ];
-
-  return uniqueValues(subjects);
-}
-
-/* -------------------------------------------------------
-   PDF GENERATOR
-------------------------------------------------------- */
-
-function escapePdfText(text: string) {
-  return text
-    .replace(/[^\x20-\x7E]/g, "")
-    .replace(/\\/g, "\\\\")
-    .replace(/\(/g, "\\(")
-    .replace(/\)/g, "\\)");
-}
-
-function createPdfDocument(lines: string[]) {
-  const pageWidth = 595;
-  const pageHeight = 842;
-  const leftMargin = 45;
-  const rightMargin = 45;
-  const topMargin = 55;
-  const bottomMargin = 55;
-  const lineHeight = 15;
-  const usableHeight =
-    pageHeight - topMargin - bottomMargin;
-  const maxLinesPerPage = Math.floor(
-    usableHeight / lineHeight
-  );
-
-  const cleanedLines = lines
-    .map((line) =>
-      line
-        .replace(/[^\x20-\x7E]/g, "")
-        .replace(/\s+/g, " ")
-        .trim()
-    )
-    .flatMap((line) => {
-      if (!line) return [""];
-      return wrapPdfLine(
-        line,
-        pageWidth - leftMargin - rightMargin,
-        10
-      );
-    });
-
-  const pages: string[][] = [];
-
-  for (
-    let i = 0;
-    i < cleanedLines.length;
-    i += maxLinesPerPage
+  if (
+    Number.isFinite(numeric) &&
+    numeric > 0
   ) {
-    pages.push(
-      cleanedLines.slice(
-        i,
-        i + maxLinesPerPage
-      )
+    return numeric;
+  }
+
+  return 1;
+}
+
+function extractRequirementCategories(
+  text: string
+) {
+  const categories: string[] =
+    [];
+
+  if (
+    /\bsocial\s+sciences?\b/i.test(
+      text
+    )
+  ) {
+    categories.push(
+      "Social Science"
     );
   }
 
-  if (pages.length === 0) {
-    pages.push(["LASU Eligibility Report"]);
-  }
-
-  const catalogObject = 1;
-  const pagesObject = 2;
-  const regularFontObject = 3;
-  const boldFontObject = 4;
-
-  const pageObjects = pages.map(
-    (_, index) =>
-      5 + index * 2
-  );
-
-  const contentObjects = pages.map(
-    (_, index) =>
-      6 + index * 2
-  );
-
-  const maxObject =
-    4 + pages.length * 2;
-
-  const objects = new Map<
-    number,
-    string
-  >();
-
-  objects.set(
-    catalogObject,
-    `<< /Type /Catalog /Pages ${pagesObject} 0 R >>`
-  );
-
-  objects.set(
-    pagesObject,
-    `<< /Type /Pages /Kids [${pageObjects
-      .map(
-        (number) =>
-          `${number} 0 R`
-      )
-      .join(" ")}] /Count ${pages.length} >>`
-  );
-
-  objects.set(
-    regularFontObject,
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>"
-  );
-
-  objects.set(
-    boldFontObject,
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>"
-  );
-
-  pages.forEach(
-    (page, pageIndex) => {
-      const pageObject =
-        pageObjects[pageIndex];
-
-      const contentObject =
-        contentObjects[pageIndex];
-
-      const textCommands: string[] = [
-        "BT",
-      ];
-
-      page.forEach(
-        (line, lineIndex) => {
-          const y =
-            pageHeight -
-            topMargin -
-            lineIndex *
-              lineHeight;
-
-          const isHeading =
-            [
-              "S.O.H CONSULTS",
-              "LASU AGGREGATE & ELIGIBILITY REPORT",
-              "Candidate Information",
-              "JAMB UTME",
-              "O-LEVEL RESULTS",
-              "BEST FIVE RELEVANT O-LEVEL RESULTS",
-              "AGGREGATE",
-              "ASSESSMENT",
-              "Validation Notes",
-              "IMPORTANT DISCLAIMER",
-            ].includes(line);
-
-          textCommands.push(
-            isHeading
-              ? "/F2 10 Tf"
-              : "/F1 9 Tf"
-          );
-
-          textCommands.push(
-            `1 0 0 1 ${leftMargin} ${y} Tm`
-          );
-
-          textCommands.push(
-            `(${escapePdfText(
-              line
-            )}) Tj`
-          );
-        }
-      );
-
-      textCommands.push("ET");
-
-      const stream =
-        textCommands.join(
-          "\n"
-        );
-
-      objects.set(
-        pageObject,
-        `<< /Type /Page /Parent ${pagesObject} 0 R /MediaBox [0 0 ${pageWidth} ${pageHeight}] /Resources << /Font << /F1 ${regularFontObject} 0 R /F2 ${boldFontObject} 0 R >> >> /Contents ${contentObject} 0 R >>`
-      );
-
-      objects.set(
-        contentObject,
-        `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`
-      );
-    }
-  );
-
-  let pdf = "%PDF-1.4\n";
-
-  const offsets: number[] =
-    new Array(
-      maxObject + 1
-    ).fill(0);
-
-  for (
-    let objectNumber = 1;
-    objectNumber <= maxObject;
-    objectNumber++
-  ) {
-    offsets[objectNumber] =
-      pdf.length;
-
-    pdf += `${objectNumber} 0 obj\n`;
-    pdf += `${
-      objects.get(
-        objectNumber
-      ) ?? ""
-    }\n`;
-    pdf += "endobj\n";
-  }
-
-  const xrefOffset =
-    pdf.length;
-
-  pdf += `xref\n`;
-  pdf += `0 ${
-    maxObject + 1
-  }\n`;
-  pdf +=
-    "0000000000 65535 f \n";
-
-  for (
-    let objectNumber = 1;
-    objectNumber <= maxObject;
-    objectNumber++
-  ) {
-    pdf += `${String(
-      offsets[objectNumber]
-    ).padStart(
-      10,
-      "0"
-    )} 00000 n \n`;
-  }
-
-  pdf += `trailer\n`;
-  pdf += `<< /Size ${
-    maxObject + 1
-  } /Root ${catalogObject} 0 R >>\n`;
-  pdf += `startxref\n`;
-  pdf += `${xrefOffset}\n`;
-  pdf += "%%EOF";
-
-  return pdf;
-}
-
-function wrapPdfLine(
-  text: string,
-  maxWidth: number,
-  fontSize: number
-) {
-  const approximateCharWidth =
-    fontSize * 0.52;
-
-  const maxCharacters = Math.max(
-    20,
-    Math.floor(
-      maxWidth /
-        approximateCharWidth
-    )
-  );
+  const withoutSocialScience =
+    text.replace(
+      /\bsocial\s+sciences?\b/gi,
+      ""
+    );
 
   if (
-    text.length <=
-    maxCharacters
+    /\bsciences?\b/i.test(
+      withoutSocialScience
+    )
   ) {
-    return [text];
+    categories.push("Science");
   }
 
-  const words =
-    text.split(" ");
-
-  const lines: string[] = [];
-
-  let current = "";
-
-  words.forEach((word) => {
-    const candidate = current
-      ? `${current} ${word}`
-      : word;
-
-    if (
-      candidate.length <=
-      maxCharacters
-    ) {
-      current = candidate;
-    } else {
-      if (current) {
-        lines.push(current);
-      }
-
-      current = word;
-    }
-  });
-
-  if (current) {
-    lines.push(current);
+  if (
+    /\barts?\b/i.test(text)
+  ) {
+    categories.push("Arts");
   }
 
-  return lines;
+  if (
+    /\bcommercial\b/i.test(
+      text
+    ) ||
+    /\bcommercial\s+subjects?\b/i.test(
+      text
+    )
+  ) {
+    categories.push(
+      "Commercial"
+    );
+  }
+
+  return uniqueValues(categories);
 }
 
-/* -------------------------------------------------------
-   REPORT HELPERS
-------------------------------------------------------- */
+function parseRequirement(
+  rawText: string,
+  type: "jamb" | "olevel",
+  programme: string
+): ParsedRequirement {
+  const text =
+    normaliseText(rawText);
 
-function getSafeCandidateName(
-  candidateName: string
+  if (
+    programme
+      .toLowerCase()
+      .trim() ===
+    "philosophy"
+  ) {
+    if (type === "jamb") {
+      return {
+        required: [],
+        alternatives: [],
+        alternativeCategories:
+          [],
+        alternativesRequired: 3,
+        unrestricted: true,
+      };
+    }
+
+    return {
+      required: [
+        "English Language",
+      ],
+      alternatives: [],
+      alternativeCategories: [],
+      alternativesRequired: 4,
+      unrestricted: true,
+    };
+  }
+
+  const aliases =
+    type === "jamb"
+      ? jambAliases
+      : oLevelAliases;
+
+  let requiredText = text;
+  let alternativeText = "";
+
+  const alternativePatterns = [
+    /\band\s+any\s+(?:one\s+)?(?:other\s+)?subject\s+from\b/i,
+    /\band\s+any\s+(?:other\s+)?subject\s+from\b/i,
+    /\bany\s+(?:one\s+)?(?:other\s+)?subject\s+from\b/i,
+    /\bany\s+(?:other\s+)?subject\s+from\b/i,
+
+    /\band\s+(one|two|three|four|five|\d+)\s+(?:other\s+)?subjects?\s+from\b/i,
+    /\b(one|two|three|four|five|\d+)\s+(?:other\s+)?subjects?\s+from\b/i,
+
+    /\band\s+any\s+(one|two|three|four|five|\d+)\s+of\b/i,
+    /\bany\s+(one|two|three|four|five|\d+)\s+of\b/i,
+
+    /\band\s+one\s+of\b/i,
+    /\bone\s+of\b/i,
+  ];
+
+  let alternativesRequired =
+    0;
+
+  let splitIndex = -1;
+  let splitLength = 0;
+
+  for (
+    const pattern of
+    alternativePatterns
+  ) {
+    const match =
+      pattern.exec(text);
+
+    if (match) {
+      splitIndex =
+        match.index;
+
+      splitLength =
+        match[0].length;
+
+      alternativesRequired =
+        match[1]
+          ? wordToNumber(
+              match[1]
+            )
+          : 1;
+
+      break;
+    }
+  }
+
+  if (splitIndex >= 0) {
+    requiredText =
+      text.slice(
+        0,
+        splitIndex
+      );
+
+    alternativeText =
+      text.slice(
+        splitIndex +
+          splitLength
+      );
+  }
+
+  let required =
+    extractSubjects(
+      requiredText,
+      aliases
+    );
+
+  let alternatives =
+    extractSubjects(
+      alternativeText,
+      aliases
+    );
+
+  const alternativeCategories =
+    extractRequirementCategories(
+      alternativeText
+    );
+
+  if (type === "jamb") {
+    required =
+      required.filter(
+        (subject) =>
+          subject !==
+          "Use of English"
+      );
+  }
+
+  if (
+    type === "olevel" &&
+    /\benglish\b/i.test(
+      requiredText
+    ) &&
+    !required.includes(
+      "English Language"
+    )
+  ) {
+    required.unshift(
+      "English Language"
+    );
+  }
+
+  if (
+    type === "olevel" &&
+    /\bmathematics\b/i.test(
+      requiredText
+    ) &&
+    !required.includes(
+      "General Mathematics"
+    )
+  ) {
+    required.push(
+      "General Mathematics"
+    );
+  }
+
+  if (
+    alternativeText &&
+    alternativesRequired === 0
+  ) {
+    alternativesRequired = 1;
+  }
+
+  return {
+    required:
+      uniqueValues(required),
+
+    alternatives:
+      uniqueValues(
+        alternatives
+      ),
+
+    alternativeCategories,
+
+    alternativesRequired,
+
+    unrestricted: false,
+  };
+}
+
+function subjectMatchesJambCategory(
+  subject: string,
+  category: string
 ) {
   return (
-    candidateName
+    jambSubjectCategories[
+      category
+    ]?.includes(subject) ??
+    false
+  );
+}
+
+function subjectMatchesOLevelCategory(
+  subject: string,
+  category: string
+) {
+  return (
+    oLevelSubjectCategories[
+      category
+    ]?.includes(subject) ??
+    false
+  );
+}
+
+function isCredit(
+  grade: string
+) {
+  return (
+    (gradePoints[grade] ?? 0) >
+    0
+  );
+}
+
+function getAvailableJambOptions(
+  values: string[],
+  index: number
+) {
+  const selectedByOthers =
+    values.filter(
+      (_, currentIndex) =>
+        currentIndex !== index
+    );
+
+  return jambSubjects.filter(
+    (subject) =>
+      !selectedByOthers.includes(
+        subject
+      ) ||
+      values[index] === subject
+  );
+}
+
+function getAvailableOLevelOptions(
+  values: OLevelEntry[],
+  index: number
+) {
+  if (index === 0) {
+    return [
+      "English Language",
+    ];
+  }
+
+  const selectedByOthers =
+    values
+      .filter(
+        (_, currentIndex) =>
+          currentIndex !==
+          index
+      )
+      .map(
+        (entry) =>
+          entry.subject
+      )
+      .filter(Boolean);
+
+  return oLevelSubjects.filter(
+    (subject) =>
+      subject !==
+        "English Language" &&
+      (!selectedByOthers.includes(
+        subject
+      ) ||
+        values[index]
+          .subject ===
+          subject)
+  );
+}
+
+function getSafeCandidateName(
+  name: string
+) {
+  return (
+    name
       .trim()
       .replace(
         /[^a-zA-Z0-9]+/g,
@@ -2191,235 +757,751 @@ function getSafeCandidateName(
       .replace(
         /^_+|_+$/g,
         ""
-      ) ||
-    "Candidate"
+      ) || "Candidate"
   );
 }
 
-function wrapText(
-  context: CanvasRenderingContext2D,
-  text: string,
-  maxWidth: number
+function downloadBlob(
+  blob: Blob,
+  filename: string
 ) {
-  const words =
-    text.split(" ");
+  const url =
+    URL.createObjectURL(blob);
 
-  const lines: string[] = [];
+  const link =
+    document.createElement("a");
 
-  let currentLine = "";
+  link.href = url;
+  link.download = filename;
 
-  words.forEach(
-    (word) => {
-      const testLine =
-        currentLine
-          ? `${currentLine} ${word}`
-          : word;
-
-      if (
-        context.measureText(
-          testLine
-        ).width <=
-        maxWidth
-      ) {
-        currentLine =
-          testLine;
-      } else {
-        if (currentLine) {
-          lines.push(
-            currentLine
-          );
-        }
-
-        currentLine = word;
-      }
-    }
+  document.body.appendChild(
+    link
   );
 
-  if (currentLine) {
-    lines.push(
-      currentLine
+  link.click();
+
+  document.body.removeChild(
+    link
+  );
+
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+  }, 1000);
+}
+
+function loadImage(
+  src: string
+): Promise<HTMLImageElement> {
+  return new Promise(
+    (resolve, reject) => {
+      const image =
+        new Image();
+
+      image.onload = () =>
+        resolve(image);
+
+      image.onerror = () =>
+        reject(
+          new Error(
+            `Unable to load ${src}`
+          )
+        );
+
+      image.src = src;
+    }
+  );
+}
+
+function createCroppedLogo(
+  image: HTMLImageElement
+) {
+  const source =
+    document.createElement(
+      "canvas"
+    );
+
+  source.width =
+    image.naturalWidth ||
+    image.width;
+
+  source.height =
+    image.naturalHeight ||
+    image.height;
+
+  const ctx =
+    source.getContext("2d");
+
+  if (!ctx) {
+    return source;
+  }
+
+  ctx.drawImage(
+    image,
+    0,
+    0
+  );
+
+  const imageData =
+    ctx.getImageData(
+      0,
+      0,
+      source.width,
+      source.height
+    );
+
+  const data =
+    imageData.data;
+
+  let minX =
+    source.width;
+
+  let minY =
+    source.height;
+
+  let maxX = 0;
+  let maxY = 0;
+
+  let found = false;
+
+  for (
+    let y = 0;
+    y < source.height;
+    y += 2
+  ) {
+    for (
+      let x = 0;
+      x < source.width;
+      x += 2
+    ) {
+      const index =
+        (y * source.width +
+          x) *
+        4;
+
+      const r =
+        data[index];
+
+      const g =
+        data[index + 1];
+
+      const b =
+        data[index + 2];
+
+      const a =
+        data[index + 3];
+
+      const white =
+        r > 245 &&
+        g > 245 &&
+        b > 245;
+
+      if (
+        a > 20 &&
+        !white
+      ) {
+        found = true;
+
+        minX =
+          Math.min(
+            minX,
+            x
+          );
+
+        minY =
+          Math.min(
+            minY,
+            y
+          );
+
+        maxX =
+          Math.max(
+            maxX,
+            x
+          );
+
+        maxY =
+          Math.max(
+            maxY,
+            y
+          );
+      }
+    }
+  }
+
+  if (!found) {
+    return source;
+  }
+
+  const padding = 25;
+
+  minX =
+    Math.max(
+      0,
+      minX - padding
+    );
+
+  minY =
+    Math.max(
+      0,
+      minY - padding
+    );
+
+  maxX =
+    Math.min(
+      source.width,
+      maxX + padding
+    );
+
+  maxY =
+    Math.min(
+      source.height,
+      maxY + padding
+    );
+
+  const width =
+    maxX - minX;
+
+  const height =
+    maxY - minY;
+
+  const cropped =
+    document.createElement(
+      "canvas"
+    );
+
+  cropped.width = width;
+  cropped.height = height;
+
+  const croppedCtx =
+    cropped.getContext(
+      "2d"
+    );
+
+  if (!croppedCtx) {
+    return source;
+  }
+
+  croppedCtx.drawImage(
+    source,
+    minX,
+    minY,
+    width,
+    height,
+    0,
+    0,
+    width,
+    height
+  );
+
+  return cropped;
+}
+
+function roundedBox(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  radius: number,
+  fill: string,
+  stroke?: string
+) {
+  ctx.beginPath();
+
+  ctx.roundRect(
+    x,
+    y,
+    width,
+    height,
+    radius
+  );
+
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (stroke) {
+    ctx.strokeStyle =
+      stroke;
+
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+}
+
+function drawWrappedText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  y: number,
+  maxWidth: number,
+  lineHeight: number,
+  font: string,
+  color = "#0f172a"
+) {
+  ctx.font = font;
+  ctx.fillStyle = color;
+
+  const words =
+    text.split(/\s+/);
+
+  let line = "";
+  let currentY = y;
+
+  for (
+    const word of words
+  ) {
+    const test =
+      line
+        ? `${line} ${word}`
+        : word;
+
+    if (
+      ctx.measureText(test)
+        .width >
+        maxWidth &&
+      line
+    ) {
+      ctx.fillText(
+        line,
+        x,
+        currentY
+      );
+
+      line = word;
+
+      currentY +=
+        lineHeight;
+    } else {
+      line = test;
+    }
+  }
+
+  if (line) {
+    ctx.fillText(
+      line,
+      x,
+      currentY
     );
   }
 
-  return lines;
+  return currentY;
 }
 
-function createReportLines(
-  candidateName: string,
-  course: string,
-  jambScore: string,
-  selectedJambSubjects: string[],
-  completedOLevelResults: OLevelEntry[],
-  validation: {
-    eligible: boolean;
-    jambCutoffValid: boolean;
-    messages: string[];
-    score: number | null;
-    bestFive: OLevelEntry[];
-  },
-  liveCalculator: {
-    jambPoints: number;
-    oLevelPoints: number;
-  }
+function drawSectionHeader(
+  ctx: CanvasRenderingContext2D,
+  title: string,
+  x: number,
+  y: number,
+  width: number
 ) {
-  const status =
-    validation.eligible
-      ? "ELIGIBLE"
-      : "NOT ELIGIBLE";
+  const gradient =
+    ctx.createLinearGradient(
+      x,
+      y,
+      x + width,
+      y
+    );
 
-  const reportJambSubjects = [
-    "Use of English",
-    ...selectedJambSubjects,
-  ];
+  gradient.addColorStop(
+    0,
+    "#065f46"
+  );
 
-  const reportOLevelResults =
-    completedOLevelResults.length >
-    0
-      ? completedOLevelResults.map(
-          (entry) =>
-            `${entry.subject}: ${entry.grade}`
-        )
-      : [
-          "No completed O-Level result entered",
-        ];
+  gradient.addColorStop(
+    1,
+    "#047857"
+  );
 
-  const bestFiveResults =
-    validation.bestFive.length >
-    0
-      ? validation.bestFive.map(
-          (entry) =>
-            `${entry.subject}: ${entry.grade}`
-        )
-      : ["Not available"];
+  ctx.beginPath();
 
-  return [
-    "S.O.H CONSULTS",
-    "LASU AGGREGATE & ELIGIBILITY REPORT",
-    "",
-    "Candidate Information",
-    `Candidate Name: ${
-      candidateName.trim() ||
-      "Not provided"
-    }`,
-    `Selected Course: ${
-      course || "Not selected"
-    }`,
-    `Eligibility Status: ${status}`,
-    "",
-    "JAMB UTME",
-    `JAMB Score: ${
-      jambScore || "Not provided"
-    }`,
-    `LASU Minimum Cut-off: ${LASU_CUTOFF_MARK}`,
-    `JAMB Cut-off Status: ${
-      validation.jambCutoffValid
-        ? "Passed"
-        : "Failed"
-    }`,
-    `JAMB Points: ${liveCalculator.jambPoints.toFixed(
-      2
-    )} / 60`,
-    "Selected JAMB Subjects:",
-    ...reportJambSubjects.map(
-      (subject) =>
-        `- ${subject}`
-    ),
-    "",
-    "O-LEVEL RESULTS",
-    `Completed Results: ${completedOLevelResults.length} / 9`,
-    ...reportOLevelResults.map(
-      (result) =>
-        `- ${result}`
-    ),
-    "",
-    "BEST FIVE RELEVANT O-LEVEL RESULTS",
-    ...bestFiveResults.map(
-      (result) =>
-        `- ${result}`
-    ),
-    "",
-    "AGGREGATE",
-    `O-Level Points: ${liveCalculator.oLevelPoints} / 40`,
-    `Estimated Aggregate: ${
-      validation.score !==
-      null
-        ? `${validation.score.toFixed(
-            2
-          )} / 100`
-        : "Not available"
-    }`,
-    "",
-    "ASSESSMENT",
-    validation.eligible
-      ? "The candidate satisfies the entered LASU screening requirements for the selected course."
-      : "The candidate does not satisfy one or more of the entered LASU screening requirements.",
-    "",
-    "Validation Notes",
-    ...(validation.messages
-      .length > 0
-      ? validation.messages
-          .slice(0, 12)
-          .map(
-            (message) =>
-              `- ${message}`
-          )
-      : [
-          "- No validation errors.",
-        ]),
-    "",
-    "IMPORTANT DISCLAIMER",
-    "This report is generated by S.O.H CONSULTS for guidance and self-screening purposes.",
-    "It is not an official LASU admission letter, screening result, or guarantee of admission.",
-    "LASU Course Requirements Checker: https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
-    "Requirements are presented by LASU as listed in the JAMB Brochure.",
-    `Generated: ${new Date().toLocaleString(
-      "en-NG"
-    )}`,
-  ];
+  ctx.roundRect(
+    x,
+    y,
+    width,
+    44,
+    8
+  );
+
+  ctx.fillStyle =
+    gradient;
+
+  ctx.fill();
+
+  ctx.font =
+    "700 20px Arial";
+
+  ctx.fillStyle =
+    "#ffffff";
+
+  ctx.fillText(
+    title,
+    x + 18,
+    y + 29
+  );
+}
+
+function drawStatusIcon(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  success: boolean
+) {
+  ctx.beginPath();
+
+  ctx.arc(
+    x,
+    y,
+    26,
+    0,
+    Math.PI * 2
+  );
+
+  ctx.fillStyle =
+    success
+      ? "#059669"
+      : "#dc2626";
+
+  ctx.fill();
+
+  ctx.strokeStyle =
+    "#ffffff";
+
+  ctx.lineWidth = 6;
+
+  ctx.lineCap =
+    "round";
+
+  ctx.lineJoin =
+    "round";
+
+  if (success) {
+    ctx.beginPath();
+
+    ctx.moveTo(
+      x - 11,
+      y
+    );
+
+    ctx.lineTo(
+      x - 3,
+      y + 9
+    );
+
+    ctx.lineTo(
+      x + 15,
+      y - 12
+    );
+
+    ctx.stroke();
+  } else {
+    ctx.beginPath();
+
+    ctx.moveTo(
+      x - 9,
+      y - 9
+    );
+
+    ctx.lineTo(
+      x + 9,
+      y + 9
+    );
+
+    ctx.moveTo(
+      x + 9,
+      y - 9
+    );
+
+    ctx.lineTo(
+      x - 9,
+      y + 9
+    );
+
+    ctx.stroke();
+  }
 }
 
 export default function LASUCalculator() {
-  const [candidateName, setCandidateName] =
-    useState("");
+  const [
+    programmes,
+    setProgrammes,
+  ] = useState<
+    Programme[]
+  >([]);
 
-  const [course, setCourse] =
-    useState("");
+  const [
+    programmesLoading,
+    setProgrammesLoading,
+  ] = useState(true);
 
-  const [jambScore, setJambScore] =
-    useState("");
+  const [
+    programmesError,
+    setProgrammesError,
+  ] = useState("");
 
-  const [jambElectives, setJambElectives] =
-    useState<string[]>([
-      "",
-      "",
-      "",
-    ]);
+  const [
+    selectedCourseId,
+    setSelectedCourseId,
+  ] = useState("");
 
-  const [oLevel, setOLevel] =
-    useState<OLevelEntry[]>([
+  const [
+    selectedCourseName,
+    setSelectedCourseName,
+  ] = useState("");
+
+  const [
+    lasuRequirement,
+    setLasuRequirement,
+  ] = useState<
+    LasuRequirement | null
+  >(null);
+
+  const [
+    requirementLoading,
+    setRequirementLoading,
+  ] = useState(false);
+
+  const [
+    requirementError,
+    setRequirementError,
+  ] = useState("");
+
+  const [
+    candidateName,
+    setCandidateName,
+  ] = useState("");
+
+  const [
+    jambScore,
+    setJambScore,
+  ] = useState("");
+
+  const [
+    jambElectives,
+    setJambElectives,
+  ] = useState<string[]>([
+    "",
+    "",
+    "",
+  ]);
+
+  const [
+    oLevel,
+    setOLevel,
+  ] = useState<
+    OLevelEntry[]
+  >([
+    {
+      subject:
+        "English Language",
+      grade: "",
+    },
+    ...Array.from(
       {
-        subject:
-          "English Language",
-        grade: "",
+        length: 8,
       },
-      ...Array.from(
-        { length: 8 },
-        () => ({
-          subject: "",
-          grade: "",
-        })
-      ),
-    ]);
+      () => ({
+        subject: "",
+        grade: "",
+      })
+    ),
+  ]);
 
-  const [checked, setChecked] =
-    useState(false);
+  const [
+    checked,
+    setChecked,
+  ] = useState(false);
 
-  const requirement =
-    course
-      ? courseRequirements[
-          course
-        ]
-      : undefined;
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadProgrammes() {
+      setProgrammesLoading(
+        true
+      );
+
+      setProgrammesError(
+        ""
+      );
+
+      try {
+        const response =
+          await fetch(
+            "/api/lasu/programmes",
+            {
+              cache:
+                "no-store",
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (
+          !response.ok ||
+          !data.success ||
+          !Array.isArray(
+            data.programmes
+          )
+        ) {
+          throw new Error(
+            data.error ||
+              "Unable to load LASU programmes."
+          );
+        }
+
+        if (!cancelled) {
+          setProgrammes(
+            data.programmes
+          );
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setProgrammesError(
+            error instanceof
+              Error
+              ? error.message
+              : "Unable to load LASU programmes."
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setProgrammesLoading(
+            false
+          );
+        }
+      }
+    }
+
+    loadProgrammes();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadRequirement() {
+      if (
+        !selectedCourseId
+      ) {
+        setLasuRequirement(
+          null
+        );
+
+        setRequirementError(
+          ""
+        );
+
+        return;
+      }
+
+      setRequirementLoading(
+        true
+      );
+
+      setRequirementError(
+        ""
+      );
+
+      setLasuRequirement(
+        null
+      );
+
+      try {
+        const response =
+          await fetch(
+            "/api/lasu/requirements",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+
+              body:
+                JSON.stringify({
+                  courseId:
+                    selectedCourseId,
+                }),
+            }
+          );
+
+        const data:
+          LasuRequirement =
+          await response.json();
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+          throw new Error(
+            data.error ||
+              "Unable to load LASU requirements."
+          );
+        }
+
+        if (!cancelled) {
+          setLasuRequirement(
+            data
+          );
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setRequirementError(
+            error instanceof
+              Error
+              ? error.message
+              : "Unable to load LASU requirements."
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setRequirementLoading(
+            false
+          );
+        }
+      }
+    }
+
+    loadRequirement();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedCourseId]);
+
+  const parsedJamb =
+    useMemo(
+      () =>
+        parseRequirement(
+          lasuRequirement?.utme ||
+            "",
+          "jamb",
+          selectedCourseName
+        ),
+      [
+        lasuRequirement,
+        selectedCourseName,
+      ]
+    );
+
+  const parsedOLevel =
+    useMemo(
+      () =>
+        parseRequirement(
+          lasuRequirement?.oLevel ||
+            "",
+          "olevel",
+          selectedCourseName
+        ),
+      [
+        lasuRequirement,
+        selectedCourseName,
+      ]
+    );
 
   const completedOLevelResults =
     useMemo(
@@ -2441,53 +1523,96 @@ export default function LASUCalculator() {
       [jambElectives]
     );
 
-  const liveCalculator =
+  const creditOLevelResults =
+    useMemo(
+      () =>
+        completedOLevelResults.filter(
+          (entry) =>
+            isCredit(
+              entry.grade
+            )
+        ),
+      [
+        completedOLevelResults,
+      ]
+    );
+
+  const bestFive =
     useMemo(() => {
-      const numericJambScore =
-        Number(jambScore);
+      const credits = [
+        ...creditOLevelResults,
+      ];
 
-      const validJambScore =
-        jambScore !== "" &&
-        Number.isFinite(
-          numericJambScore
-        ) &&
-        numericJambScore >= 0 &&
-        numericJambScore <= 400;
+      if (
+        selectedCourseName ===
+        "Philosophy"
+      ) {
+        return credits
+          .sort(
+            (a, b) =>
+              (gradePoints[
+                b.grade
+              ] ?? 0) -
+              (gradePoints[
+                a.grade
+              ] ?? 0)
+          )
+          .slice(0, 5);
+      }
 
-      const jambPoints =
-        validJambScore
-          ? numericJambScore *
-            0.15
-          : 0;
+      const categorySubjects =
+        parsedOLevel
+          .alternativeCategories
+          .flatMap(
+            (category) =>
+              oLevelSubjectCategories[
+                category
+              ] ?? []
+          );
 
       const relevantPool =
-        requirement
-          ? getRelevantSubjectPool(
-              requirement
-            )
-          : [];
+        uniqueValues([
+          ...parsedOLevel.required,
+          ...parsedOLevel.alternatives,
+          ...categorySubjects,
+        ]);
 
-      const relevantEntries =
-        oLevel.filter(
+      let relevant =
+        credits.filter(
           (entry) =>
-            entry.subject &&
-            entry.grade &&
-            (!requirement ||
-              relevantPool.includes(
-                entry.subject
-              )) &&
-            gradePoints[
-              entry.grade
-            ] !==
-              undefined &&
-            gradePoints[
-              entry.grade
-            ] > 0
+            relevantPool.length ===
+              0 ||
+            relevantPool.includes(
+              entry.subject
+            )
         );
 
-      const bestFive = [
-        ...relevantEntries,
-      ]
+      if (
+        relevant.length < 5
+      ) {
+        const alreadySelected =
+          new Set(
+            relevant.map(
+              (entry) =>
+                entry.subject
+            )
+          );
+
+        const fillers =
+          credits.filter(
+            (entry) =>
+              !alreadySelected.has(
+                entry.subject
+              )
+          );
+
+        relevant = [
+          ...relevant,
+          ...fillers,
+        ];
+      }
+
+      return relevant
         .sort(
           (a, b) =>
             (gradePoints[
@@ -2498,8 +1623,34 @@ export default function LASUCalculator() {
             ] ?? 0)
         )
         .slice(0, 5);
+    }, [
+      creditOLevelResults,
+      parsedOLevel,
+      selectedCourseName,
+    ]);
 
-      const oLevelPoints =
+  const jambPoints =
+    useMemo(() => {
+      const score =
+        Number(jambScore);
+
+      if (
+        jambScore === "" ||
+        !Number.isFinite(
+          score
+        ) ||
+        score < 0 ||
+        score > 400
+      ) {
+        return 0;
+      }
+
+      return score * 0.15;
+    }, [jambScore]);
+
+  const oLevelPoints =
+    useMemo(
+      () =>
         bestFive.reduce(
           (
             total,
@@ -2510,31 +1661,34 @@ export default function LASUCalculator() {
               entry.grade
             ] ?? 0),
           0
-        );
+        ),
+      [bestFive]
+    );
 
-      const aggregate =
-        jambPoints +
-        oLevelPoints;
-
-      return {
-        validJambScore,
-        jambPoints,
-        oLevelPoints,
-        aggregate,
-        bestFive,
-        creditCount:
-          relevantEntries.length,
-      };
-    }, [
-      jambScore,
-      oLevel,
-      requirement,
-    ]);
+  const aggregate =
+    jambPoints +
+    oLevelPoints;
 
   const validation =
     useMemo(() => {
       const messages: string[] =
         [];
+
+      const score =
+        Number(jambScore);
+
+      const jambScoreValid =
+        jambScore !== "" &&
+        Number.isFinite(
+          score
+        ) &&
+        score >= 0 &&
+        score <= 400;
+
+      const jambCutoffValid =
+        jambScoreValid &&
+        score >=
+          LASU_CUTOFF_MARK;
 
       if (
         !candidateName.trim()
@@ -2544,54 +1698,30 @@ export default function LASUCalculator() {
         );
       }
 
-      if (!course) {
+      if (
+        !selectedCourseId
+      ) {
         messages.push(
           "Select a course."
         );
       }
 
-      if (!jambScore) {
+      if (!jambScoreValid) {
         messages.push(
-          "Enter your JAMB score."
+          "Enter a valid JAMB score between 0 and 400."
         );
-      }
-
-      const numericJambScore =
-        Number(jambScore);
-
-      const jambScoreValid =
-        jambScore !== "" &&
-        Number.isFinite(
-          numericJambScore
-        ) &&
-        numericJambScore >= 0 &&
-        numericJambScore <= 400;
-
-      const jambCutoffValid =
-        jambScoreValid &&
-        numericJambScore >=
-          LASU_CUTOFF_MARK;
-
-      if (
-        jambScoreValid &&
+      } else if (
         !jambCutoffValid
       ) {
         messages.push(
-          `JAMB score below LASU minimum cut-off mark of ${LASU_CUTOFF_MARK}. Candidate is disqualified.`
+          `JAMB score is below LASU minimum cut-off mark of ${LASU_CUTOFF_MARK}.`
         );
       }
 
-      if (!requirement) {
-        messages.push(
-          "Select a course to continue."
-        );
-      }
-
-      const duplicateJambSubjects =
+      const jambUnique =
         uniqueValues(
           selectedJambSubjects
-        ).length !==
-        selectedJambSubjects.length;
+        );
 
       if (
         selectedJambSubjects.length !==
@@ -2603,83 +1733,132 @@ export default function LASUCalculator() {
       }
 
       if (
-        duplicateJambSubjects
+        jambUnique.length !==
+        selectedJambSubjects.length
       ) {
         messages.push(
           "JAMB subjects must not contain duplicates."
         );
       }
 
-      let jambValid = false;
+      let jambRequirementValid =
+        false;
 
-      if (requirement) {
-        const requiredJambSatisfied =
-          requirement.requiredJamb.every(
+      if (
+        selectedCourseName ===
+        "Philosophy"
+      ) {
+        jambRequirementValid =
+          selectedJambSubjects.length ===
+            3 &&
+          jambUnique.length === 3;
+      } else if (
+        lasuRequirement?.utme
+      ) {
+        const compulsoryValid =
+          parsedJamb.required.every(
             (subject) =>
               selectedJambSubjects.includes(
                 subject
               )
           );
 
-        const oneOfJambSatisfied =
-          requirement.oneOfJamb?.every(
-            (group) =>
-              groupSatisfied(
-                selectedJambSubjects,
-                group
-              )
-          ) ?? true;
+        const alternativeCount =
+          selectedJambSubjects.filter(
+            (subject) => {
+              const explicitMatch =
+                parsedJamb
+                  .alternatives
+                  .includes(
+                    subject
+                  );
 
-        jambValid =
+              const categoryMatch =
+                parsedJamb
+                  .alternativeCategories
+                  .some(
+                    (
+                      category
+                    ) =>
+                      subjectMatchesJambCategory(
+                        subject,
+                        category
+                      )
+                  );
+
+              return (
+                explicitMatch ||
+                categoryMatch
+              );
+            }
+          ).length;
+
+        const alternativesValid =
+          parsedJamb
+            .alternativesRequired ===
+            0 ||
+          alternativeCount >=
+            parsedJamb
+              .alternativesRequired;
+
+        jambRequirementValid =
+          compulsoryValid &&
+          alternativesValid &&
           selectedJambSubjects.length ===
             3 &&
-          !duplicateJambSubjects &&
-          requiredJambSatisfied &&
-          oneOfJambSatisfied &&
-          jambCutoffValid;
+          jambUnique.length ===
+            3;
 
-        if (
-          !requiredJambSatisfied
-        ) {
-          requirement.requiredJamb.forEach(
-            (subject) => {
-              if (
-                !selectedJambSubjects.includes(
-                  subject
-                )
-              ) {
-                messages.push(
-                  `${subject} is required for ${course}.`
-                );
-              }
-            }
-          );
-        }
-
-        requirement.oneOfJamb?.forEach(
-          (group) => {
+        parsedJamb.required.forEach(
+          (subject) => {
             if (
-              !groupSatisfied(
-                selectedJambSubjects,
-                group
+              !selectedJambSubjects.includes(
+                subject
               )
             ) {
               messages.push(
-                `${group.label}: select at least ${group.required} qualifying subject(s).`
+                `${subject} is required in UTME for ${selectedCourseName}.`
               );
             }
           }
         );
-      }
 
-      const duplicateOLevelSubjects =
-        uniqueValues(
-          completedOLevelResults.map(
-            (entry) =>
-              entry.subject
-          )
-        ).length !==
-        completedOLevelResults.length;
+        if (
+          !alternativesValid
+        ) {
+          const allowedDescriptions =
+            [
+              ...parsedJamb
+                .alternativeCategories
+                .map(
+                  (
+                    category
+                  ) =>
+                    `any ${category} subject`
+                ),
+
+              ...parsedJamb.alternatives,
+            ];
+
+          if (
+            allowedDescriptions.length >
+            0
+          ) {
+            messages.push(
+              `Select at least ${
+                parsedJamb
+                  .alternativesRequired
+              } UTME subject(s) from: ${allowedDescriptions.join(
+                ", "
+              )}.`
+            );
+          }
+        }
+      } else {
+        messages.push(
+          "LASU UTME requirement has not loaded yet."
+        );
+      }
 
       if (
         completedOLevelResults.length <
@@ -2688,315 +1867,338 @@ export default function LASUCalculator() {
           9
       ) {
         messages.push(
-          "Select between 5 and 9 completed O-Level results."
+          "Enter between 5 and 9 completed O-Level results."
         );
       }
 
+      const oLevelSubjectsUsed =
+        completedOLevelResults.map(
+          (entry) =>
+            entry.subject
+        );
+
       if (
-        duplicateOLevelSubjects
+        uniqueValues(
+          oLevelSubjectsUsed
+        ).length !==
+        oLevelSubjectsUsed.length
       ) {
         messages.push(
           "O-Level subjects must not contain duplicates."
         );
       }
 
-      let oLevelValid = false;
+      let oLevelRequirementValid =
+        false;
 
-      if (requirement) {
-        const creditEntries =
-          completedOLevelResults.filter(
+      if (
+        selectedCourseName ===
+        "Philosophy"
+      ) {
+        const englishCredit =
+          creditOLevelResults.some(
             (entry) =>
-              gradePoints[
-                entry.grade
-              ] !==
-                undefined &&
-              gradePoints[
-                entry.grade
-              ] > 0
+              entry.subject ===
+              "English Language"
           );
 
-        const requiredOlevelSatisfied =
-          requirement.requiredOlevel.every(
-            (subject) =>
-              completedOLevelResults.some(
-                (entry) =>
-                  entry.subject ===
-                    subject &&
-                  (gradePoints[
-                    entry.grade
-                  ] ?? 0) > 0
-              )
-          );
-
-        const oneOfOlevelSatisfied =
-          requirement.oneOfOlevel?.every(
-            (group) =>
-              groupSatisfied(
-                completedOLevelResults
-                  .filter(
-                    (entry) =>
-                      (gradePoints[
-                        entry.grade
-                      ] ?? 0) > 0
-                  )
-                  .map(
-                    (entry) =>
-                      entry.subject
-                  ),
-                group,
-                group.anySubject
-                  ? requirement.requiredOlevel
-                  : []
-              )
-          ) ?? true;
-
-        const relevantPool =
-          getRelevantSubjectPool(
-            requirement
-          );
-
-        const relevantCredits =
-          completedOLevelResults.filter(
+        const otherCredits =
+          creditOLevelResults.filter(
             (entry) =>
-              relevantPool.includes(
-                entry.subject
-              ) &&
-              (gradePoints[
-                entry.grade
-              ] ?? 0) > 0
-          );
+              entry.subject !==
+              "English Language"
+          ).length;
 
-        const bestFive = [
-          ...relevantCredits,
-        ]
-          .sort(
-            (a, b) =>
-              (gradePoints[
-                b.grade
-              ] ?? 0) -
-              (gradePoints[
-                a.grade
-              ] ?? 0)
-          )
-          .slice(0, 5);
+        oLevelRequirementValid =
+          englishCredit &&
+          otherCredits >= 4;
 
-        const hasFiveRelevantCredits =
-          bestFive.length >= 5;
-
-        if (
-          !requiredOlevelSatisfied
-        ) {
-          requirement.requiredOlevel.forEach(
-            (subject) => {
-              const hasCredit =
-                completedOLevelResults.some(
-                  (entry) =>
-                    entry.subject ===
-                      subject &&
-                    (gradePoints[
-                      entry.grade
-                    ] ?? 0) > 0
-                );
-
-              if (!hasCredit) {
-                messages.push(
-                  `${subject} requires a credit pass.`
-                );
-              }
-            }
+        if (!englishCredit) {
+          messages.push(
+            "English Language requires a credit pass for Philosophy."
           );
         }
 
-        requirement.oneOfOlevel?.forEach(
-          (group) => {
-            if (
-              !groupSatisfied(
-                completedOLevelResults
-                  .filter(
-                    (entry) =>
-                      (gradePoints[
-                        entry.grade
-                      ] ?? 0) > 0
-                  )
-                  .map(
-                    (entry) =>
-                      entry.subject
-                  ),
-                group,
-                group.anySubject
-                  ? requirement.requiredOlevel
-                  : []
+        if (
+          otherCredits < 4
+        ) {
+          messages.push(
+            "Philosophy requires English Language plus any four other O-Level credit passes."
+          );
+        }
+      } else if (
+        lasuRequirement?.oLevel
+      ) {
+        const requiredValid =
+          parsedOLevel.required.every(
+            (subject) =>
+              creditOLevelResults.some(
+                (entry) =>
+                  entry.subject ===
+                  subject
               )
-            ) {
+          );
+
+        parsedOLevel.required.forEach(
+          (subject) => {
+            const found =
+              creditOLevelResults.some(
+                (entry) =>
+                  entry.subject ===
+                  subject
+              );
+
+            if (!found) {
               messages.push(
-                `${group.label}: select at least ${group.required} qualifying O-Level subject(s) with credit passes.`
+                `${subject} requires a credit pass for ${selectedCourseName}.`
               );
             }
           }
         );
 
-        if (
-          creditEntries.length <
-          requirement.minimumRelevantCredits
-        ) {
-          messages.push(
-            `At least ${requirement.minimumRelevantCredits} relevant O-Level credit passes are required.`
-          );
-        }
+        const alternativeCount =
+          creditOLevelResults.filter(
+            (entry) => {
+              const explicitMatch =
+                parsedOLevel
+                  .alternatives
+                  .includes(
+                    entry.subject
+                  );
+
+              const categoryMatch =
+                parsedOLevel
+                  .alternativeCategories
+                  .some(
+                    (
+                      category
+                    ) =>
+                      subjectMatchesOLevelCategory(
+                        entry.subject,
+                        category
+                      )
+                  );
+
+              return (
+                explicitMatch ||
+                categoryMatch
+              );
+            }
+          ).length;
+
+        const alternativesValid =
+          parsedOLevel
+            .alternativesRequired ===
+            0 ||
+          alternativeCount >=
+            parsedOLevel
+              .alternativesRequired;
 
         if (
-          !hasFiveRelevantCredits
+          !alternativesValid
         ) {
-          messages.push(
-            "At least five relevant O-Level credit passes are required for the aggregate calculation."
-          );
+          const allowedDescriptions =
+            [
+              ...parsedOLevel
+                .alternativeCategories
+                .map(
+                  (
+                    category
+                  ) =>
+                    `any ${category} subject`
+                ),
+
+              ...parsedOLevel
+                .alternatives,
+            ];
+
+          if (
+            allowedDescriptions.length >
+            0
+          ) {
+            messages.push(
+              `Select at least ${
+                parsedOLevel
+                  .alternativesRequired
+              } O-Level credit subject(s) from: ${allowedDescriptions.join(
+                ", "
+              )}.`
+            );
+          }
         }
 
-        oLevelValid =
-          completedOLevelResults.length >=
-            5 &&
-          completedOLevelResults.length <=
-            9 &&
-          !duplicateOLevelSubjects &&
-          requiredOlevelSatisfied &&
-          oneOfOlevelSatisfied &&
-          creditEntries.length >=
-            requirement.minimumRelevantCredits &&
-          hasFiveRelevantCredits;
+        oLevelRequirementValid =
+          requiredValid &&
+          alternativesValid &&
+          creditOLevelResults.length >=
+            5;
+      } else {
+        messages.push(
+          "LASU O-Level requirement has not loaded yet."
+        );
       }
 
-      const score =
-        jambScoreValid &&
-        oLevelValid
-          ? liveCalculator.aggregate
-          : null;
+      const requirementLoaded =
+        Boolean(
+          lasuRequirement?.oLevel &&
+            lasuRequirement?.utme
+        );
+
+      const eligible =
+        Boolean(
+          candidateName.trim() &&
+            selectedCourseId &&
+            requirementLoaded &&
+            jambCutoffValid &&
+            jambRequirementValid &&
+            oLevelRequirementValid &&
+            bestFive.length >=
+              5
+        );
 
       return {
-        eligible:
-          candidateName.trim()
-            .length > 0 &&
-          jambValid &&
-          oLevelValid &&
-          jambCutoffValid,
+        messages:
+          uniqueValues(
+            messages
+          ),
 
-        jambValid,
-        oLevelValid,
         jambScoreValid,
+
         jambCutoffValid,
-        messages,
-        score,
-        bestFive:
-          liveCalculator.bestFive,
+
+        jambRequirementValid,
+
+        oLevelRequirementValid,
+
+        eligible,
       };
     }, [
       candidateName,
-      course,
+      selectedCourseId,
+      selectedCourseName,
       jambScore,
       selectedJambSubjects,
       completedOLevelResults,
-      requirement,
-      liveCalculator,
+      creditOLevelResults,
+      lasuRequirement,
+      parsedJamb,
+      parsedOLevel,
+      bestFive,
     ]);
 
   function updateJambSubject(
     index: number,
-    value: string
+    subject: string
   ) {
-    setChecked(false);
-
     setJambElectives(
-      (current) => {
-        if (
-          value &&
-          current.some(
-            (
-              subject,
-              optionIndex
-            ) =>
-              optionIndex !==
-                index &&
-              subject ===
-                value
-          )
-        ) {
-          return current;
-        }
-
-        const next = [
-          ...current,
-        ];
-
-        next[index] =
-          value;
-
-        return next;
-      }
+      (current) =>
+        current.map(
+          (
+            item,
+            currentIndex
+          ) =>
+            currentIndex ===
+            index
+              ? subject
+              : item
+        )
     );
+
+    setChecked(false);
   }
 
   function updateOLevelSubject(
     index: number,
-    value: string
+    subject: string
   ) {
-    setChecked(false);
+    if (index === 0) {
+      return;
+    }
 
     setOLevel(
-      (current) => {
-        if (
-          value &&
-          current.some(
-            (
-              entry,
-              optionIndex
-            ) =>
-              optionIndex !==
-                index &&
-              entry.subject ===
-                value
-          )
-        ) {
-          return current;
-        }
-
-        const next = [
-          ...current,
-        ];
-
-        next[index] = {
-          ...next[index],
-          subject: value,
-        };
-
-        return next;
-      }
+      (current) =>
+        current.map(
+          (
+            entry,
+            currentIndex
+          ) =>
+            currentIndex ===
+            index
+              ? {
+                  ...entry,
+                  subject,
+                }
+              : entry
+        )
     );
+
+    setChecked(false);
   }
 
   function updateOLevelGrade(
     index: number,
-    value: string
+    grade: string
   ) {
-    setChecked(false);
-
     setOLevel(
-      (current) => {
-        const next = [
-          ...current,
-        ];
-
-        next[index] = {
-          ...next[index],
-          grade: value,
-        };
-
-        return next;
-      }
+      (current) =>
+        current.map(
+          (
+            entry,
+            currentIndex
+          ) =>
+            currentIndex ===
+            index
+              ? {
+                  ...entry,
+                  grade,
+                }
+              : entry
+        )
     );
+
+    setChecked(false);
+  }
+
+  function handleCourseChange(
+    courseId: string
+  ) {
+    setSelectedCourseId(
+      courseId
+    );
+
+    const selected =
+      programmes.find(
+        (programme) =>
+          programme.id ===
+          courseId
+      );
+
+    setSelectedCourseName(
+      selected?.name || ""
+    );
+
+    setChecked(false);
   }
 
   function resetCalculator() {
     setCandidateName("");
-    setCourse("");
+
+    setSelectedCourseId(
+      ""
+    );
+
+    setSelectedCourseName(
+      ""
+    );
+
+    setLasuRequirement(
+      null
+    );
+
+    setRequirementError(
+      ""
+    );
+
     setJambScore("");
 
     setJambElectives([
@@ -3011,8 +2213,11 @@ export default function LASUCalculator() {
           "English Language",
         grade: "",
       },
+
       ...Array.from(
-        { length: 8 },
+        {
+          length: 8,
+        },
         () => ({
           subject: "",
           grade: "",
@@ -3023,365 +2228,1529 @@ export default function LASUCalculator() {
     setChecked(false);
   }
 
-  function getCurrentReportLines() {
-    return createReportLines(
-      candidateName,
-      course,
-      jambScore,
-      selectedJambSubjects,
-      completedOLevelResults,
-      validation,
-      liveCalculator
-    );
-  }
-
-  function downloadEligibilityReportPDF() {
-    const lines =
-      getCurrentReportLines();
-
-    const pdf =
-      createPdfDocument(
-        lines
-      );
-
-    const blob =
-      new Blob(
-        [pdf],
-        {
-          type: "application/pdf",
-        }
-      );
-
-    const url =
-      URL.createObjectURL(
-        blob
-      );
-
-    const link =
-      document.createElement(
-        "a"
-      );
-
-    link.href = url;
-
-    const safeCandidateName =
-      getSafeCandidateName(
-        candidateName
-      );
-
-    link.download =
-      `LASU_Eligibility_Report_${safeCandidateName}.pdf`;
-
-    document.body.appendChild(
-      link
-    );
-
-    link.click();
-
-    document.body.removeChild(
-      link
-    );
-
-    setTimeout(() => {
-      URL.revokeObjectURL(
-        url
-      );
-    }, 1000);
-  }
-
-  function downloadEligibilityReportJPG() {
-    if (
-      typeof document ===
-      "undefined"
-    ) {
-      return;
-    }
-
-    const lines =
-      getCurrentReportLines();
-
+  async function buildBrandedReportCanvas() {
     const canvas =
       document.createElement(
         "canvas"
       );
 
-    const width = 1400;
-    const padding = 80;
-    const lineWidth =
-      width -
-      padding * 2;
+    canvas.width = 1240;
+    canvas.height = 1754;
 
-    const measuringContext =
+    const ctx =
       canvas.getContext(
         "2d"
       );
 
-    if (!measuringContext) {
-      return;
+    if (!ctx) {
+      throw new Error(
+        "Unable to create report."
+      );
     }
 
-    measuringContext.font =
-      "400 20px Arial";
+    const GREEN =
+      "#006837";
 
-    const wrappedLines =
-      lines.flatMap(
-        (line) =>
-          line
-            ? wrapText(
-                measuringContext,
-                line,
-                lineWidth
-              )
-            : [""]
-      );
+    const DARK_GREEN =
+      "#064e3b";
 
-    const estimatedHeight =
-      Math.max(
-        1100,
-        360 +
-          wrappedLines.length *
-            38 +
-          160
-      );
+    const BRIGHT_GREEN =
+      "#16a34a";
 
-    canvas.width = width;
-    canvas.height =
-      estimatedHeight;
+    const LIGHT_GREEN =
+      "#ecfdf5";
 
-    const context =
-      canvas.getContext(
-        "2d"
-      );
+    const RED =
+      "#dc2626";
 
-    if (!context) {
-      return;
-    }
+    const DARK =
+      "#0f172a";
 
-    context.fillStyle =
-      "#f8fafc";
+    const GRAY =
+      "#475569";
 
-    context.fillRect(
+    const LIGHT_GRAY =
+      "#eef2f5";
+
+    const BORDER =
+      "#cbd5e1";
+
+    const WHITE =
+      "#ffffff";
+
+    ctx.fillStyle = WHITE;
+
+    ctx.fillRect(
       0,
       0,
       canvas.width,
       canvas.height
     );
 
-    context.fillStyle =
-      "#15803d";
+    /*
+     * TOP DECORATION
+     */
 
-    context.fillRect(
+    ctx.beginPath();
+
+    ctx.moveTo(
+      1025,
+      0
+    );
+
+    ctx.lineTo(
+      1240,
+      0
+    );
+
+    ctx.lineTo(
+      1240,
+      185
+    );
+
+    ctx.closePath();
+
+    ctx.fillStyle =
+      "#062f28";
+
+    ctx.fill();
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      1075,
+      0
+    );
+
+    ctx.lineTo(
+      1240,
+      0
+    );
+
+    ctx.lineTo(
+      1240,
+      135
+    );
+
+    ctx.closePath();
+
+    ctx.fillStyle =
+      "#00853f";
+
+    ctx.fill();
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      1135,
+      0
+    );
+
+    ctx.lineTo(
+      1240,
+      0
+    );
+
+    ctx.lineTo(
+      1240,
+      78
+    );
+
+    ctx.closePath();
+
+    ctx.fillStyle =
+      BRIGHT_GREEN;
+
+    ctx.fill();
+
+    /*
+     * BOTTOM DECORATION
+     */
+
+    ctx.beginPath();
+
+    ctx.moveTo(
       0,
+      1575
+    );
+
+    ctx.lineTo(
       0,
-      width,
-      220
+      1754
     );
 
-    context.fillStyle =
-      "#ffffff";
-
-    context.font =
-      "800 38px Arial";
-
-    context.fillText(
-      "S.O.H CONSULTS",
-      padding,
-      72
+    ctx.lineTo(
+      180,
+      1754
     );
 
-    context.font =
-      "800 46px Arial";
+    ctx.closePath();
 
-    context.fillText(
-      "LASU Aggregate & Eligibility Report",
-      padding,
-      130
+    ctx.fillStyle =
+      "#062f28";
+
+    ctx.fill();
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      0,
+      1630
     );
 
-    context.font =
-      "400 22px Arial";
-
-    context.fillText(
-      `LASU Minimum UTME Cut-off: ${LASU_CUTOFF_MARK}`,
-      padding,
-      178
+    ctx.lineTo(
+      0,
+      1754
     );
 
-    let y = 275;
-
-    const status =
-      validation.eligible
-        ? "ELIGIBLE"
-        : "NOT ELIGIBLE";
-
-    context.fillStyle =
-      validation.eligible
-        ? "#dcfce7"
-        : "#fee2e2";
-
-    context.fillRect(
-      padding,
-      y - 35,
-      lineWidth,
-      100
+    ctx.lineTo(
+      130,
+      1754
     );
 
-    context.fillStyle =
-      validation.eligible
-        ? "#166534"
-        : "#991b1b";
+    ctx.closePath();
 
-    context.font =
-      "800 34px Arial";
+    ctx.fillStyle =
+      BRIGHT_GREEN;
 
-    context.fillText(
-      `Eligibility Status: ${status}`,
-      padding + 25,
-      y + 10
+    ctx.fill();
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      48,
+      1685
     );
 
-    context.font =
-      "600 20px Arial";
-
-    context.fillText(
-      `Candidate: ${
-        candidateName.trim() ||
-        "Not provided"
-      }`,
-      padding + 25,
-      y + 45
+    ctx.lineTo(
+      90,
+      1754
     );
 
-    y += 125;
+    ctx.lineTo(
+      190,
+      1754
+    );
 
-    const sectionTitles = [
-      "Candidate Information",
-      "JAMB UTME",
-      "O-LEVEL RESULTS",
-      "BEST FIVE RELEVANT O-LEVEL RESULTS",
-      "AGGREGATE",
-      "ASSESSMENT",
-      "Validation Notes",
-      "IMPORTANT DISCLAIMER",
-    ];
+    ctx.closePath();
 
-    lines.forEach(
-      (line) => {
-        if (
-          sectionTitles.includes(
-            line
-          )
-        ) {
-          context.font =
-            "800 27px Arial";
+    ctx.fillStyle = RED;
 
-          context.fillStyle =
-            "#166534";
+    ctx.fill();
 
-          context.fillText(
-            line,
-            padding,
-            y
-          );
+    /*
+     * LOGO
+     */
 
-          y += 42;
+    let logo:
+      HTMLCanvasElement |
+      null = null;
 
-          return;
-        }
-
-        if (!line) {
-          y += 15;
-          return;
-        }
-
-        context.font =
-          "400 20px Arial";
-
-        context.fillStyle =
-          "#334155";
-
-        const wrapped =
-          wrapText(
-            context,
-            line,
-            lineWidth
-          );
-
-        wrapped.forEach(
-          (
-            wrappedLine
-          ) => {
-            context.fillText(
-              wrappedLine,
-              padding,
-              y
-            );
-
-            y += 31;
-          }
+    try {
+      const originalLogo =
+        await loadImage(
+          "/soh-logo.jpg"
         );
 
-        y += 8;
-      }
+      logo =
+        createCroppedLogo(
+          originalLogo
+        );
+    } catch {
+      logo = null;
+    }
+
+    if (logo) {
+      const maxWidth = 320;
+      const maxHeight = 140;
+
+      const scale =
+        Math.min(
+          maxWidth /
+            logo.width,
+          maxHeight /
+            logo.height
+        );
+
+      const drawWidth =
+        logo.width *
+        scale;
+
+      const drawHeight =
+        logo.height *
+        scale;
+
+      ctx.drawImage(
+        logo,
+        52,
+        28,
+        drawWidth,
+        drawHeight
+      );
+    } else {
+      ctx.font =
+        "800 34px Arial";
+
+      ctx.fillStyle =
+        GREEN;
+
+      ctx.fillText(
+        "S.O.H CONSULTS",
+        55,
+        90
+      );
+    }
+
+    /*
+     * TAGLINE
+     */
+
+    ctx.strokeStyle =
+      "#94a3b8";
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      895,
+      52
     );
 
-    context.font =
-      "400 16px Arial";
-
-    context.fillStyle =
-      "#64748b";
-
-    context.fillText(
-      "Generated by S.O.H CONSULTS • For guidance and self-screening purposes only.",
-      padding,
-      canvas.height - 45
+    ctx.lineTo(
+      895,
+      126
     );
 
-    const safeCandidateName =
-      getSafeCandidateName(
-        candidateName
+    ctx.stroke();
+
+    ctx.font =
+      "italic 24px Arial";
+
+    ctx.fillStyle =
+      DARK;
+
+    ctx.fillText(
+      "Your Admission",
+      920,
+      78
+    );
+
+    ctx.fillText(
+      "Journey, Our Priority",
+      920,
+      108
+    );
+
+    ctx.fillStyle =
+      GREEN;
+
+    ctx.fillRect(
+      920,
+      132,
+      74,
+      4
+    );
+
+    /*
+     * TITLE
+     */
+
+    ctx.font =
+      "800 47px Arial";
+
+    ctx.fillStyle =
+      DARK;
+
+    ctx.fillText(
+      "LASU AGGREGATE & ELIGIBILITY REPORT",
+      55,
+      218
+    );
+
+    ctx.font =
+      "400 18px Arial";
+
+    ctx.fillStyle =
+      "#334155";
+
+    ctx.fillText(
+      "F O R   G U I D A N C E   P U R P O S E S   O N L Y",
+      57,
+      255
+    );
+
+    ctx.fillStyle =
+      GREEN;
+
+    ctx.fillRect(
+      55,
+      276,
+      1130,
+      4
+    );
+
+    /*
+     * WATERMARK
+     */
+
+    if (logo) {
+      ctx.save();
+
+      ctx.globalAlpha =
+        0.035;
+
+      const maxWidth =
+        600;
+
+      const scale =
+        maxWidth /
+        logo.width;
+
+      ctx.drawImage(
+        logo,
+        320,
+        430,
+        maxWidth,
+        logo.height *
+          scale
       );
 
-    canvas.toBlob(
-      (blob) => {
-        if (!blob) {
-          return;
-        }
+      ctx.restore();
+    }
 
-        const url =
-          URL.createObjectURL(
-            blob
-          );
+    /*
+     * CANDIDATE INFORMATION
+     */
 
-        const link =
-          document.createElement(
-            "a"
-          );
+    const topY = 302;
 
-        link.href = url;
-
-        link.download =
-          `LASU_Eligibility_Report_${safeCandidateName}.jpg`;
-
-        document.body.appendChild(
-          link
-        );
-
-        link.click();
-
-        document.body.removeChild(
-          link
-        );
-
-        setTimeout(() => {
-          URL.revokeObjectURL(
-            url
-          );
-        }, 1000);
-      },
-      "image/jpeg",
-      0.95
+    roundedBox(
+      ctx,
+      55,
+      topY,
+      715,
+      215,
+      10,
+      WHITE,
+      BORDER
     );
+
+    drawSectionHeader(
+      ctx,
+      "CANDIDATE INFORMATION",
+      55,
+      topY,
+      715
+    );
+
+    const candidateRows =
+      [
+        [
+          "Candidate Name:",
+          candidateName.trim() ||
+            "Not provided",
+        ],
+
+        [
+          "Selected Course:",
+          selectedCourseName ||
+            "Not selected",
+        ],
+
+        [
+          "Report Date:",
+          new Date().toLocaleString(
+            "en-NG",
+            {
+              dateStyle:
+                "medium",
+
+              timeStyle:
+                "short",
+            }
+          ),
+        ],
+
+        [
+          "Generated By:",
+          "S.O.H CONSULTS",
+        ],
+      ];
+
+    let infoY =
+      topY + 82;
+
+    for (
+      const [
+        label,
+        value,
+      ] of candidateRows
+    ) {
+      ctx.font =
+        "700 18px Arial";
+
+      ctx.fillStyle =
+        DARK;
+
+      ctx.fillText(
+        label,
+        78,
+        infoY
+      );
+
+      ctx.font =
+        "400 18px Arial";
+
+      ctx.fillText(
+        value,
+        280,
+        infoY
+      );
+
+      infoY += 38;
+    }
+
+    /*
+     * ELIGIBILITY STATUS
+     */
+
+    const eligible =
+      validation.eligible;
+
+    roundedBox(
+      ctx,
+      795,
+      topY,
+      390,
+      215,
+      10,
+      eligible
+        ? "#f0fdf4"
+        : "#fef2f2",
+      eligible
+        ? "#bbf7d0"
+        : "#fecaca"
+    );
+
+    ctx.textAlign =
+      "center";
+
+    ctx.font =
+      "700 22px Arial";
+
+    ctx.fillStyle =
+      eligible
+        ? "#15803d"
+        : "#b91c1c";
+
+    ctx.fillText(
+      "ELIGIBILITY STATUS",
+      990,
+      topY + 46
+    );
+
+    drawStatusIcon(
+      ctx,
+      860,
+      topY + 94,
+      eligible
+    );
+
+    ctx.font =
+      "800 37px Arial";
+
+    ctx.fillText(
+      eligible
+        ? "ELIGIBLE"
+        : "NOT ELIGIBLE",
+      1015,
+      topY + 101
+    );
+
+    ctx.font =
+      "700 14px Arial";
+
+    ctx.fillStyle =
+      DARK;
+
+    ctx.fillText(
+      "BASED ON ENTERED DETAILS",
+      990,
+      topY + 130
+    );
+
+    ctx.strokeStyle =
+      BORDER;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      825,
+      topY + 149
+    );
+
+    ctx.lineTo(
+      1155,
+      topY + 149
+    );
+
+    ctx.stroke();
+
+    ctx.font =
+      "400 18px Arial";
+
+    ctx.fillText(
+      "Estimated Aggregate",
+      990,
+      topY + 176
+    );
+
+    ctx.font =
+      "800 34px Arial";
+
+    ctx.fillStyle =
+      eligible
+        ? "#166534"
+        : "#b91c1c";
+
+    ctx.fillText(
+      `${aggregate.toFixed(
+        2
+      )} / 100`,
+      990,
+      topY + 207
+    );
+
+    ctx.textAlign =
+      "left";
+
+    /*
+     * COURSE REQUIREMENTS
+     */
+
+    const requirementY =
+      542;
+
+    roundedBox(
+      ctx,
+      55,
+      requirementY,
+      1130,
+      205,
+      10,
+      WHITE,
+      BORDER
+    );
+
+    drawSectionHeader(
+      ctx,
+      "LASU COURSE REQUIREMENTS",
+      55,
+      requirementY,
+      1130
+    );
+
+    ctx.fillStyle =
+      LIGHT_GRAY;
+
+    ctx.fillRect(
+      55,
+      requirementY +
+        44,
+      1130,
+      42
+    );
+
+    ctx.font =
+      "700 17px Arial";
+
+    ctx.fillStyle =
+      DARK;
+
+    ctx.fillText(
+      "Requirement Type",
+      78,
+      requirementY +
+        71
+    );
+
+    ctx.fillText(
+      "Requirement Details",
+      320,
+      requirementY +
+        71
+    );
+
+    ctx.strokeStyle =
+      BORDER;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      300,
+      requirementY +
+        44
+    );
+
+    ctx.lineTo(
+      300,
+      requirementY +
+        205
+    );
+
+    ctx.stroke();
+
+    ctx.font =
+      "700 18px Arial";
+
+    ctx.fillText(
+      "O-Level",
+      78,
+      requirementY +
+        120
+    );
+
+    drawWrappedText(
+      ctx,
+      lasuRequirement?.oLevel ||
+        "Requirement unavailable.",
+      320,
+      requirementY +
+        112,
+      830,
+      21,
+      "400 17px Arial"
+    );
+
+    ctx.strokeStyle =
+      BORDER;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      55,
+      requirementY +
+        150
+    );
+
+    ctx.lineTo(
+      1185,
+      requirementY +
+        150
+    );
+
+    ctx.stroke();
+
+    ctx.font =
+      "700 18px Arial";
+
+    ctx.fillText(
+      "UTME",
+      78,
+      requirementY +
+        181
+    );
+
+    drawWrappedText(
+      ctx,
+      lasuRequirement?.utme ||
+        "Requirement unavailable.",
+      320,
+      requirementY +
+        181,
+      830,
+      21,
+      "400 17px Arial"
+    );
+
+    /*
+     * JAMB + OLEVEL
+     */
+
+    const middleY = 770;
+
+    roundedBox(
+      ctx,
+      55,
+      middleY,
+      548,
+      305,
+      10,
+      WHITE,
+      BORDER
+    );
+
+    drawSectionHeader(
+      ctx,
+      "JAMB UTME DETAILS",
+      55,
+      middleY,
+      548
+    );
+
+    const jambRows =
+      [
+        [
+          "JAMB Score:",
+          jambScore ||
+            "Not entered",
+        ],
+
+        [
+          "LASU Minimum Cut-off:",
+          String(
+            LASU_CUTOFF_MARK
+          ),
+        ],
+
+        [
+          "UTME Points (60%):",
+          `${jambPoints.toFixed(
+            2
+          )} / 60`,
+        ],
+      ];
+
+    let jambY =
+      middleY + 82;
+
+    for (
+      const [
+        label,
+        value,
+      ] of jambRows
+    ) {
+      ctx.font =
+        "700 16px Arial";
+
+      ctx.fillStyle =
+        DARK;
+
+      ctx.fillText(
+        label,
+        78,
+        jambY
+      );
+
+      ctx.font =
+        "400 16px Arial";
+
+      ctx.fillText(
+        value,
+        290,
+        jambY
+      );
+
+      ctx.strokeStyle =
+        "#e2e8f0";
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        70,
+        jambY + 12
+      );
+
+      ctx.lineTo(
+        585,
+        jambY + 12
+      );
+
+      ctx.stroke();
+
+      jambY += 42;
+    }
+
+    ctx.font =
+      "700 16px Arial";
+
+    ctx.fillText(
+      "Selected Subjects:",
+      78,
+      jambY + 3
+    );
+
+    const reportJambSubjects =
+      [
+        "Use of English (Compulsory)",
+        ...selectedJambSubjects,
+      ];
+
+    let subjectY =
+      jambY + 31;
+
+    ctx.font =
+      "400 15px Arial";
+
+    for (
+      const subject of
+      reportJambSubjects
+    ) {
+      ctx.fillText(
+        `• ${subject}`,
+        290,
+        subjectY
+      );
+
+      subjectY += 23;
+    }
+
+    /*
+     * OLEVEL RESULTS
+     */
+
+    roundedBox(
+      ctx,
+      628,
+      middleY,
+      557,
+      305,
+      10,
+      WHITE,
+      BORDER
+    );
+
+    drawSectionHeader(
+      ctx,
+      "O-LEVEL RESULTS",
+      628,
+      middleY,
+      557
+    );
+
+    ctx.fillStyle =
+      LIGHT_GRAY;
+
+    ctx.fillRect(
+      628,
+      middleY + 44,
+      557,
+      40
+    );
+
+    ctx.font =
+      "700 16px Arial";
+
+    ctx.fillStyle =
+      DARK;
+
+    ctx.textAlign =
+      "center";
+
+    ctx.fillText(
+      "S/N",
+      668,
+      middleY + 70
+    );
+
+    ctx.textAlign =
+      "left";
+
+    ctx.fillText(
+      "Subject",
+      720,
+      middleY + 70
+    );
+
+    ctx.textAlign =
+      "center";
+
+    ctx.fillText(
+      "Grade",
+      1037,
+      middleY + 70
+    );
+
+    ctx.fillText(
+      "Point",
+      1136,
+      middleY + 70
+    );
+
+    const visibleResults =
+      completedOLevelResults.slice(
+        0,
+        9
+      );
+
+    const oLevelRowStep =
+      23;
+
+    let resultY =
+      middleY + 108;
+
+    for (
+      let index = 0;
+      index <
+      visibleResults.length;
+      index++
+    ) {
+      const entry =
+        visibleResults[
+          index
+        ];
+
+      ctx.font =
+        "400 14px Arial";
+
+      ctx.fillStyle =
+        DARK;
+
+      ctx.textAlign =
+        "center";
+
+      ctx.fillText(
+        String(index + 1),
+        668,
+        resultY
+      );
+
+      ctx.textAlign =
+        "left";
+
+      ctx.fillText(
+        entry.subject,
+        720,
+        resultY
+      );
+
+      ctx.textAlign =
+        "center";
+
+      ctx.fillText(
+        entry.grade,
+        1037,
+        resultY
+      );
+
+      ctx.fillText(
+        String(
+          gradePoints[
+            entry.grade
+          ] ?? 0
+        ),
+        1136,
+        resultY
+      );
+
+      ctx.strokeStyle =
+        "#e2e8f0";
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        642,
+        resultY + 9
+      );
+
+      ctx.lineTo(
+        1170,
+        resultY + 9
+      );
+
+      ctx.stroke();
+
+      resultY +=
+        oLevelRowStep;
+    }
+
+    ctx.textAlign =
+      "left";
+
+    /*
+     * BEST FIVE
+     */
+
+    const lowerY = 1100;
+
+    roundedBox(
+      ctx,
+      55,
+      lowerY,
+      548,
+      300,
+      10,
+      WHITE,
+      BORDER
+    );
+
+    drawSectionHeader(
+      ctx,
+      "BEST FIVE O-LEVEL RESULTS",
+      55,
+      lowerY,
+      548
+    );
+
+    ctx.fillStyle =
+      LIGHT_GRAY;
+
+    ctx.fillRect(
+      55,
+      lowerY + 44,
+      548,
+      40
+    );
+
+    ctx.font =
+      "700 16px Arial";
+
+    ctx.fillStyle =
+      DARK;
+
+    ctx.fillText(
+      "Subject",
+      78,
+      lowerY + 70
+    );
+
+    ctx.textAlign =
+      "center";
+
+    ctx.fillText(
+      "Grade",
+      425,
+      lowerY + 70
+    );
+
+    ctx.fillText(
+      "Point",
+      550,
+      lowerY + 70
+    );
+
+    ctx.textAlign =
+      "left";
+
+    let bestY =
+      lowerY + 112;
+
+    for (
+      const entry of bestFive
+    ) {
+      ctx.font =
+        "400 16px Arial";
+
+      ctx.fillStyle =
+        DARK;
+
+      ctx.fillText(
+        entry.subject,
+        78,
+        bestY
+      );
+
+      ctx.textAlign =
+        "center";
+
+      ctx.fillText(
+        entry.grade,
+        425,
+        bestY
+      );
+
+      ctx.fillText(
+        String(
+          gradePoints[
+            entry.grade
+          ] ?? 0
+        ),
+        550,
+        bestY
+      );
+
+      ctx.textAlign =
+        "left";
+
+      ctx.strokeStyle =
+        "#e2e8f0";
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        70,
+        bestY + 12
+      );
+
+      ctx.lineTo(
+        585,
+        bestY + 12
+      );
+
+      ctx.stroke();
+
+      bestY += 38;
+    }
+
+    /*
+     * AGGREGATE
+     */
+
+    roundedBox(
+      ctx,
+      628,
+      lowerY,
+      557,
+      190,
+      10,
+      WHITE,
+      BORDER
+    );
+
+    drawSectionHeader(
+      ctx,
+      "AGGREGATE SUMMARY",
+      628,
+      lowerY,
+      557
+    );
+
+    ctx.font =
+      "400 17px Arial";
+
+    ctx.fillStyle =
+      DARK;
+
+    ctx.fillText(
+      "JAMB Points (60%)",
+      650,
+      lowerY + 82
+    );
+
+    ctx.font =
+      "700 17px Arial";
+
+    ctx.fillText(
+      `${jambPoints.toFixed(
+        2
+      )} / 60`,
+      1010,
+      lowerY + 82
+    );
+
+    ctx.font =
+      "400 17px Arial";
+
+    ctx.fillText(
+      "O-Level Points (40%)",
+      650,
+      lowerY + 119
+    );
+
+    ctx.font =
+      "700 17px Arial";
+
+    ctx.fillText(
+      `${oLevelPoints.toFixed(
+        2
+      )} / 40`,
+      1010,
+      lowerY + 119
+    );
+
+    ctx.fillStyle =
+      "#dcfce7";
+
+    ctx.fillRect(
+      628,
+      lowerY + 134,
+      557,
+      56
+    );
+
+    ctx.font =
+      "700 19px Arial";
+
+    ctx.fillStyle =
+      DARK_GREEN;
+
+    ctx.fillText(
+      "Estimated Aggregate",
+      650,
+      lowerY + 170
+    );
+
+    ctx.font =
+      "800 25px Arial";
+
+    ctx.fillText(
+      `${aggregate.toFixed(
+        2
+      )} / 100`,
+      990,
+      lowerY + 170
+    );
+
+    /*
+     * ASSESSMENT
+     */
+
+    const assessmentY =
+      1310;
+
+    roundedBox(
+      ctx,
+      628,
+      assessmentY,
+      557,
+      95,
+      10,
+      WHITE,
+      BORDER
+    );
+
+    drawSectionHeader(
+      ctx,
+      "ASSESSMENT",
+      628,
+      assessmentY,
+      557
+    );
+
+    drawStatusIcon(
+      ctx,
+      675,
+      assessmentY + 70,
+      eligible
+    );
+
+    ctx.font =
+      "700 17px Arial";
+
+    ctx.fillStyle =
+      eligible
+        ? "#15803d"
+        : "#b91c1c";
+
+    ctx.fillText(
+      eligible
+        ? "Eligible based on entered details"
+        : "Requirements not fully satisfied",
+      720,
+      assessmentY + 67
+    );
+
+    /*
+     * NOTES
+     */
+
+    const notesY = 1435;
+
+    roundedBox(
+      ctx,
+      55,
+      notesY,
+      1130,
+      175,
+      10,
+      "#f8fafc",
+      "#e2e8f0"
+    );
+
+    ctx.font =
+      "800 19px Arial";
+
+    ctx.fillStyle =
+      DARK;
+
+    ctx.fillText(
+      "ⓘ  IMPORTANT NOTES",
+      78,
+      notesY + 38
+    );
+
+    const notes = [
+      "This report is generated by S.O.H CONSULTS for guidance and self-screening purposes only.",
+      "It is not an official LASU admission letter, screening result, or guarantee of admission.",
+      "Programme and requirement information should be verified before making any final admission decision.",
+    ];
+
+    let noteY =
+      notesY + 75;
+
+    for (
+      const note of notes
+    ) {
+      drawWrappedText(
+        ctx,
+        `• ${note}`,
+        95,
+        noteY,
+        1040,
+        20,
+        "400 15px Arial",
+        DARK
+      );
+
+      noteY += 35;
+    }
+
+    /*
+     * FOOTER
+     */
+
+    ctx.font =
+      "italic 18px Georgia";
+
+    ctx.fillStyle =
+      GREEN;
+
+    ctx.fillText(
+      "Education  •  Opportunity  •  A Greater You",
+      165,
+      1686
+    );
+
+    ctx.strokeStyle =
+      GREEN;
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      745,
+      1655
+    );
+
+    ctx.lineTo(
+      745,
+      1714
+    );
+
+    ctx.stroke();
+
+    ctx.font =
+      "400 15px Arial";
+
+    ctx.fillStyle =
+      DARK;
+
+    ctx.fillText(
+      "WhatsApp: 0818 214 1088",
+      775,
+      1680
+    );
+
+    ctx.fillText(
+      "Oluyepeadetayo@gmail.com",
+      775,
+      1706
+    );
+
+    ctx.strokeStyle =
+      "#94a3b8";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      1060,
+      1655
+    );
+
+    ctx.lineTo(
+      1060,
+      1714
+    );
+
+    ctx.stroke();
+
+    ctx.font =
+      "400 14px Arial";
+
+    ctx.fillStyle =
+      DARK;
+
+    ctx.fillText(
+      "Page 1 of 1",
+      1090,
+      1693
+    );
+
+    return canvas;
+  }
+
+  async function downloadEligibilityReportJPG() {
+    try {
+      const canvas =
+        await buildBrandedReportCanvas();
+
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            return;
+          }
+
+          downloadBlob(
+            blob,
+            `LASU_Eligibility_Report_${getSafeCandidateName(
+              candidateName
+            )}.jpg`
+          );
+        },
+        "image/jpeg",
+        0.97
+      );
+    } catch (error) {
+      console.error(
+        error
+      );
+
+      alert(
+        "Unable to generate the JPG report."
+      );
+    }
+  }
+
+  async function downloadEligibilityReportPDF() {
+    try {
+      const canvas =
+        await buildBrandedReportCanvas();
+
+      const imageData =
+        canvas.toDataURL(
+          "image/jpeg",
+          0.97
+        );
+
+      const pdf =
+        new jsPDF({
+          orientation:
+            "portrait",
+
+          unit: "mm",
+
+          format: "a4",
+
+          compress: true,
+        });
+
+      pdf.addImage(
+        imageData,
+        "JPEG",
+        0,
+        0,
+        210,
+        297,
+        undefined,
+        "FAST"
+      );
+
+      pdf.save(
+        `LASU_Eligibility_Report_${getSafeCandidateName(
+          candidateName
+        )}.pdf`
+      );
+    } catch (error) {
+      console.error(
+        error
+      );
+
+      alert(
+        "Unable to generate the PDF report."
+      );
+    }
   }
 
   return (
@@ -3398,9 +3767,7 @@ export default function LASUCalculator() {
             </h1>
 
             <p className="mt-3 max-w-3xl text-sm leading-6 text-green-50 sm:text-base">
-              Check your estimated LASU aggregate and
-              course eligibility using your JAMB score,
-              JAMB subjects and O-Level results.
+              Check your estimated LASU aggregate and course eligibility using your JAMB score, JAMB subjects and O-Level results.
             </p>
 
             <div className="mt-5 inline-flex rounded-full bg-white/15 px-4 py-2 text-xs font-bold backdrop-blur">
@@ -3418,8 +3785,7 @@ export default function LASUCalculator() {
               </h2>
 
               <p className="mt-1 text-sm text-slate-500">
-                Enter the candidate's details before
-                checking eligibility.
+                Enter the candidate&apos;s details before checking eligibility.
               </p>
 
               <div className="mt-5">
@@ -3430,13 +3796,20 @@ export default function LASUCalculator() {
                 <input
                   type="text"
                   placeholder="Enter candidate full name"
-                  value={candidateName}
-                  onChange={(event) => {
+                  value={
+                    candidateName
+                  }
+                  onChange={(
+                    event
+                  ) => {
                     setCandidateName(
-                      event.target.value
+                      event.target
+                        .value
                     );
 
-                    setChecked(false);
+                    setChecked(
+                      false
+                    );
                   }}
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
                 />
@@ -3448,32 +3821,121 @@ export default function LASUCalculator() {
                 </label>
 
                 <select
-                  value={course}
-                  onChange={(event) => {
-                    setCourse(
-                      event.target.value
-                    );
-
-                    setChecked(false);
-                  }}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
+                  value={
+                    selectedCourseId
+                  }
+                  onChange={(
+                    event
+                  ) =>
+                    handleCourseChange(
+                      event.target
+                        .value
+                    )
+                  }
+                  disabled={
+                    programmesLoading
+                  }
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100 disabled:bg-slate-100"
                 >
                   <option value="">
-                    Select your course
+                    {programmesLoading
+                      ? "Loading LASU programmes..."
+                      : "Select your course"}
                   </option>
 
-                  {courses.map(
-                    (item) => (
+                  {programmes.map(
+                    (
+                      programme
+                    ) => (
                       <option
-                        key={item}
-                        value={item}
+                        key={
+                          programme.id
+                        }
+                        value={
+                          programme.id
+                        }
                       >
-                        {item}
+                        {
+                          programme.name
+                        }
                       </option>
                     )
                   )}
                 </select>
+
+                {programmesError && (
+                  <div className="mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700 ring-1 ring-red-100">
+                    {
+                      programmesError
+                    }
+                  </div>
+                )}
+
+                {!programmesLoading &&
+                  !programmesError &&
+                  programmes.length >
+                    0 && (
+                    <p className="mt-2 text-xs font-semibold text-green-700">
+                      {
+                        programmes.length
+                      }{" "}
+                      programmes loaded from LASU.
+                    </p>
+                  )}
               </div>
+
+              {selectedCourseId && (
+                <div className="mt-5">
+                  {requirementLoading && (
+                    <div className="rounded-2xl bg-slate-50 p-4 text-sm font-semibold text-slate-600 ring-1 ring-slate-200">
+                      Loading current LASU course requirements...
+                    </div>
+                  )}
+
+                  {requirementError && (
+                    <div className="rounded-2xl bg-red-50 p-4 text-sm text-red-700 ring-1 ring-red-100">
+                      <p className="font-black">
+                        Could not load LASU requirements
+                      </p>
+
+                      <p className="mt-1">
+                        {
+                          requirementError
+                        }
+                      </p>
+                    </div>
+                  )}
+
+                  {lasuRequirement &&
+                    !requirementLoading && (
+                      <div className="space-y-3">
+                        <div className="rounded-2xl bg-green-50 p-4 ring-1 ring-green-100">
+                          <p className="text-xs font-black uppercase tracking-wider text-green-700">
+                            Current LASU O-Level Requirement
+                          </p>
+
+                          <p className="mt-2 text-sm leading-6 text-slate-700">
+                            {
+                              lasuRequirement.oLevel
+                            }
+                          </p>
+                        </div>
+
+                        <div className="rounded-2xl bg-blue-50 p-4 ring-1 ring-blue-100">
+                          <p className="text-xs font-black uppercase tracking-wider text-blue-700">
+                            Current LASU UTME Requirement
+                          </p>
+
+                          <p className="mt-2 text-sm leading-6 text-slate-700">
+                            {
+                              lasuRequirement.utme
+                            }
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                </div>
+              )}
             </div>
 
             <div className="mt-8 border-t border-slate-200 pt-7">
@@ -3484,15 +3946,15 @@ export default function LASUCalculator() {
                   </h2>
 
                   <p className="mt-1 text-sm text-slate-500">
-                    Enter your JAMB score and select
-                    your three UTME subjects in addition
-                    to compulsory Use of English.
+                    Enter your JAMB score and select your three UTME subjects in addition to compulsory Use of English.
                   </p>
                 </div>
 
                 <div className="rounded-full bg-green-50 px-3 py-1.5 text-xs font-bold text-green-700">
                   Minimum:{" "}
-                  {LASU_CUTOFF_MARK}
+                  {
+                    LASU_CUTOFF_MARK
+                  }
                 </div>
               </div>
 
@@ -3506,32 +3968,45 @@ export default function LASUCalculator() {
                   min="0"
                   max="400"
                   placeholder="e.g. 245"
-                  value={jambScore}
-                  onChange={(event) => {
+                  value={
+                    jambScore
+                  }
+                  onChange={(
+                    event
+                  ) => {
                     setJambScore(
-                      event.target.value
+                      event.target
+                        .value
                     );
 
-                    setChecked(false);
+                    setChecked(
+                      false
+                    );
                   }}
                   className={`w-full rounded-xl border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
-                    jambScore !== "" &&
-                    Number(jambScore) <
+                    jambScore !==
+                      "" &&
+                    Number(
+                      jambScore
+                    ) <
                       LASU_CUTOFF_MARK
                       ? "border-red-300 bg-red-50 focus:border-red-500 focus:ring-red-100"
                       : "border-slate-300 bg-white focus:border-green-600 focus:ring-green-100"
                   }`}
                 />
 
-                {jambScore !== "" &&
-                  Number(jambScore) <
+                {jambScore !==
+                  "" &&
+                  Number(
+                    jambScore
+                  ) <
                     LASU_CUTOFF_MARK && (
                     <p className="mt-2 text-xs font-semibold text-red-600">
                       JAMB score below{" "}
-                      {LASU_CUTOFF_MARK}.
-                      Candidate is
-                      disqualified for
-                      LASU screening.
+                      {
+                        LASU_CUTOFF_MARK
+                      }
+                      . Candidate is disqualified for LASU screening.
                     </p>
                   )}
               </div>
@@ -3555,19 +4030,33 @@ export default function LASUCalculator() {
 
               <div className="mt-5 grid gap-4 sm:grid-cols-3">
                 {jambElectives.map(
-                  (value, index) => (
-                    <div key={index}>
+                  (
+                    value,
+                    index
+                  ) => (
+                    <div
+                      key={
+                        index
+                      }
+                    >
                       <label className="mb-2 block text-sm font-semibold text-slate-700">
                         UTME Subject{" "}
-                        {index + 2}
+                        {index +
+                          2}
                       </label>
 
                       <select
-                        value={value}
-                        onChange={(event) =>
+                        value={
+                          value
+                        }
+                        onChange={(
+                          event
+                        ) =>
                           updateJambSubject(
                             index,
-                            event.target.value
+                            event
+                              .target
+                              .value
                           )
                         }
                         className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
@@ -3576,23 +4065,24 @@ export default function LASUCalculator() {
                           Select subject
                         </option>
 
-                        {jambSubjects.map(
-                          (subject) => (
+                        {getAvailableJambOptions(
+                          jambElectives,
+                          index
+                        ).map(
+                          (
+                            subject
+                          ) => (
                             <option
-                              key={subject}
-                              value={subject}
-                              disabled={jambElectives.some(
-                                (
-                                  selected,
-                                  optionIndex
-                                ) =>
-                                  optionIndex !==
-                                    index &&
-                                  selected ===
-                                    subject
-                              )}
+                              key={
+                                subject
+                              }
+                              value={
+                                subject
+                              }
                             >
-                              {subject}
+                              {
+                                subject
+                              }
                             </option>
                           )
                         )}
@@ -3602,17 +4092,13 @@ export default function LASUCalculator() {
                 )}
               </div>
 
-              {course ===
+              {selectedCourseName ===
                 "Philosophy" && (
                 <div className="mt-4 rounded-xl bg-blue-50 px-4 py-3 text-sm leading-6 text-blue-800 ring-1 ring-blue-100">
                   <span className="font-bold">
                     Philosophy:
                   </span>{" "}
-                  Use of English is
-                  compulsory, while the
-                  other three JAMB
-                  subjects can be any
-                  JAMB subjects.
+                  Use of English is compulsory, while the other three JAMB subjects can be any JAMB subjects.
                 </div>
               )}
             </div>
@@ -3625,9 +4111,7 @@ export default function LASUCalculator() {
                   </h2>
 
                   <p className="mt-1 text-sm text-slate-500">
-                    Enter 5 to 9 O-Level results and
-                    select your grades. English Language
-                    is compulsory.
+                    Enter 5 to 9 O-Level results and select your grades. English Language is compulsory.
                   </p>
                 </div>
 
@@ -3641,407 +4125,298 @@ export default function LASUCalculator() {
 
               <div className="mt-5 space-y-3">
                 {oLevel.map(
-                  (entry, index) => (
+                  (
+                    entry,
+                    index
+                  ) => (
                     <div
-                      key={index}
-                      className="grid gap-3 sm:grid-cols-[1fr_150px]"
+                      key={
+                        index
+                      }
+                      className="grid gap-3 sm:grid-cols-[1fr_160px]"
                     >
                       <div>
-                        {index ===
-                        0 ? (
-                          <input
-                            value="English Language"
-                            disabled
-                            className="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-500"
-                          />
-                        ) : (
-                          <select
-                            value={
-                              entry.subject
-                            }
-                            onChange={(
-                              event
-                            ) =>
-                              updateOLevelSubject(
-                                index,
-                                event.target.value
-                              )
-                            }
-                            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
-                          >
-                            <option value="">
-                              Select O-Level subject
-                            </option>
+                        <label className="mb-2 block text-xs font-bold text-slate-600">
+                          Subject{" "}
+                          {index +
+                            1}
+                        </label>
 
-                            {oLevelSubjects
-                              .filter(
-                                (
-                                  item
-                                ) =>
-                                  item !==
-                                  "English Language"
-                              )
-                              .map(
-                                (
+                        <select
+                          value={
+                            entry.subject
+                          }
+                          disabled={
+                            index ===
+                            0
+                          }
+                          onChange={(
+                            event
+                          ) =>
+                            updateOLevelSubject(
+                              index,
+                              event
+                                .target
+                                .value
+                            )
+                          }
+                          className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100 disabled:bg-slate-100 disabled:font-semibold disabled:text-slate-500"
+                        >
+                          {index !==
+                            0 && (
+                            <option value="">
+                              Select subject
+                            </option>
+                          )}
+
+                          {getAvailableOLevelOptions(
+                            oLevel,
+                            index
+                          ).map(
+                            (
+                              subject
+                            ) => (
+                              <option
+                                key={
                                   subject
-                                ) => (
-                                  <option
-                                    key={
-                                      subject
-                                    }
-                                    value={
-                                      subject
-                                    }
-                                    disabled={oLevel.some(
-                                      (
-                                        selected,
-                                        optionIndex
-                                      ) =>
-                                        optionIndex !==
-                                          index &&
-                                        selected.subject ===
-                                          subject
-                                    )}
-                                  >
-                                    {
-                                      subject
-                                    }
-                                  </option>
-                                )
-                              )}
-                          </select>
-                        )}
+                                }
+                                value={
+                                  subject
+                                }
+                              >
+                                {
+                                  subject
+                                }
+                              </option>
+                            )
+                          )}
+                        </select>
                       </div>
 
-                      <select
-                        value={
-                          entry.grade
-                        }
-                        onChange={(
-                          event
-                        ) =>
-                          updateOLevelGrade(
-                            index,
-                            event.target.value
-                          )
-                        }
-                        className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
-                      >
-                        <option value="">
-                          Select grade
-                        </option>
+                      <div>
+                        <label className="mb-2 block text-xs font-bold text-slate-600">
+                          Grade
+                        </label>
 
-                        {grades.map(
-                          (grade) => (
-                            <option
-                              key={
-                                grade
-                              }
-                              value={
-                                grade
-                              }
-                            >
-                              {grade}
-                            </option>
-                          )
-                        )}
-                      </select>
+                        <select
+                          value={
+                            entry.grade
+                          }
+                          onChange={(
+                            event
+                          ) =>
+                            updateOLevelGrade(
+                              index,
+                              event
+                                .target
+                                .value
+                            )
+                          }
+                          className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
+                        >
+                          <option value="">
+                            Select grade
+                          </option>
+
+                          {grades.map(
+                            (
+                              grade
+                            ) => (
+                              <option
+                                key={
+                                  grade
+                                }
+                                value={
+                                  grade
+                                }
+                              >
+                                {
+                                  grade
+                                }
+                              </option>
+                            )
+                          )}
+                        </select>
+                      </div>
                     </div>
                   )
                 )}
               </div>
 
-              <p className="mt-4 text-xs leading-5 text-slate-500">
-                You may enter between 5 and 9
-                O-Level results. English Language is
-                compulsory.
-              </p>
+              {selectedCourseName ===
+                "Philosophy" && (
+                <div className="mt-4 rounded-xl bg-blue-50 px-4 py-3 text-sm leading-6 text-blue-800 ring-1 ring-blue-100">
+                  <span className="font-bold">
+                    Philosophy O-Level:
+                  </span>{" "}
+                  English Language plus any four other O-Level credit passes.
+                </div>
+              )}
             </div>
 
-            <div className="mt-8 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-bold text-slate-700">
-                    Live Aggregate
+            <div className="mt-8 border-t border-slate-200 pt-7">
+              <h2 className="text-xl font-black text-slate-900">
+                Live Aggregate
+              </h2>
+
+              <div className="mt-5 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                  <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                    JAMB
                   </p>
 
-                  <p className="mt-1 text-xs text-slate-500">
-                    Based on your current entries.
-                  </p>
-                </div>
-
-                <p className="text-2xl font-black text-green-700">
-                  {liveCalculator.aggregate.toFixed(
-                    2
-                  )}
-                  /100
-                </p>
-              </div>
-
-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
-                  <p className="text-xs text-slate-500">
-                    JAMB Points
-                  </p>
-
-                  <p className="mt-1 text-lg font-black">
-                    {liveCalculator.jambPoints.toFixed(
+                  <p className="mt-2 text-2xl font-black text-slate-900">
+                    {jambPoints.toFixed(
                       2
                     )}
                     /60
                   </p>
                 </div>
 
-                <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
-                  <p className="text-xs text-slate-500">
-                    O-Level Points
+                <div className="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                  <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                    O-Level
                   </p>
 
-                  <p className="mt-1 text-lg font-black">
-                    {
-                      liveCalculator.oLevelPoints
-                    }
+                  <p className="mt-2 text-2xl font-black text-slate-900">
+                    {oLevelPoints.toFixed(
+                      2
+                    )}
                     /40
                   </p>
                 </div>
 
-                <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
-                  <p className="text-xs text-slate-500">
-                    Relevant Credits
+                <div className="rounded-2xl bg-green-50 p-4 ring-1 ring-green-100">
+                  <p className="text-xs font-bold uppercase tracking-wide text-green-700">
+                    Aggregate
                   </p>
 
-                  <p className="mt-1 text-lg font-black">
-                    {
-                      liveCalculator.creditCount
-                    }
+                  <p className="mt-2 text-2xl font-black text-green-800">
+                    {aggregate.toFixed(
+                      2
+                    )}
+                    /100
                   </p>
                 </div>
               </div>
-            </div>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <button
-                type="button"
-                onClick={() =>
-                  setChecked(true)
-                }
-                className="flex-1 rounded-xl bg-green-700 px-5 py-3.5 text-sm font-black text-white transition hover:bg-green-800"
-              >
-                Check Eligibility
-              </button>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setChecked(
+                      true
+                    )
+                  }
+                  disabled={
+                    requirementLoading
+                  }
+                  className="flex-1 rounded-xl bg-green-700 px-5 py-3.5 text-sm font-black text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+                >
+                  Check Eligibility
+                </button>
 
-              <button
-                type="button"
-                onClick={
-                  resetCalculator
-                }
-                className="rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50"
-              >
-                Reset
-              </button>
+                <button
+                  type="button"
+                  onClick={
+                    resetCalculator
+                  }
+                  className="rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-black text-slate-700 transition hover:bg-slate-50"
+                >
+                  Reset
+                </button>
+              </div>
             </div>
 
             {checked && (
-              <div className="mt-7">
+              <div className="mt-8 border-t border-slate-200 pt-7">
                 <div
-                  className={`rounded-2xl p-5 ring-1 ${
+                  className={`rounded-3xl p-5 ring-1 ${
                     validation.eligible
-                      ? "bg-green-50 text-green-900 ring-green-200"
-                      : "bg-red-50 text-red-900 ring-red-200"
+                      ? "bg-green-50 ring-green-200"
+                      : "bg-red-50 ring-red-200"
                   }`}
                 >
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <p className="text-xs font-black uppercase tracking-wider">
-                        Eligibility Result
-                      </p>
+                  <p
+                    className={`text-xs font-black uppercase tracking-widest ${
+                      validation.eligible
+                        ? "text-green-700"
+                        : "text-red-700"
+                    }`}
+                  >
+                    Eligibility Result
+                  </p>
 
-                      <h3 className="mt-1 text-2xl font-black">
-                        {validation.eligible
-                          ? "Eligible"
-                          : "Not Eligible"}
-                      </h3>
+                  <h2
+                    className={`mt-2 text-2xl font-black ${
+                      validation.eligible
+                        ? "text-green-900"
+                        : "text-red-900"
+                    }`}
+                  >
+                    {validation.eligible
+                      ? "Eligible based on entered details"
+                      : "Requirements not fully satisfied"}
+                  </h2>
 
-                      <p className="mt-2 text-sm font-semibold">
-                        Candidate:{" "}
-                        {candidateName.trim() ||
-                          "Not provided"}
-                      </p>
-
-                      {course && (
-                        <p className="mt-1 text-sm">
-                          Course:{" "}
-                          {course}
-                        </p>
+                  <p className="mt-3 text-sm leading-6 text-slate-700">
+                    Estimated aggregate:{" "}
+                    <span className="font-black">
+                      {aggregate.toFixed(
+                        2
                       )}
-                    </div>
-
-                    {validation.score !==
-                      null && (
-                      <div className="rounded-xl bg-white px-5 py-3 text-center shadow-sm ring-1 ring-black/5">
-                        <p className="text-xs text-slate-500">
-                          Estimated Aggregate
-                        </p>
-
-                        <p className="text-2xl font-black text-green-700">
-                          {validation.score.toFixed(
-                            2
-                          )}
-                          /100
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  {!validation.jambCutoffValid &&
-                    jambScore !== "" && (
-                      <div className="mt-4 rounded-xl bg-red-100 p-3 text-sm font-bold text-red-800">
-                        JAMB score is below LASU's
-                        minimum cut-off mark of{" "}
-                        {
-                          LASU_CUTOFF_MARK
-                        }
-                        . The candidate is
-                        disqualified regardless of
-                        the calculated aggregate.
-                      </div>
-                    )}
+                      /100
+                    </span>
+                  </p>
 
                   {validation.messages.length >
                     0 && (
-                    <div className="mt-5 rounded-xl bg-white/70 p-4">
-                      <p className="text-sm font-black">
-                        Requirements to review
+                    <div className="mt-5">
+                      <p className="text-sm font-black text-slate-900">
+                        Validation Notes
                       </p>
 
-                      <ul className="mt-2 space-y-1.5 text-sm">
-                        {validation.messages
-                          .slice(
-                            0,
-                            10
-                          )
-                          .map(
-                            (
-                              message,
-                              index
-                            ) => (
-                              <li
-                                key={
-                                  index
-                                }
-                                className="flex gap-2"
-                              >
-                                <span>
-                                  •
-                                </span>
-
-                                <span>
-                                  {
-                                    message
-                                  }
-                                </span>
-                              </li>
-                            )
-                          )}
-                      </ul>
-                    </div>
-                  )}
-
-                  <div className="mt-5 rounded-xl bg-white p-4 ring-1 ring-slate-200">
-                    <p className="text-sm font-bold text-slate-800">
-                      JAMB subjects entered
-                    </p>
-
-                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                      {[
-                        "Use of English",
-                        ...selectedJambSubjects,
-                      ].map(
-                        (
-                          subject,
-                          index
-                        ) => (
-                          <div
-                            key={`${subject}-${index}`}
-                            className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 text-sm"
-                          >
-                            <span className="font-medium text-slate-700">
-                              {
-                                subject
-                              }
-                            </span>
-
-                            {index ===
-                              0 && (
-                              <span className="font-black text-green-700">
-                                Compulsory
-                              </span>
-                            )}
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="mt-4 rounded-xl bg-white p-4 ring-1 ring-slate-200">
-                    <p className="text-sm font-bold text-slate-800">
-                      O-Level results entered
-                    </p>
-
-                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                      {completedOLevelResults.map(
-                        (
-                          entry,
-                          index
-                        ) => (
-                          <div
-                            key={`${entry.subject}-${index}`}
-                            className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 text-sm"
-                          >
-                            <span className="font-medium text-slate-700">
-                              {
-                                entry.subject
-                              }
-                            </span>
-
-                            <span className="font-black text-green-700">
-                              {
-                                entry.grade
-                              }
-                            </span>
-                          </div>
-                        )
-                      )}
-                    </div>
-
-                    {completedOLevelResults.length ===
-                      0 && (
-                      <p className="mt-2 text-sm text-slate-500">
-                        No completed O-Level result
-                        has been entered yet.
-                      </p>
-                    )}
-                  </div>
-
-                  {validation.bestFive.length >
-                    0 && (
-                    <div className="mt-4 rounded-xl bg-white p-4 ring-1 ring-slate-200">
-                      <p className="text-sm font-bold text-slate-800">
-                        Best five relevant O-Level
-                        results
-                      </p>
-
-                      <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                        {validation.bestFive.map(
+                      <div className="mt-3 space-y-2">
+                        {validation.messages.map(
                           (
-                            entry,
+                            message,
                             index
                           ) => (
                             <div
-                              key={`${entry.subject}-${index}`}
-                              className="flex items-center justify-between rounded-lg bg-green-50 px-3 py-2 text-sm"
+                              key={
+                                index
+                              }
+                              className="rounded-xl bg-white px-4 py-3 text-sm leading-6 text-slate-700 ring-1 ring-slate-200"
                             >
-                              <span className="font-medium text-slate-700">
+                              {
+                                message
+                              }
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {bestFive.length >
+                    0 && (
+                    <div className="mt-5">
+                      <p className="text-sm font-black text-slate-900">
+                        Best Five O-Level Results
+                      </p>
+
+                      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                        {bestFive.map(
+                          (
+                            entry
+                          ) => (
+                            <div
+                              key={
+                                entry.subject
+                              }
+                              className="flex items-center justify-between rounded-xl bg-white px-4 py-3 text-sm ring-1 ring-slate-200"
+                            >
+                              <span>
                                 {
                                   entry.subject
                                 }
@@ -4067,8 +4442,7 @@ export default function LASUCalculator() {
                       }
                       className="w-full rounded-xl bg-slate-900 px-4 py-3.5 text-sm font-black text-white transition hover:bg-slate-800"
                     >
-                      📄 Download Report
-                      (PDF)
+                      📄 Download Report (PDF)
                     </button>
 
                     <button
@@ -4078,15 +4452,12 @@ export default function LASUCalculator() {
                       }
                       className="w-full rounded-xl bg-green-700 px-4 py-3.5 text-sm font-black text-white transition hover:bg-green-800"
                     >
-                      🖼️ Download Report
-                      (JPG)
+                      🖼️ Download Report (JPG)
                     </button>
                   </div>
 
                   <p className="mt-3 text-center text-xs text-slate-500">
-                    Download your complete
-                    eligibility report as a PDF or
-                    JPG image.
+                    Download your complete eligibility report as a PDF or JPG image.
                   </p>
                 </div>
               </div>
@@ -4102,38 +4473,31 @@ export default function LASUCalculator() {
               <div className="mt-4 space-y-4">
                 <div>
                   <p className="text-sm font-bold text-slate-800">
-                    1. JAMB score
+                    1. Live LASU course list
                   </p>
 
                   <p className="mt-1 text-sm leading-6 text-slate-500">
-                    LASU's current minimum UTME score
-                    for the 2026/2027 screening is
-                    195.
+                    Current LASU programmes are loaded automatically.
                   </p>
                 </div>
 
                 <div>
                   <p className="text-sm font-bold text-slate-800">
-                    2. JAMB subjects
+                    2. JAMB score
                   </p>
 
                   <p className="mt-1 text-sm leading-6 text-slate-500">
-                    Use of English is compulsory, plus
-                    three additional UTME subjects that
-                    are checked against the selected
-                    course requirements.
+                    LASU&apos;s minimum UTME score used by this checker is 195.
                   </p>
                 </div>
 
                 <div>
                   <p className="text-sm font-bold text-slate-800">
-                    3. O-Level
+                    3. Course requirements
                   </p>
 
                   <p className="mt-1 text-sm leading-6 text-slate-500">
-                    Relevant O-Level credits are
-                    checked against the selected
-                    course requirements.
+                    Current O-Level and UTME requirements are retrieved when a course is selected.
                   </p>
                 </div>
 
@@ -4143,9 +4507,7 @@ export default function LASUCalculator() {
                   </p>
 
                   <p className="mt-1 text-sm leading-6 text-slate-500">
-                    JAMB contributes up to 60 points
-                    and the best five relevant O-Level
-                    grades contribute up to 40 points.
+                    JAMB contributes up to 60 points and the best five O-Level grades contribute up to 40 points.
                   </p>
                 </div>
               </div>
@@ -4161,24 +4523,25 @@ export default function LASUCalculator() {
               </h2>
 
               <p className="mt-2 text-sm leading-6 text-green-50">
-                Get guidance with LASU admission
-                screening, registration and related
-                admission processes.
+                Get guidance with LASU admission screening, registration and related admission processes.
               </p>
 
-              <div className="mt-4 rounded-xl bg-white/10 px-4 py-3 text-sm font-bold">
+              <a
+                href="https://wa.me/2348182141088?text=Hello%20S.O.H%20CONSULTS%2C%20I%20need%20assistance."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 block rounded-xl bg-white/10 px-4 py-3 text-center text-sm font-bold transition hover:bg-white/20"
+              >
                 WhatsApp: 0818 214 1088
-              </div>
+              </a>
             </div>
           </aside>
         </div>
 
         <footer className="mt-8 rounded-2xl bg-slate-900 px-5 py-5 text-center text-xs leading-5 text-slate-400">
-          S.O.H CONSULTS • LASU Aggregate &
-          Eligibility Checker
+          S.O.H CONSULTS • LASU Aggregate & Eligibility Checker
           <br />
-          For guidance purposes only. This checker
-          does not guarantee admission.
+          For guidance purposes only. This checker does not guarantee admission.
         </footer>
       </div>
     </main>
