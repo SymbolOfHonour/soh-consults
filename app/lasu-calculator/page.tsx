@@ -4591,6 +4591,147 @@ export default function LASUCalculator() {
           </aside>
         </div>
 
+
+        <section
+          aria-labelledby="lasu-calculator-guide"
+          className="mt-8 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200 sm:p-7"
+        >
+          <div className="max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-widest text-green-700">
+              LASU Admission Guide
+            </p>
+
+            <h2
+              id="lasu-calculator-guide"
+              className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl"
+            >
+              How to calculate your LASU aggregate score
+            </h2>
+
+            <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
+              The S.O.H CONSULTS LASU Aggregate Calculator &amp; Eligibility
+              Checker helps candidates estimate their admission screening
+              aggregate and check whether their entered UTME and O&apos;Level
+              subjects satisfy the requirements returned for their selected
+              Lagos State University programme.
+            </p>
+          </div>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <article className="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
+              <p className="text-sm font-black text-slate-900">
+                1. UTME contribution
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Your JAMB score is multiplied by 0.15, giving a maximum of 60
+                points from a possible UTME score of 400.
+              </p>
+            </article>
+
+            <article className="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
+              <p className="text-sm font-black text-slate-900">
+                2. O&apos;Level contribution
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                The checker uses the best five relevant O&apos;Level credit
+                grades. The five selected grades can contribute up to 40
+                points.
+              </p>
+            </article>
+
+            <article className="rounded-2xl bg-green-50 p-5 ring-1 ring-green-100">
+              <p className="text-sm font-black text-green-900">
+                3. Estimated aggregate
+              </p>
+              <p className="mt-2 text-sm leading-6 text-green-800">
+                Your UTME points and O&apos;Level points are added together to
+                give an estimated LASU aggregate score out of 100.
+              </p>
+            </article>
+          </div>
+
+          <div className="mt-8">
+            <h2 className="text-xl font-black text-slate-900">
+              LASU Aggregate Calculator FAQ
+            </h2>
+
+            <div className="mt-4 space-y-3">
+              <details className="group rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                <summary className="cursor-pointer list-none text-sm font-black text-slate-900">
+                  How is the LASU aggregate score calculated?
+                </summary>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  This checker calculates the UTME component as JAMB score ×
+                  0.15, for a maximum of 60 points, then adds the points from
+                  the best five relevant O&apos;Level grades, for a maximum of
+                  40 points. The result is an estimated aggregate score out of
+                  100.
+                </p>
+              </details>
+
+              <details className="group rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                <summary className="cursor-pointer list-none text-sm font-black text-slate-900">
+                  What UTME score does this LASU checker use as the minimum?
+                </summary>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  The checker currently uses 195 as the minimum UTME score for
+                  its eligibility validation.
+                </p>
+              </details>
+
+              <details className="group rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                <summary className="cursor-pointer list-none text-sm font-black text-slate-900">
+                  Does the calculator check LASU course requirements?
+                </summary>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  Yes. When you select a programme, the checker loads its
+                  available UTME and O&apos;Level requirements and compares
+                  them with the subjects and grades you enter.
+                </p>
+              </details>
+
+              <details className="group rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                <summary className="cursor-pointer list-none text-sm font-black text-slate-900">
+                  Does a high aggregate score guarantee LASU admission?
+                </summary>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  No. The result is for guidance only. Admission still depends
+                  on the official LASU and JAMB admission process, programme
+                  requirements, available spaces and other applicable
+                  conditions.
+                </p>
+              </details>
+
+              <details className="group rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                <summary className="cursor-pointer list-none text-sm font-black text-slate-900">
+                  Can I use the checker for any LASU undergraduate programme?
+                </summary>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  The programme list is loaded by the checker. Select your
+                  intended course to view the available requirements and run
+                  the eligibility check using your own results.
+                </p>
+              </details>
+            </div>
+          </div>
+
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="/updates"
+              className="rounded-xl bg-slate-900 px-5 py-3 text-center text-sm font-black text-white transition hover:bg-slate-800"
+            >
+              View LASU &amp; Admission Updates
+            </a>
+
+            <a
+              href="/opportunities"
+              className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-center text-sm font-black text-slate-700 transition hover:bg-slate-50"
+            >
+              Explore Admission Opportunities
+            </a>
+          </div>
+        </section>
+
         <SiteContact />
 
         <footer className="mt-8 rounded-2xl bg-slate-900 px-5 py-5 text-center text-xs leading-5 text-slate-400">
