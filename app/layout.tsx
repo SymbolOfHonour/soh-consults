@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import PWARegister from "./components/PWARegister";
 import InstallApp from "./components/InstallApp";
+import AskSOH from "./components/AskSOH";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -98,6 +99,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <PWARegister />
         {children}
+        <AskSOH />
         <InstallApp />
       </body>
     </html>
