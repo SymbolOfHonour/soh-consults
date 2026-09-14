@@ -4,6 +4,7 @@ import "./globals.css";
 import PWARegister from "./components/PWARegister";
 import InstallApp from "./components/InstallApp";
 import AskSOH from "./components/AskSOH";
+import { getSiteUrl } from "./site-url";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +16,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+
   title: {
     default: "S.O.H CONSULTS | Admission, Education & Consultation",
     template: "%s | S.O.H CONSULTS",
