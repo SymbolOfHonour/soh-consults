@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getSiteUrl } from "./site-url";
-import { updates } from "../data/updates";
+import { getUpdateSlug, updates } from "../data/updates";
 import { guides } from "../data/guides";
 
 function safeDate(value?: string): Date | undefined {
@@ -52,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const updatePages: MetadataRoute.Sitemap = updates.map((item) => ({
-    url: `${siteUrl}/updates/${item.id}`,
+    url: `${siteUrl}/updates/${getUpdateSlug(item)}`,
     lastModified: safeDate(item.date),
     changeFrequency: "weekly",
     priority: 0.8,
@@ -64,5 +64,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  return [...core, ...updatePages, ...guidePages];
+  const updateCategories: MetadataRoute.Sitemap = Array.from(
+    new Set(updates.map((item) => item.category.toLowerCase().replace(/[^a-z0-9]+/g, "-"))),
+  ).map((category) => ({
+    url: `${siteUrl}/updates/category/${category}`,
+    changeFrequency: "daily",
+    priority: 0.75,
+  }));
+
+  return [...core, ...updatePages, ...updateCategories, ...guidePages];
 }

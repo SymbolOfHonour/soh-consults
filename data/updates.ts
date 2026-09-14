@@ -19,6 +19,42 @@ export type Update = {
   image?: string;
 };
 
+const updateSlugs: Record<number, string> = {
+  16: "oou-post-utme-results-2026-2027",
+  15: "jabu-resumption-dates-2026-2027",
+  14: "jamb-takes-over-hnd-admissions",
+  13: "lasu-admission-update-2026-2027",
+  12: "jamb-admission-status-proposed-recommended-approved",
+};
+
+export function slugifyUpdateTitle(title: string): string {
+  return title
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
+export function getUpdateSlug(update: Pick<Update, "id" | "title">): string {
+  return updateSlugs[update.id] || slugifyUpdateTitle(update.title) || `update-${update.id}`;
+}
+
+export function findUpdateBySlug(value: string): Update | undefined {
+  const numericId = Number(value);
+  return updates.find(
+    (update) =>
+      getUpdateSlug(update) === value ||
+      (Number.isInteger(numericId) && update.id === numericId),
+  );
+}
+
+export function getUpdateReadingTime(update: Pick<Update, "details">): number {
+  const words = update.details.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / 220));
+}
+
 export const institutionUpdateImages: Record<string, string> = {
   OOU: "/oou-campus.jpg",
   JABU: "/jabu-campus.jpg",

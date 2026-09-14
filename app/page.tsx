@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getUpdateImage, getUpdateSlug, updates } from "../data/updates";
 
 
 const WHATSAPP_NUMBER = "2348182141088";
@@ -207,6 +208,37 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* LATEST UPDATES */}
+      <section className="border-b border-gray-100 bg-white py-20">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <div className="max-w-2xl">
+              <p className="font-bold uppercase tracking-widest text-green-700">Stay Informed</p>
+              <h2 className="mt-3 text-3xl font-black sm:text-4xl">Latest admission and education updates</h2>
+              <p className="mt-4 leading-7 text-gray-600">Clear, timely information to help students and applicants take the right next step.</p>
+            </div>
+            <a href="/updates" className="font-black text-green-700 hover:text-green-900">View All Updates →</a>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {updates.slice(0, 3).map((update) => {
+              const image = getUpdateImage(update);
+              return (
+                <article key={update.id} className="flex flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                  {image ? <img src={image} alt="" className="h-44 w-full object-cover" /> : <div className="h-28 bg-gradient-to-br from-green-950 to-green-700" />}
+                  <div className="flex flex-1 flex-col p-6">
+                    <p className="text-xs font-black uppercase tracking-wide text-green-700">{update.category} · {update.date}</p>
+                    <h3 className="mt-3 text-lg font-black leading-7 text-gray-950">{update.title}</h3>
+                    <p className="mt-3 flex-1 text-sm leading-6 text-gray-600">{update.summary}</p>
+                    <a href={`/updates/${getUpdateSlug(update)}`} className="mt-5 font-black text-green-700">Read Update →</a>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

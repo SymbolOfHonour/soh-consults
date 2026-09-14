@@ -1,396 +1,94 @@
-"use client";
-
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { getUpdateImage, updates } from "../../../data/updates";
+import type { Metadata } from "next";
+import { notFound, permanentRedirect } from "next/navigation";
+import { findUpdateBySlug, getUpdateImage, getUpdateReadingTime, getUpdateSlug, updates } from "../../../data/updates";
+import ShareButtons from "../../components/ShareButtons";
 import SiteContact from "../../components/SiteContact";
 import UpdateComments from "../../components/UpdateComments";
+import { getSiteUrl } from "../../site-url";
 
-const WHATSAPP_NUMBER = "2348182141088";
-const SITE_URL = "https://soh-consults.vercel.app";
+const whatsappLink = (message: string) => `https://wa.me/2348182141088?text=${encodeURIComponent(message)}`;
+type Props = { params: Promise<{ id: string }> };
 
-const whatsappLink = (message: string) =>
-  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+export function generateStaticParams() {
+  return updates.map((update) => ({ id: getUpdateSlug(update) }));
+}
 
-export default function UpdateDetailsPage() {
-  const params = useParams();
-  const [copied, setCopied] = useState(false);
-  const [shareUrl, setShareUrl] = useState("");
-
-  const id = Number(params.id);
-  const update = updates.find((item) => item.id === id);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setShareUrl(window.location.href);
-    }
-  }, []);
-
-  if (!update) {
-    return (
-      <main className="min-h-screen bg-gray-50 text-gray-900">
-        <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-            <a href="/" className="flex items-center gap-3">
-              <img
-                src="/soh-logo.jpg"
-                alt="S.O.H CONSULTS"
-                className="h-16 w-auto object-contain"
-              />
-            </a>
-
-            <nav className="hidden items-center gap-6 text-sm font-semibold md:flex">
-              <a href="/" className="transition hover:text-green-700">
-                Home
-              </a>
-
-              <a href="/updates" className="text-green-700">
-                Latest Updates
-              </a>
-
-              <a
-                href="/opportunities"
-                className="transition hover:text-green-700"
-              >
-                Opportunities
-              </a>
-
-              <a
-                href="/lasu-calculator"
-                className="transition hover:text-green-700"
-              >
-                LASU Calculator
-              </a>
-            </nav>
-
-            <a
-              href={whatsappLink(
-                "Hello S.O.H CONSULTS, I need assistance with an admission or educational service."
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-green-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-green-800"
-              style={{ color: "#ffffff" }}
-            >
-              WhatsApp Us
-            </a>
-          </div>
-        </header>
-
-        <section className="py-24">
-          <div className="mx-auto max-w-3xl px-5 text-center lg:px-8">
-            <p className="text-sm font-black uppercase tracking-widest text-green-700">
-              S.O.H CONSULTS
-            </p>
-
-            <h1 className="mt-4 text-3xl font-black sm:text-4xl">
-              Update Not Found
-            </h1>
-
-            <p className="mt-4 leading-7 text-gray-600">
-              The update you are looking for may have been moved or is no longer
-              available.
-            </p>
-
-            <a
-              href="/updates"
-              className="mt-8 inline-flex rounded-xl bg-green-700 px-6 py-3 font-black text-white transition hover:bg-green-800"
-              style={{ color: "#ffffff" }}
-            >
-              Back to Latest Updates
-            </a>
-          </div>
-        </section>
-
-        <SiteContact />
-      </main>
-    );
-  }
-
-  const relatedUpdates = updates
-    .filter(
-      (item) =>
-        item.id !== update.id &&
-        (item.category === update.category ||
-          item.institution === update.institution)
-    )
-    .slice(0, 3);
-
-  const fallbackShareUrl = `${SITE_URL}/updates/${update.id}`;
-  const activeShareUrl = shareUrl || fallbackShareUrl;
-  const shareText = `${update.title} | S.O.H CONSULTS`;
-
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(activeShareUrl);
-      setCopied(true);
-
-      window.setTimeout(() => {
-        setCopied(false);
-      }, 1800);
-    } catch {
-      setCopied(false);
-    }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const update = findUpdateBySlug(id);
+  if (!update) return { title: "Update Not Found" };
+  const slug = getUpdateSlug(update);
+  const image = getUpdateImage(update) || "/soh-logo.jpg";
+  return {
+    title: update.title,
+    description: update.summary,
+    alternates: { canonical: `/updates/${slug}` },
+    openGraph: { type: "article", title: update.title, description: update.summary, url: `/updates/${slug}`, images: [{ url: image, alt: update.title }] },
+    twitter: { card: "summary_large_image", title: update.title, description: update.summary, images: [image] },
   };
+}
 
-  const detailSections = update.details
-    .split("\n\n")
-    .map((section) => section.trim())
-    .filter(Boolean);
+function ArticleBody({ details }: { details: string }) {
+  return details.split("\n\n").map((part) => part.trim()).filter(Boolean).map((section, index) => {
+    const heading = section === section.toUpperCase() && section.length <= 80 && !section.includes("“") && !section.includes('"');
+    return heading
+      ? <h2 key={index} className="pt-4 text-xl font-black text-gray-950 sm:text-2xl">{section}</h2>
+      : <p key={index} className="whitespace-pre-line text-[15px] leading-8 text-gray-700 sm:text-base">{section}</p>;
+  });
+}
+
+export default async function UpdateDetailsPage({ params }: Props) {
+  const { id } = await params;
+  const update = findUpdateBySlug(id);
+  if (!update) notFound();
+  const slug = getUpdateSlug(update);
+  if (id !== slug) permanentRedirect(`/updates/${slug}`);
+
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}/updates/${slug}`;
+  const image = getUpdateImage(update);
+  const related = updates.filter((item) => item.id !== update.id && (item.category === update.category || item.institution === update.institution)).slice(0, 3);
+  const jsonLd = {
+    "@context": "https://schema.org", "@type": "NewsArticle", headline: update.title,
+    description: update.summary, datePublished: update.date, mainEntityOfPage: pageUrl,
+    image: [`${siteUrl}${image || "/soh-logo.jpg"}`], author: { "@type": "Organization", name: "S.O.H CONSULTS" },
+    publisher: { "@type": "Organization", name: "S.O.H CONSULTS", logo: { "@type": "ImageObject", url: `${siteUrl}/soh-logo.jpg` } },
+  };
 
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <a href="/" className="flex items-center gap-3">
-            <img
-              src="/soh-logo.jpg"
-              alt="S.O.H CONSULTS"
-              className="h-16 w-auto object-contain"
-            />
-          </a>
-
-          <nav className="hidden items-center gap-6 text-sm font-semibold md:flex">
-            <a href="/" className="transition hover:text-green-700">
-              Home
-            </a>
-
-            <a href="/updates" className="text-green-700">
-              Latest Updates
-            </a>
-
-            <a
-              href="/opportunities"
-              className="transition hover:text-green-700"
-            >
-              Opportunities
-            </a>
-
-            <a
-              href="/lasu-calculator"
-              className="transition hover:text-green-700"
-            >
-              LASU Calculator
-            </a>
-          </nav>
-
-          <a
-            href={whatsappLink(
-              "Hello S.O.H CONSULTS, I need assistance with an admission or educational service."
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-green-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-green-800"
-            style={{ color: "#ffffff" }}
-          >
-            WhatsApp Us
-          </a>
+          <a href="/"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto object-contain" /></a>
+          <nav className="hidden items-center gap-6 text-sm font-semibold md:flex"><a href="/">Home</a><a href="/updates" className="text-green-700">Updates</a><a href="/opportunities">Opportunities</a><a href="/guides">Guides</a><a href="/lasu-calculator">LASU Calculator</a></nav>
+          <a href={whatsappLink("Hello S.O.H CONSULTS, I need admission assistance.")} target="_blank" rel="noopener noreferrer" className="rounded-full bg-green-700 px-5 py-3 text-sm font-bold text-white">WhatsApp Us</a>
         </div>
       </header>
 
       <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 py-14 text-white sm:py-16">
         <div className="mx-auto max-w-4xl px-5 lg:px-8">
-          <a
-            href="/updates"
-            className="inline-flex items-center text-sm font-bold text-green-100 transition hover:text-white"
-            style={{ color: "#dcfce7" }}
-          >
-            ← Back to Latest Updates
-          </a>
-
-          <div className="mt-6 flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-black text-white">
-              {update.category}
-            </span>
-
-            <span className="text-sm font-semibold text-green-100">
-              {update.institution}
-            </span>
-
-            <span className="text-sm font-semibold text-green-100">
-              {update.date}
-            </span>
+          <a href="/updates" className="text-sm font-bold text-green-100">← Back to Latest Updates</a>
+          <div className="mt-6 flex flex-wrap items-center gap-2 text-sm font-semibold text-green-100">
+            <a href={`/updates/category/${update.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="rounded-full bg-white/15 px-3 py-1 font-black text-white">{update.category}</a>
+            <span>{update.institution}</span><span>·</span><time>{update.date}</time><span>·</span><span>{getUpdateReadingTime(update)} min read</span>
           </div>
-
-          <h1 className="mt-5 text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">
-            {update.title}
-          </h1>
-
-          <p className="mt-5 max-w-3xl text-base leading-8 text-green-50 sm:text-lg">
-            {update.summary}
-          </p>
+          <h1 className="mt-5 text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">{update.title}</h1>
+          <p className="mt-5 max-w-3xl text-base leading-8 text-green-50 sm:text-lg">{update.summary}</p>
         </div>
       </section>
 
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-4xl px-5 lg:px-8">
-          {getUpdateImage(update) && (
-            <div className="mb-8 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
-              <img
-                src={getUpdateImage(update)}
-                alt={update.title}
-                className="h-auto w-full object-cover"
-              />
-            </div>
-          )}
-
-          <article className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
-            <div className="space-y-5">
-              {detailSections.map((section, index) => {
-                const isHeading =
-                  section === section.toUpperCase() &&
-                  section.length <= 80 &&
-                  !section.includes("“") &&
-                  !section.includes('"');
-
-                if (isHeading) {
-                  return (
-                    <h2
-                      key={index}
-                      className="pt-3 text-xl font-black text-gray-900 sm:text-2xl"
-                    >
-                      {section}
-                    </h2>
-                  );
-                }
-
-                return (
-                  <p
-                    key={index}
-                    className="whitespace-pre-line text-[15px] leading-8 text-gray-700 sm:text-base"
-                  >
-                    {section}
-                  </p>
-                );
-              })}
-            </div>
-
-            <div className="mt-10 border-t border-gray-200 pt-7">
-              <h3 className="text-lg font-black text-gray-900">
-                Share this update
-              </h3>
-
-              <div className="mt-4 flex flex-wrap gap-3">
-                <a
-                  href={`https://wa.me/?text=${encodeURIComponent(
-                    `${shareText} ${activeShareUrl}`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-xl bg-green-700 px-5 py-3 text-sm font-black text-white"
-                  style={{ color: "#ffffff" }}
-                >
-                  Share on WhatsApp
-                </a>
-
-                <button
-                  onClick={copyLink}
-                  className="rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-black text-gray-900"
-                >
-                  {copied ? "Link Copied ✓" : "Copy Link"}
-                </button>
-
-                <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                    activeShareUrl
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-black text-gray-900"
-                  style={{ color: "#111827" }}
-                >
-                  Share on Facebook
-                </a>
-              </div>
-            </div>
-
-            {(update.source || update.sourceUrl) && (
-              <div className="mt-10 border-t border-gray-200 pt-6">
-                <p className="text-sm font-bold text-gray-500">Source</p>
-
-                {update.sourceUrl ? (
-                  <a
-                    href={update.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-flex font-black text-green-700 hover:text-green-900"
-                  >
-                    {update.source || "View original source"} →
-                  </a>
-                ) : (
-                  <p className="mt-2 font-semibold text-gray-700">
-                    {update.source}
-                  </p>
-                )}
-              </div>
-            )}
-
-            {relatedUpdates.length > 0 && (
-              <div className="mt-10 border-t border-gray-200 pt-8">
-                <h3 className="text-xl font-black text-gray-900">
-                  Related Updates
-                </h3>
-
-                <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                  {relatedUpdates.map((item) => (
-                    <a
-                      key={item.id}
-                      href={`/updates/${item.id}`}
-                      className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-green-300 hover:bg-green-50"
-                    >
-                      <p className="text-xs font-black uppercase tracking-wide text-green-700">
-                        {item.institution} · {item.category}
-                      </p>
-
-                      <p className="mt-2 font-black leading-6 text-gray-900">
-                        {item.title}
-                      </p>
-
-                      <p className="mt-2 text-sm text-gray-600">
-                        {item.date}
-                      </p>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div className="mt-10 rounded-2xl bg-green-50 p-5 sm:p-6">
-              <h3 className="text-lg font-black text-gray-900">
-                Need clarification or admission guidance?
-              </h3>
-
-              <p className="mt-2 leading-7 text-gray-700">
-                Contact S.O.H CONSULTS and tell us what you need help with.
-              </p>
-
-              <a
-                href={whatsappLink(
-                  `Hello S.O.H CONSULTS, I need clarification about this update: ${update.title}`
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex rounded-xl bg-green-700 px-5 py-3 text-sm font-black text-white transition hover:bg-green-800"
-                style={{ color: "#ffffff" }}
-              >
-                Ask on WhatsApp
-              </a>
-            </div>
-
-            <div className="mt-8">
-              <a
-                href="/updates"
-                className="inline-flex items-center font-black text-green-700 transition hover:text-green-900"
-              >
-                ← View All Latest Updates
-              </a>
-            </div>
-          </article>
-
-          <UpdateComments updateId={update.id} />
-        </div>
-      </section>
-
+      <section className="py-12 sm:py-16"><div className="mx-auto max-w-4xl px-5 lg:px-8">
+        {image && <div className="mb-8 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm"><img src={image} alt={update.title} className="h-auto w-full object-cover" /></div>}
+        <article className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
+          <div className="space-y-5"><ArticleBody details={update.details} /></div>
+          <div className="mt-10 rounded-2xl bg-green-50 p-6"><p className="text-xs font-black uppercase tracking-widest text-green-700">S.O.H CONSULTS</p><h2 className="mt-2 text-xl font-black">Need help with this admission process?</h2><p className="mt-2 leading-7 text-gray-700">Get clear, personal guidance and registration assistance directly on WhatsApp.</p><a href={whatsappLink(`Hello S.O.H CONSULTS, I need help with: ${update.title}`)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-xl bg-green-700 px-5 py-3 text-sm font-black text-white">Get Assistance</a></div>
+          {(update.source || update.sourceUrl) && <div className="mt-10 border-t border-gray-200 pt-6"><p className="text-sm font-bold text-gray-500">Official source</p>{update.sourceUrl ? <a href={update.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex font-black text-green-700">{update.source || "View original source"} →</a> : <p className="mt-2 font-semibold">{update.source}</p>}</div>}
+          <div className="mt-10 border-t border-gray-200 pt-7"><h2 className="mb-4 text-lg font-black">Share this update</h2><ShareButtons url={pageUrl} title={update.title} /></div>
+          {related.length > 0 && <div className="mt-10 border-t border-gray-200 pt-8"><h2 className="text-xl font-black">Related Updates</h2><div className="mt-5 grid gap-4 sm:grid-cols-2">{related.map((item) => <a key={item.id} href={`/updates/${getUpdateSlug(item)}`} className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-green-300 hover:bg-green-50"><p className="text-xs font-black uppercase tracking-wide text-green-700">{item.institution} · {item.category}</p><p className="mt-2 font-black leading-6">{item.title}</p><p className="mt-2 text-sm text-gray-600">{item.date}</p></a>)}</div></div>}
+        </article>
+        <UpdateComments updateId={update.id} />
+      </div></section>
       <SiteContact />
     </main>
   );
