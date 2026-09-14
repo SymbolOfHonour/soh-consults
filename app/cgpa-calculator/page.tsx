@@ -2,133 +2,125 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-type Course = { id: number; code: string; units: number; grade: string };
 type System = "lasu" | "general";
+type EntryMode = "utme" | "direct-entry";
+type Course = { id: number; code: string; units: number; grade: string };
+type Semester = { id: number; level: string; term: string; courses: Course[] };
 
 const GRADES = [
-  { letter: "A", point: 5, range: "70–100" },
-  { letter: "B", point: 4, range: "60–69" },
-  { letter: "C", point: 3, range: "50–59" },
-  { letter: "D", point: 2, range: "45–49" },
-  { letter: "E", point: 1, range: "40–44" },
-  { letter: "F", point: 0, range: "0–39" },
+  { letter: "A", point: 5, range: "70-100" }, { letter: "B", point: 4, range: "60-69" },
+  { letter: "C", point: 3, range: "50-59" }, { letter: "D", point: 2, range: "45-49" },
+  { letter: "E", point: 1, range: "40-44" }, { letter: "F", point: 0, range: "0-39" },
 ];
+const LEVELS = ["100L", "200L", "300L", "400L", "500L", "600L", "Extra Year"];
+const TERMS = ["First Semester", "Second Semester", "Summer Semester"];
+const newCourse = (): Course => ({ id: Date.now() + Math.random(), code: "", units: 3, grade: "A" });
+const classification = (value: number) => value >= 4.5 ? "First Class" : value >= 3.5 ? "Second Class Upper" : value >= 2.4 ? "Second Class Lower" : value >= 1.5 ? "Third Class" : value >= 1 ? "Pass" : "Below Pass Level";
 
-const classification = (cgpa: number) => {
-  if (cgpa >= 4.5) return "First Class";
-  if (cgpa >= 3.5) return "Second Class Upper";
-  if (cgpa >= 2.4) return "Second Class Lower";
-  if (cgpa >= 1.5) return "Third Class";
-  if (cgpa >= 1) return "Pass";
-  return "Below Pass Level";
-};
+function makeSemester(index: number, entryMode: EntryMode, startLevel?: string): Semester {
+  const firstLevel = startLevel || (entryMode === "utme" ? "100L" : "200L");
+  const base = Math.max(0, LEVELS.indexOf(firstLevel));
+  const levelIndex = Math.min(LEVELS.length - 1, base + Math.floor(index / 2));
+  return { id: Date.now() + index + Math.random(), level: LEVELS[levelIndex], term: index % 2 ? "Second Semester" : "First Semester", courses: [newCourse(), newCourse(), newCourse()] };
+}
 
-const initialCourses: Course[] = [
-  { id: 1, code: "MKT 301", units: 3, grade: "A" },
-  { id: 2, code: "MKT 303", units: 3, grade: "B" },
-  { id: 3, code: "", units: 2, grade: "C" },
-];
-
-export default function CgpaCalculatorPage() {
+export default function CgpaPlannerPage() {
   const [system, setSystem] = useState<System>("lasu");
-  const [courses, setCourses] = useState<Course[]>(initialCourses);
-  const [previousCgpa, setPreviousCgpa] = useState("");
-  const [previousUnits, setPreviousUnits] = useState("");
-  const [previousCreditPoints, setPreviousCreditPoints] = useState("");
+  const [entryMode, setEntryMode] = useState<EntryMode>("utme");
+  const [programmeYears, setProgrammeYears] = useState("4");
+  const [studentName, setStudentName] = useState("");
+  const [programme, setProgramme] = useState("");
+  const [currentCgpa, setCurrentCgpa] = useState("");
+  const [ctnup, setCtnup] = useState("");
+  const [ctcp, setCtcp] = useState("");
   const [targetCgpa, setTargetCgpa] = useState("4.50");
+  const [semesters, setSemesters] = useState<Semester[]>([makeSemester(0, "utme")]);
+  const [openSemester, setOpenSemester] = useState<number | null>(semesters[0].id);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem("soh-cgpa-calculator");
-    if (!stored) return;
+    const raw = window.localStorage.getItem("soh-cgpa-planner-v2");
+    if (!raw) return;
     try {
-      const data = JSON.parse(stored);
-      if (data.system === "lasu" || data.system === "general") setSystem(data.system);
-      if (Array.isArray(data.courses) && data.courses.length) setCourses(data.courses);
-      setPreviousCgpa(data.previousCgpa || "");
-      setPreviousUnits(data.previousUnits || "");
-      setPreviousCreditPoints(data.previousCreditPoints || "");
-      setTargetCgpa(data.targetCgpa || "4.50");
-    } catch { /* Ignore invalid saved browser data. */ }
+      const data = JSON.parse(raw);
+      if (data.system) setSystem(data.system); if (data.entryMode) setEntryMode(data.entryMode);
+      if (data.programmeYears) setProgrammeYears(data.programmeYears); if (data.studentName) setStudentName(data.studentName);
+      if (data.programme) setProgramme(data.programme); if (data.currentCgpa) setCurrentCgpa(data.currentCgpa);
+      if (data.ctnup) setCtnup(data.ctnup); if (data.ctcp) setCtcp(data.ctcp); if (data.targetCgpa) setTargetCgpa(data.targetCgpa);
+      if (Array.isArray(data.semesters) && data.semesters.length) { setSemesters(data.semesters); setOpenSemester(data.semesters[0].id); }
+    } catch { /* Ignore damaged browser storage. */ }
   }, []);
 
-  const result = useMemo(() => {
-    const totalUnits = courses.reduce((sum, course) => sum + Math.max(0, Number(course.units) || 0), 0);
-    const qualityPoints = courses.reduce((sum, course) => {
-      const point = GRADES.find((grade) => grade.letter === course.grade)?.point || 0;
-      return sum + point * Math.max(0, Number(course.units) || 0);
-    }, 0);
-    const semesterGpa = totalUnits ? qualityPoints / totalUnits : 0;
-    const oldCgpa = Math.min(5, Math.max(0, Number(previousCgpa) || 0));
-    const oldUnits = Math.max(0, Number(previousUnits) || 0);
-    const hasExactCreditPoints = previousCreditPoints.trim() !== "" && Number(previousCreditPoints) >= 0;
-    const oldCreditPoints = hasExactCreditPoints ? Number(previousCreditPoints) : oldCgpa * oldUnits;
-    const cumulativeUnits = oldUnits + totalUnits;
-    const cumulativeCgpa = cumulativeUnits ? (oldCreditPoints + qualityPoints) / cumulativeUnits : semesterGpa;
+  const projection = useMemo(() => {
+    const oldUnits = Math.max(0, Number(ctnup) || 0);
+    const oldCgpa = Math.min(5, Math.max(0, Number(currentCgpa) || 0));
+    const exact = ctcp.trim() !== "" && Number(ctcp) >= 0;
+    let cumulativePoints = exact ? Number(ctcp) : oldCgpa * oldUnits;
+    let cumulativeUnits = oldUnits;
+    const rows = semesters.map((semester) => {
+      const units = semester.courses.reduce((sum, course) => sum + (Number(course.units) || 0), 0);
+      const points = semester.courses.reduce((sum, course) => sum + (Number(course.units) || 0) * (GRADES.find((grade) => grade.letter === course.grade)?.point || 0), 0);
+      const gpa = units ? points / units : 0;
+      cumulativePoints += points; cumulativeUnits += units;
+      return { ...semester, units, points, gpa, cumulativeUnits, cumulativePoints, cgpa: cumulativeUnits ? cumulativePoints / cumulativeUnits : 0 };
+    });
+    const final = rows.at(-1);
+    const projectedCgpa = final?.cgpa ?? oldCgpa;
+    const projectedUnits = final?.cumulativeUnits ?? oldUnits;
+    const projectedPoints = final?.cumulativePoints ?? cumulativePoints;
     const target = Math.min(5, Math.max(0, Number(targetCgpa) || 0));
-    const requiredCreditPoints = target * cumulativeUnits - oldCreditPoints;
-    const requiredGpa = totalUnits ? requiredCreditPoints / totalUnits : 0;
-    const maximumCgpa = cumulativeUnits ? (oldCreditPoints + 5 * totalUnits) / cumulativeUnits : 0;
-    return { totalUnits, qualityPoints, semesterGpa, cumulativeUnits, cumulativeCgpa, requiredGpa, requiredCreditPoints, maximumCgpa, target, hasExactCreditPoints, oldCreditPoints };
-  }, [courses, previousCgpa, previousUnits, previousCreditPoints, targetCgpa]);
+    const futureUnits = rows.reduce((sum, row) => sum + row.units, 0);
+    const requiredPoints = target * projectedUnits - (exact ? Number(ctcp) : oldCgpa * oldUnits);
+    const requiredAverage = futureUnits ? requiredPoints / futureUnits : 0;
+    const maximum = projectedUnits ? ((exact ? Number(ctcp) : oldCgpa * oldUnits) + 5 * futureUnits) / projectedUnits : oldCgpa;
+    return { rows, exact, projectedCgpa, projectedUnits, projectedPoints, futureUnits, requiredPoints, requiredAverage, maximum, target };
+  }, [semesters, currentCgpa, ctnup, ctcp, targetCgpa]);
 
-  function updateCourse(id: number, field: keyof Course, value: string | number) {
-    setCourses((current) => current.map((course) => course.id === id ? { ...course, [field]: value } : course));
+  function updateSemester(id: number, patch: Partial<Semester>) { setSemesters((list) => list.map((item) => item.id === id ? { ...item, ...patch } : item)); }
+  function updateCourse(semesterId: number, courseId: number, field: keyof Course, value: string | number) {
+    setSemesters((list) => list.map((semester) => semester.id === semesterId ? { ...semester, courses: semester.courses.map((course) => course.id === courseId ? { ...course, [field]: value } : course) } : semester));
   }
-
-  function addCourse() {
-    setCourses((current) => [...current, { id: Date.now(), code: "", units: 3, grade: "A" }]);
+  function addSemester() {
+    if (semesters.length >= 12) return;
+    const last = semesters.at(-1); const semester = makeSemester(semesters.length, entryMode, last?.level);
+    if (last) { const levelIndex = LEVELS.indexOf(last.level); semester.level = last.term === "First Semester" ? last.level : LEVELS[Math.min(LEVELS.length - 1, levelIndex + 1)]; semester.term = last.term === "First Semester" ? "Second Semester" : "First Semester"; }
+    setSemesters((list) => [...list, semester]); setOpenSemester(semester.id);
   }
-
-  function saveProgress() {
-    window.localStorage.setItem("soh-cgpa-calculator", JSON.stringify({ system, courses, previousCgpa, previousUnits, previousCreditPoints, targetCgpa }));
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 1800);
+  function changeEntryMode(mode: EntryMode) {
+    setEntryMode(mode);
+    if (semesters.length === 1 && semesters[0].courses.every((course) => !course.code)) {
+      updateSemester(semesters[0].id, { level: mode === "utme" ? "100L" : "200L" });
+    }
   }
-
-  function resetCalculator() {
-    setCourses(initialCourses); setPreviousCgpa(""); setPreviousUnits(""); setPreviousCreditPoints(""); setTargetCgpa("4.50");
-    window.localStorage.removeItem("soh-cgpa-calculator");
+  function savePlan() {
+    window.localStorage.setItem("soh-cgpa-planner-v2", JSON.stringify({ system, entryMode, programmeYears, studentName, programme, currentCgpa, ctnup, ctcp, targetCgpa, semesters }));
+    setSaved(true); window.setTimeout(() => setSaved(false), 1800);
   }
+  function resetPlan() { const first = makeSemester(0, entryMode); setSemesters([first]); setOpenSemester(first.id); setCurrentCgpa(""); setCtnup(""); setCtcp(""); setTargetCgpa("4.50"); window.localStorage.removeItem("soh-cgpa-planner-v2"); }
 
-  const targetMessage = result.totalUnits === 0
-    ? "Add the proposed semester courses and units to run the simulation."
-    : result.requiredGpa > 5
-      ? `This target is not reachable with the entered ${result.totalUnits} semester units. Even a 5.00 GPA would produce about ${result.maximumCgpa.toFixed(2)}.`
-    : result.requiredGpa <= 0
-      ? "You have already reached this target CGPA. Keep protecting your result."
-      : result.semesterGpa >= result.requiredGpa
-        ? `Your projected ${result.semesterGpa.toFixed(2)} semester GPA meets the requirement. You need at least ${Math.ceil(result.requiredCreditPoints)} credit points, approximately ${result.requiredGpa.toFixed(2)} GPA, from these ${result.totalUnits} units.`
-        : `You need at least ${Math.ceil(result.requiredCreditPoints)} credit points, approximately ${result.requiredGpa.toFixed(2)} semester GPA, from these ${result.totalUnits} units. Your selected grades currently produce ${result.qualityPoints} credit points and ${result.semesterGpa.toFixed(2)} GPA.`;
+  const targetStatus = projection.futureUnits === 0 ? "Add courses and units to calculate your target requirement."
+    : projection.requiredAverage > 5 ? `The target is not reachable within these ${projection.futureUnits} projected units. Even straight GP 5 results would produce about ${projection.maximum.toFixed(2)}.`
+    : projection.requiredAverage <= 0 ? "Your current academic record has already reached this target."
+    : `Across the ${projection.futureUnits} projected units, you need at least ${Math.ceil(projection.requiredPoints)} credit points, an average GPA of approximately ${projection.requiredAverage.toFixed(2)}, to finish at ${projection.target.toFixed(2)}.`;
 
-  return (
-    <main className="min-h-screen bg-gray-50 text-gray-900">
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8"><a href="/"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto" /></a><nav className="hidden gap-6 text-sm font-semibold md:flex"><a href="/">Home</a><a href="/updates">Updates</a><a href="/opportunities">Opportunities</a><a href="/lasu-calculator">LASU Calculator</a></nav><a href="https://wa.me/2348182141088" className="rounded-full bg-green-700 px-5 py-3 text-sm font-bold text-white">WhatsApp Us</a></div></header>
+  return <main className="min-h-screen bg-gray-50 text-gray-900">
+    <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4"><a href="/"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto" /></a><nav className="hidden gap-6 text-sm font-semibold md:flex"><a href="/">Home</a><a href="/updates">Updates</a><a href="/lasu-calculator">LASU Calculator</a></nav><a href="https://wa.me/2348182141088" className="rounded-full bg-green-700 px-5 py-3 text-sm font-bold text-white">WhatsApp Us</a></div></header>
+    <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 py-14 text-white"><div className="mx-auto max-w-5xl px-5 text-center"><p className="font-bold uppercase tracking-widest text-green-300">S.O.H CONSULTS Academic Tool</p><h1 className="mt-3 text-4xl font-black sm:text-5xl">CGPA Academic Planner</h1><p className="mx-auto mt-5 max-w-3xl leading-8 text-green-50">Plan one semester, a full session or up to 12 semesters and see your CGPA journey before the results arrive.</p></div></section>
 
-      <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 py-14 text-white"><div className="mx-auto max-w-5xl px-5 text-center"><p className="font-bold uppercase tracking-widest text-green-300">S.O.H CONSULTS Academic Tool</p><h1 className="mt-3 text-4xl font-black sm:text-5xl">CGPA Calculator & Simulator</h1><p className="mx-auto mt-5 max-w-3xl leading-8 text-green-50">Calculate your semester GPA, combine it with your previous result and discover what you need to reach your target CGPA.</p></div></section>
+    <section className="py-10"><div className="mx-auto max-w-7xl space-y-8 px-5 lg:px-8">
+      <section className="rounded-3xl border bg-white p-6 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Student profile</p><div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><label className="font-bold">Mode of Entry<select value={entryMode} onChange={(e) => changeEntryMode(e.target.value as EntryMode)} className="mt-2 w-full rounded-xl border bg-white px-4 py-3"><option value="utme">UTME</option><option value="direct-entry">Direct Entry</option></select></label><label className="font-bold">Programme Duration<select value={programmeYears} onChange={(e) => setProgrammeYears(e.target.value)} className="mt-2 w-full rounded-xl border bg-white px-4 py-3">{[4,5,6].map((year) => <option key={year} value={String(year)}>{year} years</option>)}</select></label><label className="font-bold">Student Name (optional)<input value={studentName} onChange={(e) => setStudentName(e.target.value)} placeholder="Your name" className="mt-2 w-full rounded-xl border px-4 py-3" /></label><label className="font-bold">Programme (optional)<input value={programme} onChange={(e) => setProgramme(e.target.value)} placeholder="e.g. Marketing" className="mt-2 w-full rounded-xl border px-4 py-3" /></label></div></section>
 
-      <section className="py-12"><div className="mx-auto max-w-6xl px-5 lg:px-8">
-        <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center"><div><p className="text-sm font-black uppercase tracking-widest text-green-700">Grading system</p><h2 className="mt-1 text-2xl font-black">Choose your institution type</h2></div><select value={system} onChange={(event) => setSystem(event.target.value as System)} className="rounded-xl border border-gray-300 bg-white px-4 py-3 font-bold outline-none focus:border-green-600"><option value="lasu">LASU 5.0 System</option><option value="general">General Nigerian 5.0 System</option></select></div>
-          <p className="mt-4 rounded-xl bg-green-50 p-4 text-sm leading-6 text-green-900">{system === "lasu" ? "LASU mode uses the numeric GP shown on the official academic result: 5, 4, 3, 2, 1 or 0. Select the GP earned for each course." : "This uses the widely adopted Nigerian 5-point A–F scale. Confirm your institution’s exact grade ranges and classification rules."}</p>
-          <div className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-6">{GRADES.map((grade) => <div key={grade.letter} className="rounded-xl border border-gray-200 p-3 text-center"><p className="text-xl font-black text-green-700">{system === "lasu" ? grade.point : grade.letter}</p><p className="text-xs font-semibold text-gray-500">{grade.range}</p><p className="text-xs">{system === "lasu" ? "Grade point" : `${grade.point} point${grade.point === 1 ? "" : "s"}`}</p></div>)}</div>
-        </div>
+      <section className="rounded-3xl border bg-white p-6 shadow-sm sm:p-8"><div className="flex flex-col justify-between gap-4 sm:flex-row"><div><p className="text-sm font-black uppercase tracking-widest text-green-700">Current record</p><h2 className="mt-1 text-2xl font-black">Where are you starting from?</h2></div><select value={system} onChange={(e) => setSystem(e.target.value as System)} className="h-fit rounded-xl border bg-white px-4 py-3 font-bold"><option value="lasu">LASU 5.0 System</option><option value="general">General Nigerian 5.0</option></select></div><div className="mt-5 grid gap-4 md:grid-cols-3"><label className="font-bold">Current CGPA<input type="number" min="0" max="5" step="0.01" value={currentCgpa} onChange={(e) => setCurrentCgpa(e.target.value)} placeholder="e.g. 3.79" className="mt-2 w-full rounded-xl border px-4 py-3" /></label><label className="font-bold">Completed Course Units (CTNUP)<input type="number" min="0" value={ctnup} onChange={(e) => setCtnup(e.target.value)} placeholder="e.g. 121" className="mt-2 w-full rounded-xl border px-4 py-3" /></label><label className="font-bold">Cumulative Credit Points (CTCP)<input type="number" min="0" step="0.01" value={ctcp} onChange={(e) => setCtcp(e.target.value)} placeholder="e.g. 458 (optional)" className="mt-2 w-full rounded-xl border px-4 py-3" /></label></div><p className="mt-4 rounded-xl bg-green-50 p-4 text-sm text-green-900">CTNUP is the total number of course units passed. CTCP is the sum of Unit x GP for all completed courses. Entering CTCP gives an exact projection; otherwise the rounded CGPA produces an estimate.</p></section>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[1.45fr_0.75fr]">
-          <div className="space-y-8">
-            <section className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8"><div className="flex items-end justify-between gap-4"><div><p className="text-sm font-black uppercase tracking-widest text-green-700">Step 1</p><h2 className="mt-1 text-2xl font-black">Enter this semester’s courses</h2></div><button onClick={addCourse} className="rounded-xl bg-green-700 px-4 py-3 text-sm font-black text-white">+ Add Course</button></div>
-              <div className="mt-6 space-y-3">{courses.map((course, index) => <div key={course.id} className="grid grid-cols-[1fr_76px_82px_42px] gap-2 rounded-2xl bg-gray-50 p-3 sm:grid-cols-[1fr_110px_120px_48px]"><input aria-label={`Course ${index + 1} code`} value={course.code} onChange={(event) => updateCourse(course.id, "code", event.target.value.toUpperCase())} placeholder={`Course ${index + 1}`} className="min-w-0 rounded-xl border border-gray-300 px-3 py-3 outline-none focus:border-green-600" /><select aria-label="Course units" value={course.units} onChange={(event) => updateCourse(course.id, "units", Number(event.target.value))} className="rounded-xl border border-gray-300 bg-white px-2 py-3 font-bold">{[1,2,3,4,5,6].map((unit) => <option key={unit} value={unit}>{unit} unit{unit > 1 ? "s" : ""}</option>)}</select><select aria-label={system === "lasu" ? "Grade point" : "Grade"} value={course.grade} onChange={(event) => updateCourse(course.id, "grade", event.target.value)} className="rounded-xl border border-gray-300 bg-white px-2 py-3 font-black">{GRADES.map((grade) => <option key={grade.letter} value={grade.letter}>{system === "lasu" ? grade.point : grade.letter}</option>)}</select><button aria-label="Remove course" disabled={courses.length === 1} onClick={() => setCourses((current) => current.filter((item) => item.id !== course.id))} className="rounded-xl text-xl font-black text-red-600 disabled:opacity-30">×</button></div>)}</div>
-            </section>
+      <div className="grid gap-8 xl:grid-cols-[1.45fr_0.75fr]"><div className="space-y-5">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><p className="text-sm font-black uppercase tracking-widest text-green-700">Projection plan</p><h2 className="mt-1 text-3xl font-black">Projected semesters ({semesters.length}/12)</h2></div><button onClick={addSemester} disabled={semesters.length >= 12} className="rounded-xl bg-green-700 px-5 py-3 font-black text-white disabled:opacity-40">+ Add Semester</button></div>
+        {semesters.map((semester, semesterIndex) => { const row = projection.rows[semesterIndex]; const open = openSemester === semester.id; return <section key={semester.id} className="overflow-hidden rounded-3xl border bg-white shadow-sm"><button onClick={() => setOpenSemester(open ? null : semester.id)} className="flex w-full items-center justify-between gap-4 p-5 text-left sm:p-6"><div><p className="text-xs font-black uppercase tracking-widest text-green-700">Projection {semesterIndex + 1}</p><h3 className="mt-1 text-xl font-black">{semester.level} - {semester.term}</h3><p className="mt-1 text-sm text-gray-500">{row?.units || 0} units · GPA {row?.gpa.toFixed(2)} · CGPA {row?.cgpa.toFixed(2)}</p></div><span className="text-2xl font-black text-green-700">{open ? "−" : "+"}</span></button>{open && <div className="border-t p-5 sm:p-6"><div className="grid gap-3 sm:grid-cols-2"><label className="font-bold">Level<select value={semester.level} onChange={(e) => updateSemester(semester.id, { level: e.target.value })} className="mt-2 w-full rounded-xl border bg-white px-4 py-3">{LEVELS.map((level) => <option key={level}>{level}</option>)}</select></label><label className="font-bold">Semester<select value={semester.term} onChange={(e) => updateSemester(semester.id, { term: e.target.value })} className="mt-2 w-full rounded-xl border bg-white px-4 py-3">{TERMS.map((term) => <option key={term}>{term}</option>)}</select></label></div><div className="mt-5 space-y-3">{semester.courses.map((course, index) => <div key={course.id} className="grid grid-cols-[1fr_74px_76px_38px] gap-2 rounded-2xl bg-gray-50 p-3 sm:grid-cols-[1fr_112px_110px_44px]"><input value={course.code} onChange={(e) => updateCourse(semester.id, course.id, "code", e.target.value.toUpperCase())} placeholder={`Course ${index + 1}`} className="min-w-0 rounded-xl border px-3 py-3" /><select value={course.units} onChange={(e) => updateCourse(semester.id, course.id, "units", Number(e.target.value))} className="rounded-xl border bg-white px-2 font-bold">{[1,2,3,4,5,6].map((unit) => <option key={unit} value={unit}>{unit} unit{unit > 1 ? "s" : ""}</option>)}</select><select value={course.grade} onChange={(e) => updateCourse(semester.id, course.id, "grade", e.target.value)} className="rounded-xl border bg-white px-2 font-black">{GRADES.map((grade) => <option key={grade.letter} value={grade.letter}>{system === "lasu" ? grade.point : grade.letter}</option>)}</select><button disabled={semester.courses.length === 1} onClick={() => updateSemester(semester.id, { courses: semester.courses.filter((item) => item.id !== course.id) })} className="text-xl font-black text-red-600 disabled:opacity-30">×</button></div>)}</div><div className="mt-5 flex flex-wrap gap-3"><button onClick={() => updateSemester(semester.id, { courses: [...semester.courses, newCourse()] })} className="rounded-xl bg-green-700 px-4 py-2.5 text-sm font-black text-white">+ Add Course</button>{semesters.length > 1 && <button onClick={() => setSemesters((list) => list.filter((item) => item.id !== semester.id))} className="rounded-xl border border-red-200 px-4 py-2.5 text-sm font-black text-red-700">Remove Semester</button>}</div></div>}</section>; })}
+      </div>
 
-            <section className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Step 2</p><h2 className="mt-1 text-2xl font-black">Enter your current academic record</h2><p className="mt-2 text-sm text-gray-600">Use the cumulative figures before the semester you are projecting. Total credit points gives the exact LASU result; without it, the projection uses your rounded CGPA as an estimate.</p><div className="mt-5 grid gap-4 md:grid-cols-3"><label className="font-bold">Current CGPA<input type="number" min="0" max="5" step="0.01" value={previousCgpa} onChange={(event) => setPreviousCgpa(event.target.value)} placeholder="e.g. 3.79" className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label><label className="font-bold">Completed units (CTNUP)<input type="number" min="0" value={previousUnits} onChange={(event) => setPreviousUnits(event.target.value)} placeholder="e.g. 121" className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label><label className="font-bold">Total credit points (optional)<input type="number" min="0" step="0.01" value={previousCreditPoints} onChange={(event) => setPreviousCreditPoints(event.target.value)} placeholder="e.g. 458" className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label></div></section>
+      <aside className="xl:sticky xl:top-28 xl:self-start"><div className="overflow-hidden rounded-3xl bg-green-950 text-white shadow-xl"><div className="p-7"><p className="text-sm font-black uppercase tracking-widest text-green-300">Final Projection</p><p className="mt-1 text-xs text-green-100">{entryMode === "utme" ? "UTME" : "Direct Entry"} · {programmeYears}</p><div className="mt-6 grid grid-cols-2 gap-3"><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">{projection.exact || !Number(ctnup) ? "Projected CGPA" : "Estimated CGPA"}</p><p className="mt-1 text-3xl font-black">{projection.projectedCgpa.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected Units</p><p className="mt-1 text-3xl font-black">{projection.projectedUnits}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Future Units</p><p className="mt-1 text-2xl font-black">{projection.futureUnits}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected CTCP</p><p className="mt-1 text-2xl font-black">{projection.projectedPoints.toFixed(0)}</p></div></div><div className="mt-5 rounded-2xl bg-green-300 p-5 text-green-950"><p className="text-xs font-black uppercase">Projected Classification</p><p className="mt-1 text-xl font-black">{classification(projection.projectedCgpa)}</p></div></div><div className="border-t border-white/10 p-7"><label className="font-bold">Final Target CGPA<input type="number" min="0" max="5" step="0.01" value={targetCgpa} onChange={(e) => setTargetCgpa(e.target.value)} className="mt-2 w-full rounded-xl border border-white/20 bg-white px-4 py-3 text-gray-900" /></label><div className={`mt-4 rounded-xl p-4 text-sm font-bold leading-6 ${projection.requiredAverage > 5 ? "bg-red-100 text-red-900" : "bg-white/10 text-green-50"}`}>{targetStatus}</div><button onClick={savePlan} className="mt-5 w-full rounded-xl bg-white px-5 py-3 font-black text-green-900">{saved ? "Plan Saved ✓" : "Save on This Device"}</button><button onClick={resetPlan} className="mt-3 w-full rounded-xl border border-white/20 px-5 py-3 font-black">Reset Planner</button></div></div></aside></div>
 
-            <section className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Step 3</p><h2 className="mt-1 text-2xl font-black">Set your target CGPA</h2><p className="mt-2 text-sm leading-6 text-gray-600">The calculator uses the courses and units entered in Step 1 to show the semester performance required.</p><label className="mt-5 block max-w-sm font-bold">Target CGPA<input type="number" min="0" max="5" step="0.01" value={targetCgpa} onChange={(event) => setTargetCgpa(event.target.value)} className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label><div className={`mt-5 rounded-2xl p-5 font-bold leading-7 ${result.requiredGpa > 5 ? "bg-red-50 text-red-900" : "bg-green-50 text-green-900"}`}>{targetMessage}</div></section>
-          </div>
-
-          <aside className="lg:sticky lg:top-28 lg:self-start"><div className="overflow-hidden rounded-3xl bg-green-950 text-white shadow-xl"><div className="p-7"><p className="text-sm font-black uppercase tracking-widest text-green-300">Your Projection</p><div className="mt-6 grid grid-cols-2 gap-3"><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected Semester GPA</p><p className="mt-1 text-3xl font-black">{result.semesterGpa.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">{result.hasExactCreditPoints || Number(previousUnits) === 0 ? "Projected CGPA" : "Estimated Projected CGPA"}</p><p className="mt-1 text-3xl font-black">{result.cumulativeCgpa.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected Semester TCP</p><p className="mt-1 text-2xl font-black">{result.qualityPoints}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected Total Units</p><p className="mt-1 text-2xl font-black">{result.cumulativeUnits}</p></div></div>{Number(previousUnits) > 0 && <div className="mt-4 rounded-2xl border border-white/15 bg-white/5 p-4 text-sm leading-6 text-green-50"><span className="font-black">Calculation:</span> {result.hasExactCreditPoints ? `${result.oldCreditPoints} existing credit points` : `${Math.min(5, Math.max(0, Number(previousCgpa) || 0)).toFixed(2)} CGPA × ${Math.max(0, Number(previousUnits) || 0)} units (estimate)`}, plus {result.qualityPoints} projected semester credit points, divided by {result.cumulativeUnits} projected total units.</div>}<div className="mt-5 rounded-2xl bg-green-300 p-5 text-green-950"><p className="text-xs font-black uppercase tracking-wide">Projected Classification</p><p className="mt-1 text-xl font-black">{classification(result.cumulativeCgpa)}</p></div></div>
-            <div className="border-t border-white/10 p-7"><button onClick={saveProgress} className="w-full rounded-xl bg-white px-5 py-3 font-black text-green-900">{saved ? "Saved ✓" : "Save on This Device"}</button><button onClick={resetCalculator} className="mt-3 w-full rounded-xl border border-white/20 px-5 py-3 font-black text-white">Reset Calculator</button><p className="mt-4 text-xs leading-5 text-green-100">This calculator is for guidance. Always confirm your official result and institution’s regulations.</p></div></div></aside>
-        </div>
-      </div></section>
-    </main>
-  );
+      <section className="overflow-hidden rounded-3xl border bg-white shadow-sm"><div className="p-6"><p className="text-sm font-black uppercase tracking-widest text-green-700">Academic timeline</p><h2 className="mt-1 text-2xl font-black">Semester-by-semester projection</h2></div><div className="overflow-x-auto"><table className="w-full min-w-[720px] text-left"><thead className="bg-gray-100 text-xs uppercase text-gray-600"><tr><th className="px-5 py-3">Stage</th><th>Units</th><th>TCP</th><th>GPA</th><th>Cumulative Units</th><th>Projected CGPA</th><th>Progress</th></tr></thead><tbody className="divide-y">{projection.rows.map((row, index) => <tr key={row.id}><td className="px-5 py-4 font-black">{row.level} {row.term}</td><td>{row.units}</td><td>{row.points}</td><td>{row.gpa.toFixed(2)}</td><td>{row.cumulativeUnits}</td><td className="font-black text-green-700">{row.cgpa.toFixed(2)}</td><td><span className={`rounded-full px-3 py-1 text-xs font-black ${row.cgpa >= projection.target ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>{row.cgpa >= projection.target ? "Target achieved" : "Building"}</span></td></tr>)}</tbody></table></div></section>
+      <p className="text-center text-sm leading-6 text-gray-500">This planner provides projections only. Always rely on your institution's official academic result and regulations.</p>
+    </div></section>
+  </main>;
 }
