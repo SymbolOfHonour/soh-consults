@@ -1,11 +1,13 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useState } from "react";
-import { updates } from "../../../data/updates";
+import { useEffect, useState } from "react";
+import { getUpdateImage, updates } from "../../../data/updates";
 import SiteContact from "../../components/SiteContact";
+import UpdateComments from "../../components/UpdateComments";
 
 const WHATSAPP_NUMBER = "2348182141088";
+const SITE_URL = "https://soh-consults.vercel.app";
 
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -13,9 +15,16 @@ const whatsappLink = (message: string) =>
 export default function UpdateDetailsPage() {
   const params = useParams();
   const [copied, setCopied] = useState(false);
-  const id = Number(params.id);
+  const [shareUrl, setShareUrl] = useState("");
 
+  const id = Number(params.id);
   const update = updates.find((item) => item.id === id);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setShareUrl(window.location.href);
+    }
+  }, []);
 
   if (!update) {
     return (
@@ -34,15 +43,18 @@ export default function UpdateDetailsPage() {
               <a href="/" className="transition hover:text-green-700">
                 Home
               </a>
+
               <a href="/updates" className="text-green-700">
                 Latest Updates
               </a>
+
               <a
                 href="/opportunities"
                 className="transition hover:text-green-700"
               >
                 Opportunities
               </a>
+
               <a
                 href="/lasu-calculator"
                 className="transition hover:text-green-700"
@@ -70,9 +82,11 @@ export default function UpdateDetailsPage() {
             <p className="text-sm font-black uppercase tracking-widest text-green-700">
               S.O.H CONSULTS
             </p>
+
             <h1 className="mt-4 text-3xl font-black sm:text-4xl">
               Update Not Found
             </h1>
+
             <p className="mt-4 leading-7 text-gray-600">
               The update you are looking for may have been moved or is no longer
               available.
@@ -94,17 +108,26 @@ export default function UpdateDetailsPage() {
   }
 
   const relatedUpdates = updates
-    .filter((item) => item.id !== update.id && (item.category === update.category || item.institution === update.institution))
+    .filter(
+      (item) =>
+        item.id !== update.id &&
+        (item.category === update.category ||
+          item.institution === update.institution)
+    )
     .slice(0, 3);
 
-  const shareUrl = typeof window !== "undefined" ? window.location.href : `https://soh-consults.vercel.app/updates/${update.id}`;
+  const fallbackShareUrl = `${SITE_URL}/updates/${update.id}`;
+  const activeShareUrl = shareUrl || fallbackShareUrl;
   const shareText = `${update.title} | S.O.H CONSULTS`;
 
   const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(shareUrl);
+      await navigator.clipboard.writeText(activeShareUrl);
       setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
+
+      window.setTimeout(() => {
+        setCopied(false);
+      }, 1800);
     } catch {
       setCopied(false);
     }
@@ -131,15 +154,18 @@ export default function UpdateDetailsPage() {
             <a href="/" className="transition hover:text-green-700">
               Home
             </a>
+
             <a href="/updates" className="text-green-700">
               Latest Updates
             </a>
+
             <a
               href="/opportunities"
               className="transition hover:text-green-700"
             >
               Opportunities
             </a>
+
             <a
               href="/lasu-calculator"
               className="transition hover:text-green-700"
@@ -176,9 +202,11 @@ export default function UpdateDetailsPage() {
             <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-black text-white">
               {update.category}
             </span>
+
             <span className="text-sm font-semibold text-green-100">
               {update.institution}
             </span>
+
             <span className="text-sm font-semibold text-green-100">
               {update.date}
             </span>
@@ -196,6 +224,16 @@ export default function UpdateDetailsPage() {
 
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-4xl px-5 lg:px-8">
+          {getUpdateImage(update) && (
+            <div className="mb-8 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
+              <img
+                src={getUpdateImage(update)}
+                alt={update.title}
+                className="h-auto w-full object-cover"
+              />
+            </div>
+          )}
+
           <article className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
             <div className="space-y-5">
               {detailSections.map((section, index) => {
@@ -228,10 +266,15 @@ export default function UpdateDetailsPage() {
             </div>
 
             <div className="mt-10 border-t border-gray-200 pt-7">
-              <h3 className="text-lg font-black text-gray-900">Share this update</h3>
+              <h3 className="text-lg font-black text-gray-900">
+                Share this update
+              </h3>
+
               <div className="mt-4 flex flex-wrap gap-3">
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`}
+                  href={`https://wa.me/?text=${encodeURIComponent(
+                    `${shareText} ${activeShareUrl}`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-xl bg-green-700 px-5 py-3 text-sm font-black text-white"
@@ -239,11 +282,18 @@ export default function UpdateDetailsPage() {
                 >
                   Share on WhatsApp
                 </a>
-                <button onClick={copyLink} className="rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-black text-gray-900">
+
+                <button
+                  onClick={copyLink}
+                  className="rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-black text-gray-900"
+                >
                   {copied ? "Link Copied ✓" : "Copy Link"}
                 </button>
+
                 <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                    activeShareUrl
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-black text-gray-900"
@@ -277,13 +327,28 @@ export default function UpdateDetailsPage() {
 
             {relatedUpdates.length > 0 && (
               <div className="mt-10 border-t border-gray-200 pt-8">
-                <h3 className="text-xl font-black text-gray-900">Related Updates</h3>
+                <h3 className="text-xl font-black text-gray-900">
+                  Related Updates
+                </h3>
+
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   {relatedUpdates.map((item) => (
-                    <a key={item.id} href={`/updates/${item.id}`} className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-green-300 hover:bg-green-50">
-                      <p className="text-xs font-black uppercase tracking-wide text-green-700">{item.institution} · {item.category}</p>
-                      <p className="mt-2 font-black leading-6 text-gray-900">{item.title}</p>
-                      <p className="mt-2 text-sm text-gray-600">{item.date}</p>
+                    <a
+                      key={item.id}
+                      href={`/updates/${item.id}`}
+                      className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-green-300 hover:bg-green-50"
+                    >
+                      <p className="text-xs font-black uppercase tracking-wide text-green-700">
+                        {item.institution} · {item.category}
+                      </p>
+
+                      <p className="mt-2 font-black leading-6 text-gray-900">
+                        {item.title}
+                      </p>
+
+                      <p className="mt-2 text-sm text-gray-600">
+                        {item.date}
+                      </p>
                     </a>
                   ))}
                 </div>
@@ -294,6 +359,7 @@ export default function UpdateDetailsPage() {
               <h3 className="text-lg font-black text-gray-900">
                 Need clarification or admission guidance?
               </h3>
+
               <p className="mt-2 leading-7 text-gray-700">
                 Contact S.O.H CONSULTS and tell us what you need help with.
               </p>
@@ -320,6 +386,8 @@ export default function UpdateDetailsPage() {
               </a>
             </div>
           </article>
+
+          <UpdateComments updateId={update.id} />
         </div>
       </section>
 

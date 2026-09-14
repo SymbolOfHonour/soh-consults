@@ -1,0 +1,18 @@
+S.O.H CONSULTS - COMMENTS SETUP (FREE SUPABASE TIER)
+
+The comments UI and API are already included in this project. To make comments persist for all visitors:
+
+1. Create a free Supabase project at https://supabase.com
+2. In Supabase, open SQL Editor and run the contents of:
+   supabase/comments.sql
+3. In Supabase Project Settings > API, copy:
+   - Project URL
+   - service_role key (KEEP THIS SECRET)
+4. On your computer, create .env.local in the project root with:
+   SUPABASE_URL=https://YOUR-PROJECT.supabase.co
+   SUPABASE_SERVICE_ROLE_KEY=YOUR-SERVICE-ROLE-KEY
+5. In Vercel > Project > Settings > Environment Variables, add the same two variables.
+6. Redeploy.
+
+Visitors' email addresses are stored but never returned by the public comments API or shown on the website.
+Comments are published immediately after submission, as requested.

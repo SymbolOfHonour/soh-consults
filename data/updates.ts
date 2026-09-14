@@ -16,7 +16,29 @@ export type Update = {
   deadlineISO?: string;
   sourceUrl?: string;
   source?: string;
+  image?: string;
 };
+
+export const institutionUpdateImages: Record<string, string> = {
+  OOU: "/oou-campus.jpg",
+  JABU: "/jabu-campus.jpg",
+};
+
+export function getUpdateImage(update: Pick<Update, "institution" | "image">): string | undefined {
+  if (update.image) return update.image;
+
+  const institution = update.institution.trim().toUpperCase();
+
+  if (institution === "OOU" || institution.includes("OLABISI ONABANJO UNIVERSITY")) {
+    return institutionUpdateImages.OOU;
+  }
+
+  if (institution === "JABU" || institution.includes("JOSEPH AYO BABALOLA UNIVERSITY")) {
+    return institutionUpdateImages.JABU;
+  }
+
+  return undefined;
+}
 
 export type Opportunity = {
   institution: string;
@@ -122,6 +144,103 @@ export const opportunities: Opportunity[] = [
 ];
 
 export const updates: Update[] = [
+  {
+    id: 16,
+    category: "Admission",
+    institution: "OOU",
+    title: "JUST IN: OLABISI ONABANJO UNIVERSITY RELEASES POST-UTME RESULTS FOR 2026/2027 ACADEMIC SESSION",
+    date: "14 September 2026",
+    summary: "Olabisi Onabanjo University, Ago-Iwoye has released the Post-UTME screening results for the 2026/2027 academic session. Candidates can now check their results through the university's official Post-UTME portal.",
+    image: "/oou-campus.jpg",
+    details: `The Olabisi Onabanjo University (OOU), Ago-Iwoye has released the Post-UTME screening results for the 2026/2027 academic session.
+
+Candidates who participated in the university's Post-UTME screening exercise can now proceed to check their results through the university's official online portal. The university's official Post-UTME portal is available for candidates to access their screening information.
+
+HOW TO CHECK OOU POST-UTME RESULT
+
+1. Visit the official Olabisi Onabanjo University Post-UTME portal: https://putme.oouagoiwoye.edu.ng/exam-result
+2. Log in using the required details.
+3. Enter your JAMB Registration Number and other requested information.
+4. Submit the details to access your Post-UTME result.
+5. Carefully check your result and print a copy for future reference.
+
+WHAT CANDIDATES SHOULD KNOW
+
+The release of the Post-UTME results is an important stage in the 2026/2027 admission process for candidates seeking admission into Olabisi Onabanjo University.
+
+Candidates are advised to keep their result details safe and regularly monitor the university's official channels for further information regarding the admission process.
+
+The Post-UTME result will form part of the information considered during the university's admission process, alongside other relevant admission requirements.
+
+IMPORTANT NOTICE
+
+Candidates should ensure that they check their results through the official OOU portal and avoid relying on unofficial websites or individuals claiming to have access to candidates' results.
+
+Those who encounter difficulties while checking their results are advised to follow the instructions provided on the university's official portal.
+
+Congratulations to all candidates who participated in the Olabisi Onabanjo University Post-UTME screening exercise. 🎉
+
+Stay connected with S.O.H CONSULTS for more updates on OOU admission, admission lists, acceptance fees, and other 2026/2027 admission news.`,
+    source: "OOU Post-UTME Portal",
+    sourceUrl: "https://putme.oouagoiwoye.edu.ng/exam-result",
+  },
+  {
+    id: 15,
+    category: "Admission",
+    institution: "JABU",
+    title: "JUST IN: JOSEPH AYO BABALOLA UNIVERSITY ANNOUNCES RESUMPTION DATES FOR 2026/2027 ACADEMIC SESSION",
+    date: "14 September 2026",
+    summary: "Joseph Ayo Babalola University has announced resumption dates for fresh and returning students for the 2026/2027 academic session, alongside the First Semester Parents' Forum date.",
+    image: "/jabu-campus.jpg",
+    details: `The Management of Joseph Ayo Babalola University (JABU), Ikeji-Arakeji, Osun State, has announced the resumption dates for fresh and returning students for the 2026/2027 academic session.
+
+The announcement was contained in a welcome message from the Vice-Chancellor, Professor Olasebikan Alade Fakolujo, who warmly welcomed students, staff, parents and other stakeholders to the new academic session.
+
+JABU 2026/2027 RESUMPTION DATES
+
+Freshers' Resumption: Monday, September 21, 2026
+Parents' Forum, First Semester: Saturday, September 26, 2026
+Returning Students' Resumption: Saturday, September 26, 2026
+
+FRESHERS TO RESUME ON SEPTEMBER 21
+
+Newly admitted students are expected to resume on Monday, September 21, 2026. Freshers are advised to make the necessary preparations ahead of the resumption date and ensure that they complete all required admission and registration procedures.
+
+Students should also stay updated through the university's official communication channels for information concerning clearance, accommodation, school fees, orientation and other registration requirements.
+
+RETURNING STUDENTS TO RESUME ON SEPTEMBER 26
+
+Returning students are scheduled to resume for the new academic session on Saturday, September 26, 2026.
+
+Students are encouraged to prepare adequately for the commencement of academic activities, complete any outstanding registration requirements and report to their respective departments as directed by the university.
+
+PARENTS' FORUM SCHEDULED FOR SEPTEMBER 26
+
+The university also announced that the First Semester Parents' Forum will hold on Saturday, September 26, 2026.
+
+The forum is expected to provide an opportunity for parents and guardians to engage with the university's management, receive important updates and discuss matters relating to students' welfare, academic progress and general campus activities.
+
+VICE-CHANCELLOR WELCOMES THE UNIVERSITY COMMUNITY
+
+In his welcome message, the Vice-Chancellor, Professor Olasebikan Alade Fakolujo, extended warm greetings to students, staff, parents and all stakeholders as the university begins the 2026/2027 academic session.
+
+The university community is expected to approach the new session with renewed commitment to academic excellence, discipline, personal development and the values of the institution.
+
+ADVICE TO STUDENTS AND PARENTS
+
+Students and parents are advised to:
+Take note of the announced resumption dates.
+Make adequate travel and accommodation arrangements.
+Complete all necessary payments, clearance and registration processes.
+Monitor official university platforms for further announcements.
+Avoid relying on unverified information from unofficial social media pages.
+
+The university's official website and student portals should be consulted for additional instructions and updates concerning the new academic session.
+
+Joseph Ayo Babalola University wishes all students, staff, parents and stakeholders a successful and rewarding 2026/2027 academic session.`,
+    source: "Joseph Ayo Babalola University",
+    sourceUrl: "https://jabu.edu.ng/",
+  },
   {
     id: 14,
     category: "JAMB",

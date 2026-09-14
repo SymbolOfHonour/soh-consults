@@ -1316,12 +1316,8 @@ export default function LASUCalculator() {
     oLevelSecondSitting,
     setOLevelSecondSitting,
   ] = useState<OLevelEntry[]>([
-    {
-      subject: "English Language",
-      grade: "",
-    },
     ...Array.from(
-      { length: 8 },
+      { length: 9 },
       () => ({ subject: "", grade: "" })
     ),
   ]);
@@ -1910,6 +1906,18 @@ export default function LASUCalculator() {
         );
       }
 
+      const firstSittingEnglishCredit = firstSittingCompleted.some(
+        (entry) => entry.subject === "English Language" && isCredit(entry.grade)
+      );
+
+      if (!firstSittingEnglishCredit) {
+        messages.push(
+          oLevelSittings === 2
+            ? "English Language must have a credit pass in the First Sitting."
+            : "English Language must have a credit pass."
+        );
+      }
+
       let oLevelRequirementValid =
         false;
 
@@ -1933,6 +1941,7 @@ export default function LASUCalculator() {
 
         oLevelRequirementValid =
           englishCredit &&
+          firstSittingEnglishCredit &&
           otherCredits >= 4;
 
         if (!englishCredit) {
@@ -2050,6 +2059,7 @@ export default function LASUCalculator() {
         }
 
         oLevelRequirementValid =
+          firstSittingEnglishCredit &&
           requiredValid &&
           alternativesValid &&
           creditOLevelResults.length >=
@@ -2203,7 +2213,6 @@ export default function LASUCalculator() {
   }
 
   function updateSecondOLevelSubject(index: number, subject: string) {
-    if (index === 0) return;
     setOLevelSecondSitting((current) =>
       current.map((entry, currentIndex) =>
         currentIndex === index ? { ...entry, subject } : entry
@@ -2268,8 +2277,7 @@ export default function LASUCalculator() {
 
     setOLevelSittings(1);
     setOLevelSecondSitting([
-      { subject: "English Language", grade: "" },
-      ...Array.from({ length: 8 }, () => ({ subject: "", grade: "" })),
+      ...Array.from({ length: 9 }, () => ({ subject: "", grade: "" })),
     ]);
 
     setChecked(false);
@@ -4208,7 +4216,7 @@ export default function LASUCalculator() {
                   </h2>
 
                   <p className="mt-1 text-sm text-slate-500">
-                    Select one or two O-Level sittings, enter your results and select your grades. English Language is compulsory.
+                    Select one or two O-Level sittings, enter your results and select your grades. English Language is compulsory in a single sitting and in the first result when two sittings are used.
                   </p>
                 </div>
 
@@ -4372,11 +4380,11 @@ export default function LASUCalculator() {
                           <label className="mb-2 block text-xs font-bold text-slate-600">Subject {index + 1}</label>
                           <select
                             value={entry.subject}
-                            disabled={index === 0}
+                            disabled={false}
                             onChange={(event) => updateSecondOLevelSubject(index, event.target.value)}
                             className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100 disabled:bg-slate-100 disabled:font-semibold disabled:text-slate-500"
                           >
-                            {index !== 0 && <option value="">Select subject</option>}
+                            <option value="">Select subject</option>
                             {getAvailableOLevelOptions(oLevelSecondSitting, index).map((subject) => (
                               <option key={subject} value={subject}>{subject}</option>
                             ))}

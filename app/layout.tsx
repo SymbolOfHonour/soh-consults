@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import PWARegister from "./components/PWARegister";
@@ -72,11 +72,14 @@ export const metadata: Metadata = {
   },
 
   manifest: "/manifest.webmanifest",
-  themeColor: "#15803d",
 
   verification: {
     google: "BdoiW3GoHdajYLbbLSmm-UQpo3YrjBAAWT2NpoKTcBs",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#15803d",
 };
 
 export default function RootLayout({

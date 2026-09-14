@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { updates } from "../../data/updates";
+import { getUpdateImage, updates } from "../../data/updates";
 import SiteContact from "../components/SiteContact";
 
 const WHATSAPP_NUMBER = "2348182141088";
@@ -77,7 +77,11 @@ export default function UpdatesPage() {
 
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {filteredUpdates.map((item) => (
-              <article key={item.id} className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+              <article key={item.id} className="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                {getUpdateImage(item) && (
+                  <img src={getUpdateImage(item)} alt={item.title} className="h-52 w-full object-cover" />
+                )}
+                <div className="flex flex-1 flex-col p-6">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-black text-green-800">{item.category}</span>
                   <span className="text-xs font-semibold text-gray-500">{item.date}</span>
@@ -89,6 +93,7 @@ export default function UpdatesPage() {
                 <a href={`/updates/${item.id}`} className="mt-6 inline-flex items-center font-black text-green-700 hover:text-green-900">
                   Read Full Update →
                 </a>
+                </div>
               </article>
             ))}
           </div>
