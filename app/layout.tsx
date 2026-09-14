@@ -69,11 +69,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title: "S.O.H CONSULTS | Admission, Education & Consultation",
-
     description:
       "Admission guidance, educational opportunities, JAMB support and the LASU Aggregate & Eligibility Checker.",
-
     siteName: "S.O.H CONSULTS",
+    url: siteUrl,
+    images: [
+      {
+        url: "/soh-logo.jpg",
+        alt: "S.O.H CONSULTS",
+      },
+    ],
   },
 
   manifest: "/manifest.webmanifest",
@@ -85,6 +90,46 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#15803d",
+};
+
+const organizationStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
+
+  name: "S.O.H CONSULTS",
+  url: siteUrl,
+  logo: `${siteUrl}/soh-logo.jpg`,
+
+  description:
+    "S.O.H CONSULTS provides admission guidance, educational consultation, JAMB support, application assistance, educational updates and admission tools for students and applicants in Nigeria.",
+
+  email: "mailto:Oluyepeadetayo@gmail.com",
+  telephone: "+2348182141088",
+
+  founder: {
+    "@type": "Person",
+    name: "Oluyepe Adetayo Sunday",
+  },
+
+  sameAs: [
+    "https://www.instagram.com/oluyepeadetayo/",
+    "https://www.linkedin.com/in/adetayo-sunday-oluyepe",
+    "https://whatsapp.com/channel/0029VbD6QQp3GJP68dl9TK29",
+  ],
+
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+2348182141088",
+    contactType: "customer service",
+    areaServed: "NG",
+    availableLanguage: ["English"],
+  },
+
+  areaServed: {
+    "@type": "Country",
+    name: "Nigeria",
+  },
 };
 
 export default function RootLayout({
@@ -101,6 +146,13 @@ export default function RootLayout({
         <meta
           name="google-site-verification"
           content="BdoiW3GoHdajYLbbLSmm-UQpo3YrjBAAWT2NpoKTcBs"
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationStructuredData),
+          }}
         />
       </head>
 
