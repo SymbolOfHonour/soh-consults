@@ -34,8 +34,8 @@ export default function CgpaCalculatorPage() {
   const [courses, setCourses] = useState<Course[]>(initialCourses);
   const [previousCgpa, setPreviousCgpa] = useState("");
   const [previousUnits, setPreviousUnits] = useState("");
+  const [previousCreditPoints, setPreviousCreditPoints] = useState("");
   const [targetCgpa, setTargetCgpa] = useState("4.50");
-  const [futureUnits, setFutureUnits] = useState("24");
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
@@ -47,8 +47,8 @@ export default function CgpaCalculatorPage() {
       if (Array.isArray(data.courses) && data.courses.length) setCourses(data.courses);
       setPreviousCgpa(data.previousCgpa || "");
       setPreviousUnits(data.previousUnits || "");
+      setPreviousCreditPoints(data.previousCreditPoints || "");
       setTargetCgpa(data.targetCgpa || "4.50");
-      setFutureUnits(data.futureUnits || "24");
     } catch { /* Ignore invalid saved browser data. */ }
   }, []);
 
@@ -61,14 +61,16 @@ export default function CgpaCalculatorPage() {
     const semesterGpa = totalUnits ? qualityPoints / totalUnits : 0;
     const oldCgpa = Math.min(5, Math.max(0, Number(previousCgpa) || 0));
     const oldUnits = Math.max(0, Number(previousUnits) || 0);
+    const hasExactCreditPoints = previousCreditPoints.trim() !== "" && Number(previousCreditPoints) >= 0;
+    const oldCreditPoints = hasExactCreditPoints ? Number(previousCreditPoints) : oldCgpa * oldUnits;
     const cumulativeUnits = oldUnits + totalUnits;
-    const cumulativeCgpa = cumulativeUnits ? (oldCgpa * oldUnits + qualityPoints) / cumulativeUnits : semesterGpa;
+    const cumulativeCgpa = cumulativeUnits ? (oldCreditPoints + qualityPoints) / cumulativeUnits : semesterGpa;
     const target = Math.min(5, Math.max(0, Number(targetCgpa) || 0));
-    const plannedUnits = Math.max(0, Number(futureUnits) || 0);
-    const requiredGpa = plannedUnits ? (target * (cumulativeUnits + plannedUnits) - cumulativeCgpa * cumulativeUnits) / plannedUnits : 0;
-    const maximumCgpa = cumulativeUnits + plannedUnits ? (cumulativeCgpa * cumulativeUnits + 5 * plannedUnits) / (cumulativeUnits + plannedUnits) : cumulativeCgpa;
-    return { totalUnits, qualityPoints, semesterGpa, cumulativeUnits, cumulativeCgpa, requiredGpa, maximumCgpa, target, plannedUnits };
-  }, [courses, previousCgpa, previousUnits, targetCgpa, futureUnits]);
+    const requiredCreditPoints = target * cumulativeUnits - oldCreditPoints;
+    const requiredGpa = totalUnits ? requiredCreditPoints / totalUnits : 0;
+    const maximumCgpa = cumulativeUnits ? (oldCreditPoints + 5 * totalUnits) / cumulativeUnits : 0;
+    return { totalUnits, qualityPoints, semesterGpa, cumulativeUnits, cumulativeCgpa, requiredGpa, requiredCreditPoints, maximumCgpa, target, hasExactCreditPoints, oldCreditPoints };
+  }, [courses, previousCgpa, previousUnits, previousCreditPoints, targetCgpa]);
 
   function updateCourse(id: number, field: keyof Course, value: string | number) {
     setCourses((current) => current.map((course) => course.id === id ? { ...course, [field]: value } : course));
@@ -79,23 +81,25 @@ export default function CgpaCalculatorPage() {
   }
 
   function saveProgress() {
-    window.localStorage.setItem("soh-cgpa-calculator", JSON.stringify({ system, courses, previousCgpa, previousUnits, targetCgpa, futureUnits }));
+    window.localStorage.setItem("soh-cgpa-calculator", JSON.stringify({ system, courses, previousCgpa, previousUnits, previousCreditPoints, targetCgpa }));
     setSaved(true);
     window.setTimeout(() => setSaved(false), 1800);
   }
 
   function resetCalculator() {
-    setCourses(initialCourses); setPreviousCgpa(""); setPreviousUnits(""); setTargetCgpa("4.50"); setFutureUnits("24");
+    setCourses(initialCourses); setPreviousCgpa(""); setPreviousUnits(""); setPreviousCreditPoints(""); setTargetCgpa("4.50");
     window.localStorage.removeItem("soh-cgpa-calculator");
   }
 
-  const targetMessage = result.plannedUnits === 0
-    ? "Enter your planned future units to run the simulation."
+  const targetMessage = result.totalUnits === 0
+    ? "Add the proposed semester courses and units to run the simulation."
     : result.requiredGpa > 5
-      ? `The target is not reachable within ${result.plannedUnits} units. Even straight As would produce about ${result.maximumCgpa.toFixed(2)}.`
-      : result.requiredGpa <= 0
-        ? "You have already reached this target CGPA. Keep protecting your result."
-        : `You need an average GPA of ${result.requiredGpa.toFixed(2)} across the next ${result.plannedUnits} units.`;
+      ? `This target is not reachable with the entered ${result.totalUnits} semester units. Even a 5.00 GPA would produce about ${result.maximumCgpa.toFixed(2)}.`
+    : result.requiredGpa <= 0
+      ? "You have already reached this target CGPA. Keep protecting your result."
+      : result.semesterGpa >= result.requiredGpa
+        ? `Your projected ${result.semesterGpa.toFixed(2)} semester GPA meets the requirement. You need at least ${Math.ceil(result.requiredCreditPoints)} credit points, approximately ${result.requiredGpa.toFixed(2)} GPA, from these ${result.totalUnits} units.`
+        : `You need at least ${Math.ceil(result.requiredCreditPoints)} credit points, approximately ${result.requiredGpa.toFixed(2)} semester GPA, from these ${result.totalUnits} units. Your selected grades currently produce ${result.qualityPoints} credit points and ${result.semesterGpa.toFixed(2)} GPA.`;
 
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900">
@@ -116,12 +120,12 @@ export default function CgpaCalculatorPage() {
               <div className="mt-6 space-y-3">{courses.map((course, index) => <div key={course.id} className="grid grid-cols-[1fr_76px_82px_42px] gap-2 rounded-2xl bg-gray-50 p-3 sm:grid-cols-[1fr_110px_120px_48px]"><input aria-label={`Course ${index + 1} code`} value={course.code} onChange={(event) => updateCourse(course.id, "code", event.target.value.toUpperCase())} placeholder={`Course ${index + 1}`} className="min-w-0 rounded-xl border border-gray-300 px-3 py-3 outline-none focus:border-green-600" /><select aria-label="Course units" value={course.units} onChange={(event) => updateCourse(course.id, "units", Number(event.target.value))} className="rounded-xl border border-gray-300 bg-white px-2 py-3 font-bold">{[1,2,3,4,5,6].map((unit) => <option key={unit} value={unit}>{unit} unit{unit > 1 ? "s" : ""}</option>)}</select><select aria-label={system === "lasu" ? "Grade point" : "Grade"} value={course.grade} onChange={(event) => updateCourse(course.id, "grade", event.target.value)} className="rounded-xl border border-gray-300 bg-white px-2 py-3 font-black">{GRADES.map((grade) => <option key={grade.letter} value={grade.letter}>{system === "lasu" ? grade.point : grade.letter}</option>)}</select><button aria-label="Remove course" disabled={courses.length === 1} onClick={() => setCourses((current) => current.filter((item) => item.id !== course.id))} className="rounded-xl text-xl font-black text-red-600 disabled:opacity-30">×</button></div>)}</div>
             </section>
 
-            <section className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Step 2</p><h2 className="mt-1 text-2xl font-black">Add your previous academic record</h2><p className="mt-2 text-sm text-gray-600">Leave both fields blank if this is your first semester.</p><div className="mt-5 grid gap-4 sm:grid-cols-2"><label className="font-bold">Previous CGPA<input type="number" min="0" max="5" step="0.01" value={previousCgpa} onChange={(event) => setPreviousCgpa(event.target.value)} placeholder="e.g. 3.72" className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label><label className="font-bold">Previously completed units<input type="number" min="0" value={previousUnits} onChange={(event) => setPreviousUnits(event.target.value)} placeholder="e.g. 84" className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label></div></section>
+            <section className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Step 2</p><h2 className="mt-1 text-2xl font-black">Enter your current academic record</h2><p className="mt-2 text-sm text-gray-600">Use the cumulative figures before the semester you are projecting. Total credit points gives the exact LASU result; without it, the projection uses your rounded CGPA as an estimate.</p><div className="mt-5 grid gap-4 md:grid-cols-3"><label className="font-bold">Current CGPA<input type="number" min="0" max="5" step="0.01" value={previousCgpa} onChange={(event) => setPreviousCgpa(event.target.value)} placeholder="e.g. 3.79" className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label><label className="font-bold">Completed units (CTNUP)<input type="number" min="0" value={previousUnits} onChange={(event) => setPreviousUnits(event.target.value)} placeholder="e.g. 121" className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label><label className="font-bold">Total credit points (optional)<input type="number" min="0" step="0.01" value={previousCreditPoints} onChange={(event) => setPreviousCreditPoints(event.target.value)} placeholder="e.g. 458" className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label></div></section>
 
-            <section className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Step 3</p><h2 className="mt-1 text-2xl font-black">Simulate your target</h2><div className="mt-5 grid gap-4 sm:grid-cols-2"><label className="font-bold">Target CGPA<input type="number" min="0" max="5" step="0.01" value={targetCgpa} onChange={(event) => setTargetCgpa(event.target.value)} className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label><label className="font-bold">Planned future units<input type="number" min="1" value={futureUnits} onChange={(event) => setFutureUnits(event.target.value)} className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label></div><div className={`mt-5 rounded-2xl p-5 font-bold leading-7 ${result.requiredGpa > 5 ? "bg-red-50 text-red-900" : "bg-green-50 text-green-900"}`}>{targetMessage}</div></section>
+            <section className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Step 3</p><h2 className="mt-1 text-2xl font-black">Set your target CGPA</h2><p className="mt-2 text-sm leading-6 text-gray-600">The calculator uses the courses and units entered in Step 1 to show the semester performance required.</p><label className="mt-5 block max-w-sm font-bold">Target CGPA<input type="number" min="0" max="5" step="0.01" value={targetCgpa} onChange={(event) => setTargetCgpa(event.target.value)} className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-green-600" /></label><div className={`mt-5 rounded-2xl p-5 font-bold leading-7 ${result.requiredGpa > 5 ? "bg-red-50 text-red-900" : "bg-green-50 text-green-900"}`}>{targetMessage}</div></section>
           </div>
 
-          <aside className="lg:sticky lg:top-28 lg:self-start"><div className="overflow-hidden rounded-3xl bg-green-950 text-white shadow-xl"><div className="p-7"><p className="text-sm font-black uppercase tracking-widest text-green-300">Your Result</p><div className="mt-6 grid grid-cols-2 gap-3"><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Current Semester GPA</p><p className="mt-1 text-3xl font-black">{result.semesterGpa.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected CGPA</p><p className="mt-1 text-3xl font-black">{result.cumulativeCgpa.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Semester Units</p><p className="mt-1 text-2xl font-black">{result.totalUnits}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected Total Units</p><p className="mt-1 text-2xl font-black">{result.cumulativeUnits}</p></div></div>{Number(previousUnits) > 0 && <div className="mt-4 rounded-2xl border border-white/15 bg-white/5 p-4 text-sm leading-6 text-green-50"><span className="font-black">How it is calculated:</span> Previous CGPA ({Math.min(5, Math.max(0, Number(previousCgpa) || 0)).toFixed(2)}) across {Math.max(0, Number(previousUnits) || 0)} units, combined with this semester’s GPA ({result.semesterGpa.toFixed(2)}) across {result.totalUnits} units.</div>}<div className="mt-5 rounded-2xl bg-green-300 p-5 text-green-950"><p className="text-xs font-black uppercase tracking-wide">Projected Classification</p><p className="mt-1 text-xl font-black">{classification(result.cumulativeCgpa)}</p></div></div>
+          <aside className="lg:sticky lg:top-28 lg:self-start"><div className="overflow-hidden rounded-3xl bg-green-950 text-white shadow-xl"><div className="p-7"><p className="text-sm font-black uppercase tracking-widest text-green-300">Your Projection</p><div className="mt-6 grid grid-cols-2 gap-3"><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected Semester GPA</p><p className="mt-1 text-3xl font-black">{result.semesterGpa.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">{result.hasExactCreditPoints || Number(previousUnits) === 0 ? "Projected CGPA" : "Estimated Projected CGPA"}</p><p className="mt-1 text-3xl font-black">{result.cumulativeCgpa.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected Semester TCP</p><p className="mt-1 text-2xl font-black">{result.qualityPoints}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected Total Units</p><p className="mt-1 text-2xl font-black">{result.cumulativeUnits}</p></div></div>{Number(previousUnits) > 0 && <div className="mt-4 rounded-2xl border border-white/15 bg-white/5 p-4 text-sm leading-6 text-green-50"><span className="font-black">Calculation:</span> {result.hasExactCreditPoints ? `${result.oldCreditPoints} existing credit points` : `${Math.min(5, Math.max(0, Number(previousCgpa) || 0)).toFixed(2)} CGPA × ${Math.max(0, Number(previousUnits) || 0)} units (estimate)`}, plus {result.qualityPoints} projected semester credit points, divided by {result.cumulativeUnits} projected total units.</div>}<div className="mt-5 rounded-2xl bg-green-300 p-5 text-green-950"><p className="text-xs font-black uppercase tracking-wide">Projected Classification</p><p className="mt-1 text-xl font-black">{classification(result.cumulativeCgpa)}</p></div></div>
             <div className="border-t border-white/10 p-7"><button onClick={saveProgress} className="w-full rounded-xl bg-white px-5 py-3 font-black text-green-900">{saved ? "Saved ✓" : "Save on This Device"}</button><button onClick={resetCalculator} className="mt-3 w-full rounded-xl border border-white/20 px-5 py-3 font-black text-white">Reset Calculator</button><p className="mt-4 text-xs leading-5 text-green-100">This calculator is for guidance. Always confirm your official result and institution’s regulations.</p></div></div></aside>
         </div>
       </div></section>
