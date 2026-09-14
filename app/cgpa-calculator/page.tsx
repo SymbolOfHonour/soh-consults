@@ -39,7 +39,7 @@ export default function CgpaPlannerPage() {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    const raw = window.localStorage.getItem("soh-cgpa-planner-v2");
+    const raw = window.localStorage.getItem("soh-cgpa-planner-v3");
     if (!raw) return;
     try {
       const data = JSON.parse(raw);
@@ -73,8 +73,11 @@ export default function CgpaPlannerPage() {
     const requiredPoints = target * projectedUnits - (exact ? Number(ctcp) : oldCgpa * oldUnits);
     const requiredAverage = futureUnits ? requiredPoints / futureUnits : 0;
     const maximum = projectedUnits ? ((exact ? Number(ctcp) : oldCgpa * oldUnits) + 5 * futureUnits) / projectedUnits : oldCgpa;
-    return { rows, exact, projectedCgpa, projectedUnits, projectedPoints, futureUnits, requiredPoints, requiredAverage, maximum, target };
-  }, [semesters, currentCgpa, ctnup, ctcp, targetCgpa]);
+    const graduationUnits = Math.max(1, Number(programmeYears) || 4) * 2 * 18;
+    const unitsLeftNow = Math.max(0, graduationUnits - oldUnits);
+    const unitsLeftAfterProjection = Math.max(0, graduationUnits - projectedUnits);
+    return { rows, exact, projectedCgpa, projectedUnits, projectedPoints, futureUnits, requiredPoints, requiredAverage, maximum, target, graduationUnits, unitsLeftNow, unitsLeftAfterProjection };
+  }, [semesters, currentCgpa, ctnup, ctcp, targetCgpa, programmeYears]);
 
   function updateSemester(id: number, patch: Partial<Semester>) { setSemesters((list) => list.map((item) => item.id === id ? { ...item, ...patch } : item)); }
   function updateCourse(semesterId: number, courseId: number, field: keyof Course, value: string | number) {
@@ -93,24 +96,31 @@ export default function CgpaPlannerPage() {
     }
   }
   function savePlan() {
-    window.localStorage.setItem("soh-cgpa-planner-v2", JSON.stringify({ system, entryMode, programmeYears, studentName, programme, currentCgpa, ctnup, ctcp, targetCgpa, semesters }));
+    window.localStorage.setItem("soh-cgpa-planner-v3", JSON.stringify({ system, entryMode, programmeYears, studentName, programme, currentCgpa, ctnup, ctcp, targetCgpa, semesters }));
     setSaved(true); window.setTimeout(() => setSaved(false), 1800);
   }
-  function resetPlan() { const first = makeSemester(0, entryMode); setSemesters([first]); setOpenSemester(first.id); setCurrentCgpa(""); setCtnup(""); setCtcp(""); setTargetCgpa("4.50"); window.localStorage.removeItem("soh-cgpa-planner-v2"); }
+  function resetPlan() { const first = makeSemester(0, entryMode); setSemesters([first]); setOpenSemester(first.id); setCurrentCgpa(""); setCtnup(""); setCtcp(""); setTargetCgpa("4.50"); window.localStorage.removeItem("soh-cgpa-planner-v3"); }
 
   const reportName = () => `SOH-CGPA-Projection-${(studentName || "Student").trim().replace(/[^a-z0-9]+/gi, "-")}.`;
   const motivation = projection.projectedCgpa >= projection.target
     ? "You are on track to achieve your target. Stay consistent and finish strong!"
     : `Your target is still the goal. Focus on the required ${projection.requiredAverage > 0 && projection.requiredAverage <= 5 ? projection.requiredAverage.toFixed(2) : "best possible"} average GPA and keep improving semester by semester.`;
 
+  function loadLogo(): Promise<HTMLImageElement> {
+    return new Promise((resolve, reject) => { const image = new Image(); image.onload = () => resolve(image); image.onerror = reject; image.src = "/soh-logo.jpg"; });
+  }
+
   async function downloadPdf() {
     const { jsPDF } = await import("jspdf");
+    const logo = await loadLogo(); const logoCanvas = document.createElement("canvas"); logoCanvas.width = logo.naturalWidth; logoCanvas.height = logo.naturalHeight; logoCanvas.getContext("2d")?.drawImage(logo, 0, 0);
+    const logoData = logoCanvas.toDataURL("image/jpeg", 0.92);
     const pdf = new jsPDF({ unit: "mm", format: "a4" });
     const width = 210;
     const addHeader = () => {
       pdf.setFillColor(20, 83, 45); pdf.rect(0, 0, width, 38, "F");
       pdf.setTextColor(255, 255, 255); pdf.setFont("helvetica", "bold"); pdf.setFontSize(20); pdf.text("S.O.H CONSULTS", 15, 16);
       pdf.setFontSize(11); pdf.text("CGPA ACADEMIC PROJECTION REPORT", 15, 25); pdf.setFont("helvetica", "normal"); pdf.setFontSize(9); pdf.text("Your Guide. Your Success.", 15, 32);
+      pdf.setFillColor(255, 255, 255); pdf.roundedRect(169, 5, 26, 26, 2, 2, "F"); pdf.addImage(logoData, "JPEG", 171, 7, 22, 22);
     };
     addHeader(); let y = 49;
     const line = (label: string, value: string) => { pdf.setTextColor(75, 85, 99); pdf.setFont("helvetica", "bold"); pdf.text(label, 15, y); pdf.setFont("helvetica", "normal"); pdf.setTextColor(17, 24, 39); pdf.text(value, 62, y); y += 7; };
@@ -118,6 +128,7 @@ export default function CgpaPlannerPage() {
     line("Entry / Duration", `${entryMode === "utme" ? "UTME" : "Direct Entry"} / ${programmeYears} years`);
     line("Current Record", `${currentCgpa || "0.00"} CGPA | ${ctnup || "0"} CTNUP${ctcp ? ` | ${ctcp} CTCP` : " | estimated points"}`);
     line("Target", Number(targetCgpa || 0).toFixed(2)); line("Final Projection", `${projection.projectedCgpa.toFixed(2)} CGPA | ${classification(projection.projectedCgpa)}`);
+    line("Graduation Units", `${projection.graduationUnits} planning benchmark | ${projection.unitsLeftAfterProjection} left after this plan`);
     y += 3; pdf.setFillColor(220, 252, 231); pdf.roundedRect(15, y, 180, 22, 3, 3, "F"); pdf.setTextColor(20, 83, 45); pdf.setFont("helvetica", "bold"); pdf.setFontSize(10); pdf.text(pdf.splitTextToSize(motivation, 168), 21, y + 8); y += 31;
     pdf.setTextColor(17, 24, 39); pdf.setFontSize(13); pdf.text("Semester-by-semester projection", 15, y); y += 7;
     const columns = [15, 79, 105, 126, 150, 177];
@@ -136,13 +147,15 @@ export default function CgpaPlannerPage() {
     pdf.save(`${reportName()}pdf`);
   }
 
-  function downloadImage() {
+  async function downloadImage() {
+    const logo = await loadLogo();
     const canvas = document.createElement("canvas"); const width = 1200; const height = 780 + projection.rows.length * 74;
     canvas.width = width; canvas.height = height; const ctx = canvas.getContext("2d"); if (!ctx) return;
     ctx.fillStyle = "#f9fafb"; ctx.fillRect(0, 0, width, height); ctx.fillStyle = "#14532d"; ctx.fillRect(0, 0, width, 190);
     ctx.fillStyle = "#ffffff"; ctx.font = "bold 54px Arial"; ctx.fillText("S.O.H CONSULTS", 70, 75); ctx.font = "bold 30px Arial"; ctx.fillText("CGPA ACADEMIC PROJECTION REPORT", 70, 125); ctx.font = "22px Arial"; ctx.fillText("Your Guide. Your Success.", 70, 162);
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(1000, 25, 145, 145); ctx.drawImage(logo, 1010, 35, 125, 125);
     let y = 245; ctx.fillStyle = "#111827"; ctx.font = "bold 28px Arial"; ctx.fillText(studentName || "Student Projection", 70, y); y += 42; ctx.font = "21px Arial";
-    ctx.fillText(`${programme || "Programme not provided"} | ${entryMode === "utme" ? "UTME" : "Direct Entry"} | ${programmeYears} years`, 70, y); y += 55;
+    ctx.fillText(`${programme || "Programme not provided"} | ${entryMode === "utme" ? "UTME" : "Direct Entry"} | ${programmeYears} years`, 70, y); y += 35; ctx.font = "18px Arial"; ctx.fillText(`${projection.graduationUnits}-unit planning benchmark | ${projection.unitsLeftAfterProjection} units left after this projection`, 70, y); y += 35;
     ctx.fillStyle = "#dcfce7"; ctx.fillRect(70, y, 1060, 145); ctx.fillStyle = "#14532d"; ctx.font = "bold 25px Arial"; ctx.fillText(`Current CGPA: ${currentCgpa || "0.00"}`, 100, y + 42); ctx.fillText(`Target CGPA: ${Number(targetCgpa || 0).toFixed(2)}`, 100, y + 82); ctx.font = "bold 34px Arial"; ctx.fillText(`Final Projected CGPA: ${projection.projectedCgpa.toFixed(2)} (${classification(projection.projectedCgpa)})`, 470, y + 72); y += 195;
     ctx.fillStyle = "#111827"; ctx.font = "bold 27px Arial"; ctx.fillText("Semester Timeline", 70, y); y += 36;
     projection.rows.forEach((row, index) => { ctx.fillStyle = index % 2 ? "#ffffff" : "#f0fdf4"; ctx.fillRect(70, y, 1060, 58); ctx.fillStyle = "#111827"; ctx.font = "bold 19px Arial"; ctx.fillText(`${row.level} ${row.term}`, 90, y + 36); ctx.font = "18px Arial"; ctx.fillText(`${row.units} units`, 490, y + 36); ctx.fillText(`GPA ${row.gpa.toFixed(2)}`, 650, y + 36); ctx.fillStyle = "#15803d"; ctx.font = "bold 19px Arial"; ctx.fillText(`CGPA ${row.cgpa.toFixed(2)}`, 900, y + 36); y += 64; });
@@ -161,7 +174,7 @@ export default function CgpaPlannerPage() {
     <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 py-14 text-white"><div className="mx-auto max-w-5xl px-5 text-center"><p className="font-bold uppercase tracking-widest text-green-300">S.O.H CONSULTS Academic Tool</p><h1 className="mt-3 text-4xl font-black sm:text-5xl">CGPA Academic Planner</h1><p className="mx-auto mt-5 max-w-3xl leading-8 text-green-50">Plan one semester, a full session or up to 12 semesters and see your CGPA journey before the results arrive.</p></div></section>
 
     <section className="py-10"><div className="mx-auto max-w-7xl space-y-8 px-5 lg:px-8">
-      <section className="rounded-3xl border bg-white p-6 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Student profile</p><div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><label className="font-bold">Mode of Entry<select value={entryMode} onChange={(e) => changeEntryMode(e.target.value as EntryMode)} className="mt-2 w-full rounded-xl border bg-white px-4 py-3"><option value="utme">UTME</option><option value="direct-entry">Direct Entry</option></select></label><label className="font-bold">Programme Duration<select value={programmeYears} onChange={(e) => setProgrammeYears(e.target.value)} className="mt-2 w-full rounded-xl border bg-white px-4 py-3">{[4,5,6].map((year) => <option key={year} value={String(year)}>{year} years</option>)}</select></label><label className="font-bold">Student Name (optional)<input value={studentName} onChange={(e) => setStudentName(e.target.value)} placeholder="Your name" className="mt-2 w-full rounded-xl border px-4 py-3" /></label><label className="font-bold">Programme (optional)<input value={programme} onChange={(e) => setProgramme(e.target.value)} placeholder="e.g. Marketing" className="mt-2 w-full rounded-xl border px-4 py-3" /></label></div></section>
+      <section className="rounded-3xl border bg-white p-6 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Student profile</p><div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><label className="font-bold">Mode of Entry<select value={entryMode} onChange={(e) => changeEntryMode(e.target.value as EntryMode)} className="mt-2 w-full rounded-xl border bg-white px-4 py-3"><option value="utme">UTME</option><option value="direct-entry">Direct Entry</option></select></label><label className="font-bold">Programme Duration<select value={programmeYears} onChange={(e) => setProgrammeYears(e.target.value)} className="mt-2 w-full rounded-xl border bg-white px-4 py-3">{[4,5,6,7].map((year) => <option key={year} value={String(year)}>{year} years</option>)}</select></label><label className="font-bold">Student Name (optional)<input value={studentName} onChange={(e) => setStudentName(e.target.value)} placeholder="Your name" className="mt-2 w-full rounded-xl border px-4 py-3" /></label><label className="font-bold">Programme (optional)<input value={programme} onChange={(e) => setProgramme(e.target.value)} placeholder="e.g. Marketing" className="mt-2 w-full rounded-xl border px-4 py-3" /></label></div><div className="mt-5 grid gap-3 rounded-2xl bg-green-50 p-4 text-green-950 sm:grid-cols-3"><div><p className="text-xs font-bold uppercase">Planning benchmark</p><p className="text-xl font-black">{projection.graduationUnits} units</p></div><div><p className="text-xs font-bold uppercase">Units left now</p><p className="text-xl font-black">{projection.unitsLeftNow}</p></div><div><p className="text-xs font-bold uppercase">After this projection</p><p className="text-xl font-black">{projection.unitsLeftAfterProjection} units left</p></div></div><p className="mt-3 text-xs leading-5 text-gray-500">Calculated at a planning minimum of 18 units per semester. Official graduation requirements vary by programme, faculty and institution.</p></section>
 
       <section className="rounded-3xl border bg-white p-6 shadow-sm sm:p-8"><div className="flex flex-col justify-between gap-4 sm:flex-row"><div><p className="text-sm font-black uppercase tracking-widest text-green-700">Current record</p><h2 className="mt-1 text-2xl font-black">Where are you starting from?</h2></div><select value={system} onChange={(e) => setSystem(e.target.value as System)} className="h-fit rounded-xl border bg-white px-4 py-3 font-bold"><option value="lasu">LASU 5.0 System</option><option value="general">General Nigerian 5.0</option></select></div><div className="mt-5 grid gap-4 md:grid-cols-3"><label className="font-bold">Current CGPA<input type="number" min="0" max="5" step="0.01" value={currentCgpa} onChange={(e) => setCurrentCgpa(e.target.value)} placeholder="e.g. 3.79" className="mt-2 w-full rounded-xl border px-4 py-3" /></label><label className="font-bold">Completed Course Units (CTNUP)<input type="number" min="0" value={ctnup} onChange={(e) => setCtnup(e.target.value)} placeholder="e.g. 121" className="mt-2 w-full rounded-xl border px-4 py-3" /></label><label className="font-bold">Cumulative Credit Points (CTCP)<input type="number" min="0" step="0.01" value={ctcp} onChange={(e) => setCtcp(e.target.value)} placeholder="e.g. 458 (optional)" className="mt-2 w-full rounded-xl border px-4 py-3" /></label></div><p className="mt-4 rounded-xl bg-green-50 p-4 text-sm text-green-900">CTNUP is the total number of course units passed. CTCP is the sum of Unit x GP for all completed courses. Entering CTCP gives an exact projection; otherwise the rounded CGPA produces an estimate.</p></section>
 
