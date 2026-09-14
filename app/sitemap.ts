@@ -30,6 +30,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
+      url: `${siteUrl}/cgpa-calculator`,
+      changeFrequency: "monthly",
+      priority: 0.95,
+    },
+    {
       url: `${siteUrl}/updates`,
       changeFrequency: "daily",
       priority: 0.9,

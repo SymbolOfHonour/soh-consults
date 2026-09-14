@@ -88,6 +88,9 @@ export default function Home() {
             >
               LASU Calculator
             </a>
+            <a href="/cgpa-calculator" className="whitespace-nowrap transition hover:text-green-700">
+              CGPA Calculator
+            </a>
           </nav>
 
           <a
@@ -389,6 +392,13 @@ export default function Home() {
               <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">
                 Open Calculator →
               </span>
+            </a>
+
+            <a href="/cgpa-calculator" className="group rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-green-200 hover:shadow-lg">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-100 text-2xl">📈</div>
+              <h3 className="mt-5 text-2xl font-black text-gray-950">CGPA Simulator</h3>
+              <p className="mt-3 leading-7 text-gray-600">Calculate your GPA and CGPA, then simulate what you need to reach your target classification.</p>
+              <span className="mt-6 inline-block font-black text-green-700 transition group-hover:translate-x-1">Open CGPA Tool →</span>
             </a>
           </div>
         </div>
