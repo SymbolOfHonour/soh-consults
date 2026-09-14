@@ -61,7 +61,7 @@ export default function Home() {
             <img
               src="/soh-logo.jpg"
               alt="S.O.H CONSULTS"
-              className="h-16 w-auto object-contain"
+              className="h-20 w-auto object-contain sm:h-24"
             />
           </a>
 
