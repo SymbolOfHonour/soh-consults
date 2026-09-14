@@ -102,7 +102,7 @@ const oLevelSubjects = [
   "Foods & Nutrition",
   "French",
   "Further Mathematics",
-  "General Mathematics",
+  "Mathematics",
   "Geography",
   "Government",
   "Hausa Language",
@@ -207,7 +207,7 @@ const oLevelAliases: Record<string, string[]> = {
     "further mathematics",
     "further maths",
   ],
-  "General Mathematics": [
+  Mathematics: [
     "general mathematics",
     "mathematics",
     "maths",
@@ -308,7 +308,7 @@ const oLevelSubjectCategories: Record<string, string[]> = {
     "Biology",
     "Chemistry",
     "Further Mathematics",
-    "General Mathematics",
+    "Mathematics",
     "Physics",
   ],
 
@@ -625,11 +625,11 @@ function parseRequirement(
       requiredText
     ) &&
     !required.includes(
-      "General Mathematics"
+      "Mathematics"
     )
   ) {
     required.push(
-      "General Mathematics"
+      "Mathematics"
     );
   }
 
@@ -1308,6 +1308,25 @@ export default function LASUCalculator() {
   ]);
 
   const [
+    oLevelSittings,
+    setOLevelSittings,
+  ] = useState<1 | 2>(1);
+
+  const [
+    oLevelSecondSitting,
+    setOLevelSecondSitting,
+  ] = useState<OLevelEntry[]>([
+    {
+      subject: "English Language",
+      grade: "",
+    },
+    ...Array.from(
+      { length: 8 },
+      () => ({ subject: "", grade: "" })
+    ),
+  ]);
+
+  const [
     checked,
     setChecked,
   ] = useState(false);
@@ -1504,16 +1523,31 @@ export default function LASUCalculator() {
       ]
     );
 
-  const completedOLevelResults =
-    useMemo(
-      () =>
-        oLevel.filter(
-          (entry) =>
-            entry.subject &&
-            entry.grade
-        ),
-      [oLevel]
-    );
+  const firstSittingCompleted = useMemo(
+    () => oLevel.filter((entry) => entry.subject && entry.grade),
+    [oLevel]
+  );
+
+  const secondSittingCompleted = useMemo(
+    () =>
+      oLevelSittings === 2
+        ? oLevelSecondSitting.filter((entry) => entry.subject && entry.grade)
+        : [],
+    [oLevelSecondSitting, oLevelSittings]
+  );
+
+  // For two sittings, combine both results and keep the stronger grade
+  // where the same subject appears in both sittings.
+  const completedOLevelResults = useMemo(() => {
+    const bestBySubject = new Map<string, OLevelEntry>();
+    for (const entry of [...firstSittingCompleted, ...secondSittingCompleted]) {
+      const current = bestBySubject.get(entry.subject);
+      if (!current || (gradePoints[entry.grade] ?? 0) > (gradePoints[current.grade] ?? 0)) {
+        bestBySubject.set(entry.subject, entry);
+      }
+    }
+    return Array.from(bestBySubject.values());
+  }, [firstSittingCompleted, secondSittingCompleted]);
 
   const selectedJambSubjects =
     useMemo(
@@ -1649,6 +1683,9 @@ export default function LASUCalculator() {
       return score * 0.15;
     }, [jambScore]);
 
+  const oLevelSittingMultiplier =
+    oLevelSittings === 2 ? 0.9 : 1;
+
   const oLevelPoints =
     useMemo(
       () =>
@@ -1660,10 +1697,11 @@ export default function LASUCalculator() {
             total +
             (gradePoints[
               entry.grade
-            ] ?? 0),
+            ] ?? 0) *
+              oLevelSittingMultiplier,
           0
         ),
-      [bestFive]
+      [bestFive, oLevelSittingMultiplier]
     );
 
   const aggregate =
@@ -1869,23 +1907,6 @@ export default function LASUCalculator() {
       ) {
         messages.push(
           "Enter between 5 and 9 completed O-Level results."
-        );
-      }
-
-      const oLevelSubjectsUsed =
-        completedOLevelResults.map(
-          (entry) =>
-            entry.subject
-        );
-
-      if (
-        uniqueValues(
-          oLevelSubjectsUsed
-        ).length !==
-        oLevelSubjectsUsed.length
-      ) {
-        messages.push(
-          "O-Level subjects must not contain duplicates."
         );
       }
 
@@ -2181,6 +2202,25 @@ export default function LASUCalculator() {
     setChecked(false);
   }
 
+  function updateSecondOLevelSubject(index: number, subject: string) {
+    if (index === 0) return;
+    setOLevelSecondSitting((current) =>
+      current.map((entry, currentIndex) =>
+        currentIndex === index ? { ...entry, subject } : entry
+      )
+    );
+    setChecked(false);
+  }
+
+  function updateSecondOLevelGrade(index: number, grade: string) {
+    setOLevelSecondSitting((current) =>
+      current.map((entry, currentIndex) =>
+        currentIndex === index ? { ...entry, grade } : entry
+      )
+    );
+    setChecked(false);
+  }
+
   function resetCalculator() {
     setCandidateName("");
 
@@ -2224,6 +2264,12 @@ export default function LASUCalculator() {
           grade: "",
         })
       ),
+    ]);
+
+    setOLevelSittings(1);
+    setOLevelSecondSitting([
+      { subject: "English Language", grade: "" },
+      ...Array.from({ length: 8 }, () => ({ subject: "", grade: "" })),
     ]);
 
     setChecked(false);
@@ -3227,9 +3273,14 @@ export default function LASUCalculator() {
 
       ctx.fillText(
         String(
-          gradePoints[
-            entry.grade
-          ] ?? 0
+          (
+            (gradePoints[
+              entry.grade
+            ] ?? 0) *
+            oLevelSittingMultiplier
+          ).toFixed(
+            oLevelSittings === 2 ? 1 : 0
+          )
         ),
         1136,
         resultY
@@ -3353,9 +3404,14 @@ export default function LASUCalculator() {
 
       ctx.fillText(
         String(
-          gradePoints[
-            entry.grade
-          ] ?? 0
+          (
+            (gradePoints[
+              entry.grade
+            ] ?? 0) *
+            oLevelSittingMultiplier
+          ).toFixed(
+            oLevelSittings === 2 ? 1 : 0
+          )
         ),
         550,
         bestY
@@ -4152,7 +4208,7 @@ export default function LASUCalculator() {
                   </h2>
 
                   <p className="mt-1 text-sm text-slate-500">
-                    Enter 5 to 9 O-Level results and select your grades. English Language is compulsory.
+                    Select one or two O-Level sittings, enter your results and select your grades. English Language is compulsory.
                   </p>
                 </div>
 
@@ -4164,7 +4220,29 @@ export default function LASUCalculator() {
                 </div>
               </div>
 
-              <div className="mt-5 space-y-3">
+              <div className="mt-5 rounded-2xl border border-green-100 bg-green-50 p-4">
+                <label className="mb-2 block text-sm font-black text-slate-800">Number of O-Level Sittings</label>
+                <select
+                  value={oLevelSittings}
+                  onChange={(event) => {
+                    setOLevelSittings(Number(event.target.value) as 1 | 2);
+                    setChecked(false);
+                  }}
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100 sm:max-w-xs"
+                >
+                  <option value={1}>1 Sitting</option>
+                  <option value={2}>2 Sittings</option>
+                </select>
+                <p className="mt-2 text-xs leading-5 text-slate-600">
+                  Select 2 Sittings if you want to combine valid O-Level subjects from two results. Where the same subject appears in both sittings, the better grade is used. LASU applies 90% of the normal O-Level grade points when two sittings are used.
+                </p>
+              </div>
+
+              <h3 className="mt-6 text-sm font-black uppercase tracking-wide text-green-800">
+                {oLevelSittings === 2 ? "First Sitting" : "O-Level Result"}
+              </h3>
+
+              <div className="mt-3 space-y-3">
                 {oLevel.map(
                   (
                     entry,
@@ -4283,6 +4361,43 @@ export default function LASUCalculator() {
                   )
                 )}
               </div>
+
+              {oLevelSittings === 2 && (
+                <>
+                  <h3 className="mt-7 text-sm font-black uppercase tracking-wide text-green-800">Second Sitting</h3>
+                  <div className="mt-3 space-y-3">
+                    {oLevelSecondSitting.map((entry, index) => (
+                      <div key={index} className="grid gap-3 sm:grid-cols-[1fr_160px]">
+                        <div>
+                          <label className="mb-2 block text-xs font-bold text-slate-600">Subject {index + 1}</label>
+                          <select
+                            value={entry.subject}
+                            disabled={index === 0}
+                            onChange={(event) => updateSecondOLevelSubject(index, event.target.value)}
+                            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100 disabled:bg-slate-100 disabled:font-semibold disabled:text-slate-500"
+                          >
+                            {index !== 0 && <option value="">Select subject</option>}
+                            {getAvailableOLevelOptions(oLevelSecondSitting, index).map((subject) => (
+                              <option key={subject} value={subject}>{subject}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label className="mb-2 block text-xs font-bold text-slate-600">Grade</label>
+                          <select
+                            value={entry.grade}
+                            onChange={(event) => updateSecondOLevelGrade(index, event.target.value)}
+                            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100"
+                          >
+                            <option value="">Select grade</option>
+                            {grades.map((grade) => <option key={grade} value={grade}>{grade}</option>)}
+                          </select>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
 
               {selectedCourseName ===
                 "Philosophy" && (
