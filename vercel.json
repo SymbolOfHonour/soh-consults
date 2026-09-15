@@ -3,10 +3,6 @@
     {
       "path": "/api/cron/import-news",
       "schedule": "0 6 * * *"
-    },
-    {
-      "path": "/api/cron/content-automation",
-      "schedule": "0 * * * *"
     }
   ]
 }
