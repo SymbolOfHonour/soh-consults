@@ -24,7 +24,9 @@ function headers(prefer?: string) {
   if (!SUPABASE_URL || !SERVICE_KEY) throw new Error("Supabase environment variables are not configured.");
   return {
     apikey: SERVICE_KEY,
-    Authorization: `Bearer ${SERVICE_KEY}`,
+    // Legacy service-role keys are JWTs and can also be used as the Bearer token.
+    // New sb_secret_ keys belong in apikey only; Supabase rejects them as JWTs.
+    ...(SERVICE_KEY.startsWith("eyJ") ? { Authorization: `Bearer ${SERVICE_KEY}` } : {}),
     "Content-Type": "application/json",
     ...(prefer ? { Prefer: prefer } : {}),
   };

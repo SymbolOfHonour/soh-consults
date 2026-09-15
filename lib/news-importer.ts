@@ -53,11 +53,12 @@ function extractLinks(html: string, source: Source) {
 export async function importLatestStories() {
   const imported: Array<Record<string, string>> = [];
   const failures: string[] = [];
-  for (const source of sources) {
+  await Promise.all(sources.map(async (source) => {
     try {
       const response = await fetch(source.url, {
         headers: { "User-Agent": "S.O.H CONSULTS update monitor (+https://soh-consults.vercel.app)" },
         cache: "no-store",
+        signal: AbortSignal.timeout(15000),
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const links = extractLinks(await response.text(), source);
@@ -74,9 +75,10 @@ export async function importLatestStories() {
         });
       }
     } catch (error) {
-      failures.push(`${source.name}: ${error instanceof Error ? error.message : "Unknown error"}`);
+      const timedOut = error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError");
+      failures.push(`${source.name}: ${timedOut ? "timed out after 15 seconds" : error instanceof Error ? error.message : "Unknown error"}`);
     }
-  }
+  }));
   const saved = await upsertStories(imported);
   return { discovered: imported.length, added: saved.length, failures };
 }
