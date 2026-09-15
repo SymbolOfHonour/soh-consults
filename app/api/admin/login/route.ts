@@ -1,6 +1,7 @@
 import { timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
 import { ADMIN_COOKIE, adminSessionMaxAge, createAdminToken } from "../../../../lib/admin-auth";
+import { checkRateLimit } from "../../../../lib/rate-limit";
 
 function sameSecret(a: string, b: string) {
   const left = Buffer.from(a);
@@ -9,24 +10,16 @@ function sameSecret(a: string, b: string) {
 }
 
 export async function POST(request: Request) {
+  const rate = await checkRateLimit(request, "admin-login", 8, 15 * 60);
+  if (!rate.allowed) return NextResponse.json({ error: "Too many login attempts. Please try again later." }, { status: 429, headers: { "Retry-After": String(rate.retryAfter) } });
   const { password } = await request.json().catch(() => ({ password: "" }));
   const configured = process.env.ADMIN_PASSWORD;
-  if (!configured || !process.env.ADMIN_SESSION_SECRET) {
-    return NextResponse.json({ error: "Admin security is not fully configured." }, { status: 503 });
-  }
-  if (typeof password !== "string" || !sameSecret(password, configured)) {
-    return NextResponse.json({ error: "Incorrect password." }, { status: 401 });
-  }
+  if (!configured || !process.env.ADMIN_SESSION_SECRET) return NextResponse.json({ error: "Admin security is not fully configured." }, { status: 503 });
+  if (typeof password !== "string" || !sameSecret(password, configured)) return NextResponse.json({ error: "Incorrect password." }, { status: 401 });
   const token = createAdminToken();
   if (!token) return NextResponse.json({ error: "Unable to create admin session." }, { status: 503 });
   const response = NextResponse.json({ success: true });
-  response.cookies.set(ADMIN_COOKIE, token, {
-    httpOnly: true,
-    sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: adminSessionMaxAge(),
-  });
+  response.cookies.set(ADMIN_COOKIE, token, { httpOnly: true, sameSite: "strict", secure: process.env.NODE_ENV === "production", path: "/", maxAge: adminSessionMaxAge() });
   return response;
 }
 
