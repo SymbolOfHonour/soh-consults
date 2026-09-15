@@ -1,1 +1,1 @@
-Local development admin login uses a separate rate-limit bucket with a higher testing allowance. Production remains admin-login: 8 attempts per 15 minutes.
+Local development admin login bypasses durable login rate limiting on localhost only, while password authentication remains required. Production remains protected by admin-login: 8 attempts per 15 minutes and mandatory two-factor authentication.
