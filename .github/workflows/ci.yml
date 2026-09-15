@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [security-admin-dashboard-hardening]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Lint changed admin and security files
+        run: npx eslint app/admin/updates/AdminUpdatesClient.tsx app/api/admin/login/route.ts app/api/admin/stories/route.ts app/api/admin/uploads/route.ts app/api/comments/route.ts app/api/visits/route.ts lib/admin-auth.ts lib/news-queue.ts lib/rate-limit.ts next.config.ts
+      - name: Production build
+        run: npm run build
