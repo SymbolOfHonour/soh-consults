@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -12,12 +13,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/*
+  S.O.H CONSULTS currently uses an intentionally light website/admin UI.
+  Do not swap the global foreground to white merely because the device is
+  using dark mode: light cards and panels then inherit near-white headings.
+  A true dark theme should be introduced explicitly at component level.
+*/
 
 * {
   box-sizing: border-box;
@@ -25,6 +26,8 @@
 
 html {
   scroll-behavior: smooth;
+  background: #ffffff;
+  color: #171717;
 }
 
 body {
