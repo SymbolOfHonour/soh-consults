@@ -1,4 +1,4 @@
-import { timingSafeEqual } from "crypto";
+import { createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
 import { ADMIN_COOKIE, adminSessionMaxAge, createAdminToken } from "../../../../lib/admin-auth";
 import { checkRateLimit } from "../../../../lib/rate-limit";
@@ -9,16 +9,58 @@ function sameSecret(a: string, b: string) {
   return left.length === right.length && timingSafeEqual(left, right);
 }
 
+function decodeBase32(value: string) {
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+  const clean = value.toUpperCase().replace(/[^A-Z2-7]/g, "");
+  let bits = "";
+  for (const char of clean) {
+    const index = alphabet.indexOf(char);
+    if (index < 0) return Buffer.alloc(0);
+    bits += index.toString(2).padStart(5, "0");
+  }
+  const bytes: number[] = [];
+  for (let i = 0; i + 8 <= bits.length; i += 8) bytes.push(parseInt(bits.slice(i, i + 8), 2));
+  return Buffer.from(bytes);
+}
+
+function totp(secret: string, counter: number) {
+  const key = decodeBase32(secret);
+  if (!key.length) return "";
+  const message = Buffer.alloc(8);
+  message.writeBigUInt64BE(BigInt(counter));
+  const digest = createHmac("sha1", key).update(message).digest();
+  const offset = digest[digest.length - 1] & 15;
+  return ((digest.readUInt32BE(offset) & 0x7fffffff) % 1_000_000).toString().padStart(6, "0");
+}
+
+function validTotp(code: string, secret: string) {
+  if (!/^\d{6}$/.test(code)) return false;
+  const counter = Math.floor(Date.now() / 30_000);
+  return [-1, 0, 1].some((window) => sameSecret(code, totp(secret, counter + window)));
+}
+
 export async function POST(request: Request) {
   const rate = await checkRateLimit(request, "admin-login", 8, 15 * 60);
   if (!rate.allowed) return NextResponse.json({ error: "Too many login attempts. Please try again later." }, { status: 429, headers: { "Retry-After": String(rate.retryAfter) } });
-  const { password } = await request.json().catch(() => ({ password: "" }));
+  const body = await request.json().catch(() => ({ password: "", otp: "" }));
+  let password = typeof body.password === "string" ? body.password : "";
+  let otp = typeof body.otp === "string" ? body.otp.trim() : "";
   const configured = process.env.ADMIN_PASSWORD;
+  const totpSecret = process.env.ADMIN_TOTP_SECRET?.trim();
   if (!configured || !process.env.ADMIN_SESSION_SECRET) return NextResponse.json({ error: "Admin security is not fully configured." }, { status: 503 });
-  if (typeof password !== "string" || !sameSecret(password, configured)) return NextResponse.json({ error: "Incorrect password." }, { status: 401 });
+
+  // Until the dashboard gets its dedicated OTP field, an enabled TOTP login also
+  // accepts "password 123456" in the existing password box. No TOTP secret means
+  // the current password-only login continues to work, preventing rollout lockout.
+  if (totpSecret && !otp) {
+    const match = password.match(/^(.*)\s+(\d{6})$/);
+    if (match) { password = match[1]; otp = match[2]; }
+  }
+  if (!sameSecret(password, configured) || (totpSecret && !validTotp(otp, totpSecret))) return NextResponse.json({ error: totpSecret ? "Incorrect password or verification code. Enter your password followed by the current 6-digit authenticator code." : "Incorrect password." }, { status: 401 });
+
   const token = createAdminToken();
   if (!token) return NextResponse.json({ error: "Unable to create admin session." }, { status: 503 });
-  const response = NextResponse.json({ success: true });
+  const response = NextResponse.json({ success: true, twoFactorEnabled: Boolean(totpSecret) });
   response.cookies.set(ADMIN_COOKIE, token, { httpOnly: true, sameSite: "strict", secure: process.env.NODE_ENV === "production", path: "/", maxAge: adminSessionMaxAge() });
   return response;
 }
