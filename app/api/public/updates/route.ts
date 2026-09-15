@@ -1,17 +1,2 @@
-import { NextResponse } from "next/server";
-import { getStorySlug, listPublishedStories } from "../../../../lib/news-queue";
-
-export async function GET(){
-  const stories=await listPublishedStories();
-  return NextResponse.json(stories.map(story=>({
-    id:story.id,
-    title:story.title,
-    summary:story.summary,
-    category:story.category,
-    institution:story.institution,
-    date:new Date(story.updated_at).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}),
-    image:story.image_url,
-    slug:getStorySlug(story),
-    updatedAt:story.updated_at,
-  })),{headers:{"Cache-Control":"public, s-maxage=60, stale-while-revalidate=300"}});
-}
+import{NextResponse}from"next/server";import{getStorySlug,listPublishedStories}from"../../../../lib/news-queue";import{isBreaking,isFeatured}from"../../../../lib/admin-content-flags";
+export async function GET(){const stories=await listPublishedStories();return NextResponse.json(stories.map(story=>({id:story.id,title:story.title,summary:story.summary,category:story.category,institution:story.institution,date:new Date(story.updated_at).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}),image:story.image_url,slug:getStorySlug(story),updatedAt:story.updated_at,featured:isFeatured(story),breaking:isBreaking(story)})),{headers:{"Cache-Control":"public, s-maxage=60, stale-while-revalidate=300"}})}

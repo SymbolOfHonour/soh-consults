@@ -6,6 +6,7 @@ import InstallApp from "./components/InstallApp";
 import AskSOH from "./components/AskSOH";
 import VisitCounter from "./components/VisitCounter";
 import HomeLatestUpdates from "./components/HomeLatestUpdates";
+import HomeAnnouncement from "./components/HomeAnnouncement";
 import { getSiteUrl } from "./site-url";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -25,4 +26,4 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#15803d" };
 const organizationStructuredData = { "@context":"https://schema.org", "@type":"Organization", "@id":`${siteUrl}/#organization`, name:"S.O.H CONSULTS", url:siteUrl, logo:`${siteUrl}/soh-logo.jpg`, description:"S.O.H CONSULTS provides admission guidance, educational consultation, JAMB support, application assistance, educational updates and admission tools for students and applicants in Nigeria.", email:"mailto:Oluyepeadetayo@gmail.com", telephone:"+2348182141088", founder:{"@type":"Person",name:"Oluyepe Adetayo Sunday"}, sameAs:["https://www.instagram.com/oluyepeadetayo/","https://www.linkedin.com/in/adetayo-sunday-oluyepe","https://whatsapp.com/channel/0029VbD6QQp3GJP68dl9TK29"], contactPoint:{"@type":"ContactPoint",telephone:"+2348182141088",contactType:"customer service",areaServed:"NG",availableLanguage:["English"]}, areaServed:{"@type":"Country",name:"Nigeria"} };
 
-export default function RootLayout({children}:Readonly<{children:React.ReactNode}>){return <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}><head><meta name="google-site-verification" content="BdoiW3GoHdajYLbbLSmm-UQpo3YrjBAAWT2NpoKTcBs"/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(organizationStructuredData)}}/></head><body className="min-h-full flex flex-col"><PWARegister/>{children}<HomeLatestUpdates/><VisitCounter/><AskSOH/><InstallApp/></body></html>;}
+export default function RootLayout({children}:Readonly<{children:React.ReactNode}>){return <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}><head><meta name="google-site-verification" content="BdoiW3GoHdajYLbbLSmm-UQpo3YrjBAAWT2NpoKTcBs"/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(organizationStructuredData)}}/></head><body className="min-h-full flex flex-col"><PWARegister/><HomeAnnouncement/>{children}<HomeLatestUpdates/><VisitCounter/><AskSOH/><InstallApp/></body></html>;}

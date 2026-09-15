@@ -1,87 +1,14 @@
-import { upsertStories } from "./news-queue";
-
-type Source = { name: string; url: string; baseUrl: string; official?: boolean };
-
-const sources: Source[] = [
-  { name: "WAEC Nigeria", url: "https://www.waecnigeria.org/news", baseUrl: "https://www.waecnigeria.org", official: true },
-  { name: "JAMB", url: "https://www.jamb.gov.ng/Bulletins", baseUrl: "https://www.jamb.gov.ng", official: true },
-  { name: "NYSC", url: "https://nysc.gov.ng/", baseUrl: "https://nysc.gov.ng", official: true },
-  { name: "LASU", url: "https://www.lasu.edu.ng/home/index.php", baseUrl: "https://www.lasu.edu.ng", official: true },
-  { name: "Myschool", url: "https://myschool.ng/news", baseUrl: "https://myschool.ng" },
-  { name: "MySchoolGist", url: "https://myschoolgist.com/", baseUrl: "https://myschoolgist.com" },
-];
-
-const usefulTerms = /admission|post[- ]?utme|direct entry|screening|jamb|waec|wassce|neco|nabteb|scholarship|application form|admission list|cut[- ]?off|nysc|resumption|clearance|acceptance fee|registration|timetable|mobilisation|mobilization|matriculation|convocation/i;
-const lowValueTerms = /browser for all centres?|jambtest|test download|registration templates?|cbt centre|commissions? .*cbt|syllabus system|e[- ]?facility.*download|software download|photo gallery|press release|speech|courtesy visit|workshop|stakeholders? meeting|sensitization|sensitisation|advertorial|procurement|tender|vacanc(?:y|ies)|staff recruitment|birthday|condolence|anniversary message/i;
-const actionableSignals = /deadline|closing date|closes?|opens?|commence[sd]?|application|apply|form|admission list|result|timetable|scholarship|mobilisation|mobilization|resumption|clearance|acceptance fee|matriculation|convocation|cut[- ]?off|candidate|examination|exam|utme|direct entry|wassce|waec|nysc|registration/i;
-
-function decodeHtml(value: string) {
-  return value.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&#8211;|&ndash;/g, "-").replace(/&#8217;|&rsquo;/g, "'").replace(/&quot;|&#8220;|&#8221;/g, '"').replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code))).replace(/\s+/g, " ").trim();
-}
-
-function categoryFor(title: string) {
-  if (/scholarship/i.test(title)) return "Scholarship";
-  if (/jamb|utme|direct entry/i.test(title)) return "JAMB";
-  if (/waec|wassce|neco|nabteb|o.level/i.test(title)) return "O'Level";
-  if (/nysc|mobilisation|mobilization/i.test(title)) return "NYSC";
-  if (/admission list/i.test(title)) return "Admission List";
-  return "Admission";
-}
-
-function extractInstitution(title: string, source: Source) {
-  if (source.official) return source.name;
-  const match = title.match(/^([A-Z][A-Z0-9-]{2,12})(?:\s|:)/);
-  return match?.[1] || "To be confirmed";
-}
-
-function isUsefulNews(title: string) {
-  if (!usefulTerms.test(title) || lowValueTerms.test(title)) return false;
-  return actionableSignals.test(title);
-}
-
-function extractLinks(html: string, source: Source) {
-  const results = new Map<string, { title: string; url: string }>();
-  const pattern = /<a\b[^>]*href=["']([^"'#]+)["'][^>]*>([\s\S]*?)<\/a>/gi;
-  const sourceHost = new URL(source.baseUrl).hostname.replace(/^www\./, "");
-  for (const match of html.matchAll(pattern)) {
-    const title = decodeHtml(match[2]);
-    if (title.length < 20 || title.length > 180 || !isUsefulNews(title)) continue;
-    let url: URL;
-    try { url = new URL(match[1], source.baseUrl); } catch { continue; }
-    if (url.hostname.replace(/^www\./, "") !== sourceHost) continue;
-    url.hash = "";
-    results.set(url.toString(), { title, url: url.toString() });
-  }
-  return [...results.values()].slice(0, source.official ? 10 : 6);
-}
-
-export async function importLatestStories() {
-  const imported: Array<Record<string, string>> = [];
-  const failures: string[] = [];
-  await Promise.all(sources.map(async (source) => {
-    try {
-      const response = await fetch(source.url, { headers: { "User-Agent": "S.O.H CONSULTS update monitor (+https://soh-consults.vercel.app)" }, cache: "no-store", signal: AbortSignal.timeout(15000) });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const links = extractLinks(await response.text(), source);
-      for (const item of links) {
-        imported.push({
-          source_name: source.name,
-          source_url: item.url,
-          title: item.title,
-          institution: extractInstitution(item.title, source),
-          category: categoryFor(item.title),
-          summary: source.official ? `${item.title}. Official-source draft. Review and prepare an original S.O.H CONSULTS summary before approval.` : `${item.title}. Discovery-source draft. Verify against an official source and prepare an original S.O.H CONSULTS summary before approval.`,
-          details: source.official ? "Discovered from an official source. Verify dates, requirements and application links before publishing." : "Imported from a private discovery source. Verify every claim against the relevant official institution before publishing.",
-          official_source_name: source.official ? source.name : "",
-          official_source_url: source.official ? item.url : "",
-          status: "draft",
-        });
-      }
-    } catch (error) {
-      const timedOut = error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError");
-      failures.push(`${source.name}: ${timedOut ? "timed out after 15 seconds" : error instanceof Error ? error.message : "Unknown error"}`);
-    }
-  }));
-  const saved = await upsertStories(imported);
-  return { discovered: imported.length, added: saved.length, failures };
-}
+import { upsertStories, type QueuedStory } from "./news-queue";
+type Source={name:string;url:string;baseUrl:string;official?:boolean};
+const sources:Source[]=[{name:"WAEC Nigeria",url:"https://www.waecnigeria.org/news",baseUrl:"https://www.waecnigeria.org",official:true},{name:"JAMB",url:"https://www.jamb.gov.ng/Bulletins",baseUrl:"https://www.jamb.gov.ng",official:true},{name:"NYSC",url:"https://nysc.gov.ng/",baseUrl:"https://nysc.gov.ng",official:true},{name:"LASU",url:"https://www.lasu.edu.ng/home/index.php",baseUrl:"https://www.lasu.edu.ng",official:true},{name:"Myschool",url:"https://myschool.ng/news",baseUrl:"https://myschool.ng"},{name:"MySchoolGist",url:"https://myschoolgist.com/",baseUrl:"https://myschoolgist.com"}];
+const usefulTerms=/admission|post[- ]?utme|direct entry|screening|jamb|waec|wassce|neco|nabteb|scholarship|application form|admission list|cut[- ]?off|nysc|resumption|clearance|acceptance fee|registration|timetable|mobilisation|mobilization|matriculation|convocation/i;
+const lowValueTerms=/browser for all centres?|jambtest|test download|registration templates?|cbt centre|commissions? .*cbt|syllabus system|e[- ]?facility.*download|software download|photo gallery|press release|speech|courtesy visit|workshop|stakeholders? meeting|sensitization|sensitisation|advertorial|procurement|tender|vacanc(?:y|ies)|staff recruitment|birthday|condolence|anniversary message/i;
+const actionableSignals=/deadline|closing date|closes?|opens?|commence[sd]?|application|apply|form|admission list|result|timetable|scholarship|mobilisation|mobilization|resumption|clearance|acceptance fee|matriculation|convocation|cut[- ]?off|candidate|examination|exam|utme|direct entry|wassce|waec|nysc|registration/i;
+function decodeHtml(v:string){return v.replace(/<[^>]+>/g," ").replace(/&amp;/g,"&").replace(/&#8211;|&ndash;/g,"-").replace(/&#8217;|&rsquo;/g,"'").replace(/&quot;|&#8220;|&#8221;/g,'"').replace(/&#(\d+);/g,(_,c)=>String.fromCharCode(Number(c))).replace(/\s+/g," ").trim()}
+function categoryFor(t:string){if(/scholarship/i.test(t))return"Scholarship";if(/jamb|utme|direct entry/i.test(t))return"JAMB";if(/waec|wassce|neco|nabteb|o.level/i.test(t))return"O'Level";if(/nysc|mobilisation|mobilization/i.test(t))return"NYSC";if(/admission list/i.test(t))return"Admission List";return"Admission"}
+function extractInstitution(t:string,s:Source){if(s.official)return s.name;return t.match(/^([A-Z][A-Z0-9-]{2,12})(?:\s|:)/)?.[1]||"To be confirmed"}
+function isUsefulNews(t:string){return usefulTerms.test(t)&&!lowValueTerms.test(t)&&actionableSignals.test(t)}
+function extractLinks(html:string,s:Source){const results=new Map<string,{title:string;url:string}>(),pattern=/<a\b[^>]*href=["']([^"'#]+)["'][^>]*>([\s\S]*?)<\/a>/gi,host=new URL(s.baseUrl).hostname.replace(/^www\./,"");for(const m of html.matchAll(pattern)){const title=decodeHtml(m[2]);if(title.length<20||title.length>180||!isUsefulNews(title))continue;let url:URL;try{url=new URL(m[1],s.baseUrl)}catch{continue}if(url.hostname.replace(/^www\./,"")!==host)continue;url.hash="";results.set(url.toString(),{title,url:url.toString()})}return[...results.values()].slice(0,s.official?10:6)}
+export type DiscoverySuggestion={source_name:string;source_url:string;title:string;institution:string;category:string;official:boolean};
+export async function discoverLatestStories(){const suggestions:DiscoverySuggestion[]=[],failures:string[]=[];await Promise.all(sources.map(async s=>{try{const r=await fetch(s.url,{headers:{"User-Agent":"S.O.H CONSULTS update monitor (+https://soh-consults.vercel.app)"},cache:"no-store",signal:AbortSignal.timeout(15000)});if(!r.ok)throw new Error(`HTTP ${r.status}`);for(const item of extractLinks(await r.text(),s))suggestions.push({source_name:s.name,source_url:item.url,title:item.title,institution:extractInstitution(item.title,s),category:categoryFor(item.title),official:!!s.official})}catch(e){const timed=e instanceof Error&&(e.name==="TimeoutError"||e.name==="AbortError");failures.push(`${s.name}: ${timed?"timed out after 15 seconds":e instanceof Error?e.message:"Unknown error"}`)}}));return{suggestions,failures}}
+export async function importLatestStories(){const {suggestions,failures}=await discoverLatestStories();const imported:Partial<QueuedStory>[]=suggestions.map(item=>({source_name:item.source_name,source_url:item.source_url,title:item.title,institution:item.institution,category:item.category,summary:item.official?`${item.title}. Official-source draft. Review and prepare an original S.O.H CONSULTS summary before approval.`:`${item.title}. Discovery-source draft. Verify against an official source and prepare an original S.O.H CONSULTS summary before approval.`,details:item.official?"Discovered from an official source. Verify dates, requirements and application links before publishing.":"Imported from a private discovery source. Verify every claim against the relevant official institution before publishing.",official_source_name:item.official?item.source_name:"",official_source_url:item.official?item.source_url:"",status:"draft"}));const saved=await upsertStories(imported);return{discovered:imported.length,added:saved.length,failures}}
