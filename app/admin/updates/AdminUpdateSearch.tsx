@@ -8,7 +8,10 @@ export default function AdminUpdateSearch() {
   const [target, setTarget] = useState<Element | null>(null);
 
   useEffect(() => {
-    const findTarget = () => setTarget(document.getElementById("admin-header-actions"));
+    const findTarget = () => {
+      const button = Array.from(document.querySelectorAll("header button")).find((node) => node.textContent?.includes("New Update"));
+      setTarget(button?.parentElement || null);
+    };
     findTarget();
     const observer = new MutationObserver(findTarget);
     observer.observe(document.body, { childList: true, subtree: true });
