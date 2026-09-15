@@ -4,6 +4,7 @@ import "./globals.css";
 import PWARegister from "./components/PWARegister";
 import InstallApp from "./components/InstallApp";
 import AskSOH from "./components/AskSOH";
+import VisitCounter from "./components/VisitCounter";
 import { getSiteUrl } from "./site-url";
 
 const geistSans = Geist({
@@ -159,6 +160,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <PWARegister />
         {children}
+        <VisitCounter />
         <AskSOH />
         <InstallApp />
       </body>

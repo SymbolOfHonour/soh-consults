@@ -31,9 +31,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 function ArticleBody({ details }: { details: string }) {
   return details.split("\n\n").map((part) => part.trim()).filter(Boolean).map((section, index) => {
     const heading = section === section.toUpperCase() && section.length <= 80 && !section.includes("“") && !section.includes('"');
-    return heading
-      ? <h2 key={index} className="pt-4 text-xl font-black text-gray-950 sm:text-2xl">{section}</h2>
-      : <p key={index} className="whitespace-pre-line text-[15px] leading-8 text-gray-700 sm:text-base">{section}</p>;
+    if (heading) return <h2 key={index} className="pt-4 text-xl font-black text-gray-950 sm:text-2xl">{section}</h2>;
+    const parts = section.split(/(https?:\/\/[^\s]+)/g);
+    return <p key={index} className="whitespace-pre-line text-[15px] leading-8 text-gray-700 sm:text-base">{parts.map((part, partIndex) => part.startsWith("http") ? <a key={partIndex} href={part.replace(/[.,;:]$/, "")} target="_blank" rel="noopener noreferrer" className="break-all font-black text-green-700 underline decoration-green-300 underline-offset-4 hover:text-green-900">{part}</a> : part)}</p>;
   });
 }
 
@@ -82,6 +82,7 @@ export default async function UpdateDetailsPage({ params }: Props) {
         {image && <div className="mb-8 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm"><img src={image} alt={update.title} className="h-auto w-full object-cover" /></div>}
         <article className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
           <div className="space-y-5"><ArticleBody details={update.details} /></div>
+          {update.id === 18 && update.sourceUrl && <a href={update.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-8 flex w-full items-center justify-center rounded-2xl bg-green-700 px-6 py-4 text-center font-black text-white shadow-sm transition hover:bg-green-800">Apply on the Official Indomie Portal →</a>}
           <div className="mt-10 rounded-2xl bg-green-50 p-6"><p className="text-xs font-black uppercase tracking-widest text-green-700">S.O.H CONSULTS</p><h2 className="mt-2 text-xl font-black">Need help with this admission process?</h2><p className="mt-2 leading-7 text-gray-700">Get clear, personal guidance and registration assistance directly on WhatsApp.</p><a href={whatsappLink(`Hello S.O.H CONSULTS, I need help with: ${update.title}`)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-xl bg-green-700 px-5 py-3 text-sm font-black text-white">Get Assistance</a></div>
           {(update.source || update.sourceUrl) && <div className="mt-10 border-t border-gray-200 pt-6"><p className="text-sm font-bold text-gray-500">Official source</p>{update.sourceUrl ? <a href={update.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex font-black text-green-700">{update.source || "View original source"} →</a> : <p className="mt-2 font-semibold">{update.source}</p>}</div>}
           <div className="mt-10 border-t border-gray-200 pt-7"><h2 className="mb-4 text-lg font-black">Share this update</h2><ShareButtons url={pageUrl} title={update.title} /></div>
@@ -90,6 +91,10 @@ export default async function UpdateDetailsPage({ params }: Props) {
         <UpdateComments updateId={update.id} />
       </div></section>
       <SiteContact />
+      <a href={whatsappLink(`Hello S.O.H CONSULTS, I need assistance with: ${update.title}`)} target="_blank" rel="noopener noreferrer" aria-label={`Ask S.O.H CONSULTS about ${update.title}`} className="fixed bottom-5 left-4 z-50 inline-flex items-center gap-2 rounded-full bg-green-600 px-4 py-3 font-black text-white shadow-2xl ring-4 ring-white/80 transition hover:bg-green-700 sm:bottom-6 sm:left-6">
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6 fill-current"><path d="M12 2a9.7 9.7 0 0 0-8.3 14.7L2.4 22l5.4-1.4A9.8 9.8 0 1 0 12 2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3.2.8.9-3.1-.2-.3A8 8 0 1 1 12 19.8Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.7.9c-.1.2-.3.2-.5.1-1.4-.7-2.4-1.6-3.1-2.9-.2-.3.2-.5.5-.9.1-.2.1-.3 0-.5l-.7-1.7c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.8.9-.8 2.1-.2 3.2 1.2 2.4 3.1 4.2 5.5 5.2 1.8.8 3.2.9 4.3.2.5-.3.9-1 .9-1.7 0-.2-.1-.3-.3-.4l-1.6-.7Z" /></svg>
+        <span className="hidden sm:inline">WhatsApp Us</span>
+      </a>
     </main>
   );
 }
