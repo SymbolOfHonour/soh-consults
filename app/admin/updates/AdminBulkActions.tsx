@@ -12,7 +12,7 @@ export default function AdminBulkActions() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
-  const [toolbarHost, setToolbarHost] = useState<HTMLElement | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   const loadStories = useCallback(async () => {
     const response = await fetch("/api/admin/stories", { cache: "no-store" });
@@ -21,7 +21,7 @@ export default function AdminBulkActions() {
     setStories(data.stories || []);
   }, []);
 
-  useEffect(() => { void loadStories(); }, [loadStories]);
+  useEffect(() => { setMounted(true); void loadStories(); }, [loadStories]);
 
   useEffect(() => {
     const scan = () => {
@@ -42,20 +42,6 @@ export default function AdminBulkActions() {
         if (actions) next.push({ story, host: actions });
       }
       setTargets(next);
-
-      const tabBar = Array.from(document.querySelectorAll<HTMLElement>("section div")).find((element) => {
-        const text = element.textContent || "";
-        return text.includes("All (") && text.includes("Draft (") && text.includes("Published (") && element.querySelectorAll("button").length >= 5;
-      });
-      if (tabBar) {
-        let host = document.getElementById("admin-bulk-actions-host");
-        if (!host) {
-          host = document.createElement("div");
-          host.id = "admin-bulk-actions-host";
-          tabBar.insertAdjacentElement("afterend", host);
-        }
-        setToolbarHost(host);
-      }
     };
     scan();
     const observer = new MutationObserver(scan);
@@ -108,9 +94,9 @@ export default function AdminBulkActions() {
     </label>, host, story.id
   ));
 
-  const toolbar = toolbarHost && selected.size > 0 ? createPortal(
-    <div className="sticky top-3 z-40 mb-6 mt-3 rounded-2xl border border-green-300 bg-white/95 p-4 shadow-xl backdrop-blur">
-      <div className="flex flex-wrap items-center gap-2">
+  const toolbar = mounted && selected.size > 0 ? createPortal(
+    <div className="fixed bottom-5 left-1/2 z-[100] w-[calc(100%-2rem)] max-w-5xl -translate-x-1/2 rounded-2xl border border-green-300 bg-white/95 p-4 shadow-2xl backdrop-blur">
+      <div className="flex flex-wrap items-center justify-center gap-2">
         <span className="mr-2 text-sm font-black text-gray-900">{selected.size} selected</span>
         <button type="button" disabled={busy || !visibleIds.length || allVisibleSelected} onClick={selectAllVisible} className="rounded-xl border border-green-300 bg-green-50 px-4 py-2 text-sm font-black text-green-900 disabled:opacity-50">Select All</button>
         <button type="button" disabled={busy} onClick={unselectAll} className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-black text-gray-800">Unselect All</button>
@@ -118,9 +104,9 @@ export default function AdminBulkActions() {
         <button type="button" disabled={busy} onClick={() => void changeStatus("rejected")} className="rounded-xl bg-orange-100 px-4 py-2 text-sm font-black text-orange-900 disabled:opacity-50">Reject Selected</button>
         <button type="button" disabled={busy} onClick={() => void permanentDelete()} className="rounded-xl bg-red-100 px-4 py-2 text-sm font-black text-red-800 disabled:opacity-50">Permanent Delete Selected</button>
       </div>
-      <p className="mt-2 text-xs font-bold text-gray-500">Select All applies to every update currently shown in this tab/filter. This bar stays visible while you scroll.</p>
-      {message && <p className="mt-3 text-sm font-bold text-red-700">{message}</p>}
-    </div>, toolbarHost
+      <p className="mt-2 text-center text-xs font-bold text-gray-500">Select All applies to every update currently shown in this tab/filter.</p>
+      {message && <p className="mt-3 text-center text-sm font-bold text-red-700">{message}</p>}
+    </div>, document.body
   ) : null;
 
   return <>{checkboxPortals}{toolbar}</>;
