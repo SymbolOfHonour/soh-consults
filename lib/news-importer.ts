@@ -12,8 +12,8 @@ const sources: Source[] = [
 ];
 
 const usefulTerms = /admission|post[- ]?utme|direct entry|screening|jamb|waec|wassce|neco|nabteb|scholarship|application form|admission list|cut[- ]?off|nysc|resumption|clearance|acceptance fee|registration|timetable|mobilisation|mobilization|matriculation|convocation/i;
-const lowValueTerms = /browser for all centres?|jambtest|test download|registration templates?|cbt centre|commissions? .*cbt|syllabus system|e[- ]?facility.*download|software download/i;
-const newsSignals = /admission|screening|registration|deadline|closes?|opens?|commence|application|list|result|timetable|scholarship|mobilisation|mobilization|resumption|clearance|acceptance fee|matriculation|convocation|policy|cut[- ]?off|candidate|examination|exam|utme|direct entry|wassce|waec|nysc/i;
+const lowValueTerms = /browser for all centres?|jambtest|test download|registration templates?|cbt centre|commissions? .*cbt|syllabus system|e[- ]?facility.*download|software download|photo gallery|press release|speech|courtesy visit|workshop|stakeholders? meeting|sensitization|sensitisation|advertorial|procurement|tender|vacanc(?:y|ies)|staff recruitment|birthday|condolence|anniversary message/i;
+const actionableSignals = /deadline|closing date|closes?|opens?|commence[sd]?|application|apply|form|admission list|result|timetable|scholarship|mobilisation|mobilization|resumption|clearance|acceptance fee|matriculation|convocation|cut[- ]?off|candidate|examination|exam|utme|direct entry|wassce|waec|nysc|registration/i;
 
 function decodeHtml(value: string) {
   return value.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&#8211;|&ndash;/g, "-").replace(/&#8217;|&rsquo;/g, "'").replace(/&quot;|&#8220;|&#8221;/g, '"').replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code))).replace(/\s+/g, " ").trim();
@@ -36,7 +36,7 @@ function extractInstitution(title: string, source: Source) {
 
 function isUsefulNews(title: string) {
   if (!usefulTerms.test(title) || lowValueTerms.test(title)) return false;
-  return newsSignals.test(title);
+  return actionableSignals.test(title);
 }
 
 function extractLinks(html: string, source: Source) {
@@ -52,7 +52,7 @@ function extractLinks(html: string, source: Source) {
     url.hash = "";
     results.set(url.toString(), { title, url: url.toString() });
   }
-  return [...results.values()].slice(0, source.official ? 12 : 10);
+  return [...results.values()].slice(0, source.official ? 10 : 6);
 }
 
 export async function importLatestStories() {

@@ -43,20 +43,18 @@ export async function POST(request: Request) {
   const rate = await checkRateLimit(request, "admin-login", 8, 15 * 60);
   if (!rate.allowed) return NextResponse.json({ error: "Too many login attempts. Please try again later." }, { status: 429, headers: { "Retry-After": String(rate.retryAfter) } });
   const body = await request.json().catch(() => ({ password: "", otp: "" }));
-  let password = typeof body.password === "string" ? body.password : "";
-  let otp = typeof body.otp === "string" ? body.otp.trim() : "";
+  const password = typeof body.password === "string" ? body.password : "";
+  const otp = typeof body.otp === "string" ? body.otp.trim() : "";
   const configured = process.env.ADMIN_PASSWORD;
   const totpSecret = process.env.ADMIN_TOTP_SECRET?.trim();
-  if (!configured || !process.env.ADMIN_SESSION_SECRET) return NextResponse.json({ error: "Admin security is not fully configured." }, { status: 503 });
+  const requireTwoFactor = process.env.NODE_ENV === "production" || process.env.ADMIN_REQUIRE_2FA === "true";
 
-  // Until the dashboard gets its dedicated OTP field, an enabled TOTP login also
-  // accepts "password 123456" in the existing password box. No TOTP secret means
-  // the current password-only login continues to work, preventing rollout lockout.
-  if (totpSecret && !otp) {
-    const match = password.match(/^(.*)\s+(\d{6})$/);
-    if (match) { password = match[1]; otp = match[2]; }
+  if (!configured || !process.env.ADMIN_SESSION_SECRET) return NextResponse.json({ error: "Admin security is not fully configured." }, { status: 503 });
+  if (requireTwoFactor && !totpSecret) return NextResponse.json({ error: "Admin sign-in is temporarily unavailable because two-factor authentication is not configured." }, { status: 503 });
+
+  if (!sameSecret(password, configured) || (totpSecret && !validTotp(otp, totpSecret))) {
+    return NextResponse.json({ error: totpSecret ? "Incorrect password or authenticator code." : "Incorrect password." }, { status: 401 });
   }
-  if (!sameSecret(password, configured) || (totpSecret && !validTotp(otp, totpSecret))) return NextResponse.json({ error: totpSecret ? "Incorrect password or verification code. Enter your password followed by the current 6-digit authenticator code." : "Incorrect password." }, { status: 401 });
 
   const token = createAdminToken();
   if (!token) return NextResponse.json({ error: "Unable to create admin session." }, { status: 503 });
