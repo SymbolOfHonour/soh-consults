@@ -14,7 +14,8 @@ export default function HomeLatestUpdates(){
   useEffect(()=>{
     if(window.location.pathname!=="/")return;
     const section=Array.from(document.querySelectorAll("section")).find(node=>node.querySelector("h2")?.textContent?.includes("Latest admission and education updates"));
-    setTarget(section?.querySelector(".mt-10.grid")||null);
+    const grid=section?.querySelector(".mt-10.grid")||null;
+    if(grid){grid.replaceChildren();setTarget(grid);}
     fetch("/api/public/updates").then(r=>r.ok?r.json():[]).then(setPublished).catch(()=>setPublished([]));
   },[]);
 
