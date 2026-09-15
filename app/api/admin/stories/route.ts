@@ -36,7 +36,7 @@ function valuesFrom(body: Record<string, unknown>) {
 function validationError(values: ReturnType<typeof valuesFrom>, body: Record<string, unknown>) {
   if (!values.title) return "A title is required.";
   if (body.official_source_url && !values.official_source_url) return "Official source link must be a valid http:// or https:// URL.";
-  if (values.status !== "draft" && (!values.summary || !values.details)) return "Summary and details are required before approving or publishing an update.";
+  if ((values.status === "approved" || values.status === "published") && (!values.summary || !values.details)) return "Summary and details are required before approving or publishing an update.";
   return null;
 }
 
