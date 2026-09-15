@@ -2,15 +2,29 @@
 
 import { useMemo, useState } from "react";
 import { getUpdateImage, getUpdateReadingTime, getUpdateSlug, updates } from "../../data/updates";
+import type { QueuedStory } from "../../lib/news-queue";
 
-export default function UpdatesExplorer({ initialCategory = "All" }: { initialCategory?: string }) {
+export default function UpdatesExplorer({ initialCategory = "All", importedStories = [] }: { initialCategory?: string; importedStories?: QueuedStory[] }) {
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [query, setQuery] = useState("");
-  const categories = ["All", ...Array.from(new Set(updates.map((item) => item.category)))];
+  const allUpdates = useMemo(() => [
+    ...importedStories.map(item => ({
+      id: `imported-${item.id}`,
+      category: item.category,
+      institution: item.institution,
+      title: item.title,
+      date: new Date(item.updated_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
+      summary: item.summary,
+      details: item.details,
+      importedId: item.id,
+    })),
+    ...updates.map(item => ({ ...item, importedId: undefined as string | undefined })),
+  ], [importedStories]);
+  const categories = ["All", ...Array.from(new Set(allUpdates.map((item) => item.category)))];
 
   const filteredUpdates = useMemo(() => {
     const search = query.trim().toLowerCase();
-    return updates.filter((item) => {
+    return allUpdates.filter((item) => {
       const matchesCategory = activeCategory === "All" || item.category === activeCategory;
       const matchesSearch =
         !search ||
@@ -19,7 +33,7 @@ export default function UpdatesExplorer({ initialCategory = "All" }: { initialCa
         );
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, query]);
+  }, [activeCategory, query, allUpdates]);
 
   return (
     <>
@@ -58,7 +72,7 @@ export default function UpdatesExplorer({ initialCategory = "All" }: { initialCa
       {filteredUpdates.length > 0 ? (
         <div className="mt-5 grid gap-6 md:grid-cols-2">
           {filteredUpdates.map((item) => {
-            const image = getUpdateImage(item);
+            const image = item.importedId ? undefined : getUpdateImage(item);
             return (
               <article key={item.id} className="flex flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                 {image ? <img src={image} alt="" className="h-52 w-full object-cover" /> : (
@@ -75,7 +89,7 @@ export default function UpdatesExplorer({ initialCategory = "All" }: { initialCa
                   </div>
                   <h2 className="mt-4 text-xl font-black leading-7 text-gray-950">{item.title}</h2>
                   <p className="mt-3 flex-1 leading-7 text-gray-600">{item.summary}</p>
-                  <a href={`/updates/${getUpdateSlug(item)}`} className="mt-6 inline-flex items-center font-black text-green-700 hover:text-green-900">
+                  <a href={item.importedId ? `/updates/imported/${item.importedId}` : `/updates/${getUpdateSlug({ id: item.id as number, title: item.title })}`} className="mt-6 inline-flex items-center font-black text-green-700 hover:text-green-900">
                     Read Full Update →
                   </a>
                 </div>

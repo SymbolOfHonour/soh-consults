@@ -1,12 +1,14 @@
 import SiteContact from "../components/SiteContact";
 import UpdatesExplorer from "../components/UpdatesExplorer";
+import { listPublishedStories } from "../../lib/news-queue";
 
 const WHATSAPP_NUMBER = "2348182141088";
 
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-export default function UpdatesPage() {
+export default async function UpdatesPage() {
+  const importedStories = await listPublishedStories().catch(() => []);
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900">
       <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
@@ -47,7 +49,7 @@ export default function UpdatesPage() {
 
       <section className="py-16">
         <div className="mx-auto max-w-5xl px-5 lg:px-8">
-          <UpdatesExplorer />
+          <UpdatesExplorer importedStories={importedStories} />
         </div>
       </section>
     <SiteContact />
