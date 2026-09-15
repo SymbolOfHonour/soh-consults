@@ -20,6 +20,8 @@ export type Update = {
 };
 
 const updateSlugs: Record<number, string> = {
+  18: "indomie-undergraduate-scholarship-program-2026",
+  17: "schools-still-selling-post-utme-screening-forms-2026-2027",
   16: "oou-post-utme-results-2026-2027",
   15: "jabu-resumption-dates-2026-2027",
   14: "jamb-takes-over-hnd-admissions",
@@ -180,6 +182,173 @@ export const opportunities: Opportunity[] = [
 ];
 
 export const updates: Update[] = [
+  {
+    id: 18,
+    category: "Scholarship",
+    institution: "Indomie",
+    title: "Deadline Extended: Indomie Undergraduate Scholarship Program 2026",
+    date: "15 September 2026",
+    summary: "Newly admitted 100L and Direct Entry students can apply for the Indomie Undergraduate Scholarship Program, offering full tuition, monthly stipends, accommodation and book support, and mentorship.",
+    details: `The deadline for the Indomie Undergraduate Scholarship Program 2026 has been extended.
+
+The scholarship gives eligible Nigerian students entering tertiary education in the 2026/2027 academic session an opportunity to receive financial and academic support throughout their undergraduate programme, subject to the required academic performance.
+
+CATEGORY
+
+Scholarship
+
+ELIGIBILITY
+
+- Newly admitted undergraduate students, including 100L and Direct Entry students.
+- Applicants must have gained admission to or be enrolled in a full-time accredited undergraduate programme.
+
+BENEFITS
+
+- Full tuition scholarship.
+- Monthly stipends.
+- Accommodation and book support.
+- Mentorship.
+
+HOW TO APPLY
+
+1. Visit the official Indomie Scholarship Program application portal.
+2. Click "I Am a New Applicant" to begin.
+3. Enter your name, email address, phone number, date of birth and state of origin.
+4. Upload a passport photograph. The portal also allows applicants to use their phone camera to take the photograph.
+5. Upload your JAMB and O'Level results. Applicants who do not have the documents ready during registration can skip this step and log in later to upload them before the deadline.
+6. Verify your email address or phone number.
+7. Submit your application.
+
+SELECTION PROCESS
+
+After applications close, shortlisted candidates will be invited to a Computer-Based Test (CBT). Candidates who are successful at this stage will proceed to physical verification before the final selection.
+
+APPLICATION IS FREE
+
+There is no application fee. Applicants do not need to pay anyone to submit an application.
+
+APPLICATION LINK
+
+Apply through the official portal: https://indomie.ng/indomie-scholarship-program/
+
+DEADLINE
+
+September 30, 2026.
+
+Applicants are advised to complete and submit their applications before the deadline.`,
+    isOpportunity: true,
+    opportunityCategory: "Scholarships",
+    opportunityProgramme: "Undergraduate Scholarship Program 2026",
+    opportunityStatus: "EXTENDED",
+    opportunityDeadline: "September 30, 2026",
+    deadline: "September 30, 2026",
+    deadlineISO: "2026-09-30",
+    source: "Indomie Scholarship Program",
+    sourceUrl: "https://indomie.ng/indomie-scholarship-program/",
+  },
+  {
+    id: 17,
+    category: "Admission",
+    institution: "Multiple Institutions",
+    title: "2026/2027 Admission: Schools Still Selling Post-UTME and Screening Forms",
+    date: "15 September 2026",
+    summary: "See universities, polytechnics and colleges of nursing sciences with ongoing Post-UTME or admission screening applications for the 2026/2027 academic session.",
+    details: `Applications are still ongoing for Post-UTME and admission screening forms in the following institutions for the 2026/2027 academic session.
+
+UNIVERSITIES
+
+1. Osun State University (UNIOSUN)
+Deadline: September 17, 2026
+
+2. Obafemi Awolowo University (OAU)
+Deadline: September 23, 2026
+
+3. Ekiti State University (EKSU)
+Deadline: September 30, 2026
+
+4. Ladoke Akintola University of Technology (LAUTECH)
+Deadline: September 9, 2026
+
+5. Federal University Wukari (FUWUKARI)
+Deadline: September 19, 2026
+
+6. Federal University of Lafia (FULAFIA)
+Deadline: September 20, 2026
+
+7. Plateau State University (PLASU)
+Deadline: September 20, 2026
+
+8. Akwa Ibom State University (AKSU)
+Deadline: September 22, 2026
+
+9. University of Ilesa (UNILESA)
+Deadline: September 30, 2026
+
+10. Olusegun Agagu University of Science and Technology (OAUSTECH)
+Deadline: September 15, 2026
+
+11. Bamidele Olumilua University of Education, Science and Technology (BOUESTI)
+Deadline: September 30, 2026
+
+12. Nasarawa State University, Keffi (NSUK)
+Deadline: September 30, 2026
+
+13. Federal University of Technology, Babura (FUTB)
+Deadline: September 30, 2026
+
+14. Federal University of Agriculture, Mubi (FUAMB)
+Deadline: October 31, 2026
+
+15. Federal University Lokoja (FULOKOJA)
+Deadline: September 13, 2026
+
+16. University of Agriculture and Environmental Sciences, Umudike (UAES)
+Deadline: October 31, 2026
+
+17. Adamawa State University (ADSU)
+Deadline: September 4, 2026
+
+18. University of Abuja (UNIABUJA)
+Deadline: October 2, 2026 - REOPENED
+
+POLYTECHNICS
+
+- Ogun State Institute of Technology (OGITECH) - Open
+- Moshood Abiola Polytechnic (MAPOLY) - Open
+- Federal Polytechnic, Ilaro - Open
+- Federal Polytechnic, Ede - Open
+- Federal Polytechnic, Nekede - Open
+- Auchi Polytechnic - Open
+- Kaduna Polytechnic - Open
+- Kano State Polytechnic - Open
+- Kogi State Polytechnic (KSP) - Open
+- Delta State Polytechnic, Ogwashi-Uku - Open
+- The Oke-Ogun Polytechnic, Saki - Open
+
+COLLEGES OF NURSING SCIENCES
+
+- University of Benin Teaching Hospital (UBTH) - Deadline: September 11
+- Monguno College of Nursing Sciences - Deadline: September 13
+- Regina Caeli College of Nursing Sciences - Deadline: September 10
+- Alex Ekwueme Federal University Teaching Hospital, Abakaliki (AE-FUTHA) - Deadline: September 21
+- Royal Nursing Sciences, Ezzangbo - Open
+- Archbishop Charles Heerey Memorial College of Nursing Sciences - Open
+- Jibape Memorial College of Nursing Sciences - Open
+- Royal Mira College of Nursing Sciences - Open
+- St. Joseph College of Nursing Sciences - Open
+- Iyienu College of Nursing Sciences - Open
+- Adazi-Nnukwu College of Nursing Sciences - Open
+- SDA College of Nursing Sciences - Open
+- St. Anna College of Nursing Sciences - Open
+- Oasis College of Nursing Sciences, Kuje - Open
+- College of Nursing Sciences, Obudu - Open
+
+REGISTRATION ASSISTANCE
+
+Send a DM to S.O.H CONSULTS for immediate registration assistance for any available institution.
+
+WhatsApp: https://wa.me/2348182141088`,
+  },
   {
     id: 16,
     category: "Admission",

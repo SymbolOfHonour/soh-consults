@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { opportunities, updates } from "../../data/updates";
+import { getUpdateSlug, opportunities, updates } from "../../data/updates";
 import SiteContact from "../components/SiteContact";
 
 const WHATSAPP_NUMBER = "2348182141088";
@@ -9,7 +9,7 @@ const WHATSAPP_NUMBER = "2348182141088";
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-const opportunityCategories = ["All", "Universities", "Polytechnics", "Colleges", "Other"];
+const opportunityCategories = ["All", "Scholarships", "Universities", "Polytechnics", "Colleges", "Other"];
 
 export default function OpportunitiesPage() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -24,11 +24,15 @@ export default function OpportunitiesPage() {
       deadline: item.opportunityDeadline || "Check latest deadline",
       description: item.summary,
       updateId: item.id,
+      updateSlug: getUpdateSlug(item),
+      applicationUrl: item.sourceUrl,
     }));
 
   const baseOpportunities = opportunities.map((item) => ({
     ...item,
     updateId: null as number | null,
+    updateSlug: null as string | null,
+    applicationUrl: undefined as string | undefined,
   }));
 
   const allOpportunities = [...updateOpportunities, ...baseOpportunities];
@@ -117,14 +121,14 @@ export default function OpportunitiesPage() {
                   </div>
 
                   {item.updateId && (
-                    <a href={`/updates/${item.updateId}`} className="mt-5 block rounded-xl border border-green-700 px-4 py-3 text-center text-sm font-black text-green-700 transition hover:bg-green-50">
+                    <a href={`/updates/${item.updateSlug}`} className="mt-5 block rounded-xl border border-green-700 px-4 py-3 text-center text-sm font-black text-green-700 transition hover:bg-green-50">
                       View Full Details
                     </a>
                   )}
 
                   <div className="mt-3 flex gap-3">
                     <a
-                      href={whatsappLink(`Hello S.O.H CONSULTS, I am interested in the ${item.institution} ${item.programme} opportunity. Please guide me on the application process.`)}
+                      href={item.applicationUrl || whatsappLink(`Hello S.O.H CONSULTS, I am interested in the ${item.institution} ${item.programme} opportunity. Please guide me on the application process.`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 rounded-xl bg-green-700 px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-green-800"
