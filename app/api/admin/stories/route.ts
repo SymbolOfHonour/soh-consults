@@ -21,10 +21,12 @@ export async function PATCH(request: Request) {
     details: String(body.details || "").trim(),
     deadline: body.deadline ? String(body.deadline).trim() : null,
     deadline_iso: body.deadline_iso || null,
+    image_url: body.image_url || null,
+    document_url: body.document_url || null,
+    document_name: body.document_name || null,
     status: allowedStatuses.includes(body.status) ? body.status : "draft",
   };
   if (!values.title || !values.summary || !values.details) return NextResponse.json({ error: "Title, summary and details are required." }, { status: 400 });
   try { return NextResponse.json({ story: await updateStory(body.id, values) }); }
   catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to update story." }, { status: 500 }); }
 }
-

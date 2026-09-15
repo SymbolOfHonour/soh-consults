@@ -12,6 +12,9 @@ export type QueuedStory = {
   details: string;
   deadline: string | null;
   deadline_iso: string | null;
+  image_url: string | null;
+  document_url: string | null;
+  document_name: string | null;
   status: QueueStatus;
   created_at: string;
   updated_at: string;
@@ -82,4 +85,21 @@ export async function updateStory(id: string, values: Partial<QueuedStory>) {
   if (!response.ok) throw new Error(`Unable to update story (${response.status}).`);
   const rows = await response.json();
   return rows[0] as QueuedStory | undefined;
+}
+
+export async function uploadStoryFile(file: File, kind: "image" | "document") {
+  if (!SUPABASE_URL || !SERVICE_KEY) throw new Error("Supabase environment variables are not configured.");
+  const extension = file.name.split(".").pop()?.toLowerCase() || (kind === "image" ? "jpg" : "pdf");
+  const safeName = `${kind}s/${crypto.randomUUID()}.${extension}`;
+  const response = await fetch(`${SUPABASE_URL}/storage/v1/object/news-attachments/${safeName}`, {
+    method: "POST",
+    headers: {
+      ...headers("return=minimal"),
+      "Content-Type": file.type,
+      "x-upsert": "false",
+    },
+    body: await file.arrayBuffer(),
+  });
+  if (!response.ok) throw new Error(`Unable to upload file (${response.status}).`);
+  return `${SUPABASE_URL}/storage/v1/object/public/news-attachments/${safeName}`;
 }

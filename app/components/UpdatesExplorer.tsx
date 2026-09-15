@@ -16,6 +16,7 @@ export default function UpdatesExplorer({ initialCategory = "All", importedStori
       date: new Date(item.updated_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
       summary: item.summary,
       details: item.details,
+      image: item.image_url || undefined,
       importedId: item.id,
     })),
     ...updates.map(item => ({ ...item, importedId: undefined as string | undefined })),
@@ -72,7 +73,7 @@ export default function UpdatesExplorer({ initialCategory = "All", importedStori
       {filteredUpdates.length > 0 ? (
         <div className="mt-5 grid gap-6 md:grid-cols-2">
           {filteredUpdates.map((item) => {
-            const image = item.importedId ? undefined : getUpdateImage(item);
+            const image = item.importedId ? item.image : getUpdateImage(item);
             return (
               <article key={item.id} className="flex flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                 {image ? <img src={image} alt="" className="h-52 w-full object-cover" /> : (
