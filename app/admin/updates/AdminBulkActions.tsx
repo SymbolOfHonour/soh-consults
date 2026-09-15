@@ -25,25 +25,29 @@ export default function AdminBulkActions() {
 
   useEffect(() => {
     const scan = () => {
-      const articles = Array.from(document.querySelectorAll<HTMLElement>("main article"));
+      const articles = Array.from(document.querySelectorAll<HTMLElement>("article"));
       const next: CardTarget[] = [];
       for (const article of articles) {
         const title = article.querySelector("h2")?.textContent?.trim();
         if (!title) continue;
         const story = stories.find((item) => item.title === title);
-        const host = article.querySelector<HTMLElement>(":scope > div:first-child");
-        if (story && host) next.push({ story, host });
+        const row = article.firstElementChild as HTMLElement | null;
+        const actions = row?.lastElementChild as HTMLElement | null;
+        if (story && actions) next.push({ story, host: actions });
       }
       setTargets(next);
 
-      const tabs = Array.from(document.querySelectorAll<HTMLElement>("main section > div"))
-        .find((element) => element.textContent?.includes("Draft (") && element.textContent?.includes("Published ("));
-      if (tabs) {
+      const tabBar = Array.from(document.querySelectorAll<HTMLElement>("section div"))
+        .find((element) => {
+          const text = element.textContent || "";
+          return text.includes("All (") && text.includes("Draft (") && text.includes("Published (") && element.querySelectorAll("button").length >= 5;
+        });
+      if (tabBar) {
         let host = document.getElementById("admin-bulk-actions-host");
         if (!host) {
           host = document.createElement("div");
           host.id = "admin-bulk-actions-host";
-          tabs.insertAdjacentElement("afterend", host);
+          tabBar.insertAdjacentElement("afterend", host);
         }
         setToolbarHost(host);
       }
@@ -63,7 +67,7 @@ export default function AdminBulkActions() {
   }
 
   function selectVisible() {
-    const visible = targets.filter(({ host }) => host.closest("article")?.style.display !== "none").map(({ story }) => story.id);
+    const visible = targets.filter(({ host }) => host.closest("article") && getComputedStyle(host.closest("article") as HTMLElement).display !== "none").map(({ story }) => story.id);
     setSelected(new Set(visible));
   }
 
@@ -93,13 +97,13 @@ export default function AdminBulkActions() {
   }
 
   const checkboxPortals = targets.map(({ story, host }) => createPortal(
-    <label key={story.id} className="mr-1 flex shrink-0 cursor-pointer items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-xs font-black text-gray-700" title="Select update for bulk action">
+    <label key={story.id} className="flex shrink-0 cursor-pointer items-center gap-2 rounded-xl border border-green-200 bg-green-50 px-3 py-2.5 text-xs font-black text-green-900" title="Select update for bulk action">
       <input type="checkbox" checked={selected.has(story.id)} onChange={() => toggle(story.id)} className="h-4 w-4 accent-green-700" /> Select
     </label>, host, story.id
   ));
 
   const toolbar = toolbarHost ? createPortal(
-    <div className="mb-6 rounded-2xl border border-green-200 bg-white p-4 shadow-sm">
+    <div className="mb-6 mt-3 rounded-2xl border border-green-200 bg-white p-4 shadow-sm">
       <div className="flex flex-wrap items-center gap-2">
         <span className="mr-2 text-sm font-black text-gray-900">{selected.size} selected</span>
         <button type="button" disabled={busy} onClick={selectVisible} className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-black text-gray-800">Select Visible</button>
