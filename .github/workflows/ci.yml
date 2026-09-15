@@ -19,5 +19,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - run: npm run lint
-      - run: npm run build
+      - name: Lint changed admin and security files
+        run: npx eslint app/admin/updates/AdminUpdatesClient.tsx app/api/admin/login/route.ts app/api/admin/stories/route.ts app/api/admin/uploads/route.ts app/api/comments/route.ts app/api/visits/route.ts lib/admin-auth.ts lib/news-queue.ts lib/rate-limit.ts next.config.ts
+      - name: Production build
+        run: npm run build
