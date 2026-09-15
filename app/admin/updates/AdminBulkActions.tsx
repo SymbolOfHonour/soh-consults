@@ -68,13 +68,8 @@ export default function AdminBulkActions() {
   const visibleIds = targets.map(({ story }) => story.id);
   const allVisibleSelected = visibleIds.length > 0 && visibleIds.every((id) => selected.has(id));
 
-  function selectAllVisible() {
-    setSelected((current) => new Set([...current, ...visibleIds]));
-  }
-
-  function unselectAll() {
-    setSelected(new Set());
-  }
+  function selectAllVisible() { setSelected((current) => new Set([...current, ...visibleIds])); }
+  function unselectAll() { setSelected(new Set()); }
 
   async function changeStatus(status: "archived" | "rejected") {
     const chosen = stories.filter((story) => selected.has(story.id));
@@ -108,17 +103,16 @@ export default function AdminBulkActions() {
   ));
 
   const toolbar = toolbarHost ? createPortal(
-    <div className="mb-6 mt-3 rounded-2xl border border-green-200 bg-white p-4 shadow-sm">
+    <div className={`${selected.size ? "sticky top-3 z-40 shadow-xl" : ""} mb-6 mt-3 rounded-2xl border border-green-200 bg-white/95 p-4 shadow-sm backdrop-blur`}>
       <div className="flex flex-wrap items-center gap-2">
         <span className="mr-2 text-sm font-black text-gray-900">{selected.size} selected</span>
-        {selected.size > 0 ? <>
-          <button type="button" disabled={busy || allVisibleSelected} onClick={selectAllVisible} className="rounded-xl border border-green-300 bg-green-50 px-4 py-2 text-sm font-black text-green-900 disabled:opacity-50">Select All</button>
-          <button type="button" disabled={busy} onClick={unselectAll} className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-black text-gray-800">Unselect All</button>
-        </> : <button type="button" disabled={busy || !visibleIds.length} onClick={selectAllVisible} className="rounded-xl border border-green-300 bg-green-50 px-4 py-2 text-sm font-black text-green-900 disabled:opacity-50">Select All</button>}
+        <button type="button" disabled={busy || !visibleIds.length || allVisibleSelected} onClick={selectAllVisible} className="rounded-xl border border-green-300 bg-green-50 px-4 py-2 text-sm font-black text-green-900 disabled:opacity-50">Select All</button>
+        <button type="button" disabled={busy || !selected.size} onClick={unselectAll} className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-black text-gray-800 disabled:opacity-50">Unselect All</button>
         <button type="button" disabled={busy || !selected.size} onClick={() => void changeStatus("archived")} className="rounded-xl bg-gray-200 px-4 py-2 text-sm font-black text-gray-800 disabled:opacity-50">Archive Selected</button>
         <button type="button" disabled={busy || !selected.size} onClick={() => void changeStatus("rejected")} className="rounded-xl bg-orange-100 px-4 py-2 text-sm font-black text-orange-900 disabled:opacity-50">Reject Selected</button>
         <button type="button" disabled={busy || !selected.size} onClick={() => void permanentDelete()} className="rounded-xl bg-red-100 px-4 py-2 text-sm font-black text-red-800 disabled:opacity-50">Permanent Delete Selected</button>
       </div>
+      {selected.size > 0 && <p className="mt-2 text-xs font-bold text-gray-500">Bulk actions stay visible while you scroll. Select All applies to the updates currently shown in this tab/filter.</p>}
       {message && <p className="mt-3 text-sm font-bold text-red-700">{message}</p>}
     </div>, toolbarHost
   ) : null;
