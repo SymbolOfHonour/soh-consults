@@ -1,100 +1,15 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { findUpdateBySlug, getUpdateImage, getUpdateReadingTime, getUpdateSlug, updates } from "../../../data/updates";
+import { getPublishedStoryBySlug, getStorySlug } from "../../../lib/news-queue";
 import ShareButtons from "../../components/ShareButtons";
 import SiteContact from "../../components/SiteContact";
 import UpdateComments from "../../components/UpdateComments";
 import { getSiteUrl } from "../../site-url";
 
-const whatsappLink = (message: string) => `https://wa.me/2348182141088?text=${encodeURIComponent(message)}`;
-type Props = { params: Promise<{ id: string }> };
-
-export function generateStaticParams() {
-  return updates.map((update) => ({ id: getUpdateSlug(update) }));
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
-  const update = findUpdateBySlug(id);
-  if (!update) return { title: "Update Not Found" };
-  const slug = getUpdateSlug(update);
-  const image = getUpdateImage(update) || "/soh-logo.jpg";
-  return {
-    title: update.title,
-    description: update.summary,
-    alternates: { canonical: `/updates/${slug}` },
-    openGraph: { type: "article", title: update.title, description: update.summary, url: `/updates/${slug}`, images: [{ url: image, alt: update.title }] },
-    twitter: { card: "summary_large_image", title: update.title, description: update.summary, images: [image] },
-  };
-}
-
-function ArticleBody({ details }: { details: string }) {
-  return details.split("\n\n").map((part) => part.trim()).filter(Boolean).map((section, index) => {
-    const heading = section === section.toUpperCase() && section.length <= 80 && !section.includes("“") && !section.includes('"');
-    if (heading) return <h2 key={index} className="pt-4 text-xl font-black text-gray-950 sm:text-2xl">{section}</h2>;
-    const parts = section.split(/(https?:\/\/[^\s]+)/g);
-    return <p key={index} className="whitespace-pre-line text-[15px] leading-8 text-gray-700 sm:text-base">{parts.map((part, partIndex) => part.startsWith("http") ? <a key={partIndex} href={part.replace(/[.,;:]$/, "")} target="_blank" rel="noopener noreferrer" className="break-all font-black text-green-700 underline decoration-green-300 underline-offset-4 hover:text-green-900">{part}</a> : part)}</p>;
-  });
-}
-
-export default async function UpdateDetailsPage({ params }: Props) {
-  const { id } = await params;
-  const update = findUpdateBySlug(id);
-  if (!update) notFound();
-  const slug = getUpdateSlug(update);
-  if (id !== slug) permanentRedirect(`/updates/${slug}`);
-
-  const siteUrl = getSiteUrl();
-  const pageUrl = `${siteUrl}/updates/${slug}`;
-  const image = getUpdateImage(update);
-  const related = updates.filter((item) => item.id !== update.id && (item.category === update.category || item.institution === update.institution)).slice(0, 3);
-  const jsonLd = {
-    "@context": "https://schema.org", "@type": "NewsArticle", headline: update.title,
-    description: update.summary, datePublished: update.date, mainEntityOfPage: pageUrl,
-    image: [`${siteUrl}${image || "/soh-logo.jpg"}`], author: { "@type": "Organization", name: "S.O.H CONSULTS" },
-    publisher: { "@type": "Organization", name: "S.O.H CONSULTS", logo: { "@type": "ImageObject", url: `${siteUrl}/soh-logo.jpg` } },
-  };
-
-  return (
-    <main className="min-h-screen bg-gray-50 text-gray-900">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <a href="/"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto object-contain" /></a>
-          <nav className="hidden items-center gap-6 text-sm font-semibold md:flex"><a href="/">Home</a><a href="/updates" className="text-green-700">Updates</a><a href="/opportunities">Opportunities</a><a href="/guides">Guides</a><a href="/lasu-calculator">LASU Calculator</a></nav>
-          <a href={whatsappLink("Hello S.O.H CONSULTS, I need admission assistance.")} target="_blank" rel="noopener noreferrer" className="rounded-full bg-green-700 px-5 py-3 text-sm font-bold text-white">WhatsApp Us</a>
-        </div>
-      </header>
-
-      <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 py-14 text-white sm:py-16">
-        <div className="mx-auto max-w-4xl px-5 lg:px-8">
-          <a href="/updates" className="text-sm font-bold text-green-100">← Back to Latest Updates</a>
-          <div className="mt-6 flex flex-wrap items-center gap-2 text-sm font-semibold text-green-100">
-            <a href={`/updates/category/${update.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="rounded-full bg-white/15 px-3 py-1 font-black text-white">{update.category}</a>
-            <span>{update.institution}</span><span>·</span><time>{update.date}</time><span>·</span><span>{getUpdateReadingTime(update)} min read</span>
-          </div>
-          <h1 className="mt-5 text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">{update.title}</h1>
-          <p className="mt-5 max-w-3xl text-base leading-8 text-green-50 sm:text-lg">{update.summary}</p>
-        </div>
-      </section>
-
-      <section className="py-12 sm:py-16"><div className="mx-auto max-w-4xl px-5 lg:px-8">
-        {image && <div className="mb-8 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm"><img src={image} alt={update.title} className="h-auto w-full object-cover" /></div>}
-        <article className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
-          <div className="space-y-5"><ArticleBody details={update.details} /></div>
-          {update.id === 18 && update.sourceUrl && <a href={update.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-8 flex w-full items-center justify-center rounded-2xl bg-green-700 px-6 py-4 text-center font-black text-white shadow-sm transition hover:bg-green-800">Apply on the Official Indomie Portal →</a>}
-          <div className="mt-10 rounded-2xl bg-green-50 p-6"><p className="text-xs font-black uppercase tracking-widest text-green-700">S.O.H CONSULTS</p><h2 className="mt-2 text-xl font-black">Need help with this admission process?</h2><p className="mt-2 leading-7 text-gray-700">Get clear, personal guidance and registration assistance directly on WhatsApp.</p><a href={whatsappLink(`Hello S.O.H CONSULTS, I need help with: ${update.title}`)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-xl bg-green-700 px-5 py-3 text-sm font-black text-white">Get Assistance</a></div>
-          {(update.source || update.sourceUrl) && <div className="mt-10 border-t border-gray-200 pt-6"><p className="text-sm font-bold text-gray-500">Official source</p>{update.sourceUrl ? <a href={update.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex font-black text-green-700">{update.source || "View original source"} →</a> : <p className="mt-2 font-semibold">{update.source}</p>}</div>}
-          <div className="mt-10 border-t border-gray-200 pt-7"><h2 className="mb-4 text-lg font-black">Share this update</h2><ShareButtons url={pageUrl} title={update.title} /></div>
-          {related.length > 0 && <div className="mt-10 border-t border-gray-200 pt-8"><h2 className="text-xl font-black">Related Updates</h2><div className="mt-5 grid gap-4 sm:grid-cols-2">{related.map((item) => <a key={item.id} href={`/updates/${getUpdateSlug(item)}`} className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-green-300 hover:bg-green-50"><p className="text-xs font-black uppercase tracking-wide text-green-700">{item.institution} · {item.category}</p><p className="mt-2 font-black leading-6">{item.title}</p><p className="mt-2 text-sm text-gray-600">{item.date}</p></a>)}</div></div>}
-        </article>
-        <UpdateComments updateId={update.id} />
-      </div></section>
-      <SiteContact />
-      <a href={whatsappLink(`Hello S.O.H CONSULTS, I need assistance with: ${update.title}`)} target="_blank" rel="noopener noreferrer" aria-label={`Ask S.O.H CONSULTS about ${update.title}`} className="fixed bottom-5 left-4 z-50 inline-flex items-center gap-2 rounded-full bg-green-600 px-4 py-3 font-black text-white shadow-2xl ring-4 ring-white/80 transition hover:bg-green-700 sm:bottom-6 sm:left-6">
-        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6 fill-current"><path d="M12 2a9.7 9.7 0 0 0-8.3 14.7L2.4 22l5.4-1.4A9.8 9.8 0 1 0 12 2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3.2.8.9-3.1-.2-.3A8 8 0 1 1 12 19.8Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.7.9c-.1.2-.3.2-.5.1-1.4-.7-2.4-1.6-3.1-2.9-.2-.3.2-.5.5-.9.1-.2.1-.3 0-.5l-.7-1.7c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.8.9-.8 2.1-.2 3.2 1.2 2.4 3.1 4.2 5.5 5.2 1.8.8 3.2.9 4.3.2.5-.3.9-1 .9-1.7 0-.2-.1-.3-.3-.4l-1.6-.7Z" /></svg>
-        <span className="hidden sm:inline">WhatsApp Us</span>
-      </a>
-    </main>
-  );
-}
+const whatsappLink=(message:string)=>`https://wa.me/2348182141088?text=${encodeURIComponent(message)}`;
+type Props={params:Promise<{id:string}>};
+export function generateStaticParams(){return updates.map(update=>({id:getUpdateSlug(update)}));}
+export async function generateMetadata({params}:Props):Promise<Metadata>{const{id}=await params;const update=findUpdateBySlug(id);if(update){const slug=getUpdateSlug(update),image=getUpdateImage(update)||"/soh-logo.jpg";return{title:update.title,description:update.summary,alternates:{canonical:`/updates/${slug}`},openGraph:{type:"article",title:update.title,description:update.summary,url:`/updates/${slug}`,images:[{url:image,alt:update.title}]},twitter:{card:"summary_large_image",title:update.title,description:update.summary,images:[image]}};}const story=await getPublishedStoryBySlug(id);if(!story)return{title:"Update Not Found"};const slug=getStorySlug(story),image=story.image_url||"/soh-logo.jpg";return{title:story.title,description:story.summary,alternates:{canonical:`/updates/${slug}`},openGraph:{type:"article",title:story.title,description:story.summary,url:`/updates/${slug}`,images:[{url:image,alt:story.title}]},twitter:{card:"summary_large_image",title:story.title,description:story.summary,images:[image]}};}
+function Body({value}:{value:string}){return value.split("\n\n").map(p=>p.trim()).filter(Boolean).map((section,index)=>{const heading=section===section.toUpperCase()&&section.length<=80&&!section.includes("“")&&!section.includes('"');if(heading)return <h2 key={index} className="pt-4 text-xl font-black text-gray-950 sm:text-2xl">{section}</h2>;const parts=section.split(/(https?:\/\/[^\s]+)/g);return <p key={index} className="whitespace-pre-line text-[15px] leading-8 text-gray-700 sm:text-base">{parts.map((part,i)=>part.startsWith("http")?<a key={i} href={part.replace(/[.,;:]$/,"")} target="_blank" rel="noopener noreferrer" className="break-all font-black text-green-700 underline decoration-green-300 underline-offset-4 hover:text-green-900">{part}</a>:part)}</p>;});}
+export default async function UpdateDetailsPage({params}:Props){const{id}=await params;const manual=findUpdateBySlug(id);if(manual){const slug=getUpdateSlug(manual);if(id!==slug)permanentRedirect(`/updates/${slug}`);const siteUrl=getSiteUrl(),pageUrl=`${siteUrl}/updates/${slug}`,image=getUpdateImage(manual),related=updates.filter(item=>item.id!==manual.id&&(item.category===manual.category||item.institution===manual.institution)).slice(0,3);return <main className="min-h-screen bg-gray-50 text-gray-900"><header className="border-b bg-white"><div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4"><a href="/"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto" /></a><a href={whatsappLink(`Hello S.O.H CONSULTS, I need help with: ${manual.title}`)} target="_blank" rel="noopener noreferrer" className="rounded-full bg-green-700 px-5 py-3 text-sm font-black text-white">WhatsApp Us</a></div></header><section className="bg-gradient-to-br from-green-950 to-green-700 py-14 text-white"><div className="mx-auto max-w-4xl px-5"><a href="/updates" className="text-sm font-bold text-green-100">← Back to Latest Updates</a><p className="mt-6 text-sm font-black text-green-200">{manual.category} · {manual.institution} · {manual.date} · {getUpdateReadingTime(manual)} min read</p><h1 className="mt-4 text-3xl font-black leading-tight sm:text-5xl">{manual.title}</h1><p className="mt-5 max-w-3xl leading-8 text-green-50">{manual.summary}</p></div></section><section className="py-12"><div className="mx-auto max-w-4xl px-5">{image&&<img src={image} alt={manual.title} className="mb-8 max-h-[560px] w-full rounded-3xl border bg-white object-cover shadow-sm"/>}<article className="rounded-3xl border bg-white p-6 shadow-sm sm:p-10"><div className="space-y-5"><Body value={manual.details}/></div>{manual.deadline&&<div className="mt-8 rounded-2xl bg-amber-50 p-5"><p className="text-xs font-black uppercase text-amber-800">Application deadline</p><p className="mt-2 text-lg font-black">{manual.deadline}</p></div>}<div className="mt-8 rounded-2xl bg-green-50 p-6"><h2 className="text-xl font-black">Need registration assistance?</h2><a href={whatsappLink(`Hello S.O.H CONSULTS, I need assistance with: ${manual.title}`)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-xl bg-green-700 px-5 py-3 font-black text-white">Chat on WhatsApp</a></div>{(manual.source||manual.sourceUrl)&&<div className="mt-8 border-t pt-6"><p className="text-sm font-bold text-gray-500">Official source</p>{manual.sourceUrl?<a href={manual.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex font-black text-green-700">{manual.source||"View official source"} →</a>:<p className="mt-2 font-black text-green-700">{manual.source}</p>}</div>}<div className="mt-8 border-t pt-6"><ShareButtons url={pageUrl} title={manual.title}/></div>{related.length>0&&<div className="mt-8 border-t pt-6"><h2 className="text-xl font-black">Related Updates</h2></div>}</article><UpdateComments updateId={manual.id}/></div></section><SiteContact/></main>;}const story=await getPublishedStoryBySlug(id);if(!story)notFound();const slug=getStorySlug(story),pageUrl=`${getSiteUrl()}/updates/${slug}`;return <main className="min-h-screen bg-gray-50 text-gray-900"><header className="border-b bg-white"><div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4"><a href="/"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto" /></a><a href={whatsappLink(`Hello S.O.H CONSULTS, I need help with: ${story.title}`)} target="_blank" rel="noopener noreferrer" className="rounded-full bg-green-700 px-5 py-3 text-sm font-black text-white">WhatsApp Us</a></div></header><section className="bg-gradient-to-br from-green-950 to-green-700 py-14 text-white"><div className="mx-auto max-w-4xl px-5"><a href="/updates" className="text-sm font-bold text-green-100">← Back to Latest Updates</a><p className="mt-6 text-sm font-black text-green-200">{story.category} · {story.institution}</p><h1 className="mt-4 text-3xl font-black leading-tight sm:text-5xl">{story.title}</h1><p className="mt-5 max-w-3xl leading-8 text-green-50">{story.summary}</p></div></section><section className="py-12"><div className="mx-auto max-w-4xl px-5">{story.image_url&&<img src={story.image_url} alt={story.title} className="mb-8 max-h-[560px] w-full rounded-3xl border bg-white object-cover shadow-sm"/>}<article className="rounded-3xl border bg-white p-6 shadow-sm sm:p-10"><div className="space-y-5"><Body value={story.details}/></div>{story.deadline&&<div className="mt-8 rounded-2xl bg-amber-50 p-5"><p className="text-xs font-black uppercase text-amber-800">Application deadline</p><p className="mt-2 text-lg font-black">{story.deadline}</p></div>}{story.document_url&&<a href={story.document_url} target="_blank" rel="noopener noreferrer" className="mt-8 flex w-full items-center justify-center rounded-2xl border-2 border-green-700 px-6 py-4 text-center font-black text-green-700">View or Download {story.document_name||"Supporting Document"} →</a>}<div className="mt-8 rounded-2xl bg-green-50 p-6"><h2 className="text-xl font-black">Need registration assistance?</h2><a href={whatsappLink(`Hello S.O.H CONSULTS, I need assistance with: ${story.title}`)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-xl bg-green-700 px-5 py-3 font-black text-white">Chat on WhatsApp</a></div>{story.official_source_name&&<div className="mt-8 border-t pt-6"><p className="text-sm font-bold text-gray-500">Official source</p>{story.official_source_url?<a href={story.official_source_url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex font-black text-green-700">{story.official_source_name} →</a>:<p className="mt-2 font-black text-green-700">{story.official_source_name}</p>}</div>}<div className="mt-8 border-t pt-6"><ShareButtons url={pageUrl} title={story.title}/></div></article></div></section><SiteContact/></main>;}

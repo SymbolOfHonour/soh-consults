@@ -1,0 +1,30 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
+import { getUpdateImage, getUpdateSlug, updates } from "../../data/updates";
+
+type PublicStory={id:string;title:string;summary:string;category:string;institution:string;date:string;image:string|null;slug:string;updatedAt:string};
+type HomeItem={key:string;title:string;summary:string;category:string;date:string;image?:string;slug:string;timestamp:number};
+
+export default function HomeLatestUpdates(){
+  const [target,setTarget]=useState<Element|null>(null);
+  const [published,setPublished]=useState<PublicStory[]>([]);
+
+  useEffect(()=>{
+    if(window.location.pathname!=="/")return;
+    const section=Array.from(document.querySelectorAll("section")).find(node=>node.querySelector("h2")?.textContent?.includes("Latest admission and education updates"));
+    const grid=section?.querySelector(".mt-10.grid")||null;
+    if(grid){grid.replaceChildren();setTarget(grid);}
+    fetch("/api/public/updates").then(r=>r.ok?r.json():[]).then(setPublished).catch(()=>setPublished([]));
+  },[]);
+
+  const items=useMemo<HomeItem[]>(()=>{
+    const dashboard=published.map(story=>({key:`dashboard-${story.id}`,title:story.title,summary:story.summary,category:story.category,date:story.date,image:story.image||undefined,slug:story.slug,timestamp:new Date(story.updatedAt).getTime()}));
+    const coded=updates.map(update=>({key:`coded-${update.id}`,title:update.title,summary:update.summary,category:update.category,date:update.date,image:getUpdateImage(update),slug:getUpdateSlug(update),timestamp:new Date(update.date).getTime()||0}));
+    return [...dashboard,...coded].sort((a,b)=>b.timestamp-a.timestamp).slice(0,3);
+  },[published]);
+
+  if(!target)return null;
+  return createPortal(<>{items.map(item=><article key={item.key} className="flex flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">{item.image?<img src={item.image} alt="" className="h-44 w-full object-cover"/>:<div className="h-28 bg-gradient-to-br from-green-950 to-green-700"/>}<div className="flex flex-1 flex-col p-6"><p className="text-xs font-black uppercase tracking-wide text-green-700">{item.category} · {item.date}</p><h3 className="mt-3 text-lg font-black leading-7 text-gray-950">{item.title}</h3><p className="mt-3 flex-1 text-sm leading-6 text-gray-600">{item.summary}</p><a href={`/updates/${item.slug}`} className="mt-5 font-black text-green-700">Read Update →</a></div></article>)}</>,target);
+}
