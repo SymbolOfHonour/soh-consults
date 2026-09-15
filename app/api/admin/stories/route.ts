@@ -24,6 +24,8 @@ export async function PATCH(request: Request) {
     image_url: body.image_url || null,
     document_url: body.document_url || null,
     document_name: body.document_name || null,
+    official_source_name: body.official_source_name ? String(body.official_source_name).trim() : null,
+    official_source_url: body.official_source_url ? String(body.official_source_url).trim() : null,
     status: allowedStatuses.includes(body.status) ? body.status : "draft",
   };
   if (!values.title || !values.summary || !values.details) return NextResponse.json({ error: "Title, summary and details are required." }, { status: 400 });

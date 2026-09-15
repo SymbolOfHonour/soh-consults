@@ -15,6 +15,8 @@ export type QueuedStory = {
   image_url: string | null;
   document_url: string | null;
   document_name: string | null;
+  official_source_name: string | null;
+  official_source_url: string | null;
   status: QueueStatus;
   created_at: string;
   updated_at: string;

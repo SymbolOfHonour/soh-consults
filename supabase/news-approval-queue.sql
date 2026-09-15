@@ -15,6 +15,8 @@ create table if not exists public.news_queue (
   image_url text,
   document_url text,
   document_name text,
+  official_source_name text,
+  official_source_url text,
   status text not null default 'draft' check (status in ('draft', 'approved', 'published', 'rejected')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
