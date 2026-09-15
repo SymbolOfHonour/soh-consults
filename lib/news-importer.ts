@@ -11,7 +11,9 @@ const sources: Source[] = [
   { name: "MySchoolGist", url: "https://myschoolgist.com/", baseUrl: "https://myschoolgist.com" },
 ];
 
-const usefulTerms = /admission|post[- ]?utme|direct entry|screening|jamb|waec|wassce|neco|nabteb|scholarship|application form|admission list|cut[- ]?off|nysc|resumption|clearance|acceptance fee|nursing|registration|timetable/i;
+const usefulTerms = /admission|post[- ]?utme|direct entry|screening|jamb|waec|wassce|neco|nabteb|scholarship|application form|admission list|cut[- ]?off|nysc|resumption|clearance|acceptance fee|registration|timetable|mobilisation|mobilization|matriculation|convocation/i;
+const lowValueTerms = /browser for all centres?|jambtest|test download|registration templates?|cbt centre|commissions? .*cbt|syllabus system|e[- ]?facility.*download|software download/i;
+const newsSignals = /admission|screening|registration|deadline|closes?|opens?|commence|application|list|result|timetable|scholarship|mobilisation|mobilization|resumption|clearance|acceptance fee|matriculation|convocation|policy|cut[- ]?off|candidate|examination|exam|utme|direct entry|wassce|waec|nysc/i;
 
 function decodeHtml(value: string) {
   return value.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&#8211;|&ndash;/g, "-").replace(/&#8217;|&rsquo;/g, "'").replace(/&quot;|&#8220;|&#8221;/g, '"').replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code))).replace(/\s+/g, " ").trim();
@@ -21,7 +23,7 @@ function categoryFor(title: string) {
   if (/scholarship/i.test(title)) return "Scholarship";
   if (/jamb|utme|direct entry/i.test(title)) return "JAMB";
   if (/waec|wassce|neco|nabteb|o.level/i.test(title)) return "O'Level";
-  if (/nysc/i.test(title)) return "NYSC";
+  if (/nysc|mobilisation|mobilization/i.test(title)) return "NYSC";
   if (/admission list/i.test(title)) return "Admission List";
   return "Admission";
 }
@@ -32,20 +34,25 @@ function extractInstitution(title: string, source: Source) {
   return match?.[1] || "To be confirmed";
 }
 
+function isUsefulNews(title: string) {
+  if (!usefulTerms.test(title) || lowValueTerms.test(title)) return false;
+  return newsSignals.test(title);
+}
+
 function extractLinks(html: string, source: Source) {
   const results = new Map<string, { title: string; url: string }>();
   const pattern = /<a\b[^>]*href=["']([^"'#]+)["'][^>]*>([\s\S]*?)<\/a>/gi;
   const sourceHost = new URL(source.baseUrl).hostname.replace(/^www\./, "");
   for (const match of html.matchAll(pattern)) {
     const title = decodeHtml(match[2]);
-    if (title.length < 20 || title.length > 180 || !usefulTerms.test(title)) continue;
+    if (title.length < 20 || title.length > 180 || !isUsefulNews(title)) continue;
     let url: URL;
     try { url = new URL(match[1], source.baseUrl); } catch { continue; }
     if (url.hostname.replace(/^www\./, "") !== sourceHost) continue;
     url.hash = "";
     results.set(url.toString(), { title, url: url.toString() });
   }
-  return [...results.values()].slice(0, source.official ? 20 : 15);
+  return [...results.values()].slice(0, source.official ? 12 : 10);
 }
 
 export async function importLatestStories() {
