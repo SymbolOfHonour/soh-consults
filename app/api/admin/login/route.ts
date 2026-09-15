@@ -30,8 +30,7 @@ function totp(secret: string, counter: number) {
   message.writeBigUInt64BE(BigInt(counter));
   const digest = createHmac("sha1", key).update(message).digest();
   const offset = digest[digest.length - 1] & 15;
-  const code = (digest.readUInt32BE(offset) & 0x7fffffff) % 1_000_000;
-  return code.toString().padStart(6, "0");
+  return ((digest.readUInt32BE(offset) & 0x7fffffff) % 1_000_000).toString().padStart(6, "0");
 }
 
 function validTotp(code: string, secret: string) {
@@ -43,15 +42,25 @@ function validTotp(code: string, secret: string) {
 export async function POST(request: Request) {
   const rate = await checkRateLimit(request, "admin-login", 8, 15 * 60);
   if (!rate.allowed) return NextResponse.json({ error: "Too many login attempts. Please try again later." }, { status: 429, headers: { "Retry-After": String(rate.retryAfter) } });
-  const { password, otp } = await request.json().catch(() => ({ password: "", otp: "" }));
+  const body = await request.json().catch(() => ({ password: "", otp: "" }));
+  let password = typeof body.password === "string" ? body.password : "";
+  let otp = typeof body.otp === "string" ? body.otp.trim() : "";
   const configured = process.env.ADMIN_PASSWORD;
-  const totpSecret = process.env.ADMIN_TOTP_SECRET;
-  if (!configured || !process.env.ADMIN_SESSION_SECRET || !totpSecret) return NextResponse.json({ error: "Admin security is not fully configured." }, { status: 503 });
-  if (typeof password !== "string" || !sameSecret(password, configured)) return NextResponse.json({ error: "Incorrect password or verification code." }, { status: 401 });
-  if (typeof otp !== "string" || !validTotp(otp.trim(), totpSecret)) return NextResponse.json({ error: "Incorrect password or verification code." }, { status: 401 });
+  const totpSecret = process.env.ADMIN_TOTP_SECRET?.trim();
+  if (!configured || !process.env.ADMIN_SESSION_SECRET) return NextResponse.json({ error: "Admin security is not fully configured." }, { status: 503 });
+
+  // Until the dashboard gets its dedicated OTP field, an enabled TOTP login also
+  // accepts "password 123456" in the existing password box. No TOTP secret means
+  // the current password-only login continues to work, preventing rollout lockout.
+  if (totpSecret && !otp) {
+    const match = password.match(/^(.*)\s+(\d{6})$/);
+    if (match) { password = match[1]; otp = match[2]; }
+  }
+  if (!sameSecret(password, configured) || (totpSecret && !validTotp(otp, totpSecret))) return NextResponse.json({ error: totpSecret ? "Incorrect password or verification code. Enter your password followed by the current 6-digit authenticator code." : "Incorrect password." }, { status: 401 });
+
   const token = createAdminToken();
   if (!token) return NextResponse.json({ error: "Unable to create admin session." }, { status: 503 });
-  const response = NextResponse.json({ success: true });
+  const response = NextResponse.json({ success: true, twoFactorEnabled: Boolean(totpSecret) });
   response.cookies.set(ADMIN_COOKIE, token, { httpOnly: true, sameSite: "strict", secure: process.env.NODE_ENV === "production", path: "/", maxAge: adminSessionMaxAge() });
   return response;
 }
