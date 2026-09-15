@@ -1,0 +1,1 @@
+Local development admin login uses a separate rate-limit bucket with a higher testing allowance. Production remains admin-login: 8 attempts per 15 minutes.
