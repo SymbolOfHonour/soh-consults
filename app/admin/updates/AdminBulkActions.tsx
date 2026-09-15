@@ -37,11 +37,10 @@ export default function AdminBulkActions() {
       }
       setTargets(next);
 
-      const tabBar = Array.from(document.querySelectorAll<HTMLElement>("section div"))
-        .find((element) => {
-          const text = element.textContent || "";
-          return text.includes("All (") && text.includes("Draft (") && text.includes("Published (") && element.querySelectorAll("button").length >= 5;
-        });
+      const tabBar = Array.from(document.querySelectorAll<HTMLElement>("section div")).find((element) => {
+        const text = element.textContent || "";
+        return text.includes("All (") && text.includes("Draft (") && text.includes("Published (") && element.querySelectorAll("button").length >= 5;
+      });
       if (tabBar) {
         let host = document.getElementById("admin-bulk-actions-host");
         if (!host) {
@@ -66,9 +65,15 @@ export default function AdminBulkActions() {
     });
   }
 
-  function selectVisible() {
-    const visible = targets.filter(({ host }) => host.closest("article") && getComputedStyle(host.closest("article") as HTMLElement).display !== "none").map(({ story }) => story.id);
-    setSelected(new Set(visible));
+  const visibleIds = targets.map(({ story }) => story.id);
+  const allVisibleSelected = visibleIds.length > 0 && visibleIds.every((id) => selected.has(id));
+
+  function selectAllVisible() {
+    setSelected((current) => new Set([...current, ...visibleIds]));
+  }
+
+  function unselectAll() {
+    setSelected(new Set());
   }
 
   async function changeStatus(status: "archived" | "rejected") {
@@ -106,8 +111,10 @@ export default function AdminBulkActions() {
     <div className="mb-6 mt-3 rounded-2xl border border-green-200 bg-white p-4 shadow-sm">
       <div className="flex flex-wrap items-center gap-2">
         <span className="mr-2 text-sm font-black text-gray-900">{selected.size} selected</span>
-        <button type="button" disabled={busy} onClick={selectVisible} className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-black text-gray-800">Select Visible</button>
-        <button type="button" disabled={busy || !selected.size} onClick={() => setSelected(new Set())} className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-black text-gray-800 disabled:opacity-50">Clear</button>
+        {selected.size > 0 ? <>
+          <button type="button" disabled={busy || allVisibleSelected} onClick={selectAllVisible} className="rounded-xl border border-green-300 bg-green-50 px-4 py-2 text-sm font-black text-green-900 disabled:opacity-50">Select All</button>
+          <button type="button" disabled={busy} onClick={unselectAll} className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-black text-gray-800">Unselect All</button>
+        </> : <button type="button" disabled={busy || !visibleIds.length} onClick={selectAllVisible} className="rounded-xl border border-green-300 bg-green-50 px-4 py-2 text-sm font-black text-green-900 disabled:opacity-50">Select All</button>}
         <button type="button" disabled={busy || !selected.size} onClick={() => void changeStatus("archived")} className="rounded-xl bg-gray-200 px-4 py-2 text-sm font-black text-gray-800 disabled:opacity-50">Archive Selected</button>
         <button type="button" disabled={busy || !selected.size} onClick={() => void changeStatus("rejected")} className="rounded-xl bg-orange-100 px-4 py-2 text-sm font-black text-orange-900 disabled:opacity-50">Reject Selected</button>
         <button type="button" disabled={busy || !selected.size} onClick={() => void permanentDelete()} className="rounded-xl bg-red-100 px-4 py-2 text-sm font-black text-red-800 disabled:opacity-50">Permanent Delete Selected</button>
