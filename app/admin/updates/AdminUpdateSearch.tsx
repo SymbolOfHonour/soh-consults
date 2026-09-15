@@ -22,7 +22,7 @@ export default function AdminUpdateSearch() {
   }, [query]);
 
   return (
-    <div className="fixed bottom-5 right-5 z-40 w-[min(420px,calc(100vw-2.5rem))] rounded-2xl border border-gray-200 bg-white p-3 shadow-xl">
+    <div className="fixed bottom-5 left-5 z-40 w-[min(420px,calc(100vw-2.5rem))] rounded-2xl border border-gray-200 bg-white p-3 shadow-xl">
       <label className="block text-xs font-black uppercase tracking-wider text-green-700">
         Search dashboard updates
         <div className="mt-2 flex gap-2">
@@ -33,13 +33,7 @@ export default function AdminUpdateSearch() {
             className="min-w-0 flex-1 rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm font-medium normal-case tracking-normal text-gray-950 outline-none focus:border-green-700 focus:ring-2 focus:ring-green-100"
           />
           {query && (
-            <button
-              type="button"
-              onClick={() => setQuery("")}
-              className="rounded-xl border border-gray-300 px-3 text-sm font-black text-gray-700 hover:bg-gray-50"
-            >
-              Clear
-            </button>
+            <button type="button" onClick={() => setQuery("")} className="rounded-xl border border-gray-300 px-3 text-sm font-black text-gray-700 hover:bg-gray-50">Clear</button>
           )}
         </div>
       </label>
