@@ -1,4 +1,4 @@
-export type Typography = { font?: "Arial" | "Georgia" | "Verdana" | "Trebuchet MS" | "Times New Roman"; size?: 14 | 16 | 18 | 20 | 24; align?: "left" | "center" | "right"; color?: "default" | "green" | "blue" | "red"; spacing?: "normal" | "relaxed" | "loose"; highlight?: boolean };
+export type Typography = { font?: "Arial" | "Georgia" | "Verdana" | "Trebuchet MS" | "Times New Roman"; size?: 12 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 36 | 40 | 48 | 56 | 64 | 72; align?: "left" | "center" | "right"; color?: "default" | "green" | "blue" | "red"; spacing?: "normal" | "relaxed" | "loose"; highlight?: boolean };
 export type ArticleBlock =
   | ({ type: "paragraph" | "heading"; text: string } & Typography)
   | { type: "image"; url: string; alt?: string }
@@ -8,7 +8,7 @@ export type ArticleBlock =
 const MARKER = /\[SOH_BLOCKS:([^\]]*)\]/g;
 const IMAGE = /^https:\/\/[^\s]+$/i;
 const fonts = ["Arial", "Georgia", "Verdana", "Trebuchet MS", "Times New Roman"] as const;
-const sizes = [14, 16, 18, 20, 24] as const;
+const sizes = [12,14,16,18,20,24,28,32,36,40,48,56,64,72] as const;
 const aligns = ["left", "center", "right"] as const;
 const colors = ["default", "green", "blue", "red"] as const;
 const spacings = ["normal", "relaxed", "loose"] as const;
