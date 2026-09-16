@@ -31,9 +31,9 @@ function publicDetails(value: string) {
 function Body({ value }: { value: string }) {
   return value.split("\n\n").map(p => p.trim()).filter(Boolean).map((section, index) => {
     const heading = section === section.toUpperCase() && section.length <= 80 && !section.includes("“") && !section.includes('"');
-    if (heading) return <h2 key={index} className="pt-6 text-2xl font-black leading-tight text-gray-950 sm:text-3xl">{section}</h2>;
+    if (heading) return <h2 key={index} className="break-words pt-6 text-2xl font-black leading-tight text-gray-950 sm:text-3xl">{section}</h2>;
     const parts = section.split(/(https?:\/\/[^\s]+)/g);
-    return <p key={index} className="whitespace-pre-line text-[19px] leading-9 text-gray-800 sm:text-xl sm:leading-10">{parts.map((part, i) => part.startsWith("http") ? <a key={i} href={part.replace(/[.,;:]$/, "")} target="_blank" rel="noopener noreferrer" className="break-all font-black text-green-700 underline decoration-green-300 underline-offset-4 hover:text-green-900">{part}</a> : part)}</p>;
+    return <p key={index} className="whitespace-pre-line break-words text-[18px] leading-8 text-gray-800 sm:text-xl sm:leading-10">{parts.map((part, i) => part.startsWith("http") ? <a key={i} href={part.replace(/[.,;:]$/, "")} target="_blank" rel="noopener noreferrer" className="break-all font-black text-green-700 underline decoration-green-300 underline-offset-4 hover:text-green-900">{part}</a> : part)}</p>;
   });
 }
 export default async function UpdateDetailsPage({ params }: Props) {
@@ -44,19 +44,25 @@ export default async function UpdateDetailsPage({ params }: Props) {
   if (id !== slug) permanentRedirect(`/updates/${slug}`);
   const pageUrl = `${getSiteUrl()}/updates/${slug}`;
   const gallery = [...new Set([...(story.image_url ? [story.image_url] : []), ...getGalleryImages(story.details)])].slice(0, 5);
+  const [featuredImage, ...supportingImages] = gallery;
   const body = publicDetails(story.details);
+  const related = (await listPublishedStories()).filter(item => item.id !== story.id && item.category === story.category).slice(0, 4);
   const publishedDate = new Date(story.source_published_at || story.updated_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-  return <main className="min-h-screen bg-gray-50 text-gray-900">
-    <header className="border-b bg-white"><div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4"><a href="/"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto" /></a><a href={whatsappLink(`Hello S.O.H CONSULTS, I need help with: ${story.title}`)} target="_blank" rel="noopener noreferrer" className="rounded-full bg-green-700 px-5 py-3 text-sm font-black text-white">WhatsApp Us</a></div></header>
-    <section className="bg-gradient-to-br from-green-950 to-green-700 py-14 text-white"><div className="mx-auto max-w-5xl px-5"><a href="/updates" className="text-sm font-bold text-green-100">← Back to Latest Updates</a><p className="mt-6 text-sm font-black text-green-200">{story.category} · {story.institution} · {publishedDate}</p><h1 className="mt-4 text-3xl font-black leading-tight sm:text-5xl">{story.title}</h1><p className="mt-5 max-w-4xl text-xl leading-9 text-green-50">{story.summary}</p></div></section>
-    <section className="py-12"><div className="mx-auto max-w-5xl px-5"><article className="rounded-3xl border bg-white p-6 shadow-sm sm:p-12">
-      <div className="space-y-7"><Body value={body} /></div>
-      {gallery.length > 0 && <div className={`mt-10 grid gap-4 ${gallery.length === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`} aria-label="Update pictures">{gallery.map((url, i) => <img key={`${url}-${i}`} src={url} alt={`${story.title} picture ${i + 1}`} className={`${i === 0 && gallery.length > 2 ? "sm:col-span-2 max-h-[650px]" : "max-h-[460px]"} w-full rounded-3xl border bg-white object-contain shadow-sm`} />)}</div>}
-      {story.deadline && <div className="mt-8 rounded-2xl bg-amber-50 p-5"><p className="text-xs font-black uppercase text-amber-800">Application deadline</p><p className="mt-2 text-lg font-black">{story.deadline}</p></div>}
-      {story.document_url && <a href={story.document_url} target="_blank" rel="noopener noreferrer" className="mt-8 flex w-full items-center justify-center rounded-2xl border-2 border-green-700 px-6 py-4 text-center font-black text-green-700">View or Download {story.document_name || "Supporting Document"} →</a>}
-      <div className="mt-8 rounded-2xl bg-green-50 p-6"><h2 className="text-xl font-black">Need registration assistance?</h2><a href={whatsappLink(`Hello S.O.H CONSULTS, I need assistance with: ${story.title}`)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-xl bg-green-700 px-5 py-3 font-black text-white">Chat on WhatsApp</a></div>
-      {story.official_source_name && <div className="mt-8 border-t pt-6"><p className="text-sm font-bold text-gray-500">Official source</p>{story.official_source_url ? <a href={story.official_source_url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex font-black text-green-700">{story.official_source_name} →</a> : <p className="mt-2 font-black text-green-700">{story.official_source_name}</p>}</div>}
-      <div className="mt-8 border-t pt-6"><ShareButtons url={pageUrl} title={story.title} /></div>
-    </article></div></section><SiteContact />
+  return <main className="min-h-screen min-w-0 bg-gray-50 text-gray-900">
+    <header className="border-b bg-white"><div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-4"><a href="/" aria-label="S.O.H CONSULTS homepage"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-12 w-auto sm:h-16" /></a><a href={whatsappLink(`Hello S.O.H CONSULTS, I need help with: ${story.title}`)} target="_blank" rel="noopener noreferrer" className="shrink-0 rounded-full bg-green-700 px-4 py-3 text-xs font-black text-white sm:px-5 sm:text-sm">WhatsApp Us</a></div></header>
+    <section className="bg-gradient-to-br from-green-950 to-green-700 py-9 text-white sm:py-14"><div className="mx-auto max-w-6xl px-4 sm:px-5"><a href="/updates" className="text-sm font-bold text-green-100">← Back to Latest Updates</a><p className="mt-5 break-words text-xs font-black text-green-200 sm:mt-6 sm:text-sm">{story.category} · {story.institution} · {publishedDate}</p><h1 className="mt-4 break-words text-3xl font-black leading-tight sm:text-5xl">{story.title}</h1><p className="mt-4 max-w-4xl break-words text-lg leading-8 text-green-50 sm:mt-5 sm:text-xl sm:leading-9">{story.summary}</p></div></section>
+    <section className="py-6 sm:py-12"><div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-6 px-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-8">
+      <article className="min-w-0 rounded-2xl border bg-white p-4 shadow-sm sm:rounded-3xl sm:p-8 lg:p-10">
+        {featuredImage && <img src={featuredImage} alt={`${story.title} featured image`} className="mb-8 max-h-[540px] w-full rounded-2xl border bg-white object-contain shadow-sm" />}
+        <div className="space-y-7"><Body value={body} /></div>
+        {supportingImages.length > 0 && <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2" aria-label="Supporting update pictures">{supportingImages.map((url, i) => <img key={`${url}-${i}`} src={url} alt={`${story.title} supporting picture ${i + 1}`} className="max-h-[460px] w-full rounded-2xl border bg-white object-contain shadow-sm" />)}</div>}
+        {story.deadline && <div className="mt-8 rounded-2xl bg-amber-50 p-5"><p className="text-xs font-black uppercase text-amber-800">Application deadline</p><p className="mt-2 text-lg font-black">{story.deadline}</p></div>}
+        {story.document_url && <a href={story.document_url} target="_blank" rel="noopener noreferrer" className="mt-8 flex w-full items-center justify-center rounded-2xl border-2 border-green-700 px-4 py-4 text-center font-black text-green-700 sm:px-6">View or Download {story.document_name || "Supporting Document"} →</a>}
+        <div className="mt-8 rounded-2xl bg-green-50 p-5 sm:p-6"><h2 className="text-xl font-black">Need registration assistance?</h2><a href={whatsappLink(`Hello S.O.H CONSULTS, I need assistance with: ${story.title}`)} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-xl bg-green-700 px-5 py-3 font-black text-white">Chat on WhatsApp</a></div>
+        {story.official_source_name && <div className="mt-8 border-t pt-6"><p className="text-sm font-bold text-gray-500">Official source</p>{story.official_source_url ? <a href={story.official_source_url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex break-all font-black text-green-700">{story.official_source_name} →</a> : <p className="mt-2 break-words font-black text-green-700">{story.official_source_name}</p>}</div>}
+        <div className="mt-8 border-t pt-6"><ShareButtons url={pageUrl} title={story.title} /></div>
+      </article>
+      <aside aria-label="Related updates" className="min-w-0 rounded-2xl border bg-white p-5 shadow-sm lg:sticky lg:top-6"><h2 className="text-xl font-black text-green-950">Related Updates</h2><p className="mt-1 text-sm text-gray-600">More {story.category} news</p><div className="mt-4 divide-y">{related.length ? related.map(item => <a key={item.id} href={`/updates/${getStorySlug(item)}`} className="block py-4 first:pt-0 hover:text-green-700"><span className="block break-words font-bold leading-6">{item.title}</span><span className="mt-1 block text-xs text-gray-500">{item.institution}</span></a>) : <p className="py-4 text-sm text-gray-600">No related updates yet.</p>}</div><a href="/updates" className="mt-4 inline-flex rounded-lg bg-green-700 px-4 py-3 text-sm font-bold text-white">View all updates →</a></aside>
+    </div></section><SiteContact />
   </main>;
 }
