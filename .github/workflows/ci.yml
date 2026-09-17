@@ -19,8 +19,8 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - name: Lint changed admin and security files
-        run: npx eslint app/admin/updates/AdminUpdatesClient.tsx app/api/admin/login/route.ts app/api/admin/stories/route.ts app/api/admin/uploads/route.ts app/api/comments/route.ts app/api/visits/route.ts app/api/public/analytics/route.ts app/components/BusinessAnalytics.tsx app/components/AnalyticsEvent.tsx app/admin/'[module]'/page.tsx lib/business-intelligence.ts lib/publishing-quality.ts lib/deadline-audit.ts lib/admin-auth.ts lib/news-queue.ts lib/rate-limit.ts next.config.ts
+      - name: Lint Phase 3 admin, security and intelligence files
+        run: npx eslint app/admin/updates/AdminUpdatesClient.tsx app/admin/'[module]'/ModuleManagerClient.tsx app/admin/'[module]'/page.tsx app/api/admin/login/route.ts app/api/admin/modules/route.ts app/api/admin/stories/route.ts app/api/admin/uploads/route.ts app/api/comments/route.ts app/api/cron/import-news/route.ts app/api/public/analytics/route.ts app/api/visits/route.ts app/components/AnalyticsEvent.tsx app/components/BusinessAnalytics.tsx lib/admin-auth.ts lib/admin-module-store.ts lib/business-intelligence.ts lib/deadline-audit.ts lib/news-importer.ts lib/news-queue.ts lib/publishing-quality.ts lib/rate-limit.ts lib/source-verification.ts next.config.ts
       - name: Regression tests
         run: npm test
       - name: Production build
