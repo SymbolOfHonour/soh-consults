@@ -6,3 +6,4 @@ export async function analyticsSummary(){const rows=await listModuleRecords("ana
 export async function recordHealth(name:string,ok:boolean,details=""){return createModuleRecord("settings",{title:`Health: ${name}`,subtitle:"Operations health",status:ok?"OK":"FAILED",details:details.slice(0,500),value:new Date().toISOString()});}
 export async function latestHealth(){const rows=await listModuleRecords("settings");return rows.filter(r=>r.title.startsWith("Health: ")).slice(0,20);}
 export async function moduleCount(module:ModuleKey){return (await listModuleRecords(module)).length;}
+export async function serverSnapshotTime(){return Date.now();}
