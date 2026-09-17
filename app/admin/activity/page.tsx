@@ -1,0 +1,11 @@
+import Link from "next/link";
+import {redirect} from "next/navigation";
+import {isAdmin} from "../../../lib/admin-auth";
+import {listAudit} from "../../../lib/admin-recovery";
+
+export const dynamic="force-dynamic";
+export default async function ActivityPage(){
+ if(!(await isAdmin()))redirect("/admin/updates");
+ const events=await listAudit();
+ return <main className="min-h-screen bg-gray-50 px-4 py-8 text-gray-950"><div className="mx-auto max-w-5xl"><div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-wider text-green-700">S.O.H CONSULTS · Private</p><h1 className="mt-1 text-3xl font-black">Activity & Accountability</h1><p className="mt-2 text-sm text-gray-600">Recent recorded changes to updates. Entries reflect system audit events, not independently verified individual identities.</p></div><Link href="/admin/modules" className="rounded-xl border bg-white px-4 py-3 text-sm font-bold text-green-800">← Operations</Link></div><section className="mt-6 overflow-hidden rounded-2xl border bg-white"><h2 className="border-b p-4 font-black">Recent activity ({events.length})</h2>{events.length===0?<p className="p-5 text-sm text-gray-600">No audit events recorded.</p>:<ol className="divide-y">{events.map(event=><li key={event.id} className="flex flex-wrap items-start justify-between gap-3 p-4"><div className="min-w-0 flex-1"><p className="font-black">{event.action}</p><p className="mt-1 break-words text-sm text-gray-700">{event.title}</p>{event.details&&<p className="mt-1 break-words text-xs text-gray-500">{event.details}</p>}<time dateTime={event.created_at} className="mt-2 block text-xs text-gray-500">{new Date(event.created_at).toLocaleString("en-NG",{timeZone:"Africa/Lagos",dateStyle:"medium",timeStyle:"short"})} WAT</time></div>{event.story_id&&<Link href={`/admin/updates/edit/${encodeURIComponent(event.story_id)}`} className="rounded-lg border px-3 py-2 text-xs font-bold text-green-800">View update</Link>}</li>)}</ol>}</section><p className="mt-4 text-xs text-gray-500">The activity view shows the latest audit records retained by the existing recovery system (up to 250). It does not identify individual editors because the current audit records do not contain verified editor identities.</p></div></main>;
+}
