@@ -20,6 +20,8 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Lint changed admin and security files
-        run: npx eslint app/admin/updates/AdminUpdatesClient.tsx app/api/admin/login/route.ts app/api/admin/stories/route.ts app/api/admin/uploads/route.ts app/api/comments/route.ts app/api/visits/route.ts lib/admin-auth.ts lib/news-queue.ts lib/rate-limit.ts next.config.ts
+        run: npx eslint app/admin/updates/AdminUpdatesClient.tsx app/api/admin/login/route.ts app/api/admin/stories/route.ts app/api/admin/uploads/route.ts app/api/comments/route.ts app/api/visits/route.ts app/api/public/analytics/route.ts app/components/BusinessAnalytics.tsx app/components/AnalyticsEvent.tsx app/admin/'[module]'/page.tsx lib/business-intelligence.ts lib/publishing-quality.ts lib/deadline-audit.ts lib/admin-auth.ts lib/news-queue.ts lib/rate-limit.ts next.config.ts
+      - name: Regression tests
+        run: npm test
       - name: Production build
         run: npm run build
