@@ -1,7 +1,8 @@
 import {NextResponse} from "next/server";
-import {revalidatePath} from "next/cache";
 import {isAdmin} from "../../../../lib/admin-auth";
-import {listStories,updateStory} from "../../../../lib/news-queue";
-import {recordAudit,recordVersion,visibleAdminStories} from "../../../../lib/admin-recovery";
-import {scheduledAt,expiryAt,writeSmartMeta,smartMeta} from "../../../../lib/smart-operations";
-export async function POST(){if(!(await isAdmin()))return NextResponse.json({error:"Unauthorized"},{status:401});const now=new Date();let published=0,expired=0;for(const story of visibleAdminStories(await listStories())){const schedule=scheduledAt(story),expiry=expiryAt(story);if(schedule&&schedule<=now&&story.status!=="published"&&story.status!=="archived"&&story.status!=="rejected"){await recordVersion(story,"before_scheduled_publish");const meta=smartMeta(story.details);const updated=await updateStory(story.id,{status:"published",details:writeSmartMeta(story.details,{...meta,schedule:undefined})});if(updated){published++;await recordAudit("Scheduled publication completed",updated,`Scheduled for ${schedule.toISOString()}.`).catch(()=>{});}}else if(expiry&&expiry<=now&&story.status==="published"){await recordVersion(story,"before_expiry_archive");const updated=await updateStory(story.id,{status:"archived"});if(updated){expired++;await recordAudit("Expired update archived",updated,`Expiry was ${expiry.toISOString()}.`).catch(()=>{});}}}for(const path of ["/","/updates","/admin","/admin/updates","/admin/modules","/admin/forms","/admin/opportunities","/admin/calendar"])revalidatePath(path);return NextResponse.json({published,expired,processed_at:now.toISOString()});}
+import {processSmartOperations} from "../../../../lib/process-smart-operations";
+export async function POST(){
+ if(!(await isAdmin()))return NextResponse.json({error:"Unauthorized"},{status:401});
+ try{return NextResponse.json(await processSmartOperations());}
+ catch(error){console.error("Manual smart operations failed",error);return NextResponse.json({error:"Unable to process smart operations."},{status:500});}
+}
