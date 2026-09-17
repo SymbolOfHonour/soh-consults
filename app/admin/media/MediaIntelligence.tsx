@@ -1,0 +1,2 @@
+import {listStories} from "../../../lib/news-queue";import {visibleAdminStories} from "../../../lib/admin-recovery";import {mediaItems} from "../../../lib/content-intelligence";import MediaIntelligenceClient from "./MediaIntelligenceClient";
+export default async function MediaIntelligence(){const items=mediaItems(visibleAdminStories(await listStories()));return <MediaIntelligenceClient items={items}/>}
