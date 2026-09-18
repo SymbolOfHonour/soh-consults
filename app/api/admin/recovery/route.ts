@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { isAdmin } from "../../../../lib/admin-auth";
-import { deleteStory } from "../../../../lib/news-queue";
+import { permanentlyDeleteTrashedStory } from "../../../../lib/trash-delete";
 import { listAudit, listHistory, listTrash, moveStoryToTrash, restoreStoryFromTrash, restoreVersion } from "../../../../lib/admin-recovery";
 
 function refresh() {
@@ -33,10 +33,7 @@ export async function POST(request: Request) {
     else if (body.action === "restore-version") result = await restoreVersion(body.id);
     else if (body.action === "permanent-delete") {
       if (body.confirm !== "PERMANENTLY DELETE") return NextResponse.json({ error: "Permanent deletion requires confirmation." }, { status: 400 });
-      // Never allow a supplied ID to delete a published, draft, or system record.
-      const trash = await listTrash();
-      if (!trash.some(story => story.id === body.id)) return NextResponse.json({ error: "Only updates in Trash can be permanently deleted." }, { status: 404 });
-      result = await deleteStory(body.id);
+      result = await permanentlyDeleteTrashedStory(body.id);
     } else return NextResponse.json({ error: "Unknown recovery action." }, { status: 400 });
     if (!result) return NextResponse.json({ error: "Record not found or action unavailable." }, { status: 404 });
     refresh();
