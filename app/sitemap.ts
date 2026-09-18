@@ -17,7 +17,9 @@ function categorySlug(value: string) {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
-  const published = await listPublishedStories().catch(() => []);
+  // A transient database failure must not masquerade as an empty publication list.
+  // Let the request fail so crawlers can retry instead of receiving an incomplete sitemap.
+  const published = await listPublishedStories();
   const core: MetadataRoute.Sitemap = [
     { url: siteUrl, changeFrequency: "weekly", priority: 1 },
     { url: `${siteUrl}/lasu-calculator`, changeFrequency: "monthly", priority: .95 },
