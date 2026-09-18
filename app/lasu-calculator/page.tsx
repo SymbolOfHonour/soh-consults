@@ -2112,6 +2112,8 @@ export default function LASUCalculator() {
       selectedJambSubjects,
       completedOLevelResults,
       creditOLevelResults,
+      firstSittingCompleted,
+      oLevelSittings,
       lasuRequirement,
       parsedJamb,
       parsedOLevel,
@@ -2312,17 +2314,11 @@ export default function LASUCalculator() {
     const BRIGHT_GREEN =
       "#16a34a";
 
-    const LIGHT_GREEN =
-      "#ecfdf5";
-
     const RED =
       "#dc2626";
 
     const DARK =
       "#0f172a";
-
-    const GRAY =
-      "#475569";
 
     const LIGHT_GRAY =
       "#eef2f5";

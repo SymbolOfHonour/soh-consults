@@ -15,6 +15,12 @@ const eslintConfig = defineConfig([
       "react-hooks/purity": "off",
       // Calculators build mutable export models before generating files.
       "react-hooks/immutability": "off",
+      // Public and admin content can reference arbitrary Supabase/external image URLs.
+      // Plain images preserve those uploads without maintaining a brittle host allowlist.
+      "@next/next/no-img-element": "off",
+      // The visual editor deliberately performs a full reload after authentication so
+      // server-rendered admin state and cookies are refreshed together.
+      "@next/next/no-location-assign-relative-destination": "off",
     },
   },
   {
