@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getUpdateSlug, updates } from "../data/updates";
 
 const WA = "https://wa.me/2348182141088";
@@ -30,15 +30,27 @@ const contact = (message: string) => `${WA}?text=${encodeURIComponent(message)}`
 export default function Home() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [menuOpen]);
+
   return (
     <main className="min-h-screen bg-[#faf8f2] text-[#102720]">
       <header className="sticky top-0 z-50 border-b border-[#e7e9df] bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 py-2 sm:px-7 lg:px-10">
           <a href="/" aria-label="S.O.H CONSULTS home" className="shrink-0"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-12 w-auto object-contain sm:h-14" /></a>
           <nav aria-label="Main navigation" className="hidden items-center gap-4 lg:flex xl:gap-6">{links.map(link => <a key={link.href} href={link.href} className="text-xs font-bold hover:text-[#087245] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d9aa4c] xl:text-sm">{link.label}</a>)}</nav>
-          <div className="flex items-center gap-2"><a href={WA} target="_blank" rel="noopener noreferrer" className="hidden rounded-xl bg-[#075738] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#043d29] sm:inline-flex">WhatsApp Us</a><button type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)} className="rounded-lg border border-[#dce6dc] px-3 py-2 text-xl lg:hidden">{menuOpen ? "×" : "☰"}</button></div>
+          <div className="flex items-center gap-2"><a href={WA} target="_blank" rel="noopener noreferrer" className="hidden rounded-xl bg-[#075738] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#043d29] sm:inline-flex">WhatsApp Us</a><button type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)} className="rounded-lg border border-[#dce6dc] px-3 py-2 text-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#075738] lg:hidden">{menuOpen ? "×" : "☰"}</button></div>
         </div>
-        {menuOpen && <nav id="mobile-navigation" aria-label="Mobile navigation" className="grid grid-cols-2 gap-1 border-t border-[#e7e9df] bg-white px-4 py-3 lg:hidden">{links.map(link => <a key={link.href} href={link.href} className="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-[#edf5ee]" onClick={() => setMenuOpen(false)}>{link.label}</a>)}<a href={WA} className="rounded-lg bg-[#075738] px-3 py-2 text-sm font-semibold text-white">WhatsApp Us</a></nav>}
+        {menuOpen && <nav id="mobile-navigation" aria-label="Mobile navigation" className="grid max-h-[calc(100dvh-4.5rem)] grid-cols-1 gap-1 overflow-y-auto border-t border-[#e7e9df] bg-white px-4 py-3 min-[360px]:grid-cols-2 lg:hidden">{links.map(link => <a key={link.href} href={link.href} className="rounded-lg px-3 py-2.5 text-sm font-semibold hover:bg-[#edf5ee] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#075738]" onClick={() => setMenuOpen(false)}>{link.label}</a>)}<a href={WA} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#075738] px-3 py-2.5 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d9aa4c] min-[360px]:col-span-2" onClick={() => setMenuOpen(false)}>WhatsApp Us</a></nav>}
       </header>
 
       <section className="relative overflow-hidden bg-gradient-to-br from-[#043b29] via-[#06452f] to-[#07583b] text-white">
