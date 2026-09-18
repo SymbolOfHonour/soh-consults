@@ -585,7 +585,7 @@ function parseRequirement(
       aliases
     );
 
-  let alternatives =
+  const alternatives =
     extractSubjects(
       alternativeText,
       aliases
