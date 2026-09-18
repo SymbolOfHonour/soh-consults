@@ -8,7 +8,6 @@ import {deadlineEvidencePresent} from "./source-verification";
 export function publicationQuality(story:QueuedStory,others:QueuedStory[]){
  const issues:string[]=[];
  if(!story.title?.trim())issues.push("Headline is missing.");
- if(!story.summary?.trim())issues.push("Summary is missing.");
  const blocks=readArticleBlocks(story.details||"");
  const readable=blocks?blocks.some(block=>(block.type==="paragraph"||block.type==="heading")&&block.text.trim()):Boolean(removeArticleBlocks(story.details||"").trim());
  if(!readable)issues.push("Article text is missing.");
