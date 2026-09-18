@@ -1,7 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { getUpdateSlug, updates } from "../data/updates";
+import { useEffect, useState } from "react";
+
+type HomepageUpdate = {
+  id: string;
+  title: string;
+  summary: string;
+  category: string;
+  date: string;
+  slug: string;
+  updatedAt: string;
+};
 
 const WA = "https://wa.me/2348182141088";
 const links = [
@@ -30,15 +39,54 @@ const contact = (message: string) => `${WA}?text=${encodeURIComponent(message)}`
 export default function Home() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [recentUpdates, setRecentUpdates] = useState<HomepageUpdate[]>([]);
+  const [updatesLoaded, setUpdatesLoaded] = useState(false);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch("/api/public/updates", { cache: "no-store", signal: controller.signal })
+      .then(response => {
+        if (!response.ok) throw new Error("Unable to load recent updates.");
+        return response.json() as Promise<HomepageUpdate[]>;
+      })
+      .then(items => {
+        setRecentUpdates(
+          items
+            .sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt))
+            .slice(0, 3),
+        );
+      })
+      .catch(error => {
+        if (error instanceof Error && error.name !== "AbortError") {
+          console.error(error.message);
+        }
+      })
+      .finally(() => setUpdatesLoaded(true));
+
+    return () => controller.abort();
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [menuOpen]);
+
   return (
     <main className="min-h-screen bg-[#faf8f2] text-[#102720]">
       <header className="sticky top-0 z-50 border-b border-[#e7e9df] bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 py-2 sm:px-7 lg:px-10">
           <a href="/" aria-label="S.O.H CONSULTS home" className="shrink-0"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-12 w-auto object-contain sm:h-14" /></a>
           <nav aria-label="Main navigation" className="hidden items-center gap-4 lg:flex xl:gap-6">{links.map(link => <a key={link.href} href={link.href} className="text-xs font-bold hover:text-[#087245] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d9aa4c] xl:text-sm">{link.label}</a>)}</nav>
-          <div className="flex items-center gap-2"><a href={WA} target="_blank" rel="noopener noreferrer" className="hidden rounded-xl bg-[#075738] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#043d29] sm:inline-flex">WhatsApp Us</a><button type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)} className="rounded-lg border border-[#dce6dc] px-3 py-2 text-xl lg:hidden">{menuOpen ? "×" : "☰"}</button></div>
+          <div className="flex items-center gap-2"><a href={WA} target="_blank" rel="noopener noreferrer" className="hidden rounded-xl bg-[#075738] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#043d29] sm:inline-flex">WhatsApp Us</a><button type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)} className="rounded-lg border border-[#dce6dc] px-3 py-2 text-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#075738] lg:hidden">{menuOpen ? "×" : "☰"}</button></div>
         </div>
-        {menuOpen && <nav id="mobile-navigation" aria-label="Mobile navigation" className="grid grid-cols-2 gap-1 border-t border-[#e7e9df] bg-white px-4 py-3 lg:hidden">{links.map(link => <a key={link.href} href={link.href} className="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-[#edf5ee]" onClick={() => setMenuOpen(false)}>{link.label}</a>)}<a href={WA} className="rounded-lg bg-[#075738] px-3 py-2 text-sm font-semibold text-white">WhatsApp Us</a></nav>}
+        {menuOpen && <nav id="mobile-navigation" aria-label="Mobile navigation" className="grid max-h-[calc(100dvh-4.5rem)] grid-cols-1 gap-1 overflow-y-auto border-t border-[#e7e9df] bg-white px-4 py-3 min-[360px]:grid-cols-2 lg:hidden">{links.map(link => <a key={link.href} href={link.href} className="rounded-lg px-3 py-2.5 text-sm font-semibold hover:bg-[#edf5ee] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#075738]" onClick={() => setMenuOpen(false)}>{link.label}</a>)}<a href={WA} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#075738] px-3 py-2.5 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d9aa4c] min-[360px]:col-span-2" onClick={() => setMenuOpen(false)}>WhatsApp Us</a></nav>}
       </header>
 
       <section className="relative overflow-hidden bg-gradient-to-br from-[#043b29] via-[#06452f] to-[#07583b] text-white">
@@ -52,7 +100,7 @@ export default function Home() {
 
       <section aria-label="Our key services" className="mx-auto grid max-w-[1440px] grid-cols-2 gap-2 px-4 py-4 sm:grid-cols-3 sm:px-7 lg:grid-cols-6 lg:px-10">{[{name:"Admission Support",icon:"🎓"},{name:"Documentation",icon:"📄"},{name:"Consultation",icon:"👥"},{name:"Opportunities",icon:"🌍"},{name:"Guides",icon:"📚"},{name:"Deadlines",icon:"⏰"}].map((item,index) => <a key={item.name} href={index < 3 ? "#services" : ["/opportunities","/guides","/deadlines"][index-3]} onClick={index < 3 ? () => setServicesOpen(true) : undefined} className="flex items-center gap-2 rounded-xl border border-[#e2e5dc] bg-white p-3 shadow-sm hover:border-[#d9aa4c]"><span aria-hidden="true" className="text-2xl">{item.icon}</span><span className="text-xs font-bold sm:text-sm">{item.name}</span></a>)}</section>
 
-      <section className="mx-auto grid max-w-[1440px] gap-5 px-4 py-4 sm:px-7 lg:grid-cols-[1.7fr_.85fr] lg:px-10"><div><div className="mb-3 flex items-end justify-between gap-3"><div><h2 className="text-2xl font-black">Latest Updates</h2><p className="text-sm text-[#52615a]">Admission and education news in one place.</p></div><a href="/updates" className="shrink-0 text-xs font-bold text-[#075738] hover:underline sm:text-sm">View All Updates →</a></div><div className="grid gap-3 sm:grid-cols-3">{updates.slice(0,3).map(update => <article key={update.id} className="flex flex-col rounded-xl border border-[#e2e5dc] bg-white p-4 shadow-sm"><p className="text-xs font-bold text-[#087245]">{update.category} · {update.date}</p><h3 className="mt-2 text-sm font-black leading-snug">{update.title}</h3><p className="mt-2 line-clamp-3 flex-1 text-xs leading-5 text-[#52615a]">{update.summary}</p><a href={`/updates/${getUpdateSlug(update)}`} className="mt-3 text-xs font-bold text-[#075738] hover:underline">Read More →</a></article>)}</div></div><aside className="flex flex-col justify-center rounded-2xl bg-[#06452f] p-5 text-white"><div className="mb-3 text-3xl" aria-hidden="true">🎓</div><h2 className="text-xl font-black">Need Admission Assistance?</h2><p className="mt-2 text-sm text-[#e6f0e9]">Send us a message and let us guide you through the process.</p><a href={contact("Hello S.O.H CONSULTS, I need admission assistance.")} target="_blank" rel="noopener noreferrer" className="mt-5 rounded-xl bg-[#efc46e] px-4 py-3 text-center text-sm font-black text-[#102720] hover:bg-[#ffdb8e]">Chat on WhatsApp →</a><div className="mt-4 flex flex-wrap gap-3 text-xs"><a href="mailto:oluyepeadetayo@gmail.com" className="hover:underline">Email Us</a><a href="https://www.instagram.com/oluyepeadetayo/" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a><a href="https://whatsapp.com/channel/0029VbD6QQp3GJP68dl9TK29" target="_blank" rel="noopener noreferrer" className="hover:underline">Join Channel</a></div></aside></section>
+      <section className="mx-auto grid max-w-[1440px] gap-5 px-4 py-4 sm:px-7 lg:grid-cols-[1.7fr_.85fr] lg:px-10"><div><div className="mb-3 flex items-end justify-between gap-3"><div><h2 className="text-2xl font-black">Latest Updates</h2><p className="text-sm text-[#52615a]">Admission and education news in one place.</p></div><a href="/updates" className="shrink-0 text-xs font-bold text-[#075738] hover:underline sm:text-sm">View All Updates →</a></div><div className="grid gap-3 sm:grid-cols-3">{!updatesLoaded ? Array.from({ length: 3 }, (_, index) => <div key={index} className="h-40 animate-pulse rounded-xl border border-[#e2e5dc] bg-white p-4 shadow-sm"><div className="h-3 w-28 rounded bg-[#e5ece6]" /><div className="mt-4 h-4 w-full rounded bg-[#e5ece6]" /><div className="mt-2 h-4 w-3/4 rounded bg-[#e5ece6]" /><div className="mt-4 h-3 w-full rounded bg-[#edf1ed]" /></div>) : recentUpdates.length ? recentUpdates.map(update => <article key={update.id} className="flex flex-col rounded-xl border border-[#e2e5dc] bg-white p-4 shadow-sm"><p className="text-xs font-bold text-[#087245]">{update.category} · {update.date}</p><h3 className="mt-2 text-sm font-black leading-snug">{update.title}</h3><p className="mt-2 line-clamp-3 flex-1 text-xs leading-5 text-[#52615a]">{update.summary}</p><a href={`/updates/${update.slug}`} className="mt-3 text-xs font-bold text-[#075738] hover:underline">Read More →</a></article>) : <div className="rounded-xl border border-dashed border-[#cbd8cd] bg-white p-5 text-sm text-[#52615a] sm:col-span-3">No published update is available right now. <a href="/updates" className="font-bold text-[#075738] hover:underline">Open the Updates page</a>.</div>}</div></div><aside className="flex flex-col justify-center rounded-2xl bg-[#06452f] p-5 text-white"><div className="mb-3 text-3xl" aria-hidden="true">🎓</div><h2 className="text-xl font-black">Need Admission Assistance?</h2><p className="mt-2 text-sm text-[#e6f0e9]">Send us a message and let us guide you through the process.</p><a href={contact("Hello S.O.H CONSULTS, I need admission assistance.")} target="_blank" rel="noopener noreferrer" className="mt-5 rounded-xl bg-[#efc46e] px-4 py-3 text-center text-sm font-black text-[#102720] hover:bg-[#ffdb8e]">Chat on WhatsApp →</a><div className="mt-4 flex flex-wrap gap-3 text-xs"><a href="mailto:oluyepeadetayo@gmail.com" className="hover:underline">Email Us</a><a href="https://www.instagram.com/oluyepeadetayo/" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a><a href="https://whatsapp.com/channel/0029VbD6QQp3GJP68dl9TK29" target="_blank" rel="noopener noreferrer" className="hover:underline">Join Channel</a></div></aside></section>
 
       <section id="services" className="scroll-mt-24 mx-auto max-w-[1440px] px-4 py-3 sm:px-7 lg:px-10"><button type="button" aria-expanded={servicesOpen} aria-controls="services-panel" onClick={() => setServicesOpen(!servicesOpen)} className="flex w-full items-center justify-between gap-3 rounded-xl border border-[#d9e6dc] bg-[#edf6ef] px-5 py-4 text-left hover:bg-[#e4f1e8]"><span><strong className="block text-base">Our Services</strong><span className="text-xs text-[#52615a]">{servicesOpen ? "Hide the full list of services" : "Click to view the full list of services we offer"}</span></span><span className="text-2xl text-[#075738]" aria-hidden="true">{servicesOpen ? "⌃" : "⌄"}</span></button>{servicesOpen && <div id="services-panel" className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{services.map(service => <article key={service.title} className="rounded-xl border border-[#e2e5dc] bg-white p-4"><span className="text-2xl" aria-hidden="true">{service.icon}</span><h3 className="mt-2 font-black">{service.title}</h3><p className="mt-1 text-sm text-[#52615a]">{service.description}</p><a href={contact(`Hello S.O.H CONSULTS, I need help with ${service.title}.`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-bold text-[#075738] hover:underline">Get Assistance →</a></article>)}</div>}</section>
 
