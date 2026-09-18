@@ -12,13 +12,14 @@ export function proxy(request: NextRequest) {
 
   if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
     const origin = request.headers.get("origin");
-    if (origin) {
-      let requestOrigin: string;
-      try { requestOrigin = new URL(origin).origin; }
-      catch { return NextResponse.json({ error: "Invalid request origin." }, { status: 403 }); }
-      if (requestOrigin !== request.nextUrl.origin) {
-        return NextResponse.json({ error: "Cross-origin admin requests are not allowed." }, { status: 403 });
-      }
+    if (!origin || origin === "null") {
+      return NextResponse.json({ error: "Admin changes require a same-origin request." }, { status: 403 });
+    }
+    let requestOrigin: string;
+    try { requestOrigin = new URL(origin).origin; }
+    catch { return NextResponse.json({ error: "Invalid request origin." }, { status: 403 }); }
+    if (requestOrigin !== request.nextUrl.origin) {
+      return NextResponse.json({ error: "Cross-origin admin requests are not allowed." }, { status: 403 });
     }
   }
 
