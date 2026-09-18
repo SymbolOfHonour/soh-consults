@@ -53,7 +53,7 @@ export default function SiteContact() {
                 <p className="text-sm font-bold uppercase tracking-wide text-green-700">
                   Instagram
                 </p>
-                <p className="mt-1 font-black">S.O.H EDU-HUB</p>
+                <p className="mt-1 font-black">@oluyepeadetayo</p>
               </a>
 
               <a
