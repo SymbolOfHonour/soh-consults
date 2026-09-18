@@ -52,15 +52,19 @@ function isLocalDevelopment(request: Request) {
 export async function POST(request: Request) {
   const localDevelopment = isLocalDevelopment(request);
 
-  // Durable rate limiting is intentionally production-only here. Localhost still
-  // requires the real admin password and TOTP when configured, but cannot become
-  // locked by Supabase rate-limit state while developing/testing.
+  // Local development still requires the configured password and TOTP, but does
+  // not depend on the production Supabase rate-limit service.
   if (!localDevelopment) {
     const rate = await checkRateLimit(request, "admin-login", 8, 15 * 60);
     if (!rate.allowed) return NextResponse.json({ error: "Too many login attempts. Please try again later." }, { status: 429, headers: { "Retry-After": String(rate.retryAfter) } });
   }
 
-  const body = await request.json().catch(() => ({ password: "", otp: "" }));
+  // JSON null, arrays and primitive values must never cause a 500 response.
+  const parsed: unknown = await request.json().catch(() => null);
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    return NextResponse.json({ error: "A valid login request is required." }, { status: 400 });
+  }
+  const body = parsed as Record<string, unknown>;
   const password = typeof body.password === "string" ? body.password : "";
   const otp = typeof body.otp === "string" ? body.otp.trim() : "";
   const configured = process.env.ADMIN_PASSWORD;
