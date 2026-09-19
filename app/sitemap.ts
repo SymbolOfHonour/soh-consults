@@ -22,6 +22,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const published = await listPublishedStories();
   const core: MetadataRoute.Sitemap = [
     { url: siteUrl, changeFrequency: "weekly", priority: 1 },
+    { url: `${siteUrl}/about`, changeFrequency: "monthly", priority: .6 },
+    { url: `${siteUrl}/privacy-policy`, changeFrequency: "monthly", priority: .4 },
     { url: `${siteUrl}/lasu-calculator`, changeFrequency: "monthly", priority: .95 },
     { url: `${siteUrl}/cgpa-calculator`, changeFrequency: "monthly", priority: .95 },
     { url: `${siteUrl}/updates`, changeFrequency: "daily", priority: .9 },
