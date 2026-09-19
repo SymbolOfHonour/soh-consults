@@ -25,14 +25,21 @@ const securityHeaders = [
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
 ];
 
-// robots.txt alone cannot reliably prevent preview URLs appearing in search.
-// Apply an explicit noindex directive to every non-production Vercel response.
+// Prevent preview and development deployments from being indexed.
 const deploymentHeaders = process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production"
   ? [...securityHeaders, { key: "X-Robots-Tag", value: "noindex, nofollow" }]
   : securityHeaders;
 
 const nextConfig: NextConfig = {
   async headers() { return [{ source: "/(.*)", headers: deploymentHeaders }]; },
+  async redirects() {
+    return [{
+      source: "/:path*",
+      has: [{ type: "host", value: "soh-consults.vercel.app" }],
+      destination: "https://sohconsults.com.ng/:path*",
+      permanent: true,
+    }];
+  },
 };
 
 export default nextConfig;
