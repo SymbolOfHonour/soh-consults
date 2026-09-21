@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-const siteUrl = "https://soh-consults.vercel.app";
+const siteUrl = "https://sohconsults.com.ng";
 const pageUrl = `${siteUrl}/lasu-calculator`;
 
 export const metadata: Metadata = {
