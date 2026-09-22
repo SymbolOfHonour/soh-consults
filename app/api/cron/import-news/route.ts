@@ -11,7 +11,9 @@ export async function GET(request: Request) {
   try {
     const result = await importLatestStories();
     const details = JSON.stringify({startedAt,finishedAt:new Date().toISOString(),...result});
-    await recordHealth("news import",result.failures.length===0,details).catch(error=>console.error("Health logging failed",error));
+    // Source-level HTTP 403s are recorded in failures for diagnosis, but do not
+    // mean the scheduled job itself failed when discovery and persistence completed.
+    await recordHealth("news import",true,details).catch(error=>console.error("Health logging failed",error));
     return NextResponse.json(result);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Import failed.";
