@@ -1,0 +1,1 @@
+import type {Metadata} from "next"; export const metadata:Metadata={title:"FUADSI Screening Aggregate Calculator | S.O.H CONSULTS",description:"Calculate FUADSI screening aggregate from UTME and O'Level results.",alternates:{canonical:"/fuadsi-calculator"}}; export default function Layout({children}:{children:React.ReactNode}){return children}
