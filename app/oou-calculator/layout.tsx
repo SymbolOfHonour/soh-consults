@@ -1,0 +1,1 @@
+import type { Metadata } from "next"; export const metadata:Metadata={title:"OOU Aggregate Calculator | S.O.H CONSULTS",description:"Calculate and estimate OOU UTME and Post-UTME aggregate scores."}; export default function Layout({children}:{children:React.ReactNode}){return children}
