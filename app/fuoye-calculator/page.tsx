@@ -1,0 +1,35 @@
+"use client";
+import { useMemo, useState } from "react";
+import { jsPDF } from "jspdf";
+import SiteContact from "../components/SiteContact";
+
+const grades=["A1","B2","B3","C4","C5","C6"];
+const gradePoints:Record<string,number>={A1:6,B2:5,B3:4,C4:3,C5:2,C6:1};
+const subjects=["English Language","Mathematics","Biology","Chemistry","Physics","Agricultural Science","Economics","Government","Geography","Literature-in-English","Commerce","Accounting","Civic Education","Further Mathematics","Christian Religious Studies","Islamic Studies","History","Yoruba","French","Technical Drawing"].sort();
+type Entry={subject:string;grade:string};
+
+export default function FuoyeCalculator(){
+ const [jamb,setJamb]=useState(""); const [sittings,setSittings]=useState<1|2>(1);
+ const [entries,setEntries]=useState<Entry[]>(Array.from({length:5},()=>({subject:"",grade:""}))); const [calculated,setCalculated]=useState(false);
+ const jambNum=Math.max(0,Math.min(400,Number(jamb)||0)); const jambPoints=jambNum*0.15;
+ const olevelPoints=useMemo(()=>entries.reduce((s,e)=>s+(gradePoints[e.grade]||0),0),[entries]);
+ const bonus=sittings===1?10:6; const total=jambPoints+olevelPoints+bonus;
+ const complete=jambNum>0&&entries.every(e=>e.subject&&e.grade)&&new Set(entries.map(e=>e.subject)).size===5;
+ function update(i:number,key:keyof Entry,value:string){setEntries(v=>v.map((e,n)=>n===i?{...e,[key]:value}:e));setCalculated(false)}
+ function reportPdf(){const p=new jsPDF();p.setFontSize(20);p.text("S.O.H CONSULTS",20,22);p.setFontSize(15);p.text("FUOYE Screening Score Report",20,32);p.setFontSize(11);let y=48;[["JAMB Score",jambNum+"/400"],["JAMB Points",jambPoints.toFixed(2)+"/60"],["O'Level Points",olevelPoints+"/30"],["Sitting Bonus",String(bonus)],["TOTAL",total.toFixed(2)+"/100"]].forEach(([a,b])=>{p.text(a+": "+b,20,y);y+=9});y+=5;p.text("O'Level Subjects",20,y);y+=8;entries.forEach(e=>{p.text(e.subject+" - "+e.grade+" ("+gradePoints[e.grade]+" pts)",25,y);y+=7});y+=8;p.setFontSize(9);p.text("Screening estimate only. Admission is determined by FUOYE/JAMB.",20,y);p.text("S.O.H CONSULTS | sohconsults.com.ng | Your Guide. Your Success.",20,y+7);p.save("FUOYE-screening-report.pdf")}
+ function reportImage(){const x=document.createElement("canvas");x.width=1080;x.height=1350;const c=x.getContext("2d");if(!c)return;c.fillStyle="#fff";c.fillRect(0,0,1080,1350);c.fillStyle="#087443";c.fillRect(0,0,1080,180);c.fillStyle="#fff";c.font="bold 48px Arial";c.fillText("S.O.H CONSULTS",60,80);c.font="28px Arial";c.fillText("FUOYE Screening Score Report",60,130);c.fillStyle="#111";c.font="30px Arial";let y=250;[["JAMB Score",jambNum+"/400"],["JAMB Points",jambPoints.toFixed(2)+"/60"],["O'Level Points",olevelPoints+"/30"],["Sitting Bonus",String(bonus)],["TOTAL",total.toFixed(2)+"/100"]].forEach(([a,b])=>{c.fillText(a,70,y);c.font="bold 30px Arial";c.fillText(b,650,y);c.font="30px Arial";y+=75});y+=35;c.font="bold 28px Arial";c.fillText("O'Level Subjects",70,y);y+=55;c.font="25px Arial";entries.forEach(e=>{c.fillText(e.subject+" - "+e.grade+" ("+gradePoints[e.grade]+" pts)",90,y);y+=48});c.font="22px Arial";c.fillStyle="#555";y+=55;c.fillText("Screening estimate only. Admission is determined by FUOYE/JAMB.",70,y);c.fillText("sohconsults.com.ng | Your Guide. Your Success.",70,y+45);const a=document.createElement("a");a.download="FUOYE-screening-report.png";a.href=x.toDataURL("image/png");a.click()}
+ return <main style={{maxWidth:900,margin:"0 auto",padding:"32px 18px 70px"}}>
+  <section style={{background:"#087443",color:"white",padding:28,borderRadius:20,marginBottom:22}}><b>S.O.H CONSULTS</b><h1 style={{fontSize:"clamp(28px,5vw,44px)",margin:"8px 0"}}>FUOYE Screening Score Calculator</h1><p>JAMB + five relevant O'Level grades + sitting bonus.</p></section>
+  <section style={{background:"#fff",border:"1px solid #ddd",borderRadius:18,padding:22}}>
+   <b>JAMB Score (0-400)</b><input type="number" min="0" max="400" value={jamb} onChange={e=>{setJamb(e.target.value);setCalculated(false)}} placeholder="e.g. 250" style={input}/><p style={{fontWeight:700,color:"#087443"}}>JAMB points: {jambPoints.toFixed(2)} / 60</p>
+   <h2>O'Level sittings</h2><div style={{display:"flex",gap:12,flexWrap:"wrap",marginBottom:24}}>{[1,2].map(n=><button key={n} onClick={()=>{setSittings(n as 1|2);setCalculated(false)}} style={{...button,background:sittings===n?"#087443":"#eef6f1",color:sittings===n?"white":"#087443"}}>{n===1?"One sitting (+10)":"Two sittings (+6)"}</button>)}</div>
+   <h2>Five relevant O'Level subjects</h2><p>Select five subjects relevant to your intended programme. Duplicate subjects are blocked.</p>
+   {entries.map((e,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"2fr 1fr",gap:10,marginBottom:10}}><select value={e.subject} onChange={x=>update(i,"subject",x.target.value)} style={input}><option value="">Select subject {i+1}</option>{subjects.filter(s=>s===e.subject||!entries.some(x=>x.subject===s)).map(s=><option key={s}>{s}</option>)}</select><select value={e.grade} onChange={x=>update(i,"grade",x.target.value)} style={input}><option value="">Grade</option>{grades.map(g=><option key={g}>{g} ({gradePoints[g]} pts)</option>)}</select></div>)}
+   <p><b>O'Level points: {olevelPoints} / 30</b></p><button disabled={!complete} onClick={()=>setCalculated(true)} style={{...button,width:"100%",background:complete?"#087443":"#aaa",color:"white"}}>Calculate Screening Score</button>
+  </section>
+  {calculated&&<section style={{marginTop:22,border:"2px solid #087443",borderRadius:18,padding:24,background:"#f5fbf7"}}><h2>Your FUOYE Screening Score</h2><div style={{fontSize:48,fontWeight:900,color:"#087443"}}>{total.toFixed(2)}<span style={{fontSize:22}}>/100</span></div><p>JAMB: <b>{jambPoints.toFixed(2)}/60</b> | O'Level: <b>{olevelPoints}/30</b> | Sitting bonus: <b>{bonus}</b></p><div style={{display:"flex",gap:10,flexWrap:"wrap"}}><button onClick={reportPdf} style={{...button,background:"#087443",color:"white"}}>Download PDF Report</button><button onClick={reportImage} style={{...button,background:"white",color:"#087443",border:"1px solid #087443"}}>Download Image Report</button></div><p style={{fontSize:13,color:"#555"}}>This is a screening estimate and does not guarantee admission.</p></section>}
+  <section style={{marginTop:30}}><SiteContact/></section>
+ </main>
+}
+const input:React.CSSProperties={width:"100%",boxSizing:"border-box",padding:"13px 12px",border:"1px solid #cfd8d3",borderRadius:10,fontSize:16,background:"#fff",marginTop:8};
+const button:React.CSSProperties={border:0,borderRadius:10,padding:"13px 18px",fontWeight:800,cursor:"pointer"};
