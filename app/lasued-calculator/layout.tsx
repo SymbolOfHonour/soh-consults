@@ -1,0 +1,1 @@
+export const metadata={title:"LASUED Screening Aggregate Calculator | S.O.H CONSULTS",description:"Calculate LASUED online screening aggregate from JAMB and programme-specific O Level results.",alternates:{canonical:"/lasued-calculator"}};export default function Layout({children}:{children:React.ReactNode}){return children}
