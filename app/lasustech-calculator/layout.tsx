@@ -1,0 +1,1 @@
+export const metadata={title:"LASUSTECH Screening & Eligibility Calculator | S.O.H CONSULTS",description:"Calculate your LASUSTECH screening aggregate and check programme-specific UTME and O'Level requirements.",alternates:{canonical:"/lasustech-calculator"}};export default function Layout({children}:{children:React.ReactNode}){return children}
