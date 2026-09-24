@@ -2,7 +2,7 @@
 import {useMemo,useState} from "react";
 import Link from "next/link";
 const grades={"A1":8,"B2":7,"B3":6,"C4":5,"C5":4,"C6":3.5} as const;
-const programmes=["Food Science and Technology","Horticulture and Landscape Management","Agribusiness","Forestry and Wildlife Management","Family and Consumer Science","Water Resources Management and Agro-Meteorology","Fisheries and Aquaculture","Agriculture","Accounting","Economics","Business Administration","Entrepreneurship","Peace Studies and Conflict Resolution","Computer Science","Mathematics","Physics with Electronics","Industrial Chemistry","Plant Science (Botany)","Animal and Environmental Biology (Zoology)","Chemistry","Biochemistry","Meteorology","Microbiology"];
+const programmes=["Food Science and Technology","Soil Science","Horticulture and Landscape Management","Agricultural Economics","Agricultural Extension","Agribusiness","Crop Science","Forestry and Wildlife Management","Family and Consumer Science","Water Resources Management and Agro-Meteorology","Fisheries and Aquaculture","Animal Science","B. Agriculture","Accounting","Economics","Business Administration","Entrepreneurship","Peace Studies and Conflict Resolution","Computer Science","Mathematics","Physics with Electronics","Industrial Chemistry","Plant Science (Botany)","Animal and Environmental Biology (Zoology)","Chemistry","Biochemistry","Meteorology","Microbiology"];
 const subjects=["English Language","Mathematics","Biology","Chemistry","Physics","Agricultural Science","Economics","Government","Commerce","Geography","Further Mathematics","Financial Accounting","Civic Education"];
 export default function FUADSICalculator(){
  const [name,setName]=useState(""),[programme,setProgramme]=useState(""),[jamb,setJamb]=useState("");
