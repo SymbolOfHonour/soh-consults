@@ -8,10 +8,11 @@ test('imported headlines use the cleanup function before saving', () => {
   assert.match(source, /export function cleanDiscoveryHeadline/);
 });
 
-test('historical URL checks do not manufacture publication dates', () => {
-  assert.match(source, /if \(isHistoricallyDatedUrl\(item\.url\)\)/);
-  assert.match(source, /source_published_at: published/);
-  assert.match(source, /Publication date unverified/);
+test('automatic drafts require a verified fresh publication date and useful article content', () => {
+  assert.match(source, /if\(!published\).*continue/);
+  assert.match(source, /if\(!isFreshPublication\(published\)\).*continue/);
+  assert.match(source, /Source content unavailable or too thin for a useful draft/);
+  assert.match(source, /source_published_at:published/);
 });
 
 test('source discovery excludes document links and keeps drafts unpublished', () => {
