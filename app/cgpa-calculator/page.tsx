@@ -50,11 +50,11 @@ const systemLabel = (system: System) => ({
   "nce-4": "College of Education / NCE 4.0",
 }[system]);
 
-function makeSemester(index: number, entryMode: EntryMode, startLevel?: string): Semester {
-  const firstLevel = startLevel || (entryMode === "utme" ? "100L" : "200L");
-  const base = Math.max(0, LEVELS.indexOf(firstLevel));
-  const levelIndex = Math.min(LEVELS.length - 1, base + Math.floor(index / 2));
-  return { id: Date.now() + index + Math.random(), level: LEVELS[levelIndex], term: index % 2 ? "Second Semester" : "First Semester", courses: [newCourse(), newCourse(), newCourse()] };
+function makeSemester(index: number, entryMode: EntryMode, startLevel?: string, levels = UNIVERSITY_LEVELS): Semester {
+  const firstLevel = startLevel || (entryMode === "utme" ? levels[0] : levels[Math.min(1, levels.length - 1)]);
+  const base = Math.max(0, levels.indexOf(firstLevel));
+  const levelIndex = Math.min(levels.length - 1, base + Math.floor(index / 2));
+  return { id: Date.now() + index + Math.random(), level: levels[levelIndex], term: index % 2 ? "Second Semester" : "First Semester", courses: [newCourse(), newCourse(), newCourse()] };
 }
 
 export default function CgpaPlannerPage() {
