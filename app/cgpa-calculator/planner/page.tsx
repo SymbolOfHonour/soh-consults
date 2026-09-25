@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 type System = "lasu" | "university-5" | "university-4" | "polytechnic-4" | "nce-5" | "nce-4";
 type EntryMode = "utme" | "direct-entry";
@@ -62,7 +61,6 @@ function makeSemester(index: number, entryMode: EntryMode, startLevel?: string, 
 export default function CgpaPlannerPage() {
   const [system, setSystem] = useState<System>("lasu");
   const [plannerMode, setPlannerMode] = useState<PlannerMode | null>(null);
-  const searchParams = useSearchParams();
   const [entryMode, setEntryMode] = useState<EntryMode>("utme");
   const [programmeYears, setProgrammeYears] = useState("4");
   const [studentName, setStudentName] = useState("");
@@ -80,6 +78,16 @@ export default function CgpaPlannerPage() {
   const retakeOldGrade = "F";
   const [retakeNewGrade, setRetakeNewGrade] = useState("B");
   const [retakeRule, setRetakeRule] = useState<"replace" | "both">("replace");
+
+  useEffect(() => {
+    const grading = new URLSearchParams(window.location.search).get("grading");
+    if (grading === "lasu") changeSystem("lasu");
+    if (grading === "university-5") changeSystem("university-5");
+    if (grading === "university-4") changeSystem("university-4");
+    if (grading === "polytechnic-4") changeSystem("polytechnic-4");
+    if (grading === "nce-5") changeSystem("nce-5");
+    if (grading === "nce-4") changeSystem("nce-4");
+  }, []);
 
   useEffect(() => {
     const raw = window.localStorage.getItem("soh-cgpa-planner-v3");
