@@ -202,6 +202,26 @@ export default function CgpaPlannerPage() {
     return { oldUnits, oldCgpa, units, target, exact, currentPoints, requiredPoints, requiredGpa, maximumCgpa, minimumCgpa, achievable };
   }, [ctnup, currentCgpa, targetCoursesFirst, targetCoursesSecond, targetPeriod, targetCgpa, ctcp, maxPoint]);
 
+  const targetGradeSuggestion = useMemo(() => {
+    const first = targetCoursesFirst.filter((course) => course.code.trim()).map((course) => ({ ...course, period: "1st Semester" }));
+    const second = targetPeriod === "session" ? targetCoursesSecond.filter((course) => course.code.trim()).map((course) => ({ ...course, period: "2nd Semester" })) : [];
+    const courses = [...first, ...second];
+    if (!courses.length || targetSemesterPlan.requiredGpa > maxPoint || targetSemesterPlan.requiredGpa <= 0) return { rows: [], points: 0, gpa: 0 };
+    const grades = [...activeGrades].sort((a,b) => a.point - b.point);
+    const totalUnits = courses.reduce((sum, course) => sum + course.units, 0);
+    const needed = Math.max(0, Math.ceil(targetSemesterPlan.requiredPoints - 1e-9));
+    let rows = courses.map((course) => ({ ...course, grade: grades[0].letter, point: grades[0].point, credit: grades[0].point * course.units }));
+    let points = rows.reduce((sum,row)=>sum+row.credit,0);
+    while (points < needed) {
+      let bestIndex=-1, bestNext=-1, bestGain=Infinity;
+      rows.forEach((row,index)=>{ const gi=grades.findIndex((g)=>g.letter===row.grade); const next=grades[gi+1]; if(!next)return; const gain=(next.point-row.point)*row.units; if(gain>0&&gain<bestGain){bestGain=gain;bestIndex=index;bestNext=gi+1;} });
+      if(bestIndex<0) break;
+      const current=rows[bestIndex], next=grades[bestNext]; points+=(next.point-current.point)*current.units;
+      rows=rows.map((row,index)=>index===bestIndex?{...row,grade:next.letter,point:next.point,credit:next.point*row.units}:row);
+    }
+    return { rows, points, gpa: totalUnits ? points/totalUnits : 0 };
+  }, [targetCoursesFirst, targetCoursesSecond, targetPeriod, targetSemesterPlan, activeGrades, maxPoint]);
+
   const ctcpInvalid = ctcp.trim() !== "" && !targetSemesterPlan.exact;
 
   function updateSemester(id: number, patch: Partial<Semester>) { setSemesters((list) => list.map((item) => item.id === id ? { ...item, ...patch } : item)); }
@@ -260,7 +280,7 @@ export default function CgpaPlannerPage() {
     ctx.beginPath(); ctx.moveTo(48,1685); ctx.lineTo(90,1754); ctx.lineTo(190,1754); ctx.closePath(); ctx.fillStyle=RED; ctx.fill();
     ctx.fillStyle=WHITE; ctx.fillRect(78,55,150,150); ctx.drawImage(logo,88,65,130,130);
     ctx.fillStyle=GREEN; ctx.font="700 42px Arial"; ctx.fillText("S.O.H CONSULTS",270,90);
-    ctx.fillStyle=DARK; ctx.font="700 27px Arial"; ctx.fillText("CGPA ACADEMIC PROJECTION REPORT",270,132);
+    ctx.fillStyle=DARK; ctx.font="700 27px Arial"; ctx.fillText(plannerMode === "target" ? "TARGET CGPA ACTION REPORT" : "CGPA ACADEMIC PROJECTION REPORT",270,132);
     ctx.font="400 20px Arial"; ctx.fillStyle="#475569"; ctx.fillText("Your Guide. Your Success.",270,168);
     ctx.fillStyle=LIGHT; ctx.fillRect(70,245,1100,155); ctx.fillStyle=DARK; ctx.font="700 23px Arial";
     ctx.fillText(studentName || "Student Projection",100,290); ctx.font="400 18px Arial";
@@ -283,6 +303,13 @@ export default function CgpaPlannerPage() {
       ctx.fillText(targetSemesterPlan.requiredGpa > maxPoint ? "-" : Math.ceil(Math.max(0,targetSemesterPlan.requiredPoints)).toString(),605,y+42);
       ctx.fillText(targetSemesterPlan.requiredGpa > maxPoint ? "-" : Math.max(0,targetSemesterPlan.requiredGpa).toFixed(2),715,y+42);
       ctx.fillText(String(targetSemesterPlan.oldUnits + targetSemesterPlan.units),850,y+42); ctx.fillStyle=GREEN; ctx.font="700 16px Arial"; ctx.fillText(targetSemesterPlan.target.toFixed(2),1050,y+42); y+=70;
+      if (targetGradeSuggestion.rows.length) {
+        y+=22; ctx.fillStyle=DARK; ctx.font="700 22px Arial"; ctx.fillText("SUGGESTED GRADE COMBINATION",70,y); y+=22;
+        ctx.fillStyle=GREEN; ctx.fillRect(70,y,1100,44); ctx.fillStyle=WHITE; ctx.font="700 14px Arial";
+        ["Course","Units","Grade","GP","Credit Point"].forEach((t,i)=>ctx.fillText(t,[90,560,700,830,970][i],y+28)); y+=44;
+        targetGradeSuggestion.rows.slice(0,9).forEach((row,index)=>{ctx.fillStyle=index%2?WHITE:"#f8fafc";ctx.fillRect(70,y,1100,42);ctx.fillStyle=DARK;ctx.font="400 14px Arial";ctx.fillText(row.code,90,y+27);ctx.fillText(String(row.units),570,y+27);ctx.font="700 14px Arial";ctx.fillStyle=GREEN;ctx.fillText(row.grade,710,y+27);ctx.fillStyle=DARK;ctx.fillText(row.point.toFixed(1),835,y+27);ctx.fillText(row.credit.toFixed(1),980,y+27);y+=42;});
+        y+=10; ctx.fillStyle=DARK_GREEN; ctx.font="700 16px Arial"; ctx.fillText(`Required GPA ${targetSemesterPlan.requiredGpa.toFixed(2)} | Suggested GPA ${targetGradeSuggestion.gpa.toFixed(2)} | Suggested CP ${targetGradeSuggestion.points.toFixed(1)}`,90,y); y+=20;
+      }
     }
     y+=35; ctx.fillStyle="#dcfce7"; ctx.fillRect(70,y,1100,150); ctx.fillStyle=DARK_GREEN; ctx.font="700 21px Arial"; ctx.fillText("TARGET GUIDANCE",100,y+38);
     ctx.font="400 17px Arial"; const words=targetStatus.split(" "); let line=""; let ly=y+72; for(const word of words){const test=line+word+" ";if(ctx.measureText(test).width>1020){ctx.fillText(line,100,ly);line=word+" ";ly+=25;}else line=test;}ctx.fillText(line,100,ly);
@@ -357,6 +384,7 @@ export default function CgpaPlannerPage() {
           <button onClick={()=>group.setList((list)=>[...list,{id:Date.now()+Math.random(),code:"",units:3}])} className="mt-4 rounded-xl bg-green-700 px-4 py-2.5 text-sm font-black text-white">+ Add Course</button>
         </div>)}
 
+        {targetGradeSuggestion.rows.length > 0 && <div className="mt-6 overflow-hidden rounded-2xl border border-green-200 bg-white"><div className="p-5"><p className="text-sm font-black uppercase tracking-widest text-green-700">Suggested Grade Combination</p><h3 className="mt-1 text-2xl font-black">A practical way to meet your required GPA</h3><p className="mt-2 text-sm text-gray-600">This is one suggested combination, not the only possible combination. Aim for these grades or better.</p></div><div className="overflow-x-auto"><table className="w-full min-w-[650px] text-left text-sm"><thead className="bg-green-950 text-white"><tr><th className="px-5 py-3">Course</th>{targetPeriod==="session"&&<th className="px-5 py-3">Semester</th>}<th className="px-5 py-3">Units</th><th className="px-5 py-3">Suggested Grade</th><th className="px-5 py-3">Grade Point</th><th className="px-5 py-3">Credit Point</th></tr></thead><tbody className="divide-y">{targetGradeSuggestion.rows.map((row)=><tr key={row.id}><td className="px-5 py-3 font-black">{row.code}</td>{targetPeriod==="session"&&<td className="px-5 py-3">{row.period}</td>}<td className="px-5 py-3">{row.units}</td><td className="px-5 py-3 font-black text-green-700">{row.grade}</td><td className="px-5 py-3">{row.point.toFixed(1)}</td><td className="px-5 py-3">{row.credit.toFixed(1)}</td></tr>)}</tbody></table></div><div className="grid gap-3 bg-green-50 p-5 sm:grid-cols-3"><div><p className="text-xs font-bold uppercase text-gray-500">Required GPA</p><p className="text-xl font-black">{targetSemesterPlan.requiredGpa.toFixed(2)}</p></div><div><p className="text-xs font-bold uppercase text-gray-500">Suggested Combination GPA</p><p className="text-xl font-black text-green-700">{targetGradeSuggestion.gpa.toFixed(2)}</p></div><div><p className="text-xs font-bold uppercase text-gray-500">Suggested Credit Points</p><p className="text-xl font-black">{targetGradeSuggestion.points.toFixed(1)} <span className="text-sm font-normal">/ {Math.ceil(targetSemesterPlan.requiredPoints)} needed</span></p></div></div></div>}
         {ctcpInvalid && <p className="mt-4 rounded-xl bg-red-50 p-3 text-sm font-bold text-red-700">The CTCP entered is impossible for {ctnup || 0} completed units on a {maxPoint.toFixed(1)} scale, so it has been ignored. The planner is using Current CGPA × Completed Units instead.</p>}
         <div className="mt-6 rounded-3xl bg-green-950 p-6 text-white"><p className="text-xs font-black uppercase tracking-widest text-green-300">What You Need</p><p className="mt-3 text-lg font-bold leading-8">{targetStatus}</p>
         {targetSemesterPlan.oldUnits > 0 && targetSemesterPlan.units > 0 && <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Current CGPA</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.oldCgpa.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Target CGPA</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.target.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">{targetPeriod==="session"?"Average GPA Needed":"Semester GPA Needed"}</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.requiredGpa>maxPoint?"Not possible":Math.max(0,targetSemesterPlan.requiredGpa).toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">{targetPeriod==="session"?"Session Units":"Semester Units"}</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.units}</p></div></div>}</div>
