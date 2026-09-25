@@ -69,6 +69,7 @@ export default function CgpaPlannerPage() {
   const [ctnup, setCtnup] = useState("");
   const [ctcp, setCtcp] = useState("");
   const [targetCgpa, setTargetCgpa] = useState("4.50");
+  const [targetSemesterUnits, setTargetSemesterUnits] = useState("18");
   const [semesters, setSemesters] = useState<Semester[]>([makeSemester(0, "utme")]);
   const [openSemester, setOpenSemester] = useState<number | null>(semesters[0].id);
   const [saved, setSaved] = useState(false);
@@ -153,8 +154,9 @@ export default function CgpaPlannerPage() {
   const projection = useMemo(() => {
     const oldUnits = Math.max(0, Number(ctnup) || 0);
     const oldCgpa = Math.min(maxPoint, Math.max(0, Number(currentCgpa) || 0));
-    const exact = ctcp.trim() !== "" && Number(ctcp) >= 0;
-    let cumulativePoints = exact ? Number(ctcp) : oldCgpa * oldUnits;
+    const enteredCtcp = Number(ctcp);
+    const exact = ctcp.trim() !== "" && oldUnits > 0 && enteredCtcp >= 0 && enteredCtcp <= maxPoint * oldUnits;
+    let cumulativePoints = exact ? enteredCtcp : oldCgpa * oldUnits;
     let cumulativeUnits = oldUnits;
     const rows = semesters.map((semester) => {
       const enteredCourses = semester.courses.filter((course) => course.code.trim() && course.grade);
@@ -170,14 +172,32 @@ export default function CgpaPlannerPage() {
     const projectedPoints = final?.cumulativePoints ?? cumulativePoints;
     const target = Math.min(maxPoint, Math.max(0, Number(targetCgpa) || 0));
     const futureUnits = rows.reduce((sum, row) => sum + row.units, 0);
-    const requiredPoints = target * projectedUnits - (exact ? Number(ctcp) : oldCgpa * oldUnits);
+    const requiredPoints = target * projectedUnits - (exact ? enteredCtcp : oldCgpa * oldUnits);
     const requiredAverage = futureUnits ? requiredPoints / futureUnits : 0;
-    const maximum = projectedUnits ? ((exact ? Number(ctcp) : oldCgpa * oldUnits) + maxPoint * futureUnits) / projectedUnits : oldCgpa;
+    const maximum = projectedUnits ? ((exact ? enteredCtcp : oldCgpa * oldUnits) + maxPoint * futureUnits) / projectedUnits : oldCgpa;
     const graduationUnits = Math.max(1, Number(programmeYears) || 4) * 2 * 18;
     const unitsLeftNow = Math.max(0, graduationUnits - oldUnits);
     const unitsLeftAfterProjection = Math.max(0, graduationUnits - projectedUnits);
     return { rows, exact, projectedCgpa, projectedUnits, projectedPoints, futureUnits, requiredPoints, requiredAverage, maximum, target, graduationUnits, unitsLeftNow, unitsLeftAfterProjection };
   }, [semesters, currentCgpa, ctnup, ctcp, targetCgpa, programmeYears, activeGrades, maxPoint]);
+
+  const targetSemesterPlan = useMemo(() => {
+    const oldUnits = Math.max(0, Number(ctnup) || 0);
+    const oldCgpa = Math.min(maxPoint, Math.max(0, Number(currentCgpa) || 0));
+    const units = Math.max(0, Number(targetSemesterUnits) || 0);
+    const target = Math.min(maxPoint, Math.max(0, Number(targetCgpa) || 0));
+    const enteredCtcp = Number(ctcp);
+    const exact = ctcp.trim() !== "" && oldUnits > 0 && enteredCtcp >= 0 && enteredCtcp <= maxPoint * oldUnits;
+    const currentPoints = exact ? enteredCtcp : oldCgpa * oldUnits;
+    const requiredPoints = target * (oldUnits + units) - currentPoints;
+    const requiredGpa = units ? requiredPoints / units : 0;
+    const maximumCgpa = oldUnits + units ? (currentPoints + maxPoint * units) / (oldUnits + units) : oldCgpa;
+    const minimumCgpa = oldUnits + units ? currentPoints / (oldUnits + units) : oldCgpa;
+    const achievable = units > 0 && requiredGpa <= maxPoint;
+    return { oldUnits, oldCgpa, units, target, exact, currentPoints, requiredPoints, requiredGpa, maximumCgpa, minimumCgpa, achievable };
+  }, [ctnup, currentCgpa, targetSemesterUnits, targetCgpa, ctcp, maxPoint]);
+
+  const ctcpInvalid = ctcp.trim() !== "" && !targetSemesterPlan.exact;
 
   function updateSemester(id: number, patch: Partial<Semester>) { setSemesters((list) => list.map((item) => item.id === id ? { ...item, ...patch } : item)); }
   function updateCourse(semesterId: number, courseId: number, field: keyof Course, value: string | number) {
@@ -242,13 +262,23 @@ export default function CgpaPlannerPage() {
     ctx.fillText(programme || "Programme not provided",100,325); ctx.fillText(systemLabel(system),100,358);
     ctx.font="700 18px Arial"; ctx.fillText("CURRENT CGPA",690,285); ctx.fillText("TARGET",900,285);
     ctx.fillStyle=GREEN; ctx.font="700 38px Arial"; ctx.fillText(currentCgpa || "0.00",690,330); ctx.fillText(Number(targetCgpa||0).toFixed(2),900,330);
-    ctx.fillStyle=DARK_GREEN; ctx.fillRect(70,435,1100,130); ctx.fillStyle=WHITE; ctx.font="700 22px Arial"; ctx.fillText("PROJECTED RESULT",100,478);
-    ctx.font="700 42px Arial"; ctx.fillText(projection.projectedCgpa.toFixed(2),100,530); ctx.font="700 24px Arial"; ctx.fillText(classification(projection.projectedCgpa,system),250,526);
+    ctx.fillStyle=DARK_GREEN; ctx.fillRect(70,435,1100,130); ctx.fillStyle=WHITE; ctx.font="700 22px Arial"; ctx.fillText(plannerMode === "target" ? "SEMESTER GPA REQUIRED" : "PROJECTED RESULT",100,478);
+    const reportResult = plannerMode === "target" ? (targetSemesterPlan.requiredGpa > maxPoint ? "NOT POSSIBLE" : Math.max(0,targetSemesterPlan.requiredGpa).toFixed(2)) : Math.min(maxPoint, Math.max(0, projection.projectedCgpa)).toFixed(2);
+    ctx.font="700 42px Arial"; ctx.fillText(reportResult,100,530); ctx.font="700 24px Arial";
+    if (plannerMode === "target") ctx.fillText(`Target CGPA ${targetSemesterPlan.target.toFixed(2)} after ${targetSemesterPlan.units} units`,360,526);
+    else ctx.fillText(classification(Math.min(maxPoint, Math.max(0, projection.projectedCgpa)),system),250,526);
     let y=625; ctx.fillStyle=DARK; ctx.font="700 25px Arial"; ctx.fillText("ACADEMIC PROJECTION",70,y); y+=35;
     ctx.fillStyle=GREEN; ctx.fillRect(70,y,1100,52); ctx.fillStyle=WHITE; ctx.font="700 16px Arial";
     ["Stage","Units","TCP","GPA","Cumulative Units","CGPA"].forEach((t,i)=>ctx.fillText(t,[90,480,600,710,815,1040][i],y+33)); y+=52;
     ctx.font="400 16px Arial";
-    projection.rows.slice(0,8).forEach((row,index)=>{ctx.fillStyle=index%2?WHITE:"#f8fafc";ctx.fillRect(70,y,1100,55);ctx.fillStyle=DARK;ctx.fillText(`${row.level} ${row.term}`,90,y+34);ctx.fillText(String(row.units),490,y+34);ctx.fillText(String(row.points),605,y+34);ctx.fillText(row.gpa.toFixed(2),715,y+34);ctx.fillText(String(row.cumulativeUnits),850,y+34);ctx.font="700 16px Arial";ctx.fillStyle=GREEN;ctx.fillText(row.cgpa.toFixed(2),1050,y+34);ctx.font="400 16px Arial";y+=55;});
+    (plannerMode === "target" ? [] : projection.rows.slice(0,8)).forEach((row,index)=>{ctx.fillStyle=index%2?WHITE:"#f8fafc";ctx.fillRect(70,y,1100,55);ctx.fillStyle=DARK;ctx.fillText(`${row.level} ${row.term}`,90,y+34);ctx.fillText(String(row.units),490,y+34);ctx.fillText(String(row.points),605,y+34);ctx.fillText(row.gpa.toFixed(2),715,y+34);ctx.fillText(String(row.cumulativeUnits),850,y+34);ctx.font="700 16px Arial";ctx.fillStyle=GREEN;ctx.fillText(row.cgpa.toFixed(2),1050,y+34);ctx.font="400 16px Arial";y+=55;});
+    if (plannerMode === "target") {
+      ctx.fillStyle="#f8fafc"; ctx.fillRect(70,y,1100,70); ctx.fillStyle=DARK; ctx.font="400 17px Arial";
+      ctx.fillText(`${startStage} ${startTerm}`,90,y+42); ctx.fillText(String(targetSemesterPlan.units),490,y+42);
+      ctx.fillText(targetSemesterPlan.requiredGpa > maxPoint ? "-" : Math.ceil(Math.max(0,targetSemesterPlan.requiredPoints)).toString(),605,y+42);
+      ctx.fillText(targetSemesterPlan.requiredGpa > maxPoint ? "-" : Math.max(0,targetSemesterPlan.requiredGpa).toFixed(2),715,y+42);
+      ctx.fillText(String(targetSemesterPlan.oldUnits + targetSemesterPlan.units),850,y+42); ctx.fillStyle=GREEN; ctx.font="700 16px Arial"; ctx.fillText(targetSemesterPlan.target.toFixed(2),1050,y+42); y+=70;
+    }
     y+=35; ctx.fillStyle="#dcfce7"; ctx.fillRect(70,y,1100,150); ctx.fillStyle=DARK_GREEN; ctx.font="700 21px Arial"; ctx.fillText("TARGET GUIDANCE",100,y+38);
     ctx.font="400 17px Arial"; const words=targetStatus.split(" "); let line=""; let ly=y+72; for(const word of words){const test=line+word+" ";if(ctx.measureText(test).width>1020){ctx.fillText(line,100,ly);line=word+" ";ly+=25;}else line=test;}ctx.fillText(line,100,ly);
     ctx.strokeStyle=BORDER; ctx.beginPath(); ctx.moveTo(70,1640); ctx.lineTo(1170,1640); ctx.stroke();
@@ -268,10 +298,11 @@ export default function CgpaPlannerPage() {
     link.download=`${reportName()}jpg`; link.href=canvas.toDataURL("image/jpeg",0.97); link.click();
   }
 
-  const targetStatus = projection.futureUnits === 0 ? "Add the remaining courses and course units you expect to take. The planner will then calculate the exact average GPA you need across those units."
-    : projection.requiredAverage > maxPoint ? `This target is not mathematically reachable across the ${projection.futureUnits} units currently in your plan. Even if you earn the maximum ${maxPoint.toFixed(2)} GPA across every planned unit, your estimated final CGPA would be about ${projection.maximum.toFixed(2)}.`
-    : projection.requiredAverage <= 0 ? `You have already reached or exceeded your ${projection.target.toFixed(2)} target based on the current academic record entered.`
-    : `To finish at ${projection.target.toFixed(2)}, you need approximately ${projection.requiredAverage.toFixed(2)} average GPA across the ${projection.futureUnits} remaining units in this plan. That means earning at least ${Math.ceil(projection.requiredPoints)} total credit points from those units.`;
+  const targetStatus = !targetSemesterPlan.oldUnits || !currentCgpa.trim() ? "Enter your current CGPA and completed course units first."
+    : !targetSemesterPlan.units ? "Enter the total course units you will take this semester."
+    : targetSemesterPlan.requiredGpa > maxPoint ? `To move from ${targetSemesterPlan.oldCgpa.toFixed(2)} to ${targetSemesterPlan.target.toFixed(2)} in this semester, you would need a GPA of ${targetSemesterPlan.requiredGpa.toFixed(2)} / ${maxPoint.toFixed(2)}, which is above the grading scale. Even a perfect ${maxPoint.toFixed(2)} GPA this semester would put your CGPA at about ${targetSemesterPlan.maximumCgpa.toFixed(2)}.`
+    : targetSemesterPlan.requiredGpa <= 0 ? `Your current record already meets or exceeds the ${targetSemesterPlan.target.toFixed(2)} target. Keep your semester GPA as strong as possible to protect or improve it.`
+    : `To move from ${targetSemesterPlan.oldCgpa.toFixed(2)} to ${targetSemesterPlan.target.toFixed(2)} after this semester, you need approximately ${targetSemesterPlan.requiredGpa.toFixed(2)} / ${maxPoint.toFixed(2)} GPA across your ${targetSemesterPlan.units} course units. That is about ${Math.ceil(targetSemesterPlan.requiredPoints)} credit points this semester.`;
 
   return <main className="min-h-screen bg-gray-50 text-gray-900">
     <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4"><a href="/"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto" /></a><nav className="hidden gap-6 text-sm font-semibold md:flex"><a href="/">Home</a><a href="/updates">Updates</a><a href="/screening-calculator">Screening Calculator</a></nav><a href="https://wa.me/2348182141088" className="rounded-full bg-green-700 px-5 py-3 text-sm font-bold text-white">WhatsApp Us</a></div></header>
@@ -308,7 +339,7 @@ export default function CgpaPlannerPage() {
 
       <aside className="xl:sticky xl:top-28 xl:self-start"><div className="overflow-hidden rounded-3xl bg-green-950 text-white shadow-xl"><div className="p-7"><p className="text-sm font-black uppercase tracking-widest text-green-300">Final Projection</p><p className="mt-1 text-xs text-green-100">{entryMode === "utme" ? "UTME" : "Direct Entry"} · {programmeYears}</p><div className="mt-6 grid grid-cols-2 gap-3"><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">{projection.exact || !Number(ctnup) ? "Projected CGPA" : "Estimated CGPA"}</p><p className="mt-1 text-3xl font-black">{projection.projectedCgpa.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected Units</p><p className="mt-1 text-3xl font-black">{projection.projectedUnits}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Future Units</p><p className="mt-1 text-2xl font-black">{projection.futureUnits}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Projected CTCP</p><p className="mt-1 text-2xl font-black">{projection.projectedPoints.toFixed(0)}</p></div></div><div className="mt-5 rounded-2xl bg-green-300 p-5 text-green-950"><p className="text-xs font-black uppercase">{classificationLabel}</p><p className="mt-1 text-xl font-black">{classification(projection.projectedCgpa, system)}</p><p className="mt-2 text-xs font-bold">Current: {currentStanding} → Projected: {classification(projection.projectedCgpa, system)}</p></div></div><div className="border-t border-white/10 p-7"><label className="font-bold">Your Target CGPA<input type="number" min="0" max={maxPoint} step="0.01" value={targetCgpa} onChange={(e) => setTargetCgpa(e.target.value)} placeholder={`Choose any target from 0.00 to ${maxPoint.toFixed(2)}`} className="mt-2 w-full rounded-xl border border-white/20 bg-white px-4 py-3 text-gray-900" /><span className="mt-2 block text-xs font-normal text-green-100">Enter the CGPA you personally want to reach. It does not have to be First Class or the maximum CGPA.</span></label><div className={`mt-4 rounded-xl p-4 text-sm font-bold leading-6 ${projection.requiredAverage > maxPoint ? "bg-red-100 text-red-900" : "bg-white/10 text-green-50"}`}>{targetStatus}</div><button onClick={savePlan} className="mt-5 w-full rounded-xl bg-white px-5 py-3 font-black text-green-900">{saved ? "Plan Saved ✓" : "Save on This Device"}</button><div className="mt-3 grid grid-cols-2 gap-3"><button onClick={downloadPdf} className="rounded-xl bg-green-300 px-3 py-3 text-sm font-black text-green-950">Download PDF</button><button onClick={downloadImage} className="rounded-xl bg-green-300 px-3 py-3 text-sm font-black text-green-950">Download Image</button></div><button onClick={resetPlan} className="mt-3 w-full rounded-xl border border-white/20 px-5 py-3 font-black">Reset Planner</button></div></div></aside></div>
 
-      {plannerMode === "target" && <section className="rounded-3xl border border-green-200 bg-green-50 p-6 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Your Target Answer</p><h2 className="mt-1 text-2xl font-black">What exactly do you need to do?</h2><p className="mt-4 text-base leading-7 text-green-950">{targetStatus}</p>{projection.futureUnits > 0 && projection.requiredAverage > 0 && projection.requiredAverage <= maxPoint && <div className="mt-5 grid gap-3 sm:grid-cols-3"><div className="rounded-2xl bg-white p-4"><p className="text-xs font-bold uppercase text-gray-500">Target CGPA</p><p className="mt-1 text-2xl font-black">{projection.target.toFixed(2)}</p></div><div className="rounded-2xl bg-white p-4"><p className="text-xs font-bold uppercase text-gray-500">Average GPA Needed</p><p className="mt-1 text-2xl font-black text-green-700">{projection.requiredAverage.toFixed(2)} / {maxPoint.toFixed(2)}</p></div><div className="rounded-2xl bg-white p-4"><p className="text-xs font-bold uppercase text-gray-500">Remaining Units Entered</p><p className="mt-1 text-2xl font-black">{projection.futureUnits}</p></div></div>}<p className="mt-4 text-xs leading-5 text-gray-600">{projection.exact ? "Using the CTCP you entered, this target calculation uses your exact cumulative credit points." : "CTCP was not entered, so cumulative credit points are estimated from your CGPA × completed units. Because displayed CGPA is normally rounded, the answer is an estimate."}</p></section>}
+      {plannerMode === "target" && <section className="rounded-3xl border border-green-200 bg-green-50 p-6 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Your Target Answer</p><h2 className="mt-1 text-2xl font-black">What do I need this semester?</h2><label className="mt-5 block max-w-sm font-bold">Course Units This Semester<input type="number" min="1" value={targetSemesterUnits} onChange={(e) => setTargetSemesterUnits(e.target.value)} className="mt-2 w-full rounded-xl border bg-white px-4 py-3" /></label>{ctcpInvalid && <p className="mt-3 rounded-xl bg-red-50 p-3 text-sm font-bold text-red-700">The CTCP entered is impossible for {ctnup || 0} completed units on a {maxPoint.toFixed(1)} scale, so it has been ignored. The planner is using Current CGPA × Completed Units instead.</p>}<p className="mt-4 text-base leading-7 text-green-950">{targetStatus}</p>{targetSemesterPlan.units > 0 && targetSemesterPlan.oldUnits > 0 && <div className="mt-5 grid gap-3 sm:grid-cols-3"><div className="rounded-2xl bg-white p-4"><p className="text-xs font-bold uppercase text-gray-500">Target CGPA</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.target.toFixed(2)}</p></div><div className="rounded-2xl bg-white p-4"><p className="text-xs font-bold uppercase text-gray-500">Semester GPA Needed</p><p className="mt-1 text-2xl font-black text-green-700">{targetSemesterPlan.requiredGpa > maxPoint ? "Not possible" : Math.max(0,targetSemesterPlan.requiredGpa).toFixed(2)}{targetSemesterPlan.requiredGpa <= maxPoint && ` / ${maxPoint.toFixed(2)}`}</p></div><div className="rounded-2xl bg-white p-4"><p className="text-xs font-bold uppercase text-gray-500">Semester Units</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.units}</p></div></div>}<p className="mt-4 text-xs leading-5 text-gray-600">{targetSemesterPlan.exact ? "Using your valid CTCP, this calculation uses exact cumulative credit points." : "CTCP is not being used, so cumulative credit points are estimated from Current CGPA × Completed Units. Because CGPA is usually rounded, the answer is an estimate."}</p></section>}
 
       {plannerMode === "retake" && <section className="rounded-3xl border bg-white p-6 shadow-sm sm:p-8"><p className="text-sm font-black uppercase tracking-widest text-green-700">Carryover / Retake Impact</p><h2 className="mt-1 text-2xl font-black">See what a better retake grade could do</h2><p className="mt-2 text-sm text-gray-600">This uses your current CGPA, completed units and selected grading system. This tool is only for a course you previously failed and are retaking. Choose the rule that matches your institution.</p><div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><label className="font-bold">Course Units<input type="number" min="1" max="12" value={retakeUnits} onChange={(e) => setRetakeUnits(e.target.value)} className="mt-2 w-full rounded-xl border px-4 py-3" /></label><label className="font-bold">Failed Grade<input value={`F (${activeGrades.find((grade) => grade.letter === "F")?.point ?? 0})`} disabled className="mt-2 w-full rounded-xl border bg-gray-100 px-4 py-3 text-gray-600" /></label><label className="font-bold">Expected Retake Grade<select value={retakeNewGrade} onChange={(e) => setRetakeNewGrade(e.target.value)} className="mt-2 w-full rounded-xl border bg-white px-4 py-3">{activeGrades.map((grade) => <option key={grade.letter} value={grade.letter}>{grade.letter} ({grade.point})</option>)}</select></label><label className="font-bold">Are failed course units already included in your completed units?<select value={failedUnitsIncluded ? "yes" : "no"} onChange={(e) => setFailedUnitsIncluded(e.target.value === "yes")} className="mt-2 w-full rounded-xl border bg-white px-4 py-3"><option value="no">No / I entered passed units only</option><option value="yes">Yes / failed attempts are included</option></select></label><label className="font-bold">How does your school treat a retake?<select value={retakeRule} onChange={(e) => setRetakeRule(e.target.value as "replace" | "both")} className="mt-2 w-full rounded-xl border bg-white px-4 py-3"><option value="replace">Replace old grade/points</option><option value="both">Keep old attempt + add retake</option></select></label></div><div className="mt-5 grid gap-3 rounded-2xl bg-green-50 p-5 sm:grid-cols-3"><div><p className="text-xs font-bold uppercase text-green-700">Current CGPA</p><p className="text-2xl font-black">{(Number(currentCgpa) || 0).toFixed(2)}</p></div><div><p className="text-xs font-bold uppercase text-green-700">After Retake</p><p className="text-2xl font-black">{retakeImpact.cgpa.toFixed(2)}</p></div><div><p className="text-xs font-bold uppercase text-green-700">Estimated Impact</p><p className="text-2xl font-black">{retakeImpact.change >= 0 ? "+" : ""}{retakeImpact.change.toFixed(2)}</p></div></div><p className="mt-3 text-xs text-gray-500">Retake policies differ by institution. Confirm whether your school replaces the old attempt or counts both attempts before relying on this estimate.</p></section>}
 
