@@ -80,7 +80,10 @@ export default function CgpaPlannerPage() {
   const [retakeRule, setRetakeRule] = useState<"replace" | "both">("replace");
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);\n    const grading = params.get("grading");\n    const tool = params.get("tool");\n    if (tool === "target" || tool === "projector" || tool === "retake") setPlannerMode(tool);
+    const params = new URLSearchParams(window.location.search);
+    const grading = params.get("grading");
+    const tool = params.get("tool");
+    if (tool === "target" || tool === "projector" || tool === "retake") setPlannerMode(tool);
     if (grading === "lasu") changeSystem("lasu");
     if (grading === "university-5") changeSystem("university-5");
     if (grading === "university-4") changeSystem("university-4");
