@@ -7,6 +7,7 @@ type EntryMode = "utme" | "direct-entry";
 type PlannerMode = "target" | "projector" | "retake";
 type Course = { id: number; code: string; units: number; grade: string };
 type Semester = { id: number; level: string; term: string; courses: Course[] };
+type TargetCourse = { id: number; code: string; units: number };
 
 const GRADES_5 = [
   { letter: "A", point: 5, range: "70-100" }, { letter: "B", point: 4, range: "60-69" },
@@ -69,9 +70,9 @@ export default function CgpaPlannerPage() {
   const [ctnup, setCtnup] = useState("");
   const [ctcp, setCtcp] = useState("");
   const [targetCgpa, setTargetCgpa] = useState("4.50");
-  const [targetSemesterUnits, setTargetSemesterUnits] = useState("18");
   const [targetPeriod, setTargetPeriod] = useState<"semester" | "session">("semester");
-  const [averageCourseUnits, setAverageCourseUnits] = useState("3");
+  const [targetCoursesFirst, setTargetCoursesFirst] = useState<TargetCourse[]>([{ id: Date.now()+101, code: "", units: 3 }]);
+  const [targetCoursesSecond, setTargetCoursesSecond] = useState<TargetCourse[]>([{ id: Date.now()+202, code: "", units: 3 }]);
   const [semesters, setSemesters] = useState<Semester[]>([makeSemester(0, "utme")]);
   const [openSemester, setOpenSemester] = useState<number | null>(semesters[0].id);
   const [saved, setSaved] = useState(false);
@@ -186,8 +187,9 @@ export default function CgpaPlannerPage() {
   const targetSemesterPlan = useMemo(() => {
     const oldUnits = Math.max(0, Number(ctnup) || 0);
     const oldCgpa = Math.min(maxPoint, Math.max(0, Number(currentCgpa) || 0));
-    const baseUnits = Math.max(0, Number(targetSemesterUnits) || 0);
-    const units = targetPeriod === "session" ? baseUnits * 2 : baseUnits;
+    const firstUnits = targetCoursesFirst.filter((course) => course.code.trim()).reduce((sum, course) => sum + Math.max(0, Number(course.units) || 0), 0);
+    const secondUnits = targetCoursesSecond.filter((course) => course.code.trim()).reduce((sum, course) => sum + Math.max(0, Number(course.units) || 0), 0);
+    const units = targetPeriod === "session" ? firstUnits + secondUnits : firstUnits;
     const target = Math.min(maxPoint, Math.max(0, Number(targetCgpa) || 0));
     const enteredCtcp = Number(ctcp);
     const exact = ctcp.trim() !== "" && oldUnits > 0 && enteredCtcp >= 0 && enteredCtcp <= maxPoint * oldUnits;
@@ -198,7 +200,7 @@ export default function CgpaPlannerPage() {
     const minimumCgpa = oldUnits + units ? currentPoints / (oldUnits + units) : oldCgpa;
     const achievable = units > 0 && requiredGpa <= maxPoint;
     return { oldUnits, oldCgpa, units, target, exact, currentPoints, requiredPoints, requiredGpa, maximumCgpa, minimumCgpa, achievable };
-  }, [ctnup, currentCgpa, targetSemesterUnits, targetPeriod, targetCgpa, ctcp, maxPoint]);
+  }, [ctnup, currentCgpa, targetCoursesFirst, targetCoursesSecond, targetPeriod, targetCgpa, ctcp, maxPoint]);
 
   const ctcpInvalid = ctcp.trim() !== "" && !targetSemesterPlan.exact;
 
@@ -302,8 +304,8 @@ export default function CgpaPlannerPage() {
   }
 
   const targetStatus = !targetSemesterPlan.oldUnits || !currentCgpa.trim() ? "Enter your current CGPA and completed course units first."
-    : !targetSemesterPlan.units ? "Enter the total course units you will take this semester."
-    : targetSemesterPlan.requiredGpa > maxPoint ? `To move from ${targetSemesterPlan.oldCgpa.toFixed(2)} to ${targetSemesterPlan.target.toFixed(2)} in this semester, you would need a GPA of ${targetSemesterPlan.requiredGpa.toFixed(2)} / ${maxPoint.toFixed(2)}, which is above the grading scale. Even a perfect ${maxPoint.toFixed(2)} GPA this semester would put your CGPA at about ${targetSemesterPlan.maximumCgpa.toFixed(2)}.`
+    : !targetSemesterPlan.units ? "Add your course codes and course units for the target period."
+    : targetSemesterPlan.requiredGpa > maxPoint ? `To move from ${targetSemesterPlan.oldCgpa.toFixed(2)} to ${targetSemesterPlan.target.toFixed(2)} in this semester, you would need a GPA of ${targetSemesterPlan.requiredGpa.toFixed(2)} / ${maxPoint.toFixed(2)}, which is above the grading scale. Even a perfect ${maxPoint.toFixed(2)} GPA across these courses would put your CGPA at about ${targetSemesterPlan.maximumCgpa.toFixed(2)}.`
     : targetSemesterPlan.requiredGpa <= 0 ? `Your current record already meets or exceeds the ${targetSemesterPlan.target.toFixed(2)} target. Keep your semester GPA as strong as possible to protect or improve it.`
     : `To move from ${targetSemesterPlan.oldCgpa.toFixed(2)} to ${targetSemesterPlan.target.toFixed(2)} after ${targetPeriod === "session" ? "this session" : "this semester"}, you need approximately ${targetSemesterPlan.requiredGpa.toFixed(2)} / ${maxPoint.toFixed(2)} average GPA across ${targetSemesterPlan.units} course units. That is about ${Math.ceil(targetSemesterPlan.requiredPoints)} credit points across the target period.`;
 
@@ -345,28 +347,20 @@ export default function CgpaPlannerPage() {
       {plannerMode === "target" && <section className="rounded-3xl border border-green-200 bg-green-50 p-6 shadow-sm sm:p-8">
         <p className="text-sm font-black uppercase tracking-widest text-green-700">Target CGPA Planner</p>
         <h2 className="mt-1 text-3xl font-black">What do I need to reach my target?</h2>
-        <p className="mt-2 text-sm text-green-900">No projected semesters. Your current record above is the starting point. Choose whether you want to reach the target after this semester or after the full session.</p>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          <label className="font-bold">Target Period<select value={targetPeriod} onChange={(e) => setTargetPeriod(e.target.value as "semester" | "session")} className="mt-2 w-full rounded-xl border bg-white px-4 py-3"><option value="semester">This Semester</option><option value="session">This Session</option></select></label>
-          <label className="font-bold">Course Units Per Semester<input type="number" min="1" value={targetSemesterUnits} onChange={(e) => setTargetSemesterUnits(e.target.value)} className="mt-2 w-full rounded-xl border bg-white px-4 py-3" /></label>
-          <label className="font-bold">Typical Units Per Course<input type="number" min="1" max="6" value={averageCourseUnits} onChange={(e) => setAverageCourseUnits(e.target.value)} className="mt-2 w-full rounded-xl border bg-white px-4 py-3" /><span className="mt-1 block text-xs font-normal text-gray-500">Used only to estimate course count.</span></label>
-        </div>
+        <p className="mt-2 text-sm text-green-900">Your current record above is the starting point. Add the actual courses you will take and the course unit for each one.</p>
+        <label className="mt-6 block max-w-sm font-bold">Target Period<select value={targetPeriod} onChange={(e) => setTargetPeriod(e.target.value as "semester" | "session")} className="mt-2 w-full rounded-xl border bg-white px-4 py-3"><option value="semester">This Semester</option><option value="session">This Session</option></select></label>
+
+        {[{title: targetPeriod === "session" ? "1st Semester Courses" : "Courses This Semester", list: targetCoursesFirst, setList: setTargetCoursesFirst}, ...(targetPeriod === "session" ? [{title:"2nd Semester Courses", list:targetCoursesSecond, setList:setTargetCoursesSecond}] : [])].map((group) => <div key={group.title} className="mt-6 rounded-2xl bg-white p-5">
+          <div className="flex items-center justify-between gap-3"><div><h3 className="text-xl font-black">{group.title}</h3><p className="text-sm text-gray-500">Enter each course code and its actual course unit.</p></div><span className="rounded-full bg-green-100 px-3 py-1 text-sm font-black text-green-800">{group.list.filter((course) => course.code.trim()).reduce((sum,course)=>sum+(Number(course.units)||0),0)} units</span></div>
+          <div className="mt-4 hidden grid-cols-[1fr_130px_44px] gap-2 px-2 text-xs font-black uppercase text-gray-500 sm:grid"><span>Course Code</span><span>Course Units</span><span></span></div>
+          <div className="mt-2 space-y-3">{group.list.map((course,index)=><div key={course.id} className="grid grid-cols-[1fr_100px_38px] gap-2 rounded-xl bg-gray-50 p-2 sm:grid-cols-[1fr_130px_44px]"><input value={course.code} onChange={(e)=>group.setList((list)=>list.map((item)=>item.id===course.id?{...item,code:e.target.value.toUpperCase()}:item))} placeholder={`Course ${index+1} code`} className="min-w-0 rounded-xl border px-3 py-3"/><select value={course.units} onChange={(e)=>group.setList((list)=>list.map((item)=>item.id===course.id?{...item,units:Number(e.target.value)}:item))} className="rounded-xl border bg-white px-2 font-bold">{[1,2,3,4,5,6].map((unit)=><option key={unit} value={unit}>{unit} unit{unit>1?"s":""}</option>)}</select><button disabled={group.list.length===1} onClick={()=>group.setList((list)=>list.filter((item)=>item.id!==course.id))} className="text-xl font-black text-red-600 disabled:opacity-30">×</button></div>)}</div>
+          <button onClick={()=>group.setList((list)=>[...list,{id:Date.now()+Math.random(),code:"",units:3}])} className="mt-4 rounded-xl bg-green-700 px-4 py-2.5 text-sm font-black text-white">+ Add Course</button>
+        </div>)}
+
         {ctcpInvalid && <p className="mt-4 rounded-xl bg-red-50 p-3 text-sm font-bold text-red-700">The CTCP entered is impossible for {ctnup || 0} completed units on a {maxPoint.toFixed(1)} scale, so it has been ignored. The planner is using Current CGPA × Completed Units instead.</p>}
-        <div className="mt-6 rounded-3xl bg-green-950 p-6 text-white">
-          <p className="text-xs font-black uppercase tracking-widest text-green-300">What You Need</p>
-          <p className="mt-3 text-lg font-bold leading-8">{targetStatus}</p>
-          {targetSemesterPlan.oldUnits > 0 && targetSemesterPlan.units > 0 && <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Current CGPA</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.oldCgpa.toFixed(2)}</p></div>
-            <div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Target CGPA</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.target.toFixed(2)}</p></div>
-            <div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">{targetPeriod === "session" ? "Average GPA Needed" : "Semester GPA Needed"}</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.requiredGpa > maxPoint ? "Not possible" : Math.max(0,targetSemesterPlan.requiredGpa).toFixed(2)}</p></div>
-            <div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">{targetPeriod === "session" ? "Session Units" : "Semester Units"}</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.units}</p></div>
-          </div>}
-        </div>
-        {targetSemesterPlan.units > 0 && <div className="mt-5 rounded-2xl bg-white p-5">
-          <p className="font-black">Course-load guide</p>
-          <p className="mt-2 text-sm leading-6 text-gray-700">{targetPeriod === "session" ? `For a ${targetSemesterUnits || 0}-unit load per semester, this plan uses about ${targetSemesterPlan.units} units across the session.` : `This plan uses ${targetSemesterPlan.units} units for the semester.`} With about {Number(averageCourseUnits) || 3} units per course, that is approximately {Math.ceil(targetSemesterPlan.units / Math.max(1, Number(averageCourseUnits) || 3))} courses {targetPeriod === "session" ? "across the session" : "this semester"}. The exact number of courses depends on your registered course-unit mix.</p>
-          {targetSemesterPlan.requiredGpa > maxPoint && <p className="mt-3 rounded-xl bg-amber-50 p-3 text-sm font-bold text-amber-900">Even a perfect {maxPoint.toFixed(2)} GPA over these units would give an estimated CGPA of {targetSemesterPlan.maximumCgpa.toFixed(2)}. Choose a longer target period or adjust the planned unit load.</p>}
-        </div>}
+        <div className="mt-6 rounded-3xl bg-green-950 p-6 text-white"><p className="text-xs font-black uppercase tracking-widest text-green-300">What You Need</p><p className="mt-3 text-lg font-bold leading-8">{targetStatus}</p>
+        {targetSemesterPlan.oldUnits > 0 && targetSemesterPlan.units > 0 && <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Current CGPA</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.oldCgpa.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">Target CGPA</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.target.toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">{targetPeriod==="session"?"Average GPA Needed":"Semester GPA Needed"}</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.requiredGpa>maxPoint?"Not possible":Math.max(0,targetSemesterPlan.requiredGpa).toFixed(2)}</p></div><div className="rounded-2xl bg-white/10 p-4"><p className="text-xs text-green-100">{targetPeriod==="session"?"Session Units":"Semester Units"}</p><p className="mt-1 text-2xl font-black">{targetSemesterPlan.units}</p></div></div>}</div>
+        {targetSemesterPlan.requiredGpa > maxPoint && targetSemesterPlan.units > 0 && <p className="mt-4 rounded-xl bg-amber-50 p-4 text-sm font-bold text-amber-900">Even a perfect {maxPoint.toFixed(2)} GPA across these courses would give an estimated CGPA of {targetSemesterPlan.maximumCgpa.toFixed(2)}. The selected target cannot be reached within this course load.</p>}
         <p className="mt-4 text-xs leading-5 text-gray-600">{targetSemesterPlan.exact ? "Using your valid CTCP, this calculation uses exact cumulative credit points." : "CTCP is not being used, so cumulative credit points are estimated from Current CGPA × Completed Units. Because CGPA is usually rounded, the answer is an estimate."}</p>
         <div className="mt-6 flex flex-wrap gap-3"><button onClick={downloadImage} className="rounded-xl bg-green-700 px-5 py-3 font-black text-white">Download Shareable Summary</button><button onClick={downloadPdf} className="rounded-xl border border-green-700 bg-white px-5 py-3 font-black text-green-700">Download PDF Report</button></div>
       </section>}
