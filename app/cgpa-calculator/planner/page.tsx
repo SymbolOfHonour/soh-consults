@@ -80,7 +80,7 @@ export default function CgpaPlannerPage() {
   const [retakeRule, setRetakeRule] = useState<"replace" | "both">("replace");
 
   useEffect(() => {
-    const grading = new URLSearchParams(window.location.search).get("grading");
+    const params = new URLSearchParams(window.location.search);\n    const grading = params.get("grading");\n    const tool = params.get("tool");\n    if (tool === "target" || tool === "projector" || tool === "retake") setPlannerMode(tool);
     if (grading === "lasu") changeSystem("lasu");
     if (grading === "university-5") changeSystem("university-5");
     if (grading === "university-4") changeSystem("university-4");
@@ -264,7 +264,7 @@ export default function CgpaPlannerPage() {
           <p className="mt-2 text-gray-600">Choose one tool to continue.</p>
           <div className="mt-7 grid gap-4 md:grid-cols-3">
             {([{ id: "target", icon: "🎯", title: "Target CGPA Planner", text: "What do I need to do to reach the CGPA I want?" }, { id: "projector", icon: "📊", title: "CGPA Projector", text: "What will my CGPA become if I get these grades?" }, { id: "retake", icon: "🔄", title: "Retake Impact", text: "If I improve a failed course, how could my CGPA change?" }] as const).map((tool) => (
-              <button key={tool.id} onClick={() => setPlannerMode(tool.id)} className={`rounded-2xl border p-5 text-left transition ${plannerMode === tool.id ? "border-green-700 bg-green-50 ring-2 ring-green-200" : "hover:border-green-400"}`}><span className="text-2xl">{tool.icon}</span><h3 className="mt-3 text-xl font-black">{tool.title}</h3><p className="mt-2 text-sm text-gray-600">{tool.text}</p></button>
+              <a key={tool.id} href={`/cgpa-calculator/planner?grading=${system}&tool=${tool.id}`} className={`rounded-2xl border p-5 text-left transition ${plannerMode === tool.id ? "border-green-700 bg-green-50 ring-2 ring-green-200" : "hover:border-green-400"}`}><span className="text-2xl">{tool.icon}</span><h3 className="mt-3 text-xl font-black">{tool.title}</h3><p className="mt-2 text-sm text-gray-600">{tool.text}</p><p className="mt-4 font-black text-green-700">Open Tool →</p></a>
             ))}
           </div>
           <div className="mt-6"><a href="/cgpa-calculator" className="text-sm font-black text-green-700">← Change grading system</a></div>
