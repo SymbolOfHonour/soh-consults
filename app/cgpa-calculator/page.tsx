@@ -265,6 +265,6 @@ export default function CgpaPlannerPage() {
 
       <section className="overflow-hidden rounded-3xl border bg-white shadow-sm"><div className="p-6"><p className="text-sm font-black uppercase tracking-widest text-green-700">Academic timeline</p><h2 className="mt-1 text-2xl font-black">Semester-by-semester projection</h2></div><div className="overflow-x-auto"><table className="w-full min-w-[720px] text-left"><thead className="bg-gray-100 text-xs uppercase text-gray-600"><tr><th className="px-5 py-3">Stage</th><th>Units</th><th>TCP</th><th>GPA</th><th>Cumulative Units</th><th>Projected CGPA</th><th>Progress</th></tr></thead><tbody className="divide-y">{projection.rows.map((row) => <tr key={row.id}><td className="px-5 py-4 font-black">{row.level} {row.term}</td><td>{row.units}</td><td>{row.points}</td><td>{row.gpa.toFixed(2)}</td><td>{row.cumulativeUnits}</td><td className="font-black text-green-700">{row.cgpa.toFixed(2)}</td><td><span className={`rounded-full px-3 py-1 text-xs font-black ${row.cgpa >= projection.target ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>{row.cgpa >= projection.target ? "Target achieved" : "Building"}</span></td></tr>)}</tbody></table></div></section>
       <p className="text-center text-sm leading-6 text-gray-500">This planner provides projections only. Grading scales and award classifications can vary by institution. Always confirm with your institution&apos;s official academic regulations.</p>
-    </div></section>
+    </div></section>}
   </main>;
 }
