@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 type System = "lasu" | "university-5" | "university-4" | "polytechnic-4" | "nce-5" | "nce-4";
 type EntryMode = "utme" | "direct-entry";
 type PlannerMode = "target" | "projector" | "retake";
-type SystemGroup = "lasu" | "university" | "polytechnic" | "nce";
 type Course = { id: number; code: string; units: number; grade: string };
 type Semester = { id: number; level: string; term: string; courses: Course[] };
 
@@ -62,7 +62,7 @@ function makeSemester(index: number, entryMode: EntryMode, startLevel?: string, 
 export default function CgpaPlannerPage() {
   const [system, setSystem] = useState<System>("lasu");
   const [plannerMode, setPlannerMode] = useState<PlannerMode | null>(null);
-  const [systemGroup, setSystemGroup] = useState<SystemGroup | null>(null);
+  const searchParams = useSearchParams();
   const [entryMode, setEntryMode] = useState<EntryMode>("utme");
   const [programmeYears, setProgrammeYears] = useState("4");
   const [studentName, setStudentName] = useState("");
@@ -251,44 +251,16 @@ export default function CgpaPlannerPage() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="rounded-3xl border bg-white p-6 shadow-sm sm:p-8">
           <p className="text-sm font-black uppercase tracking-widest text-green-700">CGPA Simulator / Planner</p>
-          <h2 className="mt-2 text-3xl font-black">Select Your Grading System</h2>
-          <p className="mt-2 text-sm text-gray-600">Start by choosing the academic grading system used by your institution.</p>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {([
-              { id: "lasu", title: "Lagos State University (LASU)", text: "LASU 5.0 Grading System", badge: "5.0" },
-              { id: "university", title: "University Grading", text: "General University grading systems", badge: "5.0 / 4.0" },
-              { id: "polytechnic", title: "ND / HND Grading", text: "Polytechnic ND and HND grading system", badge: "4.0" },
-              { id: "nce", title: "NCE Grading", text: "College of Education / NCE grading systems", badge: "5.0 / 4.0" },
-            ] as const).map((item) => (
-              <button key={item.id} onClick={() => {
-                const group = item.id as SystemGroup;
-                setSystemGroup(group); setPlannerMode(null);
-                if (group === "lasu") changeSystem("lasu");
-                if (group === "polytechnic") changeSystem("polytechnic-4");
-                if (group === "university" && !system.startsWith("university")) changeSystem("university-5");
-                if (group === "nce" && !system.startsWith("nce")) changeSystem("nce-5");
-              }} className={`rounded-2xl border p-5 text-left transition ${systemGroup === item.id ? "border-green-700 bg-green-50 ring-2 ring-green-200" : "hover:border-green-400"}`}>
-                <div className="flex items-start justify-between gap-4"><div><h3 className="text-lg font-black">{item.title}</h3><p className="mt-2 text-sm text-gray-600">{item.text}</p><p className="mt-4 font-black text-green-700">Select Grading →</p></div><span className="rounded-full bg-green-50 px-3 py-1 text-xs font-black text-green-700">{item.badge}</span></div>
-              </button>
+          <p className="mt-2 text-sm font-bold text-green-800">Using: {systemLabel(system)}</p>
+          <h2 className="mt-2 text-3xl font-black">What do you want to calculate?</h2>
+          <p className="mt-2 text-gray-600">Choose one tool to continue.</p>
+          <div className="mt-7 grid gap-4 md:grid-cols-3">
+            {([{ id: "target", icon: "🎯", title: "Target CGPA Planner", text: "What do I need to do to reach the CGPA I want?" }, { id: "projector", icon: "📊", title: "CGPA Projector", text: "What will my CGPA become if I get these grades?" }, { id: "retake", icon: "🔄", title: "Retake Impact", text: "If I improve a failed course, how could my CGPA change?" }] as const).map((tool) => (
+              <button key={tool.id} onClick={() => setPlannerMode(tool.id)} className={`rounded-2xl border p-5 text-left transition ${plannerMode === tool.id ? "border-green-700 bg-green-50 ring-2 ring-green-200" : "hover:border-green-400"}`}><span className="text-2xl">{tool.icon}</span><h3 className="mt-3 text-xl font-black">{tool.title}</h3><p className="mt-2 text-sm text-gray-600">{tool.text}</p></button>
             ))}
           </div>
-          {systemGroup && (systemGroup === "university" || systemGroup === "nce") && (
-            <div className="mt-5 rounded-2xl border bg-gray-50 p-5"><label className="font-black">Choose Grade Point Scale<select value={system} onChange={(e) => { changeSystem(e.target.value as System); setPlannerMode(null); }} className="mt-2 w-full rounded-xl border bg-white px-4 py-3">{systemGroup === "university" ? <><option value="university-5">University 5.0 Grading</option><option value="university-4">University 4.0 Grading</option></> : <><option value="nce-5">NCE 5.0 Grading</option><option value="nce-4">NCE 4.0 Grading</option></>}</select></label></div>
-          )}
+          <div className="mt-6"><a href="/cgpa-calculator" className="text-sm font-black text-green-700">← Change grading system</a></div>
         </div>
-        {systemGroup && (
-          <div className="mt-6 rounded-3xl border bg-white p-6 shadow-sm sm:p-8">
-            <p className="text-center text-sm font-black uppercase tracking-widest text-green-700">Selected: {systemLabel(system)}</p>
-            <h2 className="mt-2 text-center text-3xl font-black">What do you want to calculate?</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-gray-600">Choose one simple tool. You can switch at any time without losing what you have entered.</p>
-            <div className="mt-7 grid gap-4 md:grid-cols-3">
-              {([{ id: "target", icon: "🎯", title: "Target CGPA Planner", text: "What do I need to do to reach the CGPA I want?" }, { id: "projector", icon: "📊", title: "CGPA Projector", text: "What will my CGPA become if I get these grades?" }, { id: "retake", icon: "🔄", title: "Retake Impact", text: "If I improve a failed course, how could my CGPA change?" }] as const).map((tool) => (
-                <button key={tool.id} onClick={() => setPlannerMode(tool.id)} className={`rounded-2xl border p-5 text-left transition ${plannerMode === tool.id ? "border-green-700 bg-green-50 ring-2 ring-green-200" : "hover:border-green-400"}`}><span className="text-2xl">{tool.icon}</span><h3 className="mt-3 text-xl font-black">{tool.title}</h3><p className="mt-2 text-sm text-gray-600">{tool.text}</p></button>
-              ))}
-            </div>
-            {plannerMode && <div className="mt-5 rounded-2xl bg-green-950 p-5 text-white"><p className="text-xs font-black uppercase tracking-widest text-green-300">You selected</p><div className="mt-1 flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><div><p className="text-xl font-black">{plannerMode === "target" ? "🎯 Target CGPA Planner" : plannerMode === "projector" ? "📊 CGPA Projector" : "🔄 Retake Impact"}</p><p className="mt-1 text-sm text-green-100">{plannerMode === "target" ? "Tell us where you are now and the CGPA you want. S.O.H will show what performance you need." : plannerMode === "projector" ? "Enter your current record and expected grades. S.O.H will show what your CGPA could become." : "Enter a failed course retake and S.O.H will estimate how it could affect your CGPA."}</p></div><button onClick={() => setPlannerMode(null)} className="rounded-xl border border-white/30 px-4 py-2 text-sm font-bold">Choose another tool</button></div></div>}
-          </div>
-        )}
       </div>
     </section>
 
