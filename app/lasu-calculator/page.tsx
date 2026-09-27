@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { jsPDF } from "jspdf";
 import SiteContact from "../components/SiteContact";
+import { REPORT_TAGLINE } from "@/data/branding";
 
 type Programme = {
   id: string;
@@ -2582,13 +2583,13 @@ export default function LASUCalculator() {
       DARK;
 
     ctx.fillText(
-      "Your Admission",
+      "Your Guide.",
       920,
       78
     );
 
     ctx.fillText(
-      "Journey, Our Priority",
+      "Your Success.",
       920,
       108
     );
@@ -3658,7 +3659,7 @@ export default function LASUCalculator() {
       GREEN;
 
     ctx.fillText(
-      "Education  •  Opportunity  •  A Greater You",
+      REPORT_TAGLINE,
       165,
       1686
     );
