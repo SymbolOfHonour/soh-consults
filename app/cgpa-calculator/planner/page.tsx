@@ -221,12 +221,14 @@ export default function CgpaPlannerPage() {
     return { oldUnits, oldCgpa, units, target, exact, currentPoints, requiredPoints, requiredGpa, maximumCgpa, minimumCgpa, achievable };
   }, [ctnup, currentCgpa, targetCoursesFirst, targetCoursesSecond, targetFutureCourses, targetFuturePeriods, targetPeriod, targetCgpa, maxPoint]);
 
+  const targetRecordValid = currentCgpa.trim() !== "" && Number.isFinite(Number(currentCgpa)) && Number(currentCgpa) >= 0 && Number(currentCgpa) <= maxPoint && Number(ctnup) > 0;
+
   const targetGradeSuggestion = useMemo(() => {
     const first = targetPeriod !== "future" ? targetCoursesFirst.filter((course) => course.code.trim()).map((course) => ({ ...course, period: "1st Semester" })) : [];
     const second = targetPeriod === "session" ? targetCoursesSecond.filter((course) => course.code.trim()).map((course) => ({ ...course, period: "2nd Semester" })) : [];
     const future = targetPeriod === "future" ? targetFuturePeriods.flatMap((period) => (targetFutureCourses[period.key] || []).filter((course) => course.code.trim()).map((course) => ({ ...course, period: period.title.replace(" Courses","") }))) : [];
     const courses = [...first, ...second, ...future];
-    if (!courses.length || targetSemesterPlan.requiredGpa > maxPoint || targetSemesterPlan.requiredGpa <= 0) return { rows: [], points: 0, gpa: 0 };
+    if (!targetRecordValid || !courses.length || targetSemesterPlan.requiredGpa > maxPoint || targetSemesterPlan.requiredGpa <= 0) return { rows: [], points: 0, gpa: 0 };
     // A target guide must never recommend failing a course. Start every course at
     // the lowest passing grade, then raise grades until the required credit points are met.
     const passingGrades = [...activeGrades].filter((grade) => grade.point > 0 && grade.letter !== "F").sort((a,b) => a.point - b.point);
@@ -236,14 +238,14 @@ export default function CgpaPlannerPage() {
     let rows = courses.map((course) => ({ ...course, grade: minimumPass.letter, point: minimumPass.point, credit: minimumPass.point * course.units }));
     let points = rows.reduce((sum,row)=>sum+row.credit,0);
     while (points < needed) {
-      let bestIndex=-1, bestNext=-1, bestGain=Infinity;
-      rows.forEach((row,index)=>{ const gi=passingGrades.findIndex((g)=>g.letter===row.grade); const next=passingGrades[gi+1]; if(!next)return; const gain=(next.point-row.point)*row.units; if(gain>0&&gain<bestGain){bestGain=gain;bestIndex=index;bestNext=gi+1;} });
+      let bestIndex=-1, bestNext=-1, bestUnits=-1, bestPoint=Infinity;
+      rows.forEach((row,index)=>{ const gi=passingGrades.findIndex((g)=>g.letter===row.grade); const next=passingGrades[gi+1]; if(!next)return; if(row.units>bestUnits || (row.units===bestUnits && row.point<bestPoint)){bestUnits=row.units;bestPoint=row.point;bestIndex=index;bestNext=gi+1;} });
       if(bestIndex<0) break;
       const current=rows[bestIndex], next=passingGrades[bestNext]; points+=(next.point-current.point)*current.units;
       rows=rows.map((row,index)=>index===bestIndex?{...row,grade:next.letter,point:next.point,credit:next.point*row.units}:row);
     }
     return { rows, points, gpa: totalUnits ? points/totalUnits : 0 };
-  }, [targetCoursesFirst, targetCoursesSecond, targetFutureCourses, targetFuturePeriods, targetPeriod, targetSemesterPlan, activeGrades, maxPoint]);
+  }, [targetCoursesFirst, targetCoursesSecond, targetFutureCourses, targetFuturePeriods, targetPeriod, targetSemesterPlan, targetRecordValid, activeGrades, maxPoint]);
 
 
   function updateSemester(id: number, patch: Partial<Semester>) { setSemesters((list) => list.map((item) => item.id === id ? { ...item, ...patch } : item)); }
@@ -291,7 +293,7 @@ export default function CgpaPlannerPage() {
     const logo = await loadLogo();
     const canvas = document.createElement("canvas");
     const reportRowCount = plannerMode === "target" ? targetGradeSuggestion.rows.length : 0;
-    const reportHeight = Math.max(1754, 1754 + Math.max(0, reportRowCount - 9) * 42);
+    const reportHeight = Math.max(1900, 1900 + Math.max(0, reportRowCount - 9) * 42);
     canvas.width = 1240; canvas.height = reportHeight;
     const ctx = canvas.getContext("2d"); if (!ctx) throw new Error("Unable to create report.");
     const GREEN="#006837", DARK_GREEN="#064e3b", BRIGHT_GREEN="#16a34a", RED="#dc2626", DARK="#0f172a", LIGHT="#eef2f5", BORDER="#cbd5e1", WHITE="#ffffff";
@@ -299,9 +301,9 @@ export default function CgpaPlannerPage() {
     ctx.beginPath(); ctx.moveTo(1025,0); ctx.lineTo(1240,0); ctx.lineTo(1240,185); ctx.closePath(); ctx.fillStyle="#062f28"; ctx.fill();
     ctx.beginPath(); ctx.moveTo(1075,0); ctx.lineTo(1240,0); ctx.lineTo(1240,135); ctx.closePath(); ctx.fillStyle="#00853f"; ctx.fill();
     ctx.beginPath(); ctx.moveTo(1135,0); ctx.lineTo(1240,0); ctx.lineTo(1240,78); ctx.closePath(); ctx.fillStyle=BRIGHT_GREEN; ctx.fill();
-    ctx.beginPath(); ctx.moveTo(0,1575); ctx.lineTo(0,1754); ctx.lineTo(180,1754); ctx.closePath(); ctx.fillStyle="#062f28"; ctx.fill();
-    ctx.beginPath(); ctx.moveTo(0,1630); ctx.lineTo(0,1754); ctx.lineTo(130,1754); ctx.closePath(); ctx.fillStyle=BRIGHT_GREEN; ctx.fill();
-    ctx.beginPath(); ctx.moveTo(48,1685); ctx.lineTo(90,1754); ctx.lineTo(190,1754); ctx.closePath(); ctx.fillStyle=RED; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(0,reportHeight-179); ctx.lineTo(0,reportHeight); ctx.lineTo(180,reportHeight); ctx.closePath(); ctx.fillStyle="#062f28"; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(0,reportHeight-124); ctx.lineTo(0,reportHeight); ctx.lineTo(130,reportHeight); ctx.closePath(); ctx.fillStyle=BRIGHT_GREEN; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(48,reportHeight-69); ctx.lineTo(90,reportHeight); ctx.lineTo(190,reportHeight); ctx.closePath(); ctx.fillStyle=RED; ctx.fill();
     ctx.fillStyle=WHITE; ctx.fillRect(78,55,150,150); ctx.drawImage(logo,88,65,130,130);
     ctx.fillStyle=GREEN; ctx.font="700 42px Arial"; ctx.fillText("S.O.H CONSULTS",270,90);
     ctx.fillStyle=DARK; ctx.font="700 27px Arial"; ctx.fillText(plannerMode === "target" ? "TARGET CGPA ACTION REPORT" : "CGPA ACADEMIC PROJECTION REPORT",270,132);
@@ -311,7 +313,7 @@ export default function CgpaPlannerPage() {
     ctx.fillText(programme || "Programme not provided",100,325); ctx.fillText(systemLabel(system),100,358);
     ctx.font="700 18px Arial"; ctx.fillText("CURRENT CGPA",690,285); ctx.fillText("TARGET",900,285);
     ctx.fillStyle=GREEN; ctx.font="700 38px Arial"; ctx.fillText(currentCgpa || "0.00",690,330); ctx.fillText(Number(targetCgpa||0).toFixed(2),900,330);
-    ctx.fillStyle=DARK_GREEN; ctx.fillRect(70,435,1100,130); ctx.fillStyle=WHITE; ctx.font="700 22px Arial"; ctx.fillText(plannerMode === "target" ? "SEMESTER GPA REQUIRED" : "PROJECTED RESULT",100,478);
+    ctx.fillStyle=DARK_GREEN; ctx.fillRect(70,435,1100,130); ctx.fillStyle=WHITE; ctx.font="700 22px Arial"; ctx.fillText(plannerMode === "target" ? (targetPeriod === "semester" ? "SEMESTER GPA REQUIRED" : "REQUIRED AVERAGE GPA ACROSS TARGET PERIOD") : "PROJECTED RESULT",100,478);
     const reportResult = plannerMode === "target" ? (targetSemesterPlan.requiredGpa > maxPoint ? "NOT POSSIBLE" : Math.max(0,targetSemesterPlan.requiredGpa).toFixed(2)) : Math.min(maxPoint, Math.max(0, projection.projectedCgpa)).toFixed(2);
     ctx.font="700 42px Arial"; ctx.fillText(reportResult,100,530); ctx.font="700 24px Arial";
     if (plannerMode === "target") ctx.fillText(`Target CGPA ${targetSemesterPlan.target.toFixed(2)} after ${targetSemesterPlan.units} units`,360,526);
@@ -323,7 +325,8 @@ export default function CgpaPlannerPage() {
     (plannerMode === "target" ? [] : projection.rows.slice(0,8)).forEach((row,index)=>{ctx.fillStyle=index%2?WHITE:"#f8fafc";ctx.fillRect(70,y,1100,55);ctx.fillStyle=DARK;ctx.fillText(`${row.level} ${row.term}`,90,y+34);ctx.fillText(String(row.units),490,y+34);ctx.fillText(String(row.points),605,y+34);ctx.fillText(row.gpa.toFixed(2),715,y+34);ctx.fillText(String(row.cumulativeUnits),850,y+34);ctx.font="700 16px Arial";ctx.fillStyle=GREEN;ctx.fillText(row.cgpa.toFixed(2),1050,y+34);ctx.font="400 16px Arial";y+=55;});
     if (plannerMode === "target") {
       ctx.fillStyle="#f8fafc"; ctx.fillRect(70,y,1100,70); ctx.fillStyle=DARK; ctx.font="400 17px Arial";
-      ctx.fillText(`${startStage} ${startTerm}`,90,y+42); ctx.fillText(String(targetSemesterPlan.units),490,y+42);
+      const targetPeriodLabel = targetPeriod === "future" ? `${targetFuturePeriods.length} semesters combined` : targetPeriod === "session" ? `${startStage} full session` : `${startStage} ${startTerm}`;
+      ctx.fillText(targetPeriodLabel,90,y+42); ctx.fillText(String(targetSemesterPlan.units),490,y+42);
       ctx.fillText(targetSemesterPlan.requiredGpa > maxPoint ? "-" : Math.ceil(Math.max(0,targetSemesterPlan.requiredPoints)).toString(),605,y+42);
       ctx.fillText(targetSemesterPlan.requiredGpa > maxPoint ? "-" : Math.max(0,targetSemesterPlan.requiredGpa).toFixed(2),715,y+42);
       ctx.fillText(String(targetSemesterPlan.oldUnits + targetSemesterPlan.units),850,y+42); ctx.fillStyle=GREEN; ctx.font="700 16px Arial"; ctx.fillText(targetSemesterPlan.target.toFixed(2),1050,y+42); y+=70;
@@ -332,14 +335,15 @@ export default function CgpaPlannerPage() {
         ctx.fillStyle=GREEN; ctx.fillRect(70,y,1100,44); ctx.fillStyle=WHITE; ctx.font="700 14px Arial";
         ["Course","Units","Grade","GP","Credit Point"].forEach((t,i)=>ctx.fillText(t,[90,560,700,830,970][i],y+28)); y+=44;
         targetGradeSuggestion.rows.forEach((row,index)=>{ctx.fillStyle=index%2?WHITE:"#f8fafc";ctx.fillRect(70,y,1100,42);ctx.fillStyle=DARK;ctx.font="400 14px Arial";ctx.fillText(row.code,90,y+27);ctx.fillText(String(row.units),570,y+27);ctx.font="700 14px Arial";ctx.fillStyle=GREEN;ctx.fillText(row.grade,710,y+27);ctx.fillStyle=DARK;ctx.fillText(row.point.toFixed(1),835,y+27);ctx.fillText(row.credit.toFixed(1),980,y+27);y+=42;});
-        y+=10; ctx.fillStyle=DARK_GREEN; ctx.font="700 16px Arial"; ctx.fillText(`Required GPA ${targetSemesterPlan.requiredGpa.toFixed(2)} | Suggested GPA ${targetGradeSuggestion.gpa.toFixed(2)} | Suggested CP ${targetGradeSuggestion.points.toFixed(1)}`,90,y); y+=20;
+        y+=10; ctx.fillStyle=DARK_GREEN; ctx.font="700 16px Arial"; ctx.fillText(`Required Average GPA ${targetSemesterPlan.requiredGpa.toFixed(2)} | Suggested GPA ${targetGradeSuggestion.gpa.toFixed(2)} | Suggested CP ${targetGradeSuggestion.points.toFixed(1)}`,90,y); y+=20;
       }
     }
-    y+=35; ctx.fillStyle="#dcfce7"; ctx.fillRect(70,y,1100,150); ctx.fillStyle=DARK_GREEN; ctx.font="700 21px Arial"; ctx.fillText("TARGET GUIDANCE",100,y+38);
-    ctx.font="400 17px Arial"; const words=targetStatus.split(" "); let line=""; let ly=y+72; for(const word of words){const test=line+word+" ";if(ctx.measureText(test).width>1020){ctx.fillText(line,100,ly);line=word+" ";ly+=25;}else line=test;}ctx.fillText(line,100,ly);
-    ctx.strokeStyle=BORDER; ctx.beginPath(); ctx.moveTo(70,1640); ctx.lineTo(1170,1640); ctx.stroke();
-    ctx.fillStyle=DARK; ctx.font="700 17px Arial"; ctx.fillText("S.O.H CONSULTS",70,1680); ctx.font="400 15px Arial"; ctx.fillText("WhatsApp: 0818 214 1088",775,1680); ctx.fillText("Oluyepeadetayo@gmail.com",775,1706);
-    const footerY = Math.max(1720, y + 70); ctx.fillStyle="#64748b"; ctx.font="400 13px Arial"; ctx.fillText("Projection only. Confirm your institution's official grading and retake rules.",70,footerY);
+    y+=35; ctx.font="400 17px Arial"; const words=targetStatus.split(" "); const guidanceLines:string[]=[]; let line=""; for(const word of words){const test=line+word+" ";if(ctx.measureText(test).width>1020){guidanceLines.push(line.trim());line=word+" ";}else line=test;} if(line.trim()) guidanceLines.push(line.trim());
+    const guidanceHeight=Math.max(150,92+guidanceLines.length*25); ctx.fillStyle="#dcfce7"; ctx.fillRect(70,y,1100,guidanceHeight); ctx.fillStyle=DARK_GREEN; ctx.font="700 21px Arial"; ctx.fillText("TARGET GUIDANCE",100,y+38);
+    ctx.font="400 17px Arial"; guidanceLines.forEach((text,index)=>ctx.fillText(text,100,y+72+index*25)); y+=guidanceHeight+45;
+    ctx.strokeStyle=BORDER; ctx.beginPath(); ctx.moveTo(70,y); ctx.lineTo(1170,y); ctx.stroke(); y+=40;
+    ctx.fillStyle=DARK; ctx.font="700 17px Arial"; ctx.fillText("S.O.H CONSULTS",70,y); ctx.font="400 15px Arial"; ctx.fillText("WhatsApp: 0818 214 1088",775,y); ctx.fillText("Oluyepeadetayo@gmail.com",775,y+26);
+    const footerY=y+66; ctx.fillStyle="#64748b"; ctx.font="400 13px Arial"; ctx.fillText("Projection only. Confirm your institution's official grading and retake rules.",70,footerY);
     return canvas;
   }
 
@@ -355,7 +359,9 @@ export default function CgpaPlannerPage() {
       pageCtx.drawImage(canvas,0,offsetY,canvas.width,sliceHeight,0,0,canvas.width,sliceHeight);
       if(pageIndex>0) pdf.addPage();
       const renderedHeight=pageWidth*(sliceHeight/canvas.width);
-      pdf.addImage(pageCanvas.toDataURL("image/jpeg",0.97),"JPEG",0,0,pageWidth,renderedHeight,undefined,"FAST");
+      const topMargin=pageIndex>0?14:0;
+      if(pageIndex>0){ pdf.setFontSize(9); pdf.setTextColor(6,78,59); pdf.text("S.O.H CONSULTS - Target CGPA Report (continued)",10,7); pdf.setTextColor(15,23,42); pdf.text("Course | Units | Grade | GP | Credit Point",10,11); }
+      pdf.addImage(pageCanvas.toDataURL("image/jpeg",0.97),"JPEG",0,topMargin,pageWidth,Math.min(renderedHeight,pageHeight-topMargin),undefined,"FAST");
       offsetY+=sliceHeight; pageIndex++;
     }
     pdf.save(`${reportName()}pdf`);
