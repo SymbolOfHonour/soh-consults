@@ -1,11 +1,13 @@
 name: Patch CGPA complete target report
+
 on:
-  workflow_dispatch:
   push:
     paths:
       - '.github/workflows/patch-cgpa-report.yml'
+
 permissions:
   contents: write
+
 jobs:
   patch:
     runs-on: ubuntu-latest
@@ -13,47 +15,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: fix/cgpa-complete-target-report
-      - name: Patch report rendering
-        shell: python
-        run: |
-          from pathlib import Path
-          p = Path('app/cgpa-calculator/planner/page.tsx')
-          s = p.read_text()
-          old = 'canvas.width = 1240; canvas.height = 1754;'
-          new = 'const reportRowCount = plannerMode === "target" ? targetGradeSuggestion.rows.length : 0;\n    const reportHeight = Math.max(1754, 1754 + Math.max(0, reportRowCount - 9) * 42);\n    canvas.width = 1240; canvas.height = reportHeight;'
-          assert old in s, 'canvas size anchor missing'
-          s = s.replace(old, new, 1)
-          old = 'ctx.fillStyle=WHITE; ctx.fillRect(0,0,1240,1754);'
-          new = 'ctx.fillStyle=WHITE; ctx.fillRect(0,0,1240,reportHeight);'
-          assert old in s, 'background anchor missing'
-          s = s.replace(old, new, 1)
-          old = 'targetGradeSuggestion.rows.slice(0,9).forEach((row,index)=>'
-          new = 'targetGradeSuggestion.rows.forEach((row,index)=>'
-          assert old in s, 'nine-row limit anchor missing'
-          s = s.replace(old, new, 1)
-          old = 'ctx.fillStyle="#64748b"; ctx.font="400 13px Arial"; ctx.fillText("Projection only. Confirm your institution\'s official grading and retake rules.",70,1720);'
-          new = 'const footerY = Math.max(1720, y + 70); ctx.fillStyle="#64748b"; ctx.font="400 13px Arial"; ctx.fillText("Projection only. Confirm your institution\'s official grading and retake rules.",70,footerY);'
-          assert old in s, 'footer anchor missing'
-          s = s.replace(old, new, 1)
-          old = 'const pdf=new jsPDF({orientation:"portrait",unit:"mm",format:"a4",compress:true});\n    pdf.addImage(canvas.toDataURL("image/jpeg",0.97),"JPEG",0,0,210,297,undefined,"FAST"); pdf.save(`${reportName()}pdf`);'
-          new = '''const pdf=new jsPDF({orientation:"portrait",unit:"mm",format:"a4",compress:true});
-    const pageWidth=210, pageHeight=297, pagePixelHeight=Math.floor(canvas.width*(pageHeight/pageWidth));
-    let offsetY=0, pageIndex=0;
-    while(offsetY<canvas.height){
-      const sliceHeight=Math.min(pagePixelHeight,canvas.height-offsetY);
-      const pageCanvas=document.createElement("canvas"); pageCanvas.width=canvas.width; pageCanvas.height=sliceHeight;
-      const pageCtx=pageCanvas.getContext("2d"); if(!pageCtx) throw new Error("Unable to create PDF page.");
-      pageCtx.drawImage(canvas,0,offsetY,canvas.width,sliceHeight,0,0,canvas.width,sliceHeight);
-      if(pageIndex>0) pdf.addPage();
-      const renderedHeight=pageWidth*(sliceHeight/canvas.width);
-      pdf.addImage(pageCanvas.toDataURL("image/jpeg",0.97),"JPEG",0,0,pageWidth,renderedHeight,undefined,"FAST");
-      offsetY+=sliceHeight; pageIndex++;
-    }
-    pdf.save(`${reportName()}pdf`);'''
-          assert old in s, 'PDF anchor missing'
-          s = s.replace(old, new, 1)
-          p.write_text(s)
-      - name: Commit patch
+      - name: Apply report patch
+        run: python scripts/patch-cgpa-report.py
+      - name: Commit report fix
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
