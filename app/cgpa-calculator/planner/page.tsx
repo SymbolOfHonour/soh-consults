@@ -290,10 +290,12 @@ export default function CgpaPlannerPage() {
   async function buildBrandedCgpaReportCanvas() {
     const logo = await loadLogo();
     const canvas = document.createElement("canvas");
-    canvas.width = 1240; canvas.height = 1754;
+    const reportRowCount = plannerMode === "target" ? targetGradeSuggestion.rows.length : 0;
+    const reportHeight = Math.max(1754, 1754 + Math.max(0, reportRowCount - 9) * 42);
+    canvas.width = 1240; canvas.height = reportHeight;
     const ctx = canvas.getContext("2d"); if (!ctx) throw new Error("Unable to create report.");
     const GREEN="#006837", DARK_GREEN="#064e3b", BRIGHT_GREEN="#16a34a", RED="#dc2626", DARK="#0f172a", LIGHT="#eef2f5", BORDER="#cbd5e1", WHITE="#ffffff";
-    ctx.fillStyle=WHITE; ctx.fillRect(0,0,1240,1754);
+    ctx.fillStyle=WHITE; ctx.fillRect(0,0,1240,reportHeight);
     ctx.beginPath(); ctx.moveTo(1025,0); ctx.lineTo(1240,0); ctx.lineTo(1240,185); ctx.closePath(); ctx.fillStyle="#062f28"; ctx.fill();
     ctx.beginPath(); ctx.moveTo(1075,0); ctx.lineTo(1240,0); ctx.lineTo(1240,135); ctx.closePath(); ctx.fillStyle="#00853f"; ctx.fill();
     ctx.beginPath(); ctx.moveTo(1135,0); ctx.lineTo(1240,0); ctx.lineTo(1240,78); ctx.closePath(); ctx.fillStyle=BRIGHT_GREEN; ctx.fill();
@@ -329,7 +331,7 @@ export default function CgpaPlannerPage() {
         y+=22; ctx.fillStyle=DARK; ctx.font="700 22px Arial"; ctx.fillText("SUGGESTED GRADE COMBINATION",70,y); y+=22;
         ctx.fillStyle=GREEN; ctx.fillRect(70,y,1100,44); ctx.fillStyle=WHITE; ctx.font="700 14px Arial";
         ["Course","Units","Grade","GP","Credit Point"].forEach((t,i)=>ctx.fillText(t,[90,560,700,830,970][i],y+28)); y+=44;
-        targetGradeSuggestion.rows.slice(0,9).forEach((row,index)=>{ctx.fillStyle=index%2?WHITE:"#f8fafc";ctx.fillRect(70,y,1100,42);ctx.fillStyle=DARK;ctx.font="400 14px Arial";ctx.fillText(row.code,90,y+27);ctx.fillText(String(row.units),570,y+27);ctx.font="700 14px Arial";ctx.fillStyle=GREEN;ctx.fillText(row.grade,710,y+27);ctx.fillStyle=DARK;ctx.fillText(row.point.toFixed(1),835,y+27);ctx.fillText(row.credit.toFixed(1),980,y+27);y+=42;});
+        targetGradeSuggestion.rows.forEach((row,index)=>{ctx.fillStyle=index%2?WHITE:"#f8fafc";ctx.fillRect(70,y,1100,42);ctx.fillStyle=DARK;ctx.font="400 14px Arial";ctx.fillText(row.code,90,y+27);ctx.fillText(String(row.units),570,y+27);ctx.font="700 14px Arial";ctx.fillStyle=GREEN;ctx.fillText(row.grade,710,y+27);ctx.fillStyle=DARK;ctx.fillText(row.point.toFixed(1),835,y+27);ctx.fillText(row.credit.toFixed(1),980,y+27);y+=42;});
         y+=10; ctx.fillStyle=DARK_GREEN; ctx.font="700 16px Arial"; ctx.fillText(`Required GPA ${targetSemesterPlan.requiredGpa.toFixed(2)} | Suggested GPA ${targetGradeSuggestion.gpa.toFixed(2)} | Suggested CP ${targetGradeSuggestion.points.toFixed(1)}`,90,y); y+=20;
       }
     }
@@ -337,14 +339,26 @@ export default function CgpaPlannerPage() {
     ctx.font="400 17px Arial"; const words=targetStatus.split(" "); let line=""; let ly=y+72; for(const word of words){const test=line+word+" ";if(ctx.measureText(test).width>1020){ctx.fillText(line,100,ly);line=word+" ";ly+=25;}else line=test;}ctx.fillText(line,100,ly);
     ctx.strokeStyle=BORDER; ctx.beginPath(); ctx.moveTo(70,1640); ctx.lineTo(1170,1640); ctx.stroke();
     ctx.fillStyle=DARK; ctx.font="700 17px Arial"; ctx.fillText("S.O.H CONSULTS",70,1680); ctx.font="400 15px Arial"; ctx.fillText("WhatsApp: 0818 214 1088",775,1680); ctx.fillText("Oluyepeadetayo@gmail.com",775,1706);
-    ctx.fillStyle="#64748b"; ctx.font="400 13px Arial"; ctx.fillText("Projection only. Confirm your institution's official grading and retake rules.",70,1720);
+    const footerY = Math.max(1720, y + 70); ctx.fillStyle="#64748b"; ctx.font="400 13px Arial"; ctx.fillText("Projection only. Confirm your institution's official grading and retake rules.",70,footerY);
     return canvas;
   }
 
   async function downloadPdf() {
     const { jsPDF } = await import("jspdf"); const canvas=await buildBrandedCgpaReportCanvas();
     const pdf=new jsPDF({orientation:"portrait",unit:"mm",format:"a4",compress:true});
-    pdf.addImage(canvas.toDataURL("image/jpeg",0.97),"JPEG",0,0,210,297,undefined,"FAST"); pdf.save(`${reportName()}pdf`);
+    const pageWidth=210, pageHeight=297, pagePixelHeight=Math.floor(canvas.width*(pageHeight/pageWidth));
+    let offsetY=0, pageIndex=0;
+    while(offsetY<canvas.height){
+      const sliceHeight=Math.min(pagePixelHeight,canvas.height-offsetY);
+      const pageCanvas=document.createElement("canvas"); pageCanvas.width=canvas.width; pageCanvas.height=sliceHeight;
+      const pageCtx=pageCanvas.getContext("2d"); if(!pageCtx) throw new Error("Unable to create PDF page.");
+      pageCtx.drawImage(canvas,0,offsetY,canvas.width,sliceHeight,0,0,canvas.width,sliceHeight);
+      if(pageIndex>0) pdf.addPage();
+      const renderedHeight=pageWidth*(sliceHeight/canvas.width);
+      pdf.addImage(pageCanvas.toDataURL("image/jpeg",0.97),"JPEG",0,0,pageWidth,renderedHeight,undefined,"FAST");
+      offsetY+=sliceHeight; pageIndex++;
+    }
+    pdf.save(`${reportName()}pdf`);
   }
 
   async function downloadImage() {
