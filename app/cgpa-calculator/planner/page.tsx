@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { REPORT_TAGLINE } from "@/data/branding";
 
 type System = "lasu" | "university-5" | "university-4" | "polytechnic-4" | "nce-5" | "nce-4";
 type EntryMode = "utme" | "direct-entry";
@@ -307,7 +308,7 @@ export default function CgpaPlannerPage() {
     ctx.fillStyle=WHITE; ctx.fillRect(78,55,150,150); ctx.drawImage(logo,88,65,130,130);
     ctx.fillStyle=GREEN; ctx.font="700 42px Arial"; ctx.fillText("S.O.H CONSULTS",270,90);
     ctx.fillStyle=DARK; ctx.font="700 27px Arial"; ctx.fillText(plannerMode === "target" ? "TARGET CGPA ACTION REPORT" : "CGPA ACADEMIC PROJECTION REPORT",270,132);
-    ctx.font="400 20px Arial"; ctx.fillStyle="#475569"; ctx.fillText("Your Guide. Your Success.",270,168);
+    ctx.font="400 20px Arial"; ctx.fillStyle="#475569"; ctx.fillText(REPORT_TAGLINE,270,168);
     ctx.fillStyle=LIGHT; ctx.fillRect(70,245,1100,155); ctx.fillStyle=DARK; ctx.font="700 23px Arial";
     ctx.fillText(studentName || "Student Projection",100,290); ctx.font="400 18px Arial";
     ctx.fillText(programme || "Programme not provided",100,325); ctx.fillText(systemLabel(system),100,358);
