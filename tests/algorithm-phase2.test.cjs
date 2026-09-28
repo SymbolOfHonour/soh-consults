@@ -5,15 +5,15 @@ const engine=fs.readFileSync('lib/ranking-engine.ts','utf8');
 const phase2=fs.readFileSync('lib/algorithm-phase2.ts','utf8');
 
 test('ranking engine contains expiry and stale breaking safeguards',()=>{
-  assert.match(engine,/deadline\.getTime\(\)\s*<\s*now\.getTime\(\)/);
-  assert.match(engine,/item\.isBreaking\s*&&\s*age\s*>\s*7/);
+  assert.ok(engine.includes('deadline.getTime()<now.getTime()') || engine.includes('deadline.getTime() < now.getTime()'));
+  assert.ok(engine.includes('item.isBreaking&&age>7') || engine.includes('item.isBreaking && age > 7'));
 });
 
 test('engagement is logarithmically capped and recent engagement is supported',()=>{
   assert.match(engine,/Math\.log10/);
   assert.match(engine,/recentViews/);
   assert.match(engine,/recentClicks/);
-  assert.match(engine,/clamp\(lifetime\s*\+\s*recent,\s*0,\s*10\)/);
+  assert.ok(engine.includes('clamp(lifetime+recent,0,10)') || engine.includes('clamp(lifetime + recent, 0, 10)'));
 });
 
 test('Phase 2 centralizes unified search related trending and session interests',()=>{
@@ -24,6 +24,6 @@ test('Phase 2 centralizes unified search related trending and session interests'
 });
 
 test('related content excludes current item and unified search requires relevance',()=>{
-  assert.match(phase2,/item\.id\s*!==\s*current\.id/);
-  assert.match(phase2,/breakdown\.relevance\s*>\s*0/);
+  assert.ok(phase2.includes('item.id!==current.id') || phase2.includes('item.id !== current.id'));
+  assert.ok(phase2.includes('result.breakdown.relevance>0') || phase2.includes('result.breakdown.relevance > 0'));
 });
