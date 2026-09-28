@@ -23,6 +23,14 @@ export const metadata: Metadata = {
   keywords: ["S.O.H CONSULTS","LASU aggregate calculator","LASU admission","LASU admission calculator","LASU eligibility checker","admission opportunities Nigeria","JAMB services","JAMB admission","education updates Nigeria","admission guidance","Post UTME registration","Direct Entry admission"],
   authors: [{ name: "S.O.H CONSULTS" }], creator: "S.O.H CONSULTS", publisher: "S.O.H CONSULTS",
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1 } },
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/icons/icon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    shortcut: "/icon.png",
+    apple: "/icons/icon-192.png",
+  },
   openGraph: { type: "website", title: "S.O.H CONSULTS | Admission, Education & Consultation", description: "Admission guidance, educational opportunities, JAMB support and the LASU Aggregate & Eligibility Checker.", siteName: "S.O.H CONSULTS", url: siteUrl, images: [{ url: "/soh-logo.jpg", alt: "S.O.H CONSULTS" }] },
   manifest: "/manifest.webmanifest", verification: { google: "BdoiW3GoHdajYLbbLSmm-UQpo3YrjBAAWT2NpoKTcBs" },
 };
