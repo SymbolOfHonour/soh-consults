@@ -1,0 +1,70 @@
+import { rankContent, type RankableContent, type RankingContext } from "./ranking-engine";
+
+export type DiscoveryKind = "update" | "opportunity" | "deadline" | "guide";
+export type DiscoveryItem = RankableContent & { id: string; href: string; kind: DiscoveryKind; keywords?: string[] };
+export type VisitorInterests = { institutions?: string[]; categories?: string[] };
+
+const normalise=(v?:string)=>(v||"").trim().toLowerCase();
+const tokens=(v?:string)=>normalise(v).split(/[^a-z0-9]+/).filter(Boolean);
+
+export function personalisedContext(base: RankingContext, interests?: VisitorInterests): RankingContext {
+  if (!interests) return base;
+  return {
+    ...base,
+    institution: base.institution || interests.institutions?.[0],
+    category: base.category || interests.categories?.[0],
+  };
+}
+
+export function unifiedSearch<T extends DiscoveryItem>(items:T[], query:string, context:RankingContext={}, interests?:VisitorInterests){
+  const q=query.trim();
+  if(!q) return rankContent(items, personalisedContext(context, interests));
+  return rankContent(items, personalisedContext({...context,query:q}, interests)).filter(result=>result.breakdown.relevance>0);
+}
+
+export function relatedContent<T extends DiscoveryItem>(current:T, candidates:T[], limit=6){
+  const currentTokens=new Set(tokens(`${current.title} ${current.summary||""} ${(current.keywords||[]).join(" ")}`));
+  return rankContent(candidates.filter(item=>item.id!==current.id).map(item=>{
+    const overlap=tokens(`${item.title} ${item.summary||""} ${(item.keywords||[]).join(" ")}`).filter(t=>currentTokens.has(t)).length;
+    return {...item, clicks:(item.clicks||0)+Math.min(overlap,6)};
+  }),{institution:current.institution,category:current.category}).slice(0,limit);
+}
+
+export function trendingContent<T extends DiscoveryItem>(items:T[], now=new Date(), limit=8){
+  return rankContent(items.map(item=>{
+    const published=item.publishedAt?new Date(item.publishedAt):null;
+    const ageHours=published&&!Number.isNaN(published.getTime())?Math.max(1,(now.getTime()-published.getTime())/3_600_000):720;
+    const velocity=((item.views||0)+(item.clicks||0)*3)/Math.max(12,ageHours);
+    return {...item,clicks:(item.clicks||0)+Math.min(50,velocity*10)};
+  }),{now}).slice(0,limit);
+}
+
+export function rankingReasons(item:RankableContent, context:RankingContext={}){
+  const result=rankContent([item],context)[0];
+  if(!result) return [];
+  const b=result.breakdown;
+  return [
+    b.relevance>0&&"Matches the visitor's search",
+    b.freshness>=12&&"Recently published",
+    b.urgency>=11&&"Deadline is approaching",
+    b.authority>=10&&"Official/authoritative source",
+    b.importance>=6&&"High-value admission information",
+    b.engagement>=4&&"Receiving meaningful engagement",
+    b.context>=6&&"Matches visitor context",
+    b.stalenessPenalty>0&&"Reduced for age or expiry",
+  ].filter(Boolean) as string[];
+}
+
+export const SESSION_INTEREST_KEY="soh:visitor-interests:v1";
+export function recordSessionInterest(institution?:string,category?:string){
+  if(typeof window==="undefined")return;
+  try{
+    const previous=JSON.parse(sessionStorage.getItem(SESSION_INTEREST_KEY)||"{}") as VisitorInterests;
+    const add=(values:string[]=[],value?:string)=>value?[value,...values.filter(v=>normalise(v)!==normalise(value))].slice(0,5):values;
+    sessionStorage.setItem(SESSION_INTEREST_KEY,JSON.stringify({institutions:add(previous.institutions,institution),categories:add(previous.categories,category)}));
+  }catch{}
+}
+export function readSessionInterests():VisitorInterests{
+  if(typeof window==="undefined")return{};
+  try{return JSON.parse(sessionStorage.getItem(SESSION_INTEREST_KEY)||"{}") as VisitorInterests;}catch{return{};}
+}
