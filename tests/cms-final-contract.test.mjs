@@ -1,0 +1,1 @@
+import test from"node:test";import assert from"node:assert/strict";import fs from"node:fs";test("CMS public connection is complete",()=>{assert.ok(fs.existsSync("components/CmsHomepage.tsx"));assert.ok(fs.existsSync("app/homepage-server.tsx"));assert.match(fs.readFileSync("app/page.tsx","utf8"),/homepage-server/)})

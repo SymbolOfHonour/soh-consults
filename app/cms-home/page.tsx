@@ -1,4 +1,4 @@
-import HomepageServer from "./homepage-server";
+import HomepageServer from "../homepage-server";
 
 export const dynamic = "force-dynamic";
 
