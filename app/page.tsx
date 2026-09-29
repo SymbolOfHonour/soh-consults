@@ -1,1 +1,5 @@
-export { default, dynamic } from "./homepage-server";
+import HomepageServer from "./homepage-server";
+
+export const dynamic = "force-dynamic";
+
+export default HomepageServer;
