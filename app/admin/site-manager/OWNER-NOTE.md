@@ -1,0 +1,1 @@
+The Site Manager is intentionally designed for non-technical operation. If a setting needs raw code, a secret value, SQL, or a deployment command, it does not belong in an ordinary owner-facing form. Build a validated control for the business need instead.
