@@ -1,0 +1,1 @@
+import test from"node:test";test("CMS-driven homepage QA marker",()=>{});
