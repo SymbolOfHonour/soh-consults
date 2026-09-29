@@ -1,0 +1,1 @@
+Owner controls are validated business settings, not a raw-code editor. Sensitive configuration remains in deployment secrets and developer-managed infrastructure. This prevents an accidental content edit from disabling authentication, exposing keys or corrupting database structure.

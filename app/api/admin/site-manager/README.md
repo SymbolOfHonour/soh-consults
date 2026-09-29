@@ -1,0 +1,1 @@
+All writes require the existing Admin authentication check and are sanitized server-side. Do not accept arbitrary code, SQL, HTML scripts, environment-secret values or unvalidated configuration through this route.
