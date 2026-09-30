@@ -15,10 +15,8 @@
  .soh-article-shell{padding-top:.8rem!important;padding-bottom:1.5rem!important}.soh-article-card{border-radius:0!important;border-left:0!important;border-right:0!important;padding:1rem!important;box-shadow:none!important}.soh-article-card p{font-size:1rem;line-height:1.7}.soh-featured-image{margin-bottom:1.15rem!important;border-radius:.8rem!important}.soh-related{border-radius:1rem!important}
  .soh-compact-header img{height:42px!important}.soh-compact-header{padding-top:.5rem!important;padding-bottom:.5rem!important}.soh-whatsapp-label{padding:.65rem!important;font-size:0!important;width:42px;height:42px;display:grid!important;place-items:center}.soh-whatsapp-label:after{content:"WA";font-size:.72rem;font-weight:900}
  .soh-floating-safe{bottom:calc(var(--mobile-nav-height) + 12px + env(safe-area-inset-bottom))!important}
- /* Public CMS homepage: use nearly the full phone width, with only a compact edge gutter. */
- .soh-cms-shell{padding-left:10px!important;padding-right:10px!important}
- .soh-cms-hero{padding-left:10px!important;padding-right:10px!important}
- .soh-cms-header{padding-left:10px!important;padding-right:10px!important}
+ /* Public CMS homepage: almost full phone width with a compact 10px edge gutter. */
+ main>section>div.max-w-\[1440px\],main>header>div.max-w-\[1440px\]{padding-left:10px!important;padding-right:10px!important}
 }
 /* CMS visibility QA: resolve contradictory Tailwind display utilities when two adjacent device classes are disabled. */
 @media(min-width:640px) and (max-width:1023px){.hidden.sm\:block.sm\:hidden{display:none!important}}
