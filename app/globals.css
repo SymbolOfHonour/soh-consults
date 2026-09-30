@@ -18,3 +18,9 @@
 @media(min-width:640px) and (max-width:1023px){.hidden.sm\:block.sm\:hidden{display:none!important}}
 @media(min-width:1024px){.sm\:hidden.lg\:block.lg\:hidden{display:none!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* Keep article links recognisable despite the global anchor reset. */
+a.soh-article-link{color:#075738;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;font-weight:700;background:#edf6ef;border-radius:4px;padding:1px 3px;overflow-wrap:anywhere;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+a.soh-article-link::after{content:"\00a0↗";font-size:.8em;white-space:nowrap}
+a.soh-article-link:hover{color:#043b29;background:#dcefe1;text-decoration-thickness:3px}
+a.soh-article-link:focus-visible{outline:3px solid #087245;outline-offset:3px}
