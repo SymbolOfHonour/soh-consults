@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 
 // Keep the existing navigation and assistant at finger-friendly sizes while
-// the article uses the browser's native wide viewport and pinch zoom.
-export default function ArticleViewportControls() {
+// every page uses the browser's native wide viewport and pinch zoom.
+export default function WideViewportControls() {
   useEffect(() => {
     const viewport = window.visualViewport;
     if (!viewport || !window.matchMedia("(pointer: coarse)").matches) return;
@@ -12,7 +12,7 @@ export default function ArticleViewportControls() {
     const names = ["--soh-zoom-inverse", "--soh-visual-left", "--soh-visual-top", "--soh-visual-width", "--soh-visual-height", "--soh-screen-width"];
     let frame = 0;
     const update = () => {
-      root.dataset.sohArticleTouch = "true";
+      root.dataset.sohWideTouch = "true";
       root.style.setProperty(names[0], String(1 / viewport.scale));
       root.style.setProperty(names[1], `${viewport.offsetLeft}px`);
       root.style.setProperty(names[2], `${viewport.offsetTop}px`);
@@ -28,7 +28,7 @@ export default function ArticleViewportControls() {
       cancelAnimationFrame(frame);
       viewport.removeEventListener("resize", schedule);
       viewport.removeEventListener("scroll", schedule);
-      delete root.dataset.sohArticleTouch;
+      delete root.dataset.sohWideTouch;
       names.forEach(name => root.style.removeProperty(name));
     };
   }, []);
