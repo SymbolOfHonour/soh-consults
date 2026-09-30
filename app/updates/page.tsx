@@ -1,9 +1,21 @@
+import type { Metadata } from "next";
 import SiteContact from "../components/SiteContact";
 import UpdatesExplorer from "../components/UpdatesExplorer";
 import { listPublishedStories } from "../../lib/news-queue";
 
-const WHATSAPP_NUMBER = "2348182141088";
+export const metadata: Metadata = {
+  title: "Latest Admission & Education Updates",
+  description: "Latest Nigerian admission, JAMB and education updates from S.O.H CONSULTS, simplified for students and applicants.",
+  alternates: { canonical: "/updates" },
+  openGraph: {
+    type: "website",
+    title: "Latest Admission & Education Updates | S.O.H CONSULTS",
+    description: "Latest Nigerian admission, JAMB and education updates simplified for students and applicants.",
+    url: "/updates",
+  },
+};
 
+const WHATSAPP_NUMBER = "2348182141088";
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
@@ -16,7 +28,6 @@ export default async function UpdatesPage() {
           <a href="/" className="flex items-center gap-3">
             <img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto object-contain" />
           </a>
-
           <nav className="hidden items-center gap-6 text-sm font-semibold md:flex">
             <a href="/" className="transition hover:text-green-700">Home</a>
             <a href="/updates" className="text-green-700">Latest Updates</a>
@@ -25,35 +36,18 @@ export default async function UpdatesPage() {
             <a href="/guides" className="transition hover:text-green-700">Guides</a>
             <a href="/screening-calculator" className="transition hover:text-green-700">Screening Calculator</a>
           </nav>
-
-          <a
-            href={whatsappLink("Hello S.O.H CONSULTS, I need assistance with an admission or educational service.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-green-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-green-800"
-          >
-            WhatsApp Us
-          </a>
+          <a href={whatsappLink("Hello S.O.H CONSULTS, I need assistance with an admission or educational service.")} target="_blank" rel="noopener noreferrer" className="rounded-full bg-green-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-green-800">WhatsApp Us</a>
         </div>
       </header>
-
       <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 py-16 text-white">
         <div className="mx-auto max-w-5xl px-5 text-center lg:px-8">
           <p className="font-bold uppercase tracking-widest text-green-300">S.O.H CONSULTS</p>
           <h1 className="mt-3 text-4xl font-black sm:text-5xl">Latest Updates</h1>
-          <p className="mx-auto mt-5 max-w-2xl leading-8 text-green-50">
-            Important admission, JAMB and education updates simplified for students and applicants.
-          </p>
+          <p className="mx-auto mt-5 max-w-2xl leading-8 text-green-50">Important admission, JAMB and education updates simplified for students and applicants.</p>
         </div>
       </section>
-
-      <section className="py-16">
-        <div className="mx-auto max-w-5xl px-5 lg:px-8">
-          <UpdatesExplorer importedStories={importedStories} />
-        </div>
-      </section>
-    <SiteContact />
-
+      <section className="py-16"><div className="mx-auto max-w-5xl px-5 lg:px-8"><UpdatesExplorer importedStories={importedStories} /></div></section>
+      <SiteContact />
     </main>
   );
 }
