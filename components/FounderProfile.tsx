@@ -70,7 +70,7 @@ function Emphasis({ text }: { text: string }) {
   return <>{text.split(/(\*\*[^*]+\*\*)/g).map((part, i) => part.startsWith("**") ? <strong key={i}>{part.slice(2, -2)}</strong> : part)}</>;
 }
 
-export default function FounderProfile() {
+export default function FounderProfile({ preview = false }: { preview?: boolean }) {
   return <section aria-labelledby="founder-heading" className="rounded-2xl border border-[#e2e5dc] bg-white p-5 shadow-sm sm:p-6">
     <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
       <img src="/founder.jpg" alt="Oluyepe Adetayo Sunday, founder of S.O.H CONSULTS" className="h-44 w-36 shrink-0 rounded-xl object-cover object-top sm:h-48" />
@@ -79,8 +79,9 @@ export default function FounderProfile() {
         <h2 id="founder-heading" className="mt-2 text-2xl font-black sm:text-3xl">Oluyepe Adetayo Sunday</h2>
         <p className="mt-2 font-bold text-[#075738]">Founder, S.O.H CONSULTS · B.Sc. Marketing</p>
         <div className="mt-5 space-y-4 text-base leading-7 text-[#52615a]">
-          {biography.split("\n\n").map((part, i) => part.startsWith("### ") ? <h3 key={i} className="break-words pt-4 text-lg font-black text-[#102720]">{part.slice(4)}</h3> : <p key={i} className="whitespace-pre-line"><Emphasis text={part} /></p>)}
+          {(preview ? biography.split("\n\n").slice(0, 1) : biography.split("\n\n")).map((part, i) => part.startsWith("### ") ? <h3 key={i} className="break-words pt-4 text-lg font-black text-[#102720]">{part.slice(4)}</h3> : <p key={i} className="whitespace-pre-line"><Emphasis text={part} /></p>)}
         </div>
+        {preview && <a href="/about" className="mt-5 inline-block rounded-lg bg-[#edf6ef] px-4 py-2 text-sm font-bold text-[#075738] hover:bg-[#dcefe1]">Read More →</a>}
       </div>
     </div>
   </section>;
