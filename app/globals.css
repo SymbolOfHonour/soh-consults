@@ -28,3 +28,26 @@ a.soh-article-link{color:#075738;text-decoration:underline;text-decoration-thick
 a.soh-article-link::after{content:"\00a0↗";font-size:.8em;white-space:nowrap}
 a.soh-article-link:hover{color:#043b29;background:#dcefe1;text-decoration-thickness:3px}
 a.soh-article-link:focus-visible{outline:3px solid #087245;outline-offset:3px}
+
+/* Keep latest updates beside the article on phones, with compact sidebar cards. */
+@media(max-width:639px){
+ .soh-article-columns{grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:8px;padding-inline:8px}
+ .soh-article-columns .soh-article-card{padding:10px!important;border:1px solid #e5e7eb!important;border-radius:12px!important;overflow-wrap:anywhere}
+ .soh-article-columns .soh-article-card p{font-size:.9rem;line-height:1.6}
+ .soh-update-sidebar{margin-inline:0}
+ .soh-update-sidebar section{padding:8px;border-radius:12px}
+ .soh-update-sidebar section>div:first-child{flex-wrap:wrap;gap:4px}
+ .soh-update-sidebar h2{font-size:.85rem;line-height:1.3}
+ .soh-update-sidebar section>div.mt-3{grid-template-columns:minmax(0,1fr)}
+ .soh-update-sidebar a.grid{grid-template-columns:minmax(0,1fr);gap:6px}
+ .soh-update-sidebar a.grid img,.soh-update-sidebar a.grid>div{width:100%;height:64px}
+ .soh-update-sidebar a.grid span.text-sm{font-size:.72rem;line-height:1.35;-webkit-line-clamp:4}
+ .soh-update-sidebar .soh-related a span{font-size:.72rem;line-height:1.35}
+}
+@media(min-width:640px) and (max-width:1023px){
+ .soh-article-columns{grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px}
+ .soh-update-sidebar section>div.mt-3{grid-template-columns:minmax(0,1fr)}
+ .soh-update-sidebar a.grid{grid-template-columns:minmax(0,1fr)}
+ .soh-update-sidebar a.grid img,.soh-update-sidebar a.grid>div{width:100%;height:90px}
+ .soh-update-sidebar section>div:first-child{flex-wrap:wrap;gap:4px}
+}
