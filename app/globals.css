@@ -40,3 +40,10 @@ a.soh-article-link:focus-visible{outline:3px solid #087245;outline-offset:3px}
  .soh-update-sidebar a.grid span.text-sm{font-size:.72rem;line-height:1.35;-webkit-line-clamp:4}
  .soh-update-sidebar .soh-related a span{font-size:.72rem;line-height:1.35}
 }
+@media(min-width:640px) and (max-width:1023px){
+ .soh-article-columns{grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px}
+ .soh-update-sidebar section>div.mt-3{grid-template-columns:minmax(0,1fr)}
+ .soh-update-sidebar a.grid{grid-template-columns:minmax(0,1fr)}
+ .soh-update-sidebar a.grid img,.soh-update-sidebar a.grid>div{width:100%;height:90px}
+ .soh-update-sidebar section>div:first-child{flex-wrap:wrap;gap:4px}
+}
