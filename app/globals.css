@@ -50,3 +50,4 @@ html[data-soh-article-touch] button[aria-label="Open Ask S.O.H admission assista
 html[data-soh-article-touch] button[aria-label="Open Ask S.O.H admission assistant"]>span:first-child{width:32px;height:32px;font-size:18px}
 html[data-soh-article-touch] button[aria-label="Open Ask S.O.H admission assistant"]>span:last-child:not(:first-child){position:absolute;right:2px;top:2px;width:8px;height:8px}
 html[data-soh-article-touch] section[aria-label="Ask S.O.H admission assistant"]{left:calc(var(--soh-visual-left) + 12px * var(--soh-zoom-inverse));top:calc(var(--soh-visual-top) + 12px * var(--soh-zoom-inverse));right:auto;bottom:auto;width:calc(var(--soh-screen-width) - 24px);max-height:calc(var(--soh-visual-height) / var(--soh-zoom-inverse) - 88px);transform:scale(var(--soh-zoom-inverse));transform-origin:top left}
+html[data-soh-article-touch] button[aria-label="Open Ask S.O.H admission assistant"]{transition-property:background-color}
