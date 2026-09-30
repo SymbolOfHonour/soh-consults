@@ -14,4 +14,7 @@
  .soh-compact-header img{height:42px!important}.soh-compact-header{padding-top:.5rem!important;padding-bottom:.5rem!important}.soh-whatsapp-label{padding:.65rem!important;font-size:0!important;width:42px;height:42px;display:grid!important;place-items:center}.soh-whatsapp-label:after{content:"WA";font-size:.72rem;font-weight:900}
  .soh-floating-safe{bottom:calc(var(--mobile-nav-height) + 12px + env(safe-area-inset-bottom))!important}
 }
+/* CMS visibility QA: resolve contradictory Tailwind display utilities when two adjacent device classes are disabled. */
+@media(min-width:640px) and (max-width:1023px){.hidden.sm\:block.sm\:hidden{display:none!important}}
+@media(min-width:1024px){.sm\:hidden.lg\:block.lg\:hidden{display:none!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
