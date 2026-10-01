@@ -1,5 +1,7 @@
 # PDF and video attachments
 
+This records the initial attachment implementation. The 4 MiB upload flow described below has been superseded by `docs/direct-article-uploads-2026-10-01.md`.
+
 The new and edit article screens now offer **+ PDF attachment** and **+ Video** content blocks. Multiple attachments can be moved or removed like other article blocks. PDF files open in a new tab; video watch links open the hosting website. Uploaded MP4/WebM files display in a responsive video player with controls, inline mobile playback, metadata-only preloading and no autoplay. Existing legacy articles, images, galleries, typography and top-level document attachments remain compatible.
 
 Uploads use the existing authenticated admin endpoint and `news-attachments` bucket. The server checks the declared MIME against the file signature and rejects empty files and files over 4 MiB. The client reports the limit before sending a large file. The conservative limit leaves room below Vercel's 4.5 MB request ceiling. Larger PDFs/videos can use hosted HTTPS links. Video pages such as YouTube should use Watch link; Video player requires a direct media-file URL. HTTPS links with embedded credentials are rejected. The service-role key remains server-only. Saving and publishing are disabled while a content-block upload is in progress.

@@ -1,3 +1,4 @@
+import {storageConnectSources} from "./lib/storage-origin";
 import { NextResponse, type NextRequest } from "next/server";
 
 /** Guard state-changing admin API requests before they reach route handlers. */
@@ -6,7 +7,7 @@ export function proxy(request: NextRequest) {
   if(!path.startsWith("/api/admin/")) {
     const nonce=Buffer.from(crypto.randomUUID()).toString("base64");
     const privatePage=path==="/admin"||path.startsWith("/admin/");
-    const csp=privatePage?"default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; media-src 'self' https:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:":`object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; script-src 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline' 'unsafe-eval' https: http:; upgrade-insecure-requests`;
+    const csp=privatePage?`default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; media-src 'self' https:; font-src 'self' data:; connect-src 'self' ${storageConnectSources()}; worker-src 'self' blob:`:`object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; script-src 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline' 'unsafe-eval' https: http:; upgrade-insecure-requests`;
     const h=new Headers(request.headers);h.set("x-nonce",nonce);h.set("x-private-page",String(privatePage));h.set("Content-Security-Policy",csp);
     const response=NextResponse.next({request:{headers:h}});response.headers.set("Content-Security-Policy",csp);
     if(privatePage) {response.headers.set("X-Robots-Tag","noindex, nofollow");response.headers.set("Cache-Control","private, no-store");}

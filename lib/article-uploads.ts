@@ -1,4 +1,5 @@
-export const MAX_ARTICLE_UPLOAD_BYTES = 4 * 1024 * 1024;
+export const MAX_ARTICLE_UPLOAD_BYTES = 50 * 1024 * 1024;
+export const ARTICLE_UPLOAD_LIMITS = {image:10 * 1024 * 1024,document:10 * 1024 * 1024,video:MAX_ARTICLE_UPLOAD_BYTES} as const;
 export type ArticleUploadKind = "image" | "document" | "video";
 const types:Record<ArticleUploadKind,string[]> = {image:["image/jpeg","image/png","image/webp"],document:["application/pdf"],video:["video/mp4","video/webm"]};
 export async function detectedArticleFileType(file:File):Promise<string|null> {
@@ -16,8 +17,15 @@ export async function detectedArticleFileType(file:File):Promise<string|null> {
   return null;
 }
 export async function uploadValidationError(file:File,kind:ArticleUploadKind):Promise<string|null> {
-  if(!file.size || file.size>MAX_ARTICLE_UPLOAD_BYTES)return "Upload a nonempty file up to 4 MB. For larger files, paste a hosted HTTPS link.";
+  const metadataError=articleUploadMetadataError(file.size,file.type,kind);if(metadataError)return metadataError;
   const actual=await detectedArticleFileType(file);
   if(!types[kind].includes(file.type)||actual!==file.type)return kind==="video"?"Use a genuine MP4 or WebM video.":kind==="document"?"Use a genuine PDF document.":"Use a genuine JPG, PNG or WebP image.";
+  return null;
+}
+
+export function articleUploadMetadataError(size:number,type:string,kind:ArticleUploadKind):string|null {
+  if(!Object.hasOwn(types,kind))return "Unsupported upload kind.";
+  if(!Number.isSafeInteger(size)||size<=0||size>ARTICLE_UPLOAD_LIMITS[kind])return `Upload a nonempty file up to ${ARTICLE_UPLOAD_LIMITS[kind]/1024/1024} MB. For larger files, paste a hosted HTTPS link.`;
+  if(!types[kind].includes(type))return "Use a supported image, PDF, MP4 or WebM file.";
   return null;
 }

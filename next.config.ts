@@ -1,3 +1,4 @@
+import {storageConnectSources} from "./lib/storage-origin";
 import type { NextConfig } from "next";
 
 const privateCsp = [
@@ -11,7 +12,7 @@ const privateCsp = [
   "img-src 'self' data: blob: https:",
   "media-src 'self' https:",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  `connect-src 'self' ${storageConnectSources()}`,
   "worker-src 'self' blob:",
   "manifest-src 'self'",
 ].join("; ");
