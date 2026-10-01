@@ -11,6 +11,13 @@ test('registered programmes and alternative-only subjects remain discoverable',(
  for(const name of ['Music','Arabic','Computer Studies','Physical and Health Education'])assert.ok(utme.includes(name));
  for(const name of ['Civic Education','Marketing','Book Keeping','Further Mathematics','Data Processing'])assert.ok(!utme.includes(name));
 });
+test('LASU official catalogue expansion remains broad and review-safe',()=>{
+ const lasu=data.filter(r=>r.institutionId==='lasu');
+ assert.ok(lasu.length>=100,`expected at least 100 LASU records, got ${lasu.length}`);
+ const names=new Set(lasu.map(r=>normalise(r.programme)));
+ for(const name of ['Accounting','Aerospace Engineering','Advertising','Architecture','Banking and Finance','Business Administration','Computer Science','Cyber Security','Data Science','Dentistry','Film and Multimedia','Information and Communication Technology','Journalism and Media Studies','Logistics and Supply Chain Management','Marketing','Medical Laboratory Science','Medicine and Surgery','Nursing'])assert.ok(names.has(normalise(name)),`LASU catalogue missing ${name}`);
+ for(const r of lasu){assert.equal(r.minimumUtmeScore,195,`${r.programme} LASU screening floor`);assert.equal(r.firstChoiceRequired,true,`${r.programme} LASU first-choice rule`);if(r.programme!=='Accounting')assert.equal(r.verificationStatus,'review',`${r.programme} must stay review-only until its complete rules are machine-safe`);}
+});
 test('dataset records have unique identities, precise provenance and well-formed rules',()=>{
  const ids=new Set();for(const r of data){const id=r.institutionId+'::'+normalise(r.programme);assert.ok(!ids.has(id),id);ids.add(id);assert.ok(r.institutionType);assert.ok(['verified','review'].includes(r.verificationStatus));assert.ok(r.sources.length);for(const s of r.sources){assert.ok(s.label && s.session && s.scope!==undefined || s.label && s.session);assert.match(s.url,/^https:\/\//);assert.match(s.lastVerified,/^\d{4}-\d{2}-\d{2}$/);}
  for(const core of [r.requiredUtmeSubjects,r.requiredOlevelCredits]){assert.ok(core.every(s=>s.trim()));assert.equal(new Set(core.map(subjectKey)).size,core.length);}
