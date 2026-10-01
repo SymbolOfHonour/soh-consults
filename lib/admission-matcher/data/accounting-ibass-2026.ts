@@ -21,14 +21,7 @@ const lasuSource = {
   lastVerified: "2026-10-01",
 };
 
-const socialScienceUtmeOptions = [
-  "Government",
-  "Geography",
-  "Commerce",
-  "Accounting",
-  "Financial Accounting",
-  "Civic Education",
-];
+const socialScienceUtmeOptions = ["Government", "Geography", "Commerce", "Accounting", "Financial Accounting", "Civic Education"];
 
 const institutions: Array<{ id: string; name: string; minimumUtmeScore?: number; extraSources?: typeof jambAccountingSource[] }> = [
   { id: "lasu", name: "Lagos State University (LASU)", minimumUtmeScore: 195, extraSources: [lasuSource] },
@@ -38,7 +31,7 @@ const institutions: Array<{ id: string; name: string; minimumUtmeScore?: number;
   { id: "uniabuja", name: "University of Abuja (UNIABUJA)" },
   { id: "adun", name: "Admiralty University of Nigeria (ADUN)" },
   { id: "al-ansar", name: "Al-Ansar University" },
-  { id: "apu", name: "Adeleke University" },
+  { id: "apu", name: "Ahman Pategi University (APU)" },
   { id: "aletheia", name: "Aletheia University" },
   { id: "amou", name: "Al-Muhibbah Open University" },
   { id: "aun", name: "American University of Nigeria (AUN)" },
@@ -47,13 +40,13 @@ const institutions: Array<{ id: string; name: string; minimumUtmeScore?: number;
   { id: "azman", name: "Azman University" },
   { id: "basu", name: "Bauchi State University (BASU)" },
   { id: "bsu", name: "Benue State University (BSU)" },
+  { id: "bouedst", name: "Bamidele Olumilua University of Education, Science and Technology (BOUESTI/BOUEDST)" },
   { id: "caritas", name: "Caritas University" },
-  { id: "ccu", name: "Coal City University (CCU)" },
+  { id: "ccu", name: "Capital City University, Kano (CCU)" },
   { id: "coou", name: "Chukwuemeka Odumegwu Ojukwu University (COOU)" },
   { id: "cosmopolitan", name: "Cosmopolitan University" },
   { id: "crutech", name: "University of Cross River State (UNICROSS/CRUTECH)" },
-  { id: "covenant", name: "Covenant University" },
-  { id: "cust", name: "Capital City University, Kano (CCUK)" },
+  { id: "cun", name: "Claretian University of Nigeria (CUN)" },
   { id: "delsu", name: "Delta State University (DELSU)" },
   { id: "ebsu", name: "Ebonyi State University (EBSU)" },
   { id: "eksu", name: "Ekiti State University (EKSU)" },
