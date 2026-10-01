@@ -53,6 +53,20 @@ test('LASU Accounting keeps unresolved subject categories review-only while enfo
   const below=at({...ownerProfile,utmeScore:194,sittings:1},'lasu');assert.equal(below.status,'not_match');assert.ok(below.failed.some(s=>s.includes('194')&&s.includes('195')));
   const wrongChoice=at({...ownerProfile,utmeScore:245,sittings:1,firstChoiceInstitution:'FUOYE'},'lasu');assert.equal(wrongChoice.status,'not_match');assert.ok(wrongChoice.failed.some(s=>s.includes('first choice')));
 });
+test('selected first-choice institution is displayed first regardless of status',()=>{
+  const ownerProfile={...accounting,firstChoiceInstitution:'LASU',utmeScore:194,utmeSubjects:['Mathematics','Economics','Commerce'],olevelCredits:['English Language','Mathematics','Economics','Commerce','Financial Accounting']};
+  const results=matchCandidate(ownerProfile,data);assert.equal(results[0].requirement.institutionId,'lasu');assert.equal(results[0].status,'not_match');
+  const fuoyeFirst=matchCandidate({...ownerProfile,firstChoiceInstitution:'FUOYE'},data);assert.equal(fuoyeFirst[0].requirement.institutionId,'fuoye');
+});
+test('fully verified LASU Medicine produces positive and negative decisions',()=>{
+  const medicine={programme:'Medicine and Surgery',utmeScore:250,utmeSubjects:['Biology','Chemistry','Physics'],olevelCredits:['English Language','Mathematics','Biology','Chemistry','Physics'],sittings:1,firstChoiceInstitution:'LASU'};
+  const positive=at(medicine,'lasu');assert.ok(positive);assert.equal(positive.status,'match');assert.equal(positive.needsReview.length,0);assert.equal(positive.failed.length,0);
+  assert.equal(at({...medicine,utmeScore:194},'lasu').status,'not_match');
+  assert.equal(at({...medicine,sittings:2},'lasu').status,'not_match');
+  assert.equal(at({...medicine,utmeSubjects:['Biology','Chemistry','Geography']},'lasu').status,'not_match');
+  assert.equal(at({...medicine,olevelCredits:['English Language','Mathematics','Biology','Chemistry','Geography']},'lasu').status,'not_match');
+  assert.equal(at({...medicine,firstChoiceInstitution:'FUOYE'},'lasu').status,'not_match');
+});
 test('UNIOSUN 2026 screening baseline is enforced without upgrading unresolved subjects',()=>{
   const profile={...accounting,institution:'UNIOSUN',firstChoiceInstitution:'UNIOSUN'};
   const boundary=at({...profile,utmeScore:160,sittings:2},'uniosun');assert.equal(boundary.status,'review');assert.ok(boundary.passed.some(s=>s.includes('160')));assert.ok(boundary.passed.some(s=>s.includes('maximum of 2')));
@@ -68,9 +82,9 @@ test('unknown cutoffs, missing sources, unknown sittings and unverified records 
   assert.equal(at(accounting,'fuoye').status,'review');
   assert.equal(at({...accounting,certificateType:'NBC'}).status,'review');
 });
-test('unsupported course returns no eligibility decision and results sort by status',()=>{
+test('unsupported course returns no eligibility decision and results keep status order when no first choice is supplied',()=>{
   assert.deepEqual(matchCandidate({...accounting,programme:'Unrepresented Degree'},data),[]);
-  const results=matchCandidate(accounting,data);assert.equal(results[0].status,'match');assert.equal(results.length,4);
+  const results=matchCandidate({...accounting,firstChoiceInstitution:''},data);assert.equal(results.length,4);
   const ranks={match:0,review:1,not_match:2};assert.ok(results.every((r,i)=>!i || ranks[results[i-1].status]<=ranks[r.status]));
 });
 test('independent option slots use distinct subjects and can reallocate overlapping groups',()=>{
