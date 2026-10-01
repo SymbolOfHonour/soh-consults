@@ -15,7 +15,11 @@ async function uploadRequest(body:Record<string,unknown>) {
     throw error;
   } finally {clearTimeout(timer);}
 }
-function tusFailure(error:Error&{originalRequest?:{getStatus?:()=>number;getResponseText?:()=>string};causingError?:Error}) {
+type TusUploadError={
+  message?:string;
+  originalRequest?:{getStatus?:()=>number;getResponseText?:()=>string};
+};
+function tusFailure(error:TusUploadError) {
   const request=error.originalRequest;
   const status=request?.getStatus?.();
   const body=request?.getResponseText?.()?.trim();
