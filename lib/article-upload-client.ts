@@ -15,15 +15,12 @@ async function uploadRequest(body:Record<string,unknown>) {
     throw error;
   } finally {clearTimeout(timer);}
 }
-type TusUploadError={
-  message?:string;
-  originalRequest?:{getStatus?:()=>number;getResponseText?:()=>string};
-};
-function tusFailure(error:TusUploadError) {
-  const request=error.originalRequest;
-  const status=request?.getStatus?.();
-  const body=request?.getResponseText?.()?.trim();
-  const detail=[status?`HTTP ${status}`:"",body?.slice(0,300)||"",error.message||""].filter(Boolean).join(" · ");
+function tusFailure(error:unknown) {
+  const candidate=error as {message?:string;originalRequest?:unknown};
+  const request=candidate.originalRequest as {getStatus?:()=>number;getResponseText?:()=>string}|undefined;
+  const status=typeof request?.getStatus==="function"?request.getStatus():undefined;
+  const body=typeof request?.getResponseText==="function"?request.getResponseText()?.trim():undefined;
+  const detail=[status?`HTTP ${status}`:"",body?.slice(0,300)||"",candidate.message||""].filter(Boolean).join(" · ");
   return Error(`Storage upload failed${detail?`: ${detail}`:"."}`);
 }
 export async function uploadArticleFile(file:File,kind:ArticleUploadKind,onProgress?:(percentage:number)=>void):Promise<{url:string;name:string}> {
