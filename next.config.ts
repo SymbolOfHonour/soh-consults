@@ -9,6 +9,7 @@ const privateCsp = [
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
+  "media-src 'self' https:",
   "font-src 'self' data:",
   "connect-src 'self'",
   "worker-src 'self' blob:",
