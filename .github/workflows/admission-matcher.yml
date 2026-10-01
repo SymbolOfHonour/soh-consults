@@ -28,6 +28,12 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Capture current LASU official requirements
+        run: node tests/admission-matcher-lasu-snapshot.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lasu-live-requirements
+          path: lasu-live-requirements.json
       - name: Lint Matcher implementation and regression tests
         run: npx eslint app/admission-matcher lib/admission-matcher tests/admission-matcher*.cjs
       - name: Execute Matcher behavioural and data regression tests
