@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "node --test tests/*.test.cjs tests/*.test.mjs",
+    "build:cloudflare": "npx -y @opennextjs/cloudflare@latest build",
     "preview:cloudflare": "npx -y @opennextjs/cloudflare@latest build && npx -y @opennextjs/cloudflare@latest preview",
     "deploy:cloudflare": "npx -y @opennextjs/cloudflare@latest build && npx -y @opennextjs/cloudflare@latest deploy"
   },
