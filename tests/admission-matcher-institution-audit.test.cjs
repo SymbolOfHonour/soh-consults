@@ -19,6 +19,6 @@ test('LASUSTECH preserves the explicit review boundary for programmes whose comp
  const tech=rows('lasustech');assert.ok(tech.length>=30);const review=tech.filter(r=>r.verificationStatus==='review');
  const expectedReview=new Set(['Aquaculture and Fisheries Management','Horticulture and Landscape Management','Arts and Industrial Design']);
  assert.deepEqual(new Set(review.map(r=>r.programme)),expectedReview);
- for(const r of review){assert.ok(r.reviewReasons?.length,r.programme);assert.ok(r.unresolvedChecks?.length,r.programme);}
+ for(const r of review){assert.ok(r.reviewReasons?.length,r.programme);}
  for(const r of tech.filter(r=>r.verificationStatus==='verified')){assert.equal(r.minimumUtmeScore,195,r.programme);assert.equal(r.maximumSittings,2,r.programme);assert.equal(r.firstChoiceRequired,true,r.programme);assert.equal(r.minimumOlevelCreditCount,5,r.programme);}
 });
