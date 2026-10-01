@@ -85,3 +85,14 @@ Fresh checks of the continuation changes:
 - Cloud Browser rejected navigation to Preview sitemap XML with `ERR_BLOCKED_BY_CLIENT`; terminal access to the Preview host timed out. Local sitemap validation succeeded; remote sitemap validation remains blocked. External destination availability is not certified by the local resource crawl.
 
 The PR must remain draft until a Vercel deployment of the latest QA head succeeds and its published-content routes can be verified with an appropriate Preview data source. Deployment quota/account configuration are external blockers, not reasons to merge. Production/main, production CMS ordering and all production records remain untouched. Historical browser stress/CMS/performance claims above are previous repository evidence, not results independently repeated in this continuation.
+
+
+### Final remote outcome for the code changes
+
+GitHub Actions run 36799705274 passed for code head `810d578f9e87f3488f5714dd51b78035dc773a07`. Vercel deployment `HngqUoAzDvcNT77pBZWYJ2VyAXdz` also succeeded for that exact head, confirmed in Deployment Details and GitHub commit status. The previous deployment quota failure is historical and no longer the active blocker. The branch alias serves this code: the FUOYE title now has one brand suffix.
+
+Fresh runtime checks on this deployment still show zero published updates. Its authenticated Vercel runtime logs explicitly report **“Supabase environment variables are not configured.”** This confirms a Preview configuration problem, superseding the earlier possible-cause diagnosis. `/api/public/homepage` returned 500 and `/api/visits` returned 503; published CMS homepage loading used safe defaults. An empty successful public-updates response therefore cannot certify content discovery. The required environment names in the source are `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
+
+No environment settings or credentials were changed. The instruction to keep all changes on the existing QA branch excludes repairing Vercel account configuration; reusing a production write-capable database would also risk legacy migration writes during public reads. Configure an appropriate isolated Preview database through the account before rechecking published updates, category/article links, sitemap and authenticated CMS workflows. The PR remains draft and cannot receive complete Preview sign-off yet.
+
+The WhatsApp contact href is correct, but opening it in Cloud Browser was blocked by URL policy during its destination flow. No alternate route was attempted. This external destination and the other external endpoints remain outside the successful local-resource verification.
