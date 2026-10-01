@@ -2,12 +2,12 @@
 
 Checked 2026-10-01. All data and logic are isolated from existing calculators.
 
-The registered dataset contains 146 institution/programme records, 95 distinct
-programme names and 31 institutions. These are catalogue counts, not fully
+The registered dataset contains 119 institution/programme records, 95 distinct
+programme names and 4 institutions. These are catalogue counts, not fully
 verified eligibility coverage. 33 records, representing 33 programmes at
 LASUSTECH, have fully verified stored UTME screening, subject, credit and
-sitting checks. 113 records require review. No national completeness is claimed.
-Federal, state and private university entries are represented. The model supports
+sitting checks. 86 records require review. No national completeness is claimed.
+Federal and state university entries are represented. The model supports
 polytechnics, monotechnics and colleges of education; no such records are claimed.
 
 ## Sources and scope
@@ -36,8 +36,10 @@ polytechnics, monotechnics and colleges of education; no such records are claime
 - The inherited 27-institution Accounting expansion references the JAMB
   Administration brochure. That PDF currently cannot be revalidated as a dated
   2026 document. Current programme availability and institutional exceptions
-  remain unverified. These records are retained for continuity as review entries;
-  illustrative inherited subject pools are never treated as institutional rules.
+  remain unverified. These 27 records are retained in a separate research file and excluded from
+  active matching, programme discovery and coverage counts. Unconfirmed programme
+  availability must not be presented as an assessed option.
+  Illustrative inherited subject pools are never treated as institutional rules.
   Other institutional cutoffs stay unknown.
 - LASU's current portal independently confirms its institution screening floor of
   195 and first-choice requirement. The official JAMB course checker confirms

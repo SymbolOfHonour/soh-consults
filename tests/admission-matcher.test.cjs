@@ -43,13 +43,13 @@ test('sitting restrictions, missing sittings, legacy sitting input and first cho
 });
 test('unknown cutoffs, missing sources, unknown sittings and unverified records never match',()=>{
   for(const change of [{minimumUtmeScore:undefined},{maximumSittings:undefined},{sources:[]},{verificationStatus:'review'},{unresolvedChecks:['utme']}])assert.equal(matchCandidate(accounting,[{...known,...change}])[0].status,'review');
-  assert.equal(at(accounting,'abu').status,'review');
+  assert.equal(at(accounting,'abu'),undefined);
   assert.equal(at(accounting,'fuoye').status,'review');
   assert.equal(at({...accounting,certificateType:'NBC'}).status,'review');
 });
 test('unsupported course returns no eligibility decision and results sort by status',()=>{
   assert.deepEqual(matchCandidate({...accounting,programme:'Unrepresented Degree'},data),[]);
-  const results=matchCandidate(accounting,data);assert.equal(results[0].status,'match');assert.ok(results.length>=30);
+  const results=matchCandidate(accounting,data);assert.equal(results[0].status,'match');assert.equal(results.length,4);
   const ranks={match:0,review:1,not_match:2};assert.ok(results.every((r,i)=>!i || ranks[results[i-1].status]<=ranks[r.status]));
 });
 test('independent option slots use distinct subjects and can reallocate overlapping groups',()=>{
@@ -74,4 +74,9 @@ test('OLevel-only subjects cannot masquerade as UTME choices',()=>{
   assert.throws(()=>matchCandidate({...accounting,utmeSubjects:['Mathematics','Economics',subject]},data),/JAMB-approved/);
  }
  assert.equal(at({...accounting,utmeSubjects:['Mathematics','Economics','Principles of Account']}).status,'match');
+});
+
+test('historical unconfirmed Accounting institutions never appear as assessed options',()=>{
+ for(const id of ['abu','absu','aaua','aun','adun'])assert.ok(!data.some(r=>r.institutionId===id));
+ assert.equal(matchCandidate(accounting,data).length,4);
 });
