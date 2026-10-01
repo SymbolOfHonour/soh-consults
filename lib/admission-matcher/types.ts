@@ -1,0 +1,38 @@
+export type MatchStatus = "match" | "review" | "not_match";
+export type SourceRecord = { label: string; url: string; session: string; lastVerified: string; scope?: string; locator?: string };
+export type SubjectGroup = { subjects: string[]; count: number };
+export type InstitutionType = "federal-university" | "state-university" | "private-university" | "polytechnic" | "monotechnic" | "college-of-education" | "other";
+export type ProgrammeRequirement = {
+  institutionId: string;
+  institutionName: string;
+  institutionType?: InstitutionType;
+  institutionAliases?: string[];
+  programme: string;
+  aliases?: string[];
+  minimumUtmeScore?: number;
+  scoreScope?: "institution-screening" | "programme-screening";
+  requiredUtmeSubjects: string[];
+  utmeAlternatives?: string[][];
+  utmeAlternativeMinimums?: number[];
+  utmeGroups?: SubjectGroup[];
+  requiredOlevelCredits: string[];
+  olevelAlternatives?: string[][];
+  olevelAlternativeMinimums?: number[];
+  olevelGroups?: SubjectGroup[];
+  minimumOlevelCreditCount?: number;
+  maximumSittings?: 1 | 2;
+  firstChoiceRequired?: boolean;
+  verificationStatus?: "verified" | "review";
+  unresolvedChecks?: Array<"utme" | "olevel" | "sittings" | "score">;
+  reviewReasons?: string[];
+  screeningMethod?: "online" | "post-utme" | "other";
+  calculatorPath?: string;
+  notes?: string[];
+  sources: SourceRecord[];
+};
+export type CandidateProfile = {
+  programme: string; utmeScore: number; utmeSubjects: string[]; olevelCredits: string[];
+  sittings?: 1 | 2; firstChoiceInstitution?: string; certificateType?: "SSCE" | "NBC"; institution?: string;
+  olevelSittings?: 1 | 2;
+};
+export type MatchResult = { requirement: ProgrammeRequirement; status: MatchStatus; passed: string[]; failed: string[]; needsReview: string[] };
