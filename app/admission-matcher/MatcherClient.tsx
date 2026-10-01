@@ -4,15 +4,20 @@ import { useMemo, useState } from "react";
 import { admissionMatcherRequirements } from "../../lib/admission-matcher/data";
 import { matchCandidate } from "../../lib/admission-matcher/match";
 
-const programmes = [...new Set(admissionMatcherRequirements.map((item) => item.programme))].sort();
+const programmes = [...new Set(admissionMatcherRequirements.flatMap((item) => [item.programme, ...(item.aliases ?? [])]))].sort();
 const subjectOptions = [...new Set(admissionMatcherRequirements.flatMap((item) => [
   ...item.requiredUtmeSubjects,
+  ...(item.utmeAlternatives ?? []).flat(),
   ...item.requiredOlevelCredits,
   ...(item.olevelAlternatives ?? []).flat(),
 ]))].sort();
 
-function SubjectPicker({ label, selected, onChange, hint }: { label: string; selected: string[]; onChange: (next: string[]) => void; hint: string }) {
-  return <fieldset><legend className="text-sm font-semibold text-slate-900">{label}</legend><p className="mt-1 text-xs text-slate-500">{hint}</p><div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">{subjectOptions.map((subject) => <label key={subject} className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm"><input type="checkbox" checked={selected.includes(subject)} onChange={(event) => onChange(event.target.checked ? [...selected, subject] : selected.filter((item) => item !== subject))} />{subject}</label>)}</div></fieldset>;
+function SubjectPicker({ label, selected, onChange, hint, max }: { label: string; selected: string[]; onChange: (next: string[]) => void; hint: string; max?: number }) {
+  return <fieldset><legend className="text-sm font-semibold text-slate-900">{label}</legend><p className="mt-1 text-xs text-slate-500">{hint}</p><div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">{subjectOptions.map((subject) => {
+    const checked = selected.includes(subject);
+    const disabled = !checked && typeof max === "number" && selected.length >= max;
+    return <label key={subject} className={`flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}><input type="checkbox" checked={checked} disabled={disabled} onChange={(event) => onChange(event.target.checked ? [...selected, subject] : selected.filter((item) => item !== subject))} />{subject}</label>;
+  })}</div></fieldset>;
 }
 
 export default function MatcherClient() {
@@ -33,9 +38,9 @@ export default function MatcherClient() {
     <form className="grid gap-6 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6" onSubmit={(event) => { event.preventDefault(); setSubmitted(true); }}>
       <div><label className="text-sm font-semibold text-slate-900" htmlFor="programme">Course you want to study</label><select id="programme" value={programme} onChange={(event) => { setProgramme(event.target.value); resetSubmission(); }} className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3">{programmes.map((item) => <option key={item}>{item}</option>)}</select></div>
       <div><label className="text-sm font-semibold text-slate-900" htmlFor="utmeScore">JAMB/UTME score</label><input id="utmeScore" type="number" min="0" max="400" required value={utmeScore} onChange={(event) => { setUtmeScore(event.target.value); resetSubmission(); }} className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" placeholder="e.g. 245" /></div>
-      <SubjectPicker label="UTME subjects apart from Use of English" selected={utmeSubjects} onChange={(next) => { setUtmeSubjects(next); resetSubmission(); }} hint="Select the three other subjects you sat for in UTME." />
+      <SubjectPicker label="UTME subjects apart from Use of English" selected={utmeSubjects} onChange={(next) => { setUtmeSubjects(next); resetSubmission(); }} hint="Select exactly the three other subjects you sat for in UTME." max={3} />
       <SubjectPicker label="O'Level subjects where you have a credit (A1-C6)" selected={olevelCredits} onChange={(next) => { setOlevelCredits(next); resetSubmission(); }} hint="Select every relevant subject in which you have a credit pass." />
-      <button type="submit" disabled={!programme || !utmeScore || utmeSubjects.length < 3 || olevelCredits.length < 5} className="rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">Check my options</button>
+      <button type="submit" disabled={!programme || !utmeScore || utmeSubjects.length !== 3 || olevelCredits.length < 5} className="rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">Check my options</button>
     </form>
 
     {submitted && <section className="mt-8" aria-live="polite"><div className="flex flex-wrap items-end justify-between gap-2"><div><h2 className="text-2xl font-bold text-slate-950">Your admission options</h2><p className="mt-1 text-sm text-slate-600">Compared only against programmes currently verified in this private Beta dataset.</p></div><span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{results.length} result{results.length === 1 ? "" : "s"}</span></div>
