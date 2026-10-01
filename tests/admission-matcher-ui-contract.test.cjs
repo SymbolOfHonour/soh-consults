@@ -7,8 +7,14 @@ const page = fs.readFileSync(path.join(root, "app/admission-matcher/page.tsx"), 
 const index = fs.readFileSync(path.join(root, "lib/admission-matcher/data/index.ts"), "utf8");
 const accounting = fs.readFileSync(path.join(root, "lib/admission-matcher/data/accounting-ibass-2026.ts"), "utf8");
 
-if (!client.includes("admissionMatcherRequirements.map((item) => item.programme)")) {
+if (!client.includes("admissionMatcherRequirements.flatMap")) {
   throw new Error("Programme selector must be generated from the complete registered Matcher dataset.");
+}
+if (!client.includes("item.utmeAlternatives")) {
+  throw new Error("Subject discovery must include UTME alternative groups from the registered dataset.");
+}
+if (!client.includes('max={3}') || !client.includes('utmeSubjects.length !== 3')) {
+  throw new Error("Matcher must enforce exactly three UTME subjects apart from Use of English.");
 }
 if (!index.includes("accountingIbass2026Requirements")) {
   throw new Error("Accounting dataset must remain registered in the Matcher index.");
