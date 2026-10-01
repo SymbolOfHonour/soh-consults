@@ -1,13 +1,10 @@
 import type { ProgrammeRequirement } from "../types";
 
-const jambAccountingSource = { label: "JAMB IBASS Degree Brochure - Administration (Accounting)", url: "https://ibass.jamb.gov.ng/assets/uploads/brochure-degree-admin.pdf", session: "2026/2027 eligibility reference", lastVerified: "2026-10-01" };
-const jambPolicySource = { label: "JAMB 2026 Policy Meeting minimum tolerable admission scores", url: "https://www.jamb.gov.ng/", session: "2026/2027", lastVerified: "2026-10-01" };
-const lasuSource = { label: "LASU 2026/2027 Admission Screening Portal", url: "https://services.lidc.lasu.edu.ng/admissionscreening/index.php", session: "2026/2027", lastVerified: "2026-10-01" };
+const jambAccountingSource = { label: "JAMB IBASS Administration brochure, inherited Accounting catalogue reference", url: "https://ibass.jamb.gov.ng/assets/uploads/brochure-degree-admin.pdf", session: "Publication session unconfirmed; catalogue recheck pending", lastVerified: "2026-10-01" };
 const socialScienceUtmeOptions = ["Government", "Geography", "Commerce", "Accounting", "Financial Accounting", "Civic Education"];
 const accountingOlevelOptions = ["Commerce", "Government", "Geography", "Accounting", "Financial Accounting", "Book Keeping", "Marketing", "Office Practice", "Statistics", "Civic Education"];
 
 const institutions: Array<{ id: string; name: string; minimumUtmeScore?: number; extraSources?: typeof jambAccountingSource[] }> = [
-  { id: "lasu", name: "Lagos State University (LASU)", minimumUtmeScore: 195, extraSources: [lasuSource] },
   { id: "aaua", name: "Adekunle Ajasin University, Akungba-Akoko (AAUA)" }, { id: "absu", name: "Abia State University (ABSU)" },
   { id: "abu", name: "Ahmadu Bello University (ABU)" }, { id: "uniabuja", name: "University of Abuja (UNIABUJA)" },
   { id: "adun", name: "Admiralty University of Nigeria (ADUN)" }, { id: "al-ansar", name: "Al-Ansar University" },
@@ -27,14 +24,19 @@ const institutions: Array<{ id: string; name: string; minimumUtmeScore?: number;
 export const accountingIbass2026Requirements: ProgrammeRequirement[] = institutions.map((institution) => ({
   institutionId: institution.id, institutionName: institution.name, programme: "Accounting", aliases: ["Accountancy"],
   minimumUtmeScore: institution.minimumUtmeScore,
+  firstChoiceRequired: institution.id === "lasu",
+  scoreScope: "institution-screening", verificationStatus: "review", unresolvedChecks: ["utme", "olevel", "sittings"],
+  institutionType: ["abu", "uniabuja", "unizik", "uniuyo"].includes(institution.id) ? "federal-university" : ["lasu", "aaua", "absu", "basu", "bsu", "bouedst", "coou", "crutech", "delsu", "ebsu", "eksu"].includes(institution.id) ? "state-university" : "private-university",
+  institutionAliases: [institution.id],
+  reviewReasons: ["Inherited IBASS Accounting catalogue entry. Current programme availability, institutional waivers, sittings and programme-specific subjects still need verification. Generic rules are not treated as institutional eligibility."],
   requiredUtmeSubjects: ["Mathematics", "Economics"], utmeAlternatives: [socialScienceUtmeOptions],
   requiredOlevelCredits: ["English Language", "Mathematics", "Economics"], olevelAlternatives: [accountingOlevelOptions], olevelAlternativeMinimums: [2],
-  minimumOlevelCreditCount: 5, maximumSittings: 2, screeningMethod: "other",
+  minimumOlevelCreditCount: 5, screeningMethod: "other",
   notes: [
-    "JAMB IBASS lists Accounting for this institution under the Administration degree brochure.",
-    "The stored rule requires English Language, Mathematics and Economics plus two additional relevant credits; UTME requires Mathematics, Economics and another relevant Social Science subject.",
+    "The prior dataset referenced this institution in the JAMB Administration brochure; its current listing has not been revalidated.",
+    "Live JAMB Accounting guidance requires English, Mathematics and Economics plus any two other SSC credits, with separate NBC provisions. The illustrative inherited alternatives below are not a complete institutional rule.",
     institution.minimumUtmeScore ? "An institution-specific 2026/2027 screening floor has also been verified and stored." : "The institution-specific 2026/2027 screening score is intentionally not guessed; the result remains Review until that score is verified from an official institutional source.",
     "JAMB's national university floor is not substituted for an institution or programme-specific screening threshold.",
   ],
-  sources: [jambAccountingSource, jambPolicySource, ...(institution.extraSources ?? [])],
+  sources: [jambAccountingSource, ...(institution.extraSources ?? [])],
 }));

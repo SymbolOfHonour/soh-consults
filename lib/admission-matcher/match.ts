@@ -1,60 +1,93 @@
-import type { CandidateProfile, MatchResult, ProgrammeRequirement } from "./types";
+import type { CandidateProfile, MatchResult, ProgrammeRequirement, SubjectGroup } from "./types";
+import { isEnglish, normalise, subjectKey } from "./catalogue";
 
-const normalise = (value: string) => value.trim().toLowerCase().replace(/\s+/g, " ");
-const has = (values: string[], subject: string) => values.map(normalise).includes(normalise(subject));
-const matchedCount = (values: string[], options: string[]) => new Set(options.filter((subject) => has(values, subject)).map(normalise)).size;
-
-export function matchCandidate(candidate: CandidateProfile, requirements: ProgrammeRequirement[]): MatchResult[] {
-  const requestedProgramme = normalise(candidate.programme);
-  return requirements.filter((item) => [item.programme, ...(item.aliases ?? [])].map(normalise).includes(requestedProgramme)).map((requirement) => {
-    const passed: string[] = [];
-    const failed: string[] = [];
-    const needsReview: string[] = [];
-    const uniqueUtmeSubjects = new Set(candidate.utmeSubjects.map(normalise));
-    if (uniqueUtmeSubjects.size !== 3 || uniqueUtmeSubjects.has("english language") || uniqueUtmeSubjects.has("use of english")) failed.push("Supply exactly three distinct UTME subjects apart from Use of English.");
-
-    if (requirement.maximumSittings) {
-      if (candidate.olevelSittings <= requirement.maximumSittings) passed.push(`O'Level sitting count is within the stored maximum of ${requirement.maximumSittings}.`);
-      else failed.push(`This programme allows a maximum of ${requirement.maximumSittings} O'Level sitting${requirement.maximumSittings === 1 ? "" : "s"}.`);
-    } else if (candidate.olevelSittings > 1) needsReview.push("Multiple O'Level sittings were supplied, but the maximum sitting rule has not been verified for this record.");
-
-    if (typeof requirement.minimumUtmeScore === "number") {
-      if (candidate.utmeScore >= requirement.minimumUtmeScore) passed.push(`UTME score meets the stored minimum of ${requirement.minimumUtmeScore}.`);
-      else failed.push(`UTME score is below the stored minimum of ${requirement.minimumUtmeScore}.`);
-    } else needsReview.push("No programme-specific institutional UTME minimum has been verified in the Matcher dataset yet.");
-
-    const missingUtme = requirement.requiredUtmeSubjects.filter((subject) => !["english language", "use of english"].includes(normalise(subject)) && !has(candidate.utmeSubjects, subject));
-    if (missingUtme.length) failed.push(`UTME subject requirement missing: ${missingUtme.join(", ")}.`);
-    else passed.push("Stored compulsory UTME subjects are satisfied.");
-
-    (requirement.utmeAlternatives ?? []).forEach((group, index) => {
-      const minimum = requirement.utmeAlternativeMinimums?.[index] ?? 1;
-      const count = matchedCount(candidate.utmeSubjects, group);
-      if (count >= minimum) passed.push(`UTME option satisfied (${count}/${minimum}) from: ${group.join(", ")}.`);
-      else failed.push(`UTME requires at least ${minimum} from: ${group.join(", ")}.`);
-    });
-
-    const missingOlevel = requirement.requiredOlevelCredits.filter((subject) => !has(candidate.olevelCredits, subject));
-    if (missingOlevel.length) failed.push(`O'Level credit requirement missing: ${missingOlevel.join(", ")}.`);
-    else passed.push("Stored core O'Level credit requirements are satisfied.");
-
-    (requirement.olevelAlternatives ?? []).forEach((group, index) => {
-      const minimum = requirement.olevelAlternativeMinimums?.[index] ?? 1;
-      const count = matchedCount(candidate.olevelCredits, group);
-      if (count >= minimum) passed.push(`O'Level option satisfied (${count}/${minimum}) from: ${group.join(", ")}.`);
-      else failed.push(`O'Level requires at least ${minimum} from: ${group.join(", ")}.`);
-    });
-
-    if (requirement.minimumOlevelCreditCount) {
-      const uniqueCredits = new Set(candidate.olevelCredits.map(normalise)).size;
-      if (uniqueCredits >= requirement.minimumOlevelCreditCount) passed.push(`At least ${requirement.minimumOlevelCreditCount} O'Level credits supplied.`);
-      else failed.push(`At least ${requirement.minimumOlevelCreditCount} O'Level credits are required.`);
+export function validateCandidate(candidate: CandidateProfile): string[] {
+  const errors: string[] = [];
+  if (typeof candidate.programme !== "string" || !candidate.programme.trim()) errors.push("Choose a programme.");
+  if (!Number.isInteger(candidate.utmeScore) || candidate.utmeScore < 0 || candidate.utmeScore > 400) errors.push("Enter a whole-number UTME score from 0 to 400.");
+  const validSubjects = (values: unknown): values is string[] => Array.isArray(values) && values.every(s => typeof s === "string" && s.trim().length > 0);
+  if (!validSubjects(candidate.utmeSubjects) || candidate.utmeSubjects.length !== 3 || candidate.utmeSubjects.some(isEnglish)) errors.push("Select exactly three UTME subjects apart from Use of English.");
+  if (validSubjects(candidate.utmeSubjects) && new Set(candidate.utmeSubjects.map(subjectKey)).size !== candidate.utmeSubjects.length) errors.push("UTME subjects must not contain duplicates or equivalent aliases.");
+  if (!validSubjects(candidate.olevelCredits) || !candidate.olevelCredits.length) errors.push("Supply your O'Level credit subjects.");
+  if (validSubjects(candidate.olevelCredits) && new Set(candidate.olevelCredits.map(subjectKey)).size !== candidate.olevelCredits.length) errors.push("O'Level subjects must not contain duplicates or equivalent aliases.");
+  for (const sittings of [candidate.sittings, candidate.olevelSittings]) if (sittings !== undefined && sittings !== 1 && sittings !== 2) errors.push("Choose one or two sittings.");
+  if (candidate.sittings && candidate.olevelSittings && candidate.sittings !== candidate.olevelSittings) errors.push("Conflicting sitting counts supplied.");
+  if (candidate.certificateType && !["SSCE", "NBC"].includes(candidate.certificateType)) errors.push("Choose an SSCE-equivalent or NBC certificate.");
+  return errors;
+}
+// Bipartite allocation: a subject cannot satisfy two independent option slots
+// or count again after satisfying a compulsory subject.
+export function satisfyGroups(values: string[], core: string[], groups: SubjectGroup[]): boolean {
+  if (groups.some(g => !Number.isInteger(g.count) || g.count < 1 || g.count > new Set(g.subjects.map(subjectKey)).size)) return false;
+  const excluded = new Set(core.map(subjectKey));
+  const available = [...new Set(values.map(subjectKey))].filter((s) => !excluded.has(s));
+  const slots = groups.flatMap((g) => Array.from({ length: g.count }, () => new Set(g.subjects.map(subjectKey))));
+  const assigned = new Map<string, number>();
+  function place(slot: number, visited: Set<string>): boolean {
+    for (const subject of available) {
+      if (!slots[slot].has(subject) || visited.has(subject)) continue;
+      visited.add(subject);
+      const previous = assigned.get(subject);
+      if (previous === undefined || place(previous, visited)) { assigned.set(subject, slot); return true; }
     }
-
-    const status = failed.length ? "not_match" : needsReview.length ? "review" : "match";
-    return { requirement, status, passed, failed, needsReview };
-  }).sort((a, b) => {
-    const order: Record<MatchResult["status"], number> = { match: 0, review: 1, not_match: 2 };
-    return order[a.status] - order[b.status] || a.requirement.institutionName.localeCompare(b.requirement.institutionName);
-  });
+    return false;
+  }
+  return slots.every((_, i) => place(i, new Set()));
+}
+export function matchCandidate(candidate: CandidateProfile, requirements: ProgrammeRequirement[]): MatchResult[] {
+  const errors = validateCandidate(candidate);
+  if (errors.length) throw new Error(errors.join(" "));
+  const requested = normalise(candidate.programme);
+  return requirements.filter((item) => [item.programme, ...(item.aliases ?? [])].some((n) => normalise(n) === requested))
+    .filter((item) => !candidate.institution || [item.institutionId, item.institutionName, ...(item.institutionAliases ?? [])].some((n) => normalise(n) === normalise(candidate.institution!)))
+    .map((requirement): MatchResult => {
+      const passed: string[] = [], failed: string[] = [], needsReview: string[] = [];
+      const unresolved = new Set(requirement.unresolvedChecks ?? []);
+      if (requirement.verificationStatus !== "verified") needsReview.push(...(requirement.reviewReasons?.length ? requirement.reviewReasons : ["Institution-specific rules are not fully verified for this record."]));
+      if (!requirement.sources.length || requirement.sources.some((s) => !/^https:\/\//.test(s.url) || !s.label || !s.session || !/^\d{4}-\d{2}-\d{2}$/.test(s.lastVerified))) needsReview.push("Source verification metadata is incomplete.");
+      if (unresolved.has("score") || !Number.isInteger(requirement.minimumUtmeScore) || requirement.minimumUtmeScore! < 0 || requirement.minimumUtmeScore! > 400) needsReview.push("The current institutional/programme screening score is unknown. A national JAMB floor is not substituted.");
+      else {
+        const meets = candidate.utmeScore >= requirement.minimumUtmeScore!;
+        (meets ? passed : failed).push("UTME score " + candidate.utmeScore + (meets ? " meets" : " is below") + " the verified " + (requirement.scoreScope === "institution-screening" ? "institution screening" : "programme screening") + " minimum of " + requirement.minimumUtmeScore + ".");
+      }
+      const checkSubjects = (kind: "utme" | "olevel", values: string[], core: string[], legacy: string[][], groups: SubjectGroup[]) => {
+        const label = kind === "utme" ? "UTME" : "O'Level credit";
+        if (unresolved.has(kind)) { needsReview.push(label + " rules or institutional exceptions need verification; no eligibility decision is made from an incomplete rule."); return; }
+        const minimums = kind === "utme" ? requirement.utmeAlternativeMinimums : requirement.olevelAlternativeMinimums;
+        const rules = [...legacy.map((subjects, i) => ({ subjects, count: minimums?.[i] ?? 1 })), ...groups];
+        const required = kind === "utme" ? core.filter((s) => !isEnglish(s)) : core;
+        if (rules.some(g => !Number.isInteger(g.count) || g.count < 1 || g.count > new Set(g.subjects.map(subjectKey)).size) || (minimums && minimums.length !== legacy.length) || new Set(required.map(subjectKey)).size !== required.length || (kind === "utme" && required.length + rules.reduce((n,g)=>n+g.count,0) !== 3)) {
+          needsReview.push(label + " rule is incomplete or malformed and must be verified."); return;
+        }
+        const keys = new Set(values.map(subjectKey));
+        const missing = required.filter((s) => !keys.has(subjectKey(s)));
+        if (missing.length) failed.push(label + " compulsory subjects missing: " + missing.join(", ") + ".");
+        else passed.push(label + " compulsory subjects satisfied" + (required.length ? ": " + required.join(", ") : "") + ".");
+        if (rules.length) {
+          const fulfilled = satisfyGroups(values, required, rules);
+          const explanation = rules.map((g) => g.count + " of " + g.subjects.join(", ")).join("; ");
+          (fulfilled ? passed : failed).push(label + " alternatives " + (fulfilled ? "satisfied" : "not satisfied") + ": " + explanation + ". Each credit/subject counts once.");
+        }
+        if (kind === "olevel") {
+          const count = requirement.minimumOlevelCreditCount;
+          if (!Number.isInteger(count) || count! < 1) needsReview.push("The minimum number of O'Level credits needs verification.");
+          else (keys.size >= count! ? passed : failed).push(keys.size + " distinct O'Level credits supplied; " + count + " required.");
+        }
+      };
+      checkSubjects("utme", candidate.utmeSubjects, requirement.requiredUtmeSubjects, requirement.utmeAlternatives ?? [], requirement.utmeGroups ?? []);
+      checkSubjects("olevel", candidate.olevelCredits, requirement.requiredOlevelCredits, requirement.olevelAlternatives ?? [], requirement.olevelGroups ?? []);
+      const sittings = candidate.sittings ?? candidate.olevelSittings;
+      if (unresolved.has("sittings") || !requirement.maximumSittings) needsReview.push("The current sitting restriction needs verification.");
+      else if (!sittings) needsReview.push("Supply the number of O'Level sittings.");
+      else (sittings <= requirement.maximumSittings ? passed : failed).push(sittings + " sitting(s) supplied; a maximum of " + requirement.maximumSittings + " is permitted.");
+      if (requirement.firstChoiceRequired) {
+        if (!candidate.firstChoiceInstitution?.trim()) needsReview.push("First-choice institution must be confirmed.");
+        else {
+          const isChoice = [requirement.institutionId, requirement.institutionName, ...(requirement.institutionAliases ?? [])].some((n) => normalise(n) === normalise(candidate.firstChoiceInstitution!));
+          (isChoice ? passed : failed).push(isChoice ? "First-choice institution requirement satisfied." : "This institution must be your first choice.");
+        }
+      }
+      if (candidate.certificateType === "NBC") needsReview.push("NBC-specific subject and certificate exceptions require manual review.");
+      return { requirement, passed, failed, needsReview, status: failed.length ? "not_match" : needsReview.length ? "review" : "match" };
+    }).sort((a, b) => ({ match: 0, review: 1, not_match: 2 }[a.status] - { match: 0, review: 1, not_match: 2 }[b.status]) || a.requirement.institutionName.localeCompare(b.requirement.institutionName));
 }

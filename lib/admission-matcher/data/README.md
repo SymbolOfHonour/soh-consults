@@ -1,36 +1,76 @@
-# S.O.H Admission Matcher data policy
+# Admission Matcher data audit
 
-This directory is the Matcher's independent admissions-requirements dataset.
+Checked 2026-10-01. All data and logic are isolated from existing calculators.
 
-## Hard boundary
+The registered dataset contains 146 institution/programme records, 95 distinct
+programme names and 31 institutions. These are catalogue counts, not fully
+verified eligibility coverage. 33 records, representing 33 programmes at
+LASUSTECH, have fully verified stored UTME screening, subject, credit and
+sitting checks. 113 records require review. No national completeness is claimed.
+Federal, state and private university entries are represented. The model supports
+polytechnics, monotechnics and colleges of education; no such records are claimed.
 
-Existing screening calculator files, formulas, wording, UI, routes and datasets are not dependencies of this dataset and must not be modified by Admission Matcher work.
+## Sources and scope
 
-## Source standard
+- JAMB IBASS live UNIOSUN institution catalogue, 19 programme records transcribed
+  from individual View Details tables. The 20th entry, Arabic Language and
+  Literature, refers to another unexpanded requirement and is excluded. General
+  JAMB rules do not include every university waiver. Institutional screening
+  scores, waivers and sittings remain unresolved. The catalogue does not state a
+  session; it is labelled as a live, undated reference rather than a 2026 brochure.
+- FUOYE official 2026/2027 admission requirements PDF, programme screening-score
+  page and current Post-UTME portal. 63 programme records have source-backed
+  programme subjects/scores. The current general sitting rules remain unresolved.
+  Finance, Geology, Chemistry Education and Physics Education have additional
+  ambiguous/conflicting subject rules and cannot decide those checks. Law is
+  excluded because FUOYE's current portal explicitly suspends 2026/2027 admission.
+- LASUSTECH official 36-programme requirements directory, supplemented by its
+  2026/2027 screening notice. The 195 figure is an institution screening floor,
+  not a programme admission cutoff. First choice and maximum two sittings are
+  checked. Aquaculture needs an additional Physics pass-grade check; Horticulture
+  has pass-grade waivers; Arts and Industrial Design has broad subject-category
+  rules. These three records remain review-only. An undated directory is labelled
+  explicitly as current undated requirements, with the dated screening source
+  separate. Administrative screening and origin-verification requirements are
+  disclosed, not represented as an admission guarantee.
+- The inherited 27-institution Accounting expansion references the JAMB
+  Administration brochure. That PDF currently cannot be revalidated as a dated
+  2026 document. Current programme availability and institutional exceptions
+  remain unverified. These records are retained for continuity as review entries;
+  illustrative inherited subject pools are never treated as institutional rules.
+  Other institutional cutoffs stay unknown.
+- LASU's current portal independently confirms its institution screening floor of
+  195 and first-choice requirement. The official JAMB course checker confirms
+  Accounting and core subjects but broad social-science wording leaves credit
+  count, accepted subject categories and current sitting/waiver rules unresolved.
 
-Programme records may only become `verified` when the requirements are supported by primary sources, prioritising:
+Every record has source label, URL, scope/session information and check date.
+A check date is not a claim that every institutional rule was confirmed. The
+verification status, unresolved checks and review reasons state those limits.
+The source registry alone does not establish record verification.
 
-1. JAMB IBASS / official JAMB material for programme availability, O'Level requirements and UTME subject combinations.
-2. The institution's official admission portal, brochure, screening notice or programme requirement page for institution-specific rules.
+## Matching semantics
 
-Third-party education blogs must not be the authority for a verified record.
+- Exactly three distinct UTME subjects excluding Use of English. Aliases are
+  normalised without conflating genuinely different subjects.
+- All compulsory subjects plus the specified number of distinct alternatives.
+  A credit cannot satisfy two independent option slots or count again as a core
+  subject. An allocation algorithm handles overlapping groups correctly.
+- One/two sittings, first-choice requirements and SSCE-equivalent credit inputs.
+  NBC and pass-grade exceptions need review. Direct Entry is outside scope.
+- Unknown scores, sitting rules, institutional exceptions, missing provenance or
+  malformed subject rules cannot produce a confirmed match. A known failure is
+  reported as not matched even when other checks still need review.
+- Aliases search existing records; they do not create fictitious programmes.
+  Unsupported courses return no assessed records, not an ineligibility decision.
 
-## Required provenance
+## Regression and scope protection
 
-Every verified programme record must retain:
-
-- admission session
-- official source URL(s)
-- date last verified
-- institution and programme identifiers
-- entry mode
-- O'Level rule groups
-- UTME subject rules
-- institution-specific minimum score only where an official source supports it
-- notes/exceptions where applicable
-
-## Safety
-
-A match means the candidate's supplied details satisfy the requirements encoded in the current verified record. It is not an admission prediction, guarantee, cutoff-mark prediction or claim that admission will be offered.
-
-Records with incomplete or conflicting primary-source evidence must remain `review`/unverified and must not be presented as a confirmed match.
+Behavioural tests execute the TypeScript engine and registered datasets. They
+cover Accounting, engineering, medicine, boundaries, counted alternatives,
+normalisation, invalid profiles, overlapping allocation, sittings, first choice,
+unknown requirements and unsupported programmes. Integrity tests distinguish
+catalogue counts from fully verified coverage and reject duplicate records.
+The dedicated Admission Matcher workflow rejects any changed path outside this
+feature, its tests and its workflow, protecting every existing calculator and
+all other production files. The existing repository CI remains unchanged.
