@@ -1,68 +1,27 @@
 import type { ProgrammeRequirement } from "../types";
 
-const source = {
-  label: "FUOYE 2026/2027 Post-UTME Admission Screening Requirements",
-  url: "https://putme.fuoye.edu.ng/utme/",
-  session: "2026/2027",
-  lastVerified: "2026-10-01",
-};
+const source = { label: "FUOYE 2026/2027 Post-UTME Admission Screening Requirements", url: "https://putme.fuoye.edu.ng/utme/", session: "2026/2027", lastVerified: "2026-10-01" };
+const scoreSource = { label: "FUOYE 2026/2027 Programme Minimum Entry Scores", url: "https://fuoye.edu.ng/programme-minimum-entry-score-for-2026-2027-admission/", session: "2026/2027", lastVerified: "2026-10-01" };
+const sources = [source, scoreSource];
+const fuoye = "Federal University Oye-Ekiti (FUOYE)";
+const id = "fuoye";
 
 export const fuoye2026Requirements: ProgrammeRequirement[] = [
-  {
-    institutionId: "fuoye",
-    institutionName: "Federal University Oye-Ekiti (FUOYE)",
-    programme: "Nursing",
-    aliases: ["Nursing Science"],
-    minimumUtmeScore: 240,
-    requiredUtmeSubjects: ["Physics", "Chemistry", "Biology"],
-    requiredOlevelCredits: ["English Language", "Mathematics", "Biology", "Physics", "Chemistry"],
-    screeningMethod: "online",
-    notes: ["Verified against FUOYE's official 2026/2027 screening requirements and programme minimum entry score table."],
-    sources: [source],
-  },
-  {
-    institutionId: "fuoye",
-    institutionName: "Federal University Oye-Ekiti (FUOYE)",
-    programme: "Computer Science",
-    minimumUtmeScore: 200,
-    requiredUtmeSubjects: ["Mathematics", "Physics", "Chemistry"],
-    requiredOlevelCredits: ["English Language", "Mathematics", "Physics", "Chemistry"],
-    olevelAlternatives: [["Agricultural Science", "Biology"]],
-    screeningMethod: "online",
-    notes: ["One of Agricultural Science or Biology completes the stored O'Level option requirement."],
-    sources: [source],
-  },
-  {
-    institutionId: "fuoye",
-    institutionName: "Federal University Oye-Ekiti (FUOYE)",
-    programme: "Civil Engineering",
-    minimumUtmeScore: 190,
-    requiredUtmeSubjects: ["Mathematics", "Chemistry", "Physics"],
-    requiredOlevelCredits: ["English Language", "Mathematics", "Chemistry", "Physics"],
-    olevelAlternatives: [["Further Mathematics", "Technical Drawing", "Building and Engineering Drawing", "Biology", "Agricultural Science"]],
-    screeningMethod: "online",
-    notes: ["One listed O'Level option completes the stored five-credit requirement."],
-    sources: [source],
-  },
-  {
-    institutionId: "fuoye",
-    institutionName: "Federal University Oye-Ekiti (FUOYE)",
-    programme: "Biochemistry",
-    minimumUtmeScore: 180,
-    requiredUtmeSubjects: ["Physics", "Chemistry", "Biology"],
-    requiredOlevelCredits: ["English Language", "Mathematics", "Biology", "Chemistry", "Physics"],
-    screeningMethod: "online",
-    sources: [source],
-  },
-  {
-    institutionId: "fuoye",
-    institutionName: "Federal University Oye-Ekiti (FUOYE)",
-    programme: "Doctor Of Pharmacy",
-    aliases: ["Pharmacy", "Doctor of Pharmacy"],
-    minimumUtmeScore: 230,
-    requiredUtmeSubjects: ["Physics", "Chemistry", "Biology"],
-    requiredOlevelCredits: ["English Language", "Mathematics", "Chemistry", "Physics", "Biology"],
-    screeningMethod: "online",
-    sources: [source],
-  },
+  { institutionId:id, institutionName:fuoye, programme:"Medicine & Surgery", aliases:["Medicine and Surgery","MBBS"], minimumUtmeScore:280, requiredUtmeSubjects:["Physics","Chemistry","Biology"], requiredOlevelCredits:["English Language","Mathematics","Biology","Physics","Chemistry"], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Nursing", aliases:["Nursing Science"], minimumUtmeScore:240, requiredUtmeSubjects:["Physics","Chemistry","Biology"], requiredOlevelCredits:["English Language","Mathematics","Biology","Physics","Chemistry"], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Doctor Of Pharmacy", aliases:["Pharmacy","Doctor of Pharmacy"], minimumUtmeScore:230, requiredUtmeSubjects:["Physics","Chemistry","Biology"], requiredOlevelCredits:["English Language","Mathematics","Chemistry","Physics","Biology"], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Computer Science", minimumUtmeScore:200, requiredUtmeSubjects:["Mathematics","Physics","Chemistry"], requiredOlevelCredits:["English Language","Mathematics","Physics","Chemistry"], olevelAlternatives:[["Agricultural Science","Biology"]], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Data Science And Analytic", aliases:["Data Science","Data Science and Analytics"], minimumUtmeScore:150, requiredUtmeSubjects:["Mathematics","Physics","Chemistry"], requiredOlevelCredits:["English Language","Mathematics","Physics","Chemistry"], olevelAlternatives:[["Agricultural Science","Biology"]], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Software Engineering", minimumUtmeScore:160, requiredUtmeSubjects:["Physics"], utmeAlternatives:[["Mathematics","Chemistry","Biology"]], utmeAlternativeMinimums:[2], requiredOlevelCredits:["English Language","Mathematics","Chemistry","Physics"], olevelAlternatives:[["Further Mathematics","Technical Drawing","Building and Engineering Drawing","Biology","Agricultural Science","Basic Electricity"]], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Civil Engineering", minimumUtmeScore:190, requiredUtmeSubjects:["Mathematics","Chemistry","Physics"], requiredOlevelCredits:["English Language","Mathematics","Chemistry","Physics"], olevelAlternatives:[["Further Mathematics","Technical Drawing","Building and Engineering Drawing","Biology","Agricultural Science"]], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Computer Engineering", minimumUtmeScore:180, requiredUtmeSubjects:["Mathematics","Chemistry","Physics"], requiredOlevelCredits:["English Language","Mathematics","Chemistry","Physics"], olevelAlternatives:[["Further Mathematics","Technical Drawing","Building and Engineering Drawing","Biology","Agricultural Science"]], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Biochemistry", minimumUtmeScore:180, requiredUtmeSubjects:["Physics","Chemistry","Biology"], requiredOlevelCredits:["English Language","Mathematics","Biology","Chemistry","Physics"], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Plant Science And Biotechnology", aliases:["Plant Science and Biotechnology"], minimumUtmeScore:150, requiredUtmeSubjects:["Biology","Chemistry","Physics"], requiredOlevelCredits:["English Language","Mathematics","Physics","Chemistry","Biology"], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Industrial Chemistry", minimumUtmeScore:150, requiredUtmeSubjects:["Chemistry","Physics","Mathematics"], requiredOlevelCredits:["English Language","Mathematics","Physics","Chemistry","Biology"], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Accounting", aliases:["Accountancy"], minimumUtmeScore:200, requiredUtmeSubjects:["Mathematics","Economics"], utmeAlternatives:[["Principles of Accounting","Financial Accounting","Book Keeping","Government","Geography","Civic Education","Marketing","Office Practice"]], requiredOlevelCredits:["English Language","Mathematics","Economics"], olevelAlternatives:[["Commerce","Office Practice","Statistics","Financial Accounting","Book Keeping","Secretariat Studies","Government","Marketing","Geography","Civic Education"]], olevelAlternativeMinimums:[2], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Business Administration", minimumUtmeScore:200, requiredUtmeSubjects:["Mathematics","Economics"], utmeAlternatives:[["Principles of Accounting","Commerce","Government","Geography"]], requiredOlevelCredits:["English Language","Mathematics","Economics"], olevelAlternatives:[["Commerce","Statistics","Financial Accounting","Book Keeping","Secretariat Studies","Government","Marketing"]], olevelAlternativeMinimums:[2], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Public Administration", minimumUtmeScore:170, requiredUtmeSubjects:["Government","Economics"], utmeAlternatives:[["History","Geography","Commerce","Principles of Accounting","Marketing","Civic Education","Christian Religious Knowledge","Islamic Religious Knowledge","Yoruba"]], requiredOlevelCredits:["English Language","Mathematics","Economics","Government"], olevelAlternatives:[["Commerce","Statistics","Financial Accounting","Book Keeping","Secretariat Studies","Marketing","Geography"]], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Economics and Development Studies", aliases:["Economics"], minimumUtmeScore:180, requiredUtmeSubjects:["Mathematics","Economics"], utmeAlternatives:[["Business Management","Commerce","Civic Education","Financial Accounting","Principles of Accounting","Government","Geography","Statistics"]], requiredOlevelCredits:["English Language","Mathematics","Economics"], olevelAlternatives:[["Biology","Animal Husbandry","Agricultural Science","Basic Science","Data Processing","Information and Communication Technology","Basic Electricity","Home Economics","Home Management","Financial Accounting","Business Management","Government","Civic Education","Geography","Statistics","History","Christian Religious Knowledge","Islamic Religious Knowledge"]], olevelAlternativeMinimums:[2], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Political Science", minimumUtmeScore:180, requiredUtmeSubjects:[], utmeAlternatives:[["Government","History"],["Mathematics","Economics","Geography","Civic Education","Literature in English","Christian Religious Knowledge","Islamic Religious Knowledge","Yoruba","Igbo","Hausa"]], utmeAlternativeMinimums:[1,2], requiredOlevelCredits:["English Language","Mathematics","Government"], olevelAlternatives:[["History","Geography","Civic Education","Igbo Language","Christian Religious Knowledge","Islamic Religious Knowledge","Social Studies","Yoruba Language","Literature in English","Commerce","Biology","Agricultural Science","Basic Science","Data Processing","Information and Communication Technology","Economics"]], olevelAlternativeMinimums:[2], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
+  { institutionId:id, institutionName:fuoye, programme:"Mass Communication", minimumUtmeScore:200, requiredUtmeSubjects:["Literature in English"], utmeAlternatives:[["Government","Commerce","Economics","Civic Education","History","Geography","Social Studies","Information and Communication Technology","Statistics","Christian Religious Knowledge","Islamic Religious Knowledge"]], utmeAlternativeMinimums:[2], requiredOlevelCredits:["English Language","Mathematics","Literature in English"], olevelAlternatives:[["History","Government","Geography","Civic Education","Igbo Language","Christian Religious Knowledge","Islamic Religious Knowledge","Social Studies","Yoruba Language","Biology","Physics","Chemistry","Animal Husbandry","Agricultural Science","Basic Science","Data Processing","Basic Electricity","Applied Electricity","Home Economics","Health Science","Home Management","Information and Communication Technology","Statistics","Economics"]], olevelAlternativeMinimums:[2], minimumOlevelCreditCount:5, screeningMethod:"online", sources },
 ];
