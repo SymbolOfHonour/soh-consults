@@ -1,0 +1,60 @@
+name: Admission Matcher Isolated Preview
+
+on:
+  push:
+    branches:
+      - deploy/admission-matcher-preview
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout exact Admission Matcher HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: de36ba4eb2b9d72ab62a4eb16f72a93bdd3e2e08
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install application dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Install isolated Cloudflare build tooling
+        run: npm install --no-save --no-package-lock @opennextjs/cloudflare wrangler
+
+      - name: Create ephemeral Cloudflare config
+        run: |
+          cat > wrangler.jsonc <<'EOF'
+          {
+            "$schema": "node_modules/wrangler/config-schema.json",
+            "name": "soh-admission-matcher-preview",
+            "main": ".open-next/worker.js",
+            "compatibility_date": "2026-09-01",
+            "compatibility_flags": ["nodejs_compat"],
+            "assets": {
+              "directory": ".open-next/assets",
+              "binding": "ASSETS"
+            }
+          }
+          EOF
+          cat > open-next.config.ts <<'EOF'
+          import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+          export default defineCloudflareConfig();
+          EOF
+
+      - name: Build exact feature HEAD for Cloudflare
+        run: npx opennextjs-cloudflare build
+
+      - name: Deploy isolated preview Worker
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
