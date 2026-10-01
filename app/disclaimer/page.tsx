@@ -1,6 +1,7 @@
+import {withPublicSocial} from "../../lib/public-metadata";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Disclaimer", description: "Read the S.O.H CONSULTS business, admission guidance, calculator, privacy and service disclaimer.", alternates: { canonical: "/disclaimer" } };
+export const metadata: Metadata = withPublicSocial({ title: "Disclaimer", description: "Read the S.O.H CONSULTS business, admission guidance, calculator, privacy and service disclaimer.", alternates: { canonical: "/disclaimer" } });
 
 const sections = [
   { title: "General Information", paragraphs: ["S.O.H CONSULTS is a business name registered with the Corporate Affairs Commission (CAC) of Nigeria. We provide educational information, admission guidance, online registration assistance, documentation support, educational consultation and related business centre services.", "Information published on this website is provided for general information and guidance. We make reasonable efforts to ensure that our content is accurate, reliable and up to date. However, admission requirements, application deadlines, fees, examination procedures and institutional policies may change without prior notice.", "We do not guarantee that all information published on this website will always be complete, current or free from errors. Users are strongly encouraged to verify important information through the official websites and communication channels of the relevant institutions and examination bodies."] },

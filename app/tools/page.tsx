@@ -1,6 +1,7 @@
+import {withPublicSocial} from "../../lib/public-metadata";
 import type {Metadata} from "next";
 
-export const metadata:Metadata={title:"Student Tools",description:"Access S.O.H CONSULTS admission screening calculators and CGPA tools."};
+export const metadata:Metadata=withPublicSocial({title:"Student Tools",alternates:{canonical:"/tools"}, description:"Access S.O.H CONSULTS admission screening calculators and CGPA tools."});
 
 const tools=[
  {href:"/screening-calculator",icon:"🎓",title:"Admission & Screening Calculators",description:"Check screening scores and eligibility with our available school calculators.",cta:"Open screening tools"},

@@ -42,10 +42,12 @@ export async function generateMetadata({
       description: guide.summary,
       url: canonicalUrl,
       siteName: "S.O.H CONSULTS",
+      images:[{url:"/soh-logo.jpg",alt:"S.O.H CONSULTS"}],
     },
 
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
+      images:["/soh-logo.jpg"],
       title: guide.title,
       description: guide.summary,
     },

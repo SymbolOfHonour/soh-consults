@@ -1,3 +1,4 @@
+import {withPublicSocial} from "../../../../lib/public-metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { listPublishedStories } from "../../../../lib/news-queue";
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params;
   const { name } = await getCategory(category);
   return name
-    ? { title: `${name} Updates`, description: `Latest ${name.toLowerCase()} news and guidance from S.O.H CONSULTS.`, alternates: { canonical: `/updates/category/${category}` } }
+    ? withPublicSocial({ title: `${name} Updates`, description: `Latest ${name.toLowerCase()} news and guidance from S.O.H CONSULTS.`, alternates: { canonical: `/updates/category/${category}` } })
     : { title: "Update Category Not Found", robots: { index: false, follow: false } };
 }
 

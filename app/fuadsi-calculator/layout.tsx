@@ -1,1 +1,2 @@
-import type {Metadata} from "next"; export const metadata:Metadata={title:"FUADSI Screening Aggregate Calculator | S.O.H CONSULTS",description:"Calculate FUADSI screening aggregate from UTME and O'Level results.",alternates:{canonical:"/fuadsi-calculator"}}; export default function Layout({children}:{children:React.ReactNode}){return children}
+import {withPublicSocial} from "../../lib/public-metadata";
+import type {Metadata} from "next"; export const metadata:Metadata=withPublicSocial({title:"FUADSI Screening Aggregate Calculator | S.O.H CONSULTS",description:"Calculate FUADSI screening aggregate from UTME and O'Level results.",alternates:{canonical:"/fuadsi-calculator"}}); export default function Layout({children}:{children:React.ReactNode}){return children}

@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const csp = [
+const privateCsp = [
   "default-src 'self'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -16,7 +16,7 @@ const csp = [
 ].join("; ");
 
 const securityHeaders = [
-  { key: "Content-Security-Policy", value: csp },
+
   { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
@@ -31,7 +31,8 @@ const deploymentHeaders = process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "
   : securityHeaders;
 
 const nextConfig: NextConfig = {
-  async headers() { return [{ source: "/(.*)", headers: deploymentHeaders }]; },
+  poweredByHeader:false,
+  async headers() { return [{ source: "/(.*)", headers: deploymentHeaders },{source:"/api/:path*",headers:[{key:"X-Robots-Tag",value:"noindex, nofollow"},{key:"Content-Security-Policy",value:privateCsp}]}]; },
   async redirects() {
     return [{
       source: "/:path*",

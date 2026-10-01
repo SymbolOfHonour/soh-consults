@@ -1,7 +1,8 @@
 @import "tailwindcss";
 :root{--background:#fff;--foreground:#171717;color-scheme:light;--soh-green:#15803d;--mobile-nav-height:64px}
 @theme inline{--color-background:var(--background);--color-foreground:var(--foreground);--font-sans:var(--font-geist-sans);--font-mono:var(--font-geist-mono)}
-*{box-sizing:border-box}html{scroll-behavior:smooth;background:#fff;color:#171717;overflow-x:hidden}body{margin:0;background:var(--background);color:var(--foreground);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}img,video,svg{max-width:100%}
+*{box-sizing:border-box}html{scroll-behavior:smooth;background:#fff;color:#171717;overflow-x:hidden}body{margin:0;background:var(--background);color:var(--foreground);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}button,input,select,textarea{font:inherit}button{cursor:pointer}img,video,svg{max-width:100%}
+@layer base{a{color:inherit;text-decoration:none}}
 .soh-mobile-nav{display:none}
 /* The builder's mobile canvas should resemble a modern phone viewport instead of a tiny nested card. */
 .max-w-\[390px\]{max-width:min(100%,480px)!important}
