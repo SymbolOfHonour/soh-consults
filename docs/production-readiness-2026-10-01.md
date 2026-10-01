@@ -61,3 +61,27 @@ The production admin session is not signed in in the available browser. Actual t
 Published CMS version 3 currently orders Hero → Start Here → Screening Tool → Latest Updates → remaining sections. This differs from the brief's stated Hero → Latest Updates → Start Here. Builder reorder/save/publish works in the isolated suite. Do not hardcode a different public order or overwrite production draft settings merely to make the brief appear satisfied; use authenticated CMS controls to reconcile it.
 
 Cloudflare Full (Strict), Always Use HTTPS, AdSense review/approval, Google consent/account settings, Search Console indexing and real-user CWV require account-level verification. The website serves HTTPS with HSTS and the existing Vercel-domain redirect. No Cloudflare optimizations, Google review actions, database schema or production records were changed.
+
+
+## Independent continuation verification
+
+Repository state was re-established from GitHub rather than the previous Work session. PR #206 is the active draft for `qa/production-readiness`, based on main `a5d233d`; the starting head was `eb1cb49`. The older Phase 2 PR #167 is a different, conflicted branch and was not modified. The two existing readiness commits and their fixes were preserved. GitHub Actions run 36797878135 verified the starting head successfully, while its Vercel status failed with `api-deployments-free-per-day`.
+
+The advertised npm test command omitted every `.test.mjs` CMS contract. Running all checked-in executable tests exposed three obsolete assertions expecting `getSiteSettings`, even though public rendering correctly calls `getPublishedSiteSettings`. The assertions now require the published accessor; npm test and CI include both CJS and MJS suites. The `BusinessContactSync.test.tsx` file exports constants only and contains no runnable tests.
+
+Repository-wide lint exposed 62 errors that the previous CI's selected-file lint omitted. JSX apostrophes are now escaped without changing displayed copy; diagnostics uses the actual queue return type; LASUED's small subject deduplication runs directly rather than through an unstable memo dependency. No calculator formula, programme requirement or approved layout changed. CI now runs repository-wide lint. Twelve pre-existing warnings remain, chiefly hook dependencies and unused variables; they are not suppressed.
+
+Interactive Preview checks also exposed duplicated brand suffixes on calculator titles. The shared metadata helper now preserves an already branded title as absolute and reads absolute/default title objects for social metadata. A behavioral regression covers both cases.
+
+Fresh checks of the continuation changes:
+
+- 61 automated tests passed, no skipped or failed tests.
+- Production build and TypeScript passed.
+- Repository-wide ESLint passed with zero errors and 12 warnings; whitespace check passed.
+- Production dependency audit passed the CI high/critical threshold; one low-severity DOMPurify advisory remains.
+- A local production server with a disposable HTTP database fixture crawled 62 public pages (49 sitemap destinations plus discovered links), and fetched 76 linked local assets successfully. Eighteen legacy articles were seeded only into the disposable fixture. Article number and malformed category redirects returned 308; every public script received its CSP nonce; branded page titles had one suffix; homepage server HTML linked its newest story; protected Builder access redirected to login with noindex. The deliberately missing URL returned 404. There were no unexpected route or local-resource failures.
+- The existing Vercel Preview is now publicly accessible in this browser. Twenty-six public navigation/tool/guide/legal destinations opened without an application-error page. This supersedes the earlier authentication-block observation, but does not certify the latest branch head: Vercel's successful deployment predates the category-link follow-up.
+- That older Preview's homepage has no news cards and `/updates` reports zero updates. Two article links from Opportunities show 404. The published database/configuration path is therefore not verified on Preview; a missing or unavailable Preview database is a possible cause, not a confirmed diagnosis. No credentials, Preview environment settings or production records were changed.
+- Cloud Browser rejected navigation to Preview sitemap XML with `ERR_BLOCKED_BY_CLIENT`; terminal access to the Preview host timed out. Local sitemap validation succeeded; remote sitemap validation remains blocked. External destination availability is not certified by the local resource crawl.
+
+The PR must remain draft until a Vercel deployment of the latest QA head succeeds and its published-content routes can be verified with an appropriate Preview data source. Deployment quota/account configuration are external blockers, not reasons to merge. Production/main, production CMS ordering and all production records remain untouched. Historical browser stress/CMS/performance claims above are previous repository evidence, not results independently repeated in this continuation.
