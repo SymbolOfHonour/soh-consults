@@ -41,10 +41,18 @@ polytechnics, monotechnics and colleges of education; no such records are claime
   availability must not be presented as an assessed option.
   Illustrative inherited subject pools are never treated as institutional rules.
   Other institutional cutoffs stay unknown.
-- LASU's current portal independently confirms its institution screening floor of
-  195 and first-choice requirement. The official JAMB course checker confirms
-  Accounting and core subjects but broad social-science wording leaves credit
-  count, accepted subject categories and current sitting/waiver rules unresolved.
+- LASU's current 2026/2027 screening portal independently confirms the institution
+  screening floor of 195, LASU first-choice requirement and O'Level upload to JAMB
+  CAPS. LASU's official course checker confirms Accounting with English Language,
+  Mathematics and Economics as the core and describes the remaining requirement
+  broadly as Social Science. The current JAMB IBASS Administration brochure was
+  also checked for the general Accounting framework and LASU special-consideration
+  context. The record now stores the source-backed five-credit framework and a
+  maximum of two sittings. The complete current LASU accepted Social Science
+  subject set and any programme-specific waivers are still not sufficiently
+  explicit across the authoritative sources, so UTME and O'Level subject checks
+  remain review-only. A candidate at 195 or above therefore does not become a
+  confirmed LASU Accounting match merely because the score/sitting checks pass.
 
 Every record has source label, URL, scope/session information and check date.
 A check date is not a claim that every institutional rule was confirmed. The
@@ -77,8 +85,11 @@ The source registry alone does not establish record verification.
 Behavioural tests execute the TypeScript engine and registered datasets. They
 cover Accounting, engineering, medicine, boundaries, counted alternatives,
 normalisation, invalid profiles, overlapping allocation, sittings, first choice,
-unknown requirements and unsupported programmes. Integrity tests distinguish
-catalogue counts from fully verified coverage and reject duplicate records.
+unknown requirements and unsupported programmes. LASU Accounting has explicit
+regression cases for the owner's supplied subject profile at the 195 boundary,
+above the boundary, below it, one/two sittings and wrong first choice; unresolved
+subject categories remain review-only. Integrity tests distinguish catalogue
+counts from fully verified coverage and reject duplicate records.
 The dedicated Admission Matcher workflow rejects any changed path outside this
 feature, its tests and its workflow, protecting every existing calculator and
 all other production files. The existing repository CI remains unchanged.
