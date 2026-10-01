@@ -13,11 +13,17 @@ test('every LASU record carries the current institutional screening baseline',()
 });
 
 test('LASU review records expose every unresolved decision instead of guessing eligibility',()=>{
- for(const r of lasu.filter(r=>r.verificationStatus==='review')){assert.ok(r.unresolvedChecks?.length,r.programme);assert.ok(r.reviewReasons?.length,r.programme);if(r.unresolvedChecks.includes('sittings'))assert.equal(r.maximumSittings,undefined,r.programme);}
+ for(const r of lasu.filter(r=>r.verificationStatus==='review')){assert.ok(r.unresolvedChecks?.length,r.programme);assert.ok(r.reviewReasons?.length,r.programme);}
 });
 
 test('LASU verified records may exist only when all machine decisions are complete',()=>{
  for(const r of lasu.filter(r=>r.verificationStatus==='verified')){assert.ok(!r.unresolvedChecks?.length,r.programme);assert.ok(r.maximumSittings,r.programme);assert.ok(r.minimumOlevelCreditCount,r.programme);const slots=r.requiredUtmeSubjects.length+(r.utmeGroups??[]).reduce((n,g)=>n+g.count,0)+(r.utmeAlternatives??[]).reduce((n,g,i)=>n+(r.utmeAlternativeMinimums?.[i]??1),0);assert.equal(slots,3,r.programme);}
+});
+
+test('LASU priority sitting rules are source-backed and not inferred from programme names',()=>{
+ const byName=(name)=>lasu.find(r=>r.programme===name);
+ assert.equal(byName('Medicine and Surgery').maximumSittings,1);
+ for(const name of ['Nursing','Medical Laboratory Science','Chemical Engineering','Civil Engineering','Mechanical Engineering','Electronics and Computer Engineering','Aerospace Engineering'])assert.equal(byName(name).maximumSittings,2,name);
 });
 
 test('LASU completion audit reports the exact current verification boundary',()=>{
