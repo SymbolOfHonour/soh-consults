@@ -27,8 +27,8 @@ export function matchCandidate(
       if (requirement.maximumSittings) {
         if (candidate.olevelSittings <= requirement.maximumSittings) passed.push(`O'Level sitting count is within the stored maximum of ${requirement.maximumSittings}.`);
         else failed.push(`This programme allows a maximum of ${requirement.maximumSittings} O'Level sitting${requirement.maximumSittings === 1 ? "" : "s"}.`);
-      } else {
-        needsReview.push("The maximum O'Level sitting rule has not been verified for this record.");
+      } else if (candidate.olevelSittings > 1) {
+        needsReview.push("Multiple O'Level sittings were supplied, but the maximum sitting rule has not been verified for this record.");
       }
 
       if (typeof requirement.minimumUtmeScore === "number") {
