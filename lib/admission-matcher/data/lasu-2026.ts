@@ -12,15 +12,17 @@ const jambSource = { label: "JAMB IBASS Degree Administration brochure", url: "h
 
 export const lasu2026Requirements: ProgrammeRequirement[] = [{
   institutionId: "lasu", institutionName: "Lagos State University (LASU)", institutionType: "state-university", institutionAliases: ["LASU"], programme: "Accounting", aliases: ["Accountancy"], minimumUtmeScore: 195, scoreScope: "institution-screening", firstChoiceRequired: true,
-  // The current LASU checker names Mathematics and Economics, then uses the broad phrase
-  // "any subject from Social Science". Do not encode a guessed closed list here. The
-  // unresolved flag deliberately prevents these placeholders from deciding eligibility.
-  requiredUtmeSubjects: ["Mathematics", "Economics"], utmeGroups: [{subjects: ["Government", "Geography", "Commerce", "Financial Accounting"],count:1}],
+  // Only encode the subject requirements that the current LASU checker states explicitly.
+  // Its remaining requirement is the broad category "any subject from Social Science".
+  // Until LASU/JAMB provides an authoritative machine-safe category membership list for
+  // this current rule, the category remains unresolved instead of being represented by
+  // a guessed closed list of subjects.
+  requiredUtmeSubjects: ["Mathematics", "Economics"], utmeGroups: [],
   requiredOlevelCredits: ["English Language", "Mathematics", "Economics"], minimumOlevelCreditCount: 5, maximumSittings: 2,
   verificationStatus: "review", unresolvedChecks: ["utme", "olevel"],
   reviewReasons: ["LASU's official checker confirms Accounting and its English/Mathematics/Economics core requirements but describes the remaining subject category broadly as Social Science. The complete current LASU accepted subject set and any programme-specific waivers still need authoritative verification, so subject eligibility remains review-only."],
   screeningMethod: "online", sources: [programmeSource, jambSource, {...source,scope: "195 institution screening floor and first choice, not a departmental admission cutoff"}],
-  notes: ["Alternative subjects shown in stored data are non-decisional placeholders while the Social Science category remains unresolved; they must not be presented as a complete accepted list.", "The stored maximum of two sittings and five-credit framework are independently source-backed, but they do not make the unresolved subject-category rule automatic.", "OLevel upload to JAMB CAPS and all administrative admission checks remain required."]
+  notes: ["No guessed Social Science subject list is stored. The broad category remains explicitly unresolved and cannot decide eligibility.", "The stored maximum of two sittings and five-credit framework are independently source-backed, but they do not make the unresolved subject-category rule automatic.", "OLevel upload to JAMB CAPS and all administrative admission checks remain required."]
 }];
 
 export const lasu2026Baseline = {
