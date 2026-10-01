@@ -2,22 +2,27 @@
 
 Checked 2026-10-01. All data and logic are isolated from existing calculators.
 
-The registered dataset contains 119 institution/programme records, 95 distinct
+The registered dataset contains 118 institution/programme records, 95 distinct
 programme names and 4 institutions. These are catalogue counts, not fully
 verified eligibility coverage. 33 records, representing 33 programmes at
 LASUSTECH, have fully verified stored UTME screening, subject, credit and
-sitting checks. 86 records require review. No national completeness is claimed.
+sitting checks. 85 records require review. No national completeness is claimed.
 Federal and state university entries are represented. The model supports
 polytechnics, monotechnics and colleges of education; no such records are claimed.
 
 ## Sources and scope
 
-- JAMB IBASS live UNIOSUN institution catalogue, 19 programme records transcribed
-  from individual View Details tables. The 20th entry, Arabic Language and
-  Literature, refers to another unexpanded requirement and is excluded. General
-  JAMB rules do not include every university waiver. Institutional screening
-  scores, waivers and sittings remain unresolved. The catalogue does not state a
-  session; it is labelled as a live, undated reference rather than a 2026 brochure.
+- JAMB IBASS live UNIOSUN institution catalogue, reconciled with UNIOSUN's current
+  undergraduate pages and its dated 2026/2027 Post-UTME notice. The active set now
+  contains 18 UNIOSUN records. The 2026/2027 notice verifies first choice, the 160
+  general screening floor, the 200 floor for Law and Nursing, five relevant
+  credits, a maximum of two sittings generally and one sitting for Law/Nursing.
+  Medicine is explicitly put on hold for 2026/2027 and is therefore excluded from
+  active matching even though it remains visible in the broader IBASS catalogue.
+  Arabic Language and Literature remains excluded because its IBASS entry points
+  to an unexpanded requirement. Programme subject rules remain review-only where
+  the general JAMB table has not yet been reconciled with a sufficiently explicit
+  current UNIOSUN programme rule. Screening floors are not admission guarantees.
 - FUOYE official 2026/2027 admission requirements PDF, programme screening-score
   page and current Post-UTME portal. 63 programme records have source-backed
   programme subjects/scores. The current general sitting rules remain unresolved.
@@ -88,8 +93,11 @@ normalisation, invalid profiles, overlapping allocation, sittings, first choice,
 unknown requirements and unsupported programmes. LASU Accounting has explicit
 regression cases for the owner's supplied subject profile at the 195 boundary,
 above the boundary, below it, one/two sittings and wrong first choice; unresolved
-subject categories remain review-only. Integrity tests distinguish catalogue
-counts from fully verified coverage and reject duplicate records.
+subject categories remain review-only. UNIOSUN regression cases enforce the 160
+baseline, first choice, Nursing's 200/one-sitting rules and the 2026/2027 Medicine
+suspension without pretending unresolved subject combinations are verified.
+Integrity tests distinguish catalogue counts from fully verified coverage and
+reject duplicate records.
 The dedicated Admission Matcher workflow rejects any changed path outside this
 feature, its tests and its workflow, protecting every existing calculator and
 all other production files. The existing repository CI remains unchanged.
