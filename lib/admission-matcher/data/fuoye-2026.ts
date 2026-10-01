@@ -1,0 +1,70 @@
+import type { ProgrammeRequirement } from "../types";
+
+const source = {
+  label: "FUOYE 2026/2027 Post-UTME Admission Screening Requirements",
+  url: "https://putme.fuoye.edu.ng/utme/",
+  session: "2026/2027",
+  lastVerified: "2026-10-01",
+};
+
+export const fuoye2026Requirements: ProgrammeRequirement[] = [
+  {
+    institutionId: "fuoye",
+    institutionName: "Federal University Oye-Ekiti (FUOYE)",
+    programme: "Nursing",
+    aliases: ["Nursing Science"],
+    minimumUtmeScore: 240,
+    requiredUtmeSubjects: ["Physics", "Chemistry", "Biology"],
+    requiredOlevelCredits: ["English Language", "Mathematics", "Biology", "Physics", "Chemistry"],
+    screeningMethod: "online",
+    notes: ["Verified against FUOYE's official 2026/2027 screening requirements and programme minimum entry score table."],
+    sources: [source],
+  },
+  {
+    institutionId: "fuoye",
+    institutionName: "Federal University Oye-Ekiti (FUOYE)",
+    programme: "Computer Science",
+    minimumUtmeScore: 200,
+    requiredUtmeSubjects: ["Mathematics", "Physics", "Chemistry"],
+    requiredOlevelCredits: ["English Language", "Mathematics", "Physics", "Chemistry"],
+    olevelAlternatives: [["Agricultural Science", "Biology"]],
+    screeningMethod: "online",
+    notes: ["One of Agricultural Science or Biology completes the stored O'Level option requirement."],
+    sources: [source],
+  },
+  {
+    institutionId: "fuoye",
+    institutionName: "Federal University Oye-Ekiti (FUOYE)",
+    programme: "Civil Engineering",
+    minimumUtmeScore: 190,
+    requiredUtmeSubjects: ["Mathematics", "Chemistry", "Physics"],
+    requiredOlevelCredits: ["English Language", "Mathematics", "Chemistry", "Physics"],
+    olevelAlternatives: [["Further Mathematics", "Technical Drawing", "Building and Engineering Drawing", "Biology", "Agricultural Science"]],
+    screeningMethod: "online",
+    notes: ["One listed O'Level option completes the stored five-credit requirement."],
+    sources: [source],
+  },
+  {
+    institutionId: "fuoye",
+    institutionName: "Federal University Oye-Ekiti (FUOYE)",
+    programme: "Biochemistry",
+    minimumUtmeScore: 180,
+    requiredUtmeSubjects: ["Physics", "Chemistry", "Biology"],
+    requiredOlevelCredits: ["English Language", "Mathematics", "Biology", "Chemistry", "Physics"],
+    screeningMethod: "online",
+    sources: [source],
+  },
+  {
+    institutionId: "fuoye",
+    institutionName: "Federal University Oye-Ekiti (FUOYE)",
+    programme: "Doctor Of Pharmacy",
+    aliases: ["Pharmacy", "Doctor of Pharmacy"],
+    minimumUtmeScore: 230,
+    requiredUtmeSubjects: ["Physics", "Chemistry", "Biology"],
+    requiredOlevelCredits: ["English Language", "Mathematics", "Chemistry", "Physics", "Biology"],
+    screeningMethod: "online",
+    sources: [source],
+  },
+];
+
+export const admissionMatcherRequirements: ProgrammeRequirement[] = [...fuoye2026Requirements];
