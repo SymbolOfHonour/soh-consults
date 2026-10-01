@@ -19,13 +19,25 @@ export function matchCandidate(
       const failed: string[] = [];
       const needsReview: string[] = [];
 
+      const uniqueUtmeSubjects = new Set(candidate.utmeSubjects.map(normalise));
+      if (uniqueUtmeSubjects.size !== 3 || uniqueUtmeSubjects.has("english language") || uniqueUtmeSubjects.has("use of english")) {
+        failed.push("Supply exactly three distinct UTME subjects apart from Use of English.");
+      }
+
+      if (requirement.maximumSittings) {
+        if (candidate.olevelSittings <= requirement.maximumSittings) passed.push(`O'Level sitting count is within the stored maximum of ${requirement.maximumSittings}.`);
+        else failed.push(`This programme allows a maximum of ${requirement.maximumSittings} O'Level sitting${requirement.maximumSittings === 1 ? "" : "s"}.`);
+      } else {
+        needsReview.push("The maximum O'Level sitting rule has not been verified for this record.");
+      }
+
       if (typeof requirement.minimumUtmeScore === "number") {
         if (candidate.utmeScore >= requirement.minimumUtmeScore) passed.push(`UTME score meets the stored minimum of ${requirement.minimumUtmeScore}.`);
         else failed.push(`UTME score is below the stored minimum of ${requirement.minimumUtmeScore}.`);
       } else needsReview.push("No programme-specific institutional UTME minimum has been verified in the Matcher dataset yet.");
 
       const missingUtme = requirement.requiredUtmeSubjects.filter(
-        (subject) => normalise(subject) !== "english language" && !has(candidate.utmeSubjects, subject),
+        (subject) => normalise(subject) !== "english language" && normalise(subject) !== "use of english" && !has(candidate.utmeSubjects, subject),
       );
       if (missingUtme.length) failed.push(`UTME subject requirement missing: ${missingUtme.join(", ")}.`);
       else passed.push("Stored compulsory UTME subjects are satisfied.");
@@ -52,5 +64,9 @@ export function matchCandidate(
 
       const status = failed.length ? "not_match" : needsReview.length ? "review" : "match";
       return { requirement, status, passed, failed, needsReview };
+    })
+    .sort((a, b) => {
+      const order: Record<MatchResult["status"], number> = { match: 0, review: 1, not_match: 2 };
+      return order[a.status] - order[b.status] || a.requirement.institutionName.localeCompare(b.requirement.institutionName);
     });
 }
