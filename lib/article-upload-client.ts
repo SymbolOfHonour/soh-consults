@@ -15,13 +15,20 @@ async function uploadRequest(body:Record<string,unknown>) {
     throw error;
   } finally {clearTimeout(timer);}
 }
+function tusFailure(error:Error&{originalRequest?:{getStatus?:()=>number;getResponseText?:()=>string};causingError?:Error}) {
+  const request=error.originalRequest;
+  const status=request?.getStatus?.();
+  const body=request?.getResponseText?.()?.trim();
+  const detail=[status?`HTTP ${status}`:"",body?.slice(0,300)||"",error.message||""].filter(Boolean).join(" · ");
+  return Error(`Storage upload failed${detail?`: ${detail}`:"."}`);
+}
 export async function uploadArticleFile(file:File,kind:ArticleUploadKind,onProgress?:(percentage:number)=>void):Promise<{url:string;name:string}> {
   const error=await uploadValidationError(file,kind);if(error)throw Error(error);
   const target=await uploadRequest({action:"prepare",kind,name:file.name,size:file.size,type:file.type});
   await new Promise<void>((resolve,reject)=>{
     let timer:ReturnType<typeof setTimeout>;
     const arm=()=>{clearTimeout(timer);timer=setTimeout(()=>{void upload.abort().catch(()=>{});reject(Error("No upload progress for two minutes. Check your connection and retry."));},120_000);};
-    const upload=new Upload(file,{endpoint:target.endpoint,headers:{"x-signature":target.token,"x-upsert":"false"},metadata:{bucketName:target.bucket,objectName:target.path,contentType:file.type,cacheControl:"3600"},chunkSize:6*1024*1024,retryDelays:[0,1000,3000,5000],uploadDataDuringCreation:true,storeFingerprintForResuming:false,removeFingerprintOnSuccess:true,onProgress:(sent,total)=>{arm();onProgress?.(Math.round(sent/total*100));},onSuccess:()=>{clearTimeout(timer);resolve();},onError:()=>{clearTimeout(timer);reject(Error("Upload interrupted or rejected by storage. Check the connection and the QA bucket size limit, then retry."));}});
+    const upload=new Upload(file,{endpoint:target.endpoint,headers:{"x-signature":target.token,"x-upsert":"false"},metadata:{bucketName:target.bucket,objectName:target.path,contentType:file.type,cacheControl:"3600"},chunkSize:6*1024*1024,retryDelays:[0,1000,3000,5000],uploadDataDuringCreation:true,storeFingerprintForResuming:false,removeFingerprintOnSuccess:true,onProgress:(sent,total)=>{arm();onProgress?.(Math.round(sent/total*100));},onSuccess:()=>{clearTimeout(timer);resolve();},onError:(uploadError)=>{clearTimeout(timer);reject(tusFailure(uploadError));}});
     arm();upload.start();
   });
   const result=await uploadRequest({action:"complete",receipt:target.receipt});
