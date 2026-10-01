@@ -1,5 +1,5 @@
 import { jambLiveCatalogueRequirements } from "./jamb-live-catalogue";
-import { fuoye2026Requirements } from "./fuoye-2026";
+import { fuoyeVerified2026Requirements } from "./fuoye-verified-2026";
 import { lasustech2026Requirements } from "./lasustech-2026";
 import { lasu2026Requirements } from "./lasu-2026";
 import { lasuLiveCatalogue2026 } from "./lasu-live-2026";
@@ -12,7 +12,7 @@ const remainingLasuCatalogue = lasuLiveCatalogue2026.filter((record) => !lasuBat
 
 export const admissionMatcherRequirements = [
   ...jambLiveCatalogueRequirements,
-  ...fuoye2026Requirements,
+  ...fuoyeVerified2026Requirements,
   ...lasustech2026Requirements,
   ...lasu2026Requirements,
   ...lasuBatch1Requirements,
