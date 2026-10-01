@@ -53,6 +53,15 @@ test('LASU Accounting keeps unresolved subject categories review-only while enfo
   const below=at({...ownerProfile,utmeScore:194,sittings:1},'lasu');assert.equal(below.status,'not_match');assert.ok(below.failed.some(s=>s.includes('194')&&s.includes('195')));
   const wrongChoice=at({...ownerProfile,utmeScore:245,sittings:1,firstChoiceInstitution:'FUOYE'},'lasu');assert.equal(wrongChoice.status,'not_match');assert.ok(wrongChoice.failed.some(s=>s.includes('first choice')));
 });
+test('UNIOSUN 2026 screening baseline is enforced without upgrading unresolved subjects',()=>{
+  const profile={...accounting,institution:'UNIOSUN',firstChoiceInstitution:'UNIOSUN'};
+  const boundary=at({...profile,utmeScore:160,sittings:2},'uniosun');assert.equal(boundary.status,'review');assert.ok(boundary.passed.some(s=>s.includes('160')));assert.ok(boundary.passed.some(s=>s.includes('maximum of 2')));
+  assert.equal(at({...profile,utmeScore:159},'uniosun').status,'not_match');
+  assert.equal(at({...profile,utmeScore:200,sittings:1,firstChoiceInstitution:'LASU'},'uniosun').status,'not_match');
+  const nursing={...profile,programme:'Nursing',utmeSubjects:['Biology','Chemistry','Physics'],olevelCredits:['English','Mathematics','Biology','Chemistry','Physics'],sittings:1};
+  assert.equal(at({...nursing,utmeScore:199},'uniosun').status,'not_match');assert.equal(at({...nursing,utmeScore:200},'uniosun').status,'review');assert.equal(at({...nursing,utmeScore:200,sittings:2},'uniosun').status,'not_match');
+  assert.ok(!data.some(r=>r.institutionId==='uniosun' && r.programme==='Medicine & Surgery'));
+});
 test('unknown cutoffs, missing sources, unknown sittings and unverified records never match',()=>{
   for(const change of [{minimumUtmeScore:undefined},{maximumSittings:undefined},{sources:[]},{verificationStatus:'review'},{unresolvedChecks:['utme']}])assert.equal(matchCandidate(accounting,[{...known,...change}])[0].status,'review');
   assert.equal(at(accounting,'abu'),undefined);
