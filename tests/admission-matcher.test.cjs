@@ -43,10 +43,13 @@ test('sitting restrictions, missing sittings, legacy sitting input and first cho
 });
 test('LASU Accounting keeps unresolved subject categories review-only while enforcing verified boundaries',()=>{
   const ownerProfile={...accounting,institution:'LASU',firstChoiceInstitution:'LASU',utmeSubjects:['Mathematics','Economics','Commerce'],olevelCredits:['English Language','Mathematics','Economics','Commerce','Financial Accounting']};
+  const lasu=data.find(r=>r.institutionId==='lasu'&&r.programme==='Accounting');
+  assert.ok(lasu);assert.deepEqual(lasu.utmeGroups,[]);assert.deepEqual(lasu.unresolvedChecks,['utme','olevel']);
   for(const sittings of [1,2]) {
     const boundary=at({...ownerProfile,utmeScore:195,sittings},'lasu');assert.equal(boundary.status,'review');assert.ok(boundary.passed.some(s=>s.includes('maximum of 2')));assert.ok(boundary.needsReview.some(s=>s.includes('UTME')));assert.ok(boundary.needsReview.some(s=>s.includes("O'Level")));
     assert.equal(at({...ownerProfile,utmeScore:400,sittings},'lasu').status,'review');
   }
+  for(const third of ['Commerce','Government','Geography','Financial Accounting']) assert.equal(at({...ownerProfile,utmeSubjects:['Mathematics','Economics',third]},'lasu').status,'review');
   const below=at({...ownerProfile,utmeScore:194,sittings:1},'lasu');assert.equal(below.status,'not_match');assert.ok(below.failed.some(s=>s.includes('194')&&s.includes('195')));
   const wrongChoice=at({...ownerProfile,utmeScore:245,sittings:1,firstChoiceInstitution:'FUOYE'},'lasu');assert.equal(wrongChoice.status,'not_match');assert.ok(wrongChoice.failed.some(s=>s.includes('first choice')));
 });
