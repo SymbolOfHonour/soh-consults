@@ -39,6 +39,8 @@ export function matchCandidate(candidate: CandidateProfile, requirements: Progra
   const errors = validateCandidate(candidate);
   if (errors.length) throw new Error(errors.join(" "));
   const requested = normalise(candidate.programme);
+  const firstChoice = normalise(candidate.firstChoiceInstitution ?? "");
+  const isSelectedFirstChoice = (requirement: ProgrammeRequirement) => !!firstChoice && [requirement.institutionId, requirement.institutionName, ...(requirement.institutionAliases ?? [])].some((n) => normalise(n) === firstChoice);
   return requirements.filter((item) => [item.programme, ...(item.aliases ?? [])].some((n) => normalise(n) === requested))
     .filter((item) => !candidate.institution || [item.institutionId, item.institutionName, ...(item.institutionAliases ?? [])].some((n) => normalise(n) === normalise(candidate.institution!)))
     .map((requirement): MatchResult => {
@@ -84,11 +86,11 @@ export function matchCandidate(candidate: CandidateProfile, requirements: Progra
       if (requirement.firstChoiceRequired) {
         if (!candidate.firstChoiceInstitution?.trim()) needsReview.push("First-choice institution must be confirmed.");
         else {
-          const isChoice = [requirement.institutionId, requirement.institutionName, ...(requirement.institutionAliases ?? [])].some((n) => normalise(n) === normalise(candidate.firstChoiceInstitution!));
+          const isChoice = isSelectedFirstChoice(requirement);
           (isChoice ? passed : failed).push(isChoice ? "First-choice institution requirement satisfied." : "This institution must be your first choice.");
         }
       }
       if (candidate.certificateType === "NBC") needsReview.push("NBC-specific subject and certificate exceptions require manual review.");
       return { requirement, passed, failed, needsReview, status: failed.length ? "not_match" : needsReview.length ? "review" : "match" };
-    }).sort((a, b) => ({ match: 0, review: 1, not_match: 2 }[a.status] - { match: 0, review: 1, not_match: 2 }[b.status]) || a.requirement.institutionName.localeCompare(b.requirement.institutionName));
+    }).sort((a, b) => Number(isSelectedFirstChoice(b.requirement)) - Number(isSelectedFirstChoice(a.requirement)) || ({ match: 0, review: 1, not_match: 2 }[a.status] - { match: 0, review: 1, not_match: 2 }[b.status]) || a.requirement.institutionName.localeCompare(b.requirement.institutionName));
 }
