@@ -32,3 +32,11 @@ The complete idempotent script is `supabase/direct-article-uploads-migration.sql
 - Live Supabase larger-file upload, actual file playback/download and mobile interaction remain unverified until the QA size limit is raised and authenticated testing is completed. Local tests do not certify the live storage configuration.
 
 Official implementation references: https://supabase.com/docs/guides/storage/uploads/resumable-uploads and https://supabase.com/docs/guides/storage/uploads/file-limits .
+
+## Live upload failure follow-up
+
+Vercel deployment HJ5frmmxEZfbcXgZdMhBDvoFtY5M runtime logs show six POST /api/admin/uploads requests from the branch alias between 07:15:09 and 07:17:03 UTC, all 401. These attempts did not reach storage. The exact cause of the invalid session (missing, expired or invalid signature) cannot be determined from these logs. Reauthenticate on the same QA host in another tab, retaining the open editor.
+
+Client feedback now explicitly explains how to sign in again without losing the article and appears inside the affected article block. API requests abort after 30 seconds; resumable transfers abort after two minutes without progress, so network stalls release the upload controls. Authentication is unchanged. Regression tests cover the 401 before storage and a stalled transfer. All 78 tests, production build and lint (zero errors, 12 existing warnings) passed locally.
+
+The user supplied a screenshot showing a successful QA bucket size update to 52428800 bytes. This supersedes the earlier pending bucket size setup note, but does not independently verify the resulting row or global Storage limit. Actual authenticated upload/download/playback remains pending after reauthentication.
