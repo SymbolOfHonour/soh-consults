@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - deploy/admission-matcher-preview
+  workflow_dispatch:
 
 permissions:
   contents: read
