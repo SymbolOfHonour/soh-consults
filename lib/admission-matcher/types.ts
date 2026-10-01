@@ -15,8 +15,10 @@ export type ProgrammeRequirement = {
   minimumUtmeScore?: number;
   requiredUtmeSubjects: string[];
   utmeAlternatives?: string[][];
+  utmeAlternativeMinimums?: number[];
   requiredOlevelCredits: string[];
   olevelAlternatives?: string[][];
+  olevelAlternativeMinimums?: number[];
   minimumOlevelCreditCount?: number;
   maximumSittings?: 1 | 2;
   screeningMethod?: "online" | "post-utme" | "other";
