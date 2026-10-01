@@ -14,8 +14,10 @@ export type ProgrammeRequirement = {
   aliases?: string[];
   minimumUtmeScore?: number;
   requiredUtmeSubjects: string[];
+  utmeAlternatives?: string[][];
   requiredOlevelCredits: string[];
   olevelAlternatives?: string[][];
+  minimumOlevelCreditCount?: number;
   maximumSittings?: 1 | 2;
   screeningMethod?: "online" | "post-utme" | "other";
   calculatorPath?: string;
