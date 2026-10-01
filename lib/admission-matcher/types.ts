@@ -30,6 +30,7 @@ export type CandidateProfile = {
   utmeScore: number;
   utmeSubjects: string[];
   olevelCredits: string[];
+  olevelSittings: 1 | 2;
 };
 
 export type MatchResult = {
