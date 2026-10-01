@@ -1,3 +1,4 @@
+import EmailObfuscationBoundary from "./EmailObfuscationBoundary";
 export default function SiteContact() {
   return (
     <section id="contact" className="scroll-mt-24 py-12">
@@ -16,10 +17,10 @@ export default function SiteContact() {
                 <p className="mt-1 text-xl font-black">0818 214 1088</p>
               </a>
 
-              <a href="mailto:support@sohconsults.com.ng" className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50">
+              <EmailObfuscationBoundary/><a href="mailto:support@sohconsults.com.ng" className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50">
                 <p className="text-sm font-bold uppercase tracking-wide text-green-700">Email</p>
                 <p className="mt-1 break-all font-black">support@sohconsults.com.ng</p>
-              </a>
+              </a><EmailObfuscationBoundary end/>
 
               <a href="https://www.instagram.com/sohconsults" target="_blank" rel="noopener noreferrer" className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50">
                 <p className="text-sm font-bold uppercase tracking-wide text-green-700">Instagram</p>

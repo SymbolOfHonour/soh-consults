@@ -15,6 +15,9 @@ Branch: `qa/production-readiness`. This records branch verification; it is not a
 - The homepage hero, logo and founder picture downloaded oversized original files. Those local assets now use Next Image with dimensions/sizes; the hero receives high fetch priority. Existing crops and layout remain.
 - An unlayered anchor reset overrode Tailwind text colors/underlines, producing low-contrast calls to action. Moving the reset into the base layer lets existing utility styles work.
 
+- Category chips ending in punctuation generated trailing-hyphen URLs that returned 404. Category links, sitemap and route matching now share one slug helper; malformed case/punctuation variants redirect to the canonical category.
+- Business email links use Cloudflare's documented per-address HTML comment opt-out. This prevents its email decoder from being injected without the nonce required by the public CSP; account-level Cloudflare settings remain unchanged.
+
 ## Advertising architecture
 
 Existing editorial ad blocks remain the source of truth. Placement requires at least 300 words, two paragraphs before each ad, subsequent article text, and no more than two units. Units reserve 250px vertical space and load near the viewport. A published Website Builder switch controls activation and defaults to off. Actual numeric AdSense slot IDs are required for active units; placeholder names remain reserved space. Private CMS pages contain no AdSense loader.
@@ -25,8 +28,8 @@ No Google account settings were altered. No ads were clicked. Local tests stub t
 
 - Production build and TypeScript: passed.
 - All changed TypeScript files: ESLint passed.
-- Regression tests: 32 passed, including 3 new behavioral tests for ad placement, canonical social metadata and sitemap outage handling.
-- Production read-only crawl: 73 URLs, including all 57 baseline sitemap URLs. All expected public pages returned successfully; the deliberately nonexistent page returned 404.
+- Regression tests: 33 passed, including 4 new behavioral tests for ad placement, canonical social metadata and sitemap outage handling.
+- Production read-only crawl: 73 URLs, including all 57 baseline sitemap URLs. All expected sitemap/public pages returned successfully; the deliberately nonexistent page returned 404. A deeper check of 21 additional internal links found two malformed category-chip URLs, fixed on this branch; the remaining non-page endpoint was Cloudflare email protection. All 26 unique image URLs returned successfully. Fourteen unique external endpoints were sampled from 294 mostly repeated share/contact links: 11 responded successfully; X returned 403 and WhatsApp destinations timed out in this HTTP checker. Their final interactive availability remains unverified, not confirmed broken.
 - Local production build against an isolated REST/storage mock: 26 public routes on a 390px phone and 1440px desktop; no unexpected desktop overflow. Article checks at 320/390/430/768px preserve width=980, user zoom, 75/25 article/sidebar, a physical 64px bottom nav and 44px Ask button.
 - Headline/sidebar/Updates navigation, homepage four shortcuts, WhatsApp href and CTA color: passed.
 - Ask S.O.H topic responses and guide navigation: passed.
@@ -51,7 +54,7 @@ CrUX reports no field data. Real-user INP and Core Web Vitals cannot be certifie
 
 ## Account-dependent and outstanding checks
 
-Preview interaction, passing remote CI, merge and resulting production regression are pending when this branch report is created.
+PR #206 was opened as a draft. The initial commit passed GitHub CI and Vercel Preview build. The category-link follow-up requires its own passing CI/build. Interactive Preview testing is blocked by Vercel authentication in the available browser; no merge or production deployment has been performed. Post-deployment regression and fresh PageSpeed measurements remain pending.
 
 The production admin session is not signed in in the available browser. Actual tenant authentication/storage/permissions have not been certified by the mock tests. Production content has not been created, deleted or published for QA.
 

@@ -1,3 +1,4 @@
+import {categorySlug} from "../lib/category-slug";
 import type { MetadataRoute } from "next";
 import { getSiteUrl } from "./site-url";
 import { guides } from "../data/guides";
@@ -11,9 +12,7 @@ function safeDate(value?: string | null): Date | undefined {
   const parsed = new Date(value);
   return Number.isNaN(parsed.getTime()) ? undefined : parsed;
 }
-function categorySlug(value: string) {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-}
+
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();

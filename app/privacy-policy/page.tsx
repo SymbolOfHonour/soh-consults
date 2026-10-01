@@ -1,3 +1,4 @@
+import EmailObfuscationBoundary from "../components/EmailObfuscationBoundary";
 import {withPublicSocial} from "../../lib/public-metadata";
 import type { Metadata } from "next";
 
@@ -19,7 +20,7 @@ export default function PrivacyPolicyPage() {
         <section><h2 className="text-2xl font-bold">Why information is used</h2><p>Information you share is used to respond to enquiries and provide the assistance you request. Technical information supports website operation, security and performance measurement.</p></section>
         <section><h2 className="text-2xl font-bold">External services</h2><p>Links to WhatsApp, email, official educational websites and other third-party services take you to platforms with their own privacy practices. Please review their policies when using them.</p></section>
         <section><h2 className="text-2xl font-bold">Advertising</h2><p>This website integrates Google AdSense. Google and its partners may use cookies or similar technologies to serve and measure advertisements based on visits to this and other websites when ads are available. You can review Google’s privacy practices and manage advertising preferences through Google’s privacy and advertising controls. Editorial ad units remain disabled until enabled by the site owner. <a className="font-bold underline" href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Google advertising privacy information</a> and <a className="font-bold underline" href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer">ad preferences</a>.</p></section>
-        <section><h2 className="text-2xl font-bold">Questions</h2><p>For privacy questions or requests concerning information you have shared with us, contact <a className="font-bold text-[#075738] underline" href="mailto:oluyepeadetayo@gmail.com">oluyepeadetayo@gmail.com</a> or <a className="font-bold text-[#075738] underline" href="https://wa.me/2348182141088">WhatsApp S.O.H CONSULTS</a>.</p></section>
+        <section><h2 className="text-2xl font-bold">Questions</h2><p>For privacy questions or requests concerning information you have shared with us, contact <EmailObfuscationBoundary/><a className="font-bold text-[#075738] underline" href="mailto:oluyepeadetayo@gmail.com">oluyepeadetayo@gmail.com</a><EmailObfuscationBoundary end/> or <a className="font-bold text-[#075738] underline" href="https://wa.me/2348182141088">WhatsApp S.O.H CONSULTS</a>.</p></section>
       </article>
     </main>
   );
