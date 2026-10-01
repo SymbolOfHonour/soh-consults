@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "node --test tests/*.test.cjs tests/*.test.mjs",
-    "preview:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
+    "preview:cloudflare": "npx -y @opennextjs/cloudflare@latest build && npx -y @opennextjs/cloudflare@latest preview",
+    "deploy:cloudflare": "npx -y @opennextjs/cloudflare@latest build && npx -y @opennextjs/cloudflare@latest deploy"
   },
   "dependencies": {
     "jspdf": "^4.2.1",
@@ -19,7 +19,6 @@
     "tus-js-client": "^4.3.1"
   },
   "devDependencies": {
-    "@opennextjs/cloudflare": "^1.14.8",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -27,7 +26,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "wrangler": "^4.43.0"
+    "typescript": "^5"
   }
 }
