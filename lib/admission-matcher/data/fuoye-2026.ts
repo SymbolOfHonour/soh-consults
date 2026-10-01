@@ -66,5 +66,3 @@ export const fuoye2026Requirements: ProgrammeRequirement[] = [
     sources: [source],
   },
 ];
-
-export const admissionMatcherRequirements: ProgrammeRequirement[] = [...fuoye2026Requirements];
