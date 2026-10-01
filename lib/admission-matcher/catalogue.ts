@@ -11,10 +11,21 @@ const subjectAliases: Record<string, string> = {
   irs: "Islamic Religious Knowledge", irk: "Islamic Religious Knowledge", "islamic studies": "Islamic Religious Knowledge", "islamic religious studies": "Islamic Religious Knowledge", "islamic religious knowledge": "Islamic Religious Knowledge",
   "yoruba language": "Yoruba", "igbo language": "Igbo", "hausa language": "Hausa", "french language": "French", "art": "Fine Arts", "fine art": "Fine Arts", fishery: "Fisheries", "general agricultural science": "Agricultural Science",
   "book keeping": "Book Keeping", bookkeeping: "Book Keeping",
+  "principles of account": "Financial Accounting", "principle of accounts": "Financial Accounting",
+  "physical health education": "Physical and Health Education", phe: "Physical and Health Education",
 };
 export const canonicalSubject = (value: string) => subjectAliases[normalise(value)] ?? value.trim().replace(/\s+/g, " ");
 export const subjectKey = (value: string) => normalise(canonicalSubject(value));
 export const isEnglish = (value: string) => subjectKey(value) === "english language";
+/** JAMB 2026 Training Manual, printed page 92: approved UTME subjects.
+ * O'Level vocational subjects must never become UTME choices merely because
+ * they appear in an institutional credit requirement.
+ */
+export const approvedUtmeSubjects = ["Agricultural Science", "Arabic", "Fine Arts", "Biology", "Chemistry", "Christian Religious Knowledge", "Commerce", "Economics", "French", "Geography", "Government", "Hausa", "History", "Home Economics", "Igbo", "Islamic Religious Knowledge", "Literature in English", "Mathematics", "Music", "Physics", "Financial Accounting", "Yoruba", "Computer Studies", "Physical and Health Education"];
+export const isApprovedUtmeSubject = (value: string) => approvedUtmeSubjects.some(s => subjectKey(s) === subjectKey(value));
+export function discoverUtmeSubjects(records: ProgrammeRequirement[]) {
+  return [...new Set([...discoverSubjects(records).filter(isApprovedUtmeSubject), ...approvedUtmeSubjects])].sort((a,b) => a.localeCompare(b));
+}
 export function discoverProgrammes(records: ProgrammeRequirement[]) {
   return [...new Set(records.map((record) => record.programme))].sort((a, b) => a.localeCompare(b));
 }

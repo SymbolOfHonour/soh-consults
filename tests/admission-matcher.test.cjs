@@ -67,5 +67,11 @@ test('engineering and medicine discipline scenarios respect programme-specific c
   const medicine={...science,programme:'MBBS',utmeScore:280,utmeSubjects:['Physics','Chemistry','Biology']};assert.equal(at(medicine,'fuoye').status,'review');assert.equal(at({...medicine,utmeScore:279},'fuoye').status,'not_match');
 });
 test('malformed stored rules are review-only rather than automatic matches',()=>{
- for(const change of [{minimumUtmeScore:NaN},{requiredUtmeSubjects:[],utmeGroups:[]},{utmeGroups:[{subjects:['Government'],count:0}]},{sources:[{label:'Source',url:'javascript:bad',session:'2026',lastVerified:'not-a-date'}]}])assert.equal(matchCandidate(accounting,[{...known,...change}])[0].status,'review');
+ for(const change of [{minimumUtmeScore:NaN},{scoreScope:undefined},{maximumSittings:3},{requiredUtmeSubjects:[],utmeGroups:[]},{utmeGroups:[{subjects:['Government'],count:0}]},{sources:[{label:'Source',url:'javascript:bad',session:'2026',lastVerified:'not-a-date'}]}])assert.equal(matchCandidate(accounting,[{...known,...change}])[0].status,'review');
+});
+test('OLevel-only subjects cannot masquerade as UTME choices',()=>{
+ for(const subject of ['Civic Education','Marketing','Book Keeping','Further Mathematics','Data Processing','Office Practice']) {
+  assert.throws(()=>matchCandidate({...accounting,utmeSubjects:['Mathematics','Economics',subject]},data),/JAMB-approved/);
+ }
+ assert.equal(at({...accounting,utmeSubjects:['Mathematics','Economics','Principles of Account']}).status,'match');
 });

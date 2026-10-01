@@ -1,5 +1,5 @@
 import type { CandidateProfile, MatchResult, ProgrammeRequirement, SubjectGroup } from "./types";
-import { isEnglish, normalise, subjectKey } from "./catalogue";
+import { isApprovedUtmeSubject, isEnglish, normalise, subjectKey } from "./catalogue";
 
 export function validateCandidate(candidate: CandidateProfile): string[] {
   const errors: string[] = [];
@@ -8,6 +8,7 @@ export function validateCandidate(candidate: CandidateProfile): string[] {
   const validSubjects = (values: unknown): values is string[] => Array.isArray(values) && values.every(s => typeof s === "string" && s.trim().length > 0);
   if (!validSubjects(candidate.utmeSubjects) || candidate.utmeSubjects.length !== 3 || candidate.utmeSubjects.some(isEnglish)) errors.push("Select exactly three UTME subjects apart from Use of English.");
   if (validSubjects(candidate.utmeSubjects) && new Set(candidate.utmeSubjects.map(subjectKey)).size !== candidate.utmeSubjects.length) errors.push("UTME subjects must not contain duplicates or equivalent aliases.");
+  if (validSubjects(candidate.utmeSubjects) && candidate.utmeSubjects.some(s => !isEnglish(s) && !isApprovedUtmeSubject(s))) errors.push("Select only JAMB-approved UTME subjects. O'Level-only subjects cannot be used as UTME subjects.");
   if (!validSubjects(candidate.olevelCredits) || !candidate.olevelCredits.length) errors.push("Supply your O'Level credit subjects.");
   if (validSubjects(candidate.olevelCredits) && new Set(candidate.olevelCredits.map(subjectKey)).size !== candidate.olevelCredits.length) errors.push("O'Level subjects must not contain duplicates or equivalent aliases.");
   for (const sittings of [candidate.sittings, candidate.olevelSittings]) if (sittings !== undefined && sittings !== 1 && sittings !== 2) errors.push("Choose one or two sittings.");
@@ -45,7 +46,7 @@ export function matchCandidate(candidate: CandidateProfile, requirements: Progra
       const unresolved = new Set(requirement.unresolvedChecks ?? []);
       if (requirement.verificationStatus !== "verified") needsReview.push(...(requirement.reviewReasons?.length ? requirement.reviewReasons : ["Institution-specific rules are not fully verified for this record."]));
       if (!requirement.sources.length || requirement.sources.some((s) => !/^https:\/\//.test(s.url) || !s.label || !s.session || !/^\d{4}-\d{2}-\d{2}$/.test(s.lastVerified))) needsReview.push("Source verification metadata is incomplete.");
-      if (unresolved.has("score") || !Number.isInteger(requirement.minimumUtmeScore) || requirement.minimumUtmeScore! < 0 || requirement.minimumUtmeScore! > 400) needsReview.push("The current institutional/programme screening score is unknown. A national JAMB floor is not substituted.");
+      if (unresolved.has("score") || !["institution-screening", "programme-screening"].includes(requirement.scoreScope ?? "") || !Number.isInteger(requirement.minimumUtmeScore) || requirement.minimumUtmeScore! < 0 || requirement.minimumUtmeScore! > 400) needsReview.push("The current institutional/programme screening score is unknown. A national JAMB floor is not substituted.");
       else {
         const meets = candidate.utmeScore >= requirement.minimumUtmeScore!;
         (meets ? passed : failed).push("UTME score " + candidate.utmeScore + (meets ? " meets" : " is below") + " the verified " + (requirement.scoreScope === "institution-screening" ? "institution screening" : "programme screening") + " minimum of " + requirement.minimumUtmeScore + ".");
@@ -77,9 +78,9 @@ export function matchCandidate(candidate: CandidateProfile, requirements: Progra
       checkSubjects("utme", candidate.utmeSubjects, requirement.requiredUtmeSubjects, requirement.utmeAlternatives ?? [], requirement.utmeGroups ?? []);
       checkSubjects("olevel", candidate.olevelCredits, requirement.requiredOlevelCredits, requirement.olevelAlternatives ?? [], requirement.olevelGroups ?? []);
       const sittings = candidate.sittings ?? candidate.olevelSittings;
-      if (unresolved.has("sittings") || !requirement.maximumSittings) needsReview.push("The current sitting restriction needs verification.");
+      if (unresolved.has("sittings") || ![1, 2].includes(requirement.maximumSittings ?? 0)) needsReview.push("The current sitting restriction needs verification.");
       else if (!sittings) needsReview.push("Supply the number of O'Level sittings.");
-      else (sittings <= requirement.maximumSittings ? passed : failed).push(sittings + " sitting(s) supplied; a maximum of " + requirement.maximumSittings + " is permitted.");
+      else (sittings <= requirement.maximumSittings! ? passed : failed).push(sittings + " sitting(s) supplied; a maximum of " + requirement.maximumSittings + " is permitted.");
       if (requirement.firstChoiceRequired) {
         if (!candidate.firstChoiceInstitution?.trim()) needsReview.push("First-choice institution must be confirmed.");
         else {

@@ -2,13 +2,14 @@
 
 import { useMemo, useState } from "react";
 import { admissionMatcherRequirements } from "../../lib/admission-matcher/data";
-import { canonicalSubject, coverage, discoverProgrammes, discoverSubjects, isEnglish, normalise } from "../../lib/admission-matcher/catalogue";
+import { canonicalSubject, coverage, discoverProgrammes, discoverSubjects, discoverUtmeSubjects, isEnglish, normalise } from "../../lib/admission-matcher/catalogue";
 import { matchCandidate, validateCandidate } from "../../lib/admission-matcher/match";
 import type { CandidateProfile, MatchStatus } from "../../lib/admission-matcher/types";
 
 const programmes = discoverProgrammes(admissionMatcherRequirements);
 const suggestions = [...new Set(admissionMatcherRequirements.flatMap(r => [r.programme, ...(r.aliases ?? [])]))].sort();
 const subjectOptions = discoverSubjects(admissionMatcherRequirements);
+const utmeOptions = discoverUtmeSubjects(admissionMatcherRequirements);
 const scope = coverage(admissionMatcherRequirements);
 const institutions = [...new Map(admissionMatcherRequirements.map(r => [r.institutionId, r.institutionName])).entries()].sort((a,b) => a[1].localeCompare(b[1]));
 const fieldClass = "mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 py-3 text-base text-slate-950";
@@ -18,7 +19,7 @@ const PAGE_SIZE = 10;
 
 function SubjectPicker({kind, selected, onChange, max}: {kind:"utme"|"olevel";selected:string[];onChange:(next:string[])=>void;max?:number}) {
   const [search,setSearch] = useState("");
-  const options = subjectOptions.filter(s => (kind !== "utme" || !isEnglish(s)) && normalise(s).includes(normalise(canonicalSubject(search))));
+  const options = (kind === "utme" ? utmeOptions : subjectOptions).filter(s => (kind !== "utme" || !isEnglish(s)) && normalise(s).includes(normalise(canonicalSubject(search))));
   const label = kind === "utme" ? "UTME subjects apart from Use of English" : "O'Level credit subjects (A1 to C6)";
   return <fieldset className="min-w-0"><legend className="text-sm font-semibold text-slate-900">{label}</legend>
     <p className="mt-1 text-sm text-slate-600">{kind === "utme" ? `Select exactly three subjects. ${selected.length} of 3 selected. Use of English is implicit.` : `${selected.length} credits selected. Select all subjects in which you have a credit.`}</p>

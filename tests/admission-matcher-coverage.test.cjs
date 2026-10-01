@@ -1,12 +1,15 @@
 const test=require('node:test');const assert=require('node:assert/strict');
 const {loadMatcher}=require('./admission-matcher-helper.cjs');
 const {admissionMatcherRequirements:data}=loadMatcher('lib/admission-matcher/data/index');
-const {discoverProgrammes,discoverSubjects,coverage,subjectKey,normalise}=loadMatcher('lib/admission-matcher/catalogue');
+const {discoverProgrammes,discoverSubjects,discoverUtmeSubjects,isApprovedUtmeSubject,coverage,subjectKey,normalise}=loadMatcher('lib/admission-matcher/catalogue');
 test('registered programmes and alternative-only subjects remain discoverable',()=>{
  const programmes=discoverProgrammes(data);for(const name of ['Accounting','Computer Science','Biochemistry','Civil Engineering','Doctor Of Pharmacy','Nursing','Software Engineering','Political Science','Mass Communication','Law','Chemistry Education','Psychology','Architecture','Marketing'])assert.ok(programmes.includes(name),name);
  const subjects=discoverSubjects(data);for(const name of ['Mathematics','Economics','Government','Commerce','Financial Accounting','Biology','Chemistry','Physics','Literature in English','Geography','Agricultural Science','Civic Education','Book Keeping','Office Practice','Technical Drawing'])assert.ok(subjects.includes(name),name);
  const probe=[{programme:'New registered course',requiredUtmeSubjects:[],requiredOlevelCredits:[],utmeGroups:[{subjects:['Alternative-only subject'],count:1}]}];assert.deepEqual(discoverProgrammes(probe),['New registered course']);assert.deepEqual(discoverSubjects(probe),['Alternative-only subject']);
  assert.equal(new Set(subjects.map(subjectKey)).size,subjects.length);
+ const utme=discoverUtmeSubjects(data);assert.equal(utme.length,24);assert.ok(utme.every(isApprovedUtmeSubject));
+ for(const name of ['Music','Arabic','Computer Studies','Physical and Health Education'])assert.ok(utme.includes(name));
+ for(const name of ['Civic Education','Marketing','Book Keeping','Further Mathematics','Data Processing'])assert.ok(!utme.includes(name));
 });
 test('dataset records have unique identities, precise provenance and well-formed rules',()=>{
  const ids=new Set();for(const r of data){const id=r.institutionId+'::'+normalise(r.programme);assert.ok(!ids.has(id),id);ids.add(id);assert.ok(r.institutionType);assert.ok(['verified','review'].includes(r.verificationStatus));assert.ok(r.sources.length);for(const s of r.sources){assert.ok(s.label && s.session && s.scope!==undefined || s.label && s.session);assert.match(s.url,/^https:\/\//);assert.match(s.lastVerified,/^\d{4}-\d{2}-\d{2}$/);}

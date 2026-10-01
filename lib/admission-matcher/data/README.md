@@ -53,6 +53,12 @@ The source registry alone does not establish record verification.
 
 - Exactly three distinct UTME subjects excluding Use of English. Aliases are
   normalised without conflating genuinely different subjects.
+- UTME choices are restricted to the 24 non-English subjects in the official
+  JAMB 2026 Training Manual (printed page 92). O'Level-only subjects such as
+  Marketing, Civic Education, Book Keeping and Further Mathematics cannot be
+  submitted as UTME choices even when an institution's table lists them.
+  Source: https://www.jamb.gov.ng/PDFs/2026/2026%20TRAINING%20MANUAL%20%20final.pdf
+  This restriction is enforced in both the UI and the matching engine.
 - All compulsory subjects plus the specified number of distinct alternatives.
   A credit cannot satisfy two independent option slots or count again as a core
   subject. An allocation algorithm handles overlapping groups correctly.
