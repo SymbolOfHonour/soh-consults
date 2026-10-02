@@ -376,7 +376,7 @@ export const futoExpansion2026: ProgrammeRequirement[] = [
           "Computer Studies",
           "Data Processing",
           "Metal Work",
-          "Wood Work",
+          "Woodwork",
           "Technology"
         ],
         "count": 1

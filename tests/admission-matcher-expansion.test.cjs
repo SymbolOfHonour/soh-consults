@@ -63,7 +63,8 @@ test('blank and conflicting source cells remain unresolved without broadening ap
  const ui=added.filter(r=>r.institutionId==='ui');assert.ok(ui.every(r=>r.unresolvedChecks.includes('sittings')&&r.unresolvedChecks.includes('olevel')));
  const subjects=discoverUtmeSubjects(data);assert.equal(subjects.length,24);assert.ok(!subjects.includes('Civic Education')&&!subjects.includes('Book Keeping'));
  const olevel=discoverSubjects(data);assert.ok(olevel.includes('Metal Work')&&olevel.includes('Painting and Decoration'));
- assert.ok(!olevel.includes('Metalwork')&&!olevel.includes('Painting and Decorations'));
+ assert.ok(!olevel.includes('Metalwork')&&!olevel.includes('Painting and Decorations')&&!olevel.includes('Wood Work'));
+ assert.ok(olevel.includes('Woodwork'));
 });
 test('new first-choice ordering and existing LASUSTECH Accounting passing case coexist',()=>{
  const accounting={programme:'Accounting',utmeScore:195,utmeSubjects:['Mathematics','Economics','Commerce'],olevelCredits:['English Language','Mathematics','Economics','Commerce','Financial Accounting'],sittings:1,firstChoiceInstitution:'LASUSTECH'};
