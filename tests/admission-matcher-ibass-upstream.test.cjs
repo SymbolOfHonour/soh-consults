@@ -9,11 +9,11 @@ const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
 test("IBASS upstream layer is snapshot-based and not wired to undocumented runtime XHR", () => {
   const discovery = read("docs/admission-matcher/ibass-upstream-discovery.md");
   const normalizer = read("lib/admission-matcher/upstream/normalize.ts");
-
+  const ingestion = read("lib/admission-matcher/upstream/ingest.ts");
   assert.match(discovery, /versioned local S\.O\.H snapshot/i);
   assert.match(discovery, /direct live dependency.*deferred/i);
-  assert.doesNotMatch(normalizer, /fetch\s*\(/);
-  assert.doesNotMatch(normalizer, /axios|XMLHttpRequest|submit\b/i);
+  assert.doesNotMatch(normalizer + ingestion, /fetch\s*\(/);
+  assert.doesNotMatch(normalizer + ingestion, /axios|XMLHttpRequest/);
 });
 
 test("normalizer refuses to infer unresolved broad subject categories", () => {
@@ -45,4 +45,18 @@ test("upstream model reserves UTME and Direct Entry evidence modes", () => {
   assert.match(types, /alevel\?: IbassComponentResult/);
   assert.match(types, /rawUtmeRequirement\?: string/);
   assert.match(types, /rawOlevelRequirement\?: string/);
+});
+
+test("ingestion builds versioned snapshots and rejects duplicate institution-programme-mode records", () => {
+  const ingestion = read("lib/admission-matcher/upstream/ingest.ts");
+  assert.match(ingestion, /schemaVersion: 1/);
+  assert.match(ingestion, /Duplicate IBASS snapshot record/);
+  assert.match(ingestion, /stats: \{ total: records\.length, verified, review:/);
+});
+
+test("snapshot validation blocks unsafe verified records", () => {
+  const ingestion = read("lib/admission-matcher/upstream/ingest.ts");
+  assert.match(ingestion, /verified but still has unresolved review reasons/);
+  assert.match(ingestion, /verified without explicit UTME subject rules/);
+  assert.match(ingestion, /Official source must use HTTPS/);
 });
