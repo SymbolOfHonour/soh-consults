@@ -6,7 +6,7 @@ permissions:
   contents: read
 jobs:
   matcher:
-    if: github.head_ref == 'feature/admission-matcher-beta'
+    if: startsWith(github.head_ref, 'feature/admission-matcher-')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
