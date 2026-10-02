@@ -8,54 +8,47 @@ Treat JAMB IBASS as the authoritative upstream evidence source for programme ava
 
 Production is unchanged during discovery.
 
-## Public surfaces confirmed
+## Browser-observed contracts
 
-The public IBASS application exposes institution brochure pages, programme-by-faculty brochure PDFs, degree-specific institutional requirements, and the JavaScript Eligibility Checker.
+### Eligibility result
 
-Search-engine-visible institution pages demonstrate that programme catalogues can be publicly enumerated for at least some institutions. Public JAMB documents contain baseline UTME/Direct Entry requirements and institution-specific special-consideration/waiver remarks.
+A normal browser submission of the public IBASS Eligibility Checker for University of Lagos / Accountancy-Accounting / UTME was inspected in Chrome DevTools on 2026-10-02. The checker generated an XHR request named `submit` which returned HTTP 200 and structured JSON. No secret headers, cookies, credentials or tokens were captured or stored.
 
-## Browser-observed eligibility contract
+Observed semantics include institution/programme details, raw UTME/O-Level requirements, normalized requirement metadata, submitted subjects, component qualification results and an overall eligibility result. IBASS can report UTME subject combination as `Qualified` while overall eligibility is `Disqualified`, so S.O.H models eligibility as composable checks rather than one boolean.
 
-A normal browser submission of the public IBASS Eligibility Checker for University of Lagos / Accountancy-Accounting / UTME was inspected in Chrome DevTools on 2026-10-02. The checker generated an XHR request named `submit` which returned HTTP 200 and a structured JSON response. No secret headers, cookies, credentials or tokens were captured or stored in this repository.
+Free-text categories such as `any Social Science subject` must not be expanded using an S.O.H-created broad taxonomy. IBASS's actual accepted subject mapping is authoritative.
 
-The observed response contains structured objects/fields for:
+### Institution -> programme catalogue
 
-- institution details, including the upstream institution name/identity;
-- programme details, including upstream programme label, faculty and institution associations;
-- programme UTME requirement wording;
-- programme subject data / normalized requirement metadata;
-- candidate-submitted UTME subjects;
-- separate UTME qualification status and passed/failed subject information;
-- candidate-submitted O-Level information;
-- programme O-Level requirement subject data;
-- overall eligibility status;
-- upstream requirement records and metadata.
+A second normal browser observation was made after selecting University of Lagos in the same checker. One XHR request named `1345` returned HTTP 200 with a successful JSON object shaped as:
 
-The observed result is important semantically: IBASS can report the UTME subject-combination component as `Qualified` while the candidate's overall eligibility is `Disqualified`. S.O.H must therefore model eligibility as composable checks rather than a single boolean.
+`{ status: true, message: "Success.", data: [{ id, title }, ...] }`
 
-The UNILAG Accounting observation also demonstrates that free-text categories such as `any Social Science subject` must not be expanded using an S.O.H-created broad taxonomy. IBASS's actual accepted subject mapping/requirement metadata is authoritative. Subjects commonly described informally as social-science/business subjects must not automatically be treated as interchangeable unless the upstream rule/evidence says so.
+The request name matches the observed UNILAG upstream institution id (`1345`). Visible public programme pairs included `1537 -> ACCOUNTANCY/ACCOUNTING`, `1542 -> ACTUARIAL SCIENCE`, `2303 -> ADULT EDUCATION:`, `2191 -> ARCHITECTURE`, `1540 -> BANKING AND FINANCE`, `1678 -> BIOCHEMISTRY`, and `2120 -> BIOLOGY`.
+
+This confirms that IBASS uses stable-looking upstream identifiers in the current browser application for institution-to-programme discovery. It does NOT by itself establish a documented/stable public API, so the candidate-facing S.O.H runtime still must not call the endpoint directly. The identifiers and response shape are captured only as evidence for a controlled offline/versioned catalogue ingestion layer.
 
 ## Integration guardrails
 
-1. Do not copy or proxy JAMB branding/UI/source code or imply affiliation.
-2. Do not bypass authentication, bot controls, rate limits, CAPTCHAs or access restrictions.
-3. Do not put an undocumented JAMB endpoint directly in the candidate-facing runtime until reuse terms, stability and failure behaviour are understood.
-4. Prefer versioned ingestion of public official evidence over fragile runtime dependence.
-5. Store raw source wording alongside normalized rules, source URL/locator, observed date and parser/schema version.
-6. Candidate matching must use a local versioned snapshot so JAMB downtime or a changed frontend cannot silently alter S.O.H results.
-7. IBASS baseline requirements and institution-specific special considerations must remain distinguishable.
-8. Unresolved or ambiguous evidence remains `Needs Review`; never promote by analogy.
-9. Keep S.O.H overlays separate from JAMB-derived requirements: current screening threshold, first-choice policy, screening notices, deadlines, age/administrative conditions, competitive cut-offs and explanatory text.
-10. Schema must support UTME now and Direct Entry/A-Level later.
-11. Preserve component outcomes (UTME, O-Level, A-Level/DE where applicable, institutional overlay) independently from the final S.O.H verdict.
-12. Never invent broad subject-category membership when IBASS provides a narrower accepted set or machine-readable mapping.
+1. Do not copy/proxy JAMB branding, UI or source code or imply affiliation.
+2. Do not bypass authentication, bot controls, rate limits, CAPTCHAs or restrictions.
+3. Do not make undocumented IBASS XHRs a candidate-facing runtime dependency.
+4. Prefer versioned ingestion of official public evidence.
+5. Store raw wording and upstream ids alongside normalized rules, source locator, observed date and schema version.
+6. Candidate matching uses a local versioned snapshot.
+7. Keep IBASS baseline requirements separate from institution-specific waivers and S.O.H current-session overlays.
+8. Ambiguous evidence stays Needs Review.
+9. Preserve UTME/O-Level/A-Level component outcomes independently.
+10. Never invent subject-category membership.
+11. Reject duplicate upstream programme ids/titles within one institution snapshot.
+12. Preserve upstream labels even where punctuation looks unusual; aliases/canonical names are a separate S.O.H layer.
 
 ## Canonical evidence model
 
 - upstream provider (`jamb-ibass`)
 - entry mode (`utme`, `direct-entry`)
-- institution id/name/category/type
-- programme canonical name + upstream label + aliases
+- institution upstream id/name/category/type
+- programme upstream id + upstream label + canonical name + aliases
 - faculty
 - raw baseline O-Level requirement wording
 - normalized O-Level required credits/passes and grouped alternatives
@@ -65,11 +58,9 @@ The UNILAG Accounting observation also demonstrates that free-text categories su
 - institution-specific special-consideration/waiver clauses
 - upstream subject/category mapping where observed
 - component eligibility checks
-- normalized matcher rule(s)
 - unresolved checks
-- source URL + source type + locator
-- source session/version if stated
-- observed/fetched timestamp
+- source locator/type
+- observed timestamp
 - parser/schema version
 - verification status
 - S.O.H overlay references
@@ -80,42 +71,32 @@ Use an offline/versioned ingestion pipeline:
 
 1. discover official public catalogue/document/checker evidence;
 2. capture raw evidence without destructive normalization;
-3. normalize institutions, programmes and exact subject mappings;
+3. normalize institution/programme ids and exact subject mappings;
 4. attach institution-specific waiver clauses;
 5. validate duplicates, impossible subject names and unresolved category mappings;
 6. compare representative normalized results with the official Eligibility Checker;
 7. publish a versioned snapshot only after regression tests;
-8. preserve the previous snapshot for rollback and evidence history.
+8. preserve the previous snapshot for rollback/evidence history.
 
-A sync failure must leave the last known-good snapshot active. New/changed ambiguous rows default to review rather than silently changing eligibility.
+A sync failure leaves the last known-good snapshot active. New/changed ambiguous rows default to review rather than silently changing eligibility.
 
-## Runtime architecture decision
-
-The target architecture is hybrid rather than a live clone:
+## Runtime architecture
 
 `Official JAMB IBASS evidence -> controlled ingestion/parity checks -> versioned local S.O.H snapshot -> S.O.H matching engine -> current institution overlays -> candidate explanation`
 
-This gives S.O.H broad JAMB-backed programme intelligence while retaining independent availability, reproducibility, current institutional screening intelligence and explicit evidence safeguards.
-
-A direct live dependency on the observed `submit` XHR is intentionally deferred. Discovery of a structured response proves that automated normalization/parity tooling is technically plausible, but it does not by itself establish that JAMB intends the endpoint to be a stable public API. A local snapshot remains the safe production design unless a documented/stable integration surface is established.
+A direct live dependency on the observed XHRs is intentionally deferred because structured JSON does not establish a documented/stable public API.
 
 ## Prototype parity cases
 
-### UNILAG Accountancy/Accounting
+UNILAG Accountancy/Accounting is the first upstream parity case. Preserve the upstream programme label and id `1537`; keep review flags until complete upstream requirements and current UNILAG overlays are reconciled.
 
-Use as the first upstream parity case. Preserve the upstream programme label `ACCOUNTANCY/ACCOUNTING`. Compare raw UTME/O-Level requirement wording, exact accepted subject mapping, component outcomes and final eligibility. Do not remove review flags until the complete upstream requirement plus current UNILAG overlay is reconciled.
-
-### LASUSTECH Accounting
-
-Use as the regression case because the existing S.O.H profile is already known to return `Requirements Matched`. The upstream prototype must not regress that outcome without authoritative evidence demonstrating that the old rule is wrong.
+LASUSTECH Accounting remains the regression case because the existing S.O.H profile is already known to return `Requirements Matched`; the prototype must not regress it without authoritative contrary evidence.
 
 ## Next implementation gate
 
-Before broad migration:
-
-1. introduce typed upstream evidence/snapshot structures without replacing the existing matcher;
-2. create a fixture representing the observed UNILAG response shape using only non-secret requirement/result fields;
-3. implement a normalizer that preserves raw wording and produces explicit component checks;
-4. add parity tests for UNILAG and LASUSTECH;
-5. ensure unknown subject-category membership produces `Needs Review`, not an inferred match;
-6. keep all existing production records active until snapshot parity passes.
+1. Catalogue model/parser and observed UNILAG fixture: implemented.
+2. Typed eligibility evidence/snapshot model: implemented.
+3. Conservative normalizer and validation gates: implemented.
+4. Unknown category membership -> Needs Review: implemented.
+5. Next discovery target: programme-selection/requirement-loading response, to determine whether requirement ingestion can be generalized without manual transcription.
+6. Existing production records remain active until broad snapshot parity passes.
