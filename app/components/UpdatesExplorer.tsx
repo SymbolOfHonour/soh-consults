@@ -6,7 +6,7 @@ import { rankContent } from "../../lib/ranking-engine";
 
 const readingTime=(details:string)=>Math.max(1,Math.ceil(details.trim().split(/\s+/).length/220));
 const newestFirst=<T extends {publishedAt:string}>(items:T[])=>[...items].sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt));
-const displayCategory=(value:string)=>/^jamb(?:\s+(?:news|update|updates|admission|admissions|info|information))?$/i.test(value.trim())?"JAMB":value.trim();
+const displayCategory=(value:string)=>{const category=value.trim().replace(/\s+/g," ");return /^(?:jamb(?:\s+(?:news|update|updates|admission|admissions|info|information))?|(?:the\s+)?joint admissions and matriculation board(?:\s*\(jamb\))?)$/i.test(category)?"JAMB":category;};
 export default function UpdatesExplorer({ initialCategory = "All", importedStories = [] }: { initialCategory?: string; importedStories?: QueuedStory[] }) {
   const [activeCategory, setActiveCategory] = useState(displayCategory(initialCategory));
   const [query, setQuery] = useState("");
