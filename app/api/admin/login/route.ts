@@ -56,7 +56,8 @@ export async function POST(request: Request) {
   // not depend on the production Supabase rate-limit service.
   if (!localDevelopment) {
     const rate = await checkRateLimit(request, "admin-login", 8, 15 * 60);
-    if (!rate.allowed) return NextResponse.json({ error: "Too many login attempts. Please try again later." }, { status: 429, headers: { "Retry-After": String(rate.retryAfter) } });
+    if (rate.unavailable) return NextResponse.json({ error: "Admin sign-in is temporarily unavailable. Please contact the site administrator.", code: "SIGN_IN_UNAVAILABLE" }, { status: 503, headers: { "Cache-Control": "no-store" } });
+    if (!rate.allowed) return NextResponse.json({ error: `Too many login attempts. Please try again in ${rate.retryAfter} seconds.`, code: "LOGIN_RATE_LIMITED", retryAfter: rate.retryAfter }, { status: 429, headers: { "Retry-After": String(rate.retryAfter), "Cache-Control": "no-store" } });
   }
 
   // JSON null, arrays and primitive values must never cause a 500 response.
