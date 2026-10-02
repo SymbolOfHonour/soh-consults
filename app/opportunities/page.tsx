@@ -8,8 +8,8 @@ import SiteContact from "../components/SiteContact";
 const WHATSAPP_NUMBER = "2348182141088";
 const whatsappLink = (message: string) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 const opportunityCategories = ["All", "Scholarships", "Universities", "Polytechnics", "Colleges", "Other"];
-const datedDeadline=(value:string)=>{const cleaned=value.trim();if(!/\b20\d{2}\b/.test(cleaned))return null;const parsed=Date.parse(cleaned);return Number.isNaN(parsed)?null:new Date(parsed);};
-const currentStatus=(status:string,deadline:string)=>{const date=datedDeadline(deadline);if(!date)return status;date.setHours(23,59,59,999);return Date.now()>date.getTime()?"CLOSED":status;};
+const datedDeadline=(value:string)=>{const cleaned=value.trim();const calendarDate=cleaned.match(/\b\d{1,2}\s+[a-z]+\s+20\d{2}\b|\b[a-z]+\s+\d{1,2},?\s+20\d{2}\b|\b20\d{2}-\d{2}-\d{2}\b/i)?.[0];if(!calendarDate)return null;const parsed=Date.parse(calendarDate+" UTC");return Number.isNaN(parsed)?null:new Date(parsed);};
+const currentStatus=(status:string,deadline:string)=>{const date=datedDeadline(deadline);if(!date)return status;date.setUTCHours(22,59,59,999);return Date.now()>date.getTime()?"CLOSED":status;};
 
 export default function OpportunitiesPage() {
   const [activeCategory, setActiveCategory] = useState("All");
