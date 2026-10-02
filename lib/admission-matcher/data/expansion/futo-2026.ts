@@ -39,7 +39,7 @@ export const futoExpansion2026: ProgrammeRequirement[] = [
           "Technical Drawing",
           "Computer Studies",
           "Data Processing",
-          "Metalwork",
+          "Metal Work",
           "Woodwork Technology"
         ]
       }
@@ -123,7 +123,7 @@ export const futoExpansion2026: ProgrammeRequirement[] = [
           "Economics",
           "Bricklaying and Concreting",
           "Carpentry and Joinery",
-          "Painting and Decorations",
+          "Painting and Decoration",
           "Land Surveying"
         ]
       }
@@ -196,7 +196,7 @@ export const futoExpansion2026: ProgrammeRequirement[] = [
           "Technical Drawing",
           "Computer Studies",
           "Data Processing",
-          "Metalwork",
+          "Metal Work",
           "Woodwork Technology"
         ]
       }

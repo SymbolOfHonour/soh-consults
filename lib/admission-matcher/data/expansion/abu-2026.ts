@@ -151,7 +151,7 @@ export const abuExpansion2026: ProgrammeRequirement[] = [
           "Agricultural Science",
           "Biology",
           "Geography",
-          "Metalwork",
+          "Metal Work",
           "Woodwork",
           "Economics"
         ]

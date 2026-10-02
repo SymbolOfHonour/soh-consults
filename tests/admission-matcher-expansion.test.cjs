@@ -4,7 +4,7 @@ const {loadMatcher}=require('./admission-matcher-helper.cjs');
 const {institutionExpansion2026:added}=loadMatcher('lib/admission-matcher/data/expansion/index');
 const {admissionMatcherRequirements:data}=loadMatcher('lib/admission-matcher/data/index');
 const {matchCandidate}=loadMatcher('lib/admission-matcher/match');
-const {normalise,subjectKey,discoverUtmeSubjects,coverage}=loadMatcher('lib/admission-matcher/catalogue');
+const {normalise,subjectKey,discoverSubjects,discoverUtmeSubjects,coverage}=loadMatcher('lib/admission-matcher/catalogue');
 const ids=['unilag','ui','oau','unilorin','uniben','unn','abu','futa','futminna','futo','unical','uniuyo','delsu','eksu','aaua','oou','tasued','kwasu','lautech'];
 const science={programme:'Civil Engineering',utmeScore:400,utmeSubjects:['Mathematics','Physics','Chemistry'],olevelCredits:['English Language','Mathematics','Physics','Chemistry','Biology'],sittings:1};
 const result=(profile,id)=>matchCandidate({...profile,institution:id,firstChoiceInstitution:id},data)[0];
@@ -61,6 +61,8 @@ test('blank and conflicting source cells remain unresolved without broadening ap
  const oou=added.find(r=>r.institutionId==='oou'&&r.programme==='Accounting');assert.ok(oou.unresolvedChecks.includes('utme'));assert.match(oou.reviewReasons.join(' '),/Book Keeping/);
  const ui=added.filter(r=>r.institutionId==='ui');assert.ok(ui.every(r=>r.unresolvedChecks.includes('sittings')&&r.unresolvedChecks.includes('olevel')));
  const subjects=discoverUtmeSubjects(data);assert.equal(subjects.length,24);assert.ok(!subjects.includes('Civic Education')&&!subjects.includes('Book Keeping'));
+ const olevel=discoverSubjects(data);assert.ok(olevel.includes('Metal Work')&&olevel.includes('Painting and Decoration'));
+ assert.ok(!olevel.includes('Metalwork')&&!olevel.includes('Painting and Decorations'));
 });
 test('new first-choice ordering and existing LASUSTECH Accounting passing case coexist',()=>{
  const accounting={programme:'Accounting',utmeScore:195,utmeSubjects:['Mathematics','Economics','Commerce'],olevelCredits:['English Language','Mathematics','Economics','Commerce','Financial Accounting'],sittings:1,firstChoiceInstitution:'LASUSTECH'};
