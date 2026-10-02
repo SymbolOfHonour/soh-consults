@@ -78,13 +78,13 @@ test('UNIOSUN 2026 screening baseline is enforced without upgrading unresolved s
 });
 test('unknown cutoffs, missing sources, unknown sittings and unverified records never match',()=>{
   for(const change of [{minimumUtmeScore:undefined},{maximumSittings:undefined},{sources:[]},{verificationStatus:'review'},{unresolvedChecks:['utme']}])assert.equal(matchCandidate(accounting,[{...known,...change}])[0].status,'review');
-  assert.equal(at(accounting,'abu'),undefined);
+  assert.equal(at(accounting,'absu'),undefined);
   assert.equal(at(accounting,'fuoye').status,'review');
   assert.equal(at({...accounting,certificateType:'NBC'}).status,'review');
 });
 test('unsupported course returns no eligibility decision and results keep status order when no first choice is supplied',()=>{
   assert.deepEqual(matchCandidate({...accounting,programme:'Unrepresented Degree'},data),[]);
-  const results=matchCandidate({...accounting,firstChoiceInstitution:''},data);assert.equal(results.length,4);
+  const results=matchCandidate({...accounting,firstChoiceInstitution:''},data);assert.equal(results.filter(r=>['fuoye','lasu','lasustech','uniosun'].includes(r.requirement.institutionId)).length,4);
   const ranks={match:0,review:1,not_match:2};assert.ok(results.every((r,i)=>!i || ranks[results[i-1].status]<=ranks[r.status]));
 });
 test('independent option slots use distinct subjects and can reallocate overlapping groups',()=>{
@@ -111,7 +111,11 @@ test('OLevel-only subjects cannot masquerade as UTME choices',()=>{
  assert.equal(at({...accounting,utmeSubjects:['Mathematics','Economics','Principles of Account']}).status,'match');
 });
 
-test('historical unconfirmed Accounting institutions never appear as assessed options',()=>{
- for(const id of ['abu','absu','aaua','aun','adun'])assert.ok(!data.some(r=>r.institutionId===id));
- assert.equal(matchCandidate(accounting,data).length,4);
+test('historical unconfirmed Accounting institutions stay excluded; newly researched institutions need live provenance',()=>{
+ for(const id of ['absu','aun','adun'])assert.ok(!data.some(r=>r.institutionId===id));
+ for(const id of ['abu','aaua']) {
+  const result=at({...accounting,firstChoiceInstitution:id},id);
+  assert.equal(result.status,'review');
+  assert.ok(result.requirement.sources.some(s=>s.lastVerified==='2026-10-02' && s.url.startsWith('https://ibass.jamb.gov.ng/brochure-courses?')));
+ }
 });
