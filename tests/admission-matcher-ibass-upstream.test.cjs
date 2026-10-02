@@ -10,10 +10,11 @@ test("IBASS upstream layer is snapshot-based and not wired to undocumented runti
   const discovery = read("docs/admission-matcher/ibass-upstream-discovery.md");
   const normalizer = read("lib/admission-matcher/upstream/normalize.ts");
   const ingestion = read("lib/admission-matcher/upstream/ingest.ts");
+  const catalogue = read("lib/admission-matcher/upstream/catalogue.ts");
   assert.match(discovery, /versioned local S\.O\.H snapshot/i);
   assert.match(discovery, /direct live dependency.*deferred/i);
-  assert.doesNotMatch(normalizer + ingestion, /fetch\s*\(/);
-  assert.doesNotMatch(normalizer + ingestion, /axios|XMLHttpRequest/);
+  assert.doesNotMatch(normalizer + ingestion + catalogue, /fetch\s*\(/);
+  assert.doesNotMatch(normalizer + ingestion + catalogue, /axios|XMLHttpRequest/);
 });
 
 test("normalizer refuses to infer unresolved broad subject categories", () => {
@@ -31,8 +32,24 @@ test("UNILAG observed fixture preserves component-vs-overall eligibility distinc
   assert.match(fixture, /Social Science category has not yet been captured/i);
 });
 
-test("sanitized fixture contains no captured browser secrets", () => {
-  const fixture = read("lib/admission-matcher/upstream/fixtures/unilag-accounting-observed.ts");
+test("observed UNILAG catalogue preserves real IBASS ids and programme labels", () => {
+  const fixture = read("lib/admission-matcher/upstream/fixtures/unilag-catalogue-observed.ts");
+  assert.match(fixture, /unilagIbassInstitutionId = 1345/);
+  assert.match(fixture, /id: 1537, title: "ACCOUNTANCY\/ACCOUNTING"/);
+  assert.match(fixture, /id: 1542, title: "ACTUARIAL SCIENCE"/);
+  assert.match(fixture, /id: 2191, title: "ARCHITECTURE"/);
+});
+
+test("catalogue normalizer validates upstream ids and rejects duplicates", () => {
+  const catalogue = read("lib/admission-matcher/upstream/catalogue.ts");
+  assert.match(catalogue, /positive IBASS institution id is required/);
+  assert.match(catalogue, /Duplicate IBASS programme id/);
+  assert.match(catalogue, /Duplicate IBASS programme title/);
+  assert.match(catalogue, /provider: "jamb-ibass"/);
+});
+
+test("sanitized fixtures contain no captured browser secrets", () => {
+  const fixture = read("lib/admission-matcher/upstream/fixtures/unilag-accounting-observed.ts") + read("lib/admission-matcher/upstream/fixtures/unilag-catalogue-observed.ts");
   assert.doesNotMatch(fixture, /cookie\s*:/i);
   assert.doesNotMatch(fixture, /authorization\s*:/i);
   assert.doesNotMatch(fixture, /bearer\s+[a-z0-9._-]+/i);
