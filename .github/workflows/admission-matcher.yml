@@ -19,7 +19,7 @@ jobs:
           node - <<'JS'
           const {execFileSync}=require('node:child_process');
           const files=execFileSync('git',['diff','--name-only',process.env.MATCHER_BASE_SHA,'HEAD'],{encoding:'utf8'}).trim().split('\n').filter(Boolean);
-          const outside=files.filter(p=>!p.startsWith('app/admission-matcher/')&&!p.startsWith('lib/admission-matcher/')&&!/^tests\/admission-matcher.*\.cjs$/.test(p)&&p!=='.github/workflows/admission-matcher.yml');
+          const outside=files.filter(p=>!p.startsWith('app/admission-matcher/')&&!p.startsWith('lib/admission-matcher/')&&!p.startsWith('docs/admission-matcher/')&&!/^tests\/admission-matcher.*\.cjs$/.test(p)&&p!=='.github/workflows/admission-matcher.yml');
           if(outside.length)throw new Error('Matcher must not modify existing calculators or unrelated files: '+outside.join(', '));
           console.log('All '+files.length+' changed paths are isolated to the Matcher.');
           JS
