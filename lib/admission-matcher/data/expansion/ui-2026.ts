@@ -177,5 +177,149 @@ export const uiExpansion2026: ProgrammeRequirement[] = [
         "scope": "Only explicitly confirmed screening conditions; gaps described in notes"
       }
     ]
+  },
+
+  {
+    "programme": "Agricultural and Environmental Engineering",
+    "requiredUtmeSubjects": [
+      "Mathematics",
+      "Chemistry",
+      "Physics"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Chemistry",
+      "Physics"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "olevel",
+      "sittings",
+      "score"
+    ],
+    "reviewReasons": [
+      "The fifth O’Level slot uses a broad science or technical-certificate subject category; institutional exceptions need checking.",
+      "UI requires five credits at one sitting or six at two; the matcher cannot express the conditional elective count.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "IBASS lists technical/agricultural certificate alternatives for the fifth credit.",
+      "Observed O’Level electives: Biology/Agricultural Science, Further Mathematics, Technical Drawing, Economics, Geography, Metal Work or Wood Work; five credits at one sitting or six at two require review.",
+      "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Chemistry, Physics; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics, Chemistry, Physics; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "ui",
+    "institutionName": "University of Ibadan, Ibadan, Oyo State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "UI"
+    ],
+    "verificationStatus": "review",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=392&school=UNIVERSITY%20OF%20IBADAN,%20IBADAN,%20OYO%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Agricultural and Environmental Engineering"
+      },
+      {
+        "label": "UI official admission information",
+        "url": "https://ui.edu.ng/news/post-utmedirect-entry-screening-prospective-candidates-20262027-admission-exercise",
+        "session": "2026/2027",
+        "lastVerified": "2026-10-02",
+        "scope": "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+        "locator": "Agricultural and Environmental Engineering"
+      }
+    ]
+  },
+  {
+    "programme": "Agriculture",
+    "requiredUtmeSubjects": [
+      "Chemistry"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Chemistry"
+    ],
+    "utmeGroups": [
+      {
+        "subjects": [
+          "Biology",
+          "Agricultural Science"
+        ],
+        "count": 1
+      },
+      {
+        "subjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "count": 1
+      }
+    ],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "olevel",
+      "sittings",
+      "score"
+    ],
+    "reviewReasons": [
+      "The O’Level elective/conditional credit rule requires institution-specific clarification.",
+      "UI requires five credits at one sitting or six at two; the matcher cannot express the conditional elective count.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "O’Level: English, Mathematics, Chemistry and Biology/Agricultural Science, plus one of Geography, Physics or Economics at one sitting, or two of that pool at two sittings.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Verified for the stored SSCE subject, credit, sitting and screening checks only; participation, age, CAPS uploads and final institutional selection are not predicted by the Matcher.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Chemistry; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Chemistry; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "ui",
+    "institutionName": "University of Ibadan, Ibadan, Oyo State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "UI"
+    ],
+    "verificationStatus": "review",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=392&school=UNIVERSITY%20OF%20IBADAN,%20IBADAN,%20OYO%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Agriculture"
+      },
+      {
+        "label": "UI official admission information",
+        "url": "https://ui.edu.ng/news/post-utmedirect-entry-screening-prospective-candidates-20262027-admission-exercise",
+        "session": "2026/2027",
+        "lastVerified": "2026-10-02",
+        "scope": "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+        "locator": "Agriculture"
+      }
+    ]
   }
+
 ];

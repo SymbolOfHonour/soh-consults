@@ -186,5 +186,154 @@ export const oauExpansion2026: ProgrammeRequirement[] = [
         "scope": "Only explicitly confirmed screening conditions; gaps described in notes"
       }
     ]
+  },
+
+  {
+    "programme": "Agricultural Engineering",
+    "requiredUtmeSubjects": [
+      "Mathematics",
+      "Chemistry",
+      "Physics"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Chemistry",
+      "Physics"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "olevel",
+      "sittings"
+    ],
+    "reviewReasons": [
+      "The fifth O’Level slot uses a broad science or technical-certificate subject category; institutional exceptions need checking.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "IBASS lists technical/agricultural certificate alternatives for the fifth credit.",
+      "First choice, screening floor 200 and attendance at the assigned screening are required; detailed eligibility guidelines also need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Chemistry, Physics; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics, Chemistry, Physics; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "oau",
+    "institutionName": "Obafemi Awolowo University, Ile-Ife, Osun State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "OAU"
+    ],
+    "verificationStatus": "review",
+    "minimumUtmeScore": 200,
+    "firstChoiceRequired": true,
+    "screeningMethod": "post-utme",
+    "scoreScope": "institution-screening",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=620&school=OBAFEMI%20AWOLOWO%20UNIVERSITY,%20ILE-IFE,%20OSUN%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Agricultural Engineering"
+      },
+      {
+        "label": "OAU official admission information",
+        "url": "https://oauife.edu.ng/2026-admission-screening-exercise-for-utme-and-direct-entry-candidates/",
+        "session": "2026/2027",
+        "lastVerified": "2026-10-02",
+        "scope": "First choice, screening floor 200 and attendance at the assigned screening are required; detailed eligibility guidelines also need checking.",
+        "locator": "Agricultural Engineering"
+      }
+    ]
+  },
+  {
+    "programme": "Building",
+    "requiredUtmeSubjects": [
+      "Mathematics",
+      "Physics",
+      "Chemistry"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Physics",
+      "Chemistry"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [
+      {
+        "subjects": [
+          "Geography",
+          "Economics",
+          "Fine Arts",
+          "Technical Drawing"
+        ],
+        "count": 1
+      }
+    ],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "score",
+      "sittings"
+    ],
+    "reviewReasons": [
+      "IBASS includes NTC technical-certificate alternatives outside the SSCE credit model.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "Observed O’Level pool: Biology/Agricultural Science, Further Mathematics, Technical Drawing, Economics, Geography, Metal Work or Wood Work; conditional additional credits require review.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Verified for the stored SSCE subject, credit, sitting and screening checks only; participation, age, CAPS uploads and final institutional selection are not predicted by the Matcher.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice, screening floor 200 and attendance at the assigned screening are required; detailed eligibility guidelines also need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice, screening floor 200 and attendance at the assigned screening are required; detailed eligibility guidelines also need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Physics, Chemistry; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics, Physics, Chemistry; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "oau",
+    "institutionName": "Obafemi Awolowo University, Ile-Ife, Osun State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "OAU"
+    ],
+    "verificationStatus": "review",
+    "minimumUtmeScore": 200,
+    "firstChoiceRequired": true,
+    "screeningMethod": "post-utme",
+    "scoreScope": "institution-screening",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=620&school=OBAFEMI%20AWOLOWO%20UNIVERSITY,%20ILE-IFE,%20OSUN%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Building"
+      },
+      {
+        "label": "OAU official admission information",
+        "url": "https://oauife.edu.ng/2026-admission-screening-exercise-for-utme-and-direct-entry-candidates/",
+        "session": "2026/2027",
+        "lastVerified": "2026-10-02",
+        "scope": "First choice, screening floor 200 and attendance at the assigned screening are required; detailed eligibility guidelines also need checking.",
+        "locator": "Building"
+      }
+    ]
   }
+
 ];

@@ -242,5 +242,152 @@ export const unilagExpansion2026: ProgrammeRequirement[] = [
         "scope": "Only explicitly confirmed screening conditions; gaps described in notes"
       }
     ]
+  },
+
+  {
+    "programme": "Actuarial Science",
+    "requiredUtmeSubjects": [
+      "Mathematics",
+      "Economics"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Economics"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [
+      {
+        "subjects": [
+          "Financial Accounting",
+          "Data Processing",
+          "Further Mathematics",
+          "Christian Religious Knowledge",
+          "Islamic Religious Knowledge",
+          "Geography",
+          "Government",
+          "Biology",
+          "Chemistry",
+          "Physics",
+          "Commerce",
+          "Civic Education",
+          "Insurance"
+        ],
+        "count": 2
+      }
+    ],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme"
+    ],
+    "reviewReasons": [
+      "IBASS includes Further Mathematics in the third UTME slot although it is not in the approved UTME subject catalogue.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "The displayed UTME option list is Financial Accounting, Geography, Government, Biology, Chemistry, Physics, Further Mathematics or Commerce; this inconsistency is not converted to an automatic rule.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "unilag",
+    "institutionName": "University of Lagos, Lagos State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "UNILAG"
+    ],
+    "verificationStatus": "review",
+    "minimumUtmeScore": 200,
+    "maximumSittings": 1,
+    "firstChoiceRequired": true,
+    "screeningMethod": "post-utme",
+    "scoreScope": "institution-screening",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=494&school=UNIVERSITY%20OF%20LAGOS,%20LAGOS%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Actuarial Science"
+      },
+      {
+        "label": "UNILAG official admission information",
+        "url": "https://unilag.edu.ng/important-notice-on-2026-2027-post-utme-screening-exercise/",
+        "session": "2026/2027",
+        "lastVerified": "2026-10-02",
+        "scope": "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+        "locator": "Actuarial Science"
+      }
+    ]
+  },
+  {
+    "programme": "Business Administration",
+    "requiredUtmeSubjects": [
+      "Mathematics",
+      "Economics"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Economics"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme",
+      "olevel"
+    ],
+    "reviewReasons": [
+      "IBASS uses broad Arts/Science/Social Science elective categories for UTME and O’Level.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "Observed O’Level pool: Biology/Agricultural Science, Further Mathematics, Technical Drawing, Economics, Geography, Metal Work or Wood Work; conditional additional credits require review.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Verified for the stored SSCE subject, credit, sitting and screening checks only; participation, age, CAPS uploads and final institutional selection are not predicted by the Matcher.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "unilag",
+    "institutionName": "University of Lagos, Lagos State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "UNILAG"
+    ],
+    "verificationStatus": "review",
+    "minimumUtmeScore": 200,
+    "maximumSittings": 1,
+    "firstChoiceRequired": true,
+    "screeningMethod": "post-utme",
+    "scoreScope": "institution-screening",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=494&school=UNIVERSITY%20OF%20LAGOS,%20LAGOS%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Business Administration"
+      },
+      {
+        "label": "UNILAG official admission information",
+        "url": "https://unilag.edu.ng/important-notice-on-2026-2027-post-utme-screening-exercise/",
+        "session": "2026/2027",
+        "lastVerified": "2026-10-02",
+        "scope": "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+        "locator": "Business Administration"
+      }
+    ]
   }
+
 ];

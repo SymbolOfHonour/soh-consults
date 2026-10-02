@@ -172,5 +172,340 @@ export const oouExpansion2026: ProgrammeRequirement[] = [
         "scope": "Only explicitly confirmed screening conditions; gaps described in notes"
       }
     ]
+  },
+
+  {
+    "programme": "Business Administration",
+    "requiredUtmeSubjects": [
+      "Mathematics",
+      "Economics"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Economics"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [
+      {
+        "subjects": [
+          "Financial Accounting",
+          "Business Methods",
+          "Commerce",
+          "Government",
+          "Geography",
+          "Statistics"
+        ],
+        "count": 2
+      }
+    ],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme",
+      "score",
+      "sittings"
+    ],
+    "reviewReasons": [
+      "IBASS allows a further UTME subject without an enumerated institutional subject pool.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "Observed O’Level pool: Biology/Agricultural Science, Further Mathematics, Technical Drawing, Economics, Geography, Metal Work or Wood Work; conditional additional credits require review.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Verified for the stored SSCE subject, credit, sitting and screening checks only; participation, age, CAPS uploads and final institutional selection are not predicted by the Matcher.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice, screening floor 200 and attendance at the assigned screening are required; detailed eligibility guidelines also need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice, screening floor 200 and attendance at the assigned screening are required; detailed eligibility guidelines also need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Admission uses UTME, screening and relevant O’Level grades; this document does not establish a current programme UTME minimum for the imported programmes.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current programme screening score and sitting/first-choice conditions were not established from a current session notice.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and UTME screening floor 160; age, name consistency, result-upload and application deadlines also apply.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and UTME screening floor 160; age, name consistency, result-upload and application deadlines also apply.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and UTME screening floor 160; age, name consistency, result-upload and application deadlines also apply.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "A current programme screening threshold and full institutional conditions were not established; prior-session advertisements are not substituted.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "A current programme screening threshold and full institutional conditions were not established; prior-session advertisements are not substituted.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "A current programme screening threshold and full institutional conditions were not established; prior-session advertisements are not substituted.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and at most two sittings; current programme scores are not supplied by this table. Institution programme-specific O’Level rules differ from some displayed IBASS rows.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and at most two sittings; current programme scores are not supplied by this table. Institution programme-specific O’Level rules differ from some displayed IBASS rows.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current screening score and additional institutional conditions were not established; no historical threshold is used.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current screening score and additional institutional conditions were not established; no historical threshold is used.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current screening score and additional institutional conditions were not established; no historical threshold is used.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current screening score and additional institutional conditions were not established; no historical threshold is used.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current screening score and additional institutional conditions were not established; no historical threshold is used.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and institution screening floor 150; additional portal guidelines and programme sitting conditions need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and institution screening floor 150; additional portal guidelines and programme sitting conditions need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Homepage links to prior-session cutoffs; no current score or full screening rules are imported.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Homepage links to prior-session cutoffs; no current score or full screening rules are imported.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "The current advertisement is image-based; no numerical score is transcribed from an unread image.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "The current advertisement is image-based; no numerical score is transcribed from an unread image.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "The current advertisement is image-based; no numerical score is transcribed from an unread image.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "The current advertisement is image-based; no numerical score is transcribed from an unread image.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Homepage advertises 2025/2026; current screening score and sitting/first-choice conditions remain unverified.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Homepage advertises 2025/2026; current screening score and sitting/first-choice conditions remain unverified.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "oou",
+    "institutionName": "Olabisi Onabanjo University, Ago-Iwoye, Ogun State",
+    "institutionType": "state-university",
+    "institutionAliases": [
+      "OOU"
+    ],
+    "verificationStatus": "review",
+    "firstChoiceRequired": true,
+    "screeningMethod": "post-utme",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=636&school=OLABISI%20ONABANJO%20UNIVERSITY,%20AGO-IWOYE,%20OGUN%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Business Administration"
+      },
+      {
+        "label": "OOU official admission information",
+        "url": "https://main.oouagoiwoye.edu.ng/programmes/undergraduate/admission/post-utme/",
+        "session": "Undated official screening policy checked 2026-10-02",
+        "lastVerified": "2026-10-02",
+        "scope": "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+        "locator": "Business Administration"
+      }
+    ]
+  },
+  {
+    "programme": "Civil Law",
+    "requiredUtmeSubjects": [
+      "Literature in English"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Literature in English"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme",
+      "olevel",
+      "sittings",
+      "score"
+    ],
+    "reviewReasons": [
+      "Five credits at one sitting or six at two and a Mathematics pass cannot be represented by the credit-only input model.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "The UTME rule includes Arts options and Civic Education, which is not approved as UTME.",
+      "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Literature in English; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Literature in English; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "oou",
+    "institutionName": "Olabisi Onabanjo University, Ago-Iwoye, Ogun State",
+    "institutionType": "state-university",
+    "institutionAliases": [
+      "OOU"
+    ],
+    "verificationStatus": "review",
+    "firstChoiceRequired": true,
+    "screeningMethod": "post-utme",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=636&school=OLABISI%20ONABANJO%20UNIVERSITY,%20AGO-IWOYE,%20OGUN%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Civil Law"
+      },
+      {
+        "label": "OOU official admission information",
+        "url": "https://main.oouagoiwoye.edu.ng/programmes/undergraduate/admission/post-utme/",
+        "session": "Undated official screening policy checked 2026-10-02",
+        "lastVerified": "2026-10-02",
+        "scope": "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+        "locator": "Civil Law"
+      }
+    ]
+  },
+  {
+    "programme": "Agricultural Engineering",
+    "requiredUtmeSubjects": [
+      "Mathematics",
+      "Physics",
+      "Chemistry"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Physics",
+      "Chemistry"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "olevel",
+      "score",
+      "sittings"
+    ],
+    "reviewReasons": [
+      "The fifth O’Level credit is not specified in the displayed IBASS row.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "Observed O’Level pool: Biology/Agricultural Science, Further Mathematics, Technical Drawing, Economics, Geography, Metal Work or Wood Work; conditional additional credits require review.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Verified for the stored SSCE subject, credit, sitting and screening checks only; participation, age, CAPS uploads and final institutional selection are not predicted by the Matcher.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Screening floor 200, first choice and five relevant credits in one sitting; age, result uploads and aptitude-test participation remain separate administrative checks.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "College of Medicine/Pharmacy requires one sitting; other two-sitting applicants require six relevant credits. Screening exam and age requirements apply; notice does not establish a UTME floor.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice, screening floor 200 and attendance at the assigned screening are required; detailed eligibility guidelines also need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice, screening floor 200 and attendance at the assigned screening are required; detailed eligibility guidelines also need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Admission uses UTME, screening and relevant O’Level grades; this document does not establish a current programme UTME minimum for the imported programmes.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current programme screening score and sitting/first-choice conditions were not established from a current session notice.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and UTME screening floor 160; age, name consistency, result-upload and application deadlines also apply.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and UTME screening floor 160; age, name consistency, result-upload and application deadlines also apply.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and UTME screening floor 160; age, name consistency, result-upload and application deadlines also apply.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "A current programme screening threshold and full institutional conditions were not established; prior-session advertisements are not substituted.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "A current programme screening threshold and full institutional conditions were not established; prior-session advertisements are not substituted.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "A current programme screening threshold and full institutional conditions were not established; prior-session advertisements are not substituted.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and at most two sittings; current programme scores are not supplied by this table. Institution programme-specific O’Level rules differ from some displayed IBASS rows.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and at most two sittings; current programme scores are not supplied by this table. Institution programme-specific O’Level rules differ from some displayed IBASS rows.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current screening score and additional institutional conditions were not established; no historical threshold is used.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current screening score and additional institutional conditions were not established; no historical threshold is used.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current screening score and additional institutional conditions were not established; no historical threshold is used.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current screening score and additional institutional conditions were not established; no historical threshold is used.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Current screening score and additional institutional conditions were not established; no historical threshold is used.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and institution screening floor 150; additional portal guidelines and programme sitting conditions need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First choice and institution screening floor 150; additional portal guidelines and programme sitting conditions need checking.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Homepage links to prior-session cutoffs; no current score or full screening rules are imported.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Homepage links to prior-session cutoffs; no current score or full screening rules are imported.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "The current advertisement is image-based; no numerical score is transcribed from an unread image.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "The current advertisement is image-based; no numerical score is transcribed from an unread image.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "The current advertisement is image-based; no numerical score is transcribed from an unread image.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "The current advertisement is image-based; no numerical score is transcribed from an unread image.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Homepage advertises 2025/2026; current screening score and sitting/first-choice conditions remain unverified.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "Homepage advertises 2025/2026; current screening score and sitting/first-choice conditions remain unverified.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Physics, Chemistry; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics, Physics, Chemistry; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "oou",
+    "institutionName": "Olabisi Onabanjo University, Ago-Iwoye, Ogun State",
+    "institutionType": "state-university",
+    "institutionAliases": [
+      "OOU"
+    ],
+    "verificationStatus": "review",
+    "firstChoiceRequired": true,
+    "screeningMethod": "post-utme",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=636&school=OLABISI%20ONABANJO%20UNIVERSITY,%20AGO-IWOYE,%20OGUN%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Agricultural Engineering"
+      },
+      {
+        "label": "OOU official admission information",
+        "url": "https://main.oouagoiwoye.edu.ng/programmes/undergraduate/admission/post-utme/",
+        "session": "Undated official screening policy checked 2026-10-02",
+        "lastVerified": "2026-10-02",
+        "scope": "First-choice applicants participate in institutional screening; a current programme score is not supplied.",
+        "locator": "Agricultural Engineering"
+      }
+    ]
   }
+
 ];

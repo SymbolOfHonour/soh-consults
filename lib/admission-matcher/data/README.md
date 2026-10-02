@@ -2,18 +2,18 @@
 
 Checked 2026-10-02. All data and logic are isolated from existing calculators.
 
-The registered dataset contains 287 institution/programme records, 168 distinct
+The registered dataset contains 341 institution/programme records, 182 distinct
 programme names and 23 institutions. These are catalogue counts, not fully
 verified eligibility coverage. 48 records, representing 41 programmes at three
 institutions, have fully verified stored UTME screening, subject, credit and
-sitting checks. 239 records require review. No national completeness is claimed.
+sitting checks. 293 records require review. No national completeness is claimed.
 Federal and state university entries are represented. The model supports
 polytechnics, monotechnics and colleges of education; no such records are claimed.
 
 ## Sources and scope
 
-- The [first institution expansion batch](./expansion/README.md) adds 57 records
-  across 19 independently researched institutions. All 57 remain Needs Review.
+- The [first institution expansion batch](./expansion/README.md) adds 111 records
+  across 19 independently researched institutions. All 111 remain Needs Review.
   Each institution has its own module with observed live IBASS table text and
   current institutional source limitations. Existing institution records and
   matching semantics are preserved.

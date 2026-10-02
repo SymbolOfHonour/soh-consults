@@ -195,5 +195,236 @@ export const unicalExpansion2026: ProgrammeRequirement[] = [
         "scope": "Only explicitly confirmed screening conditions; gaps described in notes"
       }
     ]
+  },
+
+  {
+    "programme": "Law",
+    "requiredUtmeSubjects": [],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Literature in English"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme",
+      "olevel",
+      "sittings"
+    ],
+    "reviewReasons": [
+      "IBASS specifies Arts/Social Science categories without a complete enumerated institutional subject pool.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "UTME: three Arts/Social Science subjects; O’Level: five credits including English, Literature and Mathematics.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Literature in English; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: ; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "unical",
+    "institutionName": "University of Calabar, Calabar, Cross River State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "UNICAL"
+    ],
+    "verificationStatus": "review",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=124&school=UNIVERSITY%20OF%20CALABAR,%20CALABAR,%20CROSS%20RIVER%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Law"
+      },
+      {
+        "label": "UNICAL official current screening portal",
+        "url": "https://postutme.unical.edu.ng/",
+        "session": "2026/2027",
+        "lastVerified": "2026-10-02",
+        "scope": "150+ and UNICAL first choice or completed switch; result upload and screening participation remain separate administrative checks."
+      }
+    ],
+    "minimumUtmeScore": 150,
+    "firstChoiceRequired": true,
+    "scoreScope": "institution-screening",
+    "screeningMethod": "post-utme"
+  },
+  {
+    "programme": "Business Management/Management Science",
+    "requiredUtmeSubjects": [
+      "Mathematics",
+      "Economics"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Economics"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme",
+      "olevel",
+      "sittings"
+    ],
+    "reviewReasons": [
+      "IBASS does not enumerate the remaining Social Science UTME slot or both remaining O’Level subjects.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "IBASS: one further Social Science UTME subject; two other/relevant O’Level credits.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "unical",
+    "institutionName": "University of Calabar, Calabar, Cross River State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "UNICAL"
+    ],
+    "verificationStatus": "review",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=124&school=UNIVERSITY%20OF%20CALABAR,%20CALABAR,%20CROSS%20RIVER%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Business Management/Management Science"
+      },
+      {
+        "label": "UNICAL official current screening portal",
+        "url": "https://postutme.unical.edu.ng/",
+        "session": "2026/2027",
+        "lastVerified": "2026-10-02",
+        "scope": "150+ and UNICAL first choice or completed switch; result upload and screening participation remain separate administrative checks."
+      }
+    ],
+    "minimumUtmeScore": 150,
+    "firstChoiceRequired": true,
+    "scoreScope": "institution-screening",
+    "screeningMethod": "post-utme"
+  },
+  {
+    "programme": "Public Administration",
+    "requiredUtmeSubjects": [
+      "Mathematics",
+      "Economics"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Economics"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme",
+      "olevel",
+      "sittings"
+    ],
+    "reviewReasons": [
+      "IBASS does not enumerate the remaining Social Science UTME slot or both remaining O’Level subjects.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "IBASS: one further Social Science UTME subject; two other/relevant O’Level credits.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "unical",
+    "institutionName": "University of Calabar, Calabar, Cross River State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "UNICAL"
+    ],
+    "verificationStatus": "review",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=124&school=UNIVERSITY%20OF%20CALABAR,%20CALABAR,%20CROSS%20RIVER%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Public Administration"
+      },
+      {
+        "label": "UNICAL official current screening portal",
+        "url": "https://postutme.unical.edu.ng/",
+        "session": "2026/2027",
+        "lastVerified": "2026-10-02",
+        "scope": "150+ and UNICAL first choice or completed switch; result upload and screening participation remain separate administrative checks."
+      }
+    ],
+    "minimumUtmeScore": 150,
+    "firstChoiceRequired": true,
+    "scoreScope": "institution-screening",
+    "screeningMethod": "post-utme"
+  },
+  {
+    "programme": "Marketing",
+    "requiredUtmeSubjects": [
+      "Mathematics",
+      "Economics"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Economics"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme",
+      "olevel",
+      "sittings"
+    ],
+    "reviewReasons": [
+      "IBASS does not enumerate the remaining Social Science UTME slot or both remaining O’Level subjects.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "IBASS: one further Social Science UTME subject; two other/relevant O’Level credits.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics, Economics; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "unical",
+    "institutionName": "University of Calabar, Calabar, Cross River State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "UNICAL"
+    ],
+    "verificationStatus": "review",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=124&school=UNIVERSITY%20OF%20CALABAR,%20CALABAR,%20CROSS%20RIVER%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Marketing"
+      },
+      {
+        "label": "UNICAL official current screening portal",
+        "url": "https://postutme.unical.edu.ng/",
+        "session": "2026/2027",
+        "lastVerified": "2026-10-02",
+        "scope": "150+ and UNICAL first choice or completed switch; result upload and screening participation remain separate administrative checks."
+      }
+    ],
+    "minimumUtmeScore": 150,
+    "firstChoiceRequired": true,
+    "scoreScope": "institution-screening",
+    "screeningMethod": "post-utme"
   }
+
 ];

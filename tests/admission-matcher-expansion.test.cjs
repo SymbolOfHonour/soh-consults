@@ -9,11 +9,12 @@ const ids=['unilag','ui','oau','unilorin','uniben','unn','abu','futa','futminna'
 const science={programme:'Civil Engineering',utmeScore:400,utmeSubjects:['Mathematics','Physics','Chemistry'],olevelCredits:['English Language','Mathematics','Physics','Chemistry','Biology'],sittings:1};
 const result=(profile,id)=>matchCandidate({...profile,institution:id,firstChoiceInstitution:id},data)[0];
 
-test('first expansion batch has three independently sourced records at each requested institution',()=>{
- assert.equal(added.length,57);
+test('first expansion batch has independently sourced records at all nineteen requested institutions',()=>{
+ assert.equal(added.length,111);
  assert.deepEqual([...new Set(added.map(r=>r.institutionId))].sort(),ids.slice().sort());
  const identities=new Set();
- for(const id of ids)assert.equal(added.filter(r=>r.institutionId===id).length,3,id);
+ const counts={unilag:5,ui:5,oau:5,unilorin:6,uniben:6,unn:6,abu:6,futa:5,futminna:5,futo:5,unical:7,uniuyo:7,delsu:5,eksu:6,aaua:6,oou:6,tasued:6,kwasu:7,lautech:7};
+ for(const id of ids)assert.equal(added.filter(r=>r.institutionId===id).length,counts[id],id);
  for(const r of added){
   const key=r.institutionId+'::'+normalise(r.programme);assert.ok(!identities.has(key));identities.add(key);
   const primary=r.sources[0];assert.match(primary.url,/^https:\/\/ibass\.jamb\.gov\.ng\/brochure-courses\?id=\d+&school=/);
@@ -70,4 +71,15 @@ test('new first-choice ordering and existing LASUSTECH Accounting passing case c
  assert.equal(result(accounting,'lasustech').status,'match');
  const unn=matchCandidate({...accounting,firstChoiceInstitution:'UNN'},data);assert.equal(unn[0].requirement.institutionId,'unn');assert.equal(unn[0].status,'review');
  assert.equal(coverage(data).institutions,23);assert.equal(coverage(data).verifiedRecords,48);
+});
+
+
+test('additional Anatomy and UNILAG Actuarial records enforce complete checks and preserve conflicting UTME review',()=>{
+ const profile={programme:'Anatomy',utmeScore:400,utmeSubjects:['Biology','Chemistry','Physics'],olevelCredits:['English','Mathematics','Biology','Chemistry','Physics'],sittings:1};
+ assert.equal(result(profile,'lautech').status,'review');
+ assert.equal(result({...profile,utmeSubjects:['Biology','Chemistry','Geography']},'lautech').status,'not_match');
+ assert.equal(result({...profile,olevelCredits:['Mathematics','Biology','Chemistry','Physics','Economics']},'lautech').status,'not_match');
+ const actuarial=added.find(r=>r.institutionId==='unilag'&&r.programme==='Actuarial Science');
+ assert.ok(actuarial.unresolvedChecks.includes('utme'));assert.match(actuarial.reviewReasons.join(' '),/Further Mathematics/);
+ assert.ok(!added.some(r=>r.institutionId==='delsu'&&normalise(r.programme)==='botany'));
 });

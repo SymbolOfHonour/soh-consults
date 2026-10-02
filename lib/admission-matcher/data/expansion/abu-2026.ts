@@ -188,5 +188,184 @@ export const abuExpansion2026: ProgrammeRequirement[] = [
         "scope": "Only explicitly confirmed screening conditions; gaps described in notes"
       }
     ]
+  },
+
+  {
+    "programme": "Business Administration",
+    "requiredUtmeSubjects": [
+      "Mathematics"
+    ],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics"
+    ],
+    "utmeGroups": [
+      {
+        "subjects": [
+          "Economics",
+          "Commerce"
+        ],
+        "count": 1
+      }
+    ],
+    "olevelGroups": [
+      {
+        "subjects": [
+          "Economics",
+          "Commerce"
+        ],
+        "count": 1
+      }
+    ],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme",
+      "olevel",
+      "score"
+    ],
+    "reviewReasons": [
+      "Remaining Management/Social Science subjects are not individually enumerated in the displayed IBASS rule.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "UTME requires Mathematics, Economics or Commerce and another Management/Social Science subject; O’Level requires English, Mathematics, Economics or Commerce and two Management/Social Science subjects.",
+      "The screening announcement is image-based; no current numerical threshold or additional rules were transcribed without readable evidence.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: Mathematics; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "maximumSittings": 2,
+    "institutionId": "abu",
+    "institutionName": "Ahmadu Bello University, Zaria, Kaduna State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "ABU"
+    ],
+    "verificationStatus": "review",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=6&school=AHMADU%20BELLO%20UNIVERSITY,%20ZARIA,%20KADUNA%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Business Administration"
+      },
+      {
+        "label": "ABU official admission information",
+        "url": "https://abu.edu.ng/registration-for-2026-utme-de-screening-exercise-starts-from-monday-6th-july-2026/",
+        "session": "2026/2027 notice heading",
+        "lastVerified": "2026-10-02",
+        "scope": "The screening announcement is image-based; no current numerical threshold or additional rules were transcribed without readable evidence.",
+        "locator": "Business Administration"
+      }
+    ]
+  },
+  {
+    "programme": "Civil Law",
+    "requiredUtmeSubjects": [],
+    "requiredOlevelCredits": [
+      "English Language",
+      "Mathematics",
+      "Literature in English"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme",
+      "olevel",
+      "score",
+      "sittings"
+    ],
+    "reviewReasons": [
+      "IBASS specifies Arts/Social Science categories without a complete enumerated institutional subject pool.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "UTME: three Arts/Social Science subjects; O’Level: five credits including English, Literature and Mathematics.",
+      "The screening announcement is image-based; no current numerical threshold or additional rules were transcribed without readable evidence.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language, Mathematics, Literature in English; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: ; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "abu",
+    "institutionName": "Ahmadu Bello University, Zaria, Kaduna State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "ABU"
+    ],
+    "verificationStatus": "review",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=6&school=AHMADU%20BELLO%20UNIVERSITY,%20ZARIA,%20KADUNA%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Civil Law"
+      },
+      {
+        "label": "ABU official admission information",
+        "url": "https://abu.edu.ng/registration-for-2026-utme-de-screening-exercise-starts-from-monday-6th-july-2026/",
+        "session": "2026/2027 notice heading",
+        "lastVerified": "2026-10-02",
+        "scope": "The screening announcement is image-based; no current numerical threshold or additional rules were transcribed without readable evidence.",
+        "locator": "Civil Law"
+      }
+    ]
+  },
+  {
+    "programme": "Islamic/Sharia Law",
+    "requiredUtmeSubjects": [],
+    "requiredOlevelCredits": [
+      "English Language"
+    ],
+    "utmeGroups": [],
+    "olevelGroups": [],
+    "minimumOlevelCreditCount": 5,
+    "unresolvedChecks": [
+      "utme",
+      "olevel",
+      "score",
+      "sittings"
+    ],
+    "reviewReasons": [
+      "The Arts/Social Science categories and Arabic/Islamic Studies alternatives need complete institution-specific verification.",
+      "Full institution-specific eligibility/waiver conditions are not yet verified for this programme; a screening floor alone is not a complete admission decision."
+    ],
+    "notes": [
+      "UTME: three Arts/Social Science subjects including Arabic or Islamic Studies; O’Level: five Arts/Social Science credits including English and Arabic or Islamic Studies.",
+      "The screening announcement is image-based; no current numerical threshold or additional rules were transcribed without readable evidence.",
+      "Availability and displayed subject rules were individually checked in the live IBASS institution modal on 2026-10-02. IBASS does not label the session of this live table. Administrative eligibility, certificate exceptions and competitive admission are separate from stored credit/subject checks.",
+      "IBASS OLevel requirement: English Language; option/conditional limitations are preserved in the subject groups, review reasons and notes.",
+      "IBASS UTME requirement: ; option/conditional limitations are preserved in the subject groups, review reasons and notes."
+    ],
+    "institutionId": "abu",
+    "institutionName": "Ahmadu Bello University, Zaria, Kaduna State",
+    "institutionType": "federal-university",
+    "institutionAliases": [
+      "ABU"
+    ],
+    "verificationStatus": "review",
+    "sources": [
+      {
+        "label": "JAMB IBASS live institution brochure",
+        "url": "https://ibass.jamb.gov.ng/brochure-courses?id=6&school=AHMADU%20BELLO%20UNIVERSITY,%20ZARIA,%20KADUNA%20STATE",
+        "session": "Live IBASS catalogue; admission session not specified",
+        "lastVerified": "2026-10-02",
+        "scope": "Programme availability and displayed UTME/O’Level requirements; limitations are recorded above.",
+        "locator": "Islamic/Sharia Law"
+      },
+      {
+        "label": "ABU official admission information",
+        "url": "https://abu.edu.ng/registration-for-2026-utme-de-screening-exercise-starts-from-monday-6th-july-2026/",
+        "session": "2026/2027 notice heading",
+        "lastVerified": "2026-10-02",
+        "scope": "The screening announcement is image-based; no current numerical threshold or additional rules were transcribed without readable evidence.",
+        "locator": "Islamic/Sharia Law"
+      }
+    ]
   }
+
 ];

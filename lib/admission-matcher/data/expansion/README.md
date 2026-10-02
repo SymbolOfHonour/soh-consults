@@ -1,6 +1,8 @@
 # First institution expansion batch
 
-Research date: **2026-10-02**. There are **57 institution/programme records**, three at each of the 19 requested institutions. These are a first programme sample, not complete university catalogues. All 57 remain **Needs Review**; no new fully verified records are claimed. The registered dataset now has 23 institutions, 287 records and 168 distinct programme labels. The original 48 fully verified records are preserved.
+This batch adds 19 institutions, 111 institution/programme records and 16 programme labels absent from the original four-institution dataset. The existing 57-record audit was preserved, with 54 further individually observed records appended to their institution modules.
+
+Research date: **2026-10-02**. There are **111 institution/programme records** covering 35 programme labels across the 19 requested institutions. These are a first programme sample, not complete university catalogues. All 111 remain **Needs Review**; no new fully verified records are claimed. The registered dataset now has 23 institutions, 341 records and 182 distinct programme labels. The original 48 fully verified records are preserved.
 
 Each institution has its own module. Every record preserves its exact observed IBASS programme label, displayed UTME/OLevel requirements, official source URLs, source session, date and limitations. Programme labels are formatted for display; Accountancy/Accounting and the official TASUED education labels have explicit aliases. Finance is kept distinct from Banking and Finance.
 
@@ -20,3 +22,5 @@ Deliberate review boundaries include:
 The matching engine, UI and existing four institution modules are unchanged. The first-choice dropdown already derives its options from registered records. Regression tests check provenance, duplicate identities, alternative-slot counts, unknown thresholds, review safety, subject normalization, first-choice ordering and the known LASUSTECH Accounting score-195 case.
 
 Production and `main` must remain unchanged. Only the expansion branch and an isolated Preview are authorized for this batch.
+
+DELSU Botany is excluded: its displayed IBASS row describes Business Administration subjects. Additional records retain incomplete or broad subject categories as unresolved, including UI conditional credits, TASUED blank cells, UNIBEN Law’s Mathematics pass/credit conflict and FUTMINNA programme-table differences. No record is promoted because another institution has a similar rule.
