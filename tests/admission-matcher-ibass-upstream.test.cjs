@@ -11,10 +11,11 @@ test("IBASS upstream layer is snapshot-based and not wired to undocumented runti
   const normalizer = read("lib/admission-matcher/upstream/normalize.ts");
   const ingestion = read("lib/admission-matcher/upstream/ingest.ts");
   const catalogue = read("lib/admission-matcher/upstream/catalogue.ts");
+  const brochure = read("lib/admission-matcher/upstream/official-brochure.ts");
   assert.match(discovery, /versioned local S\.O\.H snapshot/i);
   assert.match(discovery, /direct live dependency.*deferred/i);
-  assert.doesNotMatch(normalizer + ingestion + catalogue, /fetch\s*\(/);
-  assert.doesNotMatch(normalizer + ingestion + catalogue, /axios|XMLHttpRequest/);
+  assert.doesNotMatch(normalizer + ingestion + catalogue + brochure, /fetch\s*\(/);
+  assert.doesNotMatch(normalizer + ingestion + catalogue + brochure, /axios|XMLHttpRequest/);
 });
 
 test("normalizer refuses to infer unresolved broad subject categories", () => {
@@ -57,6 +58,13 @@ test("official brochure registry keeps stable JAMB evidence separate from undocu
   assert.match(brochures, /brochure-degree-education\.pdf/);
   assert.match(brochures, /baseline-and-waivers/);
   assert.doesNotMatch(brochures, /fetch\s*\(/);
+});
+
+test("official brochure evidence cannot silently become verified when requirement columns are incomplete", () => {
+  const brochure = read("lib/admission-matcher/upstream/official-brochure.ts");
+  assert.match(brochure, /sourceType: "official-brochure"/);
+  assert.match(brochure, /Brochure evidence must originate from official JAMB IBASS/);
+  assert.match(brochure, /return !baseline\.olevelText\?\.trim\(\) \|\| !baseline\.utmeSubjectsText\?\.trim\(\)/);
 });
 
 test("sanitized fixtures contain no captured browser secrets", () => {
