@@ -10,6 +10,9 @@ const routes = {
 export async function runQaScheduled(controller, env, ctx) {
   const path = routes[controller.cron];
   if (!path) throw new Error("Unknown QA cron schedule.");
+  if (env.SUPABASE_URL !== "https://hyzyklmctuppypvqxggo.supabase.co") {
+    throw new Error("Scheduled jobs require the isolated QA database.");
+  }
   if (!env.CRON_SECRET) throw new Error("QA cron secret is not configured.");
   const response = await worker.fetch(
     new Request(`https://soh-consults-qa.oluyepeadetayo.workers.dev${path}`, {
