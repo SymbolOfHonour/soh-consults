@@ -15,3 +15,5 @@ The QA deployment workflow creates a fresh QA-only CRON_SECRET for each QA deplo
 After deployment, scripts/verify-qa-cron.mjs checks unauthenticated rejection and authenticated execution for all three routes, including confirmation that the snapshot was saved or already exists. This validates the live route path; a timer-fired event still requires checking Cloudflare scheduled-event records after its configured UTC time. Cron configuration changes may take time to propagate.
 
 Missing secrets, unknown schedules and unsuccessful route responses fail the scheduled event. Backups contain content records and attachment URLs, not uploaded file binaries or a complete database export. Snapshots are stored in the same QA database.
+
+Cloudflare QA discovery reserves capacity for database/health operations by limiting source fetches to 32 per invocation, including redirects. The response reports actual sources checked, requests used and deferred coverage. Vercel discovery retains its existing behavior unless NEWS_IMPORT_REQUEST_BUDGET is explicitly configured. This is bounded discovery, not a claim that every source is checked in one run.

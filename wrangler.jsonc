@@ -18,6 +18,7 @@
     "crons": ["0 5 * * *", "0 6 * * *", "0 7 * * *"]
   },
   "vars": {
-    "SUPABASE_URL": "https://hyzyklmctuppypvqxggo.supabase.co"
+    "SUPABASE_URL": "https://hyzyklmctuppypvqxggo.supabase.co",
+    "NEWS_IMPORT_REQUEST_BUDGET": "32"
   }
 }
