@@ -26,12 +26,27 @@ function tusFailure(error:unknown) {
 export async function uploadArticleFile(file:File,kind:ArticleUploadKind,onProgress?:(percentage:number)=>void):Promise<{url:string;name:string}> {
   const error=await uploadValidationError(file,kind);if(error)throw Error(error);
   const target=await uploadRequest({action:"prepare",kind,name:file.name,size:file.size,type:file.type});
-  await new Promise<void>((resolve,reject)=>{
+  try { await new Promise<void>((resolve,reject)=>{
     let timer:ReturnType<typeof setTimeout>;
     const arm=()=>{clearTimeout(timer);timer=setTimeout(()=>{void upload.abort().catch(()=>{});reject(Error("No upload progress for two minutes. Check your connection and retry."));},120_000);};
     const upload=new Upload(file,{endpoint:target.endpoint,headers:{"x-signature":target.token,"x-upsert":"false"},metadata:{bucketName:target.bucket,objectName:target.path,contentType:file.type,cacheControl:"3600"},chunkSize:6*1024*1024,retryDelays:[0,1000,3000,5000],uploadDataDuringCreation:true,storeFingerprintForResuming:false,removeFingerprintOnSuccess:true,onProgress:(sent,total)=>{arm();onProgress?.(Math.round(sent/total*100));},onSuccess:()=>{clearTimeout(timer);resolve();},onError:(uploadError)=>{clearTimeout(timer);reject(tusFailure(uploadError));}});
     arm();upload.start();
-  });
+  }); } catch(error) {
+    // Some Storage TUS deployments reject their own signed token before creating
+    // an upload session. The same path-scoped signed URL supports standard PUT.
+    if(!(error instanceof Error)||!error.message.includes("Invalid Compact JWS")||typeof target.signedUploadUrl!=="string")throw error;
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),120_000);
+    try {
+      onProgress?.(0);
+      const response=await fetch(target.signedUploadUrl,{method:"PUT",credentials:"omit",redirect:"error",signal:controller.signal,headers:{"Content-Type":file.type,"x-upsert":"false"},body:file});
+      if(!response.ok)throw Error(`Signed storage upload failed (HTTP ${response.status}). Please retry.`);
+      onProgress?.(100);
+    } catch(fallbackError) {
+      if(controller.signal.aborted)throw Error("The signed storage upload timed out. Check your connection and retry.");
+      throw fallbackError;
+    } finally {clearTimeout(timer);}
+  }
   const result=await uploadRequest({action:"complete",receipt:target.receipt});
   if(typeof result.url!=="string")throw Error("Could not verify uploaded file.");return result;
 }
