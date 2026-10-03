@@ -51,3 +51,19 @@ test('100 percent transfer without storage acknowledgement aborts instead of wai
  const client=load('lib/article-upload-client.ts',{'./article-uploads':validation,'tus-js-client':{Upload}},{setTimeout:(fn,delay)=>{const t={fn,delay};timers.push(t);return t;},clearTimeout:t=>{timers=timers.filter(x=>x!==t);},fetch:async()=>Response.json({endpoint:'https://fixture.example',token:'token',receipt:'receipt'})});
  const pending=client.uploadArticleFile(new File([mp4],'clip.mp4',{type:'video/mp4'}),'video');await new Promise(resolve=>setImmediate(resolve));const watchdog=timers.find(t=>t.delay===30000);assert.ok(watchdog);watchdog.fn();await assert.rejects(pending,/Storage did not confirm/);assert.equal(aborted,true);
 });
+
+for (const stage of ['prepare','head','signature']) test(`storage ${stage} rejects redirects without following them on Workers`,async()=>{
+ const calls=[];
+ const api=server(async(url,options)=>{
+  assert.equal(options.redirect,'manual');calls.push(url);
+  const current=url.includes('/upload/sign/')?'prepare':options.method==='HEAD'?'head':'signature';
+  if(current===stage)return new Response(null,{status:302,headers:{location:'https://untrusted.example/storage'}});
+  if(current==='prepare')return Response.json({url:'/object/upload/sign/news-attachments/file?token=fixture'});
+  if(current==='head')return new Response(null,{headers:{'content-length':String(input.size),'content-type':input.type}});
+  return new Response(mp4,{status:206});
+ });
+ if(stage==='prepare')await assert.rejects(api.prepareArticleUpload(input),/Could not prepare upload/);
+ else {const target=await api.prepareArticleUpload(input);await assert.rejects(api.completeArticleUpload(target.receipt),/Upload is not complete|Unable to verify/);}
+ assert.ok(calls.every(url=>url.startsWith('https://qafixture.supabase.co/')));
+ assert.equal(calls.length,stage==='prepare'?1:stage==='head'?2:3);
+});
