@@ -24,8 +24,10 @@ test("normalizer refuses to infer unresolved broad subject categories", () => {
   assert.match(normalizer, /verificationStatus: reviewReasons\.length === 0 \? "verified" : "review"/);
 });
 
-test("UNILAG observed fixture preserves component-vs-overall eligibility distinction", () => {
+test("UNILAG observed fixture preserves upstream ids and component-vs-overall distinction", () => {
   const fixture = read("lib/admission-matcher/upstream/fixtures/unilag-accounting-observed.ts");
+  assert.match(fixture, /upstreamId: 1345/);
+  assert.match(fixture, /upstreamId: 1537/);
   assert.match(fixture, /label: "ACCOUNTANCY\/ACCOUNTING"/);
   assert.match(fixture, /status: "qualified"/);
   assert.match(fixture, /overallStatus: "disqualified"/);
@@ -46,6 +48,15 @@ test("catalogue normalizer validates upstream ids and rejects duplicates", () =>
   assert.match(catalogue, /Duplicate IBASS programme id/);
   assert.match(catalogue, /Duplicate IBASS programme title/);
   assert.match(catalogue, /provider: "jamb-ibass"/);
+});
+
+test("official brochure registry keeps stable JAMB evidence separate from undocumented XHR", () => {
+  const brochures = read("lib/admission-matcher/upstream/official-brochures.ts");
+  assert.match(brochures, /brochure-degree-admin\.pdf/);
+  assert.match(brochures, /brochure-degree-social-sciences\.pdf/);
+  assert.match(brochures, /brochure-degree-education\.pdf/);
+  assert.match(brochures, /baseline-and-waivers/);
+  assert.doesNotMatch(brochures, /fetch\s*\(/);
 });
 
 test("sanitized fixtures contain no captured browser secrets", () => {
