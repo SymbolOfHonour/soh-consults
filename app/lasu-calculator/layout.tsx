@@ -1,10 +1,12 @@
+import JsonLd from "../components/JsonLd";
+import {withPublicSocial} from "../../lib/public-metadata";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 const siteUrl = "https://sohconsults.com.ng";
 const pageUrl = `${siteUrl}/lasu-calculator`;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPublicSocial({
   title: "LASU Aggregate Calculator & Eligibility Checker 2026/2027",
 
   description:
@@ -57,7 +59,7 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-};
+});
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -135,19 +137,8 @@ export default function LasuCalculatorLayout({
 }) {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(webApplicationSchema).replace(/</g, "\\u003c"),
-        }}
-      />
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
-        }}
-      />
+      <JsonLd data={webApplicationSchema}/>
+      <JsonLd data={faqSchema}/>
 
       {children}
     </>

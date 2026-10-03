@@ -1,1 +1,2 @@
-import type {Metadata} from "next"; export const metadata:Metadata={title:"UNIOSUN Screening Aggregate Calculator | S.O.H CONSULTS",description:"Calculate UNIOSUN screening aggregate from UTME and O Level results.",alternates:{canonical:"/uniosun-calculator"}}; export default function Layout({children}:{children:React.ReactNode}){return children}
+import {withPublicSocial} from "../../lib/public-metadata";
+import type {Metadata} from "next"; export const metadata:Metadata=withPublicSocial({title:"UNIOSUN Screening Aggregate Calculator | S.O.H CONSULTS",description:"Calculate UNIOSUN screening aggregate from UTME and O Level results.",alternates:{canonical:"/uniosun-calculator"}}); export default function Layout({children}:{children:React.ReactNode}){return children}

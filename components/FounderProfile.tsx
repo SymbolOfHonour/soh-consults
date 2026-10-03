@@ -1,3 +1,4 @@
+import Image from "next/image";
 const biography = `Behind **S.O.H CONSULTS** is a story built on persistence, experience, service and the belief that the right guidance can make a significant difference in a student’s academic journey.
 
 **Oluyepe Adetayo Sunday**, popularly known as **S.O.H (Symbol Of Honour)**, is the Founder of **S.O.H CONSULTS**, an education and admission support platform providing **admission guidance, registration assistance, JAMB services, documentation support, educational updates and access to relevant opportunities** for students and prospective applicants.
@@ -73,7 +74,7 @@ function Emphasis({ text }: { text: string }) {
 export default function FounderProfile({ preview = false }: { preview?: boolean }) {
   return <section aria-labelledby="founder-heading" className="rounded-2xl border border-[#e2e5dc] bg-white p-5 shadow-sm sm:p-6">
     <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-      <img src="/founder.jpg" alt="Oluyepe Adetayo Sunday, founder of S.O.H CONSULTS" className="h-44 w-36 shrink-0 rounded-xl object-cover object-top sm:h-48" />
+      <Image src="/founder.jpg" width={1121} height={1403} sizes="144px" loading={preview?"lazy":"eager"} alt="Oluyepe Adetayo Sunday, founder of S.O.H CONSULTS" className="h-44 w-36 shrink-0 rounded-xl object-cover object-top sm:h-48" />
       <div className="min-w-0">
         <p className="text-sm font-bold text-[#087245]">𝗠𝗘𝗘𝗧 𝗧𝗛𝗘 𝗙𝗢𝗨𝗡𝗗𝗘𝗥</p>
         <h2 id="founder-heading" className="mt-2 text-2xl font-black sm:text-3xl">Oluyepe Adetayo Sunday</h2>

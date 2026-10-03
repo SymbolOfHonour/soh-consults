@@ -3,6 +3,8 @@ export type ArticleBlock =
   | ({ type: "paragraph" | "heading"; text: string } & Typography)
   | { type: "image"; url: string; alt?: string }
   | { type: "gallery"; urls: string[] }
+  | { type: "document"; url: string; name?: string }
+  | { type: "video"; url: string; title?: string; mode: "link" | "player" }
   | { type: "ad"; slot: string };
 
 const MARKER = /\[SOH_BLOCKS:([^\]]*)\]/g;
@@ -38,6 +40,10 @@ export function readArticleBlocks(details: string): ArticleBlock[] | null {
         blocks.push({ type: "image", url: block.url, alt: typeof block.alt === "string" ? block.alt.slice(0, 250) : "" });
       } else if (block.type === "gallery" && Array.isArray(block.urls) && block.urls.length <= 20 && block.urls.every((url: unknown) => typeof url === "string" && IMAGE.test(url))) {
         blocks.push({ type: "gallery", urls: [...new Set(block.urls as string[])] });
+      } else if (block.type === "document" && typeof block.url === "string" && safeMediaUrl(block.url)) {
+        blocks.push({type:"document",url:block.url,name:typeof block.name==="string"?block.name.slice(0,250):""});
+      } else if (block.type === "video" && typeof block.url === "string" && safeMediaUrl(block.url) && (block.mode === "link" || block.mode === "player")) {
+        blocks.push({type:"video",url:block.url,title:typeof block.title==="string"?block.title.slice(0,250):"",mode:block.mode});
       } else if (block.type === "ad" && typeof block.slot === "string" && /^[a-z0-9_-]{1,40}$/i.test(block.slot)) {
         blocks.push({ type: "ad", slot: block.slot });
       } else return null;
@@ -52,4 +58,13 @@ export function writeArticleBlocks(details: string, blocks: ArticleBlock[]): str
   const clean = removeArticleBlocks(details);
   const encoded = encodeURIComponent(JSON.stringify(blocks));
   return `${clean}${clean ? "\n\n" : ""}[SOH_BLOCKS:${encoded}]`;
+}
+
+export function safeMediaUrl(value:string):boolean {
+  try {const url=new URL(value);return url.protocol==="https:" && Boolean(url.hostname) && !url.username && !url.password && !/\s/.test(value);} catch {return false;}
+}
+export function articleBlocksError(blocks:ArticleBlock[]):string|null {
+  if (blocks.some(block => (block.type === "image" || block.type === "document" || block.type === "video") && !safeMediaUrl(block.url))) return "Complete each image, PDF or video block with a valid HTTPS URL, or remove it.";
+  if (blocks.some(block => block.type === "gallery" && !block.urls.length)) return "Upload pictures to each gallery or remove the empty gallery.";
+  return null;
 }
