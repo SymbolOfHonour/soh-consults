@@ -12,10 +12,11 @@ test("IBASS upstream layer is snapshot-based and not wired to undocumented runti
   const ingestion = read("lib/admission-matcher/upstream/ingest.ts");
   const catalogue = read("lib/admission-matcher/upstream/catalogue.ts");
   const brochure = read("lib/admission-matcher/upstream/official-brochure.ts");
+  const requirements = read("lib/admission-matcher/upstream/requirements.ts");
   assert.match(discovery, /versioned local S\.O\.H snapshot/i);
   assert.match(discovery, /direct live dependency.*deferred/i);
-  assert.doesNotMatch(normalizer + ingestion + catalogue + brochure, /fetch\s*\(/);
-  assert.doesNotMatch(normalizer + ingestion + catalogue + brochure, /axios|XMLHttpRequest/);
+  assert.doesNotMatch(normalizer + ingestion + catalogue + brochure + requirements, /fetch\s*\(/);
+  assert.doesNotMatch(normalizer + ingestion + catalogue + brochure + requirements, /axios|XMLHttpRequest/);
 });
 
 test("normalizer refuses to infer unresolved broad subject categories", () => {
@@ -65,6 +66,15 @@ test("official brochure evidence cannot silently become verified when requiremen
   assert.match(brochure, /sourceType: "official-brochure"/);
   assert.match(brochure, /Brochure evidence must originate from official JAMB IBASS/);
   assert.match(brochure, /return !baseline\.olevelText\?\.trim\(\) \|\| !baseline\.utmeSubjectsText\?\.trim\(\)/);
+});
+
+test("requirement records stay evidence-first and unresolved when official columns are missing", () => {
+  const requirements = read("lib/admission-matcher/upstream/requirements.ts");
+  assert.match(requirements, /At least one official IBASS evidence source is required/);
+  assert.match(requirements, /Requirement evidence must point to official JAMB IBASS/);
+  assert.match(requirements, /UTME requirement has not been captured from official evidence/);
+  assert.match(requirements, /O-Level requirement has not been captured from official evidence/);
+  assert.match(requirements, /isIbassRequirementComplete/);
 });
 
 test("sanitized fixtures contain no captured browser secrets", () => {
