@@ -22,7 +22,7 @@ export async function prepareArticleUpload(input:{kind:ArticleUploadKind;size:nu
   const {base,key,headers}=configuration();
   const path=`${input.kind}s/${randomUUID()}.${extensions[input.type]}`;
   return withStorageDeadline(async signal=>{
-  const response=await fetch(`${base}/storage/v1/object/upload/sign/${bucket}/${path}`,{signal,method:"POST",headers:{...headers,"Content-Type":"application/json","x-upsert":"false"},body:"{}",cache:"no-store",redirect:"error"});
+  const response=await fetch(`${base}/storage/v1/object/upload/sign/${bucket}/${path}`,{signal,method:"POST",headers:{...headers,"Content-Type":"application/json","x-upsert":"false"},body:"{}",cache:"no-store",redirect:"manual"});
   if(!response.ok)throw Error(`Could not prepare upload (${response.status}).`);
   const data=await response.json() as {url?:string};if(!data.url)throw Error("Storage did not return an upload token.");const signed=new URL(`${base}/storage/v1${data.url}`);const token=signed.searchParams.get("token");if(signed.origin!==new URL(base).origin||!token)throw Error("Storage returned an invalid upload token.");
   const storageBase=new URL(base);if(/^[a-z0-9]+\.supabase\.co$/.test(storageBase.hostname))storageBase.hostname=storageBase.hostname.replace(".supabase.co",".storage.supabase.co");
@@ -32,11 +32,11 @@ export async function prepareArticleUpload(input:{kind:ArticleUploadKind;size:nu
 export async function completeArticleUpload(value:unknown) {
   const {base,key,headers}=configuration();const receipt=readReceipt(value,key);const objectUrl=`${base}/storage/v1/object/${bucket}/${receipt.path}`;
   return withStorageDeadline(async signal=>{
-  const head=await fetch(objectUrl,{signal,method:"HEAD",headers:{...headers,"Accept-Encoding":"identity"},cache:"no-store",redirect:"error"});
+  const head=await fetch(objectUrl,{signal,method:"HEAD",headers:{...headers,"Accept-Encoding":"identity"},cache:"no-store",redirect:"manual"});
   if(!head.ok)throw Error("Upload is not complete. Select the file and retry.");
   const size=Number(head.headers.get("content-length"));const type=head.headers.get("content-type")?.split(";")[0];
   if(size!==receipt.size||type!==receipt.type)throw Error("Uploaded file size or type does not match the selected file.");
-  const response=await fetch(objectUrl,{signal,headers:{...headers,Range:"bytes=0-63","Accept-Encoding":"identity"},cache:"no-store",redirect:"error"});
+  const response=await fetch(objectUrl,{signal,headers:{...headers,Range:"bytes=0-63","Accept-Encoding":"identity"},cache:"no-store",redirect:"manual"});
   if(!response.ok||!response.body)throw Error("Unable to verify uploaded file.");
   // Only inspect the signature. Even if a storage proxy ignores Range, never buffer a video in Vercel.
   const reader=response.body.getReader(),prefix=new Uint8Array(64);let length=0;
