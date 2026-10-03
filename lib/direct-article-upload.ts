@@ -18,7 +18,7 @@ export async function prepareArticleUpload(input:{kind:ArticleUploadKind;size:nu
   if(!response.ok)throw Error(`Could not prepare upload (${response.status}).`);
   const data=await response.json() as {url?:string};if(!data.url)throw Error("Storage did not return an upload token.");const signed=new URL(`${base}/storage/v1${data.url}`);const token=signed.searchParams.get("token");if(signed.origin!==new URL(base).origin||!token)throw Error("Storage returned an invalid upload token.");
   const storageBase=new URL(base);if(/^[a-z0-9]+\.supabase\.co$/.test(storageBase.hostname))storageBase.hostname=storageBase.hostname.replace(".supabase.co",".storage.supabase.co");
-  return {endpoint:`${storageBase.origin}/storage/v1/upload/resumable`,token,bucket,path,receipt:sign({...input,name:input.name.slice(0,250),path,expires:Date.now()+2*60*60*1000},key)};
+  return {endpoint:`${storageBase.origin}/storage/v1/upload/resumable`,signedUploadUrl:signed.toString(),token,bucket,path,receipt:sign({...input,name:input.name.slice(0,250),path,expires:Date.now()+2*60*60*1000},key)};
 }
 export async function completeArticleUpload(value:unknown) {
   const {base,key,headers}=configuration();const receipt=readReceipt(value,key);const objectUrl=`${base}/storage/v1/object/${bucket}/${receipt.path}`;
