@@ -7,11 +7,12 @@ import { rankContent } from "../../lib/ranking-engine";
 
 const readingTime=(details:string)=>Math.max(1,Math.ceil(details.trim().split(/\s+/).length/220));
 const newestFirst=<T extends {publishedAt:string}>(items:T[])=>[...items].sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt));
+const displayCategory=(value:string)=>{const category=value.trim().replace(/\s+/g," ");return /^(?:jamb(?:\s+(?:news|update|updates|admission|admissions|info|information))?|(?:the\s+)?joint admissions and matriculation board(?:\s*\(jamb\))?)$/i.test(category)?"JAMB":category;};
 export default function UpdatesExplorer({ initialCategory = "All", importedStories = [] }: { initialCategory?: string; importedStories?: QueuedStory[] }) {
-  const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [activeCategory, setActiveCategory] = useState(displayCategory(initialCategory));
   const [query, setQuery] = useState("");
   const allUpdates = useMemo(() => newestFirst(importedStories.map(item => ({
-    id:item.id, category:item.category, institution:item.institution, title:item.title,
+    id:item.id, category:displayCategory(item.category), institution:item.institution, title:item.title,
     date:new Date(item.source_published_at||item.updated_at).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}),
     publishedAt:item.source_published_at||item.updated_at,
     summary:item.summary, details:item.details, image:item.image_url||undefined, publicSlug:getStorySlug(item),
@@ -19,11 +20,8 @@ export default function UpdatesExplorer({ initialCategory = "All", importedStori
   const categories = ["All", ...Array.from(new Set(allUpdates.map((item) => item.category)))];
   const filteredUpdates = useMemo(() => {
     const eligible=allUpdates.filter(item=>activeCategory==="All"||item.category===activeCategory);
-    // Browsing and category views are chronological. Search may rank relevance,
-    // but identical relevance is resolved by publication date so newer stories stay first.
     if(!query.trim()) return newestFirst(eligible);
-    const ranked=rankContent(eligible.map(item=>({...item,isOfficial:true})),{query,category:activeCategory==="All"?undefined:activeCategory}).map(result=>result.item);
-    return ranked;
+    return rankContent(eligible.map(item=>({...item,isOfficial:true})),{query,category:activeCategory==="All"?undefined:activeCategory}).map(result=>result.item);
   }, [activeCategory,query,allUpdates]);
   return <><div className="mx-auto max-w-2xl"><label htmlFor="update-search" className="sr-only">Search updates</label><input id="update-search" type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search LASU, JAMB, admission list..." className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-4 text-base shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-100" /></div><div className="mt-7 flex flex-wrap justify-center gap-2">{categories.map(category=><button key={category} onClick={()=>setActiveCategory(category)} className={`rounded-full px-5 py-2.5 text-sm font-bold transition ${activeCategory===category?"bg-green-700 text-white":"bg-white text-gray-700 shadow-sm hover:bg-green-50"}`}>{category}</button>)}</div><p className="mt-7 text-sm font-semibold text-gray-500">{filteredUpdates.length} update{filteredUpdates.length===1?"":"s"} found</p>{filteredUpdates.length>0?<div className="mt-5 grid gap-6 md:grid-cols-2">{filteredUpdates.map(item=><article key={item.id} className="flex flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">{item.image?<img src={item.image} alt="" className="h-52 w-full object-cover" />:<div className="flex h-36 items-end bg-gradient-to-br from-green-950 to-green-700 p-6 text-4xl">📰</div>}<div className="flex flex-1 flex-col p-6"><div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-gray-500"><a href={`/updates/category/${categorySlug(item.category)}`} className="rounded-full bg-green-100 px-3 py-1 font-black text-green-800 hover:bg-green-200">{item.category}</a><span>{item.date}</span><span>·</span><span>{readingTime(item.details)} min read</span></div><h2 className="mt-4 text-xl font-black leading-7 text-gray-950"><a href={`/updates/${item.publicSlug}`} className="hover:underline focus-visible:underline">{item.title}</a></h2><p className="mt-3 flex-1 leading-7 text-gray-600">{item.summary}</p><a href={`/updates/${item.publicSlug}`} className="mt-6 inline-flex items-center font-black text-green-700 hover:text-green-900">Read Full Update →</a></div></article>)}</div>:<div className="mt-8 rounded-3xl border border-dashed border-gray-300 bg-white p-10 text-center"><p className="text-xl font-black text-gray-900">No update matches your search</p><button onClick={()=>{setQuery("");setActiveCategory("All");}} className="mt-4 font-black text-green-700">Clear search and filters</button></div>}</>;
 }

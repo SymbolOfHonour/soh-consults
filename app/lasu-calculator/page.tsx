@@ -3829,14 +3829,14 @@ export default function LASUCalculator() {
             </a>
 
             <a
-              href="/#updates"
+              href="/updates"
               className="rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white backdrop-blur transition hover:bg-white/25"
             >
               Latest Updates
             </a>
 
             <a
-              href="/#opportunities"
+              href="/opportunities"
               className="rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white backdrop-blur transition hover:bg-white/25"
             >
               Opportunities
