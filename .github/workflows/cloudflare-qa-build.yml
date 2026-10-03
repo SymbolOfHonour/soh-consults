@@ -9,8 +9,13 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: cloudflare-qa-deployment
+  cancel-in-progress: true
+
 jobs:
   build:
+    if: github.ref == 'refs/heads/qa/production-readiness'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
