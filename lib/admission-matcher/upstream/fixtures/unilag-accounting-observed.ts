@@ -1,22 +1,25 @@
 import type { IbassEligibilityEvidence } from "../types";
 
 /**
- * Sanitized fixture based on a normal browser observation of the public JAMB
+ * Sanitized fixture based on normal browser observations of the public JAMB
  * IBASS Eligibility Checker on 2026-10-02. It deliberately contains no
  * cookies, headers, tokens, credentials or candidate-identifying data.
  *
- * Only fields clearly visible in the observed response/result are represented.
- * Unknown O-Level details remain unresolved rather than being guessed.
+ * Catalogue observation established institution upstream id 1345 and
+ * ACCOUNTANCY/ACCOUNTING programme upstream id 1537. Unknown O-Level details
+ * remain unresolved rather than being guessed.
  */
 export const unilagAccountingObserved: IbassEligibilityEvidence = {
   provider: "jamb-ibass",
   observedAt: "2026-10-02",
   entryMode: "utme",
   institution: {
+    upstreamId: 1345,
     name: "UNIVERSITY OF LAGOS, LAGOS STATE",
     abbreviation: "UNILAG",
   },
   programme: {
+    upstreamId: 1537,
     label: "ACCOUNTANCY/ACCOUNTING",
     faculty: "ADMINISTRATION",
     rawUtmeRequirement: "Mathematics, Economics plus any Social Science subject.",
@@ -32,7 +35,7 @@ export const unilagAccountingObserved: IbassEligibilityEvidence = {
   source: {
     url: "https://ibass.jamb.gov.ng/eligibility-checker",
     sourceType: "eligibility-checker",
-    locator: "Normal browser Check Eligibility submission; structured XHR response observed in DevTools.",
+    locator: "Institution 1345 catalogue + normal Check Eligibility submission; structured XHR responses observed in DevTools.",
   },
   unresolved: [
     "Exact IBASS accepted-subject mapping for the Social Science category has not yet been captured as a reusable snapshot.",
