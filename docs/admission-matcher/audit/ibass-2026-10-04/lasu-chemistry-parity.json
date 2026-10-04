@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-04",
+  "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+  "method": "Normal public browser form submission using synthetic subject profiles; no personal candidate data",
+  "institution": "LAGOS STATE UNIVERSITY, OJO, LAGOS STATE",
+  "programme": "CHEMISTRY",
+  "entryMode": "UTME",
+  "locator": "UTME / DEGREE AWARDING INSTITUTIONS / STATE UNIVERSITIES / LASU / CHEMISTRY / Program Requirements and Your Eligibility Status",
+  "normalizedObservedRequirements": {
+    "utmeCore": ["English Language", "Chemistry"],
+    "utmeGroup": {"count": 2, "subjects": ["Biology", "Mathematics", "Physics"]},
+    "olevelCredits": ["Biology", "Chemistry", "English Language", "Mathematics", "Physics"],
+    "olevelCreditCount": 5
+  },
+  "probes": [
+    {
+      "id": "positive",
+      "utmeSubjects": ["English Language", "Chemistry", "Physics", "Mathematics"],
+      "olevelCredits": ["English Language", "Mathematics", "Physics", "Chemistry", "Biology"],
+      "observedUtmeStatus": "Qualified",
+      "observedOlevelStatus": "matching",
+      "sohExpectedSubjectFailures": []
+    },
+    {
+      "id": "missing-compulsory-chemistry",
+      "utmeSubjects": ["English Language", "Physics", "Mathematics", "Biology"],
+      "olevelCredits": ["English Language", "Mathematics", "Physics", "Chemistry", "Biology"],
+      "observedUtmeStatus": "Disqualified",
+      "observedOlevelStatus": "matching",
+      "sohExpectedSubjectFailures": ["Chemistry"]
+    }
+  ],
+  "limits": ["Only the displayed subject components are compared; an overall admission outcome is not inferred.", "No sitting restriction is displayed or verified by these probes.", "No Direct Entry qualification rule is promoted.", "Checker identifiers are not inferred from the brochure identifiers."]
+}

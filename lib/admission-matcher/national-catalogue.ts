@@ -1,3 +1,4 @@
+import { nationalReviewReasons } from "./national-review";
 import { validateNationalSnapshot } from "./national-snapshot";
 import snapshot from "./data/national-catalogue-2026-10-04.json";
 import { admissionMatcherRequirements } from "./data";
@@ -37,7 +38,7 @@ export function nationalRequirementsForProgramme(programme: string): ProgrammeRe
   const requested = key(programme);
   const indices = new Set(snapshot.programmes.flatMap((label, index) => key(label) === requested ? [index] : []));
   return snapshot.pairs.filter(([, programmeIndex]) => indices.has(programmeIndex as number)).map(pair => {
-    const [institutionId, programmeIndex] = pair as [number, number, number[]];
+    const [institutionId, programmeIndex, offeringIds] = pair as [number, number, number[]];
     const institution = byId.get(institutionId)!;
     return {
       institutionId: canonicalId(institution),
@@ -48,12 +49,13 @@ export function nationalRequirementsForProgramme(programme: string): ProgrammeRe
       requiredUtmeSubjects: [], requiredOlevelCredits: [],
       verificationStatus: "review",
       unresolvedChecks: ["utme", "olevel", "sittings", "score"],
-      reviewReasons: ["JAMB lists this programme at this institution. Its full requirements, subject alternatives and institution-specific exceptions still need review."],
+      reviewReasons: nationalReviewReasons(offeringIds),
       sources: [{
         label: "JAMB IBASS institution brochure",
         url: `https://ibass.jamb.gov.ng/brochure-courses?id=${institution.id}&school=${encodeURIComponent(institution.name)}`,
         session: "JAMB catalogue; current screening conditions require confirmation",
         lastVerified: snapshot.observedAt,
+        locator: `Official offering IDs: ${offeringIds.join(", ")}`,
       }],
       notes: ["A programme listing does not establish eligibility or guarantee admission. Direct Entry qualifications require a separate review."],
     } satisfies ProgrammeRequirement;

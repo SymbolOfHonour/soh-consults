@@ -1,0 +1,23 @@
+{
+  "blockerCounts": {
+    "blank-programme": 8,
+    "missing-olevel": 6134,
+    "missing-utme": 6135,
+    "missing-waivers": 7473,
+    "screening-review": 15696,
+    "source-differences": 541,
+    "subject-categories": 5074,
+    "text-encoding": 8082,
+    "waiver-review": 8223,
+    "wording-review": 9562
+  },
+  "duplicatePresentationPairs": 472,
+  "institutionsAudited": 529,
+  "namedPresentationPairsAudited": 15192,
+  "nationalEligibilityVerification": "INCOMPLETE",
+  "offeringsAudited": 15696,
+  "pairsWithDifferentRequirementText": 256,
+  "presentationPairsAudited": 15195,
+  "sourceSnapshotSha256": "7b257fda683477ccf052fee3a2c32efd9ebc72f9d90342cdf888b046e205f1db",
+  "verifiedNewRecords": 0
+}
