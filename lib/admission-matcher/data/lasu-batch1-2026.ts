@@ -1,3 +1,4 @@
+import { lasuCurrentScreeningSource } from "../current-screening";
 import type { ProgrammeRequirement } from "../types";
 
 const courseSource = {
@@ -17,6 +18,7 @@ const screeningSource = {
 };
 
 function row(programme:string,id:string,utme:string[],olevel:string[],minimumOlevelCreditCount:number):ProgrammeRequirement {
+  const health = ["Medicine and Surgery","Nursing","Medical Laboratory Science"].includes(programme);
   return {
     institutionId:"lasu",
     institutionName:"Lagos State University (LASU)",
@@ -29,12 +31,13 @@ function row(programme:string,id:string,utme:string[],olevel:string[],minimumOle
     requiredUtmeSubjects:utme,
     requiredOlevelCredits:olevel,
     minimumOlevelCreditCount,
-    verificationStatus:"review",
-    unresolvedChecks:["sittings"],
-    reviewReasons:["The previously cited sitting-rule URL opens an indigeneship notice. Current sitting limits and any conditional engineering credit requirement need confirmation from the current screening instructions."],
+    maximumSittings: programme === "Medicine and Surgery" ? 1 : 2,
+    verificationStatus:health ? "verified" : "review",
+    unresolvedChecks:health ? [] : ["olevel"],
+    reviewReasons:health ? [] : ["The current announcement requires six relevant credits for engineering at two sittings. Remaining programme credit choices need institution-specific reconciliation."],
     screeningMethod:"online",
-    sources:[{...courseSource,locator:`Course ID ${id}`},screeningSource],
-    notes:["Programme subject checks and the 195/first-choice baseline are captured. Sitting eligibility is unresolved.","The 195 score is LASU's institutional screening floor, not a departmental admission cutoff."],
+    sources:[{...courseSource,locator:`Course ID ${id}`},screeningSource,lasuCurrentScreeningSource],
+    notes:["Current UTME screening limits are confirmed. Unresolved subject conditions require review; administrative conditions and Direct Entry remain separate.","The 195 score is LASU's institutional screening floor, not a departmental admission cutoff."],
   };
 }
 

@@ -52,12 +52,12 @@ test('national validator rejects unsafe mutations instead of trusting generated 
   mutate(x=>x.unresolvedOfferings[0].sourceUrl='https://ibass-api.jamb.gov.ng.evil.example/');
 });
 
-test('national medical listings always produce review and never fabricated eligibility',()=>{
+test('national medical listings require complete current evidence or retain review',()=>{
   for(const programme of ['MEDICINE & SURGERY','NURSING/NURSING SCIENCE','PHARMACY','PHYSIOTHERAPY','MEDICAL LABORATORY SCIENCE']){
     const rows=nationalRequirementsForProgramme(programme);assert.ok(rows.length,programme);
-    assert.ok(rows.every(row=>row.verificationStatus==='review'));
+    assert.ok(rows.every(row=>row.verificationStatus==='review' || (['unilag','lasu'].includes(row.institutionId) && row.sources.some(source=>source.session==='2026/2027'))));
     const result=matchCandidate({programme,utmeScore:400,utmeSubjects:['Physics','Chemistry','Biology'],olevelCredits:['English Language','Mathematics','Physics','Chemistry','Biology'],sittings:1},rows);
-    assert.ok(result.length);assert.ok(result.every(row=>row.status==='review'));
+    assert.ok(result.length);assert.ok(result.every(row=>row.status==='review' || (row.status==='not_match' && row.requirement.admissionRestriction)));
   }
 });
 

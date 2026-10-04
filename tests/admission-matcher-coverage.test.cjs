@@ -18,7 +18,7 @@ test('LASU official catalogue expansion remains broad and review-safe while sour
  for(const name of ['Accounting','Aerospace Engineering','Advertising','Architecture','Banking and Finance','Business Administration','Computer Science','Cyber Security','Data Science','Dentistry','Film and Multimedia','Information and Communication Technology','Journalism and Media Studies','Logistics and Supply Chain Management','Marketing','Medical Laboratory Science','Medicine and Surgery','Nursing'])assert.ok(names.has(normalise(name)),`LASU catalogue missing ${name}`);
  for(const r of lasu){
   assert.equal(r.minimumUtmeScore,195,`${r.programme} LASU screening floor`);assert.equal(r.firstChoiceRequired,true,`${r.programme} LASU first-choice rule`);
-  assert.equal(r.verificationStatus,'review',`${r.programme} must stay review-only until its complete rules are machine-safe`);
+  if(r.verificationStatus==='verified'){assert.deepEqual(r.unresolvedChecks,[]);assert.ok(r.sources.some(s=>s.url==='https://lasu.edu.ng/home/news/read.php?id=642'));}else assert.ok(r.unresolvedChecks.length);
  }
 });
 test('dataset records have unique identities, precise provenance and well-formed rules',()=>{

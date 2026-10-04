@@ -59,3 +59,8 @@ export function checkerSubjectsForProgramme(institutionId: number, programme: st
 export function confirmedCheckerCreditSubjects(): string[] {
   return [...new Set((evidence as CheckerSnapshot).records.flatMap(row => row.olevel ? [...row.olevel.requiredSubjects, ...row.olevel.groups.flatMap(group => group.subjects)] : []))].sort();
 }
+
+export function confirmedCheckerCoverage() {
+  const records = (evidence as CheckerSnapshot).records;
+  return { records: records.length, utmeComponents: records.filter(row=>row.utme).length, olevelComponents: records.filter(row=>row.olevel).length, bothComponents: records.filter(row=>row.utme&&row.olevel).length };
+}

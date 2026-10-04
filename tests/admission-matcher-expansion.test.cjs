@@ -70,7 +70,7 @@ test('new first-choice ordering and existing LASUSTECH Accounting passing case c
  assert.equal(matchCandidate(accounting,data)[0].requirement.institutionId,'lasustech');
  assert.equal(result(accounting,'lasustech').status,'match');
  const unn=matchCandidate({...accounting,firstChoiceInstitution:'UNN'},data);assert.equal(unn[0].requirement.institutionId,'unn');assert.equal(unn[0].status,'review');
- assert.equal(coverage(data).institutions,23);assert.equal(coverage(data).verifiedRecords,40);
+ assert.equal(coverage(data).institutions,23);assert.equal(coverage(data).verifiedRecords,52);
 });
 
 

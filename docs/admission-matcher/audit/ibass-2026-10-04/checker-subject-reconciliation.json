@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "sourceSha256": "ed3db292cf0379d47038f132602add37aea28db521af1e9df18016f30ca6758b",
+  "sourceSha256": "9b318a19c0bc614e04475c1055bb7fd0cad8cb5ea376e5aaa4ef4513730367eb",
   "catalogueSha256": "e71498283f8155f704b9a91e5a1ffd697352039fbac31334c3c42ce46bcca988",
   "summary": {
-    "checkerProgrammeConfigurations": 134,
-    "runtimeRecords": 98,
-    "utmeComponents": 90,
+    "checkerProgrammeConfigurations": 159,
+    "runtimeRecords": 117,
+    "utmeComponents": 109,
     "olevelComponents": 36,
     "bothComponents": 28,
     "verifiedBasicCheckRecords": 1,
@@ -10556,6 +10556,1979 @@
             }
           ],
           "reasons": []
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1192,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 9,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        658
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 342,
+              "sourceKey": "national:1192:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 367,
+              "sourceKey": "national:1192:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 368,
+              "sourceKey": "national:1192:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 342,
+              "sourceKey": "national:1192:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 367,
+              "sourceKey": "national:1192:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 368,
+              "sourceKey": "national:1192:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1199,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 31,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        1296
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 343,
+              "sourceKey": "national:1199:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 369,
+              "sourceKey": "national:1199:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 370,
+              "sourceKey": "national:1199:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 343,
+              "sourceKey": "national:1199:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 369,
+              "sourceKey": "national:1199:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 370,
+              "sourceKey": "national:1199:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1231,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 114,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        4178
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 344,
+              "sourceKey": "national:1231:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 371,
+              "sourceKey": "national:1231:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 372,
+              "sourceKey": "national:1231:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 344,
+              "sourceKey": "national:1231:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 371,
+              "sourceKey": "national:1231:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 372,
+              "sourceKey": "national:1231:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1240,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 136,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        4686
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 345,
+              "sourceKey": "national:1240:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 373,
+              "sourceKey": "national:1240:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 374,
+              "sourceKey": "national:1240:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 345,
+              "sourceKey": "national:1240:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 373,
+              "sourceKey": "national:1240:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 374,
+              "sourceKey": "national:1240:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1249,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 184,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        5587
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 346,
+              "sourceKey": "national:1249:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 375,
+              "sourceKey": "national:1249:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 376,
+              "sourceKey": "national:1249:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 346,
+              "sourceKey": "national:1249:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 375,
+              "sourceKey": "national:1249:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 376,
+              "sourceKey": "national:1249:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1250,
+      "checkerProgrammeId": 2235,
+      "catalogueInstitutionId": 186,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        5678
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Chemistry",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Mathematics"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 347,
+              "sourceKey": "national:1250:2235:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 377,
+              "sourceKey": "national:1250:2235:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 378,
+              "sourceKey": "national:1250:2235:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 347,
+              "sourceKey": "national:1250:2235:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 377,
+              "sourceKey": "national:1250:2235:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 378,
+              "sourceKey": "national:1250:2235:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1251,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 189,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        5767
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 348,
+              "sourceKey": "national:1251:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 348,
+              "sourceKey": "national:1251:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1252,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 190,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        5797
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 349,
+              "sourceKey": "national:1252:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 379,
+              "sourceKey": "national:1252:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 380,
+              "sourceKey": "national:1252:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 349,
+              "sourceKey": "national:1252:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 379,
+              "sourceKey": "national:1252:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 380,
+              "sourceKey": "national:1252:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1275,
+      "checkerProgrammeId": 1678,
+      "catalogueInstitutionId": 240,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        6903,
+        38703
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [],
+            "groups": [
+              {
+                "subjects": [
+                  "Biology",
+                  "Chemistry",
+                  "Physics",
+                  "Mathematics"
+                ],
+                "count": 3
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 350,
+              "sourceKey": "national:1275:1678:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 381,
+              "sourceKey": "national:1275:1678:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 382,
+              "sourceKey": "national:1275:1678:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 350,
+              "sourceKey": "national:1275:1678:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 381,
+              "sourceKey": "national:1275:1678:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 382,
+              "sourceKey": "national:1275:1678:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1301,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 291,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        9422
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 351,
+              "sourceKey": "national:1301:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 383,
+              "sourceKey": "national:1301:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 384,
+              "sourceKey": "national:1301:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 351,
+              "sourceKey": "national:1301:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 383,
+              "sourceKey": "national:1301:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 384,
+              "sourceKey": "national:1301:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1305,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 350,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        10545
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 352,
+              "sourceKey": "national:1305:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 385,
+              "sourceKey": "national:1305:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 386,
+              "sourceKey": "national:1305:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 352,
+              "sourceKey": "national:1305:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 385,
+              "sourceKey": "national:1305:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 386,
+              "sourceKey": "national:1305:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1313,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 376,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        11311
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 353,
+              "sourceKey": "national:1313:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 353,
+              "sourceKey": "national:1313:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1337,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 477,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        14538
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 354,
+              "sourceKey": "national:1337:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 387,
+              "sourceKey": "national:1337:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 388,
+              "sourceKey": "national:1337:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 354,
+              "sourceKey": "national:1337:2040:baseline",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 387,
+              "sourceKey": "national:1337:2040:minimal-positive",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 388,
+              "sourceKey": "national:1337:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1339,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 482,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        14663
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 355,
+              "sourceKey": "national:1339:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 389,
+              "sourceKey": "national:1339:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 390,
+              "sourceKey": "national:1339:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 355,
+              "sourceKey": "national:1339:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 389,
+              "sourceKey": "national:1339:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 390,
+              "sourceKey": "national:1339:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1347,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 500,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        15225
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 356,
+              "sourceKey": "national:1347:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 356,
+              "sourceKey": "national:1347:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1357,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 524,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        15999
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 357,
+              "sourceKey": "national:1357:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 357,
+              "sourceKey": "national:1357:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1358,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 525,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        16072
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 358,
+              "sourceKey": "national:1358:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 391,
+              "sourceKey": "national:1358:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 392,
+              "sourceKey": "national:1358:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 358,
+              "sourceKey": "national:1358:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 391,
+              "sourceKey": "national:1358:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 392,
+              "sourceKey": "national:1358:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1372,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 573,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        17290
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 359,
+              "sourceKey": "national:1372:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 393,
+              "sourceKey": "national:1372:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 394,
+              "sourceKey": "national:1372:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 359,
+              "sourceKey": "national:1372:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 393,
+              "sourceKey": "national:1372:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 394,
+              "sourceKey": "national:1372:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1378,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 598,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        17618
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 360,
+              "sourceKey": "national:1378:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 395,
+              "sourceKey": "national:1378:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 396,
+              "sourceKey": "national:1378:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 360,
+              "sourceKey": "national:1378:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 395,
+              "sourceKey": "national:1378:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 396,
+              "sourceKey": "national:1378:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1420,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 712,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        20568
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 361,
+              "sourceKey": "national:1420:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 397,
+              "sourceKey": "national:1420:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 398,
+              "sourceKey": "national:1420:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 361,
+              "sourceKey": "national:1420:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 397,
+              "sourceKey": "national:1420:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 398,
+              "sourceKey": "national:1420:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1427,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 745,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        20930
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 362,
+              "sourceKey": "national:1427:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 362,
+              "sourceKey": "national:1427:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1437,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 766,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        21164
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 363,
+              "sourceKey": "national:1437:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 399,
+              "sourceKey": "national:1437:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 400,
+              "sourceKey": "national:1437:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 363,
+              "sourceKey": "national:1437:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 399,
+              "sourceKey": "national:1437:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 400,
+              "sourceKey": "national:1437:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1455,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 810,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        22249
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 364,
+              "sourceKey": "national:1455:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 401,
+              "sourceKey": "national:1455:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 402,
+              "sourceKey": "national:1455:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 364,
+              "sourceKey": "national:1455:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 401,
+              "sourceKey": "national:1455:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 402,
+              "sourceKey": "national:1455:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1457,
+      "checkerProgrammeId": 2040,
+      "catalogueInstitutionId": 814,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        22365
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": {
+            "requiredSubjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "groups": [
+              {
+                "subjects": [
+                  "Agricultural Science",
+                  "Biology",
+                  "Chemistry",
+                  "Economics",
+                  "Geography"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "status": "parity-confirmed",
+          "checks": [
+            {
+              "probeIndex": 365,
+              "sourceKey": "national:1457:2040:baseline",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 403,
+              "sourceKey": "national:1457:2040:minimal-positive",
+              "qualified": true,
+              "predicted": true,
+              "agrees": true
+            },
+            {
+              "probeIndex": 404,
+              "sourceKey": "national:1457:2040:subject-failure",
+              "qualified": false,
+              "predicted": false,
+              "agrees": true
+            }
+          ],
+          "reasons": []
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 365,
+              "sourceKey": "national:1457:2040:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 403,
+              "sourceKey": "national:1457:2040:minimal-positive",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            },
+            {
+              "probeIndex": 404,
+              "sourceKey": "national:1457:2040:subject-failure",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration"
+          ]
+        }
+      }
+    },
+    {
+      "checkerInstitutionId": 1471,
+      "checkerProgrammeId": 1678,
+      "catalogueInstitutionId": 846,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        23275
+      ],
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "identityStatus": "exact-programme-and-official-school-name-field",
+      "components": {
+        "utme": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 366,
+              "sourceKey": "national:1471:1678:baseline",
+              "qualified": false,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
+        },
+        "olevel": {
+          "rule": null,
+          "status": "review",
+          "checks": [
+            {
+              "probeIndex": 366,
+              "sourceKey": "national:1471:1678:baseline",
+              "qualified": true,
+              "predicted": null,
+              "agrees": false
+            }
+          ],
+          "reasons": [
+            "Unsupported, incomplete or categorical configuration",
+            "Positive and negative official component observations are both required"
+          ]
         }
       }
     }

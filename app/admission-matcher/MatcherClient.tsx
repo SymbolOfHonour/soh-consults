@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { mergeProgrammeEvidence } from "../../lib/admission-matcher/merge-evidence";
 import { admissionMatcherRequirements } from "../../lib/admission-matcher/data";
 import { canonicalSubject, coverage, discoverProgrammes, discoverSubjects, discoverUtmeSubjects, isEnglish, normalise } from "../../lib/admission-matcher/catalogue";
 import { matchCandidate, validateCandidate } from "../../lib/admission-matcher/match";
@@ -16,7 +17,7 @@ const fieldClass = "mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-w
 const statusLabels: Record<MatchStatus,string> = {match:"Requirements Matched",review:"Needs Review",not_match:"Requirements Not Matched"};
 const statusStyles: Record<MatchStatus,string> = {match:"bg-emerald-50 text-emerald-900",review:"bg-amber-50 text-amber-950",not_match:"bg-rose-50 text-rose-900"};
 const PAGE_SIZE = 10;
-type NationalCatalogue = { creditSubjects?: string[]; programmes: string[]; institutions: {id:string;name:string}[]; observedAt:string; stats:{institutions:number;sourceOfferings:number;presentationPairs:number;programmeLabels:number} };
+type NationalCatalogue = { confirmedSubjects?: {records:number;utmeComponents:number;olevelComponents:number;bothComponents:number}; creditSubjects?: string[]; programmes: string[]; institutions: {id:string;name:string}[]; observedAt:string; stats:{institutions:number;sourceOfferings:number;presentationPairs:number;programmeLabels:number} };
 
 function SubjectPicker({kind, selected, onChange, max, extraSubjects = []}: {extraSubjects?:string[];kind:"utme"|"olevel";selected:string[];onChange:(next:string[])=>void;max?:number}) {
   const [search,setSearch] = useState("");
@@ -34,6 +35,7 @@ function SubjectPicker({kind, selected, onChange, max, extraSubjects = []}: {ext
 }
 export default function MatcherClient() {
   const [nationalCatalogue,setNationalCatalogue] = useState<NationalCatalogue|null>(null);
+  const [curatedOverrides,setCuratedOverrides] = useState<ProgrammeRequirement[]>([]);
   const [nationalRows,setNationalRows] = useState<ProgrammeRequirement[]>([]);
   const [loading,setLoading] = useState(false);
   const [institutionSearch,setInstitutionSearch] = useState("");
@@ -53,7 +55,7 @@ export default function MatcherClient() {
   const [filter,setFilter] = useState<"all"|MatchStatus>("all");
   const [search,setSearch] = useState("");
   const [page,setPage] = useState(1);
-  const results = useMemo(()=>profile ? matchCandidate(profile,[...admissionMatcherRequirements,...nationalRows]) : [],[profile,nationalRows]);
+  const results = useMemo(()=>profile ? matchCandidate(profile,mergeProgrammeEvidence(admissionMatcherRequirements,nationalRows,curatedOverrides)) : [],[profile,nationalRows,curatedOverrides]);
   const filtered = results.filter(r => (filter === "all" || r.status === filter) && normalise(r.requirement.institutionName).includes(normalise(search)));
   const pageCount = Math.max(1,Math.ceil(filtered.length / PAGE_SIZE));
   const reset = () => {requestSequence.current++;setLoading(false);setProfile(null);setErrors([]);setPage(1);};
@@ -67,12 +69,12 @@ export default function MatcherClient() {
       if(!response.ok)throw new Error("Catalogue unavailable");
       const data=await response.json();if(!Array.isArray(data.requirements))throw new Error("Invalid catalogue response");
       if(sequence!==requestSequence.current)return;
-      setNationalRows(data.requirements);setProfile(candidate);setFilter("all");setSearch("");setPage(1);
+      setCuratedOverrides(Array.isArray(data.overrides)?data.overrides:[]);setNationalRows(data.requirements);setProfile(candidate);setFilter("all");setSearch("");setPage(1);
     } catch {if(sequence===requestSequence.current)setErrors(["The national catalogue could not load. Please try again; incomplete results have not been shown."]);}
     finally {if(sequence===requestSequence.current)setLoading(false);}
   };
   return <div className="mt-8 min-w-0">
-    <div className="mb-6 rounded-xl bg-slate-50 p-4 text-sm leading-6 text-slate-700"><strong>Dataset coverage:</strong> {scope.programmes} named programmes and {scope.institutions} institutions across {scope.records} records. {scope.verifiedRecords} fully verified matching records cover {scope.verifiedProgrammes} programmes at {scope.verifiedInstitutions} institution. Other records remain under review. {nationalCatalogue ? <>The JAMB catalogue captured on {nationalCatalogue.observedAt} adds {nationalCatalogue.stats.institutions} degree-awarding institutions and {nationalCatalogue.stats.sourceOfferings} official programme listings. These new entries remain Needs Review until their requirements and institutional exceptions are fully reconciled. A listing never becomes an automatic eligibility decision.</> : <>The national catalogue is loading. Complete programme results are checked when you submit.</>}</div>
+    <div className="mb-6 rounded-xl bg-slate-50 p-4 text-sm leading-6 text-slate-700"><strong>Dataset coverage:</strong> {scope.programmes} named programmes and {scope.institutions} institutions across {scope.records} records. {scope.verifiedRecords} fully verified matching records cover {scope.verifiedProgrammes} programmes at {scope.verifiedInstitutions} institution. Other records remain under review. {nationalCatalogue ? <>The JAMB catalogue captured on {nationalCatalogue.observedAt} adds {nationalCatalogue.stats.institutions} institutions and {nationalCatalogue.stats.sourceOfferings} official programme listings. {nationalCatalogue.confirmedSubjects ? <>Positive and negative official checker observations confirm subject rules for {nationalCatalogue.confirmedSubjects.records} school/programme records, including {nationalCatalogue.confirmedSubjects.bothComponents} with both subject components.</> : null} Missing subject rules and screening conditions remain Needs Review. A listing never becomes an automatic eligibility decision.</> : <>The national catalogue is loading. Complete programme results are checked when you submit.</>}</div>
     <form className="grid gap-6 rounded-2xl border border-slate-200 bg-white p-4 sm:p-6" onSubmit={submit}>
       <div><label htmlFor="programme" className="text-sm font-semibold text-slate-900">Desired course/programme</label><input id="programme" className={fieldClass} list="programme-options" required value={programme} onChange={e=>{setProgramme(e.target.value);reset();}} placeholder="Search a course, e.g. Accounting" autoComplete="off"/><datalist id="programme-options">{visibleSuggestions.map(name=><option key={name} value={name}/>)}</datalist><p className="mt-1 text-xs text-slate-600">{nationalCatalogue ? nationalCatalogue.stats.programmeLabels : programmes.length} JAMB programme labels, alongside existing verified profiles. Programme aliases such as Accountancy are accepted. An unsupported course will be shown honestly.</p></div>
       <div className="grid gap-5 sm:grid-cols-2"><div><label className="text-sm font-semibold text-slate-900" htmlFor="utmeScore">JAMB/UTME score</label><input id="utmeScore" type="number" min="0" max="400" step="1" required value={utmeScore} onChange={e=>{setUtmeScore(e.target.value);reset();}} className={fieldClass} placeholder="e.g. 245"/></div><div><label htmlFor="sittings" className="text-sm font-semibold text-slate-900">O&apos;Level sittings</label><select id="sittings" required value={sittings} onChange={e=>{setSittings(e.target.value);reset();}} className={fieldClass}><option value="">Choose sittings</option><option value="1">One sitting</option><option value="2">Two sittings</option></select></div></div>

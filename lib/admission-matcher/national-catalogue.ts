@@ -1,5 +1,7 @@
+import { normalise } from "./catalogue";
+import { applyCurrentScreeningNotice } from "./current-screening";
 import { nationalReviewReasons } from "./national-review";
-import { checkerSubjectsForProgramme, confirmedCheckerCreditSubjects } from "./checker-subjects";
+import { checkerSubjectsForProgramme, confirmedCheckerCreditSubjects, confirmedCheckerCoverage } from "./checker-subjects";
 import { validateNationalSnapshot } from "./national-snapshot";
 import snapshot from "./data/national-catalogue-2026-10-04.json";
 import { admissionMatcherRequirements } from "./data";
@@ -29,6 +31,7 @@ export function nationalCatalogueSummary() {
     institutions: institutions.map(item => ({ id: canonicalId(item), upstreamId: item.id, name: legacyById.get(item.id)?.institutionName ?? item.name })).sort((a, b) => a.name.localeCompare(b.name)),
     stats: snapshot.stats,
     creditSubjects: confirmedCheckerCreditSubjects(),
+    confirmedSubjects: confirmedCheckerCoverage(),
   };
 }
 
@@ -37,15 +40,15 @@ export function nationalCatalogueSummary() {
  * inferred from a programme name, institution type or another university.
  */
 export function nationalRequirementsForProgramme(programme: string): ProgrammeRequirement[] {
-  const requested = key(programme);
-  const indices = new Set(snapshot.programmes.flatMap((label, index) => key(label) === requested ? [index] : []));
+  const requested = normalise(programme);
+  const indices = new Set(snapshot.programmes.flatMap((label, index) => normalise(label) === requested ? [index] : []));
   return snapshot.pairs.filter(([, programmeIndex]) => indices.has(programmeIndex as number)).map(pair => {
     const [institutionId, programmeIndex, offeringIds] = pair as [number, number, number[]];
     const institution = byId.get(institutionId)!;
     const subjects = checkerSubjectsForProgramme(institutionId, snapshot.programmes[programmeIndex]);
     const screening = subjects?.screening;
     const verifiedBasicChecks = !!subjects?.utme && !!subjects?.olevel && !!screening;
-    return {
+    const record = {
       institutionId: canonicalId(institution),
       institutionName: institution.name,
       // Ownership does not prove that a degree-awarding college is a university.
@@ -89,5 +92,36 @@ export function nationalRequirementsForProgramme(programme: string): ProgrammeRe
       notes: ["A programme listing does not establish eligibility or guarantee admission. Direct Entry qualifications require a separate review.",
         ...(subjects ? ["Verified basic checks cover only confirmed subject components and any cited screening baseline. Age, result uploads, test participation, application deadlines, prior-student restrictions and final selection are separate administrative requirements."] : [])],
     } satisfies ProgrammeRequirement;
-  }).filter(record => !admissionMatcherRequirements.some(existing => existing.institutionId === record.institutionId && [existing.programme, ...(existing.aliases ?? [])].some(label => key(label) === key(record.programme))));
+    const current = applyCurrentScreeningNotice(record);
+    if (subjects?.utme && subjects.olevel && !current.unresolvedChecks?.length && Number.isInteger(current.minimumUtmeScore) && [1,2].includes(current.maximumSittings??0)) return {...current,verificationStatus:"verified" as const,reviewReasons:[]};
+    return current;
+  }).filter(record => !admissionMatcherRequirements.some(existing => existing.institutionId === record.institutionId && [existing.programme, ...(existing.aliases ?? [])].some(label => normalise(label) === normalise(record.programme))));
+}
+
+/** Independently confirmed components can fill unresolved fields of an existing
+ * literal programme record; a verified curated rule is never overwritten.
+ */
+export function reconciledCuratedRequirementsForProgramme(programme:string): ProgrammeRequirement[] {
+  return admissionMatcherRequirements.flatMap(existing => {
+    if (existing.verificationStatus === "verified" || ![existing.programme,...(existing.aliases??[])].some(label=>normalise(label)===normalise(programme))) return [];
+    const institution = institutions.find(row=>canonicalId(row)===existing.institutionId);
+    if (!institution) return [];
+    const labels = [existing.programme,...(existing.aliases??[])];
+    const matches = labels.flatMap(label=>{const evidence=checkerSubjectsForProgramme(institution.id,label);return evidence?[evidence]:[];});
+    if (matches.length!==1) return [];
+    const subjects=matches[0], unresolved=new Set(existing.unresolvedChecks??[]);
+    const fillUtme=!!subjects.utme&&unresolved.has("utme"), fillOlevel=!!subjects.olevel&&unresolved.has("olevel");
+    if (!fillUtme&&!fillOlevel) return [];
+    if (fillUtme) unresolved.delete("utme");
+    if (fillOlevel) unresolved.delete("olevel");
+    const updated=applyCurrentScreeningNotice({
+      ...existing,
+      ...(fillUtme?{requiredUtmeSubjects:subjects.utme!.requiredSubjects,utmeGroups:subjects.utme!.groups,utmeAlternatives:[],utmeAlternativeMinimums:undefined}:{}),
+      ...(fillOlevel?{requiredOlevelCredits:subjects.olevel!.requiredSubjects,olevelGroups:subjects.olevel!.groups,olevelAlternatives:[],olevelAlternativeMinimums:undefined,minimumOlevelCreditCount:subjects.olevel!.minimumCreditCount}:{}),
+      unresolvedChecks:[...unresolved],
+      sources:[...existing.sources,{label:"JAMB official checker component parity",url:subjects.sourceUrl,session:"UTME subject components",lastVerified:subjects.observedAt,locator:`Checker institution ${subjects.checkerInstitutionId}, programme ${subjects.checkerProgrammeId}`}],
+    });
+    const complete=fillUtme&&fillOlevel&&!updated.unresolvedChecks?.length&&Number.isInteger(updated.minimumUtmeScore)&&["institution-screening","programme-screening"].includes(updated.scoreScope??"")&&[1,2].includes(updated.maximumSittings??0);
+    return [{...updated,verificationStatus:complete?"verified":"review",reviewReasons:complete?[]:["Official positive and negative observations confirm the supplied subject components; remaining checks require institutional evidence."],notes:[...(updated.notes??[]).filter(note=>!note.includes("empty result dialog")&&!note.includes("no successful eligibility check")),"Current checker components fill only previously unresolved subject fields. Separate certificate and administrative conditions still apply."]}];
+  });
 }

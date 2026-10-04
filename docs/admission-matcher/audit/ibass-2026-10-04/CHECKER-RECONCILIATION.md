@@ -19,3 +19,19 @@ All screening calculators are unchanged. National verification remains incomplet
 - `npm run build`
 
 The capture tool uses synthetic profiles, bounded concurrency, two-second request spacing, cached responses, and stops on rate limiting. The probe planner generates minimal valid and invalid profiles only from explicit supported configurations. The merge tool appends successful observations by unique key and saves complete attempt records. Official checker alternatives are separate programme recommendations and are not treated as subject waivers.
+
+## Completion of the initial school pass
+
+A further 149 baseline requests and 38 positive/negative follow-ups completed the initial request pass across all 267 schools with exact checker selections. Together the captures contain 405 successful observations. At least one initial response succeeded at 143 schools; 124 schools did not return a successful selected-programme response. This is not evidence that every programme at those schools is unavailable. There are 142 distinct selected-programme requests with retained upstream errors, including different selections attempted at the same school.
+
+The runtime now contains 117 records with 109 UTME components and 36 O'Level components; 28 contain both. A reproducible remaining-selection plan contains 4,617 exact programme selections without a saved successful observation. These remain pending research, not verified requirements. The 262 institutions omitted from this plan comprise 248 unresolved school identities and 14 mapped schools without an exact programme selection. It would be inaccurate to describe national verification as complete.
+
+Current official notices additionally prevent UNIOSUN Medicine and FUOYE Law from receiving a match for 2026/2027. Confirmed screening fields supplement independent subject evidence without supplying unknown subject rules. The public catalogue displays the current component counts, supports equivalent ampersand searches, and returns exact existing-record evidence replacements separately from new national records. Verified curated records cannot be overwritten by these replacements.
+
+## LASU sitting rule closed from the correct current notice
+
+The paginated official news archive links the 2026/2027 UTME/Direct Entry announcement at https://lasu.edu.ng/home/news/read.php?id=642. Its article is loaded by the official page's session-backed public Ajax endpoint. It explicitly establishes two sittings generally, one for Medicine and Dentistry, and six relevant engineering credits when presenting two sittings. The source identity, current-session scope and article hash are saved in current-screening-sources.json. The unrelated notice is not used.
+
+This completes the stored basic checks for 12 existing LASU health/science records: Medicine, Nursing, Medical Laboratory Science, Chemistry and eight previously reconciled health/science courses. Their valid profiles can now match; Medicine rejects two sittings. Engineering remains review because programme credit choices need further reconciliation. The separately confirmed national LASU Nursing record also combines its checker subject components with this screening baseline. Unknown subject fields on other LASU programmes are not promoted.
+
+Final validation includes the full test suite, TypeScript, targeted ESLint, production build and public API smoke checks. All screening calculator files are unchanged.

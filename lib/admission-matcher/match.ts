@@ -1,3 +1,4 @@
+import { applyCurrentScreeningNotice } from "./current-screening";
 import type { CandidateProfile, MatchResult, ProgrammeRequirement, SubjectGroup } from "./types";
 import { isApprovedUtmeSubject, isEnglish, normalise, subjectKey } from "./catalogue";
 
@@ -43,9 +44,11 @@ export function matchCandidate(candidate: CandidateProfile, requirements: Progra
   const isSelectedFirstChoice = (requirement: ProgrammeRequirement) => !!firstChoice && [requirement.institutionId, requirement.institutionName, ...(requirement.institutionAliases ?? [])].some((n) => normalise(n) === firstChoice);
   return requirements.filter((item) => [item.programme, ...(item.aliases ?? [])].some((n) => normalise(n) === requested))
     .filter((item) => !candidate.institution || [item.institutionId, item.institutionName, ...(item.institutionAliases ?? [])].some((n) => normalise(n) === normalise(candidate.institution!)))
+    .map(applyCurrentScreeningNotice)
     .map((requirement): MatchResult => {
       const passed: string[] = [], failed: string[] = [], needsReview: string[] = [];
       const unresolved = new Set(requirement.unresolvedChecks ?? []);
+      if (requirement.admissionRestriction) failed.push(requirement.admissionRestriction.reason);
       if (requirement.verificationStatus !== "verified") needsReview.push(...(requirement.reviewReasons?.length ? requirement.reviewReasons : ["Institution-specific rules are not fully verified for this record."]));
       if (!requirement.sources.length || requirement.sources.some((s) => !/^https:\/\//.test(s.url) || !s.label || !s.session || !/^\d{4}-\d{2}-\d{2}$/.test(s.lastVerified))) needsReview.push("Source verification metadata is incomplete.");
       if (unresolved.has("score") || !["institution-screening", "programme-screening"].includes(requirement.scoreScope ?? "") || !Number.isInteger(requirement.minimumUtmeScore) || requirement.minimumUtmeScore! < 0 || requirement.minimumUtmeScore! > 400) needsReview.push("The current institutional/programme screening score is unknown. A national JAMB floor is not substituted.");

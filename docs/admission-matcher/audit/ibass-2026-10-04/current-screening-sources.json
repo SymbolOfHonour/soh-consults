@@ -1,0 +1,50 @@
+{
+  "session": "2026/2027",
+  "sources": [
+    {
+      "sourceUrl": "https://uniosun.edu.ng/news/2026-2027-admissions-exercise-post-utme-screening/",
+      "observedAt": "2026-10-04T13:18:44.903772+00:00",
+      "sourceHtmlSha256": "3d2ee246e66abd80ae69630fdedbcd9cd772d84c4b4ec871e6d1dc3debabc638"
+    },
+    {
+      "sourceUrl": "https://services.lidc.lasu.edu.ng/admissionscreening/",
+      "observedAt": "2026-10-04T13:18:44.904249+00:00",
+      "sourceHtmlSha256": "7b293216acb92676a503894e9dbabfeb1392aa1f660ab7cc35182aef7f46956e"
+    },
+    {
+      "sourceUrl": "https://www.casaps.fuoye.edu.ng/utme/index.php",
+      "observedAt": "2026-10-04T13:34:37.646698+00:00",
+      "sourceHtmlSha256": "b4bf9c8f4ee1a38b9be7de44a9c4504a723709a14a389d343bd3a33b9d962231"
+    },
+    {
+      "sourceUrl": "https://lasu.edu.ng/home/news/read.php?id=642",
+      "renderedArticleEndpoint": "https://lasu.edu.ng/home/news/ajax/read.php",
+      "observedAt": "2026-10-04T13:42:33.190425+00:00",
+      "sourceHtmlSha256": "746b13339fdce0d521e3e1d5419973da27119c2065573abea81b07bee7603c78",
+      "scope": "2026/2027 UTME and Direct Entry announcement; general UTME conditions interpreted only"
+    }
+  ],
+  "facts": {
+    "lasu": {
+      "minimumUtmeScore": 195,
+      "firstChoiceRequired": true,
+      "sittingLimit": 2,
+      "oneSittingExceptions": [
+        "Medicine",
+        "Dentistry"
+      ],
+      "engineeringAtTwoSittingsMinimumCredits": 6
+    },
+    "uniosun": {
+      "minimumUtmeScore": 160,
+      "specialProgrammeMinimum": 200,
+      "ordinaryMaximumSittings": 2,
+      "specialProgrammeMaximumSittings": 1,
+      "medicineAdmission": "on hold"
+    },
+    "fuoye": {
+      "lawAdmission": "unavailable",
+      "sourceUrl": "https://www.casaps.fuoye.edu.ng/utme/index.php"
+    }
+  }
+}

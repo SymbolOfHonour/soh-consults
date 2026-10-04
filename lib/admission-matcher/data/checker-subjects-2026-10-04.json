@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceSha256": "ed3db292cf0379d47038f132602add37aea28db521af1e9df18016f30ca6758b",
+  "sourceSha256": "9b318a19c0bc614e04475c1055bb7fd0cad8cb5ea376e5aaa4ef4513730367eb",
   "records": [
     {
       "institutionId": 2,
@@ -143,6 +143,37 @@
       "screening": null
     },
     {
+      "institutionId": 9,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        658
+      ],
+      "checkerInstitutionId": 1192,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
       "institutionId": 20,
       "programme": "BIOCHEMISTRY",
       "offeringIds": [
@@ -187,6 +218,37 @@
           "Physics"
         ],
         "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 31,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        1296
+      ],
+      "checkerInstitutionId": 1199,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
       },
       "olevel": null,
       "screening": null
@@ -520,6 +582,37 @@
       "screening": null
     },
     {
+      "institutionId": 114,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        4178
+      ],
+      "checkerInstitutionId": 1231,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
       "institutionId": 117,
       "programme": "BIOCHEMISTRY",
       "offeringIds": [
@@ -576,6 +669,37 @@
         "groups": [],
         "minimumCreditCount": 5
       },
+      "screening": null
+    },
+    {
+      "institutionId": 136,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        4686
+      ],
+      "checkerInstitutionId": 1240,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
       "screening": null
     },
     {
@@ -651,6 +775,95 @@
           "Physics"
         ],
         "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 184,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        5587
+      ],
+      "checkerInstitutionId": 1249,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 186,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        5678
+      ],
+      "checkerInstitutionId": 1250,
+      "checkerProgrammeId": 2235,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 190,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        5797
+      ],
+      "checkerInstitutionId": 1252,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
       },
       "olevel": null,
       "screening": null
@@ -754,6 +967,34 @@
           "Physics"
         ],
         "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 240,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        6903,
+        38703
+      ],
+      "checkerInstitutionId": 1275,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Chemistry",
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 3
+          }
+        ]
       },
       "olevel": null,
       "screening": null
@@ -1150,6 +1391,37 @@
       "screening": null
     },
     {
+      "institutionId": 291,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        9422
+      ],
+      "checkerInstitutionId": 1301,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
       "institutionId": 349,
       "programme": "CIVIL ENGINEERING",
       "offeringIds": [
@@ -1166,6 +1438,37 @@
           "Physics"
         ],
         "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 350,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        10545
+      ],
+      "checkerInstitutionId": 1305,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
       },
       "olevel": null,
       "screening": null
@@ -1473,6 +1776,68 @@
         "groups": [],
         "minimumCreditCount": 5
       },
+      "screening": null
+    },
+    {
+      "institutionId": 477,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        14538
+      ],
+      "checkerInstitutionId": 1337,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 482,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        14663
+      ],
+      "checkerInstitutionId": 1339,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
       "screening": null
     },
     {
@@ -1810,6 +2175,37 @@
       "screening": null
     },
     {
+      "institutionId": 525,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        16072
+      ],
+      "checkerInstitutionId": 1358,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
       "institutionId": 530,
       "programme": "CIVIL ENGINEERING",
       "offeringIds": [
@@ -1966,6 +2362,37 @@
       "screening": null
     },
     {
+      "institutionId": 573,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        17290
+      ],
+      "checkerInstitutionId": 1372,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
       "institutionId": 580,
       "programme": "CIVIL ENGINEERING",
       "offeringIds": [
@@ -2015,6 +2442,37 @@
         "groups": [],
         "minimumCreditCount": 5
       },
+      "screening": null
+    },
+    {
+      "institutionId": 598,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        17618
+      ],
+      "checkerInstitutionId": 1378,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
       "screening": null
     },
     {
@@ -2269,6 +2727,37 @@
       "screening": null
     },
     {
+      "institutionId": 712,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        20568
+      ],
+      "checkerInstitutionId": 1420,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
       "institutionId": 731,
       "programme": "BIOCHEMISTRY",
       "offeringIds": [
@@ -2437,6 +2926,37 @@
       "screening": null
     },
     {
+      "institutionId": 766,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        21164
+      ],
+      "checkerInstitutionId": 1437,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
       "institutionId": 779,
       "programme": "CIVIL ENGINEERING",
       "offeringIds": [
@@ -2597,6 +3117,68 @@
         "groups": [],
         "minimumCreditCount": 5
       },
+      "screening": null
+    },
+    {
+      "institutionId": 810,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        22249
+      ],
+      "checkerInstitutionId": 1455,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 814,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        22365
+      ],
+      "checkerInstitutionId": 1457,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
       "screening": null
     },
     {

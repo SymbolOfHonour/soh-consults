@@ -22,6 +22,7 @@ export type ProgrammeRequirement = {
   minimumOlevelCreditCount?: number;
   maximumSittings?: 1 | 2;
   firstChoiceRequired?: boolean;
+  admissionRestriction?: { session: string; reason: string };
   verificationStatus?: "verified" | "review";
   unresolvedChecks?: Array<"utme" | "olevel" | "sittings" | "score">;
   reviewReasons?: string[];

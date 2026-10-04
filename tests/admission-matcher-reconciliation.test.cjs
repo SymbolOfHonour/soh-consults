@@ -85,15 +85,15 @@ else:raise AssertionError('tampered evidence accepted')
   execFileSync('python',['-B','-c',script],{cwd:root});
 });
 
-test('LASU Chemistry matches observed official subject components while unresolved sittings stay review',()=>{
+test('LASU Chemistry matches observed official subject components with the confirmed current sitting rule',()=>{
   const {admissionMatcherRequirements}=loadMatcher('lib/admission-matcher/data/index');
   const rows=admissionMatcherRequirements.filter(row=>row.institutionId==='lasu'&&row.programme==='Chemistry');
   assert.equal(rows.length,1);
   const evidence=require('../docs/admission-matcher/audit/ibass-2026-10-04/lasu-chemistry-parity.json');
   for(const probe of evidence.probes){
     const result=matchCandidate({programme:'Chemistry',utmeScore:245,utmeSubjects:probe.utmeSubjects.filter(subject=>subject!=='English Language'),olevelCredits:probe.olevelCredits,sittings:1,firstChoiceInstitution:'lasu'},rows)[0];
-    assert.equal(result.status,probe.observedUtmeStatus==='Qualified'?'review':'not_match');
-    assert.ok(result.needsReview.some(reason=>reason.includes('sitting')));
+    assert.equal(result.status,probe.observedUtmeStatus==='Qualified'?'match':'not_match');
+    assert.deepEqual(result.needsReview,[]);
     assert.ok(result.passed.some(reason=>reason.includes("O'Level credit compulsory subjects satisfied")));
     if(probe.observedUtmeStatus==='Disqualified')assert.ok(result.failed.some(reason=>reason.includes('Chemistry')));
     else assert.deepEqual(result.failed,[]);

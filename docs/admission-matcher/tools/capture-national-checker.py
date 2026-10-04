@@ -79,7 +79,7 @@ def main():
                 envelope = capture('/ibass/eligibility-checker/submit', body, args.output_dir)
                 result = {**item, 'sourceUrl': envelope['url'], 'observedAt': envelope['observedAt'], 'response': envelope['response'], 'error': None}
             except Exception as error:
-                result = {**item, 'error': str(error)}
+                result = {**item, 'sourceUrl': BASE + '/ibass/eligibility-checker/submit', 'observedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'error': str(error)}
             print(item['key'], result['error'] or 'captured', flush=True)
             return result
         results = []

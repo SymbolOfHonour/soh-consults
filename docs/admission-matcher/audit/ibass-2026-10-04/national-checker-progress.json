@@ -1,0 +1,866 @@
+{
+  "scope": "One selected programme attempted at every school with an exact checker selection; not all programme requirements verified",
+  "catalogueSchools": 529,
+  "mappedCheckerSchools": 281,
+  "schoolsWithExactSelections": 267,
+  "schoolsWithSuccessfulInitialResponse": 143,
+  "initialSelectionsReturningErrors": 142,
+  "successfulSubjectObservations": 405,
+  "remainingExactProgrammeSelections": 4617,
+  "institutionsOmittedFromExactSelectionPlan": 262,
+  "requestErrors": [
+    {
+      "checkerInstitutionId": 1194,
+      "checkerProgrammeId": 2629,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1198,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1199,
+      "checkerProgrammeId": 1584,
+      "programme": "CIVIL ENGINEERING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1208,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1211,
+      "checkerProgrammeId": 1985,
+      "programme": "AUTOMOBILE TECHNOLOGY EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1213,
+      "checkerProgrammeId": 1561,
+      "programme": "ACCOUNTING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1224,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1228,
+      "checkerProgrammeId": 1651,
+      "programme": "PHARMACY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1232,
+      "checkerProgrammeId": 1678,
+      "programme": "BIOCHEMISTRY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1236,
+      "checkerProgrammeId": 1678,
+      "programme": "BIOCHEMISTRY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1238,
+      "checkerProgrammeId": 1678,
+      "programme": "BIOCHEMISTRY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1240,
+      "checkerProgrammeId": 1665,
+      "programme": "PHYSIOTHERAPY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1241,
+      "checkerProgrammeId": 2235,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1255,
+      "checkerProgrammeId": 1796,
+      "programme": "CHEMISTRY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1262,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1265,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1266,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1267,
+      "checkerProgrammeId": 2051,
+      "programme": "EDUCATION AND ENGLISH LANGUAGE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1268,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1273,
+      "checkerProgrammeId": 1802,
+      "programme": "HEALTH EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1274,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1296,
+      "checkerProgrammeId": 1647,
+      "programme": "MEDICINE AND SURGERY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1301,
+      "checkerProgrammeId": 1665,
+      "programme": "PHYSIOTHERAPY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1305,
+      "checkerProgrammeId": 1584,
+      "programme": "CIVIL ENGINEERING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1323,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1326,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1331,
+      "checkerProgrammeId": 2483,
+      "programme": "CARTOGRAPHY AND GEOGRAPHIC INFORMATION SYSTEM",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1334,
+      "checkerProgrammeId": 2316,
+      "programme": "EDUCATION AND SOCIAL STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1336,
+      "checkerProgrammeId": 1802,
+      "programme": "HEALTH EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1337,
+      "checkerProgrammeId": 1678,
+      "programme": "BIOCHEMISTRY",
+      "error": "HTTP Error 500: Internal Server Error"
+    },
+    {
+      "checkerInstitutionId": 1347,
+      "checkerProgrammeId": 1678,
+      "programme": "BIOCHEMISTRY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1352,
+      "checkerProgrammeId": 1700,
+      "programme": "CHRISTIAN RELIGIOUS  STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1353,
+      "checkerProgrammeId": 1630,
+      "programme": "NURSING/NURSING SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1354,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1356,
+      "checkerProgrammeId": 2177,
+      "programme": "ACCOUNTING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1367,
+      "checkerProgrammeId": 2283,
+      "programme": "EDUCATIONAL MANAGEMENT",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1368,
+      "checkerProgrammeId": 1830,
+      "programme": "GEOLOGY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1369,
+      "checkerProgrammeId": 1678,
+      "programme": "BIOCHEMISTRY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1372,
+      "checkerProgrammeId": 1584,
+      "programme": "CIVIL ENGINEERING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1382,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1392,
+      "checkerProgrammeId": 2048,
+      "programme": "TEACHER EDUCATION SCIENCE:",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1403,
+      "checkerProgrammeId": 1678,
+      "programme": "BIOCHEMISTRY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1407,
+      "checkerProgrammeId": 1918,
+      "programme": "PHILOSOPHY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1412,
+      "checkerProgrammeId": 1678,
+      "programme": "BIOCHEMISTRY",
+      "error": "HTTP Error 500: Internal Server Error"
+    },
+    {
+      "checkerInstitutionId": 1413,
+      "checkerProgrammeId": 1678,
+      "programme": "BIOCHEMISTRY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1419,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1421,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1427,
+      "checkerProgrammeId": 1678,
+      "programme": "BIOCHEMISTRY",
+      "error": "HTTP Error 500: Internal Server Error"
+    },
+    {
+      "checkerInstitutionId": 1430,
+      "checkerProgrammeId": 1918,
+      "programme": "PHILOSOPHY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1432,
+      "checkerProgrammeId": 1918,
+      "programme": "PHILOSOPHY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1440,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1442,
+      "checkerProgrammeId": 2302,
+      "programme": "CIVIL ENGINEERING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1443,
+      "checkerProgrammeId": 1918,
+      "programme": "PHILOSOPHY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1444,
+      "checkerProgrammeId": 2048,
+      "programme": "TEACHER EDUCATION SCIENCE:",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1451,
+      "checkerProgrammeId": 1630,
+      "programme": "NURSING/NURSING SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1455,
+      "checkerProgrammeId": 1665,
+      "programme": "PHYSIOTHERAPY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1456,
+      "checkerProgrammeId": 2177,
+      "programme": "ACCOUNTING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1461,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1466,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1468,
+      "checkerProgrammeId": 1630,
+      "programme": "NURSING/NURSING SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1475,
+      "checkerProgrammeId": 1584,
+      "programme": "CIVIL ENGINEERING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1190,
+      "checkerProgrammeId": 1573,
+      "programme": "BUSINESS ADMINISTRATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1200,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1201,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1207,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1217,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1219,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1227,
+      "checkerProgrammeId": 1572,
+      "programme": "BUILDING TECHNOLOGY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1228,
+      "checkerProgrammeId": 2040,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1230,
+      "checkerProgrammeId": 1918,
+      "programme": "PHILOSOPHY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1232,
+      "checkerProgrammeId": 2040,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1234,
+      "checkerProgrammeId": 1687,
+      "programme": "ARABIC LANGUAGE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1236,
+      "checkerProgrammeId": 2040,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1237,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1238,
+      "checkerProgrammeId": 2040,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1242,
+      "checkerProgrammeId": 1981,
+      "programme": "COMMUNICATION STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1243,
+      "checkerProgrammeId": 1918,
+      "programme": "PHILOSOPHY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1255,
+      "checkerProgrammeId": 2040,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1259,
+      "checkerProgrammeId": 1700,
+      "programme": "CHRISTIAN RELIGIOUS  STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1260,
+      "checkerProgrammeId": 2298,
+      "programme": "AGRICULTURAL SCIENCE AND EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1263,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1264,
+      "checkerProgrammeId": 2048,
+      "programme": "TEACHER EDUCATION SCIENCE:",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1269,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1270,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1277,
+      "checkerProgrammeId": 1685,
+      "programme": "ARABIC STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1280,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1284,
+      "checkerProgrammeId": 2048,
+      "programme": "TEACHER EDUCATION SCIENCE:",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1285,
+      "checkerProgrammeId": 1985,
+      "programme": "AUTOMOBILE TECHNOLOGY EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1286,
+      "checkerProgrammeId": 2048,
+      "programme": "TEACHER EDUCATION SCIENCE:",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1287,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1288,
+      "checkerProgrammeId": 2629,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1289,
+      "checkerProgrammeId": 2283,
+      "programme": "EDUCATIONAL MANAGEMENT",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1303,
+      "checkerProgrammeId": 2334,
+      "programme": "BUILDING TECHNOLOGY EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1308,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1314,
+      "checkerProgrammeId": 1957,
+      "programme": "INDUSTRIAL TECHNOLOGY EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1316,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1321,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1322,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1324,
+      "checkerProgrammeId": 1546,
+      "programme": "BUSINESS ADMINISTRATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1328,
+      "checkerProgrammeId": 2235,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1332,
+      "checkerProgrammeId": 1584,
+      "programme": "CIVIL ENGINEERING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1343,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1366,
+      "checkerProgrammeId": 2283,
+      "programme": "EDUCATIONAL MANAGEMENT",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1369,
+      "checkerProgrammeId": 2040,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1370,
+      "checkerProgrammeId": 2048,
+      "programme": "TEACHER EDUCATION SCIENCE:",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1371,
+      "checkerProgrammeId": 1918,
+      "programme": "PHILOSOPHY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1373,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1374,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1377,
+      "checkerProgrammeId": 1726,
+      "programme": "FILM ARTS",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1379,
+      "checkerProgrammeId": 1630,
+      "programme": "NURSING/NURSING SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1380,
+      "checkerProgrammeId": 2177,
+      "programme": "ACCOUNTING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1383,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1384,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1391,
+      "checkerProgrammeId": 2235,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1394,
+      "checkerProgrammeId": 1686,
+      "programme": "EDUCATION AND INTEGRATED SCIENCE:",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1395,
+      "checkerProgrammeId": 2283,
+      "programme": "EDUCATIONAL MANAGEMENT",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1397,
+      "checkerProgrammeId": 2040,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1398,
+      "checkerProgrammeId": 2283,
+      "programme": "EDUCATIONAL MANAGEMENT",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1399,
+      "checkerProgrammeId": 1700,
+      "programme": "CHRISTIAN RELIGIOUS  STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1403,
+      "checkerProgrammeId": 2040,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1408,
+      "checkerProgrammeId": 1985,
+      "programme": "AUTOMOBILE TECHNOLOGY EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1409,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1410,
+      "checkerProgrammeId": 1700,
+      "programme": "CHRISTIAN RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1413,
+      "checkerProgrammeId": 2040,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1416,
+      "checkerProgrammeId": 1685,
+      "programme": "ARABIC STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1417,
+      "checkerProgrammeId": 2283,
+      "programme": "EDUCATIONAL MANAGEMENT",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1422,
+      "checkerProgrammeId": 2292,
+      "programme": "PRIMARY EDUCATION STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1429,
+      "checkerProgrammeId": 1918,
+      "programme": "PHILOSOPHY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1431,
+      "checkerProgrammeId": 1918,
+      "programme": "PHILOSOPHY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1434,
+      "checkerProgrammeId": 1918,
+      "programme": "PHILOSOPHY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1445,
+      "checkerProgrammeId": 1927,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1454,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1458,
+      "checkerProgrammeId": 1802,
+      "programme": "HEALTH EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1459,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1469,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1472,
+      "checkerProgrammeId": 2048,
+      "programme": "TEACHER EDUCATION SCIENCE:",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1474,
+      "checkerProgrammeId": 1584,
+      "programme": "CIVIL ENGINEERING",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1475,
+      "checkerProgrammeId": 2235,
+      "programme": "COMPUTER SCIENCE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1502,
+      "checkerProgrammeId": 2324,
+      "programme": "BUSINESS EDUCATION",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1534,
+      "checkerProgrammeId": 2320,
+      "programme": "EDUCATION AND ECONOMICS",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1535,
+      "checkerProgrammeId": 1605,
+      "programme": "BIOMEDICAL TECHNOLOGY",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "checkerInstitutionId": 1536,
+      "checkerProgrammeId": 2102,
+      "programme": "RELIGIOUS STUDIES",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ],
+  "nationalVerification": "INCOMPLETE"
+}
