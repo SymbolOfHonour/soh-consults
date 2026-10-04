@@ -16,15 +16,7 @@ const screeningSource = {
   scope: "195 UTME screening floor, LASU first choice, O-Level upload to JAMB CAPS",
 };
 
-const sittingSource = {
-  label: "LASU 2026/2027 admission screening instructions",
-  url: "https://www.lasu.edu.ng/home/news/read.php?id=351",
-  session: "2026/2027",
-  lastVerified: "2026-10-01",
-  scope: "General O-Level sitting rule: maximum two sittings; Medicine and Dentistry one sitting; engineering candidates using two sittings require six relevant O-Level credits. Programme subject wording remains sourced from the official LASU checker.",
-};
-
-function row(programme:string,id:string,utme:string[],olevel:string[],minimumOlevelCreditCount:number,maximumSittings:1|2):ProgrammeRequirement {
+function row(programme:string,id:string,utme:string[],olevel:string[],minimumOlevelCreditCount:number):ProgrammeRequirement {
   return {
     institutionId:"lasu",
     institutionName:"Lagos State University (LASU)",
@@ -37,23 +29,22 @@ function row(programme:string,id:string,utme:string[],olevel:string[],minimumOle
     requiredUtmeSubjects:utme,
     requiredOlevelCredits:olevel,
     minimumOlevelCreditCount,
-    maximumSittings,
-    verificationStatus:"verified",
-    unresolvedChecks:[],
-    reviewReasons:[],
+    verificationStatus:"review",
+    unresolvedChecks:["sittings"],
+    reviewReasons:["The previously cited sitting-rule URL opens an indigeneship notice. Current sitting limits and any conditional engineering credit requirement need confirmation from the current screening instructions."],
     screeningMethod:"online",
-    sources:[{...courseSource,locator:`Course ID ${id}`},screeningSource,sittingSource],
-    notes:["Programme subject checks, the 195/first-choice screening baseline and the sitting limit are source-backed.","The 195 score is LASU's institutional screening floor, not a departmental admission cutoff."],
+    sources:[{...courseSource,locator:`Course ID ${id}`},screeningSource],
+    notes:["Programme subject checks and the 195/first-choice baseline are captured. Sitting eligibility is unresolved.","The 195 score is LASU's institutional screening floor, not a departmental admission cutoff."],
   };
 }
 
 export const lasuBatch1Requirements:ProgrammeRequirement[] = [
-  row("Medicine and Surgery","0710",["Physics","Chemistry","Biology"],["English Language","Mathematics","Physics","Chemistry","Biology"],5,1),
-  row("Nursing","1212",["Physics","Chemistry","Biology"],["English Language","Mathematics","Physics","Chemistry","Biology"],5,2),
-  row("Medical Laboratory Science","1721",["Physics","Chemistry","Biology"],["English Language","Mathematics","Physics","Chemistry","Biology"],5,2),
-  row("Chemical Engineering","0231",["Mathematics","Physics","Chemistry"],["English Language","Mathematics","Physics","Chemistry"],5,2),
-  row("Civil Engineering","0241",["Mathematics","Physics","Chemistry"],["English Language","Mathematics","Physics","Chemistry"],5,2),
-  row("Mechanical Engineering","0221",["Mathematics","Physics","Chemistry"],["English Language","Mathematics","Physics","Chemistry"],5,2),
-  row("Electronics and Computer Engineering","0211",["Mathematics","Physics","Chemistry"],["English Language","Mathematics","Physics","Chemistry"],5,2),
-  row("Aerospace Engineering","0251",["Mathematics","Physics","Chemistry"],["English Language","Mathematics","Physics","Chemistry","Further Mathematics"],6,2),
+  row("Medicine and Surgery","0710",["Physics","Chemistry","Biology"],["English Language","Mathematics","Physics","Chemistry","Biology"],5),
+  row("Nursing","1212",["Physics","Chemistry","Biology"],["English Language","Mathematics","Physics","Chemistry","Biology"],5),
+  row("Medical Laboratory Science","1721",["Physics","Chemistry","Biology"],["English Language","Mathematics","Physics","Chemistry","Biology"],5),
+  row("Chemical Engineering","0231",["Mathematics","Physics","Chemistry"],["English Language","Mathematics","Physics","Chemistry"],5),
+  row("Civil Engineering","0241",["Mathematics","Physics","Chemistry"],["English Language","Mathematics","Physics","Chemistry"],5),
+  row("Mechanical Engineering","0221",["Mathematics","Physics","Chemistry"],["English Language","Mathematics","Physics","Chemistry"],5),
+  row("Electronics and Computer Engineering","0211",["Mathematics","Physics","Chemistry"],["English Language","Mathematics","Physics","Chemistry"],5),
+  row("Aerospace Engineering","0251",["Mathematics","Physics","Chemistry"],["English Language","Mathematics","Physics","Chemistry","Further Mathematics"],6),
 ];

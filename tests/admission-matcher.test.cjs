@@ -58,11 +58,11 @@ test('selected first-choice institution is displayed first regardless of status'
   const results=matchCandidate(ownerProfile,data);assert.equal(results[0].requirement.institutionId,'lasu');assert.equal(results[0].status,'not_match');
   const fuoyeFirst=matchCandidate({...ownerProfile,firstChoiceInstitution:'FUOYE'},data);assert.equal(fuoyeFirst[0].requirement.institutionId,'fuoye');
 });
-test('fully verified LASU Medicine produces positive and negative decisions',()=>{
+test('LASU Medicine enforces established subjects and baseline while sitting eligibility stays review',()=>{
   const medicine={programme:'Medicine and Surgery',utmeScore:250,utmeSubjects:['Biology','Chemistry','Physics'],olevelCredits:['English Language','Mathematics','Biology','Chemistry','Physics'],sittings:1,firstChoiceInstitution:'LASU'};
-  const positive=at(medicine,'lasu');assert.ok(positive);assert.equal(positive.status,'match');assert.equal(positive.needsReview.length,0);assert.equal(positive.failed.length,0);
+  const positive=at(medicine,'lasu');assert.ok(positive);assert.equal(positive.status,'review');assert.ok(positive.needsReview.some(reason=>reason.includes('sitting')));assert.equal(positive.failed.length,0);
   assert.equal(at({...medicine,utmeScore:194},'lasu').status,'not_match');
-  assert.equal(at({...medicine,sittings:2},'lasu').status,'not_match');
+  assert.equal(at({...medicine,sittings:2},'lasu').status,'review');
   assert.equal(at({...medicine,utmeSubjects:['Biology','Chemistry','Geography']},'lasu').status,'not_match');
   assert.equal(at({...medicine,olevelCredits:['English Language','Mathematics','Biology','Chemistry','Geography']},'lasu').status,'not_match');
   assert.equal(at({...medicine,firstChoiceInstitution:'FUOYE'},'lasu').status,'not_match');

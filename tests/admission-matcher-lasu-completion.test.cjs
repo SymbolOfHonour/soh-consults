@@ -20,10 +20,10 @@ test('LASU verified records may exist only when all machine decisions are comple
  for(const r of lasu.filter(r=>r.verificationStatus==='verified')){assert.ok(!r.unresolvedChecks?.length,r.programme);assert.ok(r.maximumSittings,r.programme);assert.ok(r.minimumOlevelCreditCount,r.programme);const slots=r.requiredUtmeSubjects.length+(r.utmeGroups??[]).reduce((n,g)=>n+g.count,0)+(r.utmeAlternatives??[]).reduce((n,g,i)=>n+(r.utmeAlternativeMinimums?.[i]??1),0);assert.equal(slots,3,r.programme);}
 });
 
-test('LASU priority sitting rules are source-backed and not inferred from programme names',()=>{
+test('LASU priority sitting limits cannot be verified by the unrelated notice',()=>{
  const byName=(name)=>lasu.find(r=>r.programme===name);
- assert.equal(byName('Medicine and Surgery').maximumSittings,1);
- for(const name of ['Nursing','Medical Laboratory Science','Chemical Engineering','Civil Engineering','Mechanical Engineering','Electronics and Computer Engineering','Aerospace Engineering'])assert.equal(byName(name).maximumSittings,2,name);
+ assert.equal(byName('Medicine and Surgery').maximumSittings,undefined);
+ for(const name of ['Nursing','Medical Laboratory Science','Chemical Engineering','Civil Engineering','Mechanical Engineering','Electronics and Computer Engineering','Aerospace Engineering'])assert.equal(byName(name).maximumSittings,undefined,name);
 });
 
 test('LASU completion audit reports the exact current verification boundary',()=>{

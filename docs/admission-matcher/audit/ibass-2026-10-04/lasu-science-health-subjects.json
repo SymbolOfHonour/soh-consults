@@ -1,0 +1,113 @@
+{
+  "records": [
+    {
+      "programme": "Biochemistry",
+      "courseId": "0511",
+      "url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
+      "observedAt": "2026-10-04",
+      "method": "Rendered course result after selecting the programme and submitting Check Requirement",
+      "olevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+      "utme": "ENG, BIO, CHE, PHY or MAT",
+      "verificationStatus": "review",
+      "unresolvedChecks": [
+        "sittings"
+      ]
+    },
+    {
+      "programme": "Microbiology",
+      "courseId": "0561",
+      "url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
+      "observedAt": "2026-10-04",
+      "method": "Rendered course result after selecting the programme and submitting Check Requirement",
+      "olevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+      "utme": "ENG, BIO, CHE, PHY or MAT",
+      "verificationStatus": "review",
+      "unresolvedChecks": [
+        "sittings"
+      ]
+    },
+    {
+      "programme": "Pharmacology",
+      "courseId": "1502",
+      "url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
+      "observedAt": "2026-10-04",
+      "method": "Rendered course result after selecting the programme and submitting Check Requirement",
+      "olevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+      "utme": "ENG, PHY, CHE, BIO",
+      "verificationStatus": "review",
+      "unresolvedChecks": [
+        "sittings"
+      ]
+    },
+    {
+      "programme": "Pharmacy",
+      "courseId": "1506",
+      "url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
+      "observedAt": "2026-10-04",
+      "method": "Rendered course result after selecting the programme and submitting Check Requirement",
+      "olevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+      "utme": "ENG, PHY, CHE, BIO",
+      "verificationStatus": "review",
+      "unresolvedChecks": [
+        "sittings"
+      ]
+    },
+    {
+      "programme": "Physiology",
+      "courseId": "1101",
+      "url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
+      "observedAt": "2026-10-04",
+      "method": "Rendered course result after selecting the programme and submitting Check Requirement",
+      "olevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+      "utme": "ENG, PHY, CHE, BIO",
+      "verificationStatus": "review",
+      "unresolvedChecks": [
+        "sittings"
+      ]
+    },
+    {
+      "programme": "Physiotheraphy",
+      "courseId": "1102",
+      "url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
+      "observedAt": "2026-10-04",
+      "method": "Rendered course result after selecting the programme and submitting Check Requirement",
+      "olevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+      "utme": "ENG, PHY, CHE, BIO",
+      "verificationStatus": "review",
+      "unresolvedChecks": [
+        "sittings"
+      ]
+    },
+    {
+      "programme": "Radiography and Radiation Science",
+      "courseId": "1711",
+      "url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
+      "observedAt": "2026-10-04",
+      "method": "Rendered course result after selecting the programme and submitting Check Requirement",
+      "olevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+      "utme": "ENG, PHY, CHE, BIO",
+      "verificationStatus": "review",
+      "unresolvedChecks": [
+        "sittings"
+      ]
+    },
+    {
+      "programme": "Science Laboratory Technology",
+      "courseId": "0501",
+      "url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
+      "observedAt": "2026-10-04",
+      "method": "Rendered course result after selecting the programme and submitting Check Requirement",
+      "olevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+      "utme": "ENG, PHY, CHE, BIO",
+      "verificationStatus": "review",
+      "unresolvedChecks": [
+        "sittings"
+      ]
+    }
+  ],
+  "sittingEvidenceIssue": {
+    "url": "https://www.lasu.edu.ng/home/news/read.php?id=351",
+    "observedTitle": "LASU News - Indigeneship verification portal re-opened for two (2) weeks only",
+    "consequence": "Not current screening instructions; do not establish current sitting limits from this citation"
+  }
+}
