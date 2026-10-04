@@ -2,7 +2,7 @@ import { validateNationalSnapshot } from "./national-snapshot";
 import snapshot from "./data/national-catalogue-2026-10-04.json";
 import { admissionMatcherRequirements } from "./data";
 const key = (value: string) => value.trim().toUpperCase().replace(/\s+/g, " ");
-import type { InstitutionType, ProgrammeRequirement } from "./types";
+import type { ProgrammeRequirement } from "./types";
 
 type NationalInstitution = { id: number; name: string; abbreviation?: string | null; state?: string | null; ownership?: string | null };
 validateNationalSnapshot(snapshot);
@@ -18,7 +18,6 @@ const legacyById = new Map(institutions.flatMap(item => {
 }));
 const canonicalId = (item: NationalInstitution) => legacyById.get(item.id)?.institutionId ?? `jamb-brochure-${item.id}`;
 const byId = new Map(institutions.map(item => [item.id, item]));
-const types: Record<string, InstitutionType> = { Federal: "federal-university", State: "state-university", Private: "private-university" };
 
 export function nationalCatalogueSummary() {
   return {
@@ -44,7 +43,7 @@ export function nationalRequirementsForProgramme(programme: string): ProgrammeRe
       institutionId: canonicalId(institution),
       institutionName: institution.name,
       // Ownership does not prove that a degree-awarding college is a university.
-      institutionType: /UNIVERSITY/i.test(institution.name) ? types[institution.ownership ?? ""] ?? "other" : "other",
+      institutionType: "other",
       programme: snapshot.programmes[programmeIndex],
       requiredUtmeSubjects: [], requiredOlevelCredits: [],
       verificationStatus: "review",

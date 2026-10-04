@@ -69,3 +69,10 @@ test('exact identity integration preserves the verified LASUSTECH Accounting jou
   const summary=nationalCatalogueSummary();assert.equal(summary.stats.institutions,529);
   assert.equal(summary.institutions.filter(row=>row.id==='lasustech').length,1);
 });
+
+
+test('affiliation names and ownership do not incorrectly classify national colleges as universities',()=>{
+  const rows=nationalRequirementsForProgramme('Accounting');
+  assert.ok(rows.some(row=>row.institutionName.includes('POLYTECHNIC')));
+  assert.ok(rows.every(row=>row.institutionType==='other'));
+});
