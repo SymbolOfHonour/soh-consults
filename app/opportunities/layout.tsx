@@ -1,7 +1,8 @@
+import {withPublicSocial} from "../../lib/public-metadata";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPublicSocial({
   title: "Admission Opportunities in Nigeria",
   description:
     "Browse current university, polytechnic, college and other admission opportunities, application information and deadlines from S.O.H CONSULTS.",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     description: "Browse current admission opportunities and application information from S.O.H CONSULTS.",
     url: "/opportunities",
   },
-};
+});
 
 export default function OpportunitiesLayout({ children }: { children: ReactNode }) {
   return children;

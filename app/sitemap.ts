@@ -1,3 +1,4 @@
+import {categorySlug} from "../lib/category-slug";
 import type { MetadataRoute } from "next";
 import { getSiteUrl } from "./site-url";
 import { guides } from "../data/guides";
@@ -11,15 +12,13 @@ function safeDate(value?: string | null): Date | undefined {
   const parsed = new Date(value);
   return Number.isNaN(parsed.getTime()) ? undefined : parsed;
 }
-function categorySlug(value: string) {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-}
+
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
   // A transient database failure must not masquerade as an empty publication list.
   // Let the request fail so crawlers can retry instead of receiving an incomplete sitemap.
-  const published = await listPublishedStories();
+  const published = await listPublishedStories({strict:true});
   const core: MetadataRoute.Sitemap = [
     { url: siteUrl, changeFrequency: "weekly", priority: 1 },
     { url: `${siteUrl}/about`, changeFrequency: "monthly", priority: .6 },
@@ -32,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/deadlines`, changeFrequency: "daily", priority: .9 },
     { url: `${siteUrl}/guides`, changeFrequency: "weekly", priority: .9 },
   ];
+  core.push(...["tools","screening-calculator","fuoye-calculator","fuadsi-calculator","uniosun-calculator","lasued-calculator","lasustech-calculator","oou-calculator","yabatech-calculator","cgpa-calculator/planner","cgpa-calculator/select-scale"].map(path=>({url:`${siteUrl}/${path}`,changeFrequency:"monthly" as const,priority:.7})));
   const updatePages: MetadataRoute.Sitemap = published.map(story => ({
     url: `${siteUrl}/updates/${getStorySlug(story)}`,
     lastModified: safeDate(story.updated_at),

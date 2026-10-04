@@ -1,0 +1,2 @@
+Trigger Cloudflare QA deployment after deployment workflow configuration.
+Deploy upload diagnostics revision 45b59f1.

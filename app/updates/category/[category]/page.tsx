@@ -1,18 +1,20 @@
+import {categorySlug} from "../../../../lib/category-slug";
+import {withPublicSocial} from "../../../../lib/public-metadata";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { listPublishedStories } from "../../../../lib/news-queue";
 import SiteContact from "../../../components/SiteContact";
 import UpdatesExplorer from "../../../components/UpdatesExplorer";
 
 type Props = { params: Promise<{ category: string }> };
-const categorySlug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
 
 // Categories change whenever updates are published, archived or moved to Trash.
 export const dynamic = "force-dynamic";
 
 async function getCategory(category: string) {
   const stories = await listPublishedStories();
-  const name = stories.find((item) => categorySlug(item.category) === category)?.category;
+  const name = stories.find((item) => categorySlug(item.category) === categorySlug(category))?.category;
   return { stories, name };
 }
 
@@ -20,12 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params;
   const { name } = await getCategory(category);
   return name
-    ? { title: `${name} Updates`, description: `Latest ${name.toLowerCase()} news and guidance from S.O.H CONSULTS.`, alternates: { canonical: `/updates/category/${category}` } }
+    ? withPublicSocial({ title: `${name} Updates`, description: `Latest ${name.toLowerCase()} news and guidance from S.O.H CONSULTS.`, alternates: { canonical: `/updates/category/${categorySlug(category)}` } })
     : { title: "Update Category Not Found", robots: { index: false, follow: false } };
 }
 
 export default async function UpdateCategoryPage({ params }: Props) {
   const { category } = await params;
+  if(category!==categorySlug(category))permanentRedirect(`/updates/category/${categorySlug(category)}`);
   const { stories, name } = await getCategory(category);
   if (!name) notFound();
   return (
