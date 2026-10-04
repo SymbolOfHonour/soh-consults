@@ -1,0 +1,121 @@
+{
+  "institutionsDiscovered": 529,
+  "institutionsCompletelyCaptured": 529,
+  "institutionsPartiallyCaptured": 0,
+  "institutionsWithoutProgrammeCapture": 0,
+  "programmeOccurrencesCaptured": 15696,
+  "uniqueOfficialProgrammeLabels": 1596,
+  "recordsWithUtmeEvidence": 9562,
+  "recordsWithOlevelEvidence": 9562,
+  "recordsWithDirectEntryEvidence": 9546,
+  "recordsWithWaiverEvidence": 8354,
+  "verified": 0,
+  "review": 15696,
+  "duplicateOfferingIds": [],
+  "paginationConflicts": [],
+  "brochureFamilies": [
+    {
+      "family": "Administration",
+      "sourceUrl": "https://ibass.jamb.gov.ng/static/media/administration2.761d70e6bc1b9835cf46.pdf",
+      "pagesCaptured": 49,
+      "rawRowsCaptured": 176,
+      "programmeReconciliation": "review",
+      "unresolvedReason": "Raw tables captured; programme continuations and institution abbreviations require conservative reconciliation."
+    },
+    {
+      "family": "Agriculture",
+      "sourceUrl": "https://ibass.jamb.gov.ng/static/media/agriculture2.cf5b628bd6858860b511.pdf",
+      "pagesCaptured": 80,
+      "rawRowsCaptured": 296,
+      "programmeReconciliation": "review",
+      "unresolvedReason": "Raw tables captured; programme continuations and institution abbreviations require conservative reconciliation."
+    },
+    {
+      "family": "Arts/Humanities",
+      "sourceUrl": "https://ibass.jamb.gov.ng/static/media/arts2.516c8989c3c4d5645ecf.pdf",
+      "pagesCaptured": 126,
+      "rawRowsCaptured": 440,
+      "programmeReconciliation": "review",
+      "unresolvedReason": "Raw tables captured; programme continuations and institution abbreviations require conservative reconciliation."
+    },
+    {
+      "family": "Education",
+      "sourceUrl": "https://ibass.jamb.gov.ng/static/media/education2.c7464d956aa589cb499a.pdf",
+      "pagesCaptured": 216,
+      "rawRowsCaptured": 340,
+      "programmeReconciliation": "review",
+      "unresolvedReason": "Raw tables captured; programme continuations and institution abbreviations require conservative reconciliation."
+    },
+    {
+      "family": "Engineering/Environmental/Technology",
+      "sourceUrl": "https://ibass.jamb.gov.ng/static/media/engineering2.a81443bb885b5e602704.pdf",
+      "pagesCaptured": 143,
+      "rawRowsCaptured": 483,
+      "programmeReconciliation": "review",
+      "unresolvedReason": "Raw tables captured; programme continuations and institution abbreviations require conservative reconciliation."
+    },
+    {
+      "family": "Law",
+      "sourceUrl": "https://ibass.jamb.gov.ng/static/media/law2.b9d2b9a1d45cec78c1f3.pdf",
+      "pagesCaptured": 14,
+      "rawRowsCaptured": 43,
+      "programmeReconciliation": "review",
+      "unresolvedReason": "Raw tables captured; programme continuations and institution abbreviations require conservative reconciliation."
+    },
+    {
+      "family": "Medical/Pharmaceutical/Health Sciences",
+      "sourceUrl": "https://ibass.jamb.gov.ng/static/media/medical2.405f991c7ddd53f4c45b.pdf",
+      "pagesCaptured": 63,
+      "rawRowsCaptured": 211,
+      "programmeReconciliation": "review",
+      "unresolvedReason": "Raw tables captured; programme continuations and institution abbreviations require conservative reconciliation."
+    },
+    {
+      "family": "Sciences",
+      "sourceUrl": "https://ibass.jamb.gov.ng/static/media/sciences2.bad9ac2971d976b5becc.pdf",
+      "pagesCaptured": 231,
+      "rawRowsCaptured": 766,
+      "programmeReconciliation": "review",
+      "unresolvedReason": "Raw tables captured; programme continuations and institution abbreviations require conservative reconciliation."
+    },
+    {
+      "family": "Social/Management Sciences",
+      "sourceUrl": "https://ibass.jamb.gov.ng/static/media/social2.e60f8b472d5ce2c89edc.pdf",
+      "pagesCaptured": 121,
+      "rawRowsCaptured": 177,
+      "programmeReconciliation": "review",
+      "unresolvedReason": "Raw tables captured; programme continuations and institution abbreviations require conservative reconciliation."
+    }
+  ],
+  "coverageGate": "PASS",
+  "brochureReconciliationGate": "PASS",
+  "releaseGate": "PENDING",
+  "releaseBlockers": [
+    "Final GitHub CI and expanded Preview QA pending"
+  ],
+  "semanticProgrammeReconciliationGate": "REVIEW",
+  "brochureRowsAccounted": 2932,
+  "brochureReviewExceptions": 2880,
+  "parityProbes": 32,
+  "parityFamilies": [
+    "Administration",
+    "Agriculture",
+    "Arts",
+    "Dentistry",
+    "Education",
+    "Engineering",
+    "Environmental",
+    "Law",
+    "Medical Laboratory Science",
+    "Medicine",
+    "Nursing",
+    "Other Medical",
+    "Pharmacy",
+    "Physiotherapy",
+    "Sciences",
+    "Social Sciences",
+    "Specialist"
+  ],
+  "missingCatalogueOfferings": 0,
+  "orphanImportedOfferings": 0
+}

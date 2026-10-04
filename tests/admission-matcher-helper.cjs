@@ -12,9 +12,10 @@ function loadMatcher(relative) {
   mod.require = spec => {
     if(!spec.startsWith('.')) return require(spec);
     const resolved=path.resolve(path.dirname(file),spec);
+    if (resolved.endsWith('.json')) return require(resolved);
     return loadMatcher(path.relative(root,fs.existsSync(resolved) && fs.statSync(resolved).isDirectory() ? path.join(resolved,'index') : resolved));
   };
-  const output=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;
+  const output=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,esModuleInterop:true}}).outputText;
   mod._compile(output,file);return mod.exports;
 }
 module.exports={loadMatcher};
