@@ -1,0 +1,2756 @@
+{
+  "schemaVersion": 1,
+  "sourceSha256": "ed3db292cf0379d47038f132602add37aea28db521af1e9df18016f30ca6758b",
+  "records": [
+    {
+      "institutionId": 2,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        27
+      ],
+      "checkerInstitutionId": 1186,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 3,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        157
+      ],
+      "checkerInstitutionId": 1187,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 5,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        312
+      ],
+      "checkerInstitutionId": 1188,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 6,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        445
+      ],
+      "checkerInstitutionId": 1189,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 8,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        573
+      ],
+      "checkerInstitutionId": 1191,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 20,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        949
+      ],
+      "checkerInstitutionId": 1195,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 24,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        1024
+      ],
+      "checkerInstitutionId": 1197,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 41,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        1597
+      ],
+      "checkerInstitutionId": 1202,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 43,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        1728
+      ],
+      "checkerInstitutionId": 1203,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 67,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        2471
+      ],
+      "checkerInstitutionId": 1209,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 76,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        2806
+      ],
+      "checkerInstitutionId": 1212,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Chemistry",
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 3
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 81,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        2926
+      ],
+      "checkerInstitutionId": 1215,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 87,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        3066
+      ],
+      "checkerInstitutionId": 1218,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 92,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        3226
+      ],
+      "checkerInstitutionId": 1220,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 93,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        3284
+      ],
+      "checkerInstitutionId": 1221,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 94,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        3356
+      ],
+      "checkerInstitutionId": 1222,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 95,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        3472
+      ],
+      "checkerInstitutionId": 1223,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 99,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        3570
+      ],
+      "checkerInstitutionId": 1225,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 101,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        3685
+      ],
+      "checkerInstitutionId": 1226,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 117,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        4298
+      ],
+      "checkerInstitutionId": 1233,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 124,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        4416
+      ],
+      "checkerInstitutionId": 1235,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 151,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        4809
+      ],
+      "checkerInstitutionId": 1244,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 153,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        4871
+      ],
+      "checkerInstitutionId": 1245,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 177,
+      "programme": "PHARMACY",
+      "offeringIds": [
+        5364
+      ],
+      "checkerInstitutionId": 1248,
+      "checkerProgrammeId": 1651,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 192,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        5837
+      ],
+      "checkerInstitutionId": 1253,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 198,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        5967
+      ],
+      "checkerInstitutionId": 1254,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 207,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        6126
+      ],
+      "checkerInstitutionId": 1256,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Chemistry",
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 3
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 216,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        6384
+      ],
+      "checkerInstitutionId": 1258,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 241,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        6917
+      ],
+      "checkerInstitutionId": 1276,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 245,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        7100
+      ],
+      "checkerInstitutionId": 1278,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 254,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        7289
+      ],
+      "checkerInstitutionId": 1281,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 255,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        7416
+      ],
+      "checkerInstitutionId": 1282,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 256,
+      "programme": "PHYSIOTHERAPY",
+      "offeringIds": [
+        7475
+      ],
+      "checkerInstitutionId": 1283,
+      "checkerProgrammeId": 1665,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 280,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        8781
+      ],
+      "checkerInstitutionId": 1290,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 281,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        8840
+      ],
+      "checkerInstitutionId": 1291,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 282,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        8902
+      ],
+      "checkerInstitutionId": 1292,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 283,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        8931
+      ],
+      "checkerInstitutionId": 1293,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 284,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        8996
+      ],
+      "checkerInstitutionId": 1294,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 285,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        9057
+      ],
+      "checkerInstitutionId": 1295,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 287,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        9148
+      ],
+      "checkerInstitutionId": 1297,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 288,
+      "programme": "MEDICINE AND SURGERY",
+      "offeringIds": [
+        9187
+      ],
+      "checkerInstitutionId": 1298,
+      "checkerProgrammeId": 1647,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Biology"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 289,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        9307
+      ],
+      "checkerInstitutionId": 1299,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 290,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        9341
+      ],
+      "checkerInstitutionId": 1300,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 349,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        10475
+      ],
+      "checkerInstitutionId": 1304,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 351,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        10554
+      ],
+      "checkerInstitutionId": 1306,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 352,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        10619
+      ],
+      "checkerInstitutionId": 1307,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 371,
+      "programme": "CHEMISTRY",
+      "offeringIds": [
+        11163
+      ],
+      "checkerInstitutionId": 1310,
+      "checkerProgrammeId": 1796,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 2
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 372,
+      "programme": "PHARMACY",
+      "offeringIds": [
+        11190
+      ],
+      "checkerInstitutionId": 1311,
+      "checkerProgrammeId": 1651,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 374,
+      "programme": "PHARMACY",
+      "offeringIds": [
+        11251
+      ],
+      "checkerInstitutionId": 1312,
+      "checkerProgrammeId": 1651,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 391,
+      "programme": "CHEMISTRY",
+      "offeringIds": [
+        11750
+      ],
+      "checkerInstitutionId": 1318,
+      "checkerProgrammeId": 1796,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 2
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 392,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        11805
+      ],
+      "checkerInstitutionId": 1319,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 405,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        12103
+      ],
+      "checkerInstitutionId": 1320,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 423,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        13012
+      ],
+      "checkerInstitutionId": 1325,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 449,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        13745
+      ],
+      "checkerInstitutionId": 1330,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 462,
+      "programme": "PHARMACY",
+      "offeringIds": [
+        14119
+      ],
+      "checkerInstitutionId": 1333,
+      "checkerProgrammeId": 1651,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 486,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        14811
+      ],
+      "checkerInstitutionId": 1341,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 488,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        14854
+      ],
+      "checkerInstitutionId": 1342,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 494,
+      "programme": "ACCOUNTANCY/ACCOUNTING",
+      "offeringIds": [
+        14964
+      ],
+      "checkerInstitutionId": 1345,
+      "checkerProgrammeId": 1537,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": null,
+      "olevel": {
+        "requiredSubjects": [
+          "Economics",
+          "English Language",
+          "Mathematics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Business Management",
+              "Computer Studies",
+              "Data Processing",
+              "Financial Accounting",
+              "Further Mathematics",
+              "Geography",
+              "Government",
+              "Literature in English"
+            ],
+            "count": 2
+          }
+        ],
+        "minimumCreditCount": 5
+      },
+      "screening": {
+        "minimumUtmeScore": 200,
+        "maximumSittings": 1,
+        "firstChoiceRequired": true,
+        "sourceUrl": "https://unilag.edu.ng/important-notice-on-2026-2027-post-utme-screening-exercise/",
+        "session": "2026/2027",
+        "observedAt": "2026-10-04"
+      }
+    },
+    {
+      "institutionId": 494,
+      "programme": "ARCHITECTURE",
+      "offeringIds": [
+        15044
+      ],
+      "checkerInstitutionId": 1345,
+      "checkerProgrammeId": 2191,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": null,
+      "olevel": {
+        "requiredSubjects": [
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Fine Arts",
+              "Technical Drawing"
+            ],
+            "count": 1
+          },
+          {
+            "subjects": [
+              "Biology",
+              "Building Construction",
+              "Chemistry",
+              "Decorative Painting",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ],
+        "minimumCreditCount": 5
+      },
+      "screening": {
+        "minimumUtmeScore": 200,
+        "maximumSittings": 1,
+        "firstChoiceRequired": true,
+        "sourceUrl": "https://unilag.edu.ng/important-notice-on-2026-2027-post-utme-screening-exercise/",
+        "session": "2026/2027",
+        "observedAt": "2026-10-04"
+      }
+    },
+    {
+      "institutionId": 494,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        14974
+      ],
+      "checkerInstitutionId": 1345,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": null,
+      "olevel": {
+        "requiredSubjects": [
+          "Chemistry",
+          "English Language",
+          "Further Mathematics",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": {
+        "minimumUtmeScore": 200,
+        "maximumSittings": 1,
+        "firstChoiceRequired": true,
+        "sourceUrl": "https://unilag.edu.ng/important-notice-on-2026-2027-post-utme-screening-exercise/",
+        "session": "2026/2027",
+        "observedAt": "2026-10-04"
+      }
+    },
+    {
+      "institutionId": 494,
+      "programme": "COMPUTER SCIENCE",
+      "offeringIds": [
+        15030
+      ],
+      "checkerInstitutionId": 1345,
+      "checkerProgrammeId": 2040,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Agricultural Science",
+              "Biology",
+              "Chemistry",
+              "Economics",
+              "Geography"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": {
+        "minimumUtmeScore": 200,
+        "maximumSittings": 1,
+        "firstChoiceRequired": true,
+        "sourceUrl": "https://unilag.edu.ng/important-notice-on-2026-2027-post-utme-screening-exercise/",
+        "session": "2026/2027",
+        "observedAt": "2026-10-04"
+      }
+    },
+    {
+      "institutionId": 494,
+      "programme": "MEDICINE AND SURGERY",
+      "offeringIds": [
+        14982
+      ],
+      "checkerInstitutionId": 1345,
+      "checkerProgrammeId": 1647,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": {
+        "minimumUtmeScore": 200,
+        "maximumSittings": 1,
+        "firstChoiceRequired": true,
+        "sourceUrl": "https://unilag.edu.ng/important-notice-on-2026-2027-post-utme-screening-exercise/",
+        "session": "2026/2027",
+        "observedAt": "2026-10-04"
+      }
+    },
+    {
+      "institutionId": 497,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        15102
+      ],
+      "checkerInstitutionId": 1346,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 503,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        15298
+      ],
+      "checkerInstitutionId": 1348,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 522,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        15855
+      ],
+      "checkerInstitutionId": 1355,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 530,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        16117
+      ],
+      "checkerInstitutionId": 1359,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 537,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        16247
+      ],
+      "checkerInstitutionId": 1361,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 539,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        16309
+      ],
+      "checkerInstitutionId": 1362,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 544,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        16375
+      ],
+      "checkerInstitutionId": 1364,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 548,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        16514
+      ],
+      "checkerInstitutionId": 1365,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 580,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        17377
+      ],
+      "checkerInstitutionId": 1375,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 581,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        17421
+      ],
+      "checkerInstitutionId": 1376,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 608,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        17921
+      ],
+      "checkerInstitutionId": 1381,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 620,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        18017
+      ],
+      "checkerInstitutionId": 1388,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 622,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        18139
+      ],
+      "checkerInstitutionId": 1389,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": null,
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 625,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        18174
+      ],
+      "checkerInstitutionId": 1390,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": null,
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 636,
+      "programme": "PHARMACY",
+      "offeringIds": [
+        18431
+      ],
+      "checkerInstitutionId": 1393,
+      "checkerProgrammeId": 1651,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 644,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        18773
+      ],
+      "checkerInstitutionId": 1396,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 660,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        19345
+      ],
+      "checkerInstitutionId": 1402,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Chemistry",
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 3
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 668,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        19544
+      ],
+      "checkerInstitutionId": 1404,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 674,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        19793
+      ],
+      "checkerInstitutionId": 1406,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 731,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        20659
+      ],
+      "checkerInstitutionId": 1423,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": null,
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 732,
+      "programme": "CHEMISTRY",
+      "offeringIds": [
+        20682,
+        25288,
+        25293
+      ],
+      "checkerInstitutionId": 1424,
+      "checkerProgrammeId": 1796,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 2
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 739,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        20838
+      ],
+      "checkerInstitutionId": 1425,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": null,
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 743,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        20884
+      ],
+      "checkerInstitutionId": 1426,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": null,
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 762,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        21059
+      ],
+      "checkerInstitutionId": 1435,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 765,
+      "programme": "CHEMISTRY",
+      "offeringIds": [
+        21114
+      ],
+      "checkerInstitutionId": 1436,
+      "checkerProgrammeId": 1796,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 2
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 779,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        21313
+      ],
+      "checkerInstitutionId": 1439,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 790,
+      "programme": "CIVIL ENGINEERING",
+      "offeringIds": [
+        21520
+      ],
+      "checkerInstitutionId": 1446,
+      "checkerProgrammeId": 1584,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 796,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        21681
+      ],
+      "checkerInstitutionId": 1449,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 797,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        21710
+      ],
+      "checkerInstitutionId": 1450,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 803,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        21918
+      ],
+      "checkerInstitutionId": 1452,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 805,
+      "programme": "NURSING/NURSING SCIENCE",
+      "offeringIds": [
+        22044
+      ],
+      "checkerInstitutionId": 1453,
+      "checkerProgrammeId": 1630,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 822,
+      "programme": "CHEMISTRY",
+      "offeringIds": [
+        22577
+      ],
+      "checkerInstitutionId": 1462,
+      "checkerProgrammeId": 1796,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 2
+          }
+        ]
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    },
+    {
+      "institutionId": 823,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        22607
+      ],
+      "checkerInstitutionId": 1463,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 824,
+      "programme": "BIOCHEMISTRY",
+      "offeringIds": [
+        22677
+      ],
+      "checkerInstitutionId": 1464,
+      "checkerProgrammeId": 1678,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Physics",
+              "Mathematics"
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 825,
+      "programme": "CHEMISTRY",
+      "offeringIds": [
+        22733
+      ],
+      "checkerInstitutionId": 1465,
+      "checkerProgrammeId": 1796,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Chemistry"
+        ],
+        "groups": [
+          {
+            "subjects": [
+              "Biology",
+              "Mathematics",
+              "Physics"
+            ],
+            "count": 2
+          }
+        ]
+      },
+      "olevel": null,
+      "screening": null
+    },
+    {
+      "institutionId": 836,
+      "programme": "PHYSIOTHERAPY",
+      "offeringIds": [
+        22950
+      ],
+      "checkerInstitutionId": 1467,
+      "checkerProgrammeId": 1665,
+      "observedAt": "2026-10-04",
+      "sourceUrl": "https://ibass.jamb.gov.ng/eligibility-checker",
+      "utme": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "Physics"
+        ],
+        "groups": []
+      },
+      "olevel": {
+        "requiredSubjects": [
+          "Biology",
+          "Chemistry",
+          "English Language",
+          "Mathematics",
+          "Physics"
+        ],
+        "groups": [],
+        "minimumCreditCount": 5
+      },
+      "screening": null
+    }
+  ]
+}

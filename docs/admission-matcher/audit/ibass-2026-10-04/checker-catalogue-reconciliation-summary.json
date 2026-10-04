@@ -1,0 +1,16 @@
+{
+  "catalogueInstitutionsWithoutCheckerIdentity": 248,
+  "catalogueSchoolsAudited": 529,
+  "checkerInstitutionsCaptured": 299,
+  "checkerProgrammesCaptured": 8274,
+  "fullEligibilityPromotions": 0,
+  "mappedInstitutions": 281,
+  "offeringStates": {
+    "ambiguous-programme-title": 131,
+    "checker-identity-unresolved": 5121,
+    "exact-programme-listed": 4913,
+    "not-in-checker-snapshot": 5531
+  },
+  "sourceOfferingsAudited": 15696,
+  "unresolvedCheckerIdentities": 18
+}

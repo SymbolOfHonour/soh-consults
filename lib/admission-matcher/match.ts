@@ -55,6 +55,7 @@ export function matchCandidate(candidate: CandidateProfile, requirements: Progra
       }
       const checkSubjects = (kind: "utme" | "olevel", values: string[], core: string[], legacy: string[][], groups: SubjectGroup[]) => {
         const label = kind === "utme" ? "UTME" : "O'Level credit";
+        if (kind === "olevel" && candidate.certificateType === "NBC") { needsReview.push("NBC-specific credit subjects and certificate exceptions need manual verification; SSCE-only subject rules do not reject this certificate."); return; }
         if (unresolved.has(kind)) { needsReview.push(label + " rules or institutional exceptions need verification; no eligibility decision is made from an incomplete rule."); return; }
         const minimums = kind === "utme" ? requirement.utmeAlternativeMinimums : requirement.olevelAlternativeMinimums;
         const rules = [...legacy.map((subjects, i) => ({ subjects, count: minimums?.[i] ?? 1 })), ...groups];

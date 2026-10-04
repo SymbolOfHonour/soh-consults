@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "institution": "University of Lagos, Lagos State",
+  "catalogueInstitutionId": 494,
+  "sourceUrl": "https://unilag.edu.ng/important-notice-on-2026-2027-post-utme-screening-exercise/",
+  "observedAt": "2026-10-04T12:49:54.151142+00:00",
+  "sourceHtmlSha256": "8f3c385008df94040ff28d7c777ef5dabf63e6c047d9c3ea7ad6014cb66756fd",
+  "session": "2026/2027",
+  "scope": "Published screening baseline for all undergraduate programmes; programme subjects require independent checker parity. Administrative conditions and admission selection are not assessed.",
+  "minimumUtmeScore": 200,
+  "maximumSittings": 1,
+  "firstChoiceRequired": true,
+  "evidenceFragments": [
+    "scored 200 and above",
+    "five (5) credit passes at one sitting",
+    "their first choice in the 2026/2027 UTME"
+  ]
+}

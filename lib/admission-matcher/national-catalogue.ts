@@ -1,4 +1,5 @@
 import { nationalReviewReasons } from "./national-review";
+import { checkerSubjectsForProgramme, confirmedCheckerCreditSubjects } from "./checker-subjects";
 import { validateNationalSnapshot } from "./national-snapshot";
 import snapshot from "./data/national-catalogue-2026-10-04.json";
 import { admissionMatcherRequirements } from "./data";
@@ -27,6 +28,7 @@ export function nationalCatalogueSummary() {
     programmes: [...snapshot.programmes].sort((a, b) => a.localeCompare(b)),
     institutions: institutions.map(item => ({ id: canonicalId(item), upstreamId: item.id, name: legacyById.get(item.id)?.institutionName ?? item.name })).sort((a, b) => a.name.localeCompare(b.name)),
     stats: snapshot.stats,
+    creditSubjects: confirmedCheckerCreditSubjects(),
   };
 }
 
@@ -40,24 +42,52 @@ export function nationalRequirementsForProgramme(programme: string): ProgrammeRe
   return snapshot.pairs.filter(([, programmeIndex]) => indices.has(programmeIndex as number)).map(pair => {
     const [institutionId, programmeIndex, offeringIds] = pair as [number, number, number[]];
     const institution = byId.get(institutionId)!;
+    const subjects = checkerSubjectsForProgramme(institutionId, snapshot.programmes[programmeIndex]);
+    const screening = subjects?.screening;
+    const verifiedBasicChecks = !!subjects?.utme && !!subjects?.olevel && !!screening;
     return {
       institutionId: canonicalId(institution),
       institutionName: institution.name,
       // Ownership does not prove that a degree-awarding college is a university.
       institutionType: "other",
       programme: snapshot.programmes[programmeIndex],
-      requiredUtmeSubjects: [], requiredOlevelCredits: [],
-      verificationStatus: "review",
-      unresolvedChecks: ["utme", "olevel", "sittings", "score"],
-      reviewReasons: nationalReviewReasons(offeringIds),
+      requiredUtmeSubjects: subjects?.utme?.requiredSubjects ?? [],
+      utmeGroups: subjects?.utme?.groups,
+      requiredOlevelCredits: subjects?.olevel?.requiredSubjects ?? [],
+      olevelGroups: subjects?.olevel?.groups,
+      minimumOlevelCreditCount: subjects?.olevel?.minimumCreditCount,
+      minimumUtmeScore: screening?.minimumUtmeScore,
+      scoreScope: screening ? "institution-screening" : undefined,
+      maximumSittings: screening?.maximumSittings,
+      firstChoiceRequired: screening?.firstChoiceRequired,
+      verificationStatus: verifiedBasicChecks ? "verified" : "review",
+      unresolvedChecks: [...(!subjects?.utme ? ["utme" as const] : []), ...(!subjects?.olevel ? ["olevel" as const] : []), ...(!screening ? ["sittings" as const, "score" as const] : [])],
+      reviewReasons: verifiedBasicChecks ? [] : subjects ? [
+        "Positive and negative official checker observations confirm the displayed subject components only.",
+        ...(!screening ? ["Current screening and sitting conditions remain unverified."] : []),
+        ...(!subjects.utme || !subjects.olevel ? ["The other subject component remains unresolved; a partial checker configuration is not a complete eligibility rule."] : []),
+        "Brochure variants and Direct Entry or alternative-certificate conditions remain separate evidence and are not resolved by these UTME observations.",
+      ] : nationalReviewReasons(offeringIds),
       sources: [{
         label: "JAMB IBASS institution brochure",
         url: `https://ibass.jamb.gov.ng/brochure-courses?id=${institution.id}&school=${encodeURIComponent(institution.name)}`,
         session: "JAMB catalogue; current screening conditions require confirmation",
         lastVerified: snapshot.observedAt,
         locator: `Official offering IDs: ${offeringIds.join(", ")}`,
-      }],
-      notes: ["A programme listing does not establish eligibility or guarantee admission. Direct Entry qualifications require a separate review."],
+      }, ...(subjects ? [{
+        label: "JAMB IBASS official checker subject observations",
+        url: subjects.sourceUrl,
+        session: "UTME subject components; current institutional screening requires confirmation",
+        lastVerified: subjects.observedAt,
+        scope: "Explicit institution-specific configurations reproduced against positive and negative official observations",
+        locator: `Checker institution ${subjects.checkerInstitutionId}, programme ${subjects.checkerProgrammeId}`,
+      }] : []), ...(screening ? [{
+        label: "UNILAG current official screening notice",
+        url: screening.sourceUrl, session: screening.session, lastVerified: screening.observedAt,
+        scope: "200 institutional screening floor, one O-Level sitting and first choice; explicitly applies to all undergraduate programmes",
+      }] : [])],
+      notes: ["A programme listing does not establish eligibility or guarantee admission. Direct Entry qualifications require a separate review.",
+        ...(subjects ? ["Verified basic checks cover only confirmed subject components and any cited screening baseline. Age, result uploads, test participation, application deadlines, prior-student restrictions and final selection are separate administrative requirements."] : [])],
     } satisfies ProgrammeRequirement;
   }).filter(record => !admissionMatcherRequirements.some(existing => existing.institutionId === record.institutionId && [existing.programme, ...(existing.aliases ?? [])].some(label => key(label) === key(record.programme))));
 }
