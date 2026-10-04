@@ -1,0 +1,29 @@
+{
+  "url": "https://ibass-api.jamb.gov.ng/api/ibass/institution/programmes/2?page=4",
+  "observedAt": "2026-10-04T09:20:22.165114+00:00",
+  "method": "Public catalogue POST with course_search empty; no candidate data",
+  "missingRequirementRows": [
+    {
+      "offeringId": 32590,
+      "programme": "BANKING & FINANCE",
+      "programmeId": 0,
+      "subjects": "",
+      "utme_requirements": ""
+    },
+    {
+      "offeringId": 32591,
+      "programme": "TECHNICAL EDUCATION",
+      "programmeId": 0,
+      "subjects": "",
+      "utme_requirements": ""
+    },
+    {
+      "offeringId": 32592,
+      "programme": "AGRICULTURAL ENGINEERING",
+      "programmeId": 0,
+      "subjects": "",
+      "utme_requirements": ""
+    }
+  ],
+  "scope": "Spot check confirms these three source rows remain blank; it is not a fresh census of every missing offering"
+}

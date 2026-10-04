@@ -1,0 +1,15 @@
+{
+  "institutionsProcessed": 529,
+  "nationalEligibilityVerification": "INCOMPLETE",
+  "offeringsProcessed": 15696,
+  "sectionCounts": {
+    "both-subject-sections-parsed": 981,
+    "olevel:manual-interpretation": 8426,
+    "olevel:missing": 6134,
+    "olevel:parsed-explicit": 1136,
+    "utme:manual-interpretation": 6730,
+    "utme:missing": 6135,
+    "utme:parsed-explicit": 2831
+  },
+  "verifiedNewRecords": 0
+}
