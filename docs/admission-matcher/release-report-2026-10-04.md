@@ -1,8 +1,8 @@
 # Admission Matcher recovery and release report, 4 October 2026
 
-Release status: **MERGED AND DEPLOYED; post-deployment production browser verification blocked.**
+Release status: **MERGED, DEPLOYED AND PRODUCTION SMOKE-TESTED.**
 
-The disconnected workspace was recovered. The national integration and full evidence snapshot are now being preserved on PR #213. PR #213 was merged only after the mandatory pre-release gates passed.
+The disconnected workspace was recovered. The national integration and full evidence snapshot are preserved in merged PR #213. PR #213 was merged only after the mandatory pre-release gates passed.
 
 ## Dataset and reconciliation
 
@@ -44,9 +44,13 @@ Branch: feature/admission-matcher-verification-depth. PR: #213, merged. Recovery
 
 Final pre-merge source HEAD: 3a6ead2a20b36fbedc2a5e6c9490fae932338114. Merge/production commit: ff3a2f03e00668e13ac9796a45a63e3dc14af08c. Vercel production deployment succeeded: https://vercel.com/symbol-of-honour/soh-consults/5WGh3pnMAHSF9gk5mync8SYNwzez. No corrective PR was needed.
 
-Post-deployment production verification is NOT complete. The browser opened the production homepage during deployment, then stalled for 300 seconds on Updates navigation. Its recovery/documentation call also timed out for 300 seconds, despite a 20-second requested timeout. Direct terminal probes of the homepage, Updates, Opportunities, LASU Screening Calculator, CGPA, Matcher and its national API all returned HTTP 403 from this execution context. A 403 alone does not establish a website defect or bot block. We did not bypass access controls or claim those pages passed.
+Post-deployment browser verification completed after resetting the stalled browser session. Earlier browser calls timed out for 300 seconds and terminal probes returned HTTP 403; those access limitations were resolved for live browser testing, without bypassing access controls.
 
-Production target: https://sohconsults.com.ng. The remaining action is one live browser smoke check after browser access recovers: homepage → Matcher → LASUSTECH Accounting, a medical programme, and the major site pages. No new implementation approval is required. The user can also test the live page independently, but that does not transfer their session to this browser.
+Production homepage → Matcher → LASUSTECH Accounting passed. The live national summary shows 529 institutions, 15,696 source offerings and 1,513 labels. Accounting returned 259 records: 1 matched, 250 review and 8 not matched; LASUSTECH returned Requirements Matched for the known-good profile. Nursing returned 33 review records. Pharmacy returned 31 records (29 review, 2 not matched); Medical Laboratory Science returned 182 (180 review, 2 not matched); Computer Science returned 287 (284 review, 3 not matched); Civil Engineering returned 103 (85 review, 18 not matched), using the Accounting profile. No new imported rule was promoted to verified.
+
+Production Updates loaded 32 articles; Opportunities loaded 12 entries; LASU Screening Calculator loaded its programme options. The CGPA target planner returned required GPA 4.97 for CGPA 3.50/60 completed units targeting 3.57 over 3 future units. The projector returned CGPA 3.57, 63 cumulative units and 225 cumulative credit points for an A in a 3-unit course. No application runtime errors were observed in the tested Matcher journey; the captured console errors originated from a browser extension. These are desktop smoke checks, not exhaustive verification of every eligibility rule or mobile viewport.
+
+Production Matcher: https://sohconsults.com.ng/admission-matcher. Release implementation and deployment are complete. Semantic reconciliation of the newly captured national rules remains explicitly unresolved as detailed below.
 
 ## Exact unresolved counts and artefacts
 
