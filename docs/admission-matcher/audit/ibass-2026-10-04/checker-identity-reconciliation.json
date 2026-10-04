@@ -1,0 +1,1931 @@
+{
+  "exactMappings": [
+    {
+      "checkerId": "1356",
+      "catalogueId": 523,
+      "officialName": "UNIVERSITY OF MAIDUGURI ( - eLEARNING), MAIDUGURI, BORNO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1456",
+      "catalogueId": 812,
+      "officialName": "UNIVERSITY OF UYO (E - LEARNING), UYO, AKWA IBOM STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1442",
+      "catalogueId": 784,
+      "officialName": "USMANU DANFODIYO UNIVERSITY ( - eLEARNING), SOKOTO, SOKOTO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1221",
+      "catalogueId": 93,
+      "officialName": "ABUBAKAR TAFAWA BALEWA UNIVERSITY, BAUCHI, BAUCHI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1189",
+      "catalogueId": 6,
+      "officialName": "AHMADU BELLO UNIVERSITY, ZARIA, KADUNA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1298",
+      "catalogueId": 288,
+      "officialName": "ALEX EKWUEME FEDERAL UNIVERSITY, NDUFU-ALIKE, EBONYI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1222",
+      "catalogueId": 94,
+      "officialName": "BAYERO UNIVERSITY, KANO, KANO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1295",
+      "catalogueId": 285,
+      "officialName": "FEDERAL UNIVERSITY, BIRNIN-KEBBI, KEBBI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1290",
+      "catalogueId": 280,
+      "officialName": "FEDERAL UNIVERSITY, DUTSE, JIGAWA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1291",
+      "catalogueId": 281,
+      "officialName": "FEDERAL UNIVERSITY, DUTSIN-MA, KATSINA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1292",
+      "catalogueId": 282,
+      "officialName": "FEDERAL UNIVERSITY, GASHUA, YOBE STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1293",
+      "catalogueId": 283,
+      "officialName": "FEDERAL UNIVERSITY, GUSAU, ZAMFARA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1294",
+      "catalogueId": 284,
+      "officialName": "FEDERAL UNIVERSITY, KASHERE, GOMBE STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1296",
+      "catalogueId": 286,
+      "officialName": "FEDERAL UNIVERSITY, LAFIA, NASARAWA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1297",
+      "catalogueId": 287,
+      "officialName": "FEDERAL UNIVERSITY, LOKOJA, KOGI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1299",
+      "catalogueId": 289,
+      "officialName": "FEDERAL UNIVERSITY, OTUOKE, BAYELSA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1300",
+      "catalogueId": 290,
+      "officialName": "FEDERAL UNIVERSITY, OYE-EKITI, EKITI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1301",
+      "catalogueId": 291,
+      "officialName": "FEDERAL UNIVERSITY, WUKARI, TARABA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1372",
+      "catalogueId": 573,
+      "officialName": "NIGERIAN ARMY UNIVERSITY, BIU, BORNO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1375",
+      "catalogueId": 580,
+      "officialName": "NIGERIAN DEFENCE ACADEMY, KADUNA, KADUNA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1406",
+      "catalogueId": 674,
+      "officialName": "NIGERIAN POLICE ACADEMY, WUDIL, KANO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1452",
+      "catalogueId": 803,
+      "officialName": "NNAMDI AZIKIWE UNIVERSITY, AWKA, ANAMBRA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1388",
+      "catalogueId": 620,
+      "officialName": "OBAFEMI AWOLOWO UNIVERSITY, ILE-IFE, OSUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1226",
+      "catalogueId": 101,
+      "officialName": "UNIVERSITY OF BENIN, BENIN CITY, EDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1235",
+      "catalogueId": 124,
+      "officialName": "UNIVERSITY OF CALABAR, CALABAR, CROSS RIVER STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1319",
+      "catalogueId": 392,
+      "officialName": "UNIVERSITY OF IBADAN, IBADAN, OYO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1325",
+      "catalogueId": 423,
+      "officialName": "UNIVERSITY OF ILORIN, ILORIN, KWARA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1330",
+      "catalogueId": 449,
+      "officialName": "UNIVERSITY OF JOS, JOS, PLATEAU STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1345",
+      "catalogueId": 494,
+      "officialName": "UNIVERSITY OF LAGOS, LAGOS STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1355",
+      "catalogueId": 522,
+      "officialName": "UNIVERSITY OF MAIDUGURI, BORNO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1404",
+      "catalogueId": 668,
+      "officialName": "UNIVERSITY OF PORT-HARCOURT, RIVERS STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1455",
+      "catalogueId": 810,
+      "officialName": "UNIVERSITY OF UYO, AKWA IBOM STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1304",
+      "catalogueId": 349,
+      "officialName": "FEDERAL UNIVERSITY OF AGRICULTURE, ABEOKUTA, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1446",
+      "catalogueId": 790,
+      "officialName": "MICHAEL OKPARA UNIVERSITY OF AGRICULTURE, UMUDIKE, ABIA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1197",
+      "catalogueId": 24,
+      "officialName": "AIR FORCE INSTITUTE OF TECHNOLOGY, KADUNA, KADUNA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1305",
+      "catalogueId": 350,
+      "officialName": "FEDERAL UNIVERSITY OF PETROLEUM RESOURCES, EFFURUN, DELTA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1306",
+      "catalogueId": 351,
+      "officialName": "FEDERAL UNIVERSITY OF TECHNOLOGY, AKURE, ONDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1364",
+      "catalogueId": 544,
+      "officialName": "FEDERAL UNIVERSITY OF TECHNOLOGY, MINNA, NIGER STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1307",
+      "catalogueId": 352,
+      "officialName": "FEDERAL UNIVERSITY OF TECHNOLOGY, OWERRI, IMO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1359",
+      "catalogueId": 530,
+      "officialName": "NIGERIAN MARITIME UNIVERSITY, OKERENKOKO, DELTA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1211",
+      "catalogueId": 73,
+      "officialName": "ABUBAKAR TATARI ALI POLYTECHNIC, BAUCHI STATE. (AFFILIATED TO ATBU BAUCHI)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1194",
+      "catalogueId": 19,
+      "officialName": "ADEYEMI COLLEGE OF EDUCATION, ONDO STATE. (AFFL TO OAU, ILE-IFE)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1213",
+      "catalogueId": 78,
+      "officialName": "AUCHI POLYTECHNIC, AUCHI, EDO STATE. (AFFL TO NNAMDI AZIKIWE UNIVERSITY, AWKA)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1224",
+      "catalogueId": 96,
+      "officialName": "BAPTIST COLLEGE OF THEOLOGY, BENIN CITY, EDO STATE (AFFL TO AMBROSE ALLI UNIV)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1198",
+      "catalogueId": 28,
+      "officialName": "COLLEGE OF EDUCATION, AGBOR, DELTA STATE. (AFFL TO DELTA STATE UNIV, ABRAKA)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1262",
+      "catalogueId": 223,
+      "officialName": "COLLEGE OF EDUCATION, ANKPA, KOGI STATE (AFFL TO ATBU, BAUCHI)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1392",
+      "catalogueId": 632,
+      "officialName": "COLLEGE OF EDUCATION, OJU, BENUE STATE (AFFILIATED TO BENUE STATE UNIVERSITY)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1367",
+      "catalogueId": 557,
+      "officialName": "DELTA STATE COLLEGE OF PHYSICAL EDUCATION, MOSOGAR (AFFILIATED TO UNI. OF BENIN)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1323",
+      "catalogueId": 417,
+      "officialName": "EBONYI STATE COLLEGE OF EDUCATION, IKWO, (AFFILIATED TO EBSU) EBONYI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1265",
+      "catalogueId": 227,
+      "officialName": "FEDERAL COLLEGE OF EDUCATION (TECH), GUSAU, (AFFL TO ABU ZARIA), ZAMFARA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1273",
+      "catalogueId": 235,
+      "officialName": "FEDERAL COLLEGE OF EDUCATION, YOLA, ADAMAWA STATE (AFFL TO UNIV OF UNIMAID)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1274",
+      "catalogueId": 236,
+      "officialName": "FEDERAL COLLEGE OF EDUCATION, ZARIA, KADUNA STATE (AFFL TO ABU, ZARIA)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1326",
+      "catalogueId": 427,
+      "officialName": "IMMANUEL COLLEGE OF TECH AND CHRISTIAN EDUC. IBADAN (AFFL TO UNIV OF IBADAN)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1331",
+      "catalogueId": 453,
+      "officialName": "KADUNA POLYTECHNIC, KADUNA , KADUNA STATE (AFFL TO FED UNIV OF TECH, MINNA)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1352",
+      "catalogueId": 517,
+      "officialName": "LIFE THEOLOGICAL SEMINARY, LAGOS, LAGOS STATE. (AFFL TO UNIVERSITY  OF IBADAN)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1382",
+      "catalogueId": 609,
+      "officialName": "NIGER STATE COLLEGE OF EDUCATION, MINNA (AFFL TO AHMADU BELLO UNIVERSITY, ZARIA)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1268",
+      "catalogueId": 230,
+      "officialName": "SAADATU RIMI COLLEGE OF EDU, KUMBOTSO, KANO STATE (AFFILIATED TO ABU, ZARIA)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1267",
+      "catalogueId": 229,
+      "officialName": "SAADATU RIMI COLLEGE OF EDU, KUMBOTSO, KANO STATE (AFFL TO BAYERO UNIV, KANO)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1432",
+      "catalogueId": 752,
+      "officialName": "ST-JOSEPH MAJOR SEMINARY, IKOT-EKPENE, AKWA IBOM STATE (AFFL TO UNIV OF CALABAR)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1208",
+      "catalogueId": 61,
+      "officialName": "THE APOSTOLIC CHURCH THEOLOGICAL SEMINARY, AMUMARA (AFFL TO UNIV OF UYO)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1419",
+      "catalogueId": 709,
+      "officialName": "THE SAMUEL BILL THEOLOGICAL COLLEGE, ABAK, AKWA IBOM STATE (AFFL TO UNIV OF UYO)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1440",
+      "catalogueId": 780,
+      "officialName": "TRINITY THEOLOGICAL COLLEGE, UMUAHIA, ABIA STATE (AFFL TO UNIV OF NIG, NSUKKA)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1461",
+      "catalogueId": 820,
+      "officialName": "WEST AFRICA THEOLOGICAL SEMINARY, IPAJA, LAGOS (AFFL TO UNIV OF NIGERIA, NSUKKA)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1466",
+      "catalogueId": 829,
+      "officialName": "YABA COLLEGE OF TECHNOLOGY, YABA, LAGOS STATE (AFFL TO UNIV OF NIG, NSUKKA)",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1193",
+      "catalogueId": 11,
+      "officialName": "ACHIEVERS UNIVERSITY, OWO, ONDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1214",
+      "catalogueId": 80,
+      "officialName": "ADELEKE UNIVERSITY, EDE, OSUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1196",
+      "catalogueId": 21,
+      "officialName": "ADMIRALTY UNIVERSITY OF NIGERIA, IBUSA, DELTA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1191",
+      "catalogueId": 8,
+      "officialName": "AFE BABALOLA UNIVERSITY, ADO-EKITI, EKITI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1199",
+      "catalogueId": 31,
+      "officialName": "AJAYI CROWTHER UNIVERSITY, OYO, OYO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1204",
+      "catalogueId": 45,
+      "officialName": "AL-QALAM UNIVERSITY, KATSINA, KATSINA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1216",
+      "catalogueId": 82,
+      "officialName": "AMERICAN UNIVERSITY OF NIGERIA, YOLA, ADAMAWA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1206",
+      "catalogueId": 52,
+      "officialName": "ANCHOR UNIVERSITY, AYOBO, LAGOS STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1209",
+      "catalogueId": 67,
+      "officialName": "ARTHUR JARVIS UNIVERSITY, AKPABUYO, CROSS RIVER STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1212",
+      "catalogueId": 76,
+      "officialName": "ATIBA UNIVERSITY, OYO, OYO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1215",
+      "catalogueId": 81,
+      "officialName": "AUGUSTINE UNIVERSITY, ILARA, LAGOS, LAGOS STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1218",
+      "catalogueId": 87,
+      "officialName": "BABCOCK UNIVERSITY, ILISHAN-REMO, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1223",
+      "catalogueId": 95,
+      "officialName": "BAZE UNIVERSITY, ABUJA, FCT",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1225",
+      "catalogueId": 99,
+      "officialName": "BELLS UNIVERSITY OF TECHNOLOGY, OTA, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1229",
+      "catalogueId": 109,
+      "officialName": "BENSON IDAHOSA UNIVERSITY, BENIN CITY, EDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1228",
+      "catalogueId": 107,
+      "officialName": "BINGHAM UNIVERSITY, KARU, NASARAWA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1232",
+      "catalogueId": 115,
+      "officialName": "BOWEN UNIVERSITY, IWO, OSUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1236",
+      "catalogueId": 125,
+      "officialName": "CALEB UNIVERSITY, IMOTA, LAGOS STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1238",
+      "catalogueId": 130,
+      "officialName": "CARITAS UNIVERSITY, AMORJI-NIKE, ENUGU, ENUGU STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1240",
+      "catalogueId": 136,
+      "officialName": "CHRISLAND UNIVERSITY, OWODE, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1241",
+      "catalogueId": 137,
+      "officialName": "CHRISTOPHER UNIVERSITY, MOWE, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1244",
+      "catalogueId": 151,
+      "officialName": "CLIFFORD UNIVERSITY, OWERRINTTA, ABIA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1245",
+      "catalogueId": 153,
+      "officialName": "COAL CITY UNIVERSITY, ENUGU, ENUGU STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1253",
+      "catalogueId": 192,
+      "officialName": "CRESCENT UNIVERSITY, ABEOKUTA, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1255",
+      "catalogueId": 206,
+      "officialName": "DOMINICAN UNIVERSITY, IBADAN, OYO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1256",
+      "catalogueId": 207,
+      "officialName": "DOMINION UNIVERSITY, IBADAN, OYO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1272",
+      "catalogueId": 234,
+      "officialName": "EDWIN CLARK UNIVERSITY, KIAGBODO, DELTA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1278",
+      "catalogueId": 245,
+      "officialName": "ELIZADE UNIVERSITY, ILARA-MOKIN, ONDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1283",
+      "catalogueId": 256,
+      "officialName": "EVANGEL UNIVERSITY, AKAEZE, EBONYI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1302",
+      "catalogueId": 335,
+      "officialName": "FOUNTAIN UNIVERSITY, OSOGBO, OSUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1309",
+      "catalogueId": 366,
+      "officialName": "GODFREY OKOYE UNIVERSITY, URGWUOMU- NIKE, ENUGU STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1310",
+      "catalogueId": 371,
+      "officialName": "GREENFIELD UNIVERSITY, KASARAMI, KADUNA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1311",
+      "catalogueId": 372,
+      "officialName": "GREGORY UNIVERSITY, UTURU, ABIA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1449",
+      "catalogueId": 796,
+      "officialName": "HEZEKIAH UNIVERSITY, UMUDI, IMO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1320",
+      "catalogueId": 405,
+      "officialName": "IGBINEDION UNIVERSITY, OKADA, BENIN CITY, EDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1329",
+      "catalogueId": 444,
+      "officialName": "JOSEPH AYO BABALOLA UNIVERSITY, IKEJI-ARAKEJI, OSUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1450",
+      "catalogueId": 797,
+      "officialName": "KINGS UNIVERSITY, ODE-OMU, OSUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1337",
+      "catalogueId": 477,
+      "officialName": "KOLADAISI UNIVERSITY, IBADAN, OYO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1341",
+      "catalogueId": 486,
+      "officialName": "KWARARAFA UNIVERSITY, WUKARI, TARABA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1346",
+      "catalogueId": 497,
+      "officialName": "LANDMARK UNIVERSITY, OMU-ARAN, KWARA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1350",
+      "catalogueId": 505,
+      "officialName": "LEAD CITY UNIVERSITY, IBADAN, OYO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1351",
+      "catalogueId": 506,
+      "officialName": "LEGACY UNIVERSITY, OKIJA, ANAMBRA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1353",
+      "catalogueId": 518,
+      "officialName": "MADONNA UNIVERSITY, ELELE, RIVERS STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1362",
+      "catalogueId": 539,
+      "officialName": "McPHERSON UNIVERSITY, SERIKI SOTAYO, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1361",
+      "catalogueId": 537,
+      "officialName": "MICHAEL AND CECILIA IBRU UNIVERSITY, OWHRODE, DELTA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1368",
+      "catalogueId": 558,
+      "officialName": "MOUNTAIN TOP UNIVERSITY, MAKOGI-OBA, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1381",
+      "catalogueId": 608,
+      "officialName": "NOVENA UNIVERSITY, OGUME, DELTA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1389",
+      "catalogueId": 622,
+      "officialName": "OBONG UNIVERSITY, OBONG, NTAK, AKWA IBOM STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1390",
+      "catalogueId": 625,
+      "officialName": "ODUDUWA UNIVERSITY, IPETUMODU, OSUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1400",
+      "catalogueId": 656,
+      "officialName": "PAMO UNIVERSITY OF MEDICAL SCIENCE, PORT HARCOURT, RIVERS STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1402",
+      "catalogueId": 660,
+      "officialName": "PAUL UNIVERSITY, AWKA, ANAMBRA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1403",
+      "catalogueId": 661,
+      "officialName": "PRECIOUS CORNERSTONE UNIVERSITY, IBADAN, OYO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1412",
+      "catalogueId": 690,
+      "officialName": "RENAISSANCE UNIVERSITY, OJIAGU-AGBANI, ENUGU, ENUGU STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1413",
+      "catalogueId": 691,
+      "officialName": "RHEMA UNIVERSITY, ABA, ABIA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1414",
+      "catalogueId": 692,
+      "officialName": "RITMAN UNIVERSITY, IKOT-EKPENE, AKWA IBOM STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1418",
+      "catalogueId": 708,
+      "officialName": "SALEM UNIVERSITY, LOKOJA, KOGI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1423",
+      "catalogueId": 731,
+      "officialName": "SKYLINE UNIVERSITY NIGERIA, KANO, KANO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1426",
+      "catalogueId": 743,
+      "officialName": "SOUTHWESTERN UNIVERSITY, OKUN-OWA, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1427",
+      "catalogueId": 745,
+      "officialName": "SPIRITAN UNIVERSITY, NNEOCHI, ABIA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1433",
+      "catalogueId": 757,
+      "officialName": "SUMMIT UNIVERITY, OFFA, KWARA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1435",
+      "catalogueId": 762,
+      "officialName": "TANSIAN UNIVERSITY, OBA, ANAMBRA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1365",
+      "catalogueId": 548,
+      "officialName": "UNIVERSITY OF MKAR, GBOKO, BENUE STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1462",
+      "catalogueId": 822,
+      "officialName": "WELLSPRING UNIVERSITY, IRHIHI-OGBANEKI, BENIN CITY, EDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1463",
+      "catalogueId": 823,
+      "officialName": "WESLEY UNIVERSITY, ONDO, ONDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1464",
+      "catalogueId": 824,
+      "officialName": "WESTERN DELTA UNIVERSITY, OGHARA, DELTA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1465",
+      "catalogueId": 825,
+      "officialName": "WESTLAND UNIVERSITY, IWO, OSUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1354",
+      "catalogueId": 520,
+      "officialName": "UNIVERSITY OF MAIDUGURI SANDWICH PROGRAMME, BORNO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1188",
+      "catalogueId": 5,
+      "officialName": "ABIA STATE UNIVERSITY, UTURU, ABIA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1195",
+      "catalogueId": 20,
+      "officialName": "ADAMAWA STATE UNIVERSITY, MUBI, ADAMAWA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1187",
+      "catalogueId": 3,
+      "officialName": "ADEKUNLE AJASIN UNIVERSITY, AKUNGBA-AKOKO, ONDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1202",
+      "catalogueId": 41,
+      "officialName": "AKWA IBOM STATE  UNIVERSITY, IKOT-AKPADEN, AKWA IBOM STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1186",
+      "catalogueId": 2,
+      "officialName": "AMBROSE ALLI UNIVERSITY, EKPOMA, EDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1220",
+      "catalogueId": 92,
+      "officialName": "BAUCHI STATE UNIVERSITY, GADAU, BAUCHI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1233",
+      "catalogueId": 117,
+      "officialName": "BENUE STATE UNIVERSITY, MAKURDI, BENUE STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1248",
+      "catalogueId": 177,
+      "officialName": "CHUKWUEMEKA ODUMEGWU OJUKWU UNIVERSITY, ULI, ANAMBRA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1254",
+      "catalogueId": 198,
+      "officialName": "DELTA STATE UNIVERSITY, ABRAKA, DELTA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1258",
+      "catalogueId": 216,
+      "officialName": "EBONYI STATE UNIVERSITY, ABAKALIKI, EBONYI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1282",
+      "catalogueId": 255,
+      "officialName": "EDO UNIVERSITY, IYAMHO, EDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1276",
+      "catalogueId": 241,
+      "officialName": "EKITI STATE UNIVERSITY, ADO-EKITI, EKITI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1312",
+      "catalogueId": 374,
+      "officialName": "GOMBE STATE UNIVERSITY,  TUDUN WADA, GOMBE, GOMBE STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1347",
+      "catalogueId": 500,
+      "officialName": "IBRAHIM BADAMASI BABANGIDA UNIVERSITY, LAPAI, NIGER STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1318",
+      "catalogueId": 391,
+      "officialName": "IGNATIUS AJURU UNIVERSITY OF EDUCATION, PORT HARCOURT, RIVERS STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1327",
+      "catalogueId": 432,
+      "officialName": "IMO STATE UNIVERSITY, OWERRI, IMO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1333",
+      "catalogueId": 462,
+      "officialName": "KADUNA STATE UNIVERSITY, KADUNA, KADUNA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1342",
+      "catalogueId": 488,
+      "officialName": "KWARA STATE UNIVERSITY, MALETE, ILORIN, KWARA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1348",
+      "catalogueId": 503,
+      "officialName": "LAGOS STATE UNIVERSITY, OJO, LAGOS STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1369",
+      "catalogueId": 567,
+      "officialName": "NASARAWA STATE UNIVERSITY, KEFFI, NASARAWA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1376",
+      "catalogueId": 581,
+      "officialName": "NIGER DELTA UNIVERSITY, WILBERFORCE ISLAND, BAYELSA  STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1393",
+      "catalogueId": 636,
+      "officialName": "OLABISI ONABANJO UNIVERSITY, AGO-IWOYE, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1451",
+      "catalogueId": 798,
+      "officialName": "OSUN STATE UNIVERSITY, OSOGBO, OSUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1405",
+      "catalogueId": 670,
+      "officialName": "PLATEAU STATE UNIVERSITY, BOKKOS, PLATEAU STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1425",
+      "catalogueId": 739,
+      "officialName": "SOKOTO STATE UNIVERSITY, SOKOTO, SOKOTO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1424",
+      "catalogueId": 732,
+      "officialName": "SULE LAMIDO UNIVERSITY, KAFIN HAUSA, JIGAWA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1436",
+      "catalogueId": 765,
+      "officialName": "TAI SOLARIN UNIVERSITY OF EDUCATION, IJAGUN, OGUN STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1439",
+      "catalogueId": 779,
+      "officialName": "TARABA STATE UNIVERSITY, JALINGO, TARABA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1447",
+      "catalogueId": 792,
+      "officialName": "UMARU MUSA YARADUA UNIVERSITY, KATSINA, KATSINA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1448",
+      "catalogueId": 793,
+      "officialName": "UNIVERSITY OF AFRICA, TORU-ORUA, BAYELSA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1467",
+      "catalogueId": 836,
+      "officialName": "YOBE STATE UNIVERSITY, DAMATURU, YOBE STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1468",
+      "catalogueId": 838,
+      "officialName": "ZAMFARA STATE UNIVERSITY, TALATA MAFARA, ZAMFARA STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1396",
+      "catalogueId": 644,
+      "officialName": "ONDO STATE UNIVERSITY OF MEDICAL SCIENCES, LAJE ROAD, ONDO, ONDO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1519",
+      "catalogueId": 904,
+      "officialName": "CONFLUENCE UNIVERSITY OF SCIENCE AND TECHNOLOGY, OSARA, KOGI STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1281",
+      "catalogueId": 254,
+      "officialName": "ENUGU STATE UNIVERSITY OF SCIENCE AND TECHNOLOGY, ENUGU, ENUGU STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1340",
+      "catalogueId": 483,
+      "officialName": "KANO UNIVERSITY OF SCIENCE AND TECHNOLOGY, WUDIL, KANO STATE",
+      "method": "exact-official-name"
+    },
+    {
+      "checkerId": "1349",
+      "catalogueId": 504,
+      "officialName": "LADOKE AKINTOLA UNIVERSITY OF TECHNOLOGY, OGBOMOSO, OYO STATE",
+      "method": "exact-official-name"
+    }
+  ],
+  "unresolved": [
+    {
+      "name": "NATIONAL OPEN UNIVERSITY OF NIGERIA - Elearning, LAGOS STATE",
+      "type": "institution",
+      "category": "29",
+      "id": "1380",
+      "categoryName": "E-LEARNING UNIVERSITIES OF NIGERIA"
+    },
+    {
+      "name": "UNIVERSITY OF ABUJA, ABUJA, FCT",
+      "type": "institution",
+      "category": "17",
+      "id": "1192",
+      "categoryName": "FEDERAL UNIVERSITIES"
+    },
+    {
+      "name": "UNIVERSITY OF NIGERIA NSUKKA, ENUGU STATE",
+      "type": "institution",
+      "category": "17",
+      "id": "1453",
+      "categoryName": "FEDERAL UNIVERSITIES"
+    },
+    {
+      "name": "USMANU  DANFODIO UNIVERSITY, SOKOTO, SOKOTO STATE",
+      "type": "institution",
+      "category": "17",
+      "id": "1441",
+      "categoryName": "FEDERAL UNIVERSITIES"
+    },
+    {
+      "name": "FEDERAL UNIVERSITY OF AGRICULTURE, MAKURDI, BENUE STATE",
+      "type": "institution",
+      "category": "18",
+      "id": "1358",
+      "categoryName": "FEDERAL UNIVERSITIES OF AGRICULTURE"
+    },
+    {
+      "name": "THE FEDERAL UNIVERSITY OF HEALTH SCIENCES, OTUKPO, BENUE STATE",
+      "type": "institution",
+      "category": "43",
+      "id": "1499",
+      "categoryName": "FEDERAL UNIVERSITIES OF HEALTH SCIENCES"
+    },
+    {
+      "name": "MODIBO ADAMA UNIVERSITY OF TECHNOLOGY, YOLA, ADAMAWA STATE",
+      "type": "institution",
+      "category": "19",
+      "id": "1360",
+      "categoryName": "FEDERAL UNIVERSITIES OF TECHNOLOGY"
+    },
+    {
+      "name": "AHMADU BELLO UNIVERSITY OPEN AND DISTANCE LEARNING PROGRAMME, ZARIA, KADUNA STATE",
+      "type": "institution",
+      "category": "39",
+      "id": "1190",
+      "categoryName": "OPEN AND DISTANCE LEARNING PROGRAMMES"
+    },
+    {
+      "name": "NATIONAL OPEN UNIVERSITY OF NIGERIA, LAGOS STATE",
+      "type": "institution",
+      "category": "39",
+      "id": "1379",
+      "categoryName": "OPEN AND DISTANCE LEARNING PROGRAMMES"
+    },
+    {
+      "name": "A.D. RUFAI COLLEGE FOR LEGAL AND ISLAMIC STUDIES (AFFL TO BAYERO UNI. KANO)",
+      "type": "institution",
+      "category": "35",
+      "id": "1416",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ADENIRAN OGUNSANYA COLLEGE OF EDUCATION OTTO-IJANIKIN, LAGOS (AFFL TO EKITI STATE UNIV)",
+      "type": "institution",
+      "category": "35",
+      "id": "1207",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "AKWA IBOM STATE COLLEGE OF EDUCATION, AFAHA-NSIT NSIT (AFFILIATED TO UNIVERSITY OF UYO)",
+      "type": "institution",
+      "category": "35",
+      "id": "1201",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ALVAN IKOKU FEDERAL COLLEGE OF EDUCATION, IMO STATE.(AFFL TO UNIV OF NIGERA, NSUKKA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1261",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ARCHBISHOP VINING COLLEGE OF THEOLOGY, AKURE.  (AFFL TO UNIV OF IBADAN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1217",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ASSEMBLIES OF GOD DIVINITY SCHOOL, OLD UMUAHIA. ABIA STATE (AFFL TO UNIV OF UYO)",
+      "type": "institution",
+      "category": "35",
+      "id": "1210",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "BAPTIST COLLEGE OF THEOLOGY, OBINZE, OWERRI (AFFL TO UNIV OF PORT HARCOURT)",
+      "type": "institution",
+      "category": "35",
+      "id": "1219",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "BIGARD MEMORIAL SEMINARY, ENUGU. (AFFLIATED TO UNIVERSITY OF IBADAN, OYO STATE)",
+      "type": "institution",
+      "category": "35",
+      "id": "1230",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "CALVARY COLLEGE OF THEOLOGY, RUKPOKWU, PORT HARCOURT (AFFL TO UNIV OF CALABAR)",
+      "type": "institution",
+      "category": "35",
+      "id": "1237",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "CATHOLIC INSTITUTION OF WEST AFRICA, PORT HARCOURT. (AFFL TO UNIV OF CALABAR)",
+      "type": "institution",
+      "category": "35",
+      "id": "1242",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "CLARETIAN INSTITUTE OF PHILOSOPHY, NEKEDE, IMO STATE (AFFL TO IMO STATE UNIVERSITY, OWERRI)",
+      "type": "institution",
+      "category": "35",
+      "id": "1243",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF ANIMAL HEALTH AND PRODUCTION TECHNOLOGY, VOM, PLATEAU STATE AFFILIATED TO ABUBAKAR TAFAWA BALEWA UNIVERSITY, BAUCHI",
+      "type": "institution",
+      "category": "35",
+      "id": "1501",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF ARABIC AND ISLAMIC LEGAL STUDIES, ILORIN (AFFL TO BAYERO UNIV, KANO)",
+      "type": "institution",
+      "category": "35",
+      "id": "1234",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, AKWANGA (AFFL TO AHMADU BELLO UNIV, ZARIA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1239",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, AZARE (AFFLIATED TO UNIVERSITY OF MAIDUGURI, BORNO STATE)",
+      "type": "institution",
+      "category": "35",
+      "id": "1246",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, EHA AMUFU (AFFILIATED TO UNIVERSITY OF NIGERIA, NSUKKA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1205",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, EHA AMUFU (AFFILIATED TO UNIVERSITY OF NIGERIA, NSUKKA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1344",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, GIDAN-WAYA, KADUNA STATE (AFFLIATTED TO ABU)",
+      "type": "institution",
+      "category": "35",
+      "id": "1308",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, HONG (AFFILIATED TO AHMADU BELLO UNIVERSITY, ZARIA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1317",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, IKERE EKITI. (AFFL TO UNIV OF NIGERIA, NSUKKA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1322",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, KATSINA-ALA, BENUE STATE. (AFFL TO UNIV OF CALABAR)",
+      "type": "institution",
+      "category": "35",
+      "id": "1334",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, MOSOGAR, DELTA STATE AFFILIATED TO DELTA STATE UNIVERSITY, ABRAKA",
+      "type": "institution",
+      "category": "35",
+      "id": "1502",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, WAKA-BIU, BORNO STATE (AFFILIATED TO UNIVERSITY OF MAIDUGURI)",
+      "type": "institution",
+      "category": "35",
+      "id": "1458",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, WARRI (AFFLIATED TO DELTA STATE UNIVERSITY, ABRAKA, DELTA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1459",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "College of Education, Warri, Delta State Affiliated to University of Benin",
+      "type": "institution",
+      "category": "35",
+      "id": "1472",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, ZING, (AFFILATED TO ABU, ZARIA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1469",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "COLLEGE OF SEMINARY AND THEOLOGY, IRRI, DELTA STATE (AFF. TO NIGER DELTA UNIVERSITY, WLBERFORCE ISLAND)",
+      "type": "institution",
+      "category": "35",
+      "id": "1536",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "CROSS RIVER STATE COLLEGE OF EDUCATION, AKAMKPA (AFFILIATED TO UNIVERSITY OF CALABAR) ",
+      "type": "institution",
+      "category": "35",
+      "id": "1200",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ECWA THEOLOGICAL SEMINARY, IGBAJA (AFFLIATED TO UNIVERSITY OF IBADAN, OYO STATE)",
+      "type": "institution",
+      "category": "35",
+      "id": "1259",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "EMMANUEL ALAYANDE COLLEGE OF EDUCATION, OYO. (AFFL TO EKITI STATE UNIV)",
+      "type": "institution",
+      "category": "35",
+      "id": "1257",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ENUGU STATE COL OF EDUC.(TECH), ENUGU (AFFL TO NNAMDI AZIKIWE UNIV, AWKA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1280",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ESSIEN UKPABIA PRESBYTERIAN THEOLOGICAL COLLEGE, ITU (AFFL TO UNICAL)",
+      "type": "institution",
+      "category": "35",
+      "id": "1409",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FCT COLLEGE OF EDUCATION, ZUBA AFFILIATED TO AHMADU BELLO UNIVERSITY, ZARIA",
+      "type": "institution",
+      "category": "35",
+      "id": "1470",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF DENTAL TECHNOLOGY AND THERAPY,  ENUGU (AFF. TO FEDERAL UNIVERSITY OF TECHNOLOGY, OWERRI)",
+      "type": "institution",
+      "category": "35",
+      "id": "1535",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUC. (SPECIAL), OYO, OYO STATE.",
+      "type": "institution",
+      "category": "35",
+      "id": "1398",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION (TECH.) ,OMOKU, RIVERS STATE.",
+      "type": "institution",
+      "category": "35",
+      "id": "1270",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION (TECH.), BICHI, KANO STATE (AFFILIATED TO ABUBAKAR TAFAWA BALEWA UNIVERSITY, BAUCHI)",
+      "type": "institution",
+      "category": "35",
+      "id": "1303",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION (TECHNICAL), AKOKA, (AFFL TO UNIBEN, BENIN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1260",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION (TECHNICAL), ASABA  (AFFL TO UNIVERSITY OF BENIN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1263",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION (TECHNICAL), GOMBE STATE (AFFL TO ATBU, BAUCHI)",
+      "type": "institution",
+      "category": "35",
+      "id": "1285",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION (TECHNICAL), OMOKU, RIVERS STATE (AFF. TO UNIVERSITY OF UYO)",
+      "type": "institution",
+      "category": "35",
+      "id": "1534",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION(TECH.)UMUNZE, P.M.B. 0189, ANAMBRA",
+      "type": "institution",
+      "category": "35",
+      "id": "1271",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION, (TECHNICAL), POTISKUM (AFFL TO ATBU, BAUCHI)",
+      "type": "institution",
+      "category": "35",
+      "id": "1408",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION, ABEOKUTA (AFFILIATED TO UNIVERSITY OF IBADAN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1284",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION, GUSAU (AFFILIATED TO FEDERAL UNIVERSITY OF TECHNOLOGY, MINNA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1314",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION, KANO (AFFL TO AHMADU BELLO UNIVERSITY, ZARIA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1266",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION, KATSINA (AFFL TO BAYERO UNIVERSITY, KANO STATE)",
+      "type": "institution",
+      "category": "35",
+      "id": "1286",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION, KONTAGORA, NIGER STATE (AFFL TO ABU, ZARIA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1287",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION, OBUDU (AFFL TO UNIVERSITY OF CALABAR)",
+      "type": "institution",
+      "category": "35",
+      "id": "1269",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION, OKENE (AFFILIATED TO UNIVERSITY OF IBADAN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1289",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL COLLEGE OF EDUCATION, PANKSHIN,PLATEAU STATE (AFFL TO UNI OF JOS)",
+      "type": "institution",
+      "category": "35",
+      "id": "1288",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "Federal Polytechnic, Bauchi Affiliated to Abubakar Tafawa Balewa University, Bauchi ",
+      "type": "institution",
+      "category": "35",
+      "id": "1474",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL POLYTECHNIC, BIDA, NIGER STATE (AFFILIATED TO FEDERAL UNIVERSITY OF TECHNOLOGY, MINNA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1227",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "FEDERAL POLYTECHNIC, OFFA, KWARA STATE (AFFILIATED TO FEDERAL UNIVERSITY OF TECHNOLOGY, MINNA) ",
+      "type": "institution",
+      "category": "35",
+      "id": "1391",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "Hassan Usman Katsina Polytechnic Affiliated to Federal University of Technology, Minna ",
+      "type": "institution",
+      "category": "35",
+      "id": "1473",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "INSTITUTE OF MANAGEMENT AND TECHNOLOGY, ENUGU (AFFILIATED TO UNIVERSITY OF NIGERIA, NSUKKA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1328",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ISA KAITA COLLEGE OF EDUCATION, DUTSINMA,  KATSINA STATE (AFFL ABU ZARIA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1247",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "JIGAWA STATE COLLEGE OF EDUCATION, GUMEL (AFFILIATED TO BAYERO UNIVERSITY, KANO)",
+      "type": "institution",
+      "category": "35",
+      "id": "1264",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "KADUNA POLYTECHNIC (AFFILIATED TO AHMADU BELLO UNIVERSITY, ZARIA) ",
+      "type": "institution",
+      "category": "35",
+      "id": "1332",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "KASHIM IBRAHIM COLLEGE OF EDUCATION, MAIDUGURI , BORNO STATE.(AFFL TO UNIMAID)",
+      "type": "institution",
+      "category": "35",
+      "id": "1336",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "KWARA STATE COLLEGE OF EDUCATION, (TECHNICAL), LAFIAGI (AFFL TO ABU, ZARIA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1343",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "KWARA STATE COLLEGE OF EDUCATION, ORO (AFFILIATED TO EKITI STATE UNIVERSITY)",
+      "type": "institution",
+      "category": "35",
+      "id": "1394",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "METHODIST THEOLOGICAL INSTITUTE, UMUAHIA. (AFFL TO UNIV OF PORT HARCOURT)",
+      "type": "institution",
+      "category": "35",
+      "id": "1363",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "MICHAEL IMODU NATIONAL INSTITUTE FOR LABOUR STUDIES, ILORIN, KWARA STATE (AFF. TO UNIVERSITY OF ILORIN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1537",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "MICHAEL OTEDOLA COL OF PRIMARY EDUC. EPE, LAGOS (AFFL TO UNIVERSITY OF IBADAN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1366",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "NATIONAL FILM INSTITUTE, JOS, PLATEAU STATE. (AFFL TO UNIVERSITY OF JOS)",
+      "type": "institution",
+      "category": "35",
+      "id": "1377",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "NATIONAL MISSIONARY SEMINARY OF ST-PAUL, GWAGWALADA. (AFFL TO UNIV OF PORT)",
+      "type": "institution",
+      "category": "35",
+      "id": "1371",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "NATIONAL TEACHERS INSTITUTE, KADUNA (AFFL. TO NATIONAL OPEN UNI. OF NIGERIA )",
+      "type": "institution",
+      "category": "35",
+      "id": "1386",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "NIGER STATE COLLEGE OF EDUCATION, MINNA (AFFL TO USMANU DANFODIYO UNIVERSITY, SOKOTO)",
+      "type": "institution",
+      "category": "35",
+      "id": "1383",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "NIGERIA BAPTIST THEOLOGICAL SEMINARY,OGBOMOSHO,OYO STATE.(AFFL TO UNI OF IBADAN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1373",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "NIGERIAN ARMY SCHOOL OF EDUCATION, ILORIN AFFILIATED TO TAI SOLARIN UNIVERSITY OF EDUCATION, IJAGUN",
+      "type": "institution",
+      "category": "35",
+      "id": "1370",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "NIGERIAN CHRISTIAN BIBLE COLLEGE, ABAK, AKWA IBOM STATE (AFFL TO UNIVERSITY OF CALABAR)",
+      "type": "institution",
+      "category": "35",
+      "id": "1374",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "NIGERIAN TELEVISION AUTHORITY, TELEVISION COLLEGE, RAY FIELD, JOS, PLATEAU STATE (AFFL TO ABU)",
+      "type": "institution",
+      "category": "35",
+      "id": "1385",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "NWAFOR ORIZU COLLEGE OF EDUCATION, NSUGBE. (AFFL TO UNIV OF NIGERIA, NSUKKA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1384",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "OSUN STATE COLLEGE OF EDUCATION, ILA-ORANGUN (AFFL TO EKITI STATE UNI, ADO EKITI)",
+      "type": "institution",
+      "category": "35",
+      "id": "1324",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "OSUN STATE COLLEGE OF EDUCATION, ILESA, OSUN STATE.  (AFFL TO UNIV OF IBADAN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1395",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "PETER ACHIMUGU COLLEGE OF THEOLOGY, ANKPA (AFFILIATED TO KOGI STATE UNIVERSITY)",
+      "type": "institution",
+      "category": "35",
+      "id": "1399",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "POPE JOHN MAJOR SEMINARY, OKPUN, AWKA. (AFFL TO NNAMDI AZIKIWE UNIV, AWKA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1407",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "REDEEMED CHRISTIAN BIBLE COLLEGE, REDEMPTION CAMP, OGUN STATE",
+      "type": "institution",
+      "category": "35",
+      "id": "1410",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "SEAT OF WISDOM SEMINARY, OWERRI, IMO STATE (AFFL TO IMO STATE UNIVERSITY, OWERRI)",
+      "type": "institution",
+      "category": "35",
+      "id": "1434",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "SEMINARY OF ALL SAINTS, EKPOMA, EDO STATE. (AFFL TO UNIBEN, BENIN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1443",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "SHEHU SHAGARI COLLEGE OF EDUCATION, SOKOTO (AFFL TO AHMADU BELLO UNIV, ZARIA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1421",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "SHEHU SHAGARI COLLEGE OF EDUCATION, SOKOTO (AFFL TO UDU, SOKOTO)",
+      "type": "institution",
+      "category": "35",
+      "id": "1422",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "SHEIK IBRAHIM EL-TAYEB INSTITUTE, KANO, KANO STATE (AFFILIATED TO BAYERO UNIVERSITY, KANO)",
+      "type": "institution",
+      "category": "35",
+      "id": "1277",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "SPIRITAN INTERNATIONAL SCHOOL OF THEOLOGY, ATTAKWU, ENUGU STATE (AFFILIATED TO UNIVERSITY OF NIGERIA, NSUKKA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1428",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "SPIRITAN SCHOOL OF PHILOSOPHY, ISSIENU, NSUKKA, (AFFL TO UNIV OF NIG, NSUKKA)",
+      "type": "institution",
+      "category": "35",
+      "id": "1429",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ST. ALBERT THE GREAT MAJOR SEMINARY, ABEOKUTA. (AFFL. TO UNIVERSITY OF BENIN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1431",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ST. AUGUSTINES COLLEGE OF EDUCATION, AKOKA, LAGOS (AFFL TO UNIV OF IBADAN)",
+      "type": "institution",
+      "category": "35",
+      "id": "1417",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "ST. PETER AND PAUL SEMINARY BODIJA, IBADAN (AFFL TO UNIV OF IBADAN), OYO STATE",
+      "type": "institution",
+      "category": "35",
+      "id": "1430",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "TAI SOLARIN COLLEGE OF EDUCATION, IJEBU-ODE, OGUN STATE (AFFILIATED TO OLABISIONABANJO UNIVERSITY) ",
+      "type": "institution",
+      "category": "35",
+      "id": "1321",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "UMAR IBN IBRAHIM EL-KANEMI COL OF EDU, SCIENCE AND TECH, BAMA (AFFL TO UNIMAID)",
+      "type": "institution",
+      "category": "35",
+      "id": "1444",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "UMAR SULEIMAN COLLEGE OF EDUCATION, GASHUA(AFFL TO UNIMAID, MAIDUGURI)",
+      "type": "institution",
+      "category": "35",
+      "id": "1454",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "UMCA, ILORIN (AFFLIATED TO UNIVERSITY OF IBADAN, OYO STATE)",
+      "type": "institution",
+      "category": "35",
+      "id": "1445",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "WORLD HARVEST BIBLE COLLEGE AND SEMINARY, CALABAR (AFFL TO UNICAL)",
+      "type": "institution",
+      "category": "35",
+      "id": "1316",
+      "categoryName": "OTHER DEGREE AWARDING INSTITUTIONS"
+    },
+    {
+      "name": "AL- HIKMAH UNIVERSITY, ILORIN, KWARA STATE",
+      "type": "institution",
+      "category": "21",
+      "id": "1203",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "COVENANT UNIVERSITY, CANAAN LAND, OTA, OGUN STATE",
+      "type": "institution",
+      "category": "21",
+      "id": "1249",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "CRAWFORD UNIVERSITY, IGBESA, OGUN STATE",
+      "type": "institution",
+      "category": "21",
+      "id": "1250",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "CROWN HILL UNIVERSITY, EIYENKORIN, KWARA STATE",
+      "type": "institution",
+      "category": "21",
+      "id": "1251",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "EASTERN PALM UNIVERSITY, OGBOKO, IMO STATE",
+      "type": "institution",
+      "category": "21",
+      "id": "1279",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "EKO UNIVERSITY OF MEDICINE AND HEALTH SCIENCES, IJANIKIN, LAGOS STATE",
+      "type": "institution",
+      "category": "21",
+      "id": "1275",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "HALLMARK UNIVERSITY, IJEBU-ITELE, OGUN STATE",
+      "type": "institution",
+      "category": "21",
+      "id": "1315",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "NILE UNIVERSITY OF NIGERIA, ABUJA",
+      "type": "institution",
+      "category": "21",
+      "id": "1378",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "PAN-ATLANTIC UNIVERSITY, AHMED ONIBUDO STREET, VICTORIA ISLAND, LAGOS STATE",
+      "type": "institution",
+      "category": "21",
+      "id": "1401",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "REDEEMERS UNIVERSITY, OSUN STATE",
+      "type": "institution",
+      "category": "21",
+      "id": "1411",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "SAMUEL ADEGBOYEGA UNIVERSITY, OGWA, EDO STATE",
+      "type": "institution",
+      "category": "21",
+      "id": "1420",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "Trinity University, Laloko, Owode, Ogun State",
+      "type": "institution",
+      "category": "21",
+      "id": "1438",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "VERITAS UNIVERSITY, ABUJA, FCT",
+      "type": "institution",
+      "category": "21",
+      "id": "1457",
+      "categoryName": "PRIVATE UNIVERSITIES"
+    },
+    {
+      "name": "Bayelsa Medical University, Yenagoa ",
+      "type": "institution",
+      "category": "22",
+      "id": "1471",
+      "categoryName": "STATE UNIVERSITIES"
+    },
+    {
+      "name": "BORNO STATE UNIVERSITY, MAIDUGURI",
+      "type": "institution",
+      "category": "22",
+      "id": "1231",
+      "categoryName": "STATE UNIVERSITIES"
+    },
+    {
+      "name": "COLLEGE OF EDUCATION, WARRI, DELTA STATE, (AFFL TO UNIBEN)",
+      "type": "institution",
+      "category": "22",
+      "id": "1460",
+      "categoryName": "STATE UNIVERSITIES"
+    },
+    {
+      "name": "CROSS RIVERS UNIVERSITY OF TECHNOLOGY, CALABAR, CROSS RIVERS STATE",
+      "type": "institution",
+      "category": "22",
+      "id": "1252",
+      "categoryName": "STATE UNIVERSITIES"
+    },
+    {
+      "name": "GOMBE STATE UNIVERSITY OF SCIENCE AND TECHNOLOGY, KUMO",
+      "type": "institution",
+      "category": "22",
+      "id": "1313",
+      "categoryName": "STATE UNIVERSITIES"
+    },
+    {
+      "name": "HASSAN USMAN KATSINA POLYTECHNIC, AFFILIATED TO FEDERAL UNIVERSITY OF TECHNOLOGY MINNA",
+      "type": "institution",
+      "category": "22",
+      "id": "1335",
+      "categoryName": "STATE UNIVERSITIES"
+    },
+    {
+      "name": "KOGI STATE UNIVERSITY, ANYIGBA, KOGI STATE",
+      "type": "institution",
+      "category": "22",
+      "id": "1338",
+      "categoryName": "STATE UNIVERSITIES"
+    },
+    {
+      "name": "NIGER STATE UNIVERSITY OF EDUCATION, MINNA, NIGER STATE",
+      "type": "institution",
+      "category": "22",
+      "id": "1387",
+      "categoryName": "STATE UNIVERSITIES"
+    },
+    {
+      "name": "TECHNICAL UNIVERSITY, IBADAN, OYO STATE",
+      "type": "institution",
+      "category": "22",
+      "id": "1437",
+      "categoryName": "STATE UNIVERSITIES"
+    },
+    {
+      "name": "YUSUF MAITAMA SULE UNIVERSITY, KANO, KANO STATE",
+      "type": "institution",
+      "category": "22",
+      "id": "1357",
+      "categoryName": "STATE UNIVERSITIES"
+    },
+    {
+      "name": "UNIVERSITY OF AGRICULTURE AND ENVIRONMENTAL SCIENCES UMUAGWO, IMO STATE",
+      "type": "institution",
+      "category": "42",
+      "id": "1475",
+      "categoryName": "STATE UNIVERSITIES OF AGRICULTURE"
+    },
+    {
+      "name": "BAMIDELE OLUMILUA UNIVERSITY OF EDUCATION, SCIENCE AND TECHNOLOGY, IKERE-EKITI, EKITI STATE ",
+      "type": "institution",
+      "category": "23",
+      "id": "1518",
+      "categoryName": "STATE UNIVERSITIES OF TECHNOLOGY"
+    },
+    {
+      "name": "KEBBI STATE UNIVERSITY OF SCIENCE AND TECHNOLOGY, ALIERO, KEBBI STATE",
+      "type": "institution",
+      "category": "23",
+      "id": "1339",
+      "categoryName": "STATE UNIVERSITIES OF TECHNOLOGY"
+    },
+    {
+      "name": "ONDO STATE UNIVERSITY OF SCIENCE AND TECHNOLOGY, OKITIPUPA, ONDO STATE",
+      "type": "institution",
+      "category": "23",
+      "id": "1397",
+      "categoryName": "STATE UNIVERSITIES OF TECHNOLOGY"
+    },
+    {
+      "name": "RIVERS STATE UNIVERSITY OF SCIENCE AND TECHNOLOGY, PORT HARCOURT, RIVERS STATE",
+      "type": "institution",
+      "category": "23",
+      "id": "1415",
+      "categoryName": "STATE UNIVERSITIES OF TECHNOLOGY"
+    }
+  ]
+}
