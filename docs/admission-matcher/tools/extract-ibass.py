@@ -14,8 +14,8 @@ import time
 import urllib.error
 import urllib.request
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
-OUT = ROOT / 'audit/ibass-2026-10-04'
+ROOT = pathlib.Path(__file__).resolve().parents[3]
+OUT = ROOT / 'docs/admission-matcher/audit/ibass-2026-10-04'
 BASE = 'https://ibass-api.jamb.gov.ng/api'
 OUT.mkdir(parents=True, exist_ok=True)
 STOP = threading.Event()

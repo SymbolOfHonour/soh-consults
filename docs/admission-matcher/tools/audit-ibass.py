@@ -12,8 +12,8 @@ import json
 import pathlib
 import re
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
-OUT = ROOT / 'audit/ibass-2026-10-04'
+ROOT = pathlib.Path(__file__).resolve().parents[3]
+OUT = ROOT / 'docs/admission-matcher/audit/ibass-2026-10-04'
 
 
 def main():

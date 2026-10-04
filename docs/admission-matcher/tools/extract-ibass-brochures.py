@@ -9,8 +9,8 @@ import json
 import pathlib
 import pdfplumber
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
-OUT = ROOT / 'audit/ibass-2026-10-04'
+ROOT = pathlib.Path(__file__).resolve().parents[3]
+OUT = ROOT / 'docs/admission-matcher/audit/ibass-2026-10-04'
 FAMILIES = {
     'administration2': 'Administration', 'agriculture2': 'Agriculture',
     'arts2': 'Arts/Humanities', 'education2': 'Education',
