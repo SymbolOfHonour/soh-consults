@@ -1,6 +1,7 @@
+import {withPublicSocial} from "../../lib/public-metadata";
 import type {Metadata} from "next";
 
-export const metadata:Metadata={title:"Student Tools",description:"Access S.O.H CONSULTS Admission Matcher, admission screening calculators and CGPA tools."};
+export const metadata:Metadata=withPublicSocial({title:"Student Tools",alternates:{canonical:"/tools"}, description:"Access S.O.H CONSULTS Admission Matcher, admission screening calculators and CGPA tools."});
 
 const tools=[
  {href:"/admission-matcher",icon:"🧭",title:"Admission Matcher",description:"Compare your UTME score, subject combination and O'Level credits with verified programme requirements. Unresolved rules are clearly marked for review.",cta:"Open Admission Matcher"},

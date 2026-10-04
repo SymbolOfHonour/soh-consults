@@ -1,1 +1,2 @@
-import type { Metadata } from "next"; export const metadata:Metadata={title:"OOU Aggregate Calculator | S.O.H CONSULTS",description:"Calculate and estimate OOU UTME and Post-UTME aggregate scores."}; export default function Layout({children}:{children:React.ReactNode}){return children}
+import {withPublicSocial} from "../../lib/public-metadata";
+import type { Metadata } from "next"; export const metadata:Metadata=withPublicSocial({title:"OOU Aggregate Calculator | S.O.H CONSULTS",alternates:{canonical:"/oou-calculator"}, description:"Calculate and estimate OOU UTME and Post-UTME aggregate scores."}); export default function Layout({children}:{children:React.ReactNode}){return children}

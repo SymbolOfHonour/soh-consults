@@ -21,6 +21,22 @@ export function normalizeIbassEvidence(
   },
 ): IbassSnapshotRecord {
   const reviewReasons = unique(evidence.unresolved);
+  if (evidence.entryMode === "direct-entry") {
+    reviewReasons.push("Direct Entry qualification and institution-specific exception rules require dedicated verification.");
+  }
+
+  if (!evidence.programme.rawUtmeRequirement?.trim() && evidence.entryMode === "utme") {
+    reviewReasons.push("Official raw UTME requirement is missing.");
+  }
+  if (!evidence.programme.rawOlevelRequirement?.trim()) {
+    reviewReasons.push("Official raw O'Level requirement is missing.");
+  }
+  if (!input.explicitUtmeSubjects?.length && evidence.entryMode === "utme") {
+    reviewReasons.push("Explicit UTME subject rules are missing.");
+  }
+  if (!input.explicitOlevelCredits?.length) {
+    reviewReasons.push("Explicit O'Level credit rules are missing.");
+  }
 
   if (!input.categoryMappingsResolved) {
     reviewReasons.push(

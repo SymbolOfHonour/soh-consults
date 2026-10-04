@@ -54,9 +54,9 @@ test("catalogue normalizer validates upstream ids and rejects duplicates", () =>
 
 test("official brochure registry keeps stable JAMB evidence separate from undocumented XHR", () => {
   const brochures = read("lib/admission-matcher/upstream/official-brochures.ts");
-  assert.match(brochures, /brochure-degree-admin\.pdf/);
-  assert.match(brochures, /brochure-degree-social-sciences\.pdf/);
-  assert.match(brochures, /brochure-degree-education\.pdf/);
+  assert.match(brochures, /administration2\.[a-f0-9]+\.pdf/);
+  assert.match(brochures, /social2\.[a-f0-9]+\.pdf/);
+  assert.match(brochures, /education2\.[a-f0-9]+\.pdf/);
   assert.match(brochures, /baseline-and-waivers/);
   assert.doesNotMatch(brochures, /fetch\s*\(/);
 });

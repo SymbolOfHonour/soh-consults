@@ -7,7 +7,7 @@ test("public homepage is CMS-driven",()=>{
  const server=fs.readFileSync("app/homepage-server.tsx","utf8");
  const renderer=fs.readFileSync("components/CmsHomepage.tsx","utf8");
  assert.match(page,/homepage-server/);
- assert.match(server,/getSiteSettings/);
+ assert.match(server,/getPublishedSiteSettings/);
  assert.match(renderer,/settings\.sections\.filter/);
  assert.match(renderer,/mobileVisible/);
  assert.match(renderer,/settings\.navigation/);
