@@ -27,7 +27,7 @@ source.probes.forEach((probe, index) => {
   const school = probe.response.institution_details;
   const programme = probe.response.programme_details;
   if (!school || !programme || school.itemid !== Number(probe.request.institution) || programme.itemid !== Number(probe.request.select_programme) ||
-      school.itemid !== probe.institutionId || programme.itemid !== probe.programmeId || programme.title !== probe.programme) throw new Error('Checker observation identity mismatch');
+      school.itemid !== probe.institutionId || programme.itemid !== probe.programmeId || programmeKey(programme.title) !== programmeKey(probe.programme)) throw new Error('Checker observation identity mismatch');
   const key = `${school.itemid}:${programme.itemid}`;
   grouped.set(key, [...(grouped.get(key) ?? []), {probe, index}]);
 });

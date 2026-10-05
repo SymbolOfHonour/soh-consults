@@ -84,6 +84,18 @@ export function matchCandidate(candidate: CandidateProfile, requirements: Progra
       checkSubjects("utme", candidate.utmeSubjects, requirement.requiredUtmeSubjects, requirement.utmeAlternatives ?? [], requirement.utmeGroups ?? []);
       checkSubjects("olevel", candidate.olevelCredits, requirement.requiredOlevelCredits, requirement.olevelAlternatives ?? [], requirement.olevelGroups ?? []);
       const sittings = candidate.sittings ?? candidate.olevelSittings;
+      if (candidate.certificateType !== "NBC") for (const condition of requirement.sittingCreditConditions ?? []) {
+        if (condition.sittings !== sittings) continue;
+        const credits = new Set(candidate.olevelCredits.map(subjectKey));
+        const missing = condition.requiredCredits.filter(subject=>!credits.has(subjectKey(subject)));
+        if (missing.length) failed.push("O'Level credits required at " + sittings + " sittings are missing: " + missing.join(", ") + ".");
+        (credits.size >= condition.minimumCreditCount ? passed : failed).push(sittings + " sittings require " + condition.minimumCreditCount + " O'Level credits; " + credits.size + " supplied.");
+      }
+      if (candidate.certificateType !== "NBC" && requirement.screeningRequiredOlevelCredits?.length) {
+        const credits = new Set(candidate.olevelCredits.map(subjectKey));
+        const missing = requirement.screeningRequiredOlevelCredits.filter(subject=>!credits.has(subjectKey(subject)));
+        (missing.length ? failed : passed).push(missing.length ? "Current screening announcement requires additional O'Level credits: " + missing.join(", ") + "." : "Additional screening credit requirements satisfied.");
+      }
       if (unresolved.has("sittings") || ![1, 2].includes(requirement.maximumSittings ?? 0)) needsReview.push("The current sitting restriction needs verification.");
       else if (!sittings) needsReview.push("Supply the number of O'Level sittings.");
       else (sittings <= requirement.maximumSittings! ? passed : failed).push(sittings + " sitting(s) supplied; a maximum of " + requirement.maximumSittings + " is permitted.");

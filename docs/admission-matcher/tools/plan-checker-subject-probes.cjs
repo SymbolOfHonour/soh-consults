@@ -30,10 +30,11 @@ function negativeSubjects(rule){
   return null;
 }
 const probes=[],exceptions=[];
+const programmeKey=value=>value.trim().toUpperCase().replace(/\s+/g,' ');
 for(const row of source.probes){
   if(row.error){exceptions.push({key:row.key,reason:row.error});continue;}
   const r=row.response;
-  if(r.status!==true||r.institution_details?.itemid!==row.institutionId||r.programme_details?.itemid!==row.programmeId||r.programme_details?.title!==row.programme){exceptions.push({key:row.key,reason:'Official response identity is unresolved'});continue;}
+  if(r.status!==true||r.institution_details?.itemid!==row.institutionId||r.programme_details?.itemid!==row.programmeId||typeof r.programme_details?.title!=='string'||programmeKey(r.programme_details.title)!==programmeKey(row.programme)){exceptions.push({key:row.key,reason:'Official response identity is unresolved'});continue;}
   const utme=parseCheckerSubjects(r.programme_utme_subject_data,'utme',row.institutionId);
   const olevel=parseCheckerSubjects(r.programme_utme_requirements_data,'olevel',row.institutionId);
   if(!utme&&!olevel){exceptions.push({key:row.key,reason:'No complete explicit subject configuration; categories were not guessed'});continue;}

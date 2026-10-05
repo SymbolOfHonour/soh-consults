@@ -22,6 +22,42 @@
       "observedAt": "2026-10-04T13:42:33.190425+00:00",
       "sourceHtmlSha256": "746b13339fdce0d521e3e1d5419973da27119c2065573abea81b07bee7603c78",
       "scope": "2026/2027 UTME and Direct Entry announcement; general UTME conditions interpreted only"
+    },
+    {
+      "sourceUrl": "https://oauife.edu.ng/2026-admission-screening-exercise-for-utme-and-direct-entry-candidates/",
+      "observedAt": "2026-10-04T15:09:15.049587+00:00",
+      "sourceContentSha256": "b47abd576c0da1104c5cd00ffb47eb9806778f8af4e2416c3ba56b28cf5c4cea",
+      "contentType": "text/html"
+    },
+    {
+      "sourceUrl": "https://www.uniport.edu.ng/latest-info/advertisement-for-2026-2027-post-utme-screening-exercise/",
+      "observedAt": "2026-10-04T15:09:15.049587+00:00",
+      "sourceContentSha256": "9f7ef744f5f30287bdd233d93789772b3856c47913aaed16bb30e85fee292384",
+      "contentType": "text/html"
+    },
+    {
+      "sourceUrl": "https://ui.edu.ng/news/post-utmedirect-entry-screening-prospective-candidates-20262027-admission-exercise",
+      "observedAt": "2026-10-04T15:09:15.049587+00:00",
+      "sourceContentSha256": "6b5b04ce410ee9e04a9087509614562fd2bf7087432369ef5ea816a17e46eb31",
+      "contentType": "text/html"
+    },
+    {
+      "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2026/06/Pre-admission-screening-2026.pdf",
+      "observedAt": "2026-10-04T15:09:15.049587+00:00",
+      "sourceContentSha256": "fdfaa2520c9842e86cc28c35b676971ff56b08af1d813c703bb5388cc4976d4d",
+      "contentType": "application/pdf"
+    },
+    {
+      "sourceUrl": "https://www.unn.edu.ng/2026-2027-screening-exercise-for-admission/",
+      "observedAt": "2026-10-04T15:09:15.049587+00:00",
+      "retrieval": "Primary official page read through web retrieval; direct HTML download returned 403",
+      "scope": "Only the stated 160 UTME floor and first-choice condition were interpreted"
+    },
+    {
+      "sourceUrl": "https://unilag.edu.ng/important-notice-on-2026-2027-post-utme-screening-exercise/",
+      "observedAt": "2026-10-04T12:49:54.151142+00:00",
+      "sourceHtmlSha256": "8f3c385008df94040ff28d7c777ef5dabf63e6c047d9c3ea7ad6014cb66756fd",
+      "scope": "The current notice also requires English Language and Mathematics credits for every undergraduate programme."
     }
   ],
   "facts": {
@@ -33,7 +69,10 @@
         "Medicine",
         "Dentistry"
       ],
-      "engineeringAtTwoSittingsMinimumCredits": 6
+      "engineeringAtTwoSittingsMinimumCredits": 6,
+      "universalRequiredCredits": [
+        "English Language"
+      ]
     },
     "uniosun": {
       "minimumUtmeScore": 160,
@@ -45,6 +84,48 @@
     "fuoye": {
       "lawAdmission": "unavailable",
       "sourceUrl": "https://www.casaps.fuoye.edu.ng/utme/index.php"
+    },
+    "unn": {
+      "minimumUtmeScore": 160,
+      "firstChoiceRequired": true,
+      "maximumSittings": "unresolved"
+    },
+    "oau": {
+      "minimumUtmeScore": 200,
+      "firstChoiceRequired": true,
+      "maximumSittings": "unresolved"
+    },
+    "uniport": {
+      "minimumUtmeScore": 160,
+      "firstChoiceRequired": true,
+      "maximumSittings": "unresolved"
+    },
+    "ui": {
+      "minimumUtmeScore": "unresolved for current session",
+      "oneSittingExceptionsApplied": [
+        "Medicine and Surgery",
+        "Pharmacy"
+      ],
+      "otherCollegeProgrammes": "Faculty association still needs verification; no general sitting override applied"
+    },
+    "unilorin": {
+      "minimumUtmeScore": "unresolved for current session",
+      "oneSittingExceptions": [
+        "Medicine and Surgery",
+        "Pharmacy",
+        "Optometry and Vision Science",
+        "Computer Engineering"
+      ],
+      "otherProgrammeSittingLimit": "unresolved"
+    },
+    "unilag": {
+      "minimumUtmeScore": 200,
+      "firstChoiceRequired": true,
+      "maximumSittings": 1,
+      "universalRequiredCredits": [
+        "English Language",
+        "Mathematics"
+      ]
     }
   }
 }

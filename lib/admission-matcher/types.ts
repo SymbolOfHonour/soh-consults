@@ -21,6 +21,8 @@ export type ProgrammeRequirement = {
   olevelGroups?: SubjectGroup[];
   minimumOlevelCreditCount?: number;
   maximumSittings?: 1 | 2;
+  sittingCreditConditions?: Array<{ sittings: 1 | 2; minimumCreditCount: number; requiredCredits: string[] }>;
+  screeningRequiredOlevelCredits?: string[];
   firstChoiceRequired?: boolean;
   admissionRestriction?: { session: string; reason: string };
   verificationStatus?: "verified" | "review";

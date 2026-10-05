@@ -1,0 +1,38 @@
+{
+  "sourceUrl": "https://ibass-api.jamb.gov.ng/api/ibass/eligibility-checker/submit",
+  "observedAt": "2026-10-04T15:43:27.984888+00:00",
+  "httpStatus": 404,
+  "checkerInstitutionId": 1231,
+  "checkerProgrammeId": 1561,
+  "request": {
+    "alevel_credit": [],
+    "alevel_passes": [],
+    "institution": "1231",
+    "institution_category": "22",
+    "institution_type": "4",
+    "mode_of_entry": "UTME",
+    "olevel_credit": [
+      "English Language",
+      "Mathematics",
+      "Physics",
+      "Chemistry",
+      "Biology",
+      "Economics",
+      "Government",
+      "Literature in English",
+      "Geography"
+    ],
+    "olevel_passes": [],
+    "select_programme": "1561",
+    "utme_subjects": [
+      "English Language",
+      "Mathematics",
+      "Physics",
+      "Chemistry"
+    ]
+  },
+  "response": {
+    "status": "Error retrieving Programme details for selected institution. Please check back later."
+  },
+  "interpretation": "The official service cannot return this selection; this is missing evidence, not a finding that a candidate is ineligible."
+}

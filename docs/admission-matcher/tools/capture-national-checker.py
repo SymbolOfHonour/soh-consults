@@ -2,7 +2,7 @@
 
 Only the public endpoints used by the IBASS form are requested. The existing
 identity audit supplies checker IDs; brochure IDs are never substituted for
-them. Four workers share a two-second request interval and stop on HTTP 429.
+them. Workers share a request interval (two seconds by default) and stop on HTTP 429.
 Each response is atomically checkpointed, including source and observation time.
 """
 import argparse
@@ -22,6 +22,7 @@ BASE = 'https://ibass-api.jamb.gov.ng/api'
 STOP = threading.Event()
 LOCK = threading.Lock()
 LAST = 0.0
+INTERVAL = 2.0
 
 
 def capture(path, body, directory):
@@ -35,7 +36,7 @@ def capture(path, body, directory):
             raise ValueError('Checkpoint identity mismatch')
         return envelope
     with LOCK:
-        delay = 2 - (time.monotonic() - LAST)
+        delay = INTERVAL - (time.monotonic() - LAST)
         if delay > 0:
             time.sleep(delay)
         if STOP.is_set():
@@ -64,17 +65,29 @@ def capture(path, body, directory):
 
 
 def main():
+    global INTERVAL
     parser = argparse.ArgumentParser()
     parser.add_argument('--output-dir', required=True, type=pathlib.Path)
     parser.add_argument('--probe-plan', type=pathlib.Path)
+    parser.add_argument('--workers', type=int, default=4, choices=range(1, 9))
+    parser.add_argument('--request-interval', type=float, default=2.0)
+    parser.add_argument('--retry-errors', action='store_true')
     args = parser.parse_args()
+    if args.request_interval < 1:
+        parser.error('Request interval must be at least one second')
+    INTERVAL = args.request_interval
     args.output_dir.mkdir(parents=True, exist_ok=True)
     if args.probe_plan:
         plan = json.loads(args.probe_plan.read_text())
+        checkpoint = args.output_dir / 'probes.json'
+        previous = {row['key']:row for row in json.loads(checkpoint.read_text())['probes']} if checkpoint.exists() else {}
         def probe(item):
             body = item['request']
             if body['mode_of_entry'] != 'UTME' or len(body['utme_subjects']) != 4 or len(body['olevel_credit']) > 9 or any(body[field] for field in ['olevel_passes', 'alevel_credit', 'alevel_passes']):
                 raise ValueError('Only synthetic UTME subject profiles are permitted')
+            saved = previous.get(item['key'])
+            if saved and saved['request'] == body and saved['institutionId'] == item['institutionId'] and saved['programmeId'] == item['programmeId'] and saved['programme'] == item['programme'] and (not saved.get('error') or not args.retry_errors):
+                return saved
             try:
                 envelope = capture('/ibass/eligibility-checker/submit', body, args.output_dir)
                 result = {**item, 'sourceUrl': envelope['url'], 'observedAt': envelope['observedAt'], 'response': envelope['response'], 'error': None}
@@ -83,13 +96,21 @@ def main():
             print(item['key'], result['error'] or 'captured', flush=True)
             return result
         results = []
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        def save_checkpoint():
+            temporary = checkpoint.with_suffix('.pending')
+            retained = dict(previous)
+            retained.update({row['key']: row for row in results})
+            temporary.write_text(json.dumps({'schemaVersion': 1, 'sourceType': 'eligibility-checker', 'probes': list(retained.values())}, ensure_ascii=False))
+            temporary.replace(checkpoint)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as pool:
             for result in pool.map(probe, plan['probes']):
                 results.append(result)
-                file = args.output_dir / 'probes.json'
-                temporary = file.with_suffix('.pending')
-                temporary.write_text(json.dumps({'schemaVersion': 1, 'sourceType': 'eligibility-checker', 'probes': results}, ensure_ascii=False))
-                temporary.replace(file)
+                # Individual successful responses are already durable in capture().
+                # Batch the combined index to avoid rewriting the full national
+                # evidence thousands of times; retain completed failures on resume.
+                if len(results) % 25 == 0:
+                    save_checkpoint()
+        save_checkpoint()
         print(json.dumps({'probes': len(results), 'failed': sum(row['error'] is not None for row in results)}), flush=True)
         return
     identity = json.loads((AUDIT / 'checker-identity-reconciliation.json').read_text())
@@ -112,7 +133,7 @@ def main():
         print(checker_id, len(result['programmes']), result['error'] or 'captured', flush=True)
         return result
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as pool:
         for result in pool.map(institution, ids):
             results.append(result)
             file = args.output_dir / 'catalogues.json'

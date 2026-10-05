@@ -2,13 +2,17 @@
 
 The audit reconciles all 529 catalogue schools and 15,696 source offerings against a fresh capture of 299 official JAMB checker institutions and 8,274 programmes. Ordered official names, including the catalogue's explicit former-name fields, identify 281 schools. No fuzzy name or guessed ID joins are used. Of the source offerings, 4,913 have an exact checker programme title, 131 have ambiguous titles, 5,121 lack a resolved checker identity, and 5,531 are absent from this checker snapshot. Absence is not evidence of ineligibility.
 
-An initial 179 institution/programme requests returned 118 usable responses and 61 HTTP errors. These requests targeted the initial identity mapping, rather than every programme at all 281 subsequently mapped schools. A further 192 synthetic positive/negative requests across 96 explicit configurations completed without request errors. Combined with the original 32 observations, the saved source contains 342 successful official observations. Capture files preserve unsuccessful attempts separately.
+The initial school pass produced 405 successful observations and 117 independently confirmed school/programme subject records: 109 UTME components, 36 O'Level components and 28 containing both. The remaining national programme pass is in progress. Counts describe subject evidence, rather than complete admission verification.
 
-Every deployed component requires exact institution/programme association, an unambiguous current checker selection, identical parsed configurations across observations, and agreement with both positive and negative official outcomes. Categorical, incomplete and conflicting configurations remain unresolved. The result is 98 school/programme records, comprising 90 confirmed UTME components and 36 confirmed O'Level components; 28 records contain both. These counts describe independent subject components, not national admission verification.
+Every deployed component requires exact institution/programme IDs and an unambiguous current selection, matching titles after case and whitespace normalization, consistent parsed configurations, and agreement with positive and negative official outcomes. Categorical, incomplete and conflicting configurations remain unresolved. Checker alternatives are programme recommendations, not subject waivers.
 
-Only UNILAG Medicine currently combines both confirmed subject components with the official 2026/2027 screening notice: 200 minimum UTME, first choice, and relevant credits at one sitting. This verifies the basic checks represented by the matcher. Age, registration, uploads, screening participation and final admission decisions are outside that result. Other unknown screening requirements remain review. NBC profiles defer SSCE-only credit interpretation for institutional review.
+Current institutional notices supply only their stated screening fields. UNILAG requires English and Mathematics credits, a 200 common floor, first choice and one sitting. LASU requires an English credit, a 195 common floor and first choice, with one sitting for Medicine and Dentistry and two generally. LASU Engineering additionally requires six credits including English, Mathematics, Physics and Chemistry when presenting two sittings; Aeronautic Engineering additionally requires Further Mathematics. Independent programme-specific verified score floors are preserved when higher than a general notice.
 
-All screening calculators are unchanged. National verification remains incomplete; the audit does not mark missing requirements as finished.
+Current UNN, OAU and UNIPORT notices supply score and choice rules while unknown sitting rules remain review. UI and UNILORIN supply named one-sitting exceptions without supplying a current score floor. UNIOSUN Medicine and FUOYE Law remain restricted for the current session. Missing subject requirements are never supplied by a screening notice. NBC profiles retain institutional review for SSCE-only conditions.
+
+The saved checker-service-error-example.json records an official 404 response explicitly stating that programme details could not be retrieved. This is missing source evidence, rather than applicant ineligibility or an assumed local network failure.
+
+All screening calculators are unchanged. National verification remains incomplete. Age, registration, uploads, screening participation and final admission decisions are outside the basic matcher checks.
 
 ## Reproduction
 
@@ -18,7 +22,7 @@ All screening calculators are unchanged. National verification remains incomplet
 - `npx tsc --noEmit`
 - `npm run build`
 
-The capture tool uses synthetic profiles, bounded concurrency, two-second request spacing, cached responses, and stops on rate limiting. The probe planner generates minimal valid and invalid profiles only from explicit supported configurations. The merge tool appends successful observations by unique key and saves complete attempt records. Official checker alternatives are separate programme recommendations and are not treated as subject waivers.
+The capture tool uses synthetic profiles, bounded concurrency, configurable request spacing of at least one second (two by default), cached responses, and stops on rate limiting. The probe planner generates minimal valid and invalid profiles only from explicit supported configurations. The merge tool appends successful observations by unique key and saves complete attempt records. Official checker alternatives are separate programme recommendations and are not treated as subject waivers.
 
 ## Completion of the initial school pass
 
@@ -34,4 +38,4 @@ The paginated official news archive links the 2026/2027 UTME/Direct Entry announ
 
 This completes the stored basic checks for 12 existing LASU health/science records: Medicine, Nursing, Medical Laboratory Science, Chemistry and eight previously reconciled health/science courses. Their valid profiles can now match; Medicine rejects two sittings. Engineering remains review because programme credit choices need further reconciliation. The separately confirmed national LASU Nursing record also combines its checker subject components with this screening baseline. Unknown subject fields on other LASU programmes are not promoted.
 
-Final validation includes the full test suite, TypeScript, targeted ESLint, production build and public API smoke checks. All screening calculator files are unchanged.
+The prior committed batch passed the full test suite, TypeScript, targeted ESLint, production build and public API smoke checks. Further capture results require regeneration and validation before publication. All screening calculator files are unchanged.
