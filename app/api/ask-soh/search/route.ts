@@ -141,9 +141,21 @@ function directOfficialTargets(question:string):Array<{title:string;url:string}>
     ];
     return targets;
   }
-  if(/\bfuoye\b|federal university oye.?ekiti/i.test(question))return [{title:"Federal University Oye-Ekiti",url:"https://fuoye.edu.ng/"}];
-  if(/\blasustech\b|lagos state university of science and technology/i.test(question))return [{title:"Lagos State University of Science and Technology",url:"https://lasustech.edu.ng/"}];
-  if(/\buniosun\b|osun state university/i.test(question))return [{title:"Osun State University",url:"https://www.uniosun.edu.ng/"}];
+  if(/\bfuoye\b|federal university oye.?ekiti/i.test(question))return [
+    {title:"FUOYE 2026/2027 Post-UTME Portal",url:"https://putme.fuoye.edu.ng/utme/"},
+    {title:"FUOYE CASAPS",url:"https://putme.fuoye.edu.ng/"},
+    {title:"FUOYE Official News",url:"https://news.fuoye.edu.ng/tag/2026-2027-post-utme/"},
+    {title:"Federal University Oye-Ekiti",url:"https://fuoye.edu.ng/"}
+  ];
+  if(/\blasustech\b|lagos state university of science and technology/i.test(question))return [
+    {title:"LASUSTECH Admissions Portal",url:"https://admission.lasustech.edu.ng/"},
+    {title:"LASUSTECH 2026/2027 Screening Notice",url:"https://lasustech.edu.ng/events.php?event=2026-2027-online-admission-screening-exercise-for-100-level-and-direct-entry-candidates"},
+    {title:"Lagos State University of Science and Technology",url:"https://lasustech.edu.ng/"}
+  ];
+  if(/\buniosun\b|osun state university/i.test(question))return [
+    {title:"UNIOSUN Undergraduate Admissions Portal",url:"https://admissions.uniosun.edu.ng/"},
+    {title:"Osun State University",url:"https://www.uniosun.edu.ng/"}
+  ];
   if(/\boou\b|olabisi onabanjo university/i.test(question))return [{title:"Olabisi Onabanjo University",url:"https://oouagoiwoye.edu.ng/"}];
   if(/\blasued\b|lagos state university of education/i.test(question))return [{title:"Lagos State University of Education",url:"https://lasued.edu.ng/"}];
   if(/\byabatech\b|yaba college of technology/i.test(question))return [{title:"Yaba College of Technology",url:"https://www.yabatech.edu.ng/"}];
