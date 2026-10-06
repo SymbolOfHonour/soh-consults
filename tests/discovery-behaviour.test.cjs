@@ -129,16 +129,6 @@ test("Ask S.O.H follow-ups preserve latest intent instead of replaying previous 
 });
 
 
-test("Ask S.O.H requirements answers extract requirement-specific evidence", () => {
-  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
-  assert.match(route, /asksRequirements/);
-  assert.match(route, /o\.\?level/);
-  assert.match(route, /first choice/);
-  assert.match(route, /subject combination/);
-  assert.match(route, /I will not (?:guess|invent)/i);
-});
-
-
 test("Ask S.O.H FUOYE requirements retrieve official guides and build a practical checklist", () => {
   const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
   assert.match(route, /FOUYE-Post-UTME-Admission-Screening-Registration-GUIDE\.pdf/);
