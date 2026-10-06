@@ -100,3 +100,12 @@ test("Ask S.O.H rejects CAPTCHA and anti-bot challenge pages as evidence", () =>
     assert.match(route, new RegExp(marker, "i"));
   }
 });
+
+
+test("Ask S.O.H uses multiple official admission endpoints when an institution homepage is blocked", () => {
+  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
+  for (const endpoint of ["putme.fuoye.edu.ng/utme/","news.fuoye.edu.ng/tag/2026-2027-post-utme/","admission.lasustech.edu.ng/","admissions.uniosun.edu.ng/"]) {
+    assert.match(route, new RegExp(endpoint.replaceAll(".","\\.")));
+  }
+  assert.match(route, /Promise\.allSettled\(direct\.map/);
+});
