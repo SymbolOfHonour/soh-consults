@@ -74,5 +74,48 @@ export const guides: Guide[] = [
       { heading: "WHAT TO DO", body: "Keep checking CAPS and your institution's official channels. Make sure your admission requirements and uploaded records are in order." },
       { heading: "AVOID UNVERIFIED CLAIMS", body: "Do not assume a third party can guarantee the final outcome. Admission remains subject to the institution and JAMB processes." },
     ],
+  },,
+  {
+    slug: "nigerian-university-admission-checklist",
+    title: "Nigerian University Admission Checklist: From Application to Clearance",
+    category: "Admission",
+    summary: "A practical checklist for keeping your JAMB, O'Level, screening, CAPS and school records consistent throughout the admission process.",
+    sections: [
+      { heading: "1. CONFIRM YOUR APPLICATION RECORD", body: "Keep your JAMB registration details, institution choice and programme choice together. Check names, date of birth and other key details for consistency before screening or clearance. When a correction is genuinely required, use the official process rather than relying on informal promises." },
+      { heading: "2. VERIFY YOUR O'LEVEL RECORD", body: "Check the examination body, examination year, candidate number, subjects and grades you intend to use. Make sure the result available to the admission process is the correct one. Programme requirements differ, so having five credits does not automatically mean the five subjects satisfy a particular course." },
+      { heading: "3. READ THE SCHOOL'S SCREENING INSTRUCTIONS", body: "Use the institution's current admission or screening notice to confirm eligibility, registration dates, required documents and any institution-specific rules. Do not assume that a rule used by one university applies to another university or to a new admission year." },
+      { heading: "4. KEEP PAYMENT AND REGISTRATION EVIDENCE", body: "Save receipts, acknowledgement slips, screening printouts and confirmation pages. Use official payment channels where available. These records are useful if a transaction is delayed or a portal does not immediately reflect a completed action." },
+      { heading: "5. MONITOR BOTH CAPS AND THE SCHOOL PORTAL", body: "An institution's portal and JAMB CAPS can update at different stages. Check both, verify the institution and programme shown, and follow official instructions before accepting an offer or making admission-related payments." },
+      { heading: "6. PREPARE FOR CLEARANCE", body: "After admission, read the institution's clearance instructions carefully. Typical records can include admission documents, examination results and identity or academic records, but the exact list is determined by the institution. Prepare from the official checklist instead of a generic social-media list." },
+      { heading: "S.O.H CONSULTS NOTE", body: "Admission decisions belong to JAMB and the relevant institution. S.O.H CONSULTS provides guidance and registration assistance but does not promise or guarantee admission. When a requirement is unclear, verify it from the current official notice before acting." },
+    ],
   },
+  {
+    slug: "how-to-verify-admission-information-online",
+    title: "How to Verify Admission Information Before You Pay or Apply",
+    category: "Admission Safety",
+    summary: "A simple verification method for checking admission notices, deadlines, portals and payment instructions before taking action.",
+    sections: [
+      { heading: "START WITH THE ORIGINAL SOURCE", body: "When you see an admission update on social media or a news site, look for the institution or examination body's original announcement. Confirm that the notice refers to the correct academic session, programme and candidate group." },
+      { heading: "CHECK THE DOMAIN AND PORTAL", body: "Before entering personal details or paying, inspect the website address carefully. Prefer links published by the institution, JAMB or the relevant examination body. Similar-looking domains, forwarded payment links and screenshots should not be treated as proof by themselves." },
+      { heading: "VERIFY THE DATE", body: "Old admission notices often return in search results and messaging groups. Confirm the publication date, application period and deadline. If an old page conflicts with a newer official notice, use the current instruction and seek clarification where necessary." },
+      { heading: "COMPARE THE IMPORTANT DETAILS", body: "Check the programme, eligibility conditions, fee description, payment destination and required documents against the official notice. A post can be partly correct while still containing an outdated deadline or wrong payment instruction." },
+      { heading: "KEEP A RECORD OF WHAT YOU USED", body: "Save the official notice or confirmation page that informed your action, together with receipts and acknowledgement slips. This makes it easier to explain a problem to the institution or service provider if something later fails to reflect." },
+      { heading: "WHEN TO STOP AND ASK", body: "Do not rush a payment because somebody claims a portal will close within minutes. If the source, amount, account details or eligibility rule cannot be verified, stop and confirm through an official channel or a trusted guidance service first." },
+    ],
+  },
+  {
+    slug: "jamb-and-school-record-consistency-guide",
+    title: "JAMB and School Record Consistency Guide for Admission Candidates",
+    category: "JAMB",
+    summary: "What to compare across your JAMB profile, O'Level records and institution portal to reduce avoidable admission and clearance problems.",
+    sections: [
+      { heading: "WHY CONSISTENCY MATTERS", body: "Admission processing combines information from more than one record. A candidate may interact with JAMB, an examination body and an institution's own portal. Differences in important details can require clarification or correction, especially during screening and clearance." },
+      { heading: "PERSONAL DETAILS", body: "Compare the key personal details displayed on the records you are using. If you discover a genuine discrepancy, first identify which record is wrong and then follow the correction procedure provided by the organization responsible for that record." },
+      { heading: "O'LEVEL DETAILS", body: "Confirm the examination type, year, candidate information, subjects and grades. Also check that the subjects meet the requirements for the intended programme. Do not edit or recreate result information yourself to make records appear consistent." },
+      { heading: "INSTITUTION AND PROGRAMME", body: "Check the institution and course reflected in your current admission process. If a change of institution or course is required, follow the recognized JAMB and institution procedures and wait for the relevant systems to update where applicable." },
+      { heading: "AFTER AN ADMISSION OFFER", body: "Before final acceptance or clearance, read the offer and compare the institution and programme with what appears on the relevant official systems. Keep your admission letter, acceptance evidence and school payment receipts together for future reference." },
+      { heading: "USE CURRENT REQUIREMENTS", body: "Admission rules can change between sessions and institutions. Treat calculators and general guides as assistance, not as a replacement for the current official admission notice. S.O.H CONSULTS tools should be used together with official requirements." },
+    ],
+  }
 ];
