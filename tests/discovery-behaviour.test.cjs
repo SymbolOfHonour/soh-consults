@@ -141,3 +141,12 @@ test("Ask S.O.H FUOYE requirements retrieve official guides and build a practica
   assert.match(route, /screening-fee payment/);
   assert.match(route, /print the completed application/);
 });
+
+
+test("Ask S.O.H keeps enough official evidence for complete requirements checklists", () => {
+  const route = fs.readFileSync(path.join(process.cwd(), "app/api/ask-soh/search/route.ts"), "utf8");
+  assert.match(route, /slice\(0,8000\)/);
+  assert.match(route, /JAMB registration number/);
+  assert.match(route, /Passport photograph/);
+  assert.match(route, /A valid phone number/);
+});
