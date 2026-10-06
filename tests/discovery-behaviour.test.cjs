@@ -118,3 +118,12 @@ test("Ask S.O.H synthesizes FUOYE screening status instead of dumping portal tex
   assert.match(route, /screening exercise has been reopened/);
   assert.match(route, /yes\/no or status questions/i);
 });
+
+
+test("Ask S.O.H follow-ups preserve latest intent instead of replaying previous status intent", () => {
+  const widget = fs.readFileSync(path.join(root,"app/components/AskSOH.tsx"),"utf8");
+  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
+  assert.match(widget, /searchWeb\(question, subjectContext/);
+  assert.match(route, /Context subject:/);
+  assert.match(route, /question\.split\(\/Context subject:/);
+});

@@ -75,7 +75,7 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
   const evidence=cleanText(preferred.snippet);
   const lasuScreening=/\blasu\b|lagos state university/i.test(question)&&/(screening|admission)/i.test(question);
   const fuoyeScreening=/\bfuoye\b|federal university oye.?ekiti/i.test(question)&&/(screening|post.?utme|admission)/i.test(question);
-  const asksOpen=/(still\s+open|open\s+for|screening\s+open|ongoing|available)/i.test(question);
+  const asksOpen=/(still\s+open|open\s+for|screening\s+open|ongoing|available)/i.test(question.split(/Context subject:/i)[0]);
   if(currentSensitive&&preferred.official&&fuoyeScreening&&asksOpen){
     const allEvidence=official.map(item=>cleanText(item.snippet)).join(" ");
     const reopened=/closing\s+in\s*\(?reopened\)?|reopened/i.test(allEvidence);
@@ -213,7 +213,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const history=Array.isArray(body?.history)?body!.history!.filter(turn=>turn&&(turn.role==="user"||turn.role==="assistant")&&typeof turn.content==="string").slice(-6):[];
   if(!question||question.length<3)return NextResponse.json({error:"Please enter a valid question."},{status:400});
   const safeQuestion=question.slice(0,220);
-  const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${context}. ${safeQuestion}`.slice(0,360) : safeQuestion;
+  const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
   const currentSensitive=/(latest|current|today|deadline|closing|close|open|ongoing|available|fee|price|cost|date|2026|2027|form|cut.?off|registration|requirement|screening)/i.test(resolvedQuestion);
   const institutionHint=/\blasu\b|lagos state university/i.test(resolvedQuestion)?" Lagos State University LASU":"";
   const officialHint=currentSensitive&&institutionHint?" site:lasu.edu.ng":"";

@@ -368,8 +368,9 @@ export default function AskSOH() {
     const previousUser = recentUserMessages.at(-1);
     const conversationContext = recentUserMessages.join(" | ");
     const isFollowUp = question.split(/\s+/).length <= 7 && /^(what|when|where|why|how|is|are|can|does|do|and|but|so|it|that|this|what about|how about)/i.test(question);
-    const resolvedQuestion = isFollowUp && previousUser ? `${previousUser}. Follow-up: ${question}` : question;
-    const match = classifyQuestion(resolvedQuestion);
+    const subjectContext = isFollowUp && previousUser ? previousUser : "";
+    const resolvedQuestion = isFollowUp && previousUser ? `${question} Context subject: ${previousUser}` : question;
+    const match = classifyQuestion(question + (subjectContext ? ` ${subjectContext}` : ""));
 
     window.setTimeout(() => {
       if (match.link) {
@@ -388,7 +389,7 @@ export default function AskSOH() {
       }
 
       if (match.shouldSearch) {
-        void searchWeb(resolvedQuestion, conversationContext || previousUser);
+        void searchWeb(question, subjectContext || conversationContext || previousUser);
       }
     }, 120);
   }
