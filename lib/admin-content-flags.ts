@@ -5,4 +5,23 @@ export function isBreaking(story:Pick<QueuedStory,"details">){return (story.deta
 export function stripContentFlags(details:string){return details.replaceAll(FEATURED,"").replaceAll(BREAKING,"").trim()}
 export function applyContentFlags(details:string,featured:boolean,breaking:boolean){const clean=stripContentFlags(details);return [featured?FEATURED:"",breaking?BREAKING:"",clean].filter(Boolean).join("\n")}
 function normalise(value:string){return value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim()}
-export function duplicateCandidates(title:string,stories:QueuedStory[],excludeId?:string,sourceUrl?:string|null){const q=normalise(title),source=(sourceUrl||"").trim().replace(/\/$/,"");if(q.length<8&&!source)return[];const words=new Set(q.split(" ").filter(w=>w.length>2));return stories.filter(s=>s.id!==excludeId).map(s=>{const t=normalise(s.title);const other=new Set(t.split(" ").filter(w=>w.length>2));const overlap=[...words].filter(w=>other.has(w)).length;const titleScore=words.size?overlap/Math.max(words.size,other.size):0;const sameSource=Boolean(source&&s.official_source_url?.trim().replace(/\/$/,"")===source);return{story:s,score:sameSource?1:titleScore,sameSource};}).filter(x=>x.sameSource||normalise(x.story.title)===q||x.score>=0.72).sort((a,b)=>b.score-a.score).slice(0,5)}
+const GENERIC=new Set(["the","and","for","with","from","into","now","online","academic","session","admission","admissions","candidate","candidates","result","results","release","releases","released","application","applications","form","forms","screening","update","updates","2024","2025","2026","2027","2028"]);
+function meaningfulWords(value:string){return new Set(normalise(value).split(" ").filter(w=>w.length>2&&!GENERIC.has(w)))}
+function likelyInstitutionToken(word:string){return word.length>=4&&/^[a-z]+$/.test(word)&&word===word.toLowerCase()}
+export function duplicateCandidates(title:string,stories:QueuedStory[],excludeId?:string,sourceUrl?:string|null){
+ const q=normalise(title),source=(sourceUrl||"").trim().replace(/\/$/,"");if(q.length<8&&!source)return[];
+ const words=meaningfulWords(title);
+ return stories.filter(s=>s.id!==excludeId).map(s=>{
+  const t=normalise(s.title);const other=meaningfulWords(s.title);
+  const overlap=[...words].filter(w=>other.has(w)).length;
+  const union=new Set([...words,...other]).size;
+  const titleScore=union?overlap/union:0;
+  const sameSource=Boolean(source&&s.official_source_url?.trim().replace(/\/$/,"")===source);
+  const exact=t===q;
+  // Fuzzy matches must share at least two distinctive terms. This prevents generic
+  // admission/session wording from making unrelated institutions block publishing.
+  const distinctiveOverlap=[...words].filter(w=>other.has(w)&&likelyInstitutionToken(w)).length;
+  const fuzzy=distinctiveOverlap>=2&&titleScore>=0.72;
+  return{story:s,score:sameSource||exact?1:titleScore,sameSource,exact,fuzzy};
+ }).filter(x=>x.sameSource||x.exact||x.fuzzy).sort((a,b)=>b.score-a.score).slice(0,5)
+}
