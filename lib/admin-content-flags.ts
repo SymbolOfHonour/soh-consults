@@ -7,7 +7,6 @@ export function applyContentFlags(details:string,featured:boolean,breaking:boole
 function normalise(value:string){return value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim()}
 const GENERIC=new Set(["the","and","for","with","from","into","now","online","academic","session","admission","admissions","candidate","candidates","result","results","release","releases","released","application","applications","form","forms","screening","update","updates","2024","2025","2026","2027","2028"]);
 function meaningfulWords(value:string){return new Set(normalise(value).split(" ").filter(w=>w.length>2&&!GENERIC.has(w)))}
-function likelyInstitutionToken(word:string){return word.length>=4&&/^[a-z]+$/.test(word)&&word===word.toLowerCase()}
 export function duplicateCandidates(title:string,stories:QueuedStory[],excludeId?:string,sourceUrl?:string|null){
  const q=normalise(title),source=(sourceUrl||"").trim().replace(/\/$/,"");if(q.length<8&&!source)return[];
  const words=meaningfulWords(title);
@@ -18,10 +17,9 @@ export function duplicateCandidates(title:string,stories:QueuedStory[],excludeId
   const titleScore=union?overlap/union:0;
   const sameSource=Boolean(source&&s.official_source_url?.trim().replace(/\/$/,"")===source);
   const exact=t===q;
-  // Fuzzy matches must share at least two distinctive terms. This prevents generic
-  // admission/session wording from making unrelated institutions block publishing.
-  const distinctiveOverlap=[...words].filter(w=>other.has(w)&&likelyInstitutionToken(w)).length;
-  const fuzzy=distinctiveOverlap>=2&&titleScore>=0.72;
-  return{story:s,score:sameSource||exact?1:titleScore,sameSource,exact,fuzzy};
- }).filter(x=>x.sameSource||x.exact||x.fuzzy).sort((a,b)=>b.score-a.score).slice(0,5)
+  // A university portal/source URL is often reused across many unrelated updates,
+  // so a matching source alone must never make a story a duplicate.
+  const fuzzy=overlap>=2&&titleScore>=0.72;
+  return{story:s,score:exact?1:titleScore,sameSource,exact,fuzzy};
+ }).filter(x=>x.exact||x.fuzzy).sort((a,b)=>b.score-a.score).slice(0,5)
 }
