@@ -90,7 +90,15 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
     ? " Because this can change, confirm it from the institution or agency before paying or taking an irreversible action."
     : confidence==="low" ? " Please verify this before relying on it." : "";
   const support=corroborated ? " I also found a matching source." : "";
-  const concise=evidence.split(/(?<=[.!?])\s+/).filter(sentence=>!/(javascript|mail|helpline|navigation|menu|copyright|login to|resources)/i.test(sentence)).slice(0,3).join(" ").slice(0,650);
+  const concise=evidence
+    .split(/(?<=[.!?])\s+|\s{2,}/)
+    .map(sentence=>sentence.trim())
+    .filter(Boolean)
+    .filter(sentence=>!/(javascript|mail|helpline|navigation|menu|copyright|login to|resources|privacy|cookie|skip to|sign in|log in)/i.test(sentence))
+    .filter(sentence=>sentence.length>=24)
+    .slice(0,3)
+    .join(" ")
+    .slice(0,520);
   return {answer:`${prefix} ${concise||evidence.slice(0,650)}${support}${caution}`,confidence,needsHuman:confidence==="low"};
 }
 
