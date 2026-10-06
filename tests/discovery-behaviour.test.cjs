@@ -150,3 +150,11 @@ test("Ask S.O.H keeps enough official evidence for complete requirements checkli
   assert.match(route, /Passport photograph/);
   assert.match(route, /A valid phone number/);
 });
+
+
+test("Ask S.O.H keeps FUOYE Direct Entry follow-ups intent-specific", () => {
+  const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
+  assert.match(route,/asksDirectEntry/);
+  assert.match(route,/I could not verify enough FUOYE 2026\/2027 Direct Entry-specific eligibility/);
+  assert.match(route,/smartcampus\|onboarding\|applications currently open\|balance payment\|result verification/);
+});
