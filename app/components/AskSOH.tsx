@@ -29,6 +29,7 @@ type SearchPayload = {
   googleUrl: string;
   results: SearchSource[];
   error?: string;
+  currentSensitive?: boolean;
 };
 
 const WHATSAPP = "2348182141088";
@@ -199,14 +200,30 @@ function getTopicReply(topic: string): Message {
   };
 }
 
+const institutionCalculators: Array<[RegExp, string, string]> = [
+  [/\blasu\b/i, "/lasu-calculator", "LASU"],
+  [/\bfuoye\b/i, "/fuoye-calculator", "FUOYE"],
+  [/\blasustech\b/i, "/lasustech-calculator", "LASUSTECH"],
+  [/\buniosun\b/i, "/uniosun-calculator", "UNIOSUN"],
+  [/\boou\b|olabisi onabanjo/i, "/oou-calculator", "OOU"],
+  [/\blasued\b/i, "/lasued-calculator", "LASUED"],
+  [/\byabatech\b/i, "/yabatech-calculator", "YABATECH"],
+  [/\bfuadsi\b/i, "/fuadsi-calculator", "FUADSI"],
+];
+
 function classifyQuestion(question: string): { topic?: string; link?: string; shouldSearch?: boolean } {
   const q = question.toLowerCase();
+  const calculatorRequest = /(calculator|aggregate|screening score|calculate)/i.test(question);
+  if (calculatorRequest) {
+    const institution = institutionCalculators.find(([pattern]) => pattern.test(question));
+    if (institution) return { link: institution[1] };
+    if (/screening|aggregate|calculator/i.test(question)) return { link: "/screening-calculator" };
+  }
 
   if (/(my score|my result|my grade|my course|my case|my chances?|will i gain|can i gain|am i eligible|should i change|what course should|which course should|recommend.*course|admission chance)/.test(q)) {
     return { topic: "complex" };
   }
 
-  if (/(aggregate|calculator|calculate.*lasu|lasu.*aggregate|screening score)/.test(q)) return { topic: "lasu-aggregate" };
   if (/(accept.*admission|how.*accept.*caps)/.test(q)) return { topic: "accept-admission" };
   if (/(change of course|change course|change of institution|change institution)/.test(q)) return { topic: "change-course" };
   if (/(school admission.*jamb|jamb admission.*school|school portal.*caps|caps.*school portal)/.test(q)) return { topic: "school-vs-jamb" };
@@ -233,7 +250,7 @@ function classifyQuestion(question: string): { topic?: string; link?: string; sh
 function buildSearchAnswer(payload: SearchPayload): Message {
   const internal = payload.results.find((item) => item.internal);
   const official = payload.results.find((item) => item.official);
-  const best = internal ?? official ?? payload.results[0];
+  const best = payload.currentSensitive ? (official ?? internal ?? payload.results[0]) : (internal ?? official ?? payload.results[0]);
 
   if (!best) {
     return {
@@ -299,10 +316,12 @@ export default function AskSOH() {
     addAssistant(getTopicReply(action.value));
   }
 
-  async function searchWeb(question: string) {
+  async function searchWeb(question: string, context?: string) {
     setSearching(true);
     try {
-      const response = await fetch(`/api/ask-soh/search?q=${encodeURIComponent(question)}`);
+      const params = new URLSearchParams({ q: question });
+      if (context && context !== question) params.set("context", context);
+      const response = await fetch(`/api/ask-soh/search?${params.toString()}`);
       const payload = (await response.json()) as SearchPayload;
       addAssistant(buildSearchAnswer(payload));
     } catch {
@@ -336,7 +355,10 @@ export default function AskSOH() {
     ]);
     setInput("");
 
-    const match = classifyQuestion(question);
+    const previousUser = [...messages].reverse().find((message) => message.role === "user")?.text;
+    const isFollowUp = question.split(/\s+/).length <= 7 && /^(what|when|where|why|how|is|are|can|does|do|and|but|so|it|that|this|what about|how about)/i.test(question);
+    const resolvedQuestion = isFollowUp && previousUser ? `${previousUser}. Follow-up: ${question}` : question;
+    const match = classifyQuestion(resolvedQuestion);
 
     window.setTimeout(() => {
       if (match.link) {
@@ -355,7 +377,7 @@ export default function AskSOH() {
       }
 
       if (match.shouldSearch) {
-        void searchWeb(question);
+        void searchWeb(resolvedQuestion, previousUser);
       }
     }, 120);
   }
@@ -402,7 +424,7 @@ export default function AskSOH() {
                 />
                 <div>
                   <h2 className="text-base font-black">Ask S.O.H</h2>
-                  <p className="text-xs font-medium text-green-50">Admission Assistant • Web Search</p>
+                  <p className="text-xs font-medium text-green-50">Admission Assistant • S.O.H Knowledge + Live Sources</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
