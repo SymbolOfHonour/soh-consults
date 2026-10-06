@@ -30,6 +30,9 @@ type SearchPayload = {
   results: SearchSource[];
   error?: string;
   currentSensitive?: boolean;
+  answer?: string;
+  confidence?: "high" | "medium" | "low";
+  needsHuman?: boolean;
 };
 
 const WHATSAPP = "2348182141088";
@@ -269,14 +272,16 @@ function buildSearchAnswer(payload: SearchPayload): Message {
   }
 
   const sourceLabel = best.internal ? "S.O.H CONSULTS knowledge" : best.official ? "an official source" : "the most relevant current result";
+  const confidenceLabel = payload.confidence ? ` Confidence: ${payload.confidence}.` : "";
   return {
     id: Date.now() + 1,
     role: "assistant",
-    text: `I found a relevant answer from ${sourceLabel}: ${best.snippet} For deadlines, payments or irreversible admission actions, open the source and confirm the current details.`,
+    text: payload.answer ? `${payload.answer}${confidenceLabel}` : `I found a relevant answer from ${sourceLabel}: ${best.snippet} For deadlines, payments or irreversible admission actions, open the source and confirm the current details.`,
     sources: payload.results.slice(0, 3),
     actions: [
       { label: best.internal ? "Open S.O.H Resource" : "Open Best Source", type: best.internal ? "link" : "external", value: best.url },
-      { label: "View Google Results", type: "external", value: payload.googleUrl },
+      { label: "View Sources", type: "external", value: payload.googleUrl },
+      ...(payload.needsHuman ? [{ label: "Ask S.O.H CONSULTS", type: "whatsapp" as const, value: `Hello S.O.H CONSULTS, Ask S.O.H could not confidently verify this for me: ${payload.query}` }] : []),
     ],
   };
 }
@@ -355,7 +360,9 @@ export default function AskSOH() {
     ]);
     setInput("");
 
-    const previousUser = [...messages].reverse().find((message) => message.role === "user")?.text;
+    const recentUserMessages = messages.filter((message) => message.role === "user").slice(-3).map((message) => message.text);
+    const previousUser = recentUserMessages.at(-1);
+    const conversationContext = recentUserMessages.join(" | ");
     const isFollowUp = question.split(/\s+/).length <= 7 && /^(what|when|where|why|how|is|are|can|does|do|and|but|so|it|that|this|what about|how about)/i.test(question);
     const resolvedQuestion = isFollowUp && previousUser ? `${previousUser}. Follow-up: ${question}` : question;
     const match = classifyQuestion(resolvedQuestion);
@@ -377,7 +384,7 @@ export default function AskSOH() {
       }
 
       if (match.shouldSearch) {
-        void searchWeb(resolvedQuestion, previousUser);
+        void searchWeb(resolvedQuestion, conversationContext || previousUser);
       }
     }, 120);
   }
