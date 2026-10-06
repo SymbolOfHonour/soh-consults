@@ -478,7 +478,7 @@ export default function AskSOH() {
 
                   {!!message.sources?.length && (
                     <div className="mt-2 space-y-2">
-                      {message.sources.map((source, index) => (
+                      {message.sources.map((source) => (
                         <a
                           key={source.url}
                           href={source.url}
@@ -488,11 +488,6 @@ export default function AskSOH() {
                         >
                           <div className="flex items-start justify-between gap-2">
                             <p className="text-xs font-black text-slate-900">{source.title}</p>
-                            {payload.confidence && index === 0 && (
-                              <span className="ml-2 rounded-full bg-slate-100 px-2 py-1 text-[9px] font-black uppercase text-slate-600">
-                                {payload.confidence} confidence
-                              </span>
-                            )}
                             {(source.official || source.internal) && (
                               <span className="shrink-0 rounded-full bg-green-100 px-2 py-1 text-[9px] font-black uppercase text-green-800">
                                 {source.internal ? "S.O.H" : "Official"}
