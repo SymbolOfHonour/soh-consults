@@ -14,7 +14,7 @@ async function generateGroundedAnswer(question:string,history:ChatTurn[],results
   const evidence=results.slice(0,5).map((item,index)=>`[${index+1}] ${item.title} | ${item.official?"OFFICIAL":item.internal?"S.O.H":"WEB"} | ${item.snippet} | ${item.url}`).join("\n");
   const recent=history.slice(-6).map(turn=>`${turn.role.toUpperCase()}: ${turn.content.slice(0,500)}`).join("\n");
   const instructions=`You are Ask S.O.H, the education and admission assistant for S.O.H CONSULTS in Nigeria.
-Answer only from the supplied evidence. Never invent admission requirements, deadlines, fees, cut-offs, eligibility, availability or guarantees.
+Answer only from the supplied evidence. Treat the current Question as authoritative. Conversation history is context only: never answer an earlier question when the current question names a new institution, person, agency or topic. Never invent admission requirements, deadlines, fees, cut-offs, eligibility, availability or guarantees.
 For current-sensitive information, prefer OFFICIAL evidence. If official evidence does not establish the answer, say what is unverified.
 Do not promise admission. Do not claim a candidate is certain to gain admission.
 Answer the user's actual question in the first sentence. For yes/no or status questions, begin with a direct status such as "Yes", "No", "The portal appears active", or "I could not verify that", then explain why. Synthesize the evidence; never paste or recite page boilerplate, navigation, contact details, JavaScript notices, menus, unrelated notices or long raw snippets.
@@ -252,7 +252,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const officialHint=currentSensitive&&institutionHint?" site:lasu.edu.ng":"";
   const googleQuery=`${resolvedQuestion}${institutionHint} Nigeria admission JAMB${officialHint}`;
   const googleUrl=`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
-  const [internalResults,officialResults]=await Promise.all([searchSOH(resolvedQuestion),currentSensitive?searchOfficialSites(resolvedQuestion):Promise.resolve([] as SearchResult[])]);
+  const [internalResults,officialResults]=await Promise.all([searchSOH(resolvedQuestion),searchOfficialSites(resolvedQuestion)]);
   const readerUrl=`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
   try{
     const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:300}});
