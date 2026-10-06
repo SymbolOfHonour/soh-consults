@@ -9,7 +9,7 @@ type Confidence="high"|"medium"|"low";
 type ChatTurn={role:"user"|"assistant";content:string};
 
 async function generateGroundedAnswer(question:string,history:ChatTurn[],results:SearchResult[],fallback:string,currentSensitive:boolean){
-  const apiKey=process.env.OPENAI_API_KEY;
+  const apiKey=process.env.OPENAI_API_KEY; // production credential supplied through the deployment environment
   if(!apiKey||results.length===0)return null;
   const evidence=results.slice(0,5).map((item,index)=>`[${index+1}] ${item.title} | ${item.official?"OFFICIAL":item.internal?"S.O.H":"WEB"} | ${item.snippet} | ${item.url}`).join("\n");
   const recent=history.slice(-6).map(turn=>`${turn.role.toUpperCase()}: ${turn.content.slice(0,500)}`).join("\n");
