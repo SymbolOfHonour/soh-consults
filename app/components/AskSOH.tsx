@@ -273,7 +273,7 @@ function buildSearchAnswer(payload: SearchPayload): Message {
   }
 
   const sourceLabel = best.internal ? "S.O.H CONSULTS knowledge" : best.official ? "an official source" : "the most relevant current result";
-  const confidenceLabel = payload.confidence ? ` Confidence: ${payload.confidence}.` : "";
+  const confidenceLabel = "";
   return {
     id: Date.now() + 1,
     role: "assistant",

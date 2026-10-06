@@ -29,7 +29,7 @@ Do not add URLs because the interface renders source cards separately.`;
     return text&&text.length>20?text:null;
   }catch{return null;}
 }
-const OFFICIAL_HOSTS=["jamb.gov.ng","lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng","education.gov.ng","nbte.gov.ng","nysc.gov.ng","waec.org","neco.gov.ng"];
+const OFFICIAL_HOSTS=["jamb.gov.ng","lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng","education.gov.ng","nbte.gov.ng","nysc.gov.ng","waec.org","neco.gov.ng","fuoye.edu.ng","lasustech.edu.ng","uniosun.edu.ng","oouagoiwoye.edu.ng","lasued.edu.ng","yabatech.edu.ng"];
 const SEARCH_BLOCKED_HOSTS=["google.com","www.google.com","googleusercontent.com","gstatic.com","accounts.google.com","support.google.com"];
 function blockedSearchHost(url:string){try{const host=new URL(url).hostname.toLowerCase();return SEARCH_BLOCKED_HOSTS.some(item=>host===item||host.endsWith(`.${item}`));}catch{return true;}}
 function htmlToText(value:string){
@@ -133,6 +133,12 @@ function directOfficialTargets(question:string):Array<{title:string;url:string}>
     ];
     return targets;
   }
+  if(/\bfuoye\b|federal university oye.?ekiti/i.test(question))return [{title:"Federal University Oye-Ekiti",url:"https://fuoye.edu.ng/"}];
+  if(/\blasustech\b|lagos state university of science and technology/i.test(question))return [{title:"Lagos State University of Science and Technology",url:"https://lasustech.edu.ng/"}];
+  if(/\buniosun\b|osun state university/i.test(question))return [{title:"Osun State University",url:"https://www.uniosun.edu.ng/"}];
+  if(/\boou\b|olabisi onabanjo university/i.test(question))return [{title:"Olabisi Onabanjo University",url:"https://oouagoiwoye.edu.ng/"}];
+  if(/\blasued\b|lagos state university of education/i.test(question))return [{title:"Lagos State University of Education",url:"https://lasued.edu.ng/"}];
+  if(/\byabatech\b|yaba college of technology/i.test(question))return [{title:"Yaba College of Technology",url:"https://www.yabatech.edu.ng/"}];
   if(/\bjamb\b|caps|utme|direct entry/i.test(question))return [{title:"JAMB Official Website",url:"https://www.jamb.gov.ng/"}];
   if(/\bwaec\b/i.test(question))return [{title:"WAEC Official Website",url:"https://www.waec.org/"}];
   if(/\bneco\b/i.test(question))return [{title:"NECO Official Website",url:"https://neco.gov.ng/"}];
@@ -170,7 +176,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   if(!question||question.length<3)return NextResponse.json({error:"Please enter a valid question."},{status:400});
   const safeQuestion=question.slice(0,220);
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${context}. ${safeQuestion}`.slice(0,360) : safeQuestion;
-  const currentSensitive=/(latest|current|today|deadline|closing|close|open|fee|price|cost|date|2026|2027|form|cut.?off|registration)/i.test(resolvedQuestion);
+  const currentSensitive=/(latest|current|today|deadline|closing|close|open|ongoing|available|fee|price|cost|date|2026|2027|form|cut.?off|registration|requirement|screening)/i.test(resolvedQuestion);
   const institutionHint=/\blasu\b|lagos state university/i.test(resolvedQuestion)?" Lagos State University LASU":"";
   const officialHint=currentSensitive&&institutionHint?" site:lasu.edu.ng":"";
   const googleQuery=`${resolvedQuestion}${institutionHint} Nigeria admission JAMB${officialHint}`;

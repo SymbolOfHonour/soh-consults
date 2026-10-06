@@ -66,3 +66,21 @@ test('catalogue includes published CMS stories, working guide links and calculat
  assert.ok(corpus.some(i=>i.kind==='guide'&&i.href.startsWith('/guides/')));
  assert.ok(publicOpportunities([]).length>0);
 });
+
+
+test("Ask S.O.H official retrieval covers supported education authorities and institutions", () => {
+  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
+  for (const host of ["jamb.gov.ng","waec.org","neco.gov.ng","fuoye.edu.ng","lasustech.edu.ng","uniosun.edu.ng","oouagoiwoye.edu.ng","lasued.edu.ng","yabatech.edu.ng"]) {
+    assert.match(route, new RegExp(host.replaceAll(".","\\.")));
+  }
+  assert.match(route, /target url returned error/i);
+  assert.match(route, /start screening/i);
+});
+
+test("Ask S.O.H keeps conversation history and institution calculator routing", () => {
+  const widget = fs.readFileSync(path.join(root,"app/components/AskSOH.tsx"),"utf8");
+  assert.match(widget, /history/);
+  for (const route of ["/lasu-calculator","/fuoye-calculator","/lasustech-calculator","/uniosun-calculator","/oou-calculator","/lasued-calculator","/yabatech-calculator"]) {
+    assert.match(widget, new RegExp(route.replaceAll("/","\\/")));
+  }
+});
