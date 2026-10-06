@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 type Message = {
   id: number;
@@ -221,7 +221,8 @@ function classifyQuestion(question: string): { topic?: string; link?: string; sh
   if (calculatorRequest) {
     const institution = institutionCalculators.find(([pattern]) => pattern.test(question));
     if (institution) return { link: institution[1] };
-    if (/screening|aggregate|calculator/i.test(question)) return { link: "/screening-calculator" };
+    if (/calculator/i.test(question) && !/aggregate|screening score|calculate/i.test(question)) return { link: "/screening-calculator" };
+    return { shouldSearch: true };
   }
 
   if (/(my score|my result|my grade|my course|my case|my chances?|will i gain|can i gain|am i eligible|should i change|what course should|which course should|recommend.*course|admission chance)/.test(q)) {
@@ -293,6 +294,16 @@ export default function AskSOH() {
   const [input, setInput] = useState("");
   const [unread, setUnread] = useState(true);
   const [searching, setSearching] = useState(false);
+  const latestAnswerRef = useRef<HTMLDivElement | null>(null);
+  const pendingAnswerFocus = useRef(false);
+
+  useEffect(() => {
+    if (!pendingAnswerFocus.current || searching) return;
+    const last = messages[messages.length - 1];
+    if (last?.role !== "assistant") return;
+    pendingAnswerFocus.current = false;
+    requestAnimationFrame(() => latestAnswerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  }, [messages, searching]);
 
   const contextualQuestion = useMemo(() => {
     const lastUser = [...messages].reverse().find((message) => message.role === "user");
@@ -300,6 +311,7 @@ export default function AskSOH() {
   }, [messages]);
 
   function addAssistant(message: Message) {
+    pendingAnswerFocus.current = true;
     setMessages((current) => [...current, message]);
   }
 
@@ -366,11 +378,13 @@ export default function AskSOH() {
 
     const recentUserMessages = messages.filter((message) => message.role === "user").slice(-3).map((message) => message.text);
     const previousUser = recentUserMessages.at(-1);
-    const conversationContext = recentUserMessages.join(" | ");
-    const isFollowUp = question.split(/\s+/).length <= 7 && /^(what|when|where|why|how|is|are|can|does|do|and|but|so|it|that|this|what about|how about)/i.test(question);
+    const namedInstitution = institutionCalculators.some(([pattern]) => pattern.test(question));
+    const explicitSubject = /\b(lasu|fuoye|lasustech|uniosun|oou|lasued|yabatech|fuadsi|futa|oau|jamb|waec|neco|nysc)\b/i.test(question);
+    const followUpCue = /^(what about|how about|and what|and how|what of|how much|when does|when is|is it|are they|does it|do they|what documents|what requirements|what score|what next)\b/i.test(question.trim());
+    const pronounFollowUp = question.split(/\s+/).length <= 7 && /\b(it|that|this|they|them|there|its|their)\b/i.test(question);
+    const isFollowUp = !explicitSubject && !namedInstitution && Boolean(previousUser) && (followUpCue || pronounFollowUp);
     const subjectContext = isFollowUp && previousUser ? previousUser : "";
-    const resolvedQuestion = isFollowUp && previousUser ? `${question} Context subject: ${previousUser}` : question;
-    const match = classifyQuestion(question + (subjectContext ? ` ${subjectContext}` : ""));
+    const match = classifyQuestion(question);
 
     window.setTimeout(() => {
       if (match.link) {
@@ -389,7 +403,7 @@ export default function AskSOH() {
       }
 
       if (match.shouldSearch) {
-        void searchWeb(question, subjectContext || conversationContext || previousUser);
+        void searchWeb(question, subjectContext || undefined);
       }
     }, 120);
   }
@@ -463,8 +477,8 @@ export default function AskSOH() {
           </header>
 
           <div className="flex-1 space-y-4 overflow-y-auto bg-slate-50 px-4 py-4">
-            {messages.map((message) => (
-              <div key={message.id} className={message.role === "user" ? "flex justify-end" : "flex justify-start"}>
+            {messages.map((message, index) => (
+              <div ref={message.role === "assistant" && index === messages.length - 1 ? latestAnswerRef : undefined} key={message.id} className={message.role === "user" ? "flex justify-end" : "flex justify-start"}>
                 <div className="max-w-[90%]">
                   <div
                     className={
