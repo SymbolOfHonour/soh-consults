@@ -109,3 +109,12 @@ test("Ask S.O.H uses multiple official admission endpoints when an institution h
   }
   assert.match(route, /Promise\.allSettled\(direct\.map/);
 });
+
+
+test("Ask S.O.H synthesizes FUOYE screening status instead of dumping portal text", () => {
+  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
+  assert.match(route, /fuoyeScreening/);
+  assert.match(route, /closing\\s\+in/);
+  assert.match(route, /screening exercise has been reopened/);
+  assert.match(route, /yes\/no or status questions/i);
+});
