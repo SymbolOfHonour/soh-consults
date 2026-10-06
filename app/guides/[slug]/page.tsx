@@ -1,3 +1,5 @@
+import NextSteps from "../../components/NextSteps";
+import {guideContent} from "../../../lib/content-catalogue";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { guides } from "../../../data/guides";
@@ -100,6 +102,7 @@ export default async function GuidePage({ params }: Props) {
           <a href={`https://wa.me/2348182141088?text=${encodeURIComponent(`Hello S.O.H CONSULTS, I need help with ${guide.title}.`)}`} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex rounded-xl bg-[#efc46e] px-5 py-3 font-black text-[#102720] hover:bg-[#ffdb8e]">Chat on WhatsApp →</a>
         </aside>
       </article>
+      <div className="mx-auto max-w-4xl px-5 pb-8"><NextSteps current={guideContent.find(item=>item.href===`/guides/${guide.slug}`)!}/></div>
     </main>
   );
 }

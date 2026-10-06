@@ -1,3 +1,5 @@
+import type { Viewport } from "next";
+export const viewport:Viewport={width:"device-width",initialScale:1,userScalable:true};
 import type { Metadata } from "next";
 import HomepageServer from "./homepage-server";
 import {defaultSiteSettings,getPublishedSiteSettings} from "../lib/site-manager";
