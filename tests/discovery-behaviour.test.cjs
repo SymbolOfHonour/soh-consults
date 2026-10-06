@@ -166,3 +166,24 @@ test("Ask S.O.H rejects unrelated FUOYE notices as Direct Entry evidence",()=>{
  assert.match(route,/direct entry\|\\bDE\\b/);
  assert.match(route,/requirement\|eligib\|qualification\|credential\|document/);
 });
+
+
+test("Ask S.O.H switches fresh institutions and only inherits genuine follow-ups",()=>{
+ const widget=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");
+ assert.match(widget,/explicitSubject/);
+ assert.match(widget,/followUpCue/);
+ assert.match(widget,/classifyQuestion\(question\)/);
+ assert.doesNotMatch(widget,/subjectContext \|\| conversationContext \|\| previousUser/);
+});
+
+test("Ask S.O.H focuses each new answer automatically",()=>{
+ const widget=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");
+ assert.match(widget,/latestAnswerRef/);
+ assert.match(widget,/scrollIntoView\(\{ behavior: "smooth", block: "start" \}\)/);
+});
+
+test("Ask S.O.H searches internal and official knowledge for non-current factual questions",()=>{
+ const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
+ assert.match(route,/searchSOH\(resolvedQuestion\),searchOfficialSites\(resolvedQuestion\)/);
+ assert.match(route,/Treat the current Question as authoritative/);
+});
