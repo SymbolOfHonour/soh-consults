@@ -31,9 +31,13 @@ a.soh-article-link:hover{color:#043b29;background:#dcefe1;text-decoration-thickn
 a.soh-article-link:focus-visible{outline:3px solid #087245;outline-offset:3px}
 
 /* Full articles open as a wide overview; the browser owns pinch zoom. */
-.soh-zoom-article .soh-article-columns{grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:24px;padding-inline:24px}
+.soh-zoom-article .soh-article-columns{grid-template-columns:minmax(0,2.7fr) minmax(0,1fr);gap:22px;padding-inline:24px}
 .soh-zoom-article .soh-update-sidebar{margin-inline:0}
-.soh-zoom-article .soh-update-sidebar section{padding:16px}
+.soh-zoom-article .soh-update-sidebar section{padding:18px}
+.soh-zoom-article .soh-update-sidebar h2{font-size:19px;line-height:1.3}
+.soh-zoom-article .soh-update-sidebar p,.soh-zoom-article .soh-update-sidebar a{font-size:14px}
+.soh-zoom-article .soh-update-sidebar .text-xs{font-size:12px}
+.soh-zoom-article .soh-update-sidebar .text-\[10px\]{font-size:11px}
 .soh-zoom-article .soh-update-sidebar section>div.mt-3{grid-template-columns:minmax(0,1fr)}
 .soh-zoom-article .soh-update-sidebar section>div:first-child{flex-wrap:wrap;gap:6px}
 .soh-zoom-article .soh-update-sidebar a.grid{grid-template-columns:60px minmax(0,1fr);gap:10px}
@@ -52,3 +56,11 @@ html[data-soh-wide-touch] button[aria-label="Open Ask S.O.H admission assistant"
 html[data-soh-wide-touch] button[aria-label="Open Ask S.O.H admission assistant"]>span:last-child:not(:first-child){position:absolute;right:2px;top:2px;width:8px;height:8px}
 html[data-soh-wide-touch] section[aria-label="Ask S.O.H admission assistant"]{left:calc(var(--soh-visual-left) + 12px * var(--soh-zoom-inverse));top:calc(var(--soh-visual-top) + 12px * var(--soh-zoom-inverse));right:auto;bottom:auto;width:calc(var(--soh-screen-width) - 24px);max-height:calc(var(--soh-visual-height) / var(--soh-zoom-inverse) - 88px);transform:scale(var(--soh-zoom-inverse));transform-origin:top left}
 html[data-soh-wide-touch] button[aria-label="Open Ask S.O.H admission assistant"]{transition-property:background-color}
+
+@media(max-width:767px){
+ /* Preserve the wide article + sidebar overview on phones while leaving room for native pinch zoom. */
+ .soh-zoom-article{width:1120px;max-width:none}
+ .soh-zoom-article .soh-article-columns{grid-template-columns:minmax(0,820px) minmax(0,278px);gap:22px;padding-inline:18px}
+ .soh-zoom-article .soh-article-card{border:1px solid #e5e7eb!important;border-radius:18px!important;padding:24px!important;box-shadow:0 1px 2px rgba(0,0,0,.05)!important}
+ .soh-zoom-article .soh-update-sidebar{width:auto}
+}
