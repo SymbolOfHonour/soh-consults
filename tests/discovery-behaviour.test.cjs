@@ -92,3 +92,11 @@ test("Ask S.O.H fallback suppresses portal boilerplate and caps evidence summari
   assert.match(route, /slice\(0,520\)/);
   assert.match(route, /start screening/i);
 });
+
+
+test("Ask S.O.H rejects CAPTCHA and anti-bot challenge pages as evidence", () => {
+  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
+  for (const marker of ["captcha","performing security verification","verifies you are not a bot","verify you are human","checking your browser","security service to protect against malicious bots"]) {
+    assert.match(route, new RegExp(marker, "i"));
+  }
+});

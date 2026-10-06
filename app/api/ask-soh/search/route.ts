@@ -56,7 +56,7 @@ function cleanText(value:string){
 }
 function isUsableResult(title:string,url:string,snippet:string){
   if(!title||!snippet||snippet.length<35)return false;
-  if(/(?:target url returned error|http error|404\s*:?\s*not found|403\s*:?\s*forbidden|502\s*:?\s*bad gateway|503\s*:?\s*service unavailable|requested resource is not found|page not found)/i.test(title+" "+snippet))return false;
+  if(/(?:target url returned error|http error|404\s*:?\s*not found|403\s*:?\s*forbidden|502\s*:?\s*bad gateway|503\s*:?\s*service unavailable|requested resource is not found|page not found|captcha|performing security verification|verifies you are not a bot|verify you are human|checking your browser|security service to protect against malicious bots|attention required!?\s*\|?\s*cloudflare|just a moment\.\.\.)/i.test(title+" "+snippet))return false;
   if(/<!doctype|<html|<head|<meta|<link\s|<script/i.test(snippet))return false;
   if(blockedSearchHost(url))return false;
   if(/^(images?|videos?|maps?|news|shopping|more)$/i.test(title.trim()))return false;
