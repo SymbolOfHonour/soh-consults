@@ -84,3 +84,11 @@ test("Ask S.O.H keeps conversation history and institution calculator routing", 
     assert.match(widget, new RegExp(route.replaceAll("/","\\/")));
   }
 });
+
+
+test("Ask S.O.H fallback suppresses portal boilerplate and caps evidence summaries", () => {
+  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
+  assert.match(route, /javascript\|mail\|helpline/);
+  assert.match(route, /slice\(0,520\)/);
+  assert.match(route, /start screening/i);
+});
