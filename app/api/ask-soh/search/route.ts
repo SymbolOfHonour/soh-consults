@@ -147,7 +147,7 @@ async function fetchOfficialPage(url:string,title:string):Promise<SearchResult|n
       .replace(/^URL Source:.*$/gim," ")
       .replace(/^Markdown Content:.*$/gim," ")
       .replace(/[#*_>`]/g," ")
-    ).slice(0,1200);
+    ).slice(0,8000);
   };
   try{
     const direct=await fetch(url,{headers:{"User-Agent":"Mozilla/5.0 (compatible; AskSOH/1.0; +https://sohconsults.com.ng)"},redirect:"follow",next:{revalidate:180}});
