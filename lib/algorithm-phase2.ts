@@ -1,11 +1,11 @@
 import { rankContent, type RankableContent, type RankingContext } from "./ranking-engine";
+import { normaliseText, searchableText, contentTopics, deadlineDate } from "./discovery-text";
 
-export type DiscoveryKind = "update" | "opportunity" | "deadline" | "guide";
+export type DiscoveryKind = "update" | "opportunity" | "deadline" | "guide" | "calculator";
 export type DiscoveryItem = RankableContent & { id: string; href: string; kind: DiscoveryKind; keywords?: string[] };
 export type VisitorInterests = { institutions?: string[]; categories?: string[] };
 
 const normalise=(v?:string)=>(v||"").trim().toLowerCase();
-const tokens=(v?:string)=>normalise(v).split(/[^a-z0-9]+/).filter(Boolean);
 
 export function personalisedContext(base: RankingContext, interests?: VisitorInterests): RankingContext {
   if (!interests) return base;
@@ -22,12 +22,18 @@ export function unifiedSearch<T extends DiscoveryItem>(items:T[], query:string, 
   return rankContent(items, personalisedContext({...context,query:q}, interests)).filter(result=>result.breakdown.relevance>0);
 }
 
-export function relatedContent<T extends DiscoveryItem>(current:T, candidates:T[], limit=6){
-  const currentTokens=new Set(tokens(`${current.title} ${current.summary||""} ${(current.keywords||[]).join(" ")}`));
-  return rankContent(candidates.filter(item=>item.id!==current.id).map(item=>{
-    const overlap=tokens(`${item.title} ${item.summary||""} ${(item.keywords||[]).join(" ")}`).filter(t=>currentTokens.has(t)).length;
-    return {...item, clicks:(item.clicks||0)+Math.min(overlap,6)};
-  }),{institution:current.institution,category:current.category}).slice(0,limit);
+export function relatedContent<T extends DiscoveryItem>(current:T, candidates:T[], limit=6, now=new Date()){
+  const topics=contentTopics(`${current.title} ${current.summary||""} ${(current.keywords||[]).join(" ")}`);
+  const affinity=(item:T)=>{
+    const shared=contentTopics(`${item.title} ${item.summary||""} ${(item.keywords||[]).join(" ")}`).filter(t=>topics.includes(t)).length;
+    const sameSchool=Boolean(current.institution&&(searchableText(item.institution||"").split(" ").includes(normaliseText(current.institution)) || normaliseText(current.institution)===normaliseText(item.institution)));
+    const sameCategory=Boolean(current.category&&normaliseText(current.category)===normaliseText(item.category));
+    return shared*12+(sameSchool?14:0)+(sameCategory?4:0);
+  };
+  const seen=new Set<string>();
+  return rankContent(candidates.filter(item=>item.id!==current.id && item.href!==current.href && affinity(item)>0 && !(deadlineDate(item.deadline) && +deadlineDate(item.deadline)! < +now)),{institution:current.institution,category:current.category,now})
+    .sort((a,b)=>affinity(b.item)-affinity(a.item)||b.score-a.score)
+    .filter(({item})=>{if(seen.has(item.href))return false;seen.add(item.href);return true;}).slice(0,limit);
 }
 
 export function trendingContent<T extends DiscoveryItem>(items:T[], now=new Date(), limit=8){
