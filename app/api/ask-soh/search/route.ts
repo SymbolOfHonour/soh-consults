@@ -41,6 +41,7 @@ function cleanText(value:string){
 }
 function isUsableResult(title:string,url:string,snippet:string){
   if(!title||!snippet||snippet.length<35)return false;
+  if(/(?:target url returned error|http error|404\s*:?\s*not found|403\s*:?\s*forbidden|502\s*:?\s*bad gateway|503\s*:?\s*service unavailable|requested resource is not found|page not found)/i.test(title+" "+snippet))return false;
   if(blockedSearchHost(url))return false;
   if(/^(images?|videos?|maps?|news|shopping|more)$/i.test(title.trim()))return false;
   if(/(?:blob:|data:|localhost)/i.test(url)||/(?:blob:|data:|localhost)/i.test(title+snippet))return false;
@@ -68,17 +69,27 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
 function parseGoogleMarkdown(markdown:string):SearchResult[]{const lines=markdown.split("\n"),results:SearchResult[]=[];for(let i=0;i<lines.length;i++){const line=lines[i].trim(),match=line.match(/^\[(.+?)\]\((https?:\/\/[^)]+)\)$/);if(!match)continue;const title=cleanText(match[1]);let url=match[2];try{const parsed=new URL(url);if(parsed.hostname.includes("google.")&&parsed.pathname==="/url"){const target=parsed.searchParams.get("q")||parsed.searchParams.get("url");if(target)url=target;}}catch{continue;}if(!title||title.toLowerCase().includes("google")||url.includes("google.com/search")||url.includes("accounts.google")||url.includes("support.google"))continue;const parts:string[]=[];for(let j=i+1;j<Math.min(lines.length,i+7);j++){const c=cleanText(lines[j]);if(!c)continue;if(/^\[.+?\]\(https?:\/\//.test(c))break;if(c.startsWith("http"))continue;if(c.length>20)parts.push(c);if(parts.join(" ").length>320)break;}const snippet=cleanText(parts.join(" ")).slice(0,360);if(!isUsableResult(title,url,snippet))continue;if(!results.some(x=>x.url===url))results.push({title,url,snippet,official:isOfficial(url)});if(results.length>=5)break;}return results.sort((a,b)=>Number(b.official)-Number(a.official));}
 
 async function fetchOfficialPage(url:string,title:string):Promise<SearchResult|null>{
-  try{
-    const readerUrl=`https://r.jina.ai/http://${url.replace(/^https?:\/\//,"")}`;
-    const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:180}});
-    if(!response.ok)return null;
-    const raw=await response.text();
-    const snippet=cleanText(raw
+  const parseBody=(raw:string)=>{
+    if(/(?:target url returned error|http error|404\s*:?\s*not found|403\s*:?\s*forbidden|502\s*:?\s*bad gateway|503\s*:?\s*service unavailable|requested resource is not found|page not found)/i.test(raw))return "";
+    return cleanText(raw
       .replace(/^Title:.*$/gim," ")
       .replace(/^URL Source:.*$/gim," ")
       .replace(/^Markdown Content:.*$/gim," ")
       .replace(/[#*_>`]/g," ")
-    ).slice(0,900);
+    ).slice(0,1200);
+  };
+  try{
+    const direct=await fetch(url,{headers:{"User-Agent":"Mozilla/5.0 (compatible; AskSOH/1.0; +https://sohconsults.com.ng)"},redirect:"follow",next:{revalidate:180}});
+    if(direct.ok){
+      const snippet=parseBody(await direct.text());
+      if(isUsableResult(title,url,snippet))return {title,url,snippet,official:true};
+    }
+  }catch{}
+  try{
+    const readerUrl=`https://r.jina.ai/http://${url.replace(/^https?:\/\//,"")}`;
+    const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:180}});
+    if(!response.ok)return null;
+    const snippet=parseBody(await response.text());
     return isUsableResult(title,url,snippet)?{title,url,snippet,official:true}:null;
   }catch{return null;}
 }
@@ -87,7 +98,6 @@ function directOfficialTargets(question:string):Array<{title:string;url:string}>
   if(/\blasu\b|lagos state university/i.test(question)){
     const targets=[
       {title:"LASU 2026/2027 Admission Screening Portal",url:"https://services.lidc.lasu.edu.ng/admissionscreening/"},
-      {title:"LASU Admission Screening Candidate Login",url:"https://www.services.lidc.lasu.edu.ng/admissionscreening/login.php"},
       {title:"Lagos State University",url:"https://lasu.edu.ng/home/"},
       {title:"LASU Latest News",url:"https://www.lasu.edu.ng/home/news/"}
     ];
