@@ -74,7 +74,7 @@ export const guides: Guide[] = [
       { heading: "WHAT TO DO", body: "Keep checking CAPS and your institution's official channels. Make sure your admission requirements and uploaded records are in order." },
       { heading: "AVOID UNVERIFIED CLAIMS", body: "Do not assume a third party can guarantee the final outcome. Admission remains subject to the institution and JAMB processes." },
     ],
-  },,
+  },
   {
     slug: "nigerian-university-admission-checklist",
     title: "Nigerian University Admission Checklist: From Application to Clearance",
