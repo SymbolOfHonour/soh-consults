@@ -171,7 +171,13 @@ async function searchOfficialSites(question:string):Promise<SearchResult[]>{
   if(direct.length){
     const settled=await Promise.allSettled(direct.map(item=>fetchOfficialPage(item.url,item.title)));
     const results=settled.flatMap(item=>item.status==="fulfilled"&&item.value?[item.value]:[]);
-    if(results.length)return results;
+    if(results.length){
+      const terms=question.toLowerCase().split(/\W+/).filter(term=>term.length>3);
+      return results
+        .map(result=>({result,score:terms.reduce((score,term)=>score+(result.title+" "+result.snippet).toLowerCase().includes(term)?1:0)}))
+        .sort((a,b)=>b.score-a.score)
+        .map(({result})=>result);
+    }
   }
   return [];
 }
