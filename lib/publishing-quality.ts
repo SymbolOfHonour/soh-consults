@@ -13,6 +13,6 @@ export function publicationQuality(story:QueuedStory,others:QueuedStory[]){
  if(!readable)issues.push("Article text is missing.");
  if((story.deadline||story.deadline_iso)&&!deadlineDate(story))issues.push("Deadline is not verified with a valid date.");
  if(!deadlineEvidencePresent(story.deadline,story.deadline_iso,story.official_source_url))issues.push("Deadline evidence is incomplete: provide a valid deadline date.");
- if(duplicateCandidates(story.title||"",others,story.id,story.official_source_url).length)issues.push("Possible duplicate: review matching headlines or source links.");
+ if(duplicateCandidates(story.title||"",others,story.id,story.official_source_url,story.institution).length)issues.push("Possible duplicate: review matching headlines or source links.");
  return issues;
 }
