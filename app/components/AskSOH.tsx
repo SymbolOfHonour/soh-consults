@@ -21,6 +21,7 @@ type SearchSource = {
   url: string;
   snippet: string;
   official?: boolean;
+  internal?: boolean;
 };
 
 type SearchPayload = {
@@ -50,7 +51,7 @@ const mainActions: Action[] = [
 const initialMessage: Message = {
   id: 1,
   role: "assistant",
-  text: "Hi 👋 I’m Ask S.O.H. Ask me a basic admission question and I’ll try to answer it first. For fresh information, I can check Google and prioritise official sources. Personal or complex cases are referred to S.O.H CONSULTS.",
+  text: "Hi 👋 I’m Ask S.O.H. Ask me about admissions, deadlines, CAPS, opportunities or our calculators. I check S.O.H CONSULTS knowledge first, then current web sources when needed. I won’t guess when information is uncertain.",
   actions: mainActions,
 };
 
@@ -230,8 +231,9 @@ function classifyQuestion(question: string): { topic?: string; link?: string; sh
 }
 
 function buildSearchAnswer(payload: SearchPayload): Message {
+  const internal = payload.results.find((item) => item.internal);
   const official = payload.results.find((item) => item.official);
-  const best = official ?? payload.results[0];
+  const best = internal ?? official ?? payload.results[0];
 
   if (!best) {
     return {
@@ -249,14 +251,14 @@ function buildSearchAnswer(payload: SearchPayload): Message {
     };
   }
 
-  const sourceLabel = best.official ? "an official source" : "the most relevant result";
+  const sourceLabel = best.internal ? "S.O.H CONSULTS knowledge" : best.official ? "an official source" : "the most relevant current result";
   return {
     id: Date.now() + 1,
     role: "assistant",
-    text: `I checked Google and prioritised official admission sources. From ${sourceLabel}: ${best.snippet} Please open the source before making a payment or taking an irreversible admission action.`,
+    text: `I found a relevant answer from ${sourceLabel}: ${best.snippet} For deadlines, payments or irreversible admission actions, open the source and confirm the current details.`,
     sources: payload.results.slice(0, 3),
     actions: [
-      { label: "Open Best Source", type: "external", value: best.url },
+      { label: best.internal ? "Open S.O.H Resource" : "Open Best Source", type: best.internal ? "link" : "external", value: best.url },
       { label: "View Google Results", type: "external", value: payload.googleUrl },
     ],
   };
@@ -453,9 +455,9 @@ export default function AskSOH() {
                         >
                           <div className="flex items-start justify-between gap-2">
                             <p className="text-xs font-black text-slate-900">{source.title}</p>
-                            {source.official && (
+                            {(source.official || source.internal) && (
                               <span className="shrink-0 rounded-full bg-green-100 px-2 py-1 text-[9px] font-black uppercase text-green-800">
-                                Official
+                                {source.internal ? "S.O.H" : "Official"}
                               </span>
                             )}
                           </div>
@@ -493,7 +495,7 @@ export default function AskSOH() {
             {searching && (
               <div className="flex justify-start">
                 <div className="rounded-2xl rounded-bl-md bg-white px-4 py-3 text-sm font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200">
-                  Checking Google and official sources...
+                  Checking S.O.H knowledge and current sources...
                 </div>
               </div>
             )}
@@ -519,7 +521,7 @@ export default function AskSOH() {
               </button>
             </div>
             <div className="mt-2 flex items-center justify-between gap-3 px-1">
-              <p className="text-[10px] leading-4 text-slate-500">S.O.H guidance + live web search. Verify important decisions.</p>
+              <p className="text-[10px] leading-4 text-slate-500">S.O.H knowledge first + current sources. No admission guarantees.</p>
               <a
                 href={whatsappLink(`Hello S.O.H CONSULTS, I was using the Ask S.O.H assistant and I need help with: ${contextualQuestion}`)}
                 target="_blank"
