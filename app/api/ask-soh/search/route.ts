@@ -30,6 +30,19 @@ Do not add URLs because the interface renders source cards separately.`;
 const OFFICIAL_HOSTS=["jamb.gov.ng","lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng","education.gov.ng","nbte.gov.ng","nysc.gov.ng","waec.org","neco.gov.ng"];
 const SEARCH_BLOCKED_HOSTS=["google.com","www.google.com","googleusercontent.com","gstatic.com","accounts.google.com","support.google.com"];
 function blockedSearchHost(url:string){try{const host=new URL(url).hostname.toLowerCase();return SEARCH_BLOCKED_HOSTS.some(item=>host===item||host.endsWith(`.${item}`));}catch{return true;}}
+function htmlToText(value:string){
+  return value
+    .replace(/<script[\s\S]*?<\/script>/gi," ")
+    .replace(/<style[\s\S]*?<\/style>/gi," ")
+    .replace(/<!--([\s\S]*?)-->/g," ")
+    .replace(/<[^>]+>/g," ")
+    .replace(/&nbsp;/gi," ")
+    .replace(/&amp;/gi,"&")
+    .replace(/&quot;/gi,'"')
+    .replace(/&#39;|&apos;/gi,"'")
+    .replace(/&lt;/gi,"<")
+    .replace(/&gt;/gi,">");
+}
 function cleanText(value:string){
   return value
     .replace(/!\[[^\]]*\]\((?:blob:|data:|https?:\/\/localhost)[^)]+\)/gi," ")
@@ -42,6 +55,7 @@ function cleanText(value:string){
 function isUsableResult(title:string,url:string,snippet:string){
   if(!title||!snippet||snippet.length<35)return false;
   if(/(?:target url returned error|http error|404\s*:?\s*not found|403\s*:?\s*forbidden|502\s*:?\s*bad gateway|503\s*:?\s*service unavailable|requested resource is not found|page not found)/i.test(title+" "+snippet))return false;
+  if(/<!doctype|<html|<head|<meta|<link\s|<script/i.test(snippet))return false;
   if(blockedSearchHost(url))return false;
   if(/^(images?|videos?|maps?|news|shopping|more)$/i.test(title.trim()))return false;
   if(/(?:blob:|data:|localhost)/i.test(url)||/(?:blob:|data:|localhost)/i.test(title+snippet))return false;
@@ -81,7 +95,9 @@ async function fetchOfficialPage(url:string,title:string):Promise<SearchResult|n
   try{
     const direct=await fetch(url,{headers:{"User-Agent":"Mozilla/5.0 (compatible; AskSOH/1.0; +https://sohconsults.com.ng)"},redirect:"follow",next:{revalidate:180}});
     if(direct.ok){
-      const snippet=parseBody(await direct.text());
+      const contentType=direct.headers.get("content-type")||"";
+      const raw=await direct.text();
+      const snippet=parseBody(contentType.includes("text/html")?htmlToText(raw):raw);
       if(isUsableResult(title,url,snippet))return {title,url,snippet,official:true};
     }
   }catch{}
