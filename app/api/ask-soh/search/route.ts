@@ -89,6 +89,16 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
   }
   const latestIntent=question.split(/Context subject:/i)[0];
   const asksRequirements=/\b(requirement|requirements|eligibility|eligible|need to apply|what do i need)\b/i.test(latestIntent);
+  const asksDirectEntry=/\b(direct entry|\bde\b)\b/i.test(latestIntent);
+  if(asksDirectEntry&&official.length){
+    const text=official.map(item=>cleanText(item.snippet).replace(/&times;|&nbsp;|&#\d+;/gi," ")).join(" ");
+    const fuoye=/\bfuoye\b|federal university oye.?ekiti/i.test(question+" "+text);
+    if(fuoye){
+      const deEvidence=text.split(/(?<=[.!?])\s+|\s{2,}/).filter(sentence=>/direct entry|\bDE\b|nce|nd|hnd|degree|a.?level|ijmb|jupeb/i.test(sentence)&&!/smartcampus|onboarding|applications currently open|balance payment|result verification/i.test(sentence)).slice(0,5).join(" ");
+      if(deEvidence.length>=40)return {answer:`For FUOYE 2026/2027 Direct Entry screening, the official evidence I could verify says: ${deEvidence} I have excluded unrelated CASAPS/SmartCampus notices. Check the programme-specific Direct Entry qualification for your chosen course before submitting.`,confidence:"high",needsHuman:false};
+      return {answer:"I could not verify enough FUOYE 2026/2027 Direct Entry-specific eligibility or document requirements from the retrieved official evidence. I will not substitute unrelated CASAPS/SmartCampus notices or guess. Check the official FUOYE screening guide/portal for the Direct Entry requirements for your chosen programme.",confidence:"medium",needsHuman:true};
+    }
+  }
   if(asksRequirements&&official.length){
     const text=official.map(item=>cleanText(item.snippet).replace(/&times;|&nbsp;|&#\d+;/gi," ")).join(" ");
     const fuoye=/\bfuoye\b|federal university oye.?ekiti/i.test(question+" "+text);
@@ -237,7 +247,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   if(!question||question.length<3)return NextResponse.json({error:"Please enter a valid question."},{status:400});
   const safeQuestion=question.slice(0,220);
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
-  const currentSensitive=/(latest|current|today|deadline|closing|close|open|ongoing|available|fee|price|cost|date|2026|2027|form|cut.?off|registration|requirement|screening)/i.test(resolvedQuestion);
+  const currentSensitive=/(latest|current|today|deadline|closing|close|open|ongoing|available|fee|price|cost|date|2026|2027|form|cut.?off|registration|requirement|screening|direct entry|\bde\b)/i.test(resolvedQuestion);
   const institutionHint=/\blasu\b|lagos state university/i.test(resolvedQuestion)?" Lagos State University LASU":"";
   const officialHint=currentSensitive&&institutionHint?" site:lasu.edu.ng":"";
   const googleQuery=`${resolvedQuestion}${institutionHint} Nigeria admission JAMB${officialHint}`;
