@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { guides } from "../../../data/guides";
 import { getSiteUrl } from "../../site-url";
+import JsonLd from "../../components/JsonLd";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -67,8 +68,10 @@ export default async function GuidePage({ params }: Props) {
 
   if (!guide) notFound();
 
+  const canonicalUrl = `${getSiteUrl()}/guides/${guide.slug}`;
   return (
     <main className="min-h-screen bg-[#f7f5ef] text-[#102720]">
+      <JsonLd data={[{"@context":"https://schema.org","@type":"Article",headline:guide.title,description:guide.summary,mainEntityOfPage:canonicalUrl,author:{"@type":"Organization","name":"S.O.H CONSULTS"},publisher:{"@id":`${getSiteUrl()}/#organization`}},{"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:[{"@type":"ListItem",position:1,name:"Home",item:getSiteUrl()},{"@type":"ListItem",position:2,name:"Guides",item:`${getSiteUrl()}/guides`},{"@type":"ListItem",position:3,name:guide.title,item:canonicalUrl}]}]}/>
       <header className="border-b border-[#dfe7df] bg-white">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
           <a href="/" className="font-black text-[#075738]">S.O.H CONSULTS</a>

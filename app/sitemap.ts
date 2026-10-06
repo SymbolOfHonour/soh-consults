@@ -21,15 +21,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const published = await listPublishedStories({strict:true});
   const core: MetadataRoute.Sitemap = [
     { url: siteUrl, changeFrequency: "weekly", priority: 1 },
-    { url: `${siteUrl}/about`, changeFrequency: "monthly", priority: .6 },
-    { url: `${siteUrl}/privacy-policy`, changeFrequency: "monthly", priority: .4 },
-    { url: `${siteUrl}/disclaimer`, changeFrequency: "monthly", priority: .4 },
+    { url: `${siteUrl}/about`, changeFrequency: "monthly", priority: .8 },
+    { url: `${siteUrl}/privacy-policy`, changeFrequency: "monthly", priority: .5 },
+    { url: `${siteUrl}/disclaimer`, changeFrequency: "monthly", priority: .5 },
     { url: `${siteUrl}/lasu-calculator`, changeFrequency: "monthly", priority: .95 },
     { url: `${siteUrl}/cgpa-calculator`, changeFrequency: "monthly", priority: .95 },
     { url: `${siteUrl}/updates`, changeFrequency: "daily", priority: .9 },
     { url: `${siteUrl}/opportunities`, changeFrequency: "daily", priority: .9 },
     { url: `${siteUrl}/deadlines`, changeFrequency: "daily", priority: .9 },
-    { url: `${siteUrl}/guides`, changeFrequency: "weekly", priority: .9 },
+    { url: `${siteUrl}/guides`, changeFrequency: "weekly", priority: .95 },
   ];
   core.push(...["tools","screening-calculator","fuoye-calculator","fuadsi-calculator","uniosun-calculator","lasued-calculator","lasustech-calculator","oou-calculator","yabatech-calculator","cgpa-calculator/planner","cgpa-calculator/select-scale"].map(path=>({url:`${siteUrl}/${path}`,changeFrequency:"monthly" as const,priority:.7})));
   const updatePages: MetadataRoute.Sitemap = published.map(story => ({
@@ -41,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const guidePages: MetadataRoute.Sitemap = guides.map(item => ({
     url: `${siteUrl}/guides/${item.slug}`,
     changeFrequency: "monthly",
-    priority: .85,
+    priority: .9,
   }));
   const categories: MetadataRoute.Sitemap = Array.from(new Set(published.map(story => categorySlug(story.category)).filter(Boolean))).map(category => ({
     url: `${siteUrl}/updates/category/${category}`,
