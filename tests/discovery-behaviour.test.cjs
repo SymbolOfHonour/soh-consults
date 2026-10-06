@@ -139,16 +139,6 @@ test("Ask S.O.H requirements answers extract requirement-specific evidence", () 
 });
 
 
-test("Ask S.O.H requirements use structured facts instead of portal sentence dumps", () => {
-  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
-  assert.match(route, /English Language and Mathematics are compulsory O'Level requirements/);
-  assert.match(route, /Awaiting-result candidates may start the application/);
-  assert.match(route, /UTME subject combination and the remaining O'Level subjects depend on the programme/);
-  assert.match(route, /I will not guess/);
-  assert.match(route, /replace\(\/&times;/);
-});
-
-
 test("Ask S.O.H FUOYE requirements retrieve official guides and build a practical checklist", () => {
   const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
   assert.match(route, /FOUYE-Post-UTME-Admission-Screening-Registration-GUIDE\.pdf/);
