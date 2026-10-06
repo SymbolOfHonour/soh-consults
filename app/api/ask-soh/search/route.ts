@@ -90,17 +90,27 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
   const latestIntent=question.split(/Context subject:/i)[0];
   const asksRequirements=/\b(requirement|requirements|eligibility|eligible|need to apply|what do i need)\b/i.test(latestIntent);
   if(asksRequirements&&official.length){
-    const sentences=official
-      .flatMap(item=>cleanText(item.snippet).split(/(?<=[.!?;:])\s+|\s{2,}/))
-      .map(sentence=>sentence.trim())
-      .filter(sentence=>sentence.length>=25)
-      .filter(sentence=>/(minimum|score|utme|o.?level|credit|first choice|choice institution|direct entry|de candidate|awaiting result|subject combination|eligib|candidate must|required|requirement|screening exercise)/i.test(sentence))
-      .filter(sentence=>!/(law|change to other|department\/programme|javascript|mail|helpline|navigation|copyright|privacy|cookie)/i.test(sentence));
-    const unique=[...new Set(sentences)].slice(0,5);
-    if(unique.length){
-      return {answer:`From the current official source, the relevant FUOYE screening requirements I could verify are: ${unique.join(" ")} I have left out anything the source did not clearly establish rather than guessing.`.slice(0,850),confidence:"high",needsHuman:false};
+    const text=official.map(item=>cleanText(item.snippet).replace(/&times;|&nbsp;|&#\d+;/gi," ")).join(" ");
+    const facts:string[]=[];
+    const add=(fact:string)=>{if(fact&&!facts.includes(fact))facts.push(fact);};
+    if(/english language and mathematics are compulsory o.?level requirements for all programmes/i.test(text))
+      add("English Language and Mathematics are compulsory O'Level requirements for all programmes.");
+    if(/awaiting result candidates may commence their application/i.test(text)&&/submission will only be permitted after uploading their o.?level result/i.test(text))
+      add("Awaiting-result candidates may start the application, but final submission is only permitted after their O'Level result has been uploaded.");
+    if(/chose federal university oye.?ekiti as (?:their )?choice institution/i.test(text))
+      add("The portal addresses candidates who chose FUOYE as their choice institution.");
+    const scoreMatches=[...text.matchAll(/(?:cut-?off mark|minimum(?: utme)? score)[^0-9]{0,25}(1[5-9]0|2\d{2})/gi)].map(m=>m[1]);
+    if(scoreMatches.length===1)add(`The official source shows a screening/cut-off score of ${scoreMatches[0]}.`);
+    const hasProgrammeTable=/programme family[\s\S]{0,120}utme subjects[\s\S]{0,120}o.?level requirements/i.test(text);
+    if(hasProgrammeTable)add("UTME subject combination and the remaining O'Level subjects depend on the programme selected.");
+    if(facts.length){
+      const missing:string[]=[];
+      if(!scoreMatches.length)missing.push("a general minimum UTME score");
+      if(!/first choice/i.test(text))missing.push("whether FUOYE must be first choice");
+      const caveat=missing.length?` I could not verify ${missing.join(" or ")} from the retrieved official evidence, so I will not guess.`:"";
+      return {answer:`For FUOYE 2026/2027 screening, the official evidence I could verify says: • ${facts.join(" • ")}${caveat}`,confidence:"high",needsHuman:false};
     }
-    return {answer:"I found FUOYE's official screening source, but the retrieved evidence does not clearly state the requirements needed to answer this accurately. I would rather not invent them. Open the official source or continue with S.O.H CONSULTS for confirmation.",confidence:"medium",needsHuman:true};
+    return {answer:"I found FUOYE's official screening source, but it did not expose enough structured eligibility facts to answer the requirements accurately. I will not invent them. Use the official screening guide/source or S.O.H CONSULTS for confirmation.",confidence:"medium",needsHuman:true};
   }
   if(currentSensitive&&preferred.official&&lasuScreening&&asksOpen){
     const hasStart=/start screening/i.test(evidence);
