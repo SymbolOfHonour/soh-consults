@@ -24,16 +24,21 @@ export async function GET(request:NextRequest){
   const rate=await checkRateLimit(request,"ask-soh-search",30,60*60);
   if(!rate.allowed)return NextResponse.json({error:"Search limit reached. Please try again later.",results:[]},{status:429,headers:{"Retry-After":String(rate.retryAfter)}});
   const question=request.nextUrl.searchParams.get("q")?.trim();
+  const context=request.nextUrl.searchParams.get("context")?.trim().slice(0,180);
   if(!question||question.length<3)return NextResponse.json({error:"Please enter a valid question."},{status:400});
-  const safeQuestion=question.slice(0,220),googleQuery=`${safeQuestion} Nigeria admission JAMB`,googleUrl=`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
-  const internalResults=await searchSOH(safeQuestion);
+  const safeQuestion=question.slice(0,220);
+  const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${context}. ${safeQuestion}`.slice(0,360) : safeQuestion;
+  const currentSensitive=/(latest|current|today|deadline|closing|close|open|fee|price|cost|date|2026|2027|form|cut.?off|registration)/i.test(resolvedQuestion);
+  const googleQuery=`${resolvedQuestion} Nigeria admission JAMB`;
+  const googleUrl=`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
+  const internalResults=await searchSOH(resolvedQuestion);
   const readerUrl=`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
   try{
     const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:300}});
     if(!response.ok)throw new Error(`Search service returned ${response.status}`);
     const webResults=parseGoogleMarkdown(await response.text());
-    return NextResponse.json({query:safeQuestion,googleUrl,results:[...internalResults,...webResults].slice(0,7),searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length});
+    return NextResponse.json({query:safeQuestion,googleUrl,results:[...internalResults,...webResults].slice(0,7),searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive});
   }catch(error){
-    return NextResponse.json({query:safeQuestion,googleUrl,results:internalResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
+    return NextResponse.json({query:safeQuestion,googleUrl,results:internalResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
   }
 }
