@@ -158,3 +158,11 @@ test("Ask S.O.H keeps FUOYE Direct Entry follow-ups intent-specific", () => {
   assert.match(route,/I could not verify enough FUOYE 2026\/2027 Direct Entry-specific eligibility/);
   assert.match(route,/smartcampus\|onboarding\|applications currently open\|balance payment\|result verification/);
 });
+
+
+test("Ask S.O.H rejects unrelated FUOYE notices as Direct Entry evidence",()=>{
+ const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
+ assert.match(route,/post\.\?utme\|awaiting result\|department of law/);
+ assert.match(route,/direct entry\|\\bDE\\b/);
+ assert.match(route,/requirement\|eligib\|qualification\|credential\|document/);
+});
