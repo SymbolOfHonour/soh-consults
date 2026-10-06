@@ -147,3 +147,17 @@ test("Ask S.O.H requirements use structured facts instead of portal sentence dum
   assert.match(route, /I will not guess/);
   assert.match(route, /replace\(\/&times;/);
 });
+
+
+test("Ask S.O.H FUOYE requirements retrieve official guides and build a practical checklist", () => {
+  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
+  assert.match(route, /FOUYE-Post-UTME-Admission-Screening-Registration-GUIDE\.pdf/);
+  assert.match(route, /instruction_UG\.php\?session=2026%2F2027/);
+  assert.match(route, /JAMB registration number/);
+  assert.match(route, /Passport photograph/);
+  assert.match(route, /O'Level result\/certificate/);
+  assert.match(route, /valid email address/);
+  assert.match(route, /valid phone number/);
+  assert.match(route, /screening-fee payment/);
+  assert.match(route, /print the completed application/);
+});
