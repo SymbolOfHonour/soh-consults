@@ -67,20 +67,47 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
 
 function parseGoogleMarkdown(markdown:string):SearchResult[]{const lines=markdown.split("\n"),results:SearchResult[]=[];for(let i=0;i<lines.length;i++){const line=lines[i].trim(),match=line.match(/^\[(.+?)\]\((https?:\/\/[^)]+)\)$/);if(!match)continue;const title=cleanText(match[1]);let url=match[2];try{const parsed=new URL(url);if(parsed.hostname.includes("google.")&&parsed.pathname==="/url"){const target=parsed.searchParams.get("q")||parsed.searchParams.get("url");if(target)url=target;}}catch{continue;}if(!title||title.toLowerCase().includes("google")||url.includes("google.com/search")||url.includes("accounts.google")||url.includes("support.google"))continue;const parts:string[]=[];for(let j=i+1;j<Math.min(lines.length,i+7);j++){const c=cleanText(lines[j]);if(!c)continue;if(/^\[.+?\]\(https?:\/\//.test(c))break;if(c.startsWith("http"))continue;if(c.length>20)parts.push(c);if(parts.join(" ").length>320)break;}const snippet=cleanText(parts.join(" ")).slice(0,360);if(!isUsableResult(title,url,snippet))continue;if(!results.some(x=>x.url===url))results.push({title,url,snippet,official:isOfficial(url)});if(results.length>=5)break;}return results.sort((a,b)=>Number(b.official)-Number(a.official));}
 
+async function fetchOfficialPage(url:string,title:string):Promise<SearchResult|null>{
+  try{
+    const readerUrl=`https://r.jina.ai/http://${url.replace(/^https?:\/\//,"")}`;
+    const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:180}});
+    if(!response.ok)return null;
+    const raw=await response.text();
+    const snippet=cleanText(raw
+      .replace(/^Title:.*$/gim," ")
+      .replace(/^URL Source:.*$/gim," ")
+      .replace(/^Markdown Content:.*$/gim," ")
+      .replace(/[#*_>`]/g," ")
+    ).slice(0,900);
+    return isUsableResult(title,url,snippet)?{title,url,snippet,official:true}:null;
+  }catch{return null;}
+}
+
+function directOfficialTargets(question:string):Array<{title:string;url:string}>{
+  if(/\blasu\b|lagos state university/i.test(question)){
+    const targets=[
+      {title:"LASU 2026/2027 Admission Screening Portal",url:"https://services.lidc.lasu.edu.ng/admissionscreening/"},
+      {title:"LASU Admission Screening Candidate Login",url:"https://www.services.lidc.lasu.edu.ng/admissionscreening/login.php"},
+      {title:"Lagos State University",url:"https://lasu.edu.ng/home/"},
+      {title:"LASU Latest News",url:"https://www.lasu.edu.ng/home/news/"}
+    ];
+    return targets;
+  }
+  if(/\bjamb\b|caps|utme|direct entry/i.test(question))return [{title:"JAMB Official Website",url:"https://www.jamb.gov.ng/"}];
+  if(/\bwaec\b/i.test(question))return [{title:"WAEC Official Website",url:"https://www.waec.org/"}];
+  if(/\bneco\b/i.test(question))return [{title:"NECO Official Website",url:"https://neco.gov.ng/"}];
+  if(/\bnysc\b/i.test(question))return [{title:"NYSC Official Website",url:"https://www.nysc.gov.ng/"}];
+  return [];
+}
+
 async function searchOfficialSites(question:string):Promise<SearchResult[]>{
-  const institutionHosts=/\blasu\b|lagos state university/i.test(question)
-    ? ["lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng"]
-    : OFFICIAL_HOSTS;
-  const queries=institutionHosts.slice(0,4).map(host=>({host,url:`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(`site:${host} ${question}`)}&num=5&hl=en`}));
-  const settled=await Promise.allSettled(queries.map(async ({host,url})=>{
-    const response=await fetch(url,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:180}});
-    if(!response.ok)return [];
-    return parseGoogleMarkdown(await response.text())
-      .filter(item=>isOfficial(item.url)&&!blockedSearchHost(item.url))
-      .map(item=>({...item,official:true}));
-  }));
-  const combined=settled.flatMap(item=>item.status==="fulfilled"?item.value:[]);
-  return combined.filter((item,index,all)=>all.findIndex(other=>other.url===item.url)===index).slice(0,5);
+  const direct=directOfficialTargets(question);
+  if(direct.length){
+    const settled=await Promise.allSettled(direct.map(item=>fetchOfficialPage(item.url,item.title)));
+    const results=settled.flatMap(item=>item.status==="fulfilled"&&item.value?[item.value]:[]);
+    if(results.length)return results;
+  }
+  return [];
 }
 
 async function searchSOH(question:string):Promise<SearchResult[]>{
