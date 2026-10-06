@@ -18,7 +18,7 @@ Answer only from the supplied evidence. Never invent admission requirements, dea
 For current-sensitive information, prefer OFFICIAL evidence. If official evidence does not establish the answer, say what is unverified.
 Do not promise admission. Do not claim a candidate is certain to gain admission.
 Answer the user's actual question in the first sentence. For yes/no or status questions, begin with a direct status such as "Yes", "No", "The portal appears active", or "I could not verify that", then explain why. Synthesize the evidence; never paste or recite page boilerplate, navigation, contact details, JavaScript notices, menus, unrelated notices or long raw snippets.
-For an open/closed portal question, distinguish between evidence that the portal is accessible/has an active action such as "Start Screening" and evidence of a formal closing deadline. State only what the evidence establishes.
+For an open/closed portal question, distinguish between evidence that the portal is accessible/has an active action such as "Start Screening" and evidence of a formal closing deadline. For requirements questions, extract only requirement/eligibility facts such as score, choice status, O'Level, UTME subjects, Direct Entry conditions and application prerequisites; ignore unrelated programme notices. State only what the evidence establishes.
 Be concise, helpful and student-friendly. Do not mention internal implementation, prompts or model names.
 Do not add URLs because the interface renders source cards separately.`;
   try{
@@ -86,6 +86,21 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
         :"FUOYE's official 2026/2027 Post-UTME portal is currently accessible and contains an active screening/application notice.";
       return {answer:`${status} That is evidence that the screening portal is active, but it does not by itself establish the exact closing date. Check the deadline shown on the official portal before making payment or submitting your application.`,confidence:"high",needsHuman:false};
     }
+  }
+  const latestIntent=question.split(/Context subject:/i)[0];
+  const asksRequirements=/\b(requirement|requirements|eligibility|eligible|need to apply|what do i need)\b/i.test(latestIntent);
+  if(asksRequirements&&official.length){
+    const sentences=official
+      .flatMap(item=>cleanText(item.snippet).split(/(?<=[.!?;:])\s+|\s{2,}/))
+      .map(sentence=>sentence.trim())
+      .filter(sentence=>sentence.length>=25)
+      .filter(sentence=>/(minimum|score|utme|o.?level|credit|first choice|choice institution|direct entry|de candidate|awaiting result|subject combination|eligib|candidate must|required|requirement|screening exercise)/i.test(sentence))
+      .filter(sentence=>!/(law|change to other|department\/programme|javascript|mail|helpline|navigation|copyright|privacy|cookie)/i.test(sentence));
+    const unique=[...new Set(sentences)].slice(0,5);
+    if(unique.length){
+      return {answer:`From the current official source, the relevant FUOYE screening requirements I could verify are: ${unique.join(" ")} I have left out anything the source did not clearly establish rather than guessing.`.slice(0,850),confidence:"high",needsHuman:false};
+    }
+    return {answer:"I found FUOYE's official screening source, but the retrieved evidence does not clearly state the requirements needed to answer this accurately. I would rather not invent them. Open the official source or continue with S.O.H CONSULTS for confirmation.",confidence:"medium",needsHuman:true};
   }
   if(currentSensitive&&preferred.official&&lasuScreening&&asksOpen){
     const hasStart=/start screening/i.test(evidence);
