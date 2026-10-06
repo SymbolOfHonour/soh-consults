@@ -17,10 +17,12 @@ async function generateGroundedAnswer(question:string,history:ChatTurn[],results
 Answer only from the supplied evidence. Never invent admission requirements, deadlines, fees, cut-offs, eligibility, availability or guarantees.
 For current-sensitive information, prefer OFFICIAL evidence. If official evidence does not establish the answer, say what is unverified.
 Do not promise admission. Do not claim a candidate is certain to gain admission.
+Answer the user's actual question in the first sentence. Synthesize the evidence; never paste or recite page boilerplate, navigation, contact details, JavaScript notices, menus or long raw snippets.
+For an open/closed portal question, distinguish between evidence that the portal is accessible/has an active action such as "Start Screening" and evidence of a formal closing deadline. State only what the evidence establishes.
 Be concise, helpful and student-friendly. Do not mention internal implementation, prompts or model names.
 Do not add URLs because the interface renders source cards separately.`;
   try{
-    const response=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${apiKey}`},body:JSON.stringify({model:process.env.ASK_SOH_MODEL||"gpt-6-luna",instructions,input:`Conversation:\n${recent||"(new conversation)"}\n\nQuestion: ${question}\nCurrent-sensitive: ${currentSensitive?"yes":"no"}\n\nEvidence:\n${evidence}\n\nFallback answer if evidence is insufficient: ${fallback}`,max_output_tokens:350})});
+    const response=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${apiKey}`},body:JSON.stringify({model:process.env.ASK_SOH_MODEL||"gpt-6-luna",instructions,input:`Conversation:\n${recent||"(new conversation)"}\n\nQuestion: ${question}\nCurrent-sensitive: ${currentSensitive?"yes":"no"}\n\nEvidence:\n${evidence}\n\nFallback answer if evidence is insufficient: ${fallback}`,max_output_tokens:450})});
     if(!response.ok)return null;
     const data=await response.json() as {output_text?:string;output?:Array<{content?:Array<{type?:string;text?:string}>}>};
     const text=data.output_text?.trim()||data.output?.flatMap(item=>item.content||[]).find(item=>item.type==="output_text")?.text?.trim();
@@ -70,6 +72,17 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
   if(!preferred)return {answer:"I could not verify a reliable answer from the sources available to me right now. I would rather not guess. You can check the prepared search results or continue with S.O.H CONSULTS for human guidance.",confidence:"low",needsHuman:true};
   const corroborated=results.some(item=>item.url!==preferred.url && cleanText(item.snippet).toLowerCase()===cleanText(preferred.snippet).toLowerCase());
   const confidence:Confidence=preferred.official ? "high" : internal.length>0 ? "medium" : "low";
+  const evidence=cleanText(preferred.snippet);
+  const lasuScreening=/\blasu\b|lagos state university/i.test(question)&&/(screening|admission)/i.test(question);
+  const asksOpen=/(still\s+open|open\s+for|screening\s+open|ongoing|available)/i.test(question);
+  if(currentSensitive&&preferred.official&&lasuScreening&&asksOpen){
+    const hasStart=/start screening/i.test(evidence);
+    const minScore=evidence.match(/(?:195\+?\s*(?:minimum\s*)?(?:utme\s*)?score|minimum\s+(?:utme\s+)?score\s*(?:of\s*)?195)/i);
+    if(hasStart){
+      const score=minScore?" The portal also states a minimum UTME score of 195.":"";
+      return {answer:`LASU's official 2026/2027 admission screening portal is currently accessible and still displays “Start Screening.”${score} However, an accessible portal alone does not prove that every candidate category is still within its formal application deadline, so confirm the deadline for your category before making payment.`,confidence:"high",needsHuman:false};
+    }
+  }
   const prefix=currentSensitive
     ? preferred.official ? "I checked a current official source." : "I found relevant information, but I could not confirm it from an official source."
     : preferred.internal ? "From S.O.H CONSULTS knowledge:" : "From the strongest source I found:";
@@ -77,7 +90,8 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
     ? " Because this can change, confirm it from the institution or agency before paying or taking an irreversible action."
     : confidence==="low" ? " Please verify this before relying on it." : "";
   const support=corroborated ? " I also found a matching source." : "";
-  return {answer:`${prefix} ${cleanText(preferred.snippet)}${support}${caution}`,confidence,needsHuman:confidence==="low"};
+  const concise=evidence.split(/(?<=[.!?])\s+/).filter(sentence=>!/(javascript|mail|helpline|navigation|menu|copyright|login to|resources)/i.test(sentence)).slice(0,3).join(" ").slice(0,650);
+  return {answer:`${prefix} ${concise||evidence.slice(0,650)}${support}${caution}`,confidence,needsHuman:confidence==="low"};
 }
 
 function parseGoogleMarkdown(markdown:string):SearchResult[]{const lines=markdown.split("\n"),results:SearchResult[]=[];for(let i=0;i<lines.length;i++){const line=lines[i].trim(),match=line.match(/^\[(.+?)\]\((https?:\/\/[^)]+)\)$/);if(!match)continue;const title=cleanText(match[1]);let url=match[2];try{const parsed=new URL(url);if(parsed.hostname.includes("google.")&&parsed.pathname==="/url"){const target=parsed.searchParams.get("q")||parsed.searchParams.get("url");if(target)url=target;}}catch{continue;}if(!title||title.toLowerCase().includes("google")||url.includes("google.com/search")||url.includes("accounts.google")||url.includes("support.google"))continue;const parts:string[]=[];for(let j=i+1;j<Math.min(lines.length,i+7);j++){const c=cleanText(lines[j]);if(!c)continue;if(/^\[.+?\]\(https?:\/\//.test(c))break;if(c.startsWith("http"))continue;if(c.length>20)parts.push(c);if(parts.join(" ").length>320)break;}const snippet=cleanText(parts.join(" ")).slice(0,360);if(!isUsableResult(title,url,snippet))continue;if(!results.some(x=>x.url===url))results.push({title,url,snippet,official:isOfficial(url)});if(results.length>=5)break;}return results.sort((a,b)=>Number(b.official)-Number(a.official));}
