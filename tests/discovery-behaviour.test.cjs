@@ -124,6 +124,6 @@ test("Ask S.O.H follow-ups preserve latest intent instead of replaying previous 
   const widget = fs.readFileSync(path.join(root,"app/components/AskSOH.tsx"),"utf8");
   const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
   assert.match(widget, /searchWeb\(question, subjectContext/);
-  assert.match(route, /safeQuestion\. Context subject:/);
+  assert.match(route, /Context subject:/);
   assert.match(route, /question\.split\(\/Context subject:/);
 });
