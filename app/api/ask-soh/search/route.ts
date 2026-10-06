@@ -17,7 +17,7 @@ async function generateGroundedAnswer(question:string,history:ChatTurn[],results
 Answer only from the supplied evidence. Never invent admission requirements, deadlines, fees, cut-offs, eligibility, availability or guarantees.
 For current-sensitive information, prefer OFFICIAL evidence. If official evidence does not establish the answer, say what is unverified.
 Do not promise admission. Do not claim a candidate is certain to gain admission.
-Answer the user's actual question in the first sentence. Synthesize the evidence; never paste or recite page boilerplate, navigation, contact details, JavaScript notices, menus or long raw snippets.
+Answer the user's actual question in the first sentence. For yes/no or status questions, begin with a direct status such as "Yes", "No", "The portal appears active", or "I could not verify that", then explain why. Synthesize the evidence; never paste or recite page boilerplate, navigation, contact details, JavaScript notices, menus, unrelated notices or long raw snippets.
 For an open/closed portal question, distinguish between evidence that the portal is accessible/has an active action such as "Start Screening" and evidence of a formal closing deadline. State only what the evidence establishes.
 Be concise, helpful and student-friendly. Do not mention internal implementation, prompts or model names.
 Do not add URLs because the interface renders source cards separately.`;
@@ -74,7 +74,19 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
   const confidence:Confidence=preferred.official ? "high" : internal.length>0 ? "medium" : "low";
   const evidence=cleanText(preferred.snippet);
   const lasuScreening=/\blasu\b|lagos state university/i.test(question)&&/(screening|admission)/i.test(question);
+  const fuoyeScreening=/\bfuoye\b|federal university oye.?ekiti/i.test(question)&&/(screening|post.?utme|admission)/i.test(question);
   const asksOpen=/(still\s+open|open\s+for|screening\s+open|ongoing|available)/i.test(question);
+  if(currentSensitive&&preferred.official&&fuoyeScreening&&asksOpen){
+    const allEvidence=official.map(item=>cleanText(item.snippet)).join(" ");
+    const reopened=/closing\s+in\s*\(?reopened\)?|reopened/i.test(allEvidence);
+    const activeForm=/(post.?utme screening|pre-admission screening|commence their application|screening exercise)/i.test(allEvidence);
+    if(reopened||activeForm){
+      const status=reopened
+        ?"FUOYE's official 2026/2027 Post-UTME portal currently indicates that the screening exercise has been reopened."
+        :"FUOYE's official 2026/2027 Post-UTME portal is currently accessible and contains an active screening/application notice.";
+      return {answer:`${status} That is evidence that the screening portal is active, but it does not by itself establish the exact closing date. Check the deadline shown on the official portal before making payment or submitting your application.`,confidence:"high",needsHuman:false};
+    }
+  }
   if(currentSensitive&&preferred.official&&lasuScreening&&asksOpen){
     const hasStart=/start screening/i.test(evidence);
     const minScore=evidence.match(/(?:195\+?\s*(?:minimum\s*)?(?:utme\s*)?score|minimum\s+(?:utme\s+)?score\s*(?:of\s*)?195)/i);
