@@ -28,6 +28,8 @@ Do not add URLs because the interface renders source cards separately.`;
   }catch{return null;}
 }
 const OFFICIAL_HOSTS=["jamb.gov.ng","lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng","education.gov.ng","nbte.gov.ng","nysc.gov.ng","waec.org","neco.gov.ng"];
+const SEARCH_BLOCKED_HOSTS=["google.com","www.google.com","googleusercontent.com","gstatic.com","accounts.google.com","support.google.com"];
+function blockedSearchHost(url:string){try{const host=new URL(url).hostname.toLowerCase();return SEARCH_BLOCKED_HOSTS.some(item=>host===item||host.endsWith(`.${item}`));}catch{return true;}}
 function cleanText(value:string){
   return value
     .replace(/!\[[^\]]*\]\((?:blob:|data:|https?:\/\/localhost)[^)]+\)/gi," ")
@@ -39,6 +41,8 @@ function cleanText(value:string){
 }
 function isUsableResult(title:string,url:string,snippet:string){
   if(!title||!snippet||snippet.length<35)return false;
+  if(blockedSearchHost(url))return false;
+  if(/^(images?|videos?|maps?|news|shopping|more)$/i.test(title.trim()))return false;
   if(/(?:blob:|data:|localhost)/i.test(url)||/(?:blob:|data:|localhost)/i.test(title+snippet))return false;
   if(/^!?\[?image\b/i.test(title)||/^image\s*\d*$/i.test(title))return false;
   try{const parsed=new URL(url);return parsed.protocol==="https:"||parsed.protocol==="http:";}catch{return false;}
@@ -62,6 +66,22 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
 }
 
 function parseGoogleMarkdown(markdown:string):SearchResult[]{const lines=markdown.split("\n"),results:SearchResult[]=[];for(let i=0;i<lines.length;i++){const line=lines[i].trim(),match=line.match(/^\[(.+?)\]\((https?:\/\/[^)]+)\)$/);if(!match)continue;const title=cleanText(match[1]);let url=match[2];try{const parsed=new URL(url);if(parsed.hostname.includes("google.")&&parsed.pathname==="/url"){const target=parsed.searchParams.get("q")||parsed.searchParams.get("url");if(target)url=target;}}catch{continue;}if(!title||title.toLowerCase().includes("google")||url.includes("google.com/search")||url.includes("accounts.google")||url.includes("support.google"))continue;const parts:string[]=[];for(let j=i+1;j<Math.min(lines.length,i+7);j++){const c=cleanText(lines[j]);if(!c)continue;if(/^\[.+?\]\(https?:\/\//.test(c))break;if(c.startsWith("http"))continue;if(c.length>20)parts.push(c);if(parts.join(" ").length>320)break;}const snippet=cleanText(parts.join(" ")).slice(0,360);if(!isUsableResult(title,url,snippet))continue;if(!results.some(x=>x.url===url))results.push({title,url,snippet,official:isOfficial(url)});if(results.length>=5)break;}return results.sort((a,b)=>Number(b.official)-Number(a.official));}
+
+async function searchOfficialSites(question:string):Promise<SearchResult[]>{
+  const institutionHosts=/\blasu\b|lagos state university/i.test(question)
+    ? ["lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng"]
+    : OFFICIAL_HOSTS;
+  const queries=institutionHosts.slice(0,4).map(host=>({host,url:`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(`site:${host} ${question}`)}&num=5&hl=en`}));
+  const settled=await Promise.allSettled(queries.map(async ({host,url})=>{
+    const response=await fetch(url,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:180}});
+    if(!response.ok)return [];
+    return parseGoogleMarkdown(await response.text())
+      .filter(item=>isOfficial(item.url)&&!blockedSearchHost(item.url))
+      .map(item=>({...item,official:true}));
+  }));
+  const combined=settled.flatMap(item=>item.status==="fulfilled"?item.value:[]);
+  return combined.filter((item,index,all)=>all.findIndex(other=>other.url===item.url)===index).slice(0,5);
+}
 
 async function searchSOH(question:string):Promise<SearchResult[]>{
   try{
@@ -88,21 +108,22 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const officialHint=currentSensitive&&institutionHint?" site:lasu.edu.ng":"";
   const googleQuery=`${resolvedQuestion}${institutionHint} Nigeria admission JAMB${officialHint}`;
   const googleUrl=`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
-  const internalResults=await searchSOH(resolvedQuestion);
+  const [internalResults,officialResults]=await Promise.all([searchSOH(resolvedQuestion),currentSensitive?searchOfficialSites(resolvedQuestion):Promise.resolve([] as SearchResult[])]);
   const readerUrl=`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
   try{
     const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:300}});
     if(!response.ok)throw new Error(`Search service returned ${response.status}`);
     const webResults=parseGoogleMarkdown(await response.text());
-    const deduped=[...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
+    const deduped=[...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const results=deduped.sort((a,b)=>currentSensitive ? Number(b.official)-Number(a.official) : Number(Boolean(b.internal))-Number(Boolean(a.internal))).slice(0,7);
     const composed=composeAnswer(resolvedQuestion,results,currentSensitive);
     const generated=await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
     return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:generated??composed.answer,generative:Boolean(generated)});
   }catch(error){
-    const composed=composeAnswer(resolvedQuestion,internalResults,currentSensitive);
-    const generated=await generateGroundedAnswer(resolvedQuestion,history,internalResults,composed.answer,currentSensitive);
-    return NextResponse.json({query:safeQuestion,googleUrl,results:internalResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:generated??composed.answer,generative:Boolean(generated),error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
+    const fallbackResults=[...officialResults,...internalResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
+    const composed=composeAnswer(resolvedQuestion,fallbackResults,currentSensitive);
+    const generated=await generateGroundedAnswer(resolvedQuestion,history,fallbackResults,composed.answer,currentSensitive);
+    return NextResponse.json({query:safeQuestion,googleUrl,results:fallbackResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:generated??composed.answer,generative:Boolean(generated),error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
   }
 }
 
