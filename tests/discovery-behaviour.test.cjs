@@ -135,7 +135,7 @@ test("Ask S.O.H requirements answers extract requirement-specific evidence", () 
   assert.match(route, /o\.\?level/);
   assert.match(route, /first choice/);
   assert.match(route, /subject combination/);
-  assert.match(route, /rather not invent them/i);
+  assert.match(route, /I will not (?:guess|invent)/i);
 });
 
 
