@@ -33,6 +33,7 @@ type SearchPayload = {
   answer?: string;
   confidence?: "high" | "medium" | "low";
   needsHuman?: boolean;
+  generative?: boolean;
 };
 
 const WHATSAPP = "2348182141088";
@@ -324,9 +325,12 @@ export default function AskSOH() {
   async function searchWeb(question: string, context?: string) {
     setSearching(true);
     try {
-      const params = new URLSearchParams({ q: question });
-      if (context && context !== question) params.set("context", context);
-      const response = await fetch(`/api/ask-soh/search?${params.toString()}`);
+      const history = messages.slice(-6).map((message) => ({ role: message.role, content: message.text }));
+      const response = await fetch("/api/ask-soh/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question, context, history }),
+      });
       const payload = (await response.json()) as SearchPayload;
       addAssistant(buildSearchAnswer(payload));
     } catch {
@@ -524,7 +528,7 @@ export default function AskSOH() {
             {searching && (
               <div className="flex justify-start">
                 <div className="rounded-2xl rounded-bl-md bg-white px-4 py-3 text-sm font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200">
-                  Checking S.O.H knowledge and current sources...
+                  Thinking with S.O.H knowledge and verified sources...
                 </div>
               </div>
             )}
@@ -550,7 +554,7 @@ export default function AskSOH() {
               </button>
             </div>
             <div className="mt-2 flex items-center justify-between gap-3 px-1">
-              <p className="text-[10px] leading-4 text-slate-500">S.O.H knowledge first + current sources. No admission guarantees.</p>
+              <p className="text-[10px] leading-4 text-slate-500">Grounded in S.O.H + verified sources. No admission guarantees.</p>
               <a
                 href={whatsappLink(`Hello S.O.H CONSULTS, I was using the Ask S.O.H assistant and I need help with: ${contextualQuestion}`)}
                 target="_blank"
