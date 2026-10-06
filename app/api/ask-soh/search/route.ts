@@ -91,26 +91,24 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
   const asksRequirements=/\b(requirement|requirements|eligibility|eligible|need to apply|what do i need)\b/i.test(latestIntent);
   if(asksRequirements&&official.length){
     const text=official.map(item=>cleanText(item.snippet).replace(/&times;|&nbsp;|&#\d+;/gi," ")).join(" ");
-    const facts:string[]=[];
-    const add=(fact:string)=>{if(fact&&!facts.includes(fact))facts.push(fact);};
-    if(/english language and mathematics are compulsory o.?level requirements for all programmes/i.test(text))
-      add("English Language and Mathematics are compulsory O'Level requirements for all programmes.");
-    if(/awaiting result candidates may commence their application/i.test(text)&&/submission will only be permitted after uploading their o.?level result/i.test(text))
-      add("Awaiting-result candidates may start the application, but final submission is only permitted after their O'Level result has been uploaded.");
-    if(/chose federal university oye.?ekiti as (?:their )?choice institution/i.test(text))
-      add("The portal addresses candidates who chose FUOYE as their choice institution.");
-    const scoreMatches=[...text.matchAll(/(?:cut-?off mark|minimum(?: utme)? score)[^0-9]{0,25}(1[5-9]0|2\d{2})/gi)].map(m=>m[1]);
-    if(scoreMatches.length===1)add(`The official source shows a screening/cut-off score of ${scoreMatches[0]}.`);
-    const hasProgrammeTable=/programme family[\s\S]{0,120}utme subjects[\s\S]{0,120}o.?level requirements/i.test(text);
-    if(hasProgrammeTable)add("UTME subject combination and the remaining O'Level subjects depend on the programme selected.");
-    if(facts.length){
-      const missing:string[]=[];
-      if(!scoreMatches.length)missing.push("a general minimum UTME score");
-      if(!/first choice/i.test(text))missing.push("whether FUOYE must be first choice");
-      const caveat=missing.length?` I could not verify ${missing.join(" or ")} from the retrieved official evidence, so I will not guess.`:"";
-      return {answer:`For FUOYE 2026/2027 screening, the official evidence I could verify says: • ${facts.join(" • ")}${caveat}`,confidence:"high",needsHuman:false};
+    const fuoye=/\bfuoye\b|federal university oye.?ekiti/i.test(question+" "+text);
+    if(fuoye){
+      const checklist:string[]=[];
+      const add=(fact:string)=>{if(!checklist.includes(fact))checklist.push(fact);};
+      if(/jamb registration number/i.test(text)) add("JAMB registration number.");
+      if(/passport photograph/i.test(text)) add("Passport photograph.");
+      if(/o.?level (?:certificate|result)/i.test(text)) add("O'Level result/certificate (WAEC, NECO or NABTEB as applicable).");
+      if(/birth certificate/i.test(text)) add("Birth certificate or declaration of age, where requested by the application workflow.");
+      if(/email address/i.test(text)) add("A valid email address.");
+      if(/phone number/i.test(text)) add("A valid phone number.");
+      if(/english language and mathematics are compulsory/i.test(text)) add("English Language and Mathematics are compulsory O'Level subjects; the other required subjects depend on the chosen programme.");
+      if(/awaiting result candidates may commence their application/i.test(text)) add("Awaiting-result candidates may start, but must upload the O'Level result before final submission.");
+      if(/upload(?:ing)? required documents|upload documents/i.test(text)) add("Required supporting documents must be scanned clearly and uploaded in the portal; the official guide recommends PDF or JPEG.");
+      if(/screening fee/i.test(text)) add("Complete the official screening-fee payment through the portal.");
+      if(/completed application|print(?:ing)? your (?:final|completed) application/i.test(text)) add("Finalize the application and print the completed application/acknowledgement for your records.");
+      if(checklist.length) return {answer:`For FUOYE 2026/2027 screening, prepare the following based on the official portal and screening/application guides: • ${checklist.join(" • ")} Programme-specific UTME subjects, O'Level subjects and minimum entry score must still be checked against your chosen course on the official FUOYE portal. I have not added any document or requirement that the retrieved official sources did not support.`,confidence:"high",needsHuman:false};
     }
-    return {answer:"I found FUOYE's official screening source, but it did not expose enough structured eligibility facts to answer the requirements accurately. I will not invent them. Use the official screening guide/source or S.O.H CONSULTS for confirmation.",confidence:"medium",needsHuman:true};
+    return {answer:"I found the official screening sources, but they did not expose enough verified application requirements and document details to build a reliable checklist. I will not guess. Open the official screening/application guide or continue with S.O.H CONSULTS for confirmation.",confidence:"medium",needsHuman:true};
   }
   if(currentSensitive&&preferred.official&&lasuScreening&&asksOpen){
     const hasStart=/start screening/i.test(evidence);
@@ -179,7 +177,7 @@ function directOfficialTargets(question:string):Array<{title:string;url:string}>
     return targets;
   }
   if(/\bfuoye\b|federal university oye.?ekiti/i.test(question))return [
-    {title:"FUOYE 2026/2027 Post-UTME Portal",url:"https://putme.fuoye.edu.ng/utme/"},
+    {title:"FUOYE 2026/2027 Post-UTME Portal",url:"https://putme.fuoye.edu.ng/utme/"},{title:"FUOYE Official Screening Guide",url:"https://fuoye.edu.ng/wp-content/uploads/2026/02/FOUYE-Post-UTME-Admission-Screening-Registration-GUIDE.pdf"},{title:"FUOYE CASAPS Application Guide",url:"https://putme.fuoye.edu.ng/instruction_UG.php?session=2026%2F2027"},
     {title:"FUOYE CASAPS",url:"https://putme.fuoye.edu.ng/"},
     {title:"FUOYE Official News",url:"https://news.fuoye.edu.ng/tag/2026-2027-post-utme/"},
     {title:"Federal University Oye-Ekiti",url:"https://fuoye.edu.ng/"}
