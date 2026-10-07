@@ -36,4 +36,4 @@ test("v2 exact answer modes bypass generative rewriting",()=>{assert.match(route
 
 test("v2 numeric shaper requires nearby admission-score language",()=>{assert.match(route,/window=text\.slice/);assert.match(route,/minimum\|utme\|jamb\|cut/);});
 
-test("v2 numeric shaper accepts plus-suffixed scores",()=>{assert.match(route,/\\d\{3\}.*\\\\\+\?/);assert.doesNotMatch(route,/\\\\\+\?\\\\b\/g/);});
+test("v2 numeric shaper accepts plus-suffixed scores",()=>{assert.ok(route.includes("text.matchAll(/\\\\b(\\\\d{3})\\\\+?(?!\\\\d)/g)"));});
