@@ -45,3 +45,5 @@ test("v2 fallback preserves exact numeric answer shaping",()=>{const calls=(rout
 test("v2 numeric shaper carries evidence provenance",()=>{assert.match(route,/return \{value:String\(n\),result\}/);assert.match(route,/shaped\.result\.official/);assert.match(route,/shaped\.result\.internal/);});
 
 test("QA smoke covers a cutoff paraphrase",()=>{const workflow=fs.readFileSync(path.join(process.cwd(),".github/workflows/cloudflare-qa-build.yml"),"utf8");assert.match(workflow,/LASU minimum JAMB score\?/);assert.match(workflow,/paraphraseAnswer/);});
+
+test("QA deployment is restricted to the QA validation branch",()=>{const workflow=fs.readFileSync(path.join(process.cwd(),".github/workflows/cloudflare-qa-build.yml"),"utf8");assert.match(workflow,/pull_request:/);assert.match(workflow,/github\.head_ref == 'qa\/production-readiness'/);assert.match(workflow,/soh-consults-qa/);});
