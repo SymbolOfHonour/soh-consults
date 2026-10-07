@@ -35,6 +35,9 @@ type SearchPayload = {
   confidence?: "high" | "medium" | "low";
   needsHuman?: boolean;
   generative?: boolean;
+  sourceType?: "verified_knowledge"|"verified_cache"|"verified_semantic"|"official_live"|"internal"|"web"|"none";
+  verifiedAt?: string|null;
+  contradiction?: boolean;
 };
 
 const WHATSAPP = "2348182141088";
