@@ -47,3 +47,6 @@ test("v2 refuses unverified exact answers instead of returning page boilerplate"
 
 test("v2 gives a concise JAMB CAPS definition from official JAMB evidence",()=>{assert.match(route,/Central Admissions Processing System used by JAMB/);});
 test("v2 rejects procedural FUOYE guides as Direct Entry requirements",()=>{assert.match(route,/registration guide\|application guide\|walkthrough\|acceptance\|screening fees\|admission status/);});
+
+
+test("verified knowledge retrieval supports ranked general facts",()=>{assert.match(repo,/const scored=facts\.map/);assert.match(repo,/q\.intent===\"general\"&&scored\[0\]\?\.score===0/);});
