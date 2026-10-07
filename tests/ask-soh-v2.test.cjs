@@ -40,3 +40,6 @@ test("v2 numeric shaper accepts plus-suffixed scores",()=>{const m="195+ Minimum
 
 
 test("v2 numeric score priority ignores unrelated 100+ programme counts",()=>{const text="100+ Programmes Available Online 24/7 Access Important Minimum score of 195 in the 2026 UTME";const patterns=[/(?:cut.?of{1,2}(?:\s+mark)?|minimum(?:\s+utme)?(?:\s+score)?|utme(?:\s+minimum)?(?:\s+score)?|jamb(?:\s+minimum)?(?:\s+score)?|minimum\s+score(?:\s+of)?)\D{0,40}(\d{3})(?:\+)?/i,/(\d{3})(?:\+)?\s*(?:minimum\s*)?(?:utme|jamb)?\s*(?:score|mark)/i];const found=patterns.map(p=>text.match(p)?.[1]).find(Boolean);assert.equal(found,"195");});
+
+
+test("v2 refuses unverified exact answers instead of returning page boilerplate",()=>{assert.match(route,/exactUnverified=/);assert.match(route,/they do not expose the exact answer clearly enough/);assert.match(route,/fallbackLooksLikeBoilerplate=/);assert.match(route,/Site Map\|Staff Directory\|Faculties Departments/);});
