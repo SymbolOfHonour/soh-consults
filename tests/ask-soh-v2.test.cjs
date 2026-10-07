@@ -25,3 +25,5 @@ test("v2 records all retrieval outcomes",()=>{for(const source of ["verified_kno
 
 test("v2 contradiction engine is active in live route",()=>{assert.match(route,/reconcileEvidence/);assert.match(route,/contradiction:Boolean/);assert.match(route,/needsReview/);});
 test("v2 bulk imports require review",()=>{const bulk=fs.readFileSync(path.join(process.cwd(),"app/api/admin/ask-soh-knowledge/import/route.ts"),"utf8");assert.match(bulk,/status:"review"/);assert.doesNotMatch(bulk,/status:"published"/);});
+
+test("v2 semantic retrieval is verified and bounded",()=>{assert.match(migration,/embedding vector\(1536\)/);assert.match(migration,/match_ask_soh_facts/);assert.match(route,/semanticCandidate/);assert.match(route,/verified_semantic/);assert.match(route,/!resolved\.currentSensitive&&semanticCandidate/);});
