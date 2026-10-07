@@ -31,22 +31,12 @@ const INSTITUTION_ALIASES:[string,string[]][]=[
 ];
 function institutionFromText(value:string){const text=" "+normalise(value)+" ";for(const[key,aliases]of INSTITUTION_ALIASES)if(aliases.some(alias=>text.includes(" "+normalise(alias)+" ")))return key;return""}
 function institutionKey(story:QueuedStory){const institution=normalise(story.institution||"");return institution&&institution!=="to be confirmed"?institutionFromText(institution)||institution:institutionFromText(story.title||"")}
-export function duplicateCandidates(title:string,stories:QueuedStory[],excludeId?:string,sourceUrl?:string|null,institution?:string|null){
- const q=normalise(title),source=(sourceUrl||"").trim().replace(/\/$/,""),rawInstitution=normalise(institution||""),candidateInstitution=rawInstitution&&rawInstitution!=="to be confirmed"?institutionFromText(rawInstitution)||rawInstitution:institutionFromText(title);if(q.length<8&&!source)return[];
- const words=meaningfulWords(title);
- return stories.filter(s=>s.id!==excludeId).map(s=>{
-  const t=normalise(s.title);const other=meaningfulWords(s.title);
-  const overlap=[...words].filter(w=>other.has(w)).length;
-  const union=new Set([...words,...other]).size;
-  const titleScore=union?overlap/union:0;
-  const exact=t===q;
-  const otherInstitution=institutionKey(s);
-  const differentKnownInstitution=Boolean(candidateInstitution&&candidateInstitution!=="to be confirmed"&&otherInstitution&&candidateInstitution!==otherInstitution);
-  const candidateSession=academicSession(title),otherSession=academicSession(s.title||"");
-  const differentKnownSession=Boolean(candidateSession&&otherSession&&candidateSession!==otherSession);
-  const candidateTopic=topicKey(title),otherTopic=topicKey(s.title||"");
-  const differentKnownTopic=Boolean(candidateTopic&&otherTopic&&candidateTopic!==otherTopic);
-  const fuzzy=!differentKnownInstitution&&!differentKnownSession&&!differentKnownTopic&&overlap>=2&&titleScore>=0.72;
-  return{story:s,score:exact?1:titleScore,sameSource:false,exact,fuzzy};
- }).filter(x=>x.exact||x.fuzzy).sort((a,b)=>b.score-a.score).slice(0,5)
+export function duplicateCandidates(title:string,stories:QueuedStory[],excludeId?:string,_sourceUrl?:string|null,_institution?:string|null){
+ const q=normalise(title);
+ if(q.length<8)return[];
+ return stories
+  .filter(s=>s.id!==excludeId)
+  .map(s=>{const exact=normalise(s.title)===q;return{story:s,score:exact?1:0,sameSource:false,exact,fuzzy:false};})
+  .filter(x=>x.exact)
+  .slice(0,5);
 }
