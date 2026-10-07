@@ -297,8 +297,10 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,confidence:finalConfidence,needsHuman:needsReview,answer:finalAnswer,generative:Boolean(generated),contradiction:Boolean(evidenceDecision?.conflict),sourceType,intent:resolved.intent,answerMode:resolved.answerMode});
   }catch(error){
     const fallbackResults=[...officialResults,...internalResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
-    const composed=composeAnswer(resolvedQuestion,fallbackResults,currentSensitive);
-    const generated=await generateGroundedAnswer(resolvedQuestion,history,fallbackResults,composed.answer,currentSensitive);
+    const shaped=shapeEvidenceAnswer(resolved.answerMode,fallbackResults);
+    const composed=shaped?{answer:shaped,confidence:(fallbackResults.some(r=>r.official)?"high":"medium") as Confidence,needsHuman:false}:composeAnswer(resolvedQuestion,fallbackResults,currentSensitive);
+    const exactMode=resolved.answerMode==="numeric"||resolved.answerMode==="name";
+    const generated=exactMode?null:await generateGroundedAnswer(resolvedQuestion,history,fallbackResults,composed.answer,currentSensitive);
     const finalAnswer=generated??composed.answer;const sourceType=fallbackResults.some(r=>r.official)?"official_live":fallbackResults.some(r=>r.internal)?"internal":"none";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:composed.confidence,answered:!composed.needsHuman,sourceType,latencyMs:Date.now()-startedAt});
     return NextResponse.json({query:safeQuestion,googleUrl,results:fallbackResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:finalAnswer,generative:Boolean(generated),sourceType,intent:resolved.intent,answerMode:resolved.answerMode,error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
   }
