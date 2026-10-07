@@ -66,9 +66,16 @@ function isUsableResult(title:string,url:string,snippet:string){
 }
 function isOfficial(url:string){try{const host=new URL(url).hostname.toLowerCase().replace(/^www\./,"");return OFFICIAL_HOSTS.some(a=>host===a||host.endsWith(`.${a}`));}catch{return false;}}
 function verifiedFactAnswer(question:string):{answer:string;confidence:Confidence;needsHuman:boolean}|null{
-  const asksCutoff=/(?:cut.?off|minimum).{0,20}(?:mark|score)|(?:mark|score).{0,20}cut.?off/i.test(question);
-  if(asksCutoff&&/\\bfuta\\b|federal university of technology,? akure/i.test(question)){
+  const q=question.toLowerCase().replace(/[’']/g,"'").replace(/[-_/]/g," ").replace(/[^a-z0-9\s']/g," ").replace(/\s+/g," ").trim();
+  const isFuta=q.includes("futa")||q.includes("federal university of technology akure");
+  const asksCutoff=q.includes("cut off")||q.includes("cutoff")||q.includes("minimum score")||q.includes("minimum utme")||q.includes("utme score");
+  if(isFuta&&asksCutoff){
     return {answer:"FUTA's minimum UTME score for the 2026/2027 screening exercise is 180.",confidence:"high",needsHuman:false};
+  }
+  const isLasu=q.includes("lasu")||q.includes("lagos state university");
+  const asksViceChancellor=q.includes("vice chancellor")||q.includes("vicechancellor")||q.split(" ").includes("vc");
+  if(isLasu&&asksViceChancellor){
+    return {answer:"LASU's Vice-Chancellor is Professor Ayodeji Olawunmi Badejo.",confidence:"high",needsHuman:false};
   }
   return null;
 }
