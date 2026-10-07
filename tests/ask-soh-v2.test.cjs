@@ -37,3 +37,5 @@ test("v2 exact answer modes bypass generative rewriting",()=>{assert.match(route
 test("v2 numeric shaper requires nearby admission-score language",()=>{assert.match(route,/window=text\.slice/);assert.match(route,/minimum\|utme\|jamb\|cut/);});
 
 test("v2 numeric shaper accepts plus-suffixed scores",()=>{const m="195+ Minimum UTME Score".match(/\b(\d{3})\+?(?!\d)/);assert.equal(m?.[1],"195");});
+
+test("v2 numeric shaper extracts exact score from live-style LASU evidence",()=>{const text="Start Screening View Requirements 195+ Minimum UTME Score 3 Candidate Categories 100+ Programmes Available Online 24/7 Access";const matches=[...text.matchAll(/(?:^|\\D)(\\d{3})(?:\\+)?(?=\\D|$)/g)].map(m=>m[1]);assert.equal(matches[0],"195");assert.ok(matches.includes("195"));});
