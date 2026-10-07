@@ -49,4 +49,4 @@ test("v2 gives a concise JAMB CAPS definition from official JAMB evidence",()=>{
 test("v2 rejects procedural FUOYE guides as Direct Entry requirements",()=>{assert.match(route,/registration guide\|application guide\|walkthrough\|acceptance\|screening fees\|admission status/);});
 
 
-test("verified knowledge retrieval supports ranked general facts",()=>{assert.doesNotMatch(knowledge,/q\.intent===\"general\"/);assert.match(knowledge,/const scored=facts\.map/);assert.match(knowledge,/scored\[0\]\?\.score===0/);});
+test("verified knowledge retrieval supports ranked general facts",()=>{assert.doesNotMatch(repo,/q\.intent===\"general\"/);assert.match(repo,/const scored=facts\.map/);assert.match(repo,/scored\[0\]\?\.score===0/);});
