@@ -70,21 +70,6 @@ function isUsableResult(title:string,url:string,snippet:string){
   try{const parsed=new URL(url);return parsed.protocol==="https:"||parsed.protocol==="http:";}catch{return false;}
 }
 function isOfficial(url:string){try{const host=new URL(url).hostname.toLowerCase().replace(/^www\./,"");return OFFICIAL_HOSTS.some(a=>host===a||host.endsWith(`.${a}`));}catch{return false;}}
-function verifiedFactAnswer(question:string):{answer:string;confidence:Confidence;needsHuman:boolean}|null{
-  const q=question.toLowerCase().replace(/[’']/g,"'").replace(/[-_/]/g," ").replace(/[^a-z0-9\s']/g," ").replace(/\s+/g," ").trim();
-  const isFuta=q.includes("futa")||q.includes("federal university of technology akure");
-  const asksCutoff=q.includes("cut off")||q.includes("cutoff")||q.includes("minimum score")||q.includes("minimum utme")||q.includes("utme score");
-  if(isFuta&&asksCutoff){
-    return {answer:"FUTA's minimum UTME score for the 2026/2027 screening exercise is 180.",confidence:"high",needsHuman:false};
-  }
-  const isLasu=q.includes("lasu")||q.includes("lagos state university");
-  const asksViceChancellor=q.includes("vice chancellor")||q.includes("vicechancellor")||q.split(" ").includes("vc");
-  if(isLasu&&asksViceChancellor){
-    return {answer:"LASU's Vice-Chancellor is Professor Ayodeji Olawunmi Badejo.",confidence:"high",needsHuman:false};
-  }
-  return null;
-}
-
 function composeAnswer(question:string,results:SearchResult[],currentSensitive:boolean):{answer:string;confidence:Confidence;needsHuman:boolean}{
   const official=results.filter(item=>item.official);
   const internal=results.filter(item=>item.internal);
@@ -291,10 +276,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const cached=!resolved.currentSensitive?cacheGet<{answer:string;sourceName:string;sourceUrl:string;verifiedAt:string|null}>(cacheKey):null;
   if(cached){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"verified_cache",latencyMs:Date.now()-startedAt,cacheHit:true});return NextResponse.json({query:safeQuestion,results:[{title:cached.sourceName,url:cached.sourceUrl,snippet:cached.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:cached.answer,confidence:"high",needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_cache",verifiedAt:cached.verifiedAt});}
   const knowledge=await findVerifiedFact(resolved).catch(()=>null);
-  if(knowledge&&!knowledge.stale&&!resolved.currentSensitive){cacheSet(cacheKey,{answer:knowledge.answer,sourceName:knowledge.fact.source_name,sourceUrl:knowledge.fact.source_url,verifiedAt:knowledge.fact.verified_at},900);void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:knowledge.confidence,answered:true,sourceType:"verified_knowledge",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:knowledge.fact.source_name,url:knowledge.fact.source_url,snippet:knowledge.fact.evidence_text||knowledge.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:knowledge.answer,confidence:knowledge.confidence,needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_knowledge",verifiedAt:knowledge.fact.verified_at});}
-  const verifiedFact=verifiedFactAnswer(resolvedQuestion);
-  if(verifiedFact)return NextResponse.json({query:safeQuestion,results:[],searchedAt:new Date().toISOString(),knowledgeMatches:0,currentSensitive:true,...verifiedFact,answer:verifiedFact.answer,generative:false,verifiedFact:true,sourceType:"legacy_verified"});
-  const currentSensitive=resolved.currentSensitive||/(fee|price|cost|direct entry|\bde\b)/i.test(resolvedQuestion);
+  if(knowledge&&!knowledge.stale&&!resolved.currentSensitive){cacheSet(cacheKey,{answer:knowledge.answer,sourceName:knowledge.fact.source_name,sourceUrl:knowledge.fact.source_url,verifiedAt:knowledge.fact.verified_at},900);void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:knowledge.confidence,answered:true,sourceType:"verified_knowledge",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:knowledge.fact.source_name,url:knowledge.fact.source_url,snippet:knowledge.fact.evidence_text||knowledge.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:knowledge.answer,confidence:knowledge.confidence,needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_knowledge",verifiedAt:knowledge.fact.verified_at});}  const currentSensitive=resolved.currentSensitive||/(fee|price|cost|direct entry|\bde\b)/i.test(resolvedQuestion);
   const currentQuestion=safeQuestion;
   const currentQuestionLower=currentQuestion.toLowerCase();
   const asksKnownViceChancellor=(currentQuestionLower.includes("vice-chancellor")||currentQuestionLower.includes("vice chancellor"))&&(currentQuestionLower.includes("who")||currentQuestionLower.includes("name"));
