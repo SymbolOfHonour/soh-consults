@@ -29,3 +29,5 @@ test("v2 bulk imports require review",()=>{const bulk=fs.readFileSync(path.join(
 test("v2 semantic retrieval is verified and bounded",()=>{assert.match(migration,/embedding extensions\.vector\(1536\)/);assert.match(migration,/match_ask_soh_facts/);assert.match(route,/semanticCandidate/);assert.match(route,/verified_semantic/);assert.match(route,/!resolved\.currentSensitive&&semanticCandidate/);});
 
 test("v2 privacy hashing remains edge compatible",()=>{const privacy=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/privacy.ts"),"utf8");assert.doesNotMatch(privacy,/from [\"']crypto[\"']/);assert.match(privacy,/crypto\.subtle\.digest/);});
+
+test("v2 numeric answer mode shapes official evidence to a value",()=>{assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,results\)/);assert.match(route,/mode===\"numeric\"/);assert.match(route,/n>=100&&n<=400/);assert.doesNotMatch(route,/answer:\"195\"/);});
