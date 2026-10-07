@@ -71,7 +71,7 @@ function isUsableResult(title:string,url:string,snippet:string){
   try{const parsed=new URL(url);return parsed.protocol==="https:"||parsed.protocol==="http:";}catch{return false;}
 }
 function isOfficial(url:string){try{const host=new URL(url).hostname.toLowerCase().replace(/^www\./,"");return OFFICIAL_HOSTS.some(a=>host===a||host.endsWith(`.${a}`));}catch{return false;}}
-function shapeEvidenceAnswer(mode:string,results:SearchResult[]){if(mode!=="numeric")return null;for(const result of results.filter(r=>r.official)){const text=cleanText(result.title+" "+result.snippet);for(const match of text.matchAll(/\b(\d{3})\+?\b/g)){const n=Number(match[1]);if(n<100||n>400)continue;const at=match.index??0;const window=text.slice(Math.max(0,at-70),Math.min(text.length,at+100));if(/minimum|utme|jamb|cut.?of{1,2}|score|mark/i.test(window))return String(n);}}return null;}
+function shapeEvidenceAnswer(mode:string,results:SearchResult[]){if(mode!=="numeric")return null;for(const result of results.filter(r=>r.official)){const text=cleanText(result.title+" "+result.snippet);for(const match of text.matchAll(/\b(\d{3})\+?(?!\d)/g)){const n=Number(match[1]);if(n<100||n>400)continue;const at=match.index??0;const window=text.slice(Math.max(0,at-70),Math.min(text.length,at+100));if(/minimum|utme|jamb|cut.?of{1,2}|score|mark/i.test(window))return String(n);}}return null;}
 function composeAnswer(question:string,results:SearchResult[],currentSensitive:boolean):{answer:string;confidence:Confidence;needsHuman:boolean}{
   const official=results.filter(item=>item.official);
   const internal=results.filter(item=>item.internal);
