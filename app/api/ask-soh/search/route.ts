@@ -5,6 +5,8 @@ import { listPublishedStories } from "../../../../lib/news-queue";
 import { rankContent } from "../../../../lib/ranking-engine";
 import { resolveQuestion } from "../../../../lib/ask-soh/question-resolver";
 import { findVerifiedFact } from "../../../../lib/ask-soh/knowledge-repository";
+import { cacheGet,cacheSet,knowledgeCacheKey } from "../../../../lib/ask-soh/cache";
+import { recordQuestion } from "../../../../lib/ask-soh/telemetry";
 
 type SearchResult={title:string;url:string;snippet:string;official:boolean;internal?:boolean};
 type Confidence="high"|"medium"|"low";
@@ -282,9 +284,13 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   if(!question||question.length<3)return NextResponse.json({error:"Please enter a valid question."},{status:400});
   const safeQuestion=question.slice(0,220);
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
+  const startedAt=Date.now();
   const resolved=resolveQuestion(safeQuestion,context);
+  const cacheKey=knowledgeCacheKey(resolved.institutionKey,resolved.intent,resolved.academicSession);
+  const cached=!resolved.currentSensitive?cacheGet<{answer:string;sourceName:string;sourceUrl:string;verifiedAt:string|null}>(cacheKey):null;
+  if(cached){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"verified_cache",latencyMs:Date.now()-startedAt,cacheHit:true});return NextResponse.json({query:safeQuestion,results:[{title:cached.sourceName,url:cached.sourceUrl,snippet:cached.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:cached.answer,confidence:"high",needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_cache",verifiedAt:cached.verifiedAt});}
   const knowledge=await findVerifiedFact(resolved).catch(()=>null);
-  if(knowledge&&!knowledge.stale&&!resolved.currentSensitive)return NextResponse.json({query:safeQuestion,results:[{title:knowledge.fact.source_name,url:knowledge.fact.source_url,snippet:knowledge.fact.evidence_text||knowledge.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:knowledge.answer,confidence:knowledge.confidence,needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_knowledge",verifiedAt:knowledge.fact.verified_at});
+  if(knowledge&&!knowledge.stale&&!resolved.currentSensitive){cacheSet(cacheKey,{answer:knowledge.answer,sourceName:knowledge.fact.source_name,sourceUrl:knowledge.fact.source_url,verifiedAt:knowledge.fact.verified_at},900);void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:knowledge.confidence,answered:true,sourceType:"verified_knowledge",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:knowledge.fact.source_name,url:knowledge.fact.source_url,snippet:knowledge.fact.evidence_text||knowledge.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:knowledge.answer,confidence:knowledge.confidence,needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_knowledge",verifiedAt:knowledge.fact.verified_at});}
   const verifiedFact=verifiedFactAnswer(resolvedQuestion);
   if(verifiedFact)return NextResponse.json({query:safeQuestion,results:[],searchedAt:new Date().toISOString(),knowledgeMatches:0,currentSensitive:true,...verifiedFact,answer:verifiedFact.answer,generative:false,verifiedFact:true,sourceType:"legacy_verified"});
   const currentSensitive=resolved.currentSensitive||/(fee|price|cost|direct entry|\bde\b)/i.test(resolvedQuestion);
