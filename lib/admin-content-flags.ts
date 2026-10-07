@@ -7,9 +7,17 @@ export function applyContentFlags(details:string,featured:boolean,breaking:boole
 function normalise(value:string){return value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim()}
 const GENERIC=new Set(["the","and","for","with","from","into","now","online","academic","session","admission","admissions","candidate","candidates","result","results","release","releases","released","application","applications","form","forms","screening","update","updates","2024","2025","2026","2027","2028"]);
 function meaningfulWords(value:string){return new Set(normalise(value).split(" ").filter(w=>w.length>2&&!GENERIC.has(w)))}
-function institutionKey(story:QueuedStory){const institution=normalise(story.institution||"");return institution&&institution!=="to be confirmed"?institution:""}
+const INSTITUTION_ALIASES:[string,string[]][]=[
+ ["uniosun",["uniosun","osun state university"]],
+ ["futa",["futa","federal university of technology akure"]],
+ ["lasu",["lasu","lagos state university"]],
+ ["lasustech",["lasustech","lagos state university of science and technology"]],
+ ["fuoye",["fuoye","federal university oye ekiti"]]
+];
+function institutionFromText(value:string){const text=" "+normalise(value)+" ";for(const[key,aliases]of INSTITUTION_ALIASES)if(aliases.some(alias=>text.includes(" "+normalise(alias)+" ")))return key;return""}
+function institutionKey(story:QueuedStory){const institution=normalise(story.institution||"");return institution&&institution!=="to be confirmed"?institutionFromText(institution)||institution:institutionFromText(story.title||"")}
 export function duplicateCandidates(title:string,stories:QueuedStory[],excludeId?:string,sourceUrl?:string|null,institution?:string|null){
- const q=normalise(title),source=(sourceUrl||"").trim().replace(/\/$/,""),candidateInstitution=normalise(institution||"");if(q.length<8&&!source)return[];
+ const q=normalise(title),source=(sourceUrl||"").trim().replace(/\/$/,""),rawInstitution=normalise(institution||""),candidateInstitution=rawInstitution&&rawInstitution!=="to be confirmed"?institutionFromText(rawInstitution)||rawInstitution:institutionFromText(title);if(q.length<8&&!source)return[];
  const words=meaningfulWords(title);
  return stories.filter(s=>s.id!==excludeId).map(s=>{
   const t=normalise(s.title);const other=meaningfulWords(s.title);
