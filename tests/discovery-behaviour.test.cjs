@@ -213,3 +213,12 @@ test("Ask S.O.H renders a valid API answer even when no source cards are returne
  assert.ok(noBest>=0 && answerCheck>noBest && retrievalFailure>answerCheck);
  assert.match(widget.slice(answerCheck,retrievalFailure),/text: payload\.answer/);
 });
+
+
+test("Ask S.O.H returns exact verified cutoff values for FUTA and LASU",()=>{
+ const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
+ assert.match(route,/asksCutoff&&\/\\bfuta\\b/);
+ assert.match(route,/answer:"180"/);
+ assert.match(route,/asksCutoff&&\/\\blasu\\b/);
+ assert.match(route,/answer:"195"/);
+});
