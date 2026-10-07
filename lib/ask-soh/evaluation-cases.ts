@@ -18,7 +18,7 @@ export const ASK_SOH_EVAL_CASES=[
  {q:"LASUSTECH minimum jamb score",entity:"lasustech",intent:"cutoff",mode:"numeric",fresh:false},
  {q:"UNIOSUN cut off",entity:"uniosun",intent:"cutoff",mode:"numeric",fresh:false},
  {q:"OOU vice chancellor",entity:"oou",intent:"vice_chancellor",mode:"name",fresh:false},
- {q:"YABATECH requirements",entity:"yabatech",intent:"requirements",mode:"structured",fresh:false}
+ {q:"YABATECH requirements",entity:"yabatech",intent:"requirements",mode:"structured",fresh:false},
  {q:"what is lasu minimum score",entity:"lasu",intent:"cutoff",mode:"numeric",fresh:false},
  {q:"lagos state university minimum utme",entity:"lasu",intent:"cutoff",mode:"numeric",fresh:false},
  {q:"futa cut off mark",entity:"futa",intent:"cutoff",mode:"numeric",fresh:false},
