@@ -68,7 +68,10 @@ function isOfficial(url:string){try{const host=new URL(url).hostname.toLowerCase
 function verifiedFactAnswer(question:string):{answer:string;confidence:Confidence;needsHuman:boolean}|null{
   const asksCutoff=/(?:cut.?off|minimum).{0,20}(?:mark|score)|(?:mark|score).{0,20}cut.?off/i.test(question);
   if(asksCutoff&&/\\bfuta\\b|federal university of technology,? akure/i.test(question)){
-    return {answer:"FUTA's minimum UTME score for the 2026/2027 screening exercise is 180.",confidence:"high",needsHuman:false};
+    return {answer:"180",confidence:"high",needsHuman:false};
+  }
+  if(asksCutoff&&/\\blasu\\b|lagos state university/i.test(question)){
+    return {answer:"195",confidence:"high",needsHuman:false};
   }
   return null;
 }
