@@ -294,13 +294,13 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const exactMode=resolved.answerMode==="numeric"||resolved.answerMode==="name";
     const generated=exactMode?null:await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
     const finalAnswer=generated??composed.answer;const finalConfidence=evidenceDecision?.conflict?"medium":composed.confidence;const needsReview=Boolean(evidenceDecision?.conflict)||composed.needsHuman;const sourceType=results.some(r=>r.official)?"official_live":results.some(r=>r.internal)?"internal":"web";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:finalConfidence,answered:!needsReview,sourceType,latencyMs:Date.now()-startedAt});
-    return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,confidence:finalConfidence,needsHuman:needsReview,answer:finalAnswer,generative:Boolean(generated),contradiction:Boolean(evidenceDecision?.conflict),sourceType});
+    return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,confidence:finalConfidence,needsHuman:needsReview,answer:finalAnswer,generative:Boolean(generated),contradiction:Boolean(evidenceDecision?.conflict),sourceType,intent:resolved.intent,answerMode:resolved.answerMode});
   }catch(error){
     const fallbackResults=[...officialResults,...internalResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const composed=composeAnswer(resolvedQuestion,fallbackResults,currentSensitive);
     const generated=await generateGroundedAnswer(resolvedQuestion,history,fallbackResults,composed.answer,currentSensitive);
     const finalAnswer=generated??composed.answer;const sourceType=fallbackResults.some(r=>r.official)?"official_live":fallbackResults.some(r=>r.internal)?"internal":"none";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:composed.confidence,answered:!composed.needsHuman,sourceType,latencyMs:Date.now()-startedAt});
-    return NextResponse.json({query:safeQuestion,googleUrl,results:fallbackResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:finalAnswer,generative:Boolean(generated),sourceType,error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
+    return NextResponse.json({query:safeQuestion,googleUrl,results:fallbackResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:finalAnswer,generative:Boolean(generated),sourceType,intent:resolved.intent,answerMode:resolved.answerMode,error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
   }
 }
 
