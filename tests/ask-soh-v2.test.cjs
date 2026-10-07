@@ -43,3 +43,5 @@ test("v2 numeric shaper extracts exact score from live-style LASU evidence",()=>
 test("v2 fallback preserves exact numeric answer shaping",()=>{const calls=(route.match(/shapeEvidenceAnswer\(resolved\.answerMode,/g)||[]).length;assert.ok(calls>=2);const catchBlock=route.split("}catch(error){")[1]||"";assert.match(catchBlock,/shapeEvidenceAnswer\(resolved\.answerMode,fallbackResults\)/);assert.match(catchBlock,/exactMode=resolved\.answerMode==="numeric"/);});
 
 test("v2 numeric shaper carries evidence provenance",()=>{assert.match(route,/return \{value:String\(n\),result\}/);assert.match(route,/shaped\.result\.official/);assert.match(route,/shaped\.result\.internal/);});
+
+test("QA smoke covers a cutoff paraphrase",()=>{const workflow=fs.readFileSync(path.join(process.cwd(),".github/workflows/cloudflare-qa-build.yml"),"utf8");assert.match(workflow,/LASU minimum JAMB score\?/);assert.match(workflow,/paraphraseAnswer/);});
