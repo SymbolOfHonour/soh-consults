@@ -71,7 +71,7 @@ function isUsableResult(title:string,url:string,snippet:string){
   try{const parsed=new URL(url);return parsed.protocol==="https:"||parsed.protocol==="http:";}catch{return false;}
 }
 function isOfficial(url:string){try{const host=new URL(url).hostname.toLowerCase().replace(/^www\./,"");return OFFICIAL_HOSTS.some(a=>host===a||host.endsWith(`.${a}`));}catch{return false;}}
-function shapeEvidenceAnswer(mode:string,results:SearchResult[]){if(mode==="numeric"){const officialText=results.filter(r=>r.official).map(r=>cleanText(r.title+" "+r.snippet));const patterns=[/(?:minimum|cut.?of{1,2}|score)[^0-9]{0,50}(\d{3})(?:\+)?/i,/(\d{3})(?:\+)?[^a-z0-9]{0,12}(?:minimum|cut.?of{1,2})[^.]{0,35}(?:utme|jamb|score|mark)?/i,/(\d{3})(?:\+)?\s+minimum\s+utme\s+score/i];for(const text of officialText){for(const p of patterns){const m=text.match(p);if(m){const n=Number(m[1]);if(n>=100&&n<=400)return String(n);}}}}return null;}
+function shapeEvidenceAnswer(mode:string,results:SearchResult[]){if(mode!=="numeric")return null;for(const result of results.filter(r=>r.official)){const text=cleanText(result.title+" "+result.snippet);for(const match of text.matchAll(/\b(\d{3})\+?\b/g)){const n=Number(match[1]);if(n<100||n>400)continue;const at=match.index??0;const window=text.slice(Math.max(0,at-70),Math.min(text.length,at+100));if(/minimum|utme|jamb|cut.?of{1,2}|score|mark/i.test(window))return String(n);}}return null;}
 function composeAnswer(question:string,results:SearchResult[],currentSensitive:boolean):{answer:string;confidence:Confidence;needsHuman:boolean}{
   const official=results.filter(item=>item.official);
   const internal=results.filter(item=>item.internal);
