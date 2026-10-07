@@ -8,6 +8,7 @@ import { findVerifiedFact } from "../../../../lib/ask-soh/knowledge-repository";
 import { cacheGet,cacheSet,knowledgeCacheKey } from "../../../../lib/ask-soh/cache";
 import { recordQuestion } from "../../../../lib/ask-soh/telemetry";
 import { allOfficialDomains,INSTITUTIONS } from "../../../../lib/ask-soh/institution-registry";
+import { reconcileEvidence } from "../../../../lib/ask-soh/evidence";
 
 type SearchResult={title:string;url:string;snippet:string;official:boolean;internal?:boolean};
 type Confidence="high"|"medium"|"low";
@@ -292,9 +293,11 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const deduped=[...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const results=deduped.sort((a,b)=>currentSensitive ? Number(b.official)-Number(a.official) : Number(Boolean(b.internal))-Number(Boolean(a.internal))).slice(0,7);
     const composed=composeAnswer(resolvedQuestion,results,currentSensitive);
+    const liveOfficial=results.find(r=>r.official);
+    const evidenceDecision=knowledge&&liveOfficial?reconcileEvidence([{value:knowledge.answer,sourceUrl:knowledge.fact.source_url,sourceName:knowledge.fact.source_name,authority:knowledge.fact.source_authority,observedAt:knowledge.fact.verified_at,official:true,verified:true},{value:composed.answer,sourceUrl:liveOfficial.url,sourceName:liveOfficial.title,authority:100,observedAt:new Date().toISOString(),official:true,verified:false}]):null;
     const generated=await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
-    const finalAnswer=generated??composed.answer;void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:composed.confidence,answered:!composed.needsHuman,sourceType:results.some(r=>r.official)?"official_live":results.some(r=>r.internal)?"internal":"web",latencyMs:Date.now()-startedAt});
-    return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:finalAnswer,generative:Boolean(generated)});
+    const finalAnswer=generated??composed.answer;const finalConfidence=evidenceDecision?.conflict?"medium":composed.confidence;const needsReview=Boolean(evidenceDecision?.conflict)||composed.needsHuman;void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:finalConfidence,answered:!needsReview,sourceType:results.some(r=>r.official)?"official_live":results.some(r=>r.internal)?"internal":"web",latencyMs:Date.now()-startedAt});
+    return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,confidence:finalConfidence,needsHuman:needsReview,answer:finalAnswer,generative:Boolean(generated),contradiction:Boolean(evidenceDecision?.conflict)});
   }catch(error){
     const fallbackResults=[...officialResults,...internalResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const composed=composeAnswer(resolvedQuestion,fallbackResults,currentSensitive);
