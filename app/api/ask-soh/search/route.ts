@@ -7,6 +7,7 @@ import { resolveQuestion } from "../../../../lib/ask-soh/question-resolver";
 import { findVerifiedFact } from "../../../../lib/ask-soh/knowledge-repository";
 import { cacheGet,cacheSet,knowledgeCacheKey } from "../../../../lib/ask-soh/cache";
 import { recordQuestion } from "../../../../lib/ask-soh/telemetry";
+import { allOfficialDomains } from "../../../../lib/ask-soh/institution-registry";
 
 type SearchResult={title:string;url:string;snippet:string;official:boolean;internal?:boolean};
 type Confidence="high"|"medium"|"low";
@@ -33,7 +34,7 @@ Do not add URLs because the interface renders source cards separately.`;
     return text&&text.length>20?text:null;
   }catch{return null;}
 }
-const OFFICIAL_HOSTS=["jamb.gov.ng","lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng","education.gov.ng","nbte.gov.ng","nysc.gov.ng","waec.org","neco.gov.ng","fuoye.edu.ng","futa.edu.ng","oauife.edu.ng","lasustech.edu.ng","uniosun.edu.ng","oouagoiwoye.edu.ng","lasued.edu.ng","yabatech.edu.ng"];
+const OFFICIAL_HOSTS=[...allOfficialDomains(),"education.gov.ng","nbte.gov.ng"];
 const SEARCH_BLOCKED_HOSTS=["google.com","www.google.com","googleusercontent.com","gstatic.com","accounts.google.com","support.google.com"];
 function blockedSearchHost(url:string){try{const host=new URL(url).hostname.toLowerCase();return SEARCH_BLOCKED_HOSTS.some(item=>host===item||host.endsWith(`.${item}`));}catch{return true;}}
 function htmlToText(value:string){
