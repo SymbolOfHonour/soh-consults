@@ -258,6 +258,20 @@ function buildSearchAnswer(payload: SearchPayload): Message {
   const best = payload.currentSensitive ? (official ?? internal ?? payload.results[0]) : (internal ?? official ?? payload.results[0]);
 
   if (!best) {
+    if (payload.answer) {
+      return {
+        id: Date.now() + 1,
+        role: "assistant",
+        text: payload.answer,
+        actions: payload.needsHuman
+          ? [{
+              label: "Ask S.O.H CONSULTS",
+              type: "whatsapp",
+              value: `Hello S.O.H CONSULTS, Ask S.O.H could not confidently verify this for me: ${payload.query}`,
+            }]
+          : undefined,
+      };
+    }
     return {
       id: Date.now() + 1,
       role: "assistant",
