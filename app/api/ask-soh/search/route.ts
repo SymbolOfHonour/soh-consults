@@ -291,7 +291,8 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const composed=shaped?{answer:shaped,confidence:(results.some(r=>r.official)?"high":"medium") as Confidence,needsHuman:false}:composeAnswer(resolvedQuestion,results,currentSensitive);
     const liveOfficial=results.find(r=>r.official);
     const evidenceDecision=knowledge&&liveOfficial?reconcileEvidence([{value:knowledge.answer,sourceUrl:knowledge.fact.source_url,sourceName:knowledge.fact.source_name,authority:knowledge.fact.source_authority,observedAt:knowledge.fact.verified_at,official:true,verified:true},{value:composed.answer,sourceUrl:liveOfficial.url,sourceName:liveOfficial.title,authority:100,observedAt:new Date().toISOString(),official:true,verified:false}]):null;
-    const generated=await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
+    const exactMode=resolved.answerMode==="numeric"||resolved.answerMode==="name";
+    const generated=exactMode?null:await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
     const finalAnswer=generated??composed.answer;const finalConfidence=evidenceDecision?.conflict?"medium":composed.confidence;const needsReview=Boolean(evidenceDecision?.conflict)||composed.needsHuman;const sourceType=results.some(r=>r.official)?"official_live":results.some(r=>r.internal)?"internal":"web";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:finalConfidence,answered:!needsReview,sourceType,latencyMs:Date.now()-startedAt});
     return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,confidence:finalConfidence,needsHuman:needsReview,answer:finalAnswer,generative:Boolean(generated),contradiction:Boolean(evidenceDecision?.conflict),sourceType});
   }catch(error){
