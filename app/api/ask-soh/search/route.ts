@@ -71,6 +71,7 @@ function isUsableResult(title:string,url:string,snippet:string){
   try{const parsed=new URL(url);return parsed.protocol==="https:"||parsed.protocol==="http:";}catch{return false;}
 }
 function isOfficial(url:string){try{const host=new URL(url).hostname.toLowerCase().replace(/^www\./,"");return OFFICIAL_HOSTS.some(a=>host===a||host.endsWith(`.${a}`));}catch{return false;}}
+function shapeEvidenceAnswer(mode:string,results:SearchResult[]){const evidence=results.filter(r=>r.official).map(r=>cleanText(r.title+" "+r.snippet)).join(" ");if(mode==="numeric"){const patterns=[/(?:minimum(?:\s+utme)?(?:\s+score)?|cut.?of{1,2}(?:\s+mark)?|scored?\s+(?:a\s+)?minimum(?:\s+of)?)[^0-9]{0,35}(\d{2,3})(?:\+)?/i,/(\d{2,3})\+?\s+(?:minimum\s+utme|cut.?of{1,2}|minimum\s+score)/i];for(const p of patterns){const m=evidence.match(p);if(m){const n=Number(m[1]);if(n>=100&&n<=400)return String(n);}}}return null;}
 function composeAnswer(question:string,results:SearchResult[],currentSensitive:boolean):{answer:string;confidence:Confidence;needsHuman:boolean}{
   const official=results.filter(item=>item.official);
   const internal=results.filter(item=>item.internal);
@@ -286,7 +287,8 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const webResults=parseGoogleMarkdown(await response.text());
     const deduped=[...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const results=deduped.sort((a,b)=>currentSensitive ? Number(b.official)-Number(a.official) : Number(Boolean(b.internal))-Number(Boolean(a.internal))).slice(0,7);
-    const composed=composeAnswer(resolvedQuestion,results,currentSensitive);
+    const shaped=shapeEvidenceAnswer(resolved.answerMode,results);
+    const composed=shaped?{answer:shaped,confidence:(results.some(r=>r.official)?"high":"medium") as Confidence,needsHuman:false}:composeAnswer(resolvedQuestion,results,currentSensitive);
     const liveOfficial=results.find(r=>r.official);
     const evidenceDecision=knowledge&&liveOfficial?reconcileEvidence([{value:knowledge.answer,sourceUrl:knowledge.fact.source_url,sourceName:knowledge.fact.source_name,authority:knowledge.fact.source_authority,observedAt:knowledge.fact.verified_at,official:true,verified:true},{value:composed.answer,sourceUrl:liveOfficial.url,sourceName:liveOfficial.title,authority:100,observedAt:new Date().toISOString(),official:true,verified:false}]):null;
     const generated=await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
