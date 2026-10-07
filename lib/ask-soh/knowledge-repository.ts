@@ -8,8 +8,7 @@ export async function findVerifiedFact(q:ResolvedQuestion){if(!URL||!KEY||!q.ins
  const params=new URLSearchParams({select:"*",institution_key:`eq.${q.institutionKey}`,intent:`eq.${q.intent}`,order:"source_authority.desc,verified_at.desc.nullslast",limit:"25"});
  const r=await fetch(`${URL}/rest/v1/ask_soh_facts?${params}`,{headers:headers(),cache:"no-store",signal:AbortSignal.timeout(5000)});if(!r.ok)return null;
  const facts=(await r.json() as KnowledgeFact[]).filter(active).filter(f=>!q.academicSession||!f.academic_session||f.academic_session===q.academicSession);
- const words=new Set(q.normalized.split(/[^a-z0-9]+/).filter(w=>w.length>2));
- const scored=facts.map(f=>{const hay=(f.topic+" "+f.value_text+" "+(f.answer_text||"")).toLowerCase();const score=[...words].reduce((n,w)=>n+(hay.includes(w)?1:0),0);return{f,score};}).sort((a,b)=>b.score-a.score||b.f.source_authority-a.f.source_authority);
+ const scored=facts.map(f=>({f,score:q.intent==="general"?(f.topic.toLowerCase().includes("caps")?1:0):1})).sort((a,b)=>b.score-a.score||b.f.source_authority-a.f.source_authority);
  const fact=(q.intent==="general"&&scored[0]?.score===0)?undefined:scored[0]?.f;if(!fact)return null;
  const stale=!!fact.review_due_at&&+new Date(fact.review_due_at)<Date.now();
  return {fact,answer:formatAnswer(q.answerMode,fact.value_text,fact.answer_text),stale,confidence:stale?"medium":"high" as const};
