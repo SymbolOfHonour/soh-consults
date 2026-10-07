@@ -176,10 +176,10 @@ test("Ask S.O.H switches fresh institutions and only inherits genuine follow-ups
  assert.doesNotMatch(widget,/subjectContext \|\| conversationContext \|\| previousUser/);
 });
 
-test("Ask S.O.H focuses each new answer automatically",()=>{
+test("Ask S.O.H keeps each new answer visible automatically",()=>{
  const widget=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");
- assert.match(widget,/latestAnswerRef/);
- assert.match(widget,/scrollIntoView\(\{ behavior: "smooth", block: "start" \}\)/);
+ assert.match(widget,/conversationRef/);
+ assert.match(widget,/conversation\.scrollTo\(\{ top: conversation\.scrollHeight, behavior: "smooth" \}\)/);
 });
 
 test("Ask S.O.H searches internal and official knowledge for non-current factual questions",()=>{

@@ -294,15 +294,14 @@ export default function AskSOH() {
   const [input, setInput] = useState("");
   const [unread, setUnread] = useState(true);
   const [searching, setSearching] = useState(false);
-  const latestAnswerRef = useRef<HTMLDivElement | null>(null);
-  const pendingAnswerFocus = useRef(false);
+  const conversationRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!pendingAnswerFocus.current || searching) return;
-    const last = messages[messages.length - 1];
-    if (last?.role !== "assistant") return;
-    pendingAnswerFocus.current = false;
-    requestAnimationFrame(() => latestAnswerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+    const conversation = conversationRef.current;
+    if (!conversation) return;
+    requestAnimationFrame(() => {
+      conversation.scrollTo({ top: conversation.scrollHeight, behavior: "smooth" });
+    });
   }, [messages, searching]);
 
   const contextualQuestion = useMemo(() => {
@@ -311,7 +310,6 @@ export default function AskSOH() {
   }, [messages]);
 
   function addAssistant(message: Message) {
-    pendingAnswerFocus.current = true;
     setMessages((current) => [...current, message]);
   }
 
@@ -337,7 +335,9 @@ export default function AskSOH() {
   async function searchWeb(question: string, context?: string) {
     setSearching(true);
     try {
-      const history = messages.slice(-6).map((message) => ({ role: message.role, content: message.text }));
+      const history = context
+        ? messages.slice(-6).map((message) => ({ role: message.role, content: message.text }))
+        : [];
       const response = await fetch("/api/ask-soh/search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -476,9 +476,9 @@ export default function AskSOH() {
             </div>
           </header>
 
-          <div className="flex-1 space-y-4 overflow-y-auto bg-slate-50 px-4 py-4">
+          <div ref={conversationRef} className="flex-1 space-y-4 overflow-y-auto bg-slate-50 px-4 py-4">
             {messages.map((message, index) => (
-              <div ref={message.role === "assistant" && index === messages.length - 1 ? latestAnswerRef : undefined} key={message.id} className={message.role === "user" ? "flex justify-end" : "flex justify-start"}>
+              <div key={message.id} className={message.role === "user" ? "flex justify-end" : "flex justify-start"}>
                 <div className="max-w-[90%]">
                   <div
                     className={
