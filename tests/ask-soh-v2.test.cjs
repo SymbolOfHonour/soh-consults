@@ -30,8 +30,8 @@ test("v2 semantic retrieval is verified and bounded",()=>{assert.match(migration
 
 test("v2 privacy hashing remains edge compatible",()=>{const privacy=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/privacy.ts"),"utf8");assert.doesNotMatch(privacy,/from [\"']crypto[\"']/);assert.match(privacy,/crypto\.subtle\.digest/);});
 
-test("v2 numeric answer mode shapes official evidence to a value",()=>{assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,results\)/);assert.match(route,/mode===\"numeric\"/);assert.match(route,/n>=100&&n<=400/);assert.doesNotMatch(route,/answer:\"195\"/);});
+test("v2 numeric answer mode shapes official evidence to a value",()=>{assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,results\)/);assert.match(route,/mode===\"numeric\"/);assert.match(route,/n<100\|\|n>400/);assert.doesNotMatch(route,/answer:\"195\"/);});
 
 test("v2 exact answer modes bypass generative rewriting",()=>{assert.match(route,/exactMode=resolved\.answerMode===\"numeric\"\|\|resolved\.answerMode===\"name\"/);assert.match(route,/generated=exactMode\?null:/);});
 
-test("v2 numeric shaper supports value-before-label official evidence",()=>{assert.match(route,/\\d\{3\}.*minimum.*utme.*score/i);});
+test("v2 numeric shaper requires nearby admission-score language",()=>{assert.match(route,/window=text\.slice/);assert.match(route,/minimum\|utme\|jamb\|cut/);});
