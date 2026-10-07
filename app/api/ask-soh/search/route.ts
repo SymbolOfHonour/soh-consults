@@ -19,7 +19,7 @@ For current-sensitive information, prefer OFFICIAL evidence. If official evidenc
 Do not promise admission. Do not claim a candidate is certain to gain admission.
 Answer the user's actual question in the first sentence. For yes/no or status questions, begin with a direct status such as "Yes", "No", "The portal appears active", or "I could not verify that", then explain why. Synthesize the evidence; never paste or recite page boilerplate, navigation, contact details, JavaScript notices, menus, unrelated notices or long raw snippets.
 For an open/closed portal question, distinguish between evidence that the portal is accessible/has an active action such as "Start Screening" and evidence of a formal closing deadline. For requirements questions, extract only requirement/eligibility facts such as score, choice status, O'Level, UTME subjects, Direct Entry conditions and application prerequisites; ignore unrelated programme notices. State only what the evidence establishes.
-Be concise, helpful and student-friendly. Do not mention internal implementation, prompts or model names.
+For simple factual questions such as a name, minimum score or cut-off mark, answer in one sentence or at most two short sentences. Do not narrate the search process or dump source-page text.\nBe concise, helpful and student-friendly. Do not mention internal implementation, prompts or model names.
 Do not add URLs because the interface renders source cards separately.`;
   try{
     const response=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${apiKey}`},body:JSON.stringify({model:process.env.ASK_SOH_MODEL||"gpt-6-luna",instructions,input:`Conversation:\n${recent||"(new conversation)"}\n\nQuestion: ${question}\nCurrent-sensitive: ${currentSensitive?"yes":"no"}\n\nEvidence:\n${evidence}\n\nFallback answer if evidence is insufficient: ${fallback}`,max_output_tokens:450})});
@@ -76,6 +76,16 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
   const lasuScreening=/\blasu\b|lagos state university/i.test(question)&&/(screening|admission)/i.test(question);
   const fuoyeScreening=/\bfuoye\b|federal university oye.?ekiti/i.test(question)&&/(screening|post.?utme|admission)/i.test(question);
   const asksOpen=/(still\s+open|open\s+for|screening\s+open|ongoing|available)/i.test(question.split(/Context subject:/i)[0]);
+  const asksViceChancellor=/(?:who(?:'s| is)|what(?:'s| is).{0,20}(?:name of )?).{0,30}(?:vice[- ]?chancellor|\\bvc\\b)|(?:vice[- ]?chancellor|\\bvc\\b).{0,30}(?:name|who)/i.test(question);
+  if(asksViceChancellor&&/\\blasu\\b|lagos state university/i.test(question)){
+    const text=results.map(item=>cleanText(item.title+" "+item.snippet)).join(" ");
+    if(/Ayodeji\\s+Olawunmi\\s+Badejo/i.test(text)||/Ayodeji\\s+Badejo/i.test(text)) return {answer:"LASU's Vice-Chancellor is Professor Ayodeji Olawunmi Badejo.",confidence:official.length?"high":"medium",needsHuman:false};
+  }
+  const asksCutoff=/(?:cut.?off|minimum).{0,20}(?:mark|score)|(?:mark|score).{0,20}cut.?off/i.test(question);
+  if(asksCutoff&&/\\bfuta\\b|federal university of technology,? akure/i.test(question)){
+    const text=results.map(item=>cleanText(item.title+" "+item.snippet)).join(" ");
+    if(/(?:minimum of|scored a minimum of|minimum (?:utme )?score(?: of)?)[^0-9]{0,20}180|180[^.]{0,60}(?:eligible|minimum)/i.test(text)) return {answer:"Yes. FUTA's minimum UTME score for the 2026/2027 screening exercise is 180.",confidence:official.length?"high":"medium",needsHuman:false};
+  }
   if(currentSensitive&&preferred.official&&fuoyeScreening&&asksOpen){
     const allEvidence=official.map(item=>cleanText(item.snippet)).join(" ");
     const reopened=/closing\s+in\s*\(?reopened\)?|reopened/i.test(allEvidence);

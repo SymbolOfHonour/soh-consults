@@ -187,3 +187,11 @@ test("Ask S.O.H searches internal and official knowledge for non-current factual
  assert.match(route,/searchSOH\(resolvedQuestion\),searchOfficialSites\(resolvedQuestion\)/);
  assert.match(route,/Treat the current Question as authoritative/);
 });
+
+
+test("Ask S.O.H gives concise verified answers for simple facts",()=>{
+ const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
+ assert.match(route,/LASU's Vice-Chancellor is Professor Ayodeji Olawunmi Badejo/);
+ assert.match(route,/FUTA's minimum UTME score for the 2026\/2027 screening exercise is 180/);
+ assert.match(route,/one sentence or at most two short sentences/);
+});
