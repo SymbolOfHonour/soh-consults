@@ -55,7 +55,7 @@ export const ASK_SOH_EVAL_CASES=[
  {q:"WAEC registration deadline",entity:"waec",intent:"deadline",mode:"short",fresh:true},
  {q:"NECO registration still open",entity:"neco",intent:"status",mode:"boolean",fresh:true},
  {q:"NYSC registration still open",entity:"nysc",intent:"status",mode:"boolean",fresh:true},
- {q:"lasu cutof",entity:"lasu",intent:"general",mode:"short",fresh:false},
+ {q:"lasu cutof",entity:"lasu",intent:"cutoff",mode:"numeric",fresh:false},
  {q:"futa cut of mark",entity:"futa",intent:"cutoff",mode:"numeric",fresh:false},
  {q:"oau minimum jamb",entity:"oau",intent:"cutoff",mode:"numeric",fresh:false},
  {q:"what does lasu accept",entity:"lasu",intent:"general",mode:"short",fresh:false},
