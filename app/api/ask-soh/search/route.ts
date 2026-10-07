@@ -29,7 +29,7 @@ Do not add URLs because the interface renders source cards separately.`;
     return text&&text.length>20?text:null;
   }catch{return null;}
 }
-const OFFICIAL_HOSTS=["jamb.gov.ng","lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng","education.gov.ng","nbte.gov.ng","nysc.gov.ng","waec.org","neco.gov.ng","fuoye.edu.ng","lasustech.edu.ng","uniosun.edu.ng","oouagoiwoye.edu.ng","lasued.edu.ng","yabatech.edu.ng"];
+const OFFICIAL_HOSTS=["jamb.gov.ng","lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng","education.gov.ng","nbte.gov.ng","nysc.gov.ng","waec.org","neco.gov.ng","fuoye.edu.ng","futa.edu.ng","oauife.edu.ng","lasustech.edu.ng","uniosun.edu.ng","oouagoiwoye.edu.ng","lasued.edu.ng","yabatech.edu.ng"];
 const SEARCH_BLOCKED_HOSTS=["google.com","www.google.com","googleusercontent.com","gstatic.com","accounts.google.com","support.google.com"];
 function blockedSearchHost(url:string){try{const host=new URL(url).hostname.toLowerCase();return SEARCH_BLOCKED_HOSTS.some(item=>host===item||host.endsWith(`.${item}`));}catch{return true;}}
 function htmlToText(value:string){
@@ -196,6 +196,14 @@ function directOfficialTargets(question:string):Array<{title:string;url:string}>
     ];
     return targets;
   }
+  if(/\bfuta\b|federal university of technology,? akure/i.test(question))return [
+    {title:"FUTA 2026/2027 PUTME Screening",url:"https://www.futa.edu.ng/"},
+    {title:"FUTA Admissions Portal",url:"https://admission.futa.edu.ng/"}
+  ];
+  if(/\boau\b|obafemi awolowo university/i.test(question))return [
+    {title:"Obafemi Awolowo University",url:"https://oauife.edu.ng/"},
+    {title:"OAU Electronic Portal",url:"https://eportal.oauife.edu.ng/"}
+  ];
   if(/\bfuoye\b|federal university oye.?ekiti/i.test(question))return [
     {title:"FUOYE 2026/2027 Post-UTME Portal",url:"https://putme.fuoye.edu.ng/utme/"},{title:"FUOYE Official Screening Guide",url:"https://fuoye.edu.ng/wp-content/uploads/2026/02/FOUYE-Post-UTME-Admission-Screening-Registration-GUIDE.pdf"},{title:"FUOYE CASAPS Application Guide",url:"https://putme.fuoye.edu.ng/instruction_UG.php?session=2026%2F2027"},
     {title:"FUOYE CASAPS",url:"https://putme.fuoye.edu.ng/"},
