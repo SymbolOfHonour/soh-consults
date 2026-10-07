@@ -1,0 +1,22 @@
+export const ASK_SOH_EVAL_CASES=[
+ {q:"LASU cutoff?",entity:"lasu",intent:"cutoff",mode:"numeric",fresh:false},
+ {q:"What is Lagos State University cut off mark?",entity:"lasu",intent:"cutoff",mode:"numeric",fresh:false},
+ {q:"minimum JAMB score for FUTA",entity:"futa",intent:"cutoff",mode:"numeric",fresh:false},
+ {q:"FUTA minimum UTME score for 2026/2027",entity:"futa",intent:"cutoff",mode:"numeric",fresh:true,session:"2026/2027"},
+ {q:"Who is LASU vice chancellor?",entity:"lasu",intent:"vice_chancellor",mode:"name",fresh:false},
+ {q:"LASU VC",entity:"lasu",intent:"vice_chancellor",mode:"name",fresh:false},
+ {q:"Is OAU screening still open?",entity:"oau",intent:"status",mode:"boolean",fresh:true},
+ {q:"OAU screening deadline",entity:"oau",intent:"deadline",mode:"short",fresh:true},
+ {q:"What documents do I need for LASU screening?",entity:"lasu",intent:"requirements",mode:"structured",fresh:true},
+ {q:"LASU requirements for 2026/2027",entity:"lasu",intent:"requirements",mode:"structured",fresh:true,session:"2026/2027"},
+ {q:"what about OAU?",context:"FUTA cutoff",entity:"oau",intent:"general",mode:"short",fresh:false},
+ {q:"what about OAU?",context:"What is FUTA cutoff?",entity:"oau",intent:"general",mode:"short",fresh:false},
+ {q:"what is the cutoff?",context:"LASU",entity:"lasu",intent:"cutoff",mode:"numeric",fresh:false},
+ {q:"what is JAMB doing currently?",entity:"jamb",intent:"general",mode:"short",fresh:true},
+ {q:"WAEC latest update",entity:"waec",intent:"general",mode:"short",fresh:true},
+ {q:"NYSC registration deadline",entity:"nysc",intent:"deadline",mode:"short",fresh:true},
+ {q:"LASUSTECH minimum jamb score",entity:"lasustech",intent:"cutoff",mode:"numeric",fresh:false},
+ {q:"UNIOSUN cut off",entity:"uniosun",intent:"cutoff",mode:"numeric",fresh:false},
+ {q:"OOU vice chancellor",entity:"oou",intent:"vice_chancellor",mode:"name",fresh:false},
+ {q:"YABATECH requirements",entity:"yabatech",intent:"requirements",mode:"structured",fresh:false}
+] as const;
