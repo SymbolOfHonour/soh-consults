@@ -22,3 +22,6 @@ test("v2 feedback is privacy protected and rate limited",()=>{const feedback=fs.
 test("v2 route has no hard-coded FUTA/LASU answer authority",()=>{assert.doesNotMatch(route,/function verifiedFactAnswer/);assert.doesNotMatch(route,/LASU's Vice-Chancellor is/);assert.doesNotMatch(route,/FUTA's minimum UTME score/);});
 test("v2 official retrieval follows resolved institution",()=>{assert.match(route,/INSTITUTIONS\.find/);assert.match(route,/institution\.officialDomains\[0\]/);assert.doesNotMatch(route,/site:lasu\.edu\.ng/);});
 test("v2 records all retrieval outcomes",()=>{for(const source of ["verified_knowledge","verified_cache","official_live","internal","web","none"])assert.match(route,new RegExp(source));});
+
+test("v2 contradiction engine is active in live route",()=>{assert.match(route,/reconcileEvidence/);assert.match(route,/contradiction:Boolean/);assert.match(route,/needsReview/);});
+test("v2 bulk imports require review",()=>{const bulk=fs.readFileSync(path.join(process.cwd(),"app/api/admin/ask-soh-knowledge/import/route.ts"),"utf8");assert.match(bulk,/status:"review"/);assert.doesNotMatch(bulk,/status:"published"/);});
