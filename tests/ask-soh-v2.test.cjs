@@ -30,10 +30,13 @@ test("v2 semantic retrieval is verified and bounded",()=>{assert.match(migration
 
 test("v2 privacy hashing remains edge compatible",()=>{const privacy=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/privacy.ts"),"utf8");assert.doesNotMatch(privacy,/from [\"']crypto[\"']/);assert.match(privacy,/crypto\.subtle\.digest/);});
 
-test("v2 numeric answer mode shapes official evidence to a value",()=>{assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,results\)/);assert.match(route,/mode===\"numeric\"/);assert.match(route,/n<100\|\|n>400/);assert.doesNotMatch(route,/answer:\"195\"/);});
+test("v2 numeric answer mode shapes official evidence to a value",()=>{assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,results\)/);assert.match(route,/mode===\"numeric\"/);assert.match(route,/n>=100&&n<=400/);assert.doesNotMatch(route,/answer:\"195\"/);});
 
 test("v2 exact answer modes bypass generative rewriting",()=>{assert.match(route,/exactMode=resolved\.answerMode===\"numeric\"\|\|resolved\.answerMode===\"name\"/);assert.match(route,/generated=exactMode\?null:/);});
 
-test("v2 numeric shaper requires nearby admission-score language",()=>{assert.match(route,/window=text\.slice/);assert.match(route,/minimum\|utme\|jamb\|cut/);});
+test("v2 numeric shaper only accepts explicit admission-score patterns",()=>{assert.match(route,/explicitPatterns/);assert.doesNotMatch(route,/window=text\\.slice/);});
 
 test("v2 numeric shaper accepts plus-suffixed scores",()=>{const m="195+ Minimum UTME Score".match(/\b(\d{3})\+?(?!\d)/);assert.equal(m?.[1],"195");});
+
+
+test("v2 numeric score priority ignores unrelated 100+ programme counts",()=>{const text="100+ Programmes Available Online 24/7 Access Important Minimum score of 195 in the 2026 UTME";const patterns=[/(?:cut.?of{1,2}(?:\s+mark)?|minimum(?:\s+utme)?(?:\s+score)?|utme(?:\s+minimum)?(?:\s+score)?|jamb(?:\s+minimum)?(?:\s+score)?|minimum\s+score(?:\s+of)?)\D{0,40}(\d{3})(?:\+)?/i,/(\d{3})(?:\+)?\s*(?:minimum\s*)?(?:utme|jamb)?\s*(?:score|mark)/i];const found=patterns.map(p=>text.match(p)?.[1]).find(Boolean);assert.equal(found,"195");});
