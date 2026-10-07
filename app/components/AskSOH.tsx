@@ -296,13 +296,14 @@ export default function AskSOH() {
   const [searching, setSearching] = useState(false);
   const latestAnswerRef = useRef<HTMLDivElement | null>(null);
   const pendingAnswerFocus = useRef(false);
+  const activeRequestRef = useRef(0);
 
   useEffect(() => {
     if (!pendingAnswerFocus.current || searching) return;
     const last = messages[messages.length - 1];
     if (last?.role !== "assistant") return;
     pendingAnswerFocus.current = false;
-    requestAnimationFrame(() => latestAnswerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+    requestAnimationFrame(() => latestAnswerRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }));
   }, [messages, searching]);
 
   const contextualQuestion = useMemo(() => {
@@ -335,17 +336,24 @@ export default function AskSOH() {
   }
 
   async function searchWeb(question: string, context?: string) {
+    const requestId = ++activeRequestRef.current;
     setSearching(true);
     try {
-      const history = messages.slice(-6).map((message) => ({ role: message.role, content: message.text }));
+      // Keep standalone questions independent. Conversation history is useful only
+      // when the current wording is explicitly detected as a follow-up.
+      const history = context
+        ? messages.slice(-6).map((message) => ({ role: message.role, content: message.text }))
+        : [];
       const response = await fetch("/api/ask-soh/search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, context, history }),
       });
       const payload = (await response.json()) as SearchPayload;
+      if (requestId !== activeRequestRef.current) return;
       addAssistant(buildSearchAnswer(payload));
     } catch {
+      if (requestId !== activeRequestRef.current) return;
       const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(`${question} Nigeria admission JAMB LASU`)}`;
       addAssistant({
         id: Date.now() + 1,
@@ -361,7 +369,7 @@ export default function AskSOH() {
         ],
       });
     } finally {
-      setSearching(false);
+      if (requestId === activeRequestRef.current) setSearching(false);
     }
   }
 
@@ -409,6 +417,7 @@ export default function AskSOH() {
   }
 
   function reset() {
+    activeRequestRef.current += 1;
     setMessages([{ ...initialMessage, id: Date.now() }]);
     setInput("");
     setSearching(false);
