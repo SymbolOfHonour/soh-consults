@@ -14,7 +14,8 @@ export const INSTITUTIONS:InstitutionRecord[]=[
  {key:"neco",name:"National Examinations Council",aliases:["neco","national examinations council"],officialDomains:["neco.gov.ng"]},
  {key:"nysc",name:"National Youth Service Corps",aliases:["nysc","national youth service corps"],officialDomains:["nysc.gov.ng"]}
 ];
-export function resolveInstitution(text:string){const q=text.toLowerCase();return INSTITUTIONS.find(i=>i.aliases.some(a=>new RegExp(`(^|[^a-z0-9])${a.replace(/[.*+?^$()|[\\]\\]/g,"\\$&")}([^a-z0-9]|$)`,"i").test(q)))||null;}
+function normalizedWords(value:string){return ` ${value.toLowerCase().normalize("NFKD").replace(/[\\u0300-\\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim()} `;}
+export function resolveInstitution(text:string){const q=normalizedWords(text);return INSTITUTIONS.find(i=>i.aliases.some(a=>q.includes(normalizedWords(a))))||null;}
 export function isOfficialInstitutionUrl(url:string,institutionKey?:string|null){try{const host=new URL(url).hostname.toLowerCase().replace(/^www\./,"");const candidates=institutionKey?INSTITUTIONS.filter(i=>i.key===institutionKey):INSTITUTIONS;return candidates.some(i=>i.officialDomains.some(d=>host===d||host.endsWith(`.${d}`)));}catch{return false;}}
 
 export function allOfficialDomains(){return [...new Set(INSTITUTIONS.flatMap(i=>i.officialDomains))];}
