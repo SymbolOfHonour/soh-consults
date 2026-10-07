@@ -18,3 +18,7 @@ test("v2 evaluation corpus covers at least 20 diverse questions",()=>{const corp
 
 test("v2 admin enforces review lifecycle",()=>{const api=fs.readFileSync(path.join(process.cwd(),"app/api/admin/ask-soh-knowledge/route.ts"),"utf8");assert.match(api,/draft:\["review","archived"\]/);assert.match(api,/review:\["verified","draft","archived"\]/);assert.match(api,/Invalid knowledge transition/);});
 test("v2 feedback is privacy protected and rate limited",()=>{const feedback=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/feedback/route.ts"),"utf8");assert.match(feedback,/checkRateLimit/);assert.match(feedback,/redactQuestion/);assert.match(feedback,/questionHash/);});
+
+test("v2 route has no hard-coded FUTA/LASU answer authority",()=>{assert.doesNotMatch(route,/function verifiedFactAnswer/);assert.doesNotMatch(route,/LASU's Vice-Chancellor is/);assert.doesNotMatch(route,/FUTA's minimum UTME score/);});
+test("v2 official retrieval follows resolved institution",()=>{assert.match(route,/INSTITUTIONS\.find/);assert.match(route,/institution\.officialDomains\[0\]/);assert.doesNotMatch(route,/site:lasu\.edu\.ng/);});
+test("v2 records all retrieval outcomes",()=>{for(const source of ["verified_knowledge","verified_cache","official_live","internal","web","none"])assert.match(route,new RegExp(source));});
