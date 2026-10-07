@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - qa/production-readiness
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
@@ -15,7 +19,7 @@ concurrency:
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/qa/production-readiness'
+    if: github.ref == 'refs/heads/qa/production-readiness' || (github.event_name == 'pull_request' && github.head_ref == 'qa/production-readiness')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -53,3 +57,12 @@ jobs:
 
       - name: Verify authenticated QA cron routes
         run: node scripts/verify-qa-cron.mjs
+
+      - name: Verify Ask S.O.H QA API
+        if: always()
+        shell: bash
+        run: |
+          response=$(curl --fail-with-body --retry 3 --retry-delay 3 --max-time 45 --get 'https://soh-consults-qa.oluyepeadetayo.workers.dev/api/ask-soh/search' --data-urlencode 'q=What is LASU cutoff mark?')
+          RESPONSE="$response" node -e 'const x=JSON.parse(process.env.RESPONSE); const summary={answer:x.answer,confidence:x.confidence,sourceType:x.sourceType||null,intent:x.intent||null,answerMode:x.answerMode||null,results:Array.isArray(x.results)?x.results.length:null}; console.log(JSON.stringify(summary)); if(x.answer!=="195"||!["official_live","internal"].includes(x.sourceType)||typeof x.confidence!=="string"||x.answerMode!=="numeric"||!Array.isArray(x.results)) process.exit(1);'
+          paraphrase=$(curl --fail-with-body --retry 2 --retry-delay 2 --max-time 45 --get 'https://soh-consults-qa.oluyepeadetayo.workers.dev/api/ask-soh/search' --data-urlencode 'q=LASU minimum JAMB score?')
+          RESPONSE="$paraphrase" node -e 'const x=JSON.parse(process.env.RESPONSE); console.log(JSON.stringify({paraphraseAnswer:x.answer,intent:x.intent,answerMode:x.answerMode,sourceType:x.sourceType})); if(x.answer!=="195"||x.intent!=="cutoff"||x.answerMode!=="numeric") process.exit(1);'

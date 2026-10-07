@@ -189,19 +189,22 @@ test("Ask S.O.H searches internal and official knowledge for non-current factual
 });
 
 
-test("Ask S.O.H gives concise verified answers for simple facts",()=>{
+test("Ask S.O.H keeps simple facts concise through answer-mode routing",()=>{
  const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
- assert.match(route,/LASU's Vice-Chancellor is Professor Ayodeji Olawunmi Badejo/);
- assert.match(route,/FUTA's minimum UTME score for the 2026\/2027 screening exercise is 180/);
+ const resolver=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/question-resolver.ts"),"utf8");
+ assert.match(resolver,/intent==="cutoff"\?"numeric"/);
+ assert.match(resolver,/intent==="vice_chancellor"\?"name"/);
  assert.match(route,/one sentence or at most two short sentences/);
 });
 
 
-test("Ask S.O.H resolves verified FUTA cutoff before live retrieval",()=>{
+test("Ask S.O.H resolves verified facts from the registry before live retrieval",()=>{
  const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
- assert.match(route,/function verifiedFactAnswer/);
- assert.match(route,/FUTA's minimum UTME score for the 2026\/2027 screening exercise is 180\./);
- assert.match(route,/if\(verifiedFact\)return NextResponse\.json/);
+ const lookup=route.indexOf("findVerifiedFact(resolved)");
+ const live=route.indexOf("searchOfficialSites(resolvedQuestion)");
+ assert.ok(lookup>=0 && live>lookup);
+ assert.match(route,/sourceType:"verified_knowledge"/);
+ assert.doesNotMatch(route,/function verifiedFactAnswer/);
 });
 
 

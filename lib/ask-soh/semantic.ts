@@ -1,0 +1,3 @@
+const OPENAI=process.env.OPENAI_API_KEY;
+export async function embedText(text:string){if(!OPENAI)return null;try{const r=await fetch("https://api.openai.com/v1/embeddings",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${OPENAI}`},body:JSON.stringify({model:process.env.ASK_SOH_EMBEDDING_MODEL||"text-embedding-3-small",input:text.slice(0,4000)}),signal:AbortSignal.timeout(8000)});if(!r.ok)return null;const data=await r.json() as {data?:Array<{embedding?:number[]}>};return data.data?.[0]?.embedding||null;}catch{return null;}}
+export function semanticEnabled(){return Boolean(OPENAI);}

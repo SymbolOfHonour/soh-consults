@@ -3,6 +3,12 @@ import { checkRateLimit } from "../../../../lib/rate-limit";
 import { contentCatalogue } from "../../../../lib/content-catalogue";
 import { listPublishedStories } from "../../../../lib/news-queue";
 import { rankContent } from "../../../../lib/ranking-engine";
+import { resolveQuestion } from "../../../../lib/ask-soh/question-resolver";
+import { findVerifiedFact,semanticKnowledgeSearch } from "../../../../lib/ask-soh/knowledge-repository";
+import { cacheGet,cacheSet,knowledgeCacheKey } from "../../../../lib/ask-soh/cache";
+import { recordQuestion } from "../../../../lib/ask-soh/telemetry";
+import { allOfficialDomains,INSTITUTIONS } from "../../../../lib/ask-soh/institution-registry";
+import { reconcileEvidence } from "../../../../lib/ask-soh/evidence";
 
 type SearchResult={title:string;url:string;snippet:string;official:boolean;internal?:boolean};
 type Confidence="high"|"medium"|"low";
@@ -29,7 +35,7 @@ Do not add URLs because the interface renders source cards separately.`;
     return text&&text.length>20?text:null;
   }catch{return null;}
 }
-const OFFICIAL_HOSTS=["jamb.gov.ng","lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng","education.gov.ng","nbte.gov.ng","nysc.gov.ng","waec.org","neco.gov.ng","fuoye.edu.ng","futa.edu.ng","oauife.edu.ng","lasustech.edu.ng","uniosun.edu.ng","oouagoiwoye.edu.ng","lasued.edu.ng","yabatech.edu.ng"];
+const OFFICIAL_HOSTS=[...allOfficialDomains(),"education.gov.ng","nbte.gov.ng"];
 const SEARCH_BLOCKED_HOSTS=["google.com","www.google.com","googleusercontent.com","gstatic.com","accounts.google.com","support.google.com"];
 function blockedSearchHost(url:string){try{const host=new URL(url).hostname.toLowerCase();return SEARCH_BLOCKED_HOSTS.some(item=>host===item||host.endsWith(`.${item}`));}catch{return true;}}
 function htmlToText(value:string){
@@ -65,21 +71,7 @@ function isUsableResult(title:string,url:string,snippet:string){
   try{const parsed=new URL(url);return parsed.protocol==="https:"||parsed.protocol==="http:";}catch{return false;}
 }
 function isOfficial(url:string){try{const host=new URL(url).hostname.toLowerCase().replace(/^www\./,"");return OFFICIAL_HOSTS.some(a=>host===a||host.endsWith(`.${a}`));}catch{return false;}}
-function verifiedFactAnswer(question:string):{answer:string;confidence:Confidence;needsHuman:boolean}|null{
-  const q=question.toLowerCase().replace(/[’']/g,"'").replace(/[-_/]/g," ").replace(/[^a-z0-9\s']/g," ").replace(/\s+/g," ").trim();
-  const isFuta=q.includes("futa")||q.includes("federal university of technology akure");
-  const asksCutoff=q.includes("cut off")||q.includes("cutoff")||q.includes("minimum score")||q.includes("minimum utme")||q.includes("utme score");
-  if(isFuta&&asksCutoff){
-    return {answer:"FUTA's minimum UTME score for the 2026/2027 screening exercise is 180.",confidence:"high",needsHuman:false};
-  }
-  const isLasu=q.includes("lasu")||q.includes("lagos state university");
-  const asksViceChancellor=q.includes("vice chancellor")||q.includes("vicechancellor")||q.split(" ").includes("vc");
-  if(isLasu&&asksViceChancellor){
-    return {answer:"LASU's Vice-Chancellor is Professor Ayodeji Olawunmi Badejo.",confidence:"high",needsHuman:false};
-  }
-  return null;
-}
-
+function shapeEvidenceAnswer(mode:string,results:SearchResult[]){if(mode!=="numeric")return null;const ordered=[...results].sort((a,b)=>Number(b.official)-Number(a.official)||Number(Boolean(b.internal))-Number(Boolean(a.internal)));for(const result of ordered){const text=cleanText(result.title+" "+result.snippet);for(const match of text.matchAll(/(?:^|\D)(\d{3})(?:\+)?(?=\D|$)/g)){const n=Number(match[1]);if(n<100||n>400)continue;const at=match.index??0;const window=text.slice(Math.max(0,at-70),Math.min(text.length,at+100));if(/minimum|utme|jamb|cut.?of{1,2}|score|mark/i.test(window))return {value:String(n),result};}}return null;}
 function composeAnswer(question:string,results:SearchResult[],currentSensitive:boolean):{answer:string;confidence:Confidence;needsHuman:boolean}{
   const official=results.filter(item=>item.official);
   const internal=results.filter(item=>item.internal);
@@ -91,16 +83,6 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
   const lasuScreening=/\blasu\b|lagos state university/i.test(question)&&/(screening|admission)/i.test(question);
   const fuoyeScreening=/\bfuoye\b|federal university oye.?ekiti/i.test(question)&&/(screening|post.?utme|admission)/i.test(question);
   const asksOpen=/(still\s+open|open\s+for|screening\s+open|ongoing|available)/i.test(question.split(/Context subject:/i)[0]);
-  const asksViceChancellor=/(?:who(?:'s| is)|what(?:'s| is).{0,20}(?:name of )?).{0,30}(?:vice[- ]?chancellor|\\bvc\\b)|(?:vice[- ]?chancellor|\\bvc\\b).{0,30}(?:name|who)/i.test(question);
-  if(asksViceChancellor&&/\\blasu\\b|lagos state university/i.test(question)){
-    const text=results.map(item=>cleanText(item.title+" "+item.snippet)).join(" ");
-    if(/Ayodeji\\s+Olawunmi\\s+Badejo/i.test(text)||/Ayodeji\\s+Badejo/i.test(text)) return {answer:"LASU's Vice-Chancellor is Professor Ayodeji Olawunmi Badejo.",confidence:official.length?"high":"medium",needsHuman:false};
-  }
-  const asksCutoff=/(?:cut.?off|minimum).{0,20}(?:mark|score)|(?:mark|score).{0,20}cut.?off/i.test(question);
-  if(asksCutoff&&/\\bfuta\\b|federal university of technology,? akure/i.test(question)){
-    const text=results.map(item=>cleanText(item.title+" "+item.snippet)).join(" ");
-    if(/(?:minimum of|scored a minimum of|minimum (?:utme )?score(?: of)?)[^0-9]{0,20}180|180[^.]{0,60}(?:eligible|minimum)/i.test(text)) return {answer:"Yes. FUTA's minimum UTME score for the 2026/2027 screening exercise is 180.",confidence:official.length?"high":"medium",needsHuman:false};
-  }
   if(currentSensitive&&preferred.official&&fuoyeScreening&&asksOpen){
     const allEvidence=official.map(item=>cleanText(item.snippet)).join(" ");
     const reopened=/closing\s+in\s*\(?reopened\)?|reopened/i.test(allEvidence);
@@ -280,23 +262,21 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   if(!question||question.length<3)return NextResponse.json({error:"Please enter a valid question."},{status:400});
   const safeQuestion=question.slice(0,220);
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
-  const verifiedFact=verifiedFactAnswer(resolvedQuestion);
-  if(verifiedFact)return NextResponse.json({query:safeQuestion,results:[],searchedAt:new Date().toISOString(),knowledgeMatches:0,currentSensitive:true,...verifiedFact,answer:verifiedFact.answer,generative:false,verifiedFact:true});
-  const currentSensitive=/(latest|current|today|deadline|closing|close|open|ongoing|available|fee|price|cost|date|2026|2027|form|cut.?off|registration|requirement|screening|direct entry|\bde\b)/i.test(resolvedQuestion);
-  const currentQuestion=safeQuestion;
-  const currentQuestionLower=currentQuestion.toLowerCase();
-  const asksKnownViceChancellor=(currentQuestionLower.includes("vice-chancellor")||currentQuestionLower.includes("vice chancellor"))&&(currentQuestionLower.includes("who")||currentQuestionLower.includes("name"));
-  if(asksKnownViceChancellor&&(currentQuestionLower.includes("lasu")||currentQuestionLower.includes("lagos state university"))){
-    return NextResponse.json({query:safeQuestion,results:[],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:"LASU's Vice-Chancellor is Professor Ayodeji Olawunmi Badejo.",confidence:"high",needsHuman:false,generative:false});
-  }
-  const asksKnownCutoff=currentQuestionLower.includes("cut-off")||currentQuestionLower.includes("cutoff")||currentQuestionLower.includes("cut off")||currentQuestionLower.includes("minimum score");
-  const asksFuta=currentQuestionLower.includes("futa")||currentQuestionLower.includes("federal university of technology, akure");
-  const asks2026Session=currentQuestionLower.includes("2026/2027")||currentQuestionLower.includes("2026-2027")||currentQuestionLower.includes("2026/27");
-  if(asksKnownCutoff&&asksFuta&&asks2026Session){
-    return NextResponse.json({query:safeQuestion,results:[],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:true,answer:"FUTA's minimum UTME score for the 2026/2027 screening exercise is 180.",confidence:"high",needsHuman:false,generative:false});
-  }
-  const institutionHint=/\blasu\b|lagos state university/i.test(resolvedQuestion)?" Lagos State University LASU":"";
-  const officialHint=currentSensitive&&institutionHint?" site:lasu.edu.ng":"";
+  const startedAt=Date.now();
+  const resolved=resolveQuestion(safeQuestion,context);
+  const cacheKey=knowledgeCacheKey(resolved.institutionKey,resolved.intent,resolved.academicSession);
+  const cached=!resolved.currentSensitive?cacheGet<{answer:string;sourceName:string;sourceUrl:string;verifiedAt:string|null}>(cacheKey):null;
+  if(cached){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"verified_cache",latencyMs:Date.now()-startedAt,cacheHit:true});return NextResponse.json({query:safeQuestion,results:[{title:cached.sourceName,url:cached.sourceUrl,snippet:cached.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:cached.answer,confidence:"high",needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_cache",verifiedAt:cached.verifiedAt});}
+  const knowledge=await findVerifiedFact(resolved).catch(()=>null);
+  const semanticCandidate=Boolean(resolved.institutionKey)||/(admission|jamb|utme|screening|school|university|polytechnic|college|waec|neco|nysc|course|requirement|fee|cut.?off|deadline|portal|caps)/i.test(safeQuestion);
+  const semanticMatches=!knowledge&&!resolved.currentSensitive&&semanticCandidate?await semanticKnowledgeSearch(safeQuestion).catch(()=>[]):[];
+  const semanticFact=semanticMatches.find(f=>(!resolved.institutionKey||f.institution_key===resolved.institutionKey)&&(resolved.intent==="general"||f.intent===resolved.intent));
+  if(semanticFact){const semanticAnswer=semanticFact.answer_mode==="numeric"||semanticFact.answer_mode==="name"?semanticFact.value_text:(semanticFact.answer_text||semanticFact.value_text);void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"medium",answered:true,sourceType:"verified_semantic",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:semanticFact.source_name,url:semanticFact.source_url,snippet:semanticFact.evidence_text||semanticAnswer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:semanticMatches.length,currentSensitive:false,answer:semanticAnswer,confidence:"medium",needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_semantic",verifiedAt:semanticFact.verified_at});}
+  if(knowledge&&!knowledge.stale&&!resolved.currentSensitive){cacheSet(cacheKey,{answer:knowledge.answer,sourceName:knowledge.fact.source_name,sourceUrl:knowledge.fact.source_url,verifiedAt:knowledge.fact.verified_at},900);void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:knowledge.confidence,answered:true,sourceType:"verified_knowledge",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:knowledge.fact.source_name,url:knowledge.fact.source_url,snippet:knowledge.fact.evidence_text||knowledge.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:knowledge.answer,confidence:knowledge.confidence,needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_knowledge",verifiedAt:knowledge.fact.verified_at});}
+  const currentSensitive=resolved.currentSensitive||/(fee|price|cost|direct entry|\bde\b)/i.test(resolvedQuestion);
+  const institution=resolved.institutionKey?INSTITUTIONS.find(item=>item.key===resolved.institutionKey):null;
+  const institutionHint=institution?` ${institution.name} ${institution.key.toUpperCase()}`:"";
+  const officialHint=currentSensitive&&institution?.officialDomains[0]?` site:${institution.officialDomains[0]}`:"";
   const googleQuery=`${resolvedQuestion}${institutionHint} Nigeria admission JAMB${officialHint}`;
   const googleUrl=`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
   const [internalResults,officialResults]=await Promise.all([searchSOH(resolvedQuestion),searchOfficialSites(resolvedQuestion)]);
@@ -307,14 +287,22 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const webResults=parseGoogleMarkdown(await response.text());
     const deduped=[...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const results=deduped.sort((a,b)=>currentSensitive ? Number(b.official)-Number(a.official) : Number(Boolean(b.internal))-Number(Boolean(a.internal))).slice(0,7);
-    const composed=composeAnswer(resolvedQuestion,results,currentSensitive);
-    const generated=await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
-    return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:generated??composed.answer,generative:Boolean(generated)});
+    const shaped=shapeEvidenceAnswer(resolved.answerMode,results);
+    const composed=shaped?{answer:shaped.value,confidence:(shaped.result.official?"high":"medium") as Confidence,needsHuman:false}:composeAnswer(resolvedQuestion,results,currentSensitive);
+    const liveOfficial=results.find(r=>r.official);
+    const evidenceDecision=knowledge&&liveOfficial?reconcileEvidence([{value:knowledge.answer,sourceUrl:knowledge.fact.source_url,sourceName:knowledge.fact.source_name,authority:knowledge.fact.source_authority,observedAt:knowledge.fact.verified_at,official:true,verified:true},{value:composed.answer,sourceUrl:liveOfficial.url,sourceName:liveOfficial.title,authority:100,observedAt:new Date().toISOString(),official:true,verified:false}]):null;
+    const exactMode=resolved.answerMode==="numeric"||resolved.answerMode==="name";
+    const generated=exactMode?null:await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
+    const finalAnswer=generated??composed.answer;const finalConfidence=evidenceDecision?.conflict?"medium":composed.confidence;const needsReview=Boolean(evidenceDecision?.conflict)||composed.needsHuman;const sourceType=shaped?(shaped.result.official?"official_live":shaped.result.internal?"internal":"web"):results.some(r=>r.official)?"official_live":results.some(r=>r.internal)?"internal":"web";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:finalConfidence,answered:!needsReview,sourceType,latencyMs:Date.now()-startedAt});
+    return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,confidence:finalConfidence,needsHuman:needsReview,answer:finalAnswer,generative:Boolean(generated),contradiction:Boolean(evidenceDecision?.conflict),sourceType,intent:resolved.intent,answerMode:resolved.answerMode});
   }catch(error){
     const fallbackResults=[...officialResults,...internalResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
-    const composed=composeAnswer(resolvedQuestion,fallbackResults,currentSensitive);
-    const generated=await generateGroundedAnswer(resolvedQuestion,history,fallbackResults,composed.answer,currentSensitive);
-    return NextResponse.json({query:safeQuestion,googleUrl,results:fallbackResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:generated??composed.answer,generative:Boolean(generated),error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
+    const shaped=shapeEvidenceAnswer(resolved.answerMode,fallbackResults);
+    const composed=shaped?{answer:shaped.value,confidence:(shaped.result.official?"high":"medium") as Confidence,needsHuman:false}:composeAnswer(resolvedQuestion,fallbackResults,currentSensitive);
+    const exactMode=resolved.answerMode==="numeric"||resolved.answerMode==="name";
+    const generated=exactMode?null:await generateGroundedAnswer(resolvedQuestion,history,fallbackResults,composed.answer,currentSensitive);
+    const finalAnswer=generated??composed.answer;const sourceType=shaped?(shaped.result.official?"official_live":shaped.result.internal?"internal":"web"):fallbackResults.some(r=>r.official)?"official_live":fallbackResults.some(r=>r.internal)?"internal":"none";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:composed.confidence,answered:!composed.needsHuman,sourceType,latencyMs:Date.now()-startedAt});
+    return NextResponse.json({query:safeQuestion,googleUrl,results:fallbackResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:finalAnswer,generative:Boolean(generated),sourceType,intent:resolved.intent,answerMode:resolved.answerMode,error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
   }
 }
 
