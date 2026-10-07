@@ -1,0 +1,31 @@
+name: Ask S.O.H QA Build
+
+on:
+  push:
+    branches:
+      - feature/ask-soh-v2-verified-rag
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ask-soh-v2-qa-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build OpenNext for Cloudflare
+        run: npm run build:cloudflare
