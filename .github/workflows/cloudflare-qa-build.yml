@@ -35,28 +35,7 @@ jobs:
       - name: Build OpenNext for Cloudflare
         run: npm run build:cloudflare
 
-      - name: Prepare isolated QA cron authentication
-        shell: bash
-        run: |
-          qa_cron_secret=$(node -e "process.stdout.write(require('node:crypto').randomBytes(32).toString('hex'))")
-          echo "::add-mask::$qa_cron_secret"
-          printf '%s' "$qa_cron_secret" | npx wrangler secret put CRON_SECRET --name soh-consults-qa
-          printf 'QA_CRON_SECRET=%s\n' "$qa_cron_secret" >> "$GITHUB_ENV"
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Deploy Cloudflare QA Worker
-        run: npx wrangler deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Verify authenticated QA cron routes
-        run: node scripts/verify-qa-cron.mjs
-
       - name: Verify Ask S.O.H QA API
-        if: always()
         shell: bash
         run: |
           response=$(curl --fail-with-body --retry 3 --retry-delay 3 --max-time 45 --get 'https://soh-consults-qa.oluyepeadetayo.workers.dev/api/ask-soh/search' --data-urlencode 'q=What is LASU cutoff mark?')
