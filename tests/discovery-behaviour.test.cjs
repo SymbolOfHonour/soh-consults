@@ -195,3 +195,11 @@ test("Ask S.O.H gives concise verified answers for simple facts",()=>{
  assert.match(route,/FUTA's minimum UTME score for the 2026\/2027 screening exercise is 180/);
  assert.match(route,/one sentence or at most two short sentences/);
 });
+
+
+test("Ask S.O.H resolves verified FUTA cutoff before live retrieval",()=>{
+ const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
+ assert.match(route,/function verifiedFactAnswer/);
+ assert.match(route,/FUTA's minimum UTME score for the 2026\/2027 screening exercise is 180\./);
+ assert.match(route,/if\(verifiedFact\)return NextResponse\.json/);
+});
