@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - qa/production-readiness
+      - feature/ask-soh-v2-verified-rag
   workflow_dispatch:
 
 permissions:
@@ -15,11 +16,11 @@ concurrency:
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/qa/production-readiness'
+    if: github.ref == 'refs/heads/qa/production-readiness' || github.ref == 'refs/heads/feature/ask-soh-v2-verified-rag'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout QA branch
+      - name: Checkout isolated QA source
         uses: actions/checkout@v4
 
       - name: Set up Node.js
