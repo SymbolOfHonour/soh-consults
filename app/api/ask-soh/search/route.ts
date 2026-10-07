@@ -7,7 +7,7 @@ import { resolveQuestion } from "../../../../lib/ask-soh/question-resolver";
 import { findVerifiedFact } from "../../../../lib/ask-soh/knowledge-repository";
 import { cacheGet,cacheSet,knowledgeCacheKey } from "../../../../lib/ask-soh/cache";
 import { recordQuestion } from "../../../../lib/ask-soh/telemetry";
-import { allOfficialDomains } from "../../../../lib/ask-soh/institution-registry";
+import { allOfficialDomains,INSTITUTIONS } from "../../../../lib/ask-soh/institution-registry";
 
 type SearchResult={title:string;url:string;snippet:string;official:boolean;internal?:boolean};
 type Confidence="high"|"medium"|"low";
@@ -278,8 +278,9 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const knowledge=await findVerifiedFact(resolved).catch(()=>null);
   if(knowledge&&!knowledge.stale&&!resolved.currentSensitive){cacheSet(cacheKey,{answer:knowledge.answer,sourceName:knowledge.fact.source_name,sourceUrl:knowledge.fact.source_url,verifiedAt:knowledge.fact.verified_at},900);void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:knowledge.confidence,answered:true,sourceType:"verified_knowledge",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:knowledge.fact.source_name,url:knowledge.fact.source_url,snippet:knowledge.fact.evidence_text||knowledge.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:knowledge.answer,confidence:knowledge.confidence,needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_knowledge",verifiedAt:knowledge.fact.verified_at});}
   const currentSensitive=resolved.currentSensitive||/(fee|price|cost|direct entry|\bde\b)/i.test(resolvedQuestion);
-  const institutionHint=/\blasu\b|lagos state university/i.test(resolvedQuestion)?" Lagos State University LASU":"";
-  const officialHint=currentSensitive&&institutionHint?" site:lasu.edu.ng":"";
+  const institution=resolved.institutionKey?INSTITUTIONS.find(item=>item.key===resolved.institutionKey):null;
+  const institutionHint=institution?` ${institution.name} ${institution.key.toUpperCase()}`:"";
+  const officialHint=currentSensitive&&institution?.officialDomains[0]?` site:${institution.officialDomains[0]}`:"";
   const googleQuery=`${resolvedQuestion}${institutionHint} Nigeria admission JAMB${officialHint}`;
   const googleUrl=`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
   const [internalResults,officialResults]=await Promise.all([searchSOH(resolvedQuestion),searchOfficialSites(resolvedQuestion)]);
