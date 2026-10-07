@@ -35,3 +35,5 @@ test("v2 numeric answer mode shapes official evidence to a value",()=>{assert.ma
 test("v2 exact answer modes bypass generative rewriting",()=>{assert.match(route,/exactMode=resolved\.answerMode===\"numeric\"\|\|resolved\.answerMode===\"name\"/);assert.match(route,/generated=exactMode\?null:/);});
 
 test("v2 numeric shaper requires nearby admission-score language",()=>{assert.match(route,/window=text\.slice/);assert.match(route,/minimum\|utme\|jamb\|cut/);});
+
+test("v2 numeric shaper accepts plus-suffixed scores",()=>{assert.match(route,/\\d\{3\}.*\\\\\+\?/);assert.doesNotMatch(route,/\\\\\+\?\\\\b\/g/);});
