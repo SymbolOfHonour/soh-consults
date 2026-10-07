@@ -5,7 +5,7 @@ const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/rout
 const migration=fs.readFileSync(path.join(process.cwd(),"supabase/ask-soh-v2-migration.sql"),"utf8");
 test("v2 resolves facts before live retrieval",()=>{assert.match(route,/findVerifiedFact\(resolved\)/);assert.match(route,/sourceType:"verified_knowledge"/);});
 test("v2 has bounded institution resolution",()=>{assert.match(resolver,/explicit=resolveInstitution\(question\)/);assert.match(resolver,/inherited=!explicit&&context/);});
-test("v2 routes simple answer modes",()=>{assert.match(resolver,/cutoff\?"numeric"/);assert.match(resolver,/vc\?"name"/);assert.match(resolver,/status\?"boolean"/);});
+test("v2 routes simple answer modes",()=>{assert.match(resolver,/intent==="cutoff"\?"numeric"/);assert.match(resolver,/intent==="vice_chancellor"\?"name"/);assert.match(resolver,/status\?"boolean"/);});
 test("v2 separates freshness from stable facts",()=>{assert.match(resolver,/currentSensitive:CURRENT\.test/);assert.match(route,/!knowledge\.stale&&!resolved\.currentSensitive/);});
 test("v2 knowledge lifecycle and provenance exist",()=>{for(const token of ["ask_soh_facts","ask_soh_fact_versions","review_due_at","evidence_text","source_authority","due_review","expired","archived"])assert.match(migration,new RegExp(token));});
 test("v2 telemetry and feedback stores exist",()=>{assert.match(migration,/ask_soh_questions/);assert.match(migration,/ask_soh_feedback/);});
