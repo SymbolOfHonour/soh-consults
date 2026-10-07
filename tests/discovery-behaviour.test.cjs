@@ -203,3 +203,13 @@ test("Ask S.O.H resolves verified FUTA cutoff before live retrieval",()=>{
  assert.match(route,/FUTA's minimum UTME score for the 2026\/2027 screening exercise is 180\./);
  assert.match(route,/if\(verifiedFact\)return NextResponse\.json/);
 });
+
+
+test("Ask S.O.H renders a valid API answer even when no source cards are returned",()=>{
+ const widget=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");
+ const noBest=widget.indexOf("if (!best)");
+ const answerCheck=widget.indexOf("if (payload.answer)",noBest);
+ const retrievalFailure=widget.indexOf("I couldn’t retrieve a reliable live result just now",noBest);
+ assert.ok(noBest>=0 && answerCheck>noBest && retrievalFailure>answerCheck);
+ assert.match(widget.slice(answerCheck,retrievalFailure),/text: payload\.answer/);
+});
