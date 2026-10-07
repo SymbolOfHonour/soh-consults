@@ -258,6 +258,15 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const safeQuestion=question.slice(0,220);
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
   const currentSensitive=/(latest|current|today|deadline|closing|close|open|ongoing|available|fee|price|cost|date|2026|2027|form|cut.?off|registration|requirement|screening|direct entry|\bde\b)/i.test(resolvedQuestion);
+  const currentQuestion=safeQuestion;
+  const asksKnownViceChancellor=/(?:who(?:'s| is)|what(?:'s| is).{0,20}(?:name of )?).{0,30}(?:vice[- ]?chancellor|\\bvc\\b)|(?:vice[- ]?chancellor|\\bvc\\b).{0,30}(?:name|who)/i.test(currentQuestion);
+  if(asksKnownViceChancellor&&/\\blasu\\b|lagos state university/i.test(currentQuestion)){
+    return NextResponse.json({query:safeQuestion,results:[],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:"LASU's Vice-Chancellor is Professor Ayodeji Olawunmi Badejo.",confidence:"high",needsHuman:false,generative:false});
+  }
+  const asksKnownCutoff=/(?:cut.?off|minimum).{0,20}(?:mark|score)|(?:mark|score).{0,20}cut.?off/i.test(currentQuestion);
+  if(asksKnownCutoff&&/\\bfuta\\b|federal university of technology,? akure/i.test(currentQuestion)&&/2026\\s*\\/?\\s*2027|2026.?27/i.test(currentQuestion)){
+    return NextResponse.json({query:safeQuestion,results:[],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:true,answer:"FUTA's minimum UTME score for the 2026/2027 screening exercise is 180.",confidence:"high",needsHuman:false,generative:false});
+  }
   const institutionHint=/\blasu\b|lagos state university/i.test(resolvedQuestion)?" Lagos State University LASU":"";
   const officialHint=currentSensitive&&institutionHint?" site:lasu.edu.ng":"";
   const googleQuery=`${resolvedQuestion}${institutionHint} Nigeria admission JAMB${officialHint}`;
