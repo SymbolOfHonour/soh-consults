@@ -497,7 +497,7 @@ export default function AskSOH() {
           </header>
 
           <div ref={conversationRef} className="flex-1 space-y-4 overflow-y-auto bg-slate-50 px-4 py-4">
-            {messages.map((message, index) => (
+            {messages.map((message) => (
               <div key={message.id} className={message.role === "user" ? "flex justify-end" : "flex justify-start"}>
                 <div className="max-w-[90%]">
                   <div
