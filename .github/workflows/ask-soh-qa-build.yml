@@ -1,9 +1,8 @@
-name: Cloudflare QA Build
+name: Ask S.O.H QA Build
 
 on:
   push:
     branches:
-      - qa/production-readiness
       - feature/ask-soh-v2-verified-rag
   workflow_dispatch:
 
@@ -11,27 +10,22 @@ permissions:
   contents: read
 
 concurrency:
-  group: cloudflare-qa-deployment
+  group: ask-soh-v2-qa-build
   cancel-in-progress: true
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/qa/production-readiness' || github.ref == 'refs/heads/feature/ask-soh-v2-verified-rag'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout isolated QA source
+      - name: Checkout feature branch
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-
-      - name: Install dependencies for Cloudflare QA
+      - name: Install dependencies
         run: npm install --no-audit --no-fund
-
       - name: Build OpenNext for Cloudflare
         run: npm run build:cloudflare
-
