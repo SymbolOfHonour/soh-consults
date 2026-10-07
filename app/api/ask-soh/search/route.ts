@@ -3,6 +3,8 @@ import { checkRateLimit } from "../../../../lib/rate-limit";
 import { contentCatalogue } from "../../../../lib/content-catalogue";
 import { listPublishedStories } from "../../../../lib/news-queue";
 import { rankContent } from "../../../../lib/ranking-engine";
+import { resolveQuestion } from "../../../../lib/ask-soh/question-resolver";
+import { findVerifiedFact } from "../../../../lib/ask-soh/knowledge-repository";
 
 type SearchResult={title:string;url:string;snippet:string;official:boolean;internal?:boolean};
 type Confidence="high"|"medium"|"low";
@@ -280,9 +282,12 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   if(!question||question.length<3)return NextResponse.json({error:"Please enter a valid question."},{status:400});
   const safeQuestion=question.slice(0,220);
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
+  const resolved=resolveQuestion(safeQuestion,context);
+  const knowledge=await findVerifiedFact(resolved).catch(()=>null);
+  if(knowledge&&!knowledge.stale&&!resolved.currentSensitive)return NextResponse.json({query:safeQuestion,results:[{title:knowledge.fact.source_name,url:knowledge.fact.source_url,snippet:knowledge.fact.evidence_text||knowledge.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:knowledge.answer,confidence:knowledge.confidence,needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_knowledge",verifiedAt:knowledge.fact.verified_at});
   const verifiedFact=verifiedFactAnswer(resolvedQuestion);
-  if(verifiedFact)return NextResponse.json({query:safeQuestion,results:[],searchedAt:new Date().toISOString(),knowledgeMatches:0,currentSensitive:true,...verifiedFact,answer:verifiedFact.answer,generative:false,verifiedFact:true});
-  const currentSensitive=/(latest|current|today|deadline|closing|close|open|ongoing|available|fee|price|cost|date|2026|2027|form|cut.?off|registration|requirement|screening|direct entry|\bde\b)/i.test(resolvedQuestion);
+  if(verifiedFact)return NextResponse.json({query:safeQuestion,results:[],searchedAt:new Date().toISOString(),knowledgeMatches:0,currentSensitive:true,...verifiedFact,answer:verifiedFact.answer,generative:false,verifiedFact:true,sourceType:"legacy_verified"});
+  const currentSensitive=resolved.currentSensitive||/(fee|price|cost|direct entry|\bde\b)/i.test(resolvedQuestion);
   const currentQuestion=safeQuestion;
   const currentQuestionLower=currentQuestion.toLowerCase();
   const asksKnownViceChancellor=(currentQuestionLower.includes("vice-chancellor")||currentQuestionLower.includes("vice chancellor"))&&(currentQuestionLower.includes("who")||currentQuestionLower.includes("name"));
