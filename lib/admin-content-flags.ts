@@ -7,6 +7,21 @@ export function applyContentFlags(details:string,featured:boolean,breaking:boole
 function normalise(value:string){return value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim()}
 const GENERIC=new Set(["the","and","for","with","from","into","now","online","academic","session","admission","admissions","candidate","candidates","result","results","release","releases","released","application","applications","form","forms","screening","update","updates","2024","2025","2026","2027","2028"]);
 function meaningfulWords(value:string){return new Set(normalise(value).split(" ").filter(w=>w.length>2&&!GENERIC.has(w)))}
+function academicSession(value:string){const match=normalise(value).match(/\b(20\d{2})\s+(20\d{2})\b/);return match?`${match[1]}/${match[2]}`:""}
+const TOPICS:[string,string[]][]=[
+ ["top up",["top up","topup"]],
+ ["post utme",["post utme","postutme"]],
+ ["direct entry",["direct entry"]],
+ ["screening result",["screening result","screening results"]],
+ ["cut off mark",["cut off mark","cutoff mark","cut off marks","cutoff marks"]],
+ ["admission list",["admission list","admission lists"]],
+ ["admission form",["admission form","admission forms"]],
+ ["postgraduate form",["postgraduate form","postgraduate admission"]],
+ ["part time form",["part time form","part time admission"]],
+ ["pre degree form",["pre degree form","pre degree admission"]],
+ ["sandwich form",["sandwich form","sandwich admission"]]
+];
+function topicKey(value:string){const text=" "+normalise(value)+" ";for(const[key,aliases]of TOPICS)if(aliases.some(alias=>text.includes(" "+normalise(alias)+" ")))return key;return""}
 const INSTITUTION_ALIASES:[string,string[]][]=[
  ["uniosun",["uniosun","osun state university"]],
  ["futa",["futa","federal university of technology akure"]],
@@ -27,7 +42,11 @@ export function duplicateCandidates(title:string,stories:QueuedStory[],excludeId
   const exact=t===q;
   const otherInstitution=institutionKey(s);
   const differentKnownInstitution=Boolean(candidateInstitution&&candidateInstitution!=="to be confirmed"&&otherInstitution&&candidateInstitution!==otherInstitution);
-  const fuzzy=!differentKnownInstitution&&overlap>=2&&titleScore>=0.72;
+  const candidateSession=academicSession(title),otherSession=academicSession(s.title||"");
+  const differentKnownSession=Boolean(candidateSession&&otherSession&&candidateSession!==otherSession);
+  const candidateTopic=topicKey(title),otherTopic=topicKey(s.title||"");
+  const differentKnownTopic=Boolean(candidateTopic&&otherTopic&&candidateTopic!==otherTopic);
+  const fuzzy=!differentKnownInstitution&&!differentKnownSession&&!differentKnownTopic&&overlap>=2&&titleScore>=0.72;
   return{story:s,score:exact?1:titleScore,sameSource:false,exact,fuzzy};
  }).filter(x=>x.exact||x.fuzzy).sort((a,b)=>b.score-a.score).slice(0,5)
 }
