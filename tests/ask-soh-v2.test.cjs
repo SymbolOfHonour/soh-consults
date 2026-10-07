@@ -41,3 +41,5 @@ test("v2 numeric shaper accepts plus-suffixed scores",()=>{const m="195+ Minimum
 test("v2 numeric shaper extracts exact score from live-style LASU evidence",()=>{const text="Start Screening View Requirements 195+ Minimum UTME Score 3 Candidate Categories 100+ Programmes Available Online 24/7 Access";const matches=[...text.matchAll(/(?:^|\D)(\d{3})(?:\+)?(?=\D|$)/g)].map(m=>m[1]);assert.equal(matches[0],"195");assert.ok(matches.includes("195"));});
 
 test("v2 fallback preserves exact numeric answer shaping",()=>{const calls=(route.match(/shapeEvidenceAnswer\(resolved\.answerMode,/g)||[]).length;assert.ok(calls>=2);const catchBlock=route.split("}catch(error){")[1]||"";assert.match(catchBlock,/shapeEvidenceAnswer\(resolved\.answerMode,fallbackResults\)/);assert.match(catchBlock,/exactMode=resolved\.answerMode==="numeric"/);});
+
+test("v2 numeric shaper carries evidence provenance",()=>{assert.match(route,/return \{value:String\(n\),result\}/);assert.match(route,/shaped\.result\.official/);assert.match(route,/shaped\.result\.internal/);});
