@@ -34,6 +34,7 @@ create table if not exists public.ask_soh_facts (
   valid_from timestamptz,
   valid_until timestamptz,
   metadata jsonb not null default '{}'::jsonb,
+  embedding vector(1536),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -86,3 +87,11 @@ values
  ('oau','Obafemi Awolowo University',array['OAU','Obafemi Awolowo University'],array['oauife.edu.ng','eportal.oauife.edu.ng'],'{"main":"https://oauife.edu.ng/","admission":"https://eportal.oauife.edu.ng/"}','JAMB'),
  ('jamb','Joint Admissions and Matriculation Board',array['JAMB','Joint Admissions and Matriculation Board'],array['jamb.gov.ng','efacility.jamb.gov.ng'],'{"main":"https://www.jamb.gov.ng/"}',null)
 on conflict(key) do update set name=excluded.name,aliases=excluded.aliases,official_domains=excluded.official_domains,official_urls=excluded.official_urls,updated_at=now();
+
+create index if not exists ask_soh_facts_embedding on public.ask_soh_facts using ivfflat (embedding vector_cosine_ops) with (lists = 50);
+create or replace function public.match_ask_soh_facts(query_embedding vector(1536),match_count int default 8)
+returns setof public.ask_soh_facts language sql stable security definer set search_path=public as $$
+ select * from public.ask_soh_facts where embedding is not null and status in ('verified','published') and (valid_until is null or valid_until>=now()) order by embedding <=> query_embedding limit greatest(1,least(match_count,20));
+$$;
+revoke all on function public.match_ask_soh_facts(vector,int) from public,anon,authenticated;
+grant execute on function public.match_ask_soh_facts(vector,int) to service_role;
