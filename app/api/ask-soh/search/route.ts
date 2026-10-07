@@ -80,6 +80,10 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
   const corroborated=results.some(item=>item.url!==preferred.url && cleanText(item.snippet).toLowerCase()===cleanText(preferred.snippet).toLowerCase());
   const confidence:Confidence=preferred.official ? "high" : internal.length>0 ? "medium" : "low";
   const evidence=cleanText(preferred.snippet);
+  const latestQuestion=question.split(/Context subject:/i)[0];
+  if(/\bwhat\s+is\s+jamb\s+caps\b|\bdefine\s+jamb\s+caps\b|\bwhat\s+does\s+jamb\s+caps\s+mean\b/i.test(latestQuestion)&&official.some(item=>/jamb\.gov\.ng/i.test(item.url))){
+    return {answer:"JAMB CAPS is the Central Admissions Processing System used by JAMB to manage tertiary admission processing, including institutions' admission recommendations and candidates' admission status/acceptance.",confidence:"high",needsHuman:false};
+  }
   const lasuScreening=/\blasu\b|lagos state university/i.test(question)&&/(screening|admission)/i.test(question);
   const fuoyeScreening=/\bfuoye\b|federal university oye.?ekiti/i.test(question)&&/(screening|post.?utme|admission)/i.test(question);
   const asksOpen=/(still\s+open|open\s+for|screening\s+open|ongoing|available)/i.test(question.split(/Context subject:/i)[0]);
@@ -102,7 +106,7 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
     const fuoye=/\bfuoye\b|federal university oye.?ekiti/i.test(question+" "+text);
     if(fuoye){
       const deEvidence=text.split(/(?<=[.!?])\s+|\s{2,}/).filter(sentence=>/(?:direct entry|\bDE\b).{0,180}(?:requirement|eligib|qualification|credential|document|nce|\bnd\b|hnd|degree|a.?level|ijmb|jupeb)|(?:requirement|eligib|qualification|credential|document|nce|\bnd\b|hnd|degree|a.?level|ijmb|jupeb).{0,180}(?:direct entry|\bDE\b)/i.test(sentence)&&!/smartcampus|onboarding|applications currently open|balance payment|result verification|post.?utme|awaiting result|department of law/i.test(sentence)).slice(0,5).join(" ");
-      if(deEvidence.length>=40)return {answer:`For FUOYE 2026/2027 Direct Entry screening, the official evidence I could verify says: ${deEvidence} I have excluded unrelated CASAPS/SmartCampus notices. Check the programme-specific Direct Entry qualification for your chosen course before submitting.`,confidence:"high",needsHuman:false};
+      if(deEvidence.length>=40&&!/registration guide|application guide|walkthrough|acceptance|screening fees|admission status/i.test(deEvidence))return {answer:`For FUOYE 2026/2027 Direct Entry screening, the official evidence I could verify says: ${deEvidence} Check the programme-specific Direct Entry qualification for your chosen course before submitting.`,confidence:"high",needsHuman:false};
       return {answer:"I could not verify enough FUOYE 2026/2027 Direct Entry-specific eligibility or document requirements from the retrieved official evidence. I will not substitute unrelated CASAPS/SmartCampus notices or guess. Check the official FUOYE screening guide/portal for the Direct Entry requirements for your chosen programme.",confidence:"medium",needsHuman:true};
     }
   }
