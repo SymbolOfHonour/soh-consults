@@ -43,3 +43,7 @@ test("v2 numeric score priority ignores unrelated 100+ programme counts",()=>{co
 
 
 test("v2 refuses unverified exact answers instead of returning page boilerplate",()=>{assert.match(route,/exactUnverified=/);assert.match(route,/they do not expose the exact answer clearly enough/);assert.match(route,/fallbackLooksLikeBoilerplate=/);assert.match(route,/Site Map\|Staff Directory\|Faculties Departments/);});
+
+
+test("v2 gives a concise JAMB CAPS definition from official JAMB evidence",()=>{assert.match(route,/Central Admissions Processing System used by JAMB/);});
+test("v2 rejects procedural FUOYE guides as Direct Entry requirements",()=>{assert.match(route,/registration guide\|application guide\|walkthrough\|acceptance\|screening fees\|admission status/);});
