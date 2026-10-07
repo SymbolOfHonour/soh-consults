@@ -10,3 +10,8 @@ test("v2 separates freshness from stable facts",()=>{assert.match(resolver,/curr
 test("v2 knowledge lifecycle and provenance exist",()=>{for(const token of ["ask_soh_facts","ask_soh_fact_versions","review_due_at","evidence_text","source_authority","due_review","expired","archived"])assert.match(migration,new RegExp(token));});
 test("v2 telemetry and feedback stores exist",()=>{assert.match(migration,/ask_soh_questions/);assert.match(migration,/ask_soh_feedback/);});
 test("v2 repository filters to verified knowledge",()=>{assert.match(repo,/\["verified","published"\]/);assert.match(repo,/valid_until/);});
+
+test("v2 protects current-sensitive queries from stable cache",()=>{assert.match(route,/cached=!resolved\.currentSensitive/);assert.match(route,/cacheSet\(cacheKey/);});
+test("v2 records privacy-safe telemetry",()=>{const telemetry=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/telemetry.ts"),"utf8");assert.match(telemetry,/redactQuestion/);assert.match(telemetry,/question_hash/);assert.match(telemetry,/cache_hit/);});
+test("v2 reconciles contradictory evidence",()=>{const evidence=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/evidence.ts"),"utf8");assert.match(evidence,/conflict/);assert.match(evidence,/requires review/);assert.match(evidence,/sourceUrl/);});
+test("v2 evaluation corpus covers at least 20 diverse questions",()=>{const corpus=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/evaluation-cases.ts"),"utf8");const count=(corpus.match(/\{q:/g)||[]).length;assert.ok(count>=20);for(const token of ["LASU","FUTA","OAU","JAMB","WAEC","NYSC","LASUSTECH","UNIOSUN","OOU","YABATECH"])assert.match(corpus,new RegExp(token));});
