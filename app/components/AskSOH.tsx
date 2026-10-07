@@ -8,6 +8,7 @@ type Message = {
   text: string;
   actions?: Action[];
   sources?: SearchSource[];
+  feedbackQuestion?: string;
 };
 
 type Action = {
@@ -358,7 +359,7 @@ export default function AskSOH() {
         body: JSON.stringify({ question, context, history }),
       });
       const payload = (await response.json()) as SearchPayload;
-      addAssistant(buildSearchAnswer(payload));
+      addAssistant({ ...buildSearchAnswer(payload), feedbackQuestion: question });
     } catch {
       const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(`${question} Nigeria admission JAMB LASU`)}`;
       addAssistant({
@@ -421,6 +422,8 @@ export default function AskSOH() {
       }
     }, 120);
   }
+
+  async function sendFeedback(message:Message,helpful:boolean){if(!message.feedbackQuestion)return;await fetch("/api/ask-soh/feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:message.feedbackQuestion,helpful})}).catch(()=>{});}
 
   function reset() {
     setMessages([{ ...initialMessage, id: Date.now() }]);
@@ -527,6 +530,10 @@ export default function AskSOH() {
                         </a>
                       ))}
                     </div>
+                  )}
+
+                  {message.role === "assistant" && message.feedbackQuestion && (
+                    <div className="mt-2 flex items-center gap-2 text-[10px] font-bold text-slate-500"><span>Helpful?</span><button type="button" onClick={()=>void sendFeedback(message,true)} className="rounded-full border bg-white px-2 py-1 hover:bg-green-50" aria-label="Mark answer helpful">👍</button><button type="button" onClick={()=>void sendFeedback(message,false)} className="rounded-full border bg-white px-2 py-1 hover:bg-red-50" aria-label="Mark answer not helpful">👎</button></div>
                   )}
 
                   {!!message.actions?.length && (
