@@ -58,4 +58,4 @@ jobs:
         shell: bash
         run: |
           response=$(curl --fail-with-body --retry 3 --retry-delay 3 --max-time 45 --get 'https://soh-consults-qa.oluyepeadetayo.workers.dev/api/ask-soh/search' --data-urlencode 'q=What is LASU cutoff mark?')
-          RESPONSE="$response" node -e 'const x=JSON.parse(process.env.RESPONSE); if(typeof x.answer!=="string"||!x.answer.trim()||typeof x.confidence!=="string"||!Array.isArray(x.results)) process.exit(1); console.log(JSON.stringify({answer:x.answer,confidence:x.confidence,sourceType:x.sourceType||null,results:x.results.length}))'
+          RESPONSE="$response" node -e 'const x=JSON.parse(process.env.RESPONSE); if(x.answer!=="195"||x.sourceType!=="official_live"||typeof x.confidence!=="string"||!Array.isArray(x.results)) process.exit(1); console.log(JSON.stringify({answer:x.answer,confidence:x.confidence,sourceType:x.sourceType||null,results:x.results.length}))'
