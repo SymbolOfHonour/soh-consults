@@ -256,6 +256,16 @@ async function searchSOH(question:string):Promise<SearchResult[]>{
   }catch{return [];}
 }
 
+function examinationResultGuidance(question:string,context:string){
+ const q=question.toLowerCase();const ctx=context.toLowerCase();
+ const match=(q.match(/\b(waec|neco|nabteb)\b/)||ctx.match(/\b(waec|neco|nabteb)\b/));
+ const exam=match?.[1]?.toUpperCase();
+ if(!exam||!/\b(check|view|see)\b.{0,35}\bresult\b|\bresult\b.{0,25}\b(check|checking)\b/i.test(q))return null;
+ if(exam==="WAEC")return {exam,answer:"To check your WAEC result, visit https://www.waecdirect.org/Default.aspx. Enter your examination number, examination year and type, and the requested e-PIN and voucher serial number. S.O.H CONSULTS sells WAEC result-checking scratch cards and can assist you with the process. Contact us on WhatsApp to confirm the correct card and current price."};
+ if(exam==="NECO")return {exam,answer:"To check your NECO result, visit https://results.neco.gov.ng/. Select your examination year and type, enter your registration number and a valid result-checking token, then submit. S.O.H CONSULTS assists with examination result-checking tokens and scratch cards. Contact us on WhatsApp to confirm the appropriate token and current price."};
+ return null;
+}
+
 function businessServiceAnswer(question:string,context:string){
  const q=question.toLowerCase();const ctx=context.toLowerCase();
  const exam=/\b(neco|waec|nabteb)\b/.test(q)?(q.match(/\b(neco|waec|nabteb)\b/)?.[0]||"examination").toUpperCase():/\b(neco|waec|nabteb)\b/.test(ctx)?(ctx.match(/\b(neco|waec|nabteb)\b/)?.[0]||"examination").toUpperCase():"examination";
@@ -286,6 +296,8 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
   const startedAt=Date.now();
   const resolved=resolveQuestion(safeQuestion,context);
+  const resultGuidance=examinationResultGuidance(safeQuestion,context||"");
+  if(resultGuidance){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"hybrid_service",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:resultGuidance.exam+" official result checker",url:resultGuidance.exam==="WAEC"?"https://www.waecdirect.org/Default.aspx":"https://results.neco.gov.ng/",snippet:"Official examination result-checking portal",official:true,internal:false}],answer:resultGuidance.answer,confidence:"high",needsHuman:false,serviceLead:true,serviceName:resultGuidance.exam+" result checking and scratch cards",sourceType:"hybrid_service",currentSensitive:false});}
   const serviceAnswer=businessServiceAnswer(safeQuestion,context||"");
   if(serviceAnswer){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"internal",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:"S.O.H CONSULTS services",url:"https://sohconsults.com.ng",snippet:serviceAnswer.service,official:false,internal:true}],answer:serviceAnswer.answer,confidence:"high",needsHuman:false,serviceLead:true,serviceName:serviceAnswer.service,sourceType:"internal",currentSensitive:false});}
 
