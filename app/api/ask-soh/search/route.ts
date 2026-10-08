@@ -266,7 +266,7 @@ function examinationResultGuidance(question:string,context:string){
  return null;
 }
 
-function businessServiceAnswer(question:string,context:string){
+function businessServiceAnswer(question:string,context:string):{answer:string;service:string}|null{
  const q=question.toLowerCase();const ctx=context.toLowerCase();
  const exam=/\b(neco|waec|nabteb)\b/.test(q)?(q.match(/\b(neco|waec|nabteb)\b/)?.[0]||"examination").toUpperCase():/\b(neco|waec|nabteb)\b/.test(ctx)?(ctx.match(/\b(neco|waec|nabteb)\b/)?.[0]||"examination").toUpperCase():"examination";
  const priceFollowUp=/^(?:and )?(?:how much(?: does it| is it| will it)?(?: cost)?|what(?:'s| is) (?:the |your )?(?:price|cost|fee)|how much for (?:it|that|this)|is it free)\??$/i.test(question.trim());
