@@ -23,3 +23,5 @@ test("context VC intent uses word boundaries",()=>{const resolver=fs.readFileSyn
 test("cutoff and fee questions always require current verification",()=>{const resolver=fs.readFileSync("lib/ask-soh/question-resolver.ts","utf8");assert.match(resolver,/currentSensitive:cutoff\|\|CURRENT\.test\(question\)/);assert.match(resolver,/admission status\|admitted\|offered admission/);assert.match(resolver,/fee\|fees\|price\|cost/);});
 
 test("university cutoff extraction requires institution-owned official domain",()=>{assert.match(route,/resolved\.intent==="cutoff"/);assert.match(route,/institution\.officialDomains\.some/);assert.match(route,/hostname===domain\|\|hostname\.endsWith/);assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,scoreEvidence\)/);});
+
+test("exact score and name answers cannot be generated without evidence",()=>{assert.match(route,/const exactMode=resolved\.answerMode==="numeric"\|\|resolved\.answerMode==="name"/);assert.match(route,/const generated=exactMode\?null:await generateGroundedAnswer/);assert.match(route,/const generated=resolved\.answerMode==="numeric"\|\|resolved\.answerMode==="name"\?null:await generateGroundedAnswer/);});

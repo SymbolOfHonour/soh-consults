@@ -344,7 +344,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const composed=shaped?{answer:shaped,confidence:(results.some(r=>r.official)?"high":"medium") as Confidence,needsHuman:false}:exactUnverified?{answer:"I found official sources, but they do not expose the exact answer clearly enough for me to verify it. I will not guess.",confidence:"medium" as Confidence,needsHuman:true}:composeAnswer(resolvedQuestion,results,currentSensitive);
     const liveOfficial=results.find(r=>r.official);
     const evidenceDecision=knowledge&&liveOfficial?reconcileEvidence([{value:knowledge.answer,sourceUrl:knowledge.fact.source_url,sourceName:knowledge.fact.source_name,authority:knowledge.fact.source_authority,observedAt:knowledge.fact.verified_at,official:true,verified:true},{value:composed.answer,sourceUrl:liveOfficial.url,sourceName:liveOfficial.title,authority:100,observedAt:new Date().toISOString(),official:true,verified:false}]):null;
-    const exactMode=resolved.answerMode==="numeric"&&Boolean(shaped);
+    const exactMode=resolved.answerMode==="numeric"||resolved.answerMode==="name";
     const generated=exactMode?null:await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
     const generatedClean=generated&&!/^(From the strongest source I found:|I checked a current official source\.)/i.test(generated)?generated:null;
     const fallbackLooksLikeBoilerplate=/\b(Site Map|Staff Directory|Faculties Departments|Principal Officers|Quick Links|READ MORE|Webmail|Organogram)\b/i.test(composed.answer);
@@ -354,7 +354,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   }catch(error){
     const fallbackResults=[...officialResults,...internalResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const composed=composeAnswer(resolvedQuestion,fallbackResults,currentSensitive);
-    const generated=await generateGroundedAnswer(resolvedQuestion,history,fallbackResults,composed.answer,currentSensitive);
+    const generated=resolved.answerMode==="numeric"||resolved.answerMode==="name"?null:await generateGroundedAnswer(resolvedQuestion,history,fallbackResults,composed.answer,currentSensitive);
     const finalAnswer=generated??composed.answer;const sourceType=fallbackResults.some(r=>r.official)?"official_live":fallbackResults.some(r=>r.internal)?"internal":"none";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:composed.confidence,answered:!composed.needsHuman,sourceType,latencyMs:Date.now()-startedAt});
     return NextResponse.json({query:safeQuestion,googleUrl,results:fallbackResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:finalAnswer,generative:Boolean(generated),sourceType,intent:resolved.intent,answerMode:resolved.answerMode,error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
   }
