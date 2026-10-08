@@ -21,3 +21,5 @@ test("certificate enquiries do not get result-token pricing",()=>{const guard=se
 test("context VC intent uses word boundaries",()=>{const resolver=fs.readFileSync("lib/ask-soh/question-resolver.ts","utf8");const inherited=resolver.slice(resolver.indexOf("const contextQ="),resolver.indexOf("const intent="));assert.ok(inherited.includes("vc"));assert.ok(!inherited.includes(String.raw`\\\\bvc\\\\b`));});
 
 test("cutoff and fee questions always require current verification",()=>{const resolver=fs.readFileSync("lib/ask-soh/question-resolver.ts","utf8");assert.match(resolver,/currentSensitive:cutoff\|\|CURRENT\.test\(question\)/);assert.match(resolver,/admission status\|admitted\|offered admission/);assert.match(resolver,/fee\|fees\|price\|cost/);});
+
+test("university cutoff extraction requires institution-owned official domain",()=>{assert.match(route,/resolved\.intent==="cutoff"/);assert.match(route,/institution\.officialDomains\.some/);assert.match(route,/hostname===domain\|\|hostname\.endsWith/);assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,scoreEvidence\)/);});
