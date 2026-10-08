@@ -3,7 +3,7 @@ const resolver=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/question-res
 const repo=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/knowledge-repository.ts"),"utf8");
 const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
 const migration=fs.readFileSync(path.join(process.cwd(),"supabase/ask-soh-v2-migration.sql"),"utf8");
-test("v2 resolves facts before live retrieval",()=>{assert.match(route,/findVerifiedFact\(resolved\)/);assert.match(route,/sourceType:"verified_knowledge"/);});
+test("v2 resolves facts before live retrieval",()=>{assert.match(route,/findVerifiedFact\(resolved,safeQuestion\)/);assert.match(route,/sourceType:"verified_knowledge"/);});
 test("v2 has bounded institution resolution",()=>{assert.match(resolver,/explicit=resolveInstitution\(question\)/);assert.match(resolver,/inherited=!explicit&&context/);});
 test("v2 routes simple answer modes",()=>{assert.match(resolver,/intent==="cutoff"\?"numeric"/);assert.match(resolver,/intent==="vice_chancellor"\?"name"/);assert.match(resolver,/status\?"boolean"/);});
 test("v2 separates freshness from stable facts",()=>{assert.match(resolver,/currentSensitive:CURRENT\.test/);assert.match(route,/!knowledge\.stale&&!resolved\.currentSensitive/);});
@@ -50,3 +50,5 @@ test("v2 rejects procedural FUOYE guides as Direct Entry requirements",()=>{asse
 
 
 test("verified knowledge retrieval supports ranked general facts",()=>{assert.match(repo,/const scored=facts\.map/);assert.match(repo,/q\.intent===\"general\"&&scored\[0\]\?\.score===0/);});
+
+test("general facts rank by user question rather than CAPS hardcoding",()=>{assert.match(route,/findVerifiedFact\(resolved,safeQuestion\)/);assert.match(repo,/terms\.reduce/);assert.doesNotMatch(repo,/topic\.toLowerCase\(\)\.includes\("caps"\)/);});

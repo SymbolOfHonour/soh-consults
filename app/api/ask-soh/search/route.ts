@@ -271,7 +271,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const cacheKey=knowledgeCacheKey(resolved.institutionKey,resolved.intent,resolved.academicSession);
   const cached=!resolved.currentSensitive?cacheGet<{answer:string;sourceName:string;sourceUrl:string;verifiedAt:string|null}>(cacheKey):null;
   if(cached){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"verified_cache",latencyMs:Date.now()-startedAt,cacheHit:true});return NextResponse.json({query:safeQuestion,results:[{title:cached.sourceName,url:cached.sourceUrl,snippet:cached.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:cached.answer,confidence:"high",needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_cache",verifiedAt:cached.verifiedAt});}
-  const knowledge=await findVerifiedFact(resolved).catch(()=>null);
+  const knowledge=await findVerifiedFact(resolved,safeQuestion).catch(()=>null);
   const semanticCandidate=Boolean(resolved.institutionKey)||/(admission|jamb|utme|screening|school|university|polytechnic|college|waec|neco|nysc|course|requirement|fee|cut.?off|deadline|portal|caps)/i.test(safeQuestion);
   const semanticMatches=!knowledge&&!resolved.currentSensitive&&semanticCandidate?await semanticKnowledgeSearch(safeQuestion).catch(()=>[]):[];
   const semanticFact=semanticMatches.find(f=>(!resolved.institutionKey||f.institution_key===resolved.institutionKey)&&(resolved.intent==="general"||f.intent===resolved.intent));
