@@ -60,3 +60,5 @@ test("Ask S.O.H handles missing results safely and does not mask empty API respo
 test("official page retrieval has explicit bounded upstream timeouts",()=>{assert.match(route,/redirect:"follow",next:\{revalidate:180\},signal:AbortSignal\.timeout\(4_000\)/);assert.match(route,/next:\{revalidate:180\},signal:AbortSignal\.timeout\(4_000\)/);});
 
 test("general knowledge answers cannot reuse institution-only cache",()=>{assert.match(route,/resolved\.intent!=="general"\?cacheGet/);assert.match(route,/if\(resolved\.intent!=="general"\)cacheSet/);});
+
+test("verified fact topic match outranks incidental mentions in other answers",()=>{assert.match(repo,/topic\.includes\(w\)\?10:body\.includes\(w\)\?1:0/);});
