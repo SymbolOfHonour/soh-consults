@@ -281,7 +281,8 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const institution=resolved.institutionKey?INSTITUTIONS.find(item=>item.key===resolved.institutionKey):null;
   const institutionHint=institution?` ${institution.name} ${institution.key.toUpperCase()}`:"";
   const officialHint=currentSensitive&&institution?.officialDomains[0]?` site:${institution.officialDomains[0]}`:"";
-  const googleQuery=`${resolvedQuestion}${institutionHint} Nigeria admission JAMB${officialHint}`;
+  const topicHint=/\bwaec\b|west african examinations council/i.test(resolvedQuestion)?" WAEC examination results certificates":/\bneco\b|national examinations council/i.test(resolvedQuestion)?" NECO examination results":/\bjamb\b|\butme\b|\bcaps\b|admission|screening|direct entry/i.test(resolvedQuestion)?" Nigeria admission JAMB":"";
+  const googleQuery=`${resolvedQuestion}${institutionHint}${topicHint}${officialHint}`;
   const googleUrl=`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
   const [internalResults,officialResults]=await Promise.all([searchSOH(resolvedQuestion),searchOfficialSites(resolvedQuestion)]);
   const readerUrl=`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
