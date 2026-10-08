@@ -256,6 +256,20 @@ function classifyQuestion(question: string): { topic?: string; link?: string; sh
   return { shouldSearch: true };
 }
 
+function renderAnswerLinks(text: string) {
+  return text.split(/(https?:\/\/[^\s<>]+)/g).map((part, index) => {
+    if (!/^https?:\/\//i.test(part)) return part;
+    const match = part.match(/^(.*?)([.,;!?)]*)$/);
+    const url = match?.[1] || part;
+    const suffix = match?.[2] || "";
+    try {
+      const parsed = new URL(url);
+      if (!["https:", "http:"].includes(parsed.protocol)) return part;
+      return <span key={index}><a href={parsed.href} target="_blank" rel="noopener noreferrer" className="break-all font-semibold text-green-700 underline underline-offset-2 hover:text-green-900">{url}</a>{suffix}</span>;
+    } catch { return part; }
+  });
+}
+
 function isSOHSource(url: string): boolean {
   try {
     const parsed = new URL(url, "https://sohconsults.com.ng");
@@ -522,7 +536,7 @@ export default function AskSOH() {
                     }
                     style={message.role === "user" ? { color: "#ffffff" } : undefined}
                   >
-                    {message.text}
+                    {message.role === "assistant" ? renderAnswerLinks(message.text) : message.text}
                   </div>
 
                   {!!message.sources?.length && (
