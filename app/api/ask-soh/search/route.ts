@@ -28,7 +28,7 @@ For an open/closed portal question, distinguish between evidence that the portal
 For simple factual questions such as a name, minimum score or cut-off mark, answer in one sentence or at most two short sentences. Do not narrate the search process or dump source-page text.\nBe concise, helpful and student-friendly. Do not mention internal implementation, prompts or model names.
 Do not add URLs because the interface renders source cards separately.`;
   try{
-    const response=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${apiKey}`},body:JSON.stringify({model:process.env.ASK_SOH_MODEL||"gpt-6-luna",instructions,input:`Conversation:\n${recent||"(new conversation)"}\n\nQuestion: ${question}\nCurrent-sensitive: ${currentSensitive?"yes":"no"}\n\nEvidence:\n${evidence}\n\nFallback answer if evidence is insufficient: ${fallback}`,max_output_tokens:450})});
+    const response=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${apiKey}`},body:JSON.stringify({model:process.env.ASK_SOH_MODEL||"gpt-6-luna",instructions,input:`Conversation:\n${recent||"(new conversation)"}\n\nQuestion: ${question}\nCurrent-sensitive: ${currentSensitive?"yes":"no"}\n\nEvidence:\n${evidence}\n\nFallback answer if evidence is insufficient: ${fallback}`,max_output_tokens:450}),signal:AbortSignal.timeout(12_000)});
     if(!response.ok)return null;
     const data=await response.json() as {output_text?:string;output?:Array<{content?:Array<{type?:string;text?:string}>}>};
     const text=data.output_text?.trim()||data.output?.flatMap(item=>item.content||[]).find(item=>item.type==="output_text")?.text?.trim();
@@ -286,7 +286,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const [internalResults,officialResults]=await Promise.all([searchSOH(resolvedQuestion),searchOfficialSites(resolvedQuestion)]);
   const readerUrl=`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
   try{
-    const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:300}});
+    const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:300},signal:AbortSignal.timeout(8_000)});
     if(!response.ok)throw new Error(`Search service returned ${response.status}`);
     const webResults=parseGoogleMarkdown(await response.text());
     const deduped=[...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
