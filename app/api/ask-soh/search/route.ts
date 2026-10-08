@@ -270,7 +270,7 @@ function businessServiceAnswer(question:string,context:string):{answer:string;se
  const q=question.toLowerCase();const ctx=context.toLowerCase();
  const exam=/\b(neco|waec|nabteb)\b/.test(q)?(q.match(/\b(neco|waec|nabteb)\b/)?.[0]||"examination").toUpperCase():/\b(neco|waec|nabteb)\b/.test(ctx)?(ctx.match(/\b(neco|waec|nabteb)\b/)?.[0]||"examination").toUpperCase():"examination";
  const priceFollowUp=/^(?:and )?(?:how much(?: does it| is it| will it)?(?: cost)?|what(?:'s| is) (?:the |your )?(?:price|cost|fee)|how much for (?:it|that|this)|is it free)\??$/i.test(question.trim());
- if(priceFollowUp&&/\b(neco|waec|nabteb)\b|result.check|scratch.?card|\btoken\b|e.?pin/i.test(ctx)){
+ if(priceFollowUp&&/(?:result.{0,20}check|check.{0,20}result|scratch.?card|\btoken\b|e.?pin)/i.test(ctx)){
   return {answer:`S.O.H CONSULTS can help you obtain the appropriate ${exam} result-checking scratch card or token. The current price depends on the examination and product. Please contact us on WhatsApp to confirm availability and the exact price before payment.`,service:`${exam} result-checking scratch card or token pricing`};
  }
  if(priceFollowUp&&ctx){
