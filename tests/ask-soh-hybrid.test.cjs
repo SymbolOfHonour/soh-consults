@@ -17,3 +17,5 @@ test("contextual price follow-ups do not invent fees",()=>{assert.match(services
 test("service pricing follow-ups use recognized previous service",()=>{assert.match(services,/priceFollowUp&&ctx/);assert.match(services,/businessServiceAnswer\(context,""\)/);assert.match(services,/previousService\.service/);assert.match(services,/Do not pay to an unverified account/);});
 
 test("certificate enquiries do not get result-token pricing",()=>{const guard=services.match(/if\(priceFollowUp&&([^\n]+)\)\{/);assert.ok(guard);assert.doesNotMatch(guard[1],/neco\|waec\|nabteb/);assert.match(guard[1],/result/);assert.match(services,/previousService=businessServiceAnswer\(context,""\)/);});
+
+test("context VC intent uses word boundaries",()=>{const resolver=fs.readFileSync("lib/ask-soh/question-resolver.ts","utf8");const inherited=resolver.slice(resolver.indexOf("const contextQ="),resolver.indexOf("const intent="));assert.ok(inherited.includes("vc"));assert.ok(!inherited.includes(String.raw`\\\\bvc\\\\b`));});
