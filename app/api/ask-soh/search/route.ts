@@ -338,7 +338,8 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const webResults=parseGoogleMarkdown(await response.text());
     const deduped=[...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const results=deduped.sort((a,b)=>currentSensitive ? Number(b.official)-Number(a.official) : Number(Boolean(b.internal))-Number(Boolean(a.internal))).slice(0,7);
-    const shaped=shapeEvidenceAnswer(resolved.answerMode,results);
+    const scoreEvidence=institution&&resolved.intent==="cutoff"?results.filter(item=>{if(!item.official)return false;try{const hostname=new URL(item.url).hostname.toLowerCase();return institution.officialDomains.some(domain=>hostname===domain||hostname.endsWith("."+domain));}catch{return false;}}):results;
+    const shaped=shapeEvidenceAnswer(resolved.answerMode,scoreEvidence);
     const exactUnverified=(resolved.answerMode==="numeric"||resolved.answerMode==="name")&&!shaped;
     const composed=shaped?{answer:shaped,confidence:(results.some(r=>r.official)?"high":"medium") as Confidence,needsHuman:false}:exactUnverified?{answer:"I found official sources, but they do not expose the exact answer clearly enough for me to verify it. I will not guess.",confidence:"medium" as Confidence,needsHuman:true}:composeAnswer(resolvedQuestion,results,currentSensitive);
     const liveOfficial=results.find(r=>r.official);
