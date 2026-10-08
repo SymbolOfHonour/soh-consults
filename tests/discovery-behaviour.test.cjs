@@ -212,7 +212,7 @@ test("Ask S.O.H renders a valid API answer even when no source cards are returne
  const widget=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");
  const noBest=widget.indexOf("if (!best)");
  const answerCheck=widget.indexOf("if (payload.answer)",noBest);
- const retrievalFailure=widget.indexOf("I couldn’t retrieve a reliable live result just now",noBest);
+ const retrievalFailure=widget.indexOf("Ask S.O.H received no usable answer or sources",noBest);
  assert.ok(noBest>=0 && answerCheck>noBest && retrievalFailure>answerCheck);
  assert.match(widget.slice(answerCheck,retrievalFailure),/text: payload\.answer/);
 });
