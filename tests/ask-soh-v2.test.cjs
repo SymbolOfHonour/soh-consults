@@ -58,3 +58,5 @@ test("Ask S.O.H frontend exposes rate limits and backend errors instead of gener
 test("Ask S.O.H handles missing results safely and does not mask empty API responses",()=>{const ui=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");assert.match(ui,/Array\.isArray\(payload\.results\)/);assert.match(ui,/received no usable answer or sources/);assert.doesNotMatch(ui,/I couldn’t retrieve a reliable live result just now/);});
 
 test("official page retrieval has explicit bounded upstream timeouts",()=>{assert.match(route,/redirect:"follow",next:\{revalidate:180\},signal:AbortSignal\.timeout\(4_000\)/);assert.match(route,/next:\{revalidate:180\},signal:AbortSignal\.timeout\(4_000\)/);});
+
+test("general knowledge answers cannot reuse institution-only cache",()=>{assert.match(route,/resolved\.intent!=="general"\?cacheGet/);assert.match(route,/if\(resolved\.intent!=="general"\)cacheSet/);});
