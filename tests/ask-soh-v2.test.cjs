@@ -54,3 +54,5 @@ test("verified knowledge retrieval supports ranked general facts",()=>{assert.ma
 test("general facts rank by user question rather than CAPS hardcoding",()=>{assert.match(route,/findVerifiedFact\(resolved,safeQuestion\)/);assert.match(repo,/terms\.reduce/);assert.doesNotMatch(repo,/topic\.toLowerCase\(\)\.includes\("caps"\)/);});
 
 test("Ask S.O.H frontend exposes rate limits and backend errors instead of generic search failure",()=>{const ui=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");assert.match(ui,/response\.status===429/);assert.match(ui,/payload\.error/);assert.match(ui,/if \(!response\.ok \|\| payload\.error\)/);});
+
+test("Ask S.O.H handles missing results safely and does not mask empty API responses",()=>{const ui=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");assert.match(ui,/Array\.isArray\(payload\.results\)/);assert.match(ui,/received no usable answer or sources/);assert.doesNotMatch(ui,/I couldn’t retrieve a reliable live result just now/);});
