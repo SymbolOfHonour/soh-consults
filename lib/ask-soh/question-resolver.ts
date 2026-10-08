@@ -14,6 +14,6 @@ export function resolveQuestion(question:string,context?:string):ResolvedQuestio
  const intent=localIntent==="general"&&!!context?inheritedIntent:localIntent;
  const answerMode:AnswerMode=intent==="cutoff"?"numeric":intent==="vice_chancellor"?"name":status?"boolean":intent==="requirements"?"structured":"short";
  const session=question.match(/20\d{2}\s*\/\s*20\d{2}/)?.[0]?.replace(/\s/g,"")||null;
- return {institutionKey:(explicit||inherited)?.key||null,intent,answerMode,currentSensitive:(cutoff ? /(latest|current|currently|today|now|2026|2027|this year)/i.test(question) : CURRENT.test(question))||deadline||status,academicSession:session,explicitInstitution:!!explicit};
+ return {institutionKey:(explicit||inherited)?.key||null,intent,answerMode,currentSensitive:cutoff||CURRENT.test(question)||deadline||status||/\b(fee|fees|price|cost|tuition|admission status|admitted|offered admission)\b/i.test(question),academicSession:session,explicitInstitution:!!explicit};
 }
 export function formatAnswer(mode:AnswerMode,value:string,answerText?:string|null){if(mode==="numeric"||mode==="name")return value.trim();if(mode==="boolean")return (answerText||value).trim();return (answerText||value).trim();}
