@@ -256,9 +256,16 @@ function classifyQuestion(question: string): { topic?: string; link?: string; sh
   return { shouldSearch: true };
 }
 
+function isSOHSource(url: string): boolean {
+  try {
+    const parsed = new URL(url, "https://sohconsults.com.ng");
+    return parsed.hostname === "sohconsults.com.ng" || parsed.hostname.endsWith(".sohconsults.com.ng");
+  } catch { return false; }
+}
+
 function buildSearchAnswer(payload: SearchPayload): Message {
   const results = Array.isArray(payload.results) ? payload.results : [];
-  const internal = results.find((item) => item.internal);
+  const internal = results.find((item) => isSOHSource(item.url));
   const official = results.find((item) => item.official);
   const best = payload.currentSensitive ? (official ?? internal ?? results[0]) : (internal ?? official ?? payload.results[0]);
 
@@ -292,7 +299,7 @@ function buildSearchAnswer(payload: SearchPayload): Message {
     };
   }
 
-  const sourceLabel = best.internal ? "S.O.H CONSULTS knowledge" : best.official ? "an official source" : "the most relevant current result";
+  const sourceLabel = isSOHSource(best.url) ? "S.O.H CONSULTS knowledge" : best.official ? "an official source" : "the most relevant current result";
   const confidenceLabel = "";
   return {
     id: Date.now() + 1,
@@ -300,7 +307,7 @@ function buildSearchAnswer(payload: SearchPayload): Message {
     text: payload.answer ? `${payload.answer}${confidenceLabel}` : `I found a relevant answer from ${sourceLabel}: ${best.snippet} For deadlines, payments or irreversible admission actions, open the source and confirm the current details.`,
     sources: results.slice(0, 3),
     actions: [
-      { label: best.internal ? "Open S.O.H Resource" : "Open Best Source", type: best.internal ? "link" : "external", value: best.url },
+      { label: isSOHSource(best.url) ? "Open S.O.H Resource" : best.official ? "Open Official Source" : "Open Best Source", type: isSOHSource(best.url) ? "link" : "external", value: best.url },
       { label: "View Sources", type: "external", value: payload.googleUrl },
       ...(payload.needsHuman ? [{ label: "Ask S.O.H CONSULTS", type: "whatsapp" as const, value: `Hello S.O.H CONSULTS, Ask S.O.H could not confidently verify this for me: ${payload.query}` }] : []),
     ],
@@ -532,7 +539,7 @@ export default function AskSOH() {
                             <p className="text-xs font-black text-slate-900">{source.title}</p>
                             {(source.official || source.internal) && (
                               <span className="shrink-0 rounded-full bg-green-100 px-2 py-1 text-[9px] font-black uppercase text-green-800">
-                                {source.internal ? "S.O.H" : "Official"}
+                                {isSOHSource(source.url) ? "S.O.H" : source.official ? "Official" : "Source"}
                               </span>
                             )}
                           </div>
