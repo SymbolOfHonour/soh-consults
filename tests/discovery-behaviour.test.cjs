@@ -200,7 +200,7 @@ test("Ask S.O.H keeps simple facts concise through answer-mode routing",()=>{
 
 test("Ask S.O.H resolves verified facts from the registry before live retrieval",()=>{
  const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
- const lookup=route.indexOf("findVerifiedFact(resolved)");
+ const lookup=route.indexOf("findVerifiedFact(resolved,safeQuestion)");
  const live=route.indexOf("searchOfficialSites(resolvedQuestion)");
  assert.ok(lookup>=0 && live>lookup);
  assert.match(route,/sourceType:"verified_knowledge"/);
