@@ -268,7 +268,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
   const startedAt=Date.now();
   const resolved=resolveQuestion(safeQuestion,context);
-  const cacheKey=knowledgeCacheKey(resolved.institutionKey,resolved.intent,resolved.academicSession);
+  const cacheKey=knowledgeCacheKey(resolved.institutionKey,resolved.intent,resolved.academicSession,safeQuestion);
   const cached=!resolved.currentSensitive?cacheGet<{answer:string;sourceName:string;sourceUrl:string;verifiedAt:string|null}>(cacheKey):null;
   if(cached){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"verified_cache",latencyMs:Date.now()-startedAt,cacheHit:true});return NextResponse.json({query:safeQuestion,results:[{title:cached.sourceName,url:cached.sourceUrl,snippet:cached.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:cached.answer,confidence:"high",needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_cache",verifiedAt:cached.verifiedAt});}
   const knowledge=await findVerifiedFact(resolved,safeQuestion).catch(()=>null);

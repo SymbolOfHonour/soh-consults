@@ -1,0 +1,1 @@
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');test('verified answer cache includes question',()=>{const cache=fs.readFileSync('lib/ask-soh/cache.ts','utf8'),route=fs.readFileSync('app/api/ask-soh/search/route.ts','utf8');assert.match(cache,/question.toLowerCase/);assert.match(route,/academicSession,safeQuestion/);});
