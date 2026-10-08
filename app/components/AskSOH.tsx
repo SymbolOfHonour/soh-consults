@@ -257,9 +257,10 @@ function classifyQuestion(question: string): { topic?: string; link?: string; sh
 }
 
 function buildSearchAnswer(payload: SearchPayload): Message {
-  const internal = payload.results.find((item) => item.internal);
-  const official = payload.results.find((item) => item.official);
-  const best = payload.currentSensitive ? (official ?? internal ?? payload.results[0]) : (internal ?? official ?? payload.results[0]);
+  const results = Array.isArray(payload.results) ? payload.results : [];
+  const internal = results.find((item) => item.internal);
+  const official = results.find((item) => item.official);
+  const best = payload.currentSensitive ? (official ?? internal ?? results[0]) : (internal ?? official ?? payload.results[0]);
 
   if (!best) {
     if (payload.answer) {
@@ -279,7 +280,7 @@ function buildSearchAnswer(payload: SearchPayload): Message {
     return {
       id: Date.now() + 1,
       role: "assistant",
-      text: "I couldn’t retrieve a reliable live result just now. You can open the Google search directly, or send the question to S.O.H CONSULTS if it is urgent.",
+      text: "Ask S.O.H received no usable answer or sources from the search service. Please retry; if this persists, contact S.O.H CONSULTS.",
       actions: [
         { label: "Search Google", type: "external", value: payload.googleUrl },
         {
@@ -297,7 +298,7 @@ function buildSearchAnswer(payload: SearchPayload): Message {
     id: Date.now() + 1,
     role: "assistant",
     text: payload.answer ? `${payload.answer}${confidenceLabel}` : `I found a relevant answer from ${sourceLabel}: ${best.snippet} For deadlines, payments or irreversible admission actions, open the source and confirm the current details.`,
-    sources: payload.results.slice(0, 3),
+    sources: results.slice(0, 3),
     actions: [
       { label: best.internal ? "Open S.O.H Resource" : "Open Best Source", type: best.internal ? "link" : "external", value: best.url },
       { label: "View Sources", type: "external", value: payload.googleUrl },
