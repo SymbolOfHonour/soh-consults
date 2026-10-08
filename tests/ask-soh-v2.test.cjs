@@ -50,3 +50,5 @@ test("v2 rejects procedural FUOYE guides as Direct Entry requirements",()=>{asse
 
 
 test("verified knowledge retrieval supports ranked general facts",()=>{assert.match(repo,/const scored=facts\.map/);assert.match(repo,/q\.intent===\"general\"&&scored\[0\]\?\.score===0/);});
+
+test("general facts rank by user question rather than CAPS hardcoding",()=>{assert.match(route,/findVerifiedFact\(resolved,safeQuestion\)/);assert.match(repo,/terms\.reduce/);assert.doesNotMatch(repo,/topic\.toLowerCase\(\)\.includes\("caps"\)/);});
