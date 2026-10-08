@@ -25,3 +25,6 @@ test("cutoff and fee questions always require current verification",()=>{const r
 test("university cutoff extraction requires institution-owned official domain",()=>{assert.match(route,/resolved\.intent==="cutoff"/);assert.match(route,/institution\.officialDomains\.some/);assert.match(route,/hostname===domain\|\|hostname\.endsWith/);assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,scoreEvidence\)/);});
 
 test("exact score and name answers cannot be generated without evidence",()=>{assert.match(route,/const exactMode=resolved\.answerMode==="numeric"\|\|resolved\.answerMode==="name"/);assert.match(route,/const generated=exactMode\?null:await generateGroundedAnswer/);assert.match(route,/const generated=resolved\.answerMode==="numeric"\|\|resolved\.answerMode==="name"\?null:await generateGroundedAnswer/);});
+
+test("registration status bypasses business sales routing",()=>{assert.match(route,/const statusQuestion=resolved\.intent==="status"/);assert.match(route,/const serviceAnswer=statusQuestion\?null:businessServiceAnswer/);});
+test("search failure does not return portal boilerplate as exact cutoff",()=>{assert.match(route,/const exactFallback=resolved\.answerMode==="numeric"\|\|resolved\.answerMode==="name"/);assert.match(route,/const composed=exactFallback\?/);});
