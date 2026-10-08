@@ -361,7 +361,13 @@ export default function AskSOH() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, context, history }),
       });
-      const payload = (await response.json()) as SearchPayload;
+      const payload = (await response.json()) as SearchPayload & {error?:string};
+      if (!response.ok || payload.error) {
+        addAssistant({id:Date.now()+1,role:"assistant",text:response.status===429
+          ?"Ask S.O.H has reached its temporary search limit. Please try again later. Your question was not processed."
+          :payload.error||"Ask S.O.H could not process this request. Please try again.",feedbackQuestion:question});
+        return;
+      }
       addAssistant({ ...buildSearchAnswer(payload), feedbackQuestion: question });
     } catch {
       const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(`${question} Nigeria admission JAMB LASU`)}`;
