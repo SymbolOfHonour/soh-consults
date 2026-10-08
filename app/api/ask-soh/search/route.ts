@@ -311,7 +311,8 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   }
   const resultGuidance=examinationResultGuidance(safeQuestion,context||"");
   if(resultGuidance){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"hybrid_service",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:resultGuidance.exam+" official result checker",url:resultGuidance.exam==="WAEC"?"https://www.waecdirect.org/Default.aspx":"https://results.neco.gov.ng/",snippet:"Official examination result-checking portal",official:true,internal:false}],answer:resultGuidance.answer,confidence:"high",needsHuman:false,serviceLead:true,serviceName:resultGuidance.exam+" result checking and scratch cards",sourceType:"hybrid_service",currentSensitive:false});}
-  const serviceAnswer=businessServiceAnswer(safeQuestion,context||"");
+  const statusQuestion=resolved.intent==="status"||/\b(still open|ongoing|closed|closing date|deadline|when.{0,15}close|has.{0,15}started)\b/i.test(safeQuestion);
+  const serviceAnswer=statusQuestion?null:businessServiceAnswer(safeQuestion,context||"");
   if(serviceAnswer){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"internal",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:"S.O.H CONSULTS services",url:"https://sohconsults.com.ng",snippet:serviceAnswer.service,official:false,internal:true}],answer:serviceAnswer.answer,confidence:"high",needsHuman:false,serviceLead:true,serviceName:serviceAnswer.service,sourceType:"internal",currentSensitive:false});}
 
   const cacheKey=knowledgeCacheKey(resolved.institutionKey,resolved.intent,resolved.academicSession);
@@ -353,7 +354,8 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,confidence:finalConfidence,needsHuman:needsReview,answer:finalAnswer,generative:Boolean(generated),contradiction:Boolean(evidenceDecision?.conflict),sourceType,intent:resolved.intent,answerMode:resolved.answerMode});
   }catch(error){
     const fallbackResults=[...officialResults,...internalResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
-    const composed=composeAnswer(resolvedQuestion,fallbackResults,currentSensitive);
+    const exactFallback=resolved.answerMode==="numeric"||resolved.answerMode==="name";
+    const composed=exactFallback?{answer:"I could not verify the exact answer from an official source right now. I will not guess.",confidence:"low" as Confidence,needsHuman:true}:composeAnswer(resolvedQuestion,fallbackResults,currentSensitive);
     const generated=resolved.answerMode==="numeric"||resolved.answerMode==="name"?null:await generateGroundedAnswer(resolvedQuestion,history,fallbackResults,composed.answer,currentSensitive);
     const finalAnswer=generated??composed.answer;const sourceType=fallbackResults.some(r=>r.official)?"official_live":fallbackResults.some(r=>r.internal)?"internal":"none";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:composed.confidence,answered:!composed.needsHuman,sourceType,latencyMs:Date.now()-startedAt});
     return NextResponse.json({query:safeQuestion,googleUrl,results:fallbackResults,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,answer:finalAnswer,generative:Boolean(generated),sourceType,intent:resolved.intent,answerMode:resolved.answerMode,error:error instanceof Error?error.message:"Live search temporarily unavailable."},{status:200});
