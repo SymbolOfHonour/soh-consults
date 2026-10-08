@@ -38,6 +38,8 @@ type SearchPayload = {
   sourceType?: "verified_knowledge"|"verified_cache"|"verified_semantic"|"official_live"|"internal"|"web"|"none";
   verifiedAt?: string|null;
   contradiction?: boolean;
+  serviceLead?: boolean;
+  serviceName?: string;
 };
 
 const WHATSAPP = "2348182141088";
@@ -321,6 +323,7 @@ function buildSearchAnswer(payload: SearchPayload): Message {
     text: payload.answer ? `${payload.answer}${confidenceLabel}` : `I found a relevant answer from ${sourceLabel}: ${best.snippet} For deadlines, payments or irreversible admission actions, open the source and confirm the current details.`,
     sources: results.slice(0, 3),
     actions: [
+      ...(payload.serviceLead ? [{ label: "Get Assistance on WhatsApp", type: "whatsapp" as const, value: `Hello S.O.H CONSULTS, I need assistance with ${payload.serviceName || payload.query}. Please share the requirements and current price.` }] : []),
       { label: isSOHSource(best.url) ? "Open S.O.H Resource" : best.official ? "Open Official Source" : "Open Best Source", type: isSOHSource(best.url) ? "link" : "external", value: best.url },
       { label: "View Sources", type: "external", value: payload.googleUrl },
       ...(payload.needsHuman ? [{ label: "Ask S.O.H CONSULTS", type: "whatsapp" as const, value: `Hello S.O.H CONSULTS, Ask S.O.H could not confidently verify this for me: ${payload.query}` }] : []),

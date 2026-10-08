@@ -256,6 +256,24 @@ async function searchSOH(question:string):Promise<SearchResult[]>{
   }catch{return [];}
 }
 
+function businessServiceAnswer(question:string,context:string){
+ const q=question.toLowerCase();const ctx=context.toLowerCase();
+ const exam=/\\b(neco|waec|nabteb)\\b/.test(q)?(q.match(/\\b(neco|waec|nabteb)\\b/)?.[0]||"examination").toUpperCase():/\\b(neco|waec|nabteb)\\b/.test(ctx)?(ctx.match(/\\b(neco|waec|nabteb)\\b/)?.[0]||"examination").toUpperCase():"examination";
+ const resultToken=/(scratch.?card|result.?check(?:ing|er)?|e.?pin|\\btoken\\b|check.{0,20}result|no.{0,30}token|don.t have.{0,30}token)/i.test(q);
+ if(resultToken&&(/\\b(neco|waec|nabteb)\\b/.test(q+" "+ctx)||/scratch.?card|result.?check(?:ing|er)?|e.?pin|\\btoken\\b/i.test(q))){
+  const details=/\\btoken\\b|scratch.?card|e.?pin|don.t have/i.test(q)?`If you don't have a ${exam} result-checking token or scratch card, S.O.H CONSULTS can assist you with obtaining the appropriate result-checking access. Contact us on WhatsApp to confirm availability and the current price before payment.`:`S.O.H CONSULTS sells examination result-checking scratch cards and assists with ${exam} result checking. Contact us on WhatsApp for the correct card or token and current price. You can then check your result through the examination body's official portal.`;
+  return {answer:details,service:"Examination result-checking scratch cards and tokens"};
+ }
+ const services:[RegExp,string,string][]=[
+  [/\\b(o.?level|ssce).{0,30}(upload|jamb)|upload.{0,30}(o.?level|result)/i,"O'Level result upload on JAMB","S.O.H CONSULTS assists with uploading O'Level results on JAMB. Contact us on WhatsApp for the requirements and current service fee."],
+  [/\\b(post.?utme|post.?ume|direct entry|\\bde\\b).{0,40}(register|registration|apply|application|screening)|(?:register|registration|apply|application).{0,40}(post.?utme|direct entry)/i,"Post-UTME and Direct Entry registration assistance","S.O.H CONSULTS assists with Post-UTME, Direct Entry and screening registrations. Tell us your institution and programme on WhatsApp so we can check the applicable requirements and current registration window."],
+  [/\\b(waec).{0,30}(digital certificate|digicert|original certificate|certificate)|(?:digital certificate|digicert).{0,30}waec/i,"WAEC certificate assistance","S.O.H CONSULTS assists candidates with WAEC Digital Certificate access and original-certificate guidance. Contact us on WhatsApp with your examination type and year for the appropriate process."],
+  [/\\b(jamb|utme).{0,30}(admission letter|original result|result slip)|(?:print|printing).{0,30}(admission letter|jamb result)/i,"JAMB document printing","S.O.H CONSULTS assists with printing JAMB admission letters and original UTME result slips. Contact us on WhatsApp for requirements and current charges."],
+  [/\\b(acceptance fee|school fees|school fee).{0,30}(pay|payment|assist|help)|(?:pay|payment).{0,30}(acceptance fee|school fees)/i,"School fee payment guidance","S.O.H CONSULTS provides guidance and assistance with school and acceptance fee processes. Contact us on WhatsApp with your institution; payment details must be confirmed on the official school portal."],
+ ];
+ const match=services.find(([pattern])=>pattern.test(q));return match?{answer:match[2],service:match[1]}:null;
+}
+
 async function handleSearch(request:NextRequest,body?:{question?:string;context?:string;history?:ChatTurn[]}){
 
   const rate=await checkRateLimit(request,"ask-soh-search",30,60*60);
@@ -268,6 +286,9 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
   const startedAt=Date.now();
   const resolved=resolveQuestion(safeQuestion,context);
+  const serviceAnswer=businessServiceAnswer(safeQuestion,context||"");
+  if(serviceAnswer){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"internal",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:"S.O.H CONSULTS services",url:"https://sohconsults.com.ng",snippet:serviceAnswer.service,official:false,internal:true}],answer:serviceAnswer.answer,confidence:"high",needsHuman:false,serviceLead:true,serviceName:serviceAnswer.service,sourceType:"internal",currentSensitive:false});}
+
   const cacheKey=knowledgeCacheKey(resolved.institutionKey,resolved.intent,resolved.academicSession);
   const cached=!resolved.currentSensitive&&resolved.intent!=="general"?cacheGet<{answer:string;sourceName:string;sourceUrl:string;verifiedAt:string|null}>(cacheKey):null;
   if(cached){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"verified_cache",latencyMs:Date.now()-startedAt,cacheHit:true});return NextResponse.json({query:safeQuestion,results:[{title:cached.sourceName,url:cached.sourceUrl,snippet:cached.answer,official:true,internal:true}],searchedAt:new Date().toISOString(),knowledgeMatches:1,currentSensitive:false,answer:cached.answer,confidence:"high",needsHuman:false,generative:false,verifiedFact:true,sourceType:"verified_cache",verifiedAt:cached.verifiedAt});}
