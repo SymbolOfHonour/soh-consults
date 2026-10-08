@@ -171,7 +171,7 @@ async function fetchOfficialPage(url:string,title:string):Promise<SearchResult|n
     ).slice(0,8000);
   };
   try{
-    const direct=await fetch(url,{headers:{"User-Agent":"Mozilla/5.0 (compatible; AskSOH/1.0; +https://sohconsults.com.ng)"},redirect:"follow",next:{revalidate:180}});
+    const direct=await fetch(url,{headers:{"User-Agent":"Mozilla/5.0 (compatible; AskSOH/1.0; +https://sohconsults.com.ng)"},redirect:"follow",signal:AbortSignal.timeout(3500),next:{revalidate:180}});
     if(direct.ok){
       const contentType=direct.headers.get("content-type")||"";
       const raw=await direct.text();
@@ -181,7 +181,7 @@ async function fetchOfficialPage(url:string,title:string):Promise<SearchResult|n
   }catch{}
   try{
     const readerUrl=`https://r.jina.ai/http://${url.replace(/^https?:\/\//,"")}`;
-    const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:180}});
+    const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},signal:AbortSignal.timeout(3500),next:{revalidate:180}});
     if(!response.ok)return null;
     const snippet=parseBody(await response.text());
     return isUsableResult(title,url,snippet)?{title,url,snippet,official:true}:null;
