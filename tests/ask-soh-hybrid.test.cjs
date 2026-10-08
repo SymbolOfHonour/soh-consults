@@ -13,3 +13,5 @@ test("multi-turn follow-ups retain latest named institution or examination",()=>
 test("explicit new subject does not inherit previous conversation",()=>{assert.match(ui,/!explicitSubject && !namedInstitution/);assert.match(ui,/const subjectContext = isFollowUp \?/);});
 
 test("contextual price follow-ups do not invent fees",()=>{assert.match(services,/const priceFollowUp=/);assert.match(services,/priceFollowUp&&/);assert.match(services,/contact us on WhatsApp to confirm availability and the exact price/);assert.doesNotMatch(services,/₦[0-9]/);});
+
+test("service pricing follow-ups use recognized previous service",()=>{assert.match(services,/priceFollowUp&&ctx/);assert.match(services,/businessServiceAnswer\(context,""\)/);assert.match(services,/previousService\.service/);assert.match(services,/Do not pay to an unverified account/);});
