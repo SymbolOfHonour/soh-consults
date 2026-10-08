@@ -273,6 +273,10 @@ function businessServiceAnswer(question:string,context:string){
  if(priceFollowUp&&/\b(neco|waec|nabteb)\b|result.check|scratch.?card|\btoken\b|e.?pin/i.test(ctx)){
   return {answer:`S.O.H CONSULTS can help you obtain the appropriate ${exam} result-checking scratch card or token. The current price depends on the examination and product. Please contact us on WhatsApp to confirm availability and the exact price before payment.`,service:`${exam} result-checking scratch card or token pricing`};
  }
+ if(priceFollowUp&&ctx){
+  const previousService=businessServiceAnswer(context,"");
+  if(previousService){return {answer:`S.O.H CONSULTS can assist with ${previousService.service.toLowerCase()}. The current service fee depends on the requirements and institution. Please contact us on WhatsApp for the exact price and payment instructions. Do not pay to an unverified account.`,service:previousService.service};}
+ }
  const resultToken=/(scratch.?card|result.?check(?:ing|er)?|e.?pin|\btoken\b|check.{0,20}result|no.{0,30}token|don.t have.{0,30}token)/i.test(q);
  if(resultToken&&(/\b(neco|waec|nabteb)\b/.test(q+" "+ctx)||/scratch.?card|result.?check(?:ing|er)?|e.?pin|\btoken\b/i.test(q))){
   const details=/\btoken\b|scratch.?card|e.?pin|don.t have/i.test(q)?`If you need a ${exam} result-checking token or scratch card, S.O.H CONSULTS can assist you with obtaining the appropriate result-checking access. Contact us on WhatsApp to confirm availability and the current price before payment.`:`S.O.H CONSULTS sells examination result-checking scratch cards and assists with ${exam} result checking. Contact us on WhatsApp for the correct card or token and current price. You can then check your result through the examination body's official portal.`;
