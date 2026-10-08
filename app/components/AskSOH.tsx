@@ -426,7 +426,7 @@ export default function AskSOH() {
     const previousUser = recentUserMessages.at(-1);
     const namedInstitution = institutionCalculators.some(([pattern]) => pattern.test(question));
     const explicitSubject = /\b(lasu|fuoye|lasustech|uniosun|oou|lasued|yabatech|fuadsi|futa|oau|jamb|waec|neco|nysc)\b/i.test(question);
-    const followUpCue = /^(what about|how about|and what|and how|what of|how much|when does|when is|is it|are they|does it|do they|what documents|what requirements|what score|what next)\b/i.test(question.trim());
+    const followUpCue = /^(what if|what about|how about|and what|and how|what of|how much|when does|when is|is it|are they|does it|do they|what documents|what requirements|what score|what next|where can|where do|can i|do i need)\b/i.test(question.trim());
     const pronounFollowUp = question.split(/\s+/).length <= 7 && /\b(it|that|this|they|them|there|its|their)\b/i.test(question);
     const isFollowUp = !explicitSubject && !namedInstitution && Boolean(previousUser) && (followUpCue || pronounFollowUp);
     const subjectContext = isFollowUp && previousUser ? previousUser : "";
