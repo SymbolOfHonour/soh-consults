@@ -11,3 +11,5 @@ test("official sources and clickable links preserved",()=>{assert.match(ui,/func
 
 test("multi-turn follow-ups retain latest named institution or examination",()=>{assert.match(ui,/function findFollowUpSubject/);assert.match(ui,/\.reverse\(\)\.find/);assert.match(ui,/findFollowUpSubject\(recentUserMessages\)/);assert.match(ui,/\bneco\|nabteb\|nysc/);});
 test("explicit new subject does not inherit previous conversation",()=>{assert.match(ui,/!explicitSubject && !namedInstitution/);assert.match(ui,/const subjectContext = isFollowUp \?/);});
+
+test("contextual price follow-ups do not invent fees",()=>{assert.match(services,/const priceFollowUp=/);assert.match(services,/priceFollowUp&&/);assert.match(services,/contact us on WhatsApp to confirm availability and the exact price/);assert.doesNotMatch(services,/₦[0-9]/);});
