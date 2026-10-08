@@ -9,7 +9,7 @@ export async function findVerifiedFact(q:ResolvedQuestion,question=""){if(!URL||
  const r=await fetch(`${URL}/rest/v1/ask_soh_facts?${params}`,{headers:headers(),cache:"no-store",signal:AbortSignal.timeout(5000)});if(!r.ok)return null;
  const facts=(await r.json() as KnowledgeFact[]).filter(active).filter(f=>!q.academicSession||!f.academic_session||f.academic_session===q.academicSession);
  const terms=question.toLowerCase().split(/[^a-z0-9]+/).filter(w=>w.length>2&&!["what","who","when","where","which","how","the","for","does","tell","about","please","lasu","fuoye","uniosun","lasustech","jamb","waec"].includes(w));
- const scored=facts.map(f=>{const hay=(f.topic+" "+f.value_text+" "+(f.answer_text||"")+" "+f.intent).toLowerCase();return {f,score:terms.reduce((n,w)=>n+(hay.includes(w)?1:0),0)};}).sort((a,b)=>b.score-a.score||b.f.source_authority-a.f.source_authority);
+ const scored=facts.map(f=>{const topic=f.topic.toLowerCase();const body=(f.value_text+" "+(f.answer_text||"")).toLowerCase();return {f,score:terms.reduce((n,w)=>n+(topic.includes(w)?10:body.includes(w)?1:0),0)};}).sort((a,b)=>b.score-a.score||b.f.source_authority-a.f.source_authority);
  const fact=(q.intent==="general"&&scored[0]?.score===0)?undefined:scored[0]?.f;if(!fact)return null;
  const stale=!!fact.review_due_at&&+new Date(fact.review_due_at)<Date.now();
  return {fact,answer:formatAnswer(q.answerMode,fact.value_text,fact.answer_text),stale,confidence:stale?"medium":"high" as const};
