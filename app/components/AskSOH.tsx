@@ -260,7 +260,7 @@ function buildSearchAnswer(payload: SearchPayload): Message {
   const results = Array.isArray(payload.results) ? payload.results : [];
   const internal = results.find((item) => item.internal);
   const official = results.find((item) => item.official);
-  const best = payload.currentSensitive ? (official ?? internal ?? results[0]) : (internal ?? official ?? payload.results[0]);
+  const best = payload.currentSensitive ? (official ?? internal ?? results[0]) : (internal ?? official ?? results[0]);
 
   if (!best) {
     if (payload.answer) {
