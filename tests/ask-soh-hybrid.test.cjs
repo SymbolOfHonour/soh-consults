@@ -18,4 +18,4 @@ test("service pricing follow-ups use recognized previous service",()=>{assert.ma
 
 test("certificate enquiries do not get result-token pricing",()=>{const guard=services.match(/if\(priceFollowUp&&([^\n]+)\)\{/);assert.ok(guard);assert.doesNotMatch(guard[1],/neco\|waec\|nabteb/);assert.match(guard[1],/result/);assert.match(services,/previousService=businessServiceAnswer\(context,""\)/);});
 
-test("context VC intent uses a real word-boundary regex",()=>{const resolver=read("lib/ask-soh/question-resolver.ts");assert.ok(resolver.includes(String.raw`|\\bvc\\b`));assert.ok(!resolver.includes(String.raw`|\\\\bvc\\\\b`));});
+test("context VC intent uses a real word-boundary regex",()=>{const resolver=fs.readFileSync("lib/ask-soh/question-resolver.ts","utf8");assert.ok(resolver.includes(String.raw`|\\bvc\\b`));assert.ok(!resolver.includes(String.raw`|\\\\bvc\\\\b`));});
