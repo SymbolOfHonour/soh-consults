@@ -272,6 +272,16 @@ function renderAnswerLinks(text: string) {
   });
 }
 
+function renderReadableAnswer(text: string) {
+  const paragraphs = text
+    .split(/\n\s*\n|(?=S\.O\.H CONSULTS (?:sells|assists|provides|can assist|offers))/g)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  return paragraphs.map((part, index) => (
+    <p key={index} className={index ? "mt-3" : undefined}>{renderAnswerLinks(part)}</p>
+  ));
+}
+
 function isSOHSource(url: string): boolean {
   try {
     const parsed = new URL(url, "https://sohconsults.com.ng");
@@ -539,7 +549,7 @@ export default function AskSOH() {
                     }
                     style={message.role === "user" ? { color: "#ffffff" } : undefined}
                   >
-                    {message.role === "assistant" ? renderAnswerLinks(message.text) : message.text}
+                    {message.role === "assistant" ? renderReadableAnswer(message.text) : message.text}
                   </div>
 
                   {!!message.sources?.length && (
