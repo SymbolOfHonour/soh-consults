@@ -62,3 +62,6 @@ test("official page retrieval has explicit bounded upstream timeouts",()=>{asser
 test("general knowledge answers cannot reuse institution-only cache",()=>{assert.match(route,/resolved\.intent!=="general"\?cacheGet/);assert.match(route,/if\(resolved\.intent!=="general"\)cacheSet/);});
 
 test("verified fact topic match outranks incidental mentions in other answers",()=>{assert.match(repo,/topic\.includes\(w\)\?10:body\.includes\(w\)\?1:0/);});
+
+
+test("WAEC and NECO web queries use topic-specific hints without forced JAMB admission",()=>{assert.match(route,/const topicHint=/);assert.match(route,/WAEC examination results certificates/);assert.match(route,/NECO examination results/);assert.match(route,/Nigeria admission JAMB/);assert.doesNotMatch(route,/const googleQuery=`\$\{resolvedQuestion\}\$\{institutionHint\} Nigeria admission JAMB/);assert.match(route,/const googleQuery=`\$\{resolvedQuestion\}\$\{institutionHint\}\$\{topicHint\}\$\{officialHint\}`/);});
