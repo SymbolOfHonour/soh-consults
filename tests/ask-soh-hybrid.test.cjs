@@ -19,3 +19,5 @@ test("service pricing follow-ups use recognized previous service",()=>{assert.ma
 test("certificate enquiries do not get result-token pricing",()=>{const guard=services.match(/if\(priceFollowUp&&([^\n]+)\)\{/);assert.ok(guard);assert.doesNotMatch(guard[1],/neco\|waec\|nabteb/);assert.match(guard[1],/result/);assert.match(services,/previousService=businessServiceAnswer\(context,""\)/);});
 
 test("context VC intent uses word boundaries",()=>{const resolver=fs.readFileSync("lib/ask-soh/question-resolver.ts","utf8");const inherited=resolver.slice(resolver.indexOf("const contextQ="),resolver.indexOf("const intent="));assert.ok(inherited.includes("vc"));assert.ok(!inherited.includes(String.raw`\\\\bvc\\\\b`));});
+
+test("cutoff and fee questions always require current verification",()=>{const resolver=fs.readFileSync("lib/ask-soh/question-resolver.ts","utf8");assert.match(resolver,/currentSensitive:cutoff\|\|CURRENT\.test\(question\)/);assert.match(resolver,/admission status\|admitted\|offered admission/);assert.match(resolver,/fee\|fees\|price\|cost/);});
