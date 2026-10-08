@@ -296,6 +296,11 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
   const startedAt=Date.now();
   const resolved=resolveQuestion(safeQuestion,context);
+  const tokenNeed=/\\b(token|scratch.?card|e.?pin)\\b/i.test(safeQuestion)&&/\\b(don.t have|do not have|no|need|buy|purchase|get|obtain|where|without)\\b/i.test(safeQuestion);
+  if(tokenNeed){
+    const service=businessServiceAnswer(safeQuestion,context||"");
+    if(service){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"internal",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:"S.O.H CONSULTS services",url:"https://sohconsults.com.ng",snippet:service.service,official:false,internal:true}],answer:service.answer,confidence:"high",needsHuman:false,serviceLead:true,serviceName:service.service,sourceType:"internal",currentSensitive:false});}
+  }
   const resultGuidance=examinationResultGuidance(safeQuestion,context||"");
   if(resultGuidance){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"hybrid_service",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:resultGuidance.exam+" official result checker",url:resultGuidance.exam==="WAEC"?"https://www.waecdirect.org/Default.aspx":"https://results.neco.gov.ng/",snippet:"Official examination result-checking portal",official:true,internal:false}],answer:resultGuidance.answer,confidence:"high",needsHuman:false,serviceLead:true,serviceName:resultGuidance.exam+" result checking and scratch cards",sourceType:"hybrid_service",currentSensitive:false});}
   const serviceAnswer=businessServiceAnswer(safeQuestion,context||"");
