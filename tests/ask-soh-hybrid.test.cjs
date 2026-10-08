@@ -8,3 +8,6 @@ test("general questions still use verified knowledge",()=>{assert.ok(route.inclu
 test("missing token intent precedes generic result guidance",()=>{assert.ok(route.indexOf("const tokenNeed=")<route.indexOf("const resultGuidance=examinationResultGuidance"));assert.match(route,/if\(tokenNeed\)/);});
 test("WhatsApp number and service CTA configured",()=>{assert.match(ui,/const WHATSAPP = "2348182141088"/);assert.match(ui,/Get Assistance on WhatsApp/);assert.match(ui,/encodeURIComponent\(message\)/);});
 test("official sources and clickable links preserved",()=>{assert.match(ui,/function isSOHSource/);assert.match(ui,/Open Official Source/);assert.match(ui,/renderReadableAnswer\(message.text\)/);assert.match(ui,/rel="noopener noreferrer"/);});
+
+test("multi-turn follow-ups retain latest named institution or examination",()=>{assert.match(ui,/function findFollowUpSubject/);assert.match(ui,/\.reverse\(\)\.find/);assert.match(ui,/findFollowUpSubject\(recentUserMessages\)/);assert.match(ui,/\bneco\|nabteb\|nysc/);});
+test("explicit new subject does not inherit previous conversation",()=>{assert.match(ui,/!explicitSubject && !namedInstitution/);assert.match(ui,/const subjectContext = isFollowUp \?/);});
