@@ -71,6 +71,26 @@ function isUsableResult(title:string,url:string,snippet:string){
   try{const parsed=new URL(url);return parsed.protocol==="https:"||parsed.protocol==="http:";}catch{return false;}
 }
 function isOfficial(url:string){try{const host=new URL(url).hostname.toLowerCase().replace(/^www\./,"");return OFFICIAL_HOSTS.some(a=>host===a||host.endsWith(`.${a}`));}catch{return false;}}
+function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:string[],session:string|null){
+  if(!session)return null;
+  const months="january february march april may june july august september october november december".split(" ");
+  for(const result of results){
+    if(!result.official)continue;
+    let host:string;try{host=new URL(result.url).hostname.toLowerCase();}catch{continue;}
+    if(!institutionDomains.some(domain=>host===domain||host.endsWith("."+domain)))continue;
+    const text=cleanText(result.title+" "+result.snippet);
+    if(!text.includes(session)||!/post.?utme|admission screening|screening registration/i.test(text))continue;
+    const match=text.match(/(?:closing date|registration closes?|application deadline|deadline for (?:registration|application))\\s*(?:is|:|-|on|by)?\\s*(\\d{1,2})(?:st|nd|rd|th)?\\s+(January|February|March|April|May|June|July|August|September|October|November|December)\\s*,?\\s*(20\\d{2})/i);
+    if(!match)continue;
+    const month=months.indexOf(match[2].toLowerCase());const day=Number(match[1]);const year=Number(match[3]);
+    const deadline=new Date(Date.UTC(year,month,day,23,59,59));
+    if(month<0||deadline.getUTCDate()!==day||deadline.getUTCMonth()!==month)continue;
+    const formatted=day+" "+match[2]+" "+year;
+    return {answer:deadline.getTime()<Date.now()?("The official "+session+" screening notice lists "+formatted+" as the registration deadline, and that date has passed. This does not rule out a later official extension; check the portal for updates."):("The official "+session+" screening notice lists "+formatted+" as the registration deadline. The date has not yet passed, but confirm that the portal is accepting applications before paying."),url:result.url};
+  }
+  return null;
+}
+
 function shapeEvidenceAnswer(mode:string,results:SearchResult[]){if(mode!=="numeric")return null;for(const result of results.filter(r=>r.official)){const text=cleanText(result.title+" "+result.snippet);const minimumScore=text.match(/minimum\s+score\s+of\s+(\d{3})(?:\+)?/i);if(minimumScore){const n=Number(minimumScore[1]);if(n>=100&&n<=400)return String(n);}const minimumUtme=text.match(/minimum\s+utme\s+score(?:\s+of)?\s*(\d{3})(?:\+)?/i);if(minimumUtme){const n=Number(minimumUtme[1]);if(n>=100&&n<=400)return String(n);}const explicitPatterns=[/(?:cut.?of{1,2}(?:\s+mark)?|minimum(?:\s+utme)(?:\s+score)?|utme(?:\s+minimum)?(?:\s+score)?|jamb(?:\s+minimum)?(?:\s+score)?|minimum\s+score(?:\s+of)?)\D{0,40}(\d{3})(?:\+)?/i,/(\d{3})(?:\+)?\s*(?:minimum\s*)?(?:utme|jamb)?\s*(?:score|mark)/i];for(const pattern of explicitPatterns){const match=text.match(pattern);if(match){const n=Number(match[1]);if(n>=100&&n<=400)return String(n);}}}return null;}
 function composeAnswer(question:string,results:SearchResult[],currentSensitive:boolean):{answer:string;confidence:Confidence;needsHuman:boolean}{
   const official=results.filter(item=>item.official);
@@ -341,7 +361,8 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const results=deduped.sort((a,b)=>currentSensitive ? Number(b.official)-Number(a.official) : Number(Boolean(b.internal))-Number(Boolean(a.internal))).slice(0,7);
     const scoreEvidence=institution&&resolved.intent==="cutoff"?results.filter(item=>{if(!item.official)return false;try{const hostname=new URL(item.url).hostname.toLowerCase();return institution.officialDomains.some(domain=>hostname===domain||hostname.endsWith("."+domain));}catch{return false;}}):results;
     const registrationStatusQuery=resolved.intent==="status"&&/\b(post.?utme|screening|registration|application|admission form|portal)\b/i.test(safeQuestion);
-    const statusUnverified=registrationStatusQuery;
+    const registrationDeadline=registrationStatusQuery&&institution?verifiedRegistrationDeadline(results,institution.officialDomains,resolved.academicSession):null;
+    const statusUnverified=registrationStatusQuery&&!registrationDeadline;
     const statusWarning="I found official university pages, but I could not verify from a dated, session-specific registration notice whether applications are currently open or closed. Please check the institution's current screening portal or contact S.O.H CONSULTS for help confirming the deadline. I will not guess.";
     const shaped=shapeEvidenceAnswer(resolved.answerMode,scoreEvidence);
     const exactUnverified=(resolved.answerMode==="numeric"||resolved.answerMode==="name")&&!shaped;
@@ -353,7 +374,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const generatedClean=generated&&!/^(From the strongest source I found:|I checked a current official source\.)/i.test(generated)?generated:null;
     const fallbackLooksLikeBoilerplate=/\b(Site Map|Staff Directory|Faculties Departments|Principal Officers|Quick Links|READ MORE|Webmail|Organogram)\b/i.test(composed.answer);
     const safeFallback=fallbackLooksLikeBoilerplate?"I found official sources, but they do not expose a concise answer clearly enough for me to verify it. I will not guess.":composed.answer;
-    const finalAnswer=statusUnverified?statusWarning:(generatedClean??safeFallback);const finalConfidence=statusUnverified?"low":evidenceDecision?.conflict?"medium":composed.confidence;const needsReview=statusUnverified||Boolean(evidenceDecision?.conflict)||composed.needsHuman;const sourceType=results.some(r=>r.official)?"official_live":results.some(r=>r.internal)?"internal":"web";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:finalConfidence,answered:!needsReview,sourceType,latencyMs:Date.now()-startedAt});
+    const finalAnswer=registrationDeadline?registrationDeadline.answer:statusUnverified?statusWarning:(generatedClean??safeFallback);const finalConfidence=registrationDeadline?"high":statusUnverified?"low":evidenceDecision?.conflict?"medium":composed.confidence;const needsReview=registrationDeadline?false:statusUnverified||Boolean(evidenceDecision?.conflict)||composed.needsHuman;const sourceType=results.some(r=>r.official)?"official_live":results.some(r=>r.internal)?"internal":"web";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:finalConfidence,answered:!needsReview,sourceType,latencyMs:Date.now()-startedAt});
     return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,confidence:finalConfidence,needsHuman:needsReview,answer:finalAnswer,generative:Boolean(generated),contradiction:Boolean(evidenceDecision?.conflict),sourceType,intent:resolved.intent,answerMode:resolved.answerMode});
   }catch(error){
     const fallbackResults=[...officialResults,...internalResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
