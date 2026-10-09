@@ -184,7 +184,9 @@ test("Ask S.O.H keeps each new answer visible automatically",()=>{
 
 test("Ask S.O.H searches internal and official knowledge for non-current factual questions",()=>{
  const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
- assert.match(route,/searchSOH\(resolvedQuestion\),searchOfficialSites\(resolvedQuestion\)/);
+ assert.match(route,/searchSOH\(resolvedQuestion\)/);
+  assert.match(route,/searchOfficialSites\(resolvedQuestion\)/);
+  assert.match(route,/noticeResults/);
  assert.match(route,/Treat the current Question as authoritative/);
 });
 
