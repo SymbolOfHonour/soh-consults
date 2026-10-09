@@ -14,6 +14,7 @@ function fresh(d:SourceDocument,now:number){const observed=Date.parse(d.fetchedA
 export function applicableDocument(d:SourceDocument,q:ResolvedQuestion,now=Date.now()){
  if(!d.official||!d.verified||!isOfficialInstitutionUrl(d.url,q.institutionKey))return false;
  if(q.currentSensitive&&!fresh(d,now))return false;
+ if(d.publishedAt&&(!Number.isFinite(Date.parse(d.publishedAt))||Date.parse(d.publishedAt)>now+60000))return false;
  const sessions=sessionsIn(d.title+' '+d.snippet);if(q.academicSession)return sessions.length===1&&sessions[0]===q.academicSession;
  // Session-dependent information needs an explicit request, never guess the latest year.
  if(['deadline','status','cutoff','requirements'].includes(q.intent)&&sessions.length)return false;

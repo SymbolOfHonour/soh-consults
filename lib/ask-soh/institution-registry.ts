@@ -17,6 +17,6 @@ export const INSTITUTIONS:InstitutionRecord[]=[
 ];
 function normalizedWords(value:string){return ` ${value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim()} `;}
 export function resolveInstitution(text:string){const q=normalizedWords(text);return INSTITUTIONS.find(i=>i.aliases.some(a=>q.includes(normalizedWords(a))))||null;}
-export function isOfficialInstitutionUrl(url:string,institutionKey?:string|null){try{const host=new URL(url).hostname.toLowerCase().replace(/^www\./,"");const candidates=institutionKey?INSTITUTIONS.filter(i=>i.key===institutionKey):INSTITUTIONS;return candidates.some(i=>i.officialDomains.some(d=>host===d||host.endsWith(`.${d}`)));}catch{return false;}}
+export function isOfficialInstitutionUrl(url:string,institutionKey?:string|null){try{const parsed=new URL(url);if(parsed.protocol!=="https:"||parsed.username||parsed.password||(parsed.port&&parsed.port!=="443"))return false;const host=parsed.hostname.toLowerCase().replace(/^www\./,"");const candidates=institutionKey?INSTITUTIONS.filter(i=>i.key===institutionKey):INSTITUTIONS;return candidates.some(i=>i.officialDomains.some(d=>host===d||host.endsWith(`.${d}`)));}catch{return false;}}
 
 export function allOfficialDomains(){return [...new Set(INSTITUTIONS.flatMap(i=>i.officialDomains))];}
