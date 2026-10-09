@@ -215,8 +215,39 @@ function composeAnswer(question:string,results:SearchResult[],currentSensitive:b
   return {answer:`${prefix} ${concise||evidence.slice(0,650)}${support}${caution}`,confidence,needsHuman:confidence==="low"};
 }
 
-function parseGoogleMarkdown(markdown:string):SearchResult[]{const lines=markdown.split("\n"),results:SearchResult[]=[];for(let i=0;i<lines.length;i++){const line=lines[i].trim(),match=line.match(/^\[(.+?)\]\((https?:\/\/[^)]+)\)$/);if(!match)continue;const title=cleanText(match[1]);let url=match[2];try{const parsed=new URL(url);if(parsed.hostname.includes("google.")&&parsed.pathname==="/url"){const target=parsed.searchParams.get("q")||parsed.searchParams.get("url");if(target)url=target;}}catch{continue;}if(!title||title.toLowerCase().includes("google")||url.includes("google.com/search")||url.includes("accounts.google")||url.includes("support.google"))continue;const parts:string[]=[];for(let j=i+1;j<Math.min(lines.length,i+7);j++){const c=cleanText(lines[j]);if(!c)continue;if(/^\[.+?\]\(https?:\/\//.test(c))break;if(c.startsWith("http"))continue;if(c.length>20)parts.push(c);if(parts.join(" ").length>320)break;}const snippet=cleanText(parts.join(" ")).slice(0,360);if(!isUsableResult(title,url,snippet))continue;if(!results.some(x=>x.url===url))results.push({title,url,snippet,official:isOfficial(url)});if(results.length>=5)break;}return results.sort((a,b)=>Number(b.official)-Number(a.official));}
-
+function parseGoogleMarkdown(markdown:string):SearchResult[]{
+  const lines=markdown.split("\n"),results:SearchResult[]=[];
+  for(let i=0;i<lines.length;i++){
+    const line=lines[i].trim();
+    // Jina search output commonly prefixes results with Markdown headings or list numbers.
+    const match=line.match(/^(?:#{1,6}\s*|[-*]\s*|\d+[.)]\s*)?\[(.+?)\]\((https?:\/\/[^)\s]+)\)/);
+    if(!match)continue;
+    const title=cleanText(match[1]);
+    let url=match[2];
+    try{
+      const parsed=new URL(url);
+      if(parsed.hostname.includes("google.")&&parsed.pathname==="/url"){
+        const target=parsed.searchParams.get("q")||parsed.searchParams.get("url");
+        if(target)url=target;
+      }
+    }catch{continue;}
+    if(!title||title.toLowerCase().includes("google")||url.includes("google.com/search")||url.includes("accounts.google")||url.includes("support.google"))continue;
+    const parts:string[]=[];
+    for(let j=i+1;j<Math.min(lines.length,i+8);j++){
+      const next=lines[j].trim();
+      if(/^(?:#{1,6}\s*|[-*]\s*|\d+[.)]\s*)?\[.+?\]\(https?:\/\//.test(next))break;
+      const cleaned=cleanText(next);
+      if(!cleaned||cleaned.startsWith("http"))continue;
+      if(cleaned.length>20)parts.push(cleaned);
+      if(parts.join(" ").length>480)break;
+    }
+    const snippet=cleanText(parts.join(" ")).slice(0,480);
+    if(!isUsableResult(title,url,snippet))continue;
+    if(!results.some(result=>result.url===url))results.push({title,url,snippet,official:isOfficial(url)});
+    if(results.length>=8)break;
+  }
+  return results.sort((a,b)=>Number(b.official)-Number(a.official));
+}
 async function fetchOfficialPage(url:string,title:string):Promise<SearchResult|null>{
   const parseBody=(raw:string)=>{
     if(/(?:target url returned error|http error|404\s*:?\s*not found|403\s*:?\s*forbidden|502\s*:?\s*bad gateway|503\s*:?\s*service unavailable|requested resource is not found|page not found)/i.test(raw))return "";
@@ -393,7 +424,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const googleUrl=`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
   const noticeQuery=Boolean(institution&&/\\b(post.?utme|screening|registration|deadline|extension|closing date)\\b/i.test(safeQuestion));
   const institutionDomain=noticeQuery?institution?.officialDomains[0]:undefined;
-  const noticeSearchQuery=institutionDomain?`site:${institutionDomain} "${resolved.academicSession||"2026/2027"}" (post utme screening registration deadline extension)`:null;
+  const noticeSearchQuery=institutionDomain?`site:${institutionDomain} ${resolved.academicSession?`"${resolved.academicSession}" `:""}post utme screening registration deadline extension`:null;
   const noticeReaderUrl=noticeSearchQuery?`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(noticeSearchQuery)}&num=8&hl=en`:null;
   const [internalResults,officialResults,noticeResults]=await Promise.all([
     searchSOH(resolvedQuestion),
