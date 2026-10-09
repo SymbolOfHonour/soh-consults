@@ -22,6 +22,17 @@ export function applicableDocument(d:SourceDocument,q:ResolvedQuestion,now=Date.
 }
 export function rankDocuments(documents:SourceDocument[],question:string,q:ResolvedQuestion){const terms=question.toLowerCase().split(/[^a-z0-9]+/).filter(t=>t.length>3);return [...new Map(documents.map(d=>[d.url,d])).values()].map(d=>({d,score:terms.reduce((n,t)=>n+(d.title.toLowerCase().includes(t)?8:d.snippet.toLowerCase().includes(t)?2:0),0)+(d.official?15:0)+(d.kind==='article'||d.kind==='pdf'?12:0)+(q.academicSession&&sessionsIn(d.title+' '+d.snippet).includes(q.academicSession)?25:0)-(d.kind==='homepage'?25:0)-(d.kind==='search'?40:0)})).sort((a,b)=>b.score-a.score).map(x=>x.d);}
 const uncertain=(reason:string,contradiction=false,citations:SourceDocument[]=[]):VerifiedAnswer=>({answer:contradiction?'The official evidence contains conflicting information. I cannot confirm a single answer until the notices are reconciled. Please contact S.O.H CONSULTS for verification.':'I could not verify this from directly relevant official evidence. '+reason+' Please check the official portal or contact S.O.H CONSULTS for confirmation.',confidence:'low',needsHuman:true,contradiction,citations,reason});
+function matchesExamScope(d:SourceDocument,question:string,q:ResolvedQuestion){
+ const probe=(d.title+' '+d.snippet.slice(0,600)).toLowerCase();
+ if(q.institutionKey==='neco'&&/ssce/i.test(question))return /ssce|senior school certificate/.test(probe)&&new RegExp('\\b'+(/external/i.test(question)?'external':'internal')+'\\b').test(probe);
+ if(q.institutionKey==='waec'){
+  if(/private/i.test(question)&&/school candidates/i.test(probe)&&!/private/.test(probe))return false;
+  if(/school/i.test(question)&&/private candidates/i.test(probe))return false;
+  const series=question.match(/(first|second)\s+series/i)?.[1]?.toLowerCase();
+  if(series&&!new RegExp('(?:'+series+'|'+(series==='first'?'1st':'2nd')+')\\s+series').test(probe))return false;
+ }
+ return true;
+}
 export function verifyAnswer(question:string,q:ResolvedQuestion,documents:SourceDocument[],now=Date.now()):VerifiedAnswer{
  if(['deadline','status','cutoff','requirements'].includes(q.intent)&&!q.academicSession&&!q.academicYear)return uncertain(['jamb','waec','neco'].includes(q.institutionKey||'')?'Which examination year do you mean?':'Which academic session do you mean?');
  const applicable=rankDocuments(documents.filter(d=>applicableDocument(d,q,now)),question,q);
@@ -32,8 +43,8 @@ export function verifyAnswer(question:string,q:ResolvedQuestion,documents:Source
   if(!screening&&!categories.test(question))return uncertain('Which application type or examination do you mean?',false,applicable.slice(0,3));
   const directEntry=/direct entry|\bDE\b/i.test(question);
   if(q.institutionKey==='neco'&&!/ssce.*(?:internal|external)|(?:internal|external).*ssce|ncee|bece/i.test(question))return uncertain('Which NECO examination and registration stage (normal or late) do you mean?');
-  if(q.institutionKey==='waec'&&!/private|school|first series|second series/i.test(question))return uncertain('Which WASSCE candidate category and series do you mean?');
-  const scoped=applicable.filter(d=>!(q.institutionKey==='neco'&&/ssce/i.test(question)&&!/ssce|senior school certificate/i.test(d.title+' '+d.snippet.slice(0,300)))&&!(screening&&!directEntry&&/^(?!.*100 level).*direct entry/i.test(d.title))&&!(screening&&/transfer|jupeb|preliminary|\bsps\b|pre.?degree|sandwich|part.?time|postgraduate|state of origin|\bsove\b/i.test(d.title))&&!(q.institutionKey==='neco'&&/ssce/i.test(question)&&/internal|external/i.test(d.title)&&(/external/i.test(question)!==/external/i.test(d.title))));
+  if(q.institutionKey==='waec'&&(!/private|school|first series|second series/i.test(question)||/private/i.test(question)&&!/first series|second series/i.test(question)))return uncertain('Which WASSCE candidate category and series do you mean?');
+  const scoped=applicable.filter(d=>matchesExamScope(d,question,q)&&!(q.institutionKey==='neco'&&/ssce/i.test(question)&&!/ssce|senior school certificate/i.test(d.title+' '+d.snippet.slice(0,300)))&&!(screening&&!directEntry&&/^(?!.*100 level).*direct entry/i.test(d.title))&&!(screening&&/transfer|jupeb|preliminary|\bsps\b|pre.?degree|sandwich|part.?time|postgraduate|state of origin|\bsove\b/i.test(d.title))&&!(q.institutionKey==='neco'&&/ssce/i.test(question)&&/internal|external/i.test(d.title)&&(/external/i.test(question)!==/external/i.test(d.title))));
   const portal=scoped.find(d=>d.portalDeclarations?.some(p=>p.category===(directEntry?'direct-entry':'utme')));
   const declaration=portal?.portalDeclarations?.find(p=>p.category===(directEntry?'direct-entry':'utme'));
   if(portal&&declaration&&q.intent==='status')return {answer:`The freshly fetched official portal explicitly labels ${directEntry?'Direct Entry':'UTME'} as ${declaration.status} for ${q.academicSession}. Confirm with the admissions office before paying.`,confidence:'medium',needsHuman:false,contradiction:false,citations:[portal],reason:'Explicit category-specific portal status; publication date unavailable'};

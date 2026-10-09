@@ -9,8 +9,8 @@ begin
  if TG_OP='UPDATE' then
   insert into public.ask_soh_fact_versions(fact_id,snapshot,change_reason)
   values(old.id,to_jsonb(old),coalesce(new.metadata->>'change_reason','Phase 1 audited update'));
-  if (new.institution_key,new.topic,new.intent,new.value_text,new.answer_text,new.academic_session,new.source_url,new.evidence_text,new.source_published_at)
-     is distinct from (old.institution_key,old.topic,old.intent,old.value_text,old.answer_text,old.academic_session,old.source_url,old.evidence_text,old.source_published_at)
+  if (new.institution_key,new.topic,new.intent,new.value_text,new.answer_text,new.academic_session,new.source_url,new.evidence_text,new.source_published_at,new.answer_mode,new.source_authority,new.valid_from,new.valid_until,new.review_due_at,coalesce(new.metadata,'{}'::jsonb)-'change_reason')
+     is distinct from (old.institution_key,old.topic,old.intent,old.value_text,old.answer_text,old.academic_session,old.source_url,old.evidence_text,old.source_published_at,old.answer_mode,old.source_authority,old.valid_from,old.valid_until,old.review_due_at,coalesce(old.metadata,'{}'::jsonb)-'change_reason')
      and old.status in ('verified','published') then
     new.status:='review';new.verified_at:=null;
   end if;

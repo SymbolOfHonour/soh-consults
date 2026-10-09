@@ -10,11 +10,11 @@ Scope: shared retrieval, reviewed knowledge and official-source evidence. Phases
 
 `answer-verification.ts` ranks articles/PDFs above homepages, requires explicit sessions for session-dependent questions and exam years for JAMB/WAEC/NECO, validates calendar dates, and resolves different deadlines only with a dated later extension. Time-prefixed dates and explicit reopening ranges are supported; relative durations are not calculated into deadlines. SSCE category and normal/late registration stages are kept separate. Accessible portals do not establish open status; explicit category-labelled portal declarations may establish a freshly observed status at medium confidence. Missing evidence, unsupported exact names/scores and conflicts cannot become high confidence. Generic generation can select only exact source quotations, with server-side quotation checks; otherwise the extractive fallback is used.
 
-Existing `ask_soh_facts`, `ask_soh_institutions` and `ask_soh_fact_versions` are reused. Registry edits are audited transactionally. Editing an authoritative fact returns it to review. Verified entries require evidence, official provenance, a verification timestamp and future review date. Retrieval rejects expired/stale/conflicting entries. Semantic retrieval is optional and uses a cosine-distance threshold; production currently lacks embeddings and retains keyword-only compatibility.
+Existing `ask_soh_facts`, `ask_soh_institutions` and `ask_soh_fact_versions` are reused. Registry edits are audited transactionally. Editing an authoritative fact, exam-year metadata or validity/review scope returns it to review. QA also verified that changing the examination year resets verification and creates exactly one history version. Verified entries require evidence, official provenance, a verification timestamp and future review date. Retrieval rejects expired/stale/conflicting entries. Semantic retrieval is optional and uses a cosine-distance threshold; production currently lacks embeddings and retains keyword-only compatibility.
 
 ## Verification
 
-- 310 repository tests passed, including 110 Ask S.O.H behavioural/service tests; TypeScript and targeted ESLint passed.
+- 315 repository tests passed, including 115 Ask S.O.H behavioural/service tests; TypeScript and targeted ESLint passed.
 - Local Next.js production build passed for the initial architectural commit; the corrected code is validated by Vercel Preview before acceptance.
 - QA migration applied; production migration/release not applied.
 - QA transaction: editing a verified fact produced `status=review`, `verified_at=null`, and exactly one version. Rolled back all test rows.
