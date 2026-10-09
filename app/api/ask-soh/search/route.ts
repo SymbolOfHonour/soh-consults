@@ -340,7 +340,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const deduped=[...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const results=deduped.sort((a,b)=>currentSensitive ? Number(b.official)-Number(a.official) : Number(Boolean(b.internal))-Number(Boolean(a.internal))).slice(0,7);
     const scoreEvidence=institution&&resolved.intent==="cutoff"?results.filter(item=>{if(!item.official)return false;try{const hostname=new URL(item.url).hostname.toLowerCase();return institution.officialDomains.some(domain=>hostname===domain||hostname.endsWith("."+domain));}catch{return false;}}):results;
-    const registrationStatusQuery=resolved.intent==="status"&&/\\b(post.?utme|screening|registration|application|admission form|portal)\\b/i.test(safeQuestion);
+    const registrationStatusQuery=resolved.intent==="status"&&/\b(post.?utme|screening|registration|application|admission form|portal)\b/i.test(safeQuestion);
     const statusUnverified=registrationStatusQuery;
     const statusWarning="I found official university pages, but I could not verify from a dated, session-specific registration notice whether applications are currently open or closed. Please check the institution's current screening portal or contact S.O.H CONSULTS for help confirming the deadline. I will not guess.";
     const shaped=shapeEvidenceAnswer(resolved.answerMode,scoreEvidence);
