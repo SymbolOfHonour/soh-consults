@@ -327,16 +327,16 @@ async function discoverOfficialNotices(domains:string[],session:string|null):Pro
   if(!primary)return [];
   // WordPress public search API is common on university websites. Only accept
   // article URLs on the institution's own registered domains.
-  const host=primary.startsWith("www.")?primary:"www."+primary;
+  const hosts=[...new Set([primary,primary.startsWith("www.")?primary.slice(4):"www."+primary])];
   const queries=["post-utme","screening"];
-  const listings=await Promise.allSettled(queries.map(async term=>{
+  const listings=await Promise.allSettled(hosts.flatMap(host=>queries.map(async term=>{
     const endpoint="https://"+host+"/wp-json/wp/v2/search?search="+encodeURIComponent(term)+"&per_page=15";
     const response=await fetch(endpoint,{headers:{Accept:"application/json"},next:{revalidate:900},signal:AbortSignal.timeout(3500)});
     if(!response.ok)return [] as Array<{title:string;url:string}>;
     const body=await response.json();
     if(!Array.isArray(body))return [] as Array<{title:string;url:string}>;
     return body.filter(item=>item&&typeof item.url==="string"&&typeof item.title==="string").map(item=>({title:cleanText(item.title),url:item.url}));
-  }));
+  })));
   const discovered=listings.flatMap(item=>item.status==="fulfilled"?item.value:[]);
   const unique=discovered.filter((item,index,all)=>{
     if(all.findIndex(other=>other.url===item.url)!==index)return false;
