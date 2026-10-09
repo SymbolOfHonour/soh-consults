@@ -95,6 +95,10 @@ function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:
       const nearby=text.slice(marker.index!+marker[0].length,marker.index!+marker[0].length+48);
       dateParts=nearby.match(/^(\d{1,2})(?:st|nd|rd|th)?[\s/-]+(January|February|March|April|May|June|July|August|September|October|November|December)[\s,/-]+(20\d{2})\b/i)
         ||nearby.match(/^(\d{1,2})[\s/-]+(0?[1-9]|1[0-2])[\s/-]+(20\d{2})\b/);
+      if(!dateParts){
+        const monthFirst=nearby.match(/^(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})(?:st|nd|rd|th)?\s*,?\s*(20\d{2})\b/i);
+        if(monthFirst)dateParts=[monthFirst[0],monthFirst[2],monthFirst[1],monthFirst[3]] as unknown as RegExpMatchArray;
+      }
       if(dateParts)break;
     }
     if(!dateParts)continue;
