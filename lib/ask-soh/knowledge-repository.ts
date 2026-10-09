@@ -9,7 +9,7 @@ export function factApplicable(f:KnowledgeFact,q?:ResolvedQuestion,now=Date.now(
  if(!['verified','published'].includes(f.status)||!f.verified_at||!f.evidence_text?.trim()||!f.review_due_at||f.conflicting_evidence)return false;
  if(!isOfficialInstitutionUrl(f.source_url,f.institution_key))return false;
  for(const [value,kind] of [[f.valid_from,'from'],[f.valid_until,'until'],[f.review_due_at,'review'],[f.verified_at,'verified']] as const){if(value){const date=Date.parse(value);if(!Number.isFinite(date)||(kind==='from'&&date>now)||((kind==='until'||kind==='review')&&date<now)||(kind==='verified'&&date>now+60000))return false;}}
- if(q){if(q.institutionKey&&f.institution_key!==q.institutionKey)return false;if(q.intent!=='general'&&f.intent!==q.intent)return false;if(q.academicSession&&f.academic_session!==q.academicSession)return false;if(!q.academicSession&&f.academic_session&&['deadline','status','cutoff','requirements'].includes(q.intent))return false;}
+ if(q){if(q.institutionKey&&f.institution_key!==q.institutionKey)return false;if(q.intent!=='general'&&f.intent!==q.intent)return false;if(q.academicYear&&f.metadata?.academic_year!==q.academicYear)return false;if(q.academicSession&&f.academic_session!==q.academicSession)return false;if(!q.academicSession&&f.academic_session&&['deadline','status','cutoff','requirements'].includes(q.intent))return false;}
  return true;
 }
 export async function getInstitution(key:string|null):Promise<InstitutionRecord|null>{

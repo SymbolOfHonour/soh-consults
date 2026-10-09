@@ -5,14 +5,14 @@ export const INSTITUTIONS:InstitutionRecord[]=[
  {key:"futa",name:"Federal University of Technology Akure",aliases:["futa","federal university of technology akure","federal university of technology, akure"],officialDomains:["futa.edu.ng","admission.futa.edu.ng"]},
  {key:"oau",name:"Obafemi Awolowo University",aliases:["oau","obafemi awolowo university"],officialDomains:["oauife.edu.ng","eportal.oauife.edu.ng"]},
  {key:"fuoye",name:"Federal University Oye-Ekiti",aliases:["fuoye","federal university oye ekiti","federal university oye-ekiti"],officialDomains:["fuoye.edu.ng"],sourceUrls:["https://putme.fuoye.edu.ng/utme/","https://news.fuoye.edu.ng/"]},
- {key:"lasustech",name:"Lagos State University of Science and Technology",aliases:["lasustech","lagos state university of science and technology"],officialDomains:["lasustech.edu.ng","admission.lasustech.edu.ng"]},
- {key:"uniosun",name:"Osun State University",aliases:["uniosun","osun state university"],officialDomains:["uniosun.edu.ng"],sourceUrls:["https://admissions.uniosun.edu.ng/"]},
+ {key:"lasustech",name:"Lagos State University of Science and Technology",aliases:["lasustech","lagos state university of science and technology"],officialDomains:["lasustech.edu.ng","admission.lasustech.edu.ng"],sourceUrls:["https://www.lasustech.edu.ng/events.php","https://admission.lasustech.edu.ng/"]},
+ {key:"uniosun",name:"Osun State University",aliases:["uniosun","osun state university"],officialDomains:["uniosun.edu.ng"],sourceUrls:["https://admissions.uniosun.edu.ng/","https://uniosun.edu.ng/news/"]},
  {key:"oou",name:"Olabisi Onabanjo University",aliases:["oou","olabisi onabanjo university"],officialDomains:["oouagoiwoye.edu.ng"]},
  {key:"lasued",name:"Lagos State University of Education",aliases:["lasued","lagos state university of education"],officialDomains:["lasued.edu.ng"]},
  {key:"yabatech",name:"Yaba College of Technology",aliases:["yabatech","yaba college of technology"],officialDomains:["yabatech.edu.ng"]},
- {key:"jamb",name:"Joint Admissions and Matriculation Board",aliases:["jamb","joint admissions and matriculation board"],officialDomains:["jamb.gov.ng"]},
- {key:"waec",name:"West African Examinations Council",aliases:["waec","west african examinations council"],officialDomains:["waec.org","waecnigeria.org","waecdirect.org"]},
- {key:"neco",name:"National Examinations Council",aliases:["neco","national examinations council"],officialDomains:["neco.gov.ng"]},
+ {key:"jamb",name:"Joint Admissions and Matriculation Board",aliases:["jamb","joint admissions and matriculation board"],officialDomains:["jamb.gov.ng"],sourceUrls:["https://www.jamb.gov.ng/Bulletins.aspx","https://www.jamb.gov.ng/FAQ.aspx"]},
+ {key:"waec",name:"West African Examinations Council",aliases:["waec","west african examinations council"],officialDomains:["waecnigeria.org","waec.org","waecdirect.org"],sourceUrls:["https://www.waecnigeria.org/news","https://www.waecnigeria.org/faq"]},
+ {key:"neco",name:"National Examinations Council",aliases:["neco","national examinations council"],officialDomains:["neco.gov.ng"],sourceUrls:["https://neco.gov.ng/exams","https://neco.gov.ng/exams/ssce-external"]},
  {key:"nysc",name:"National Youth Service Corps",aliases:["nysc","national youth service corps"],officialDomains:["nysc.gov.ng"]}
 ];
 function normalizedWords(value:string){return ` ${value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim()} `;}
