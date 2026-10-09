@@ -32,7 +32,7 @@ test("v2 privacy hashing remains edge compatible",()=>{const privacy=fs.readFile
 
 test("v2 numeric answer mode shapes official evidence to a value",()=>{assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,scoreEvidence\)/);assert.match(route,/mode===\"numeric\"/);assert.match(route,/n>=100&&n<=400/);assert.doesNotMatch(route,/answer:\"195\"/);});
 
-test("v2 bypasses generation for exact facts lacking evidence",()=>{assert.match(route,/exactMode=resolved\.answerMode===\"numeric\"\|\|resolved\.answerMode===\"name\"/);assert.match(route,/generated=exactMode\|\|statusUnverified\?null:/);});
+test("v2 bypasses generation for exact facts lacking evidence",()=>{assert.match(route,/exactMode=resolved\.answerMode===\"numeric\"\|\|resolved\.answerMode===\"name\"/);assert.match(route,/generated=exactMode\|\|registrationStatusQuery\?null:/);});
 
 test("v2 numeric shaper only accepts explicit admission-score patterns",()=>{assert.match(route,/explicitPatterns/);assert.doesNotMatch(route,/window=text\\.slice/);});
 
