@@ -90,10 +90,10 @@ function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:
     // to the requested session without structured notice-level provenance.
     const sessions=[...new Set(text.match(/20\d{2}\s*\/\s*20\d{2}/g)||[])];
     if(sessions.length!==1||sessions[0].replace(/\s/g,"")!==session)continue;
-        const lead=/(?:closing date|registration closes?|application deadline|deadline for (?:registration|application))\s*(?:is|:|-|on|by|will be)?\s*/ig;
+        const lead=/(?:closing date|registration closes?|registration deadline(?:\s*\([^)]{0,30}\))?|portal for screening registration will officially close|application deadline|deadline for (?:registration|application))\s*(?:is|:|-|on|by|will be)?\s*/ig;
     let dateParts:RegExpMatchArray|null=null;
     for(const marker of text.matchAll(lead)){
-      const nearby=text.slice(marker.index!+marker[0].length,marker.index!+marker[0].length+48);
+      const nearby=text.slice(marker.index!+marker[0].length,marker.index!+marker[0].length+64).replace(/^(?:(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s*,?\s*)/i,"");
       dateParts=nearby.match(/^(\d{1,2})(?:st|nd|rd|th)?[\s/-]+(January|February|March|April|May|June|July|August|September|October|November|December)[\s,/-]+(20\d{2})\b/i)
         ||nearby.match(/^(\d{1,2})[\s/-]+(0?[1-9]|1[0-2])[\s/-]+(20\d{2})\b/);
       if(!dateParts){
@@ -278,6 +278,7 @@ async function fetchOfficialPage(url:string,title:string):Promise<SearchResult|n
 
 function directOfficialTargets(question:string):Array<{title:string;url:string}>{
   if(/\bunilorin\b|university of ilorin/i.test(question))return [
+    {title:"UNILORIN 2026/2027 Post-UTME registration deadline notice",url:"https://www.unilorin.edu.ng/unilorin-announces-post-utme-dates-2/"},
     {title:"University of Ilorin Official Website",url:"https://www.unilorin.edu.ng/"}
   ];
   if(/\blasu\b|lagos state university/i.test(question)){
