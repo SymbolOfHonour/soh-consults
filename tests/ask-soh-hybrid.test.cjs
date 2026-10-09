@@ -28,3 +28,5 @@ test("exact score and name answers cannot be generated without evidence",()=>{as
 
 test("registration status bypasses business sales routing",()=>{assert.match(route,/const statusQuestion=resolved\.intent==="status"/);assert.match(route,/const serviceAnswer=statusQuestion\?null:businessServiceAnswer/);});
 test("search failure does not return portal boilerplate as exact cutoff",()=>{assert.match(route,/const exactFallback=resolved\.answerMode==="numeric"\|\|resolved\.answerMode==="name"/);assert.match(route,/const composed=exactFallback\?/);});
+
+test("live registration status cannot be inferred from homepage snippets",()=>{assert.match(route,/const registrationStatusQuery=resolved\.intent==="status"/);assert.match(route,/const finalAnswer=statusUnverified\?statusWarning:/);assert.match(route,/const needsReview=statusUnverified\|\|/);assert.match(route,/const generated=exactMode\|\|statusUnverified\?null:/);});
