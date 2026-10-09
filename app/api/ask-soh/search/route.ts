@@ -322,6 +322,32 @@ function directOfficialTargets(question:string):Array<{title:string;url:string}>
   return [];
 }
 
+async function discoverOfficialNotices(domains:string[],session:string|null):Promise<SearchResult[]>{
+  const primary=domains[0];
+  if(!primary)return [];
+  // WordPress public search API is common on university websites. Only accept
+  // article URLs on the institution's own registered domains.
+  const host=primary.startsWith("www.")?primary:"www."+primary;
+  const queries=["post-utme","screening"];
+  const listings=await Promise.allSettled(queries.map(async term=>{
+    const endpoint="https://"+host+"/wp-json/wp/v2/search?search="+encodeURIComponent(term)+"&per_page=15";
+    const response=await fetch(endpoint,{headers:{Accept:"application/json"},next:{revalidate:900},signal:AbortSignal.timeout(3500)});
+    if(!response.ok)return [] as Array<{title:string;url:string}>;
+    const body=await response.json();
+    if(!Array.isArray(body))return [] as Array<{title:string;url:string}>;
+    return body.filter(item=>item&&typeof item.url==="string"&&typeof item.title==="string").map(item=>({title:cleanText(item.title),url:item.url}));
+  }));
+  const discovered=listings.flatMap(item=>item.status==="fulfilled"?item.value:[]);
+  const unique=discovered.filter((item,index,all)=>{
+    if(all.findIndex(other=>other.url===item.url)!==index)return false;
+    try{const hostname=new URL(item.url).hostname.toLowerCase();return domains.some(domain=>hostname===domain||hostname.endsWith("."+domain));}catch{return false;}
+  }).filter(item=>/post.?utme|screening|admission|registration/i.test(item.title+" "+item.url))
+    .sort((a,b)=>Number(Boolean(session&&((a.title+" "+a.url).includes(session)||((a.title+" "+a.url).includes(session.replace("/","-"))))))-Number(Boolean(session&&((b.title+" "+b.url).includes(session)||((b.title+" "+b.url).includes(session.replace("/","-")))))))
+    .reverse().slice(0,5);
+  const fetched=await Promise.allSettled(unique.map(item=>fetchOfficialPage(item.url,item.title)));
+  return fetched.flatMap(item=>item.status==="fulfilled"&&item.value?[item.value]:[]);
+}
+
 async function searchOfficialSites(question:string):Promise<SearchResult[]>{
   const direct=directOfficialTargets(question);
   if(direct.length){
@@ -427,18 +453,19 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const institutionDomain=noticeQuery?institution?.officialDomains[0]:undefined;
   const noticeSearchQuery=institutionDomain?`site:${institutionDomain} ${resolved.academicSession?`"${resolved.academicSession}" `:""}post utme screening registration deadline extension`:null;
   const noticeReaderUrl=noticeSearchQuery?`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(noticeSearchQuery)}&num=8&hl=en`:null;
-  const [internalResults,officialResults,noticeResults]=await Promise.all([
+  const [internalResults,officialResults,noticeResults,discoveredNotices]=await Promise.all([
     searchSOH(resolvedQuestion),
     searchOfficialSites(resolvedQuestion),
     noticeReaderUrl?fetch(noticeReaderUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:180},signal:AbortSignal.timeout(8_000)})
-      .then(response=>response.ok?response.text():"").then(markdown=>parseGoogleMarkdown(markdown).filter(result=>{try{const host=new URL(result.url).hostname.toLowerCase();return institution!.officialDomains.some(domain=>host===domain||host.endsWith("."+domain));}catch{return false;}})).catch(()=>[] as SearchResult[]):Promise.resolve([] as SearchResult[])
+      .then(response=>response.ok?response.text():"").then(markdown=>parseGoogleMarkdown(markdown).filter(result=>{try{const host=new URL(result.url).hostname.toLowerCase();return institution!.officialDomains.some(domain=>host===domain||host.endsWith("."+domain));}catch{return false;}})).catch(()=>[] as SearchResult[]):Promise.resolve([] as SearchResult[]),
+    noticeQuery&&institution?discoverOfficialNotices(institution.officialDomains,resolved.academicSession):Promise.resolve([] as SearchResult[])
   ]);
   const readerUrl=`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
   try{
     const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:300},signal:AbortSignal.timeout(8_000)});
     if(!response.ok)throw new Error(`Search service returned ${response.status}`);
     const webResults=parseGoogleMarkdown(await response.text());
-    const deduped=[...noticeResults,...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
+    const deduped=[...discoveredNotices,...noticeResults,...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const results=deduped.sort((a,b)=>currentSensitive ? Number(b.official)-Number(a.official) : Number(Boolean(b.internal))-Number(Boolean(a.internal))).slice(0,7);
     const scoreEvidence=institution&&resolved.intent==="cutoff"?results.filter(item=>{if(!item.official)return false;try{const hostname=new URL(item.url).hostname.toLowerCase();return institution.officialDomains.some(domain=>hostname===domain||hostname.endsWith("."+domain));}catch{return false;}}):results;
     const registrationStatusQuery=(resolved.intent==="status"||resolved.intent==="deadline")&&/\b(post.?utme|screening|registration|application|admission form|portal)\b/i.test(safeQuestion);
@@ -461,7 +488,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const needsReview=registrationDeadline?false:statusUnverified||unverifiedFallback||Boolean(evidenceDecision?.conflict)||composed.needsHuman;const sourceType=results.some(r=>r.official)?"official_live":results.some(r=>r.internal)?"internal":"web";void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:finalConfidence,answered:!needsReview,sourceType,latencyMs:Date.now()-startedAt});
     return NextResponse.json({query:safeQuestion,googleUrl,results,searchedAt:new Date().toISOString(),knowledgeMatches:internalResults.length,currentSensitive,...composed,confidence:finalConfidence,needsHuman:needsReview,answer:finalAnswer,generative:Boolean(generated),contradiction:Boolean(evidenceDecision?.conflict),sourceType,intent:resolved.intent,answerMode:resolved.answerMode});
   }catch(error){
-    const fallbackResults=[...noticeResults,...officialResults,...internalResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
+    const fallbackResults=[...discoveredNotices,...noticeResults,...officialResults,...internalResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const registrationQuery=Boolean(institution&&(resolved.intent==="deadline"||resolved.intent==="status")&&/\\b(post.?utme|screening|registration|application|admission form|portal)\\b/i.test(safeQuestion));
     const verifiedDeadline=registrationQuery&&institution?verifiedRegistrationDeadline(fallbackResults,institution.officialDomains,resolved.academicSession):null;
     const exactFallback=resolved.answerMode==="numeric"||resolved.answerMode==="name";
