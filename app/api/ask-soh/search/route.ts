@@ -80,8 +80,18 @@ function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:
     if(!institutionDomains.some(domain=>host===domain||host.endsWith("."+domain)))continue;
     const text=cleanText(result.title+" "+result.snippet);
     if(!text.includes(session)||!/post.?utme|admission screening|screening registration/i.test(text))continue;
-    const match=text.match(/(?:closing date|registration closes?|application deadline|deadline for (?:registration|application))\\s*(?:is|:|-|on|by)?\\s*(\\d{1,2})(?:st|nd|rd|th)?\\s+(January|February|March|April|May|June|July|August|September|October|November|December)\\s*,?\\s*(20\\d{2})/i);
-    if(!match)continue;
+    const lead=/(?:closing date|registration closes?|application deadline|deadline for (?:registration|application))\s*(?:is|:|-|on|by|will be)?\s*/ig;
+    let dateParts:RegExpMatchArray|null=null;
+    for(const marker of text.matchAll(lead)){
+      const nearby=text.slice(marker.index!+marker[0].length,marker.index!+marker[0].length+48);
+      dateParts=nearby.match(/^(\d{1,2})(?:st|nd|rd|th)?[\s/-]+(January|February|March|April|May|June|July|August|September|October|November|December)[\s,/-]+(20\d{2})\b/i)
+        ||nearby.match(/^(\d{1,2})[\s/-]+(0?[1-9]|1[0-2])[\s/-]+(20\d{2})\b/);
+      if(dateParts)break;
+    }
+    if(!dateParts)continue;
+    const monthName=/[a-z]/i.test(dateParts[2])?dateParts[2]:months[Number(dateParts[2])-1];
+    const match=[dateParts[0],dateParts[1],monthName,dateParts[3]];
+    
     const month=months.indexOf(match[2].toLowerCase());const day=Number(match[1]);const year=Number(match[3]);
     const deadline=new Date(Date.UTC(year,month,day,23,59,59));
     if(month<0||deadline.getUTCDate()!==day||deadline.getUTCMonth()!==month)continue;
