@@ -388,13 +388,22 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const topicHint=/\bwaec\b|west african examinations council/i.test(resolvedQuestion)?" WAEC examination results certificates":/\bneco\b|national examinations council/i.test(resolvedQuestion)?" NECO examination results":/\bjamb\b|\butme\b|\bcaps\b|admission|screening|direct entry/i.test(resolvedQuestion)?" Nigeria admission JAMB":"";
   const googleQuery=`${resolvedQuestion}${institutionHint}${topicHint}${officialHint}`;
   const googleUrl=`https://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
-  const [internalResults,officialResults]=await Promise.all([searchSOH(resolvedQuestion),searchOfficialSites(resolvedQuestion)]);
+  const noticeQuery=Boolean(institution&&/\\b(post.?utme|screening|registration|deadline|extension|closing date)\\b/i.test(safeQuestion));
+  const institutionDomain=noticeQuery?institution?.officialDomains[0]:undefined;
+  const noticeSearchQuery=institutionDomain?`site:${institutionDomain} "${resolved.academicSession||"2026/2027"}" (post utme screening registration deadline extension)`:null;
+  const noticeReaderUrl=noticeSearchQuery?`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(noticeSearchQuery)}&num=8&hl=en`:null;
+  const [internalResults,officialResults,noticeResults]=await Promise.all([
+    searchSOH(resolvedQuestion),
+    searchOfficialSites(resolvedQuestion),
+    noticeReaderUrl?fetch(noticeReaderUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:180},signal:AbortSignal.timeout(8_000)})
+      .then(response=>response.ok?response.text():"").then(markdown=>parseGoogleMarkdown(markdown).filter(result=>{try{const host=new URL(result.url).hostname.toLowerCase();return institution!.officialDomains.some(domain=>host===domain||host.endsWith("."+domain));}catch{return false;}})).catch(()=>[] as SearchResult[]):Promise.resolve([] as SearchResult[])
+  ]);
   const readerUrl=`https://r.jina.ai/http://www.google.com/search?q=${encodeURIComponent(googleQuery)}&num=8&hl=en`;
   try{
     const response=await fetch(readerUrl,{headers:{Accept:"text/plain","X-Return-Format":"markdown"},next:{revalidate:300},signal:AbortSignal.timeout(8_000)});
     if(!response.ok)throw new Error(`Search service returned ${response.status}`);
     const webResults=parseGoogleMarkdown(await response.text());
-    const deduped=[...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
+    const deduped=[...noticeResults,...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const results=deduped.sort((a,b)=>currentSensitive ? Number(b.official)-Number(a.official) : Number(Boolean(b.internal))-Number(Boolean(a.internal))).slice(0,7);
     const scoreEvidence=institution&&resolved.intent==="cutoff"?results.filter(item=>{if(!item.official)return false;try{const hostname=new URL(item.url).hostname.toLowerCase();return institution.officialDomains.some(domain=>hostname===domain||hostname.endsWith("."+domain));}catch{return false;}}):results;
     const registrationStatusQuery=resolved.intent==="status"&&/\b(post.?utme|screening|registration|application|admission form|portal)\b/i.test(safeQuestion);
