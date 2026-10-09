@@ -78,8 +78,17 @@ function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:
     if(!result.official)continue;
     let host:string;try{host=new URL(result.url).hostname.toLowerCase();}catch{continue;}
     if(!institutionDomains.some(domain=>host===domain||host.endsWith("."+domain)))continue;
-    const text=cleanText(result.title+" "+result.snippet);
+    // A search-results listing can contain many academic sessions and unrelated deadlines.
+    // Only use a notice whose own URL or title identifies the requested session.
+    const noticeIdentity=cleanText(result.title+" "+result.url);
+    const sessionTokens=[session,session.replace("/","-"),session.replace("/","_"),session.replace("/","%2F")];
+    if(!sessionTokens.some(token=>noticeIdentity.toLowerCase().includes(token.toLowerCase())))continue;
+    const text=cleanText(result.snippet);
     if(!text.includes(session)||!/post.?utme|admission screening|screening registration/i.test(text))continue;
+    // If the source contains multiple sessions, we cannot reliably bind its dates
+    // to the requested session without structured notice-level provenance.
+    const sessions=[...new Set(text.match(/20\\d{2}\\s*\\/\\s*20\\d{2}/g)||[])];
+    if(sessions.length!==1||sessions[0].replace(/\\s/g,"")!==session)continue;
     const lead=/(?:closing date|registration closes?|application deadline|deadline for (?:registration|application))\s*(?:is|:|-|on|by|will be)?\s*/ig;
     let dateParts:RegExpMatchArray|null=null;
     for(const marker of text.matchAll(lead)){
