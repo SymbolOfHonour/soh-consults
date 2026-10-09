@@ -27,8 +27,13 @@ export function verifyAnswer(question:string,q:ResolvedQuestion,documents:Source
  const applicable=rankDocuments(documents.filter(d=>applicableDocument(d,q,now)),question,q);
  if(!applicable.length)return uncertain('No fresh, session-specific evidence was available.');
  if(q.intent==='deadline'||q.intent==='status'){
+  const screening=/post.?utme|screening/i.test(question);
+  const categories=/transfer|jupeb|preliminary|pre.?degree|sandwich|part.?time|postgraduate|direct entry|examination|waec|neco|jamb/i;
+  if(!screening&&!categories.test(question))return uncertain('Which application type or examination do you mean?',false,applicable.slice(0,3));
   const dates:{date:string;extension:boolean;d:SourceDocument}[]=[];
-  for(const d of applicable){if(d.kind==='homepage'||d.kind==='search'||!/registration|application|screening|post.?utme|admission|examination/i.test(d.title+' '+d.snippet))continue;
+  for(const d of applicable){if(screening&&/transfer|jupeb|preliminary|\bsps\b|pre.?degree|sandwich|part.?time|postgraduate/i.test(d.title))continue;
+   if(screening&&!/post.?utme|(?:pre.?admission|admission|registration) screening|screening registration/i.test(d.title+' '+d.snippet))continue;
+   if(d.kind==='homepage'||d.kind==='search'||!/registration|application|screening|post.?utme|admission|examination/i.test(d.title+' '+d.snippet))continue;
    const lead=/(?:closing date|registration closes?|registration deadline(?:\s*\([^)]{0,30}\))?|application deadline|deadline for (?:registration|application)|new closing date|revised deadline|(?:registration|application|screening)[^.]{0,65}?extended (?:to|until)|deadline[^.]{0,50}?extended (?:to|until)|portal[^.]{0,50}?will (?:officially )?close)\s*(?:is|:|-|on|by|will be)?\s*/ig;
    for(const marker of d.snippet.matchAll(lead)){const date=parseCalendarDate(d.snippet.slice(marker.index!+marker[0].length,marker.index!+marker[0].length+70));if(date)dates.push({date,extension:/extended|new closing|revised/.test(marker[0].toLowerCase())||/extension|extended/i.test(d.title),d});}
   }

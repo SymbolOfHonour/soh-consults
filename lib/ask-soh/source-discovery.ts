@@ -68,7 +68,8 @@ export async function discoverOfficialSources(institution:InstitutionRecord,ques
  const listings=links.filter(l=>sourceAllowed(l.url,institution)&&/news\/?$|admission\/?$|events\.php$|news\.php$/i.test(l.url)).slice(0,3);
  await Promise.all(listings.map(async link=>links.push(...htmlLinks(await read(link.url,'news-listing'),link.url))));
  for(const link of links){try{const url=new URL(link.url);for(const key of [...url.searchParams.keys()])if(key.startsWith('utm_'))url.searchParams.delete(key);url.hash='';link.url=url.href;}catch{}}
- const unique=[...new Map(links.filter(l=>sourceAllowed(l.url,institution)).map(l=>[l.url,l])).values()].sort((a,b)=>relevance(b,question,session)-relevance(a,question,session)).slice(0,options.maxDocuments||10);
+ const merged=new Map<string,Link>();for(const link of links.filter(l=>sourceAllowed(l.url,institution))){const previous=merged.get(link.url);merged.set(link.url,{...link,title:previous?.title||link.title,abstract:previous?.abstract||link.abstract,publishedAt:previous?.publishedAt||link.publishedAt});}
+ const unique=[...merged.values()].sort((a,b)=>relevance(b,question,session)-relevance(a,question,session)).slice(0,options.maxDocuments||10);
  const fetched=await Promise.all(unique.map(link=>fetchOfficialDocument(link,institution,options,'discovery')));
  fetched.forEach(r=>{if(r.gap)gaps.push(r.gap);});const result={documents:fetched.flatMap(r=>r.document?[r.document]:[]),gaps};
  if(options.useCache!==false&&result.documents.length)cacheSet(cacheKey,result,180);return {...result,cacheHit:false};

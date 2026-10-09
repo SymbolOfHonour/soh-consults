@@ -14,12 +14,13 @@ Existing `ask_soh_facts`, `ask_soh_institutions` and `ask_soh_fact_versions` are
 
 ## Verification
 
-- 275 repository tests passed, including 75 Ask S.O.H behavioural/service tests; TypeScript and targeted ESLint passed.
+- 278 repository tests passed, including 78 Ask S.O.H behavioural/service tests; TypeScript and targeted ESLint passed.
 - Local Next.js production build passed for the initial architectural commit; the corrected code is validated by Vercel Preview before acceptance.
 - QA migration applied; production migration/release not applied.
 - QA transaction: editing a verified fact produced `status=review`, `verified_at=null`, and exactly one version. Rolled back all test rows.
 - QA semantic query: matching vector returned 1 test fact, opposite vector returned 0. Rolled back test data.
 - Initial Preview discovered real UNILORIN articles but exposed an Elementor/sidebar extraction error. Fixed by balanced post-content extraction and content-aware notice ranking, with a regression test. A fresh official-page download confirmed the article body and stated registration deadline.
+- Corrected Preview also exposed category ambiguity: a generic registration question selected an inter-university transfer notice. Added an application-type clarification gate and screening-category exclusions, plus behavioural regression tests.
 - Automated actual-source evaluation covers UNILORIN, LASU, FUOYE, LASUSTECH, UNIOSUN, JAMB, WAEC and NECO. Retrieval failures are preserved as coverage gaps, not successful deadline answers. Run `node --use-env-proxy scripts/ask-soh-live-evaluation.cjs /tmp/ask-soh-live.json`.
 
 ## Acceptance and deployment
