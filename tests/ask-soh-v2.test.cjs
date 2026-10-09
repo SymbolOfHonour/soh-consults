@@ -1,67 +1,22 @@
-const test=require("node:test");const assert=require("node:assert/strict");const fs=require("node:fs");const path=require("node:path");
-const resolver=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/question-resolver.ts"),"utf8");
-const repo=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/knowledge-repository.ts"),"utf8");
-const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
-const migration=fs.readFileSync(path.join(process.cwd(),"supabase/ask-soh-v2-migration.sql"),"utf8");
-test("v2 resolves facts before live retrieval",()=>{assert.match(route,/findVerifiedFact\(resolved,safeQuestion\)/);assert.match(route,/sourceType:"verified_knowledge"/);});
-test("v2 has bounded institution resolution",()=>{assert.match(resolver,/explicit=resolveInstitution\(question\)/);assert.match(resolver,/inherited=!explicit&&context/);});
-test("v2 routes simple answer modes",()=>{assert.match(resolver,/intent==="cutoff"\?"numeric"/);assert.match(resolver,/intent==="vice_chancellor"\?"name"/);assert.match(resolver,/status\?"boolean"/);});
-test("v2 separates freshness from stable facts",()=>{assert.match(resolver,/currentSensitive:cutoff\|\|CURRENT\.test\(question\)/);assert.match(resolver,/CURRENT\.test\(question\)/);assert.match(route,/!knowledge\.stale&&!resolved\.currentSensitive/);});
-test("v2 knowledge lifecycle and provenance exist",()=>{for(const token of ["ask_soh_facts","ask_soh_fact_versions","review_due_at","evidence_text","source_authority","due_review","expired","archived"])assert.match(migration,new RegExp(token));});
-test("v2 telemetry and feedback stores exist",()=>{assert.match(migration,/ask_soh_questions/);assert.match(migration,/ask_soh_feedback/);});
-test("v2 repository filters to verified knowledge",()=>{assert.match(repo,/\["verified","published"\]/);assert.match(repo,/valid_until/);});
-
-test("v2 protects current-sensitive queries from stable cache",()=>{assert.match(route,/cached=!resolved\.currentSensitive/);assert.match(route,/cacheSet\(cacheKey/);});
-test("v2 records privacy-safe telemetry",()=>{const telemetry=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/telemetry.ts"),"utf8");assert.match(telemetry,/redactQuestion/);assert.match(telemetry,/question_hash/);assert.match(telemetry,/cache_hit/);});
-test("v2 reconciles contradictory evidence",()=>{const evidence=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/evidence.ts"),"utf8");assert.match(evidence,/conflict/);assert.match(evidence,/requires review/);assert.match(evidence,/sourceUrl/);});
-test("v2 evaluation corpus covers at least 60 diverse questions",()=>{const corpus=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/evaluation-cases.ts"),"utf8");const count=(corpus.match(/\{q:/g)||[]).length;assert.ok(count>=60);for(const token of ["LASU","FUTA","OAU","JAMB","WAEC","NYSC","LASUSTECH","UNIOSUN","OOU","YABATECH"])assert.match(corpus,new RegExp(token));});
-
-test("v2 admin enforces review lifecycle",()=>{const api=fs.readFileSync(path.join(process.cwd(),"app/api/admin/ask-soh-knowledge/route.ts"),"utf8");assert.match(api,/draft:\["review","archived"\]/);assert.match(api,/review:\["verified","draft","archived"\]/);assert.match(api,/Invalid knowledge transition/);});
-test("v2 feedback is privacy protected and rate limited",()=>{const feedback=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/feedback/route.ts"),"utf8");assert.match(feedback,/checkRateLimit/);assert.match(feedback,/redactQuestion/);assert.match(feedback,/questionHash/);});
-
-test("v2 route has no hard-coded FUTA/LASU answer authority",()=>{assert.doesNotMatch(route,/function verifiedFactAnswer/);assert.doesNotMatch(route,/LASU's Vice-Chancellor is/);assert.doesNotMatch(route,/FUTA's minimum UTME score/);});
-test("v2 official retrieval follows resolved institution",()=>{assert.match(route,/INSTITUTIONS\.find/);assert.match(route,/institution\.officialDomains\[0\]/);assert.doesNotMatch(route,/site:lasu\.edu\.ng/);});
-test("v2 records all retrieval outcomes",()=>{for(const source of ["verified_knowledge","verified_cache","official_live","internal","web","none"])assert.match(route,new RegExp(source));});
-
-test("v2 contradiction engine is active in live route",()=>{assert.match(route,/reconcileEvidence/);assert.match(route,/contradiction:Boolean/);assert.match(route,/needsReview/);});
-test("v2 bulk imports require review",()=>{const bulk=fs.readFileSync(path.join(process.cwd(),"app/api/admin/ask-soh-knowledge/import/route.ts"),"utf8");assert.match(bulk,/status:"review"/);assert.doesNotMatch(bulk,/status:"published"/);});
-
-test("v2 semantic retrieval is verified and bounded",()=>{assert.match(migration,/embedding extensions\.vector\(1536\)/);assert.match(migration,/match_ask_soh_facts/);assert.match(route,/semanticCandidate/);assert.match(route,/verified_semantic/);assert.match(route,/!resolved\.currentSensitive&&semanticCandidate/);});
-
-test("v2 privacy hashing remains edge compatible",()=>{const privacy=fs.readFileSync(path.join(process.cwd(),"lib/ask-soh/privacy.ts"),"utf8");assert.doesNotMatch(privacy,/from [\"']crypto[\"']/);assert.match(privacy,/crypto\.subtle\.digest/);});
-
-test("v2 numeric answer mode shapes official evidence to a value",()=>{assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,scoreEvidence\)/);assert.match(route,/mode===\"numeric\"/);assert.match(route,/n>=100&&n<=400/);assert.doesNotMatch(route,/answer:\"195\"/);});
-
-test("v2 bypasses generation for exact facts lacking evidence",()=>{assert.match(route,/exactMode=resolved\.answerMode===\"numeric\"\|\|resolved\.answerMode===\"name\"/);assert.match(route,/generated=exactMode\|\|registrationStatusQuery\?null:/);});
-
-test("v2 numeric shaper only accepts explicit admission-score patterns",()=>{assert.match(route,/explicitPatterns/);assert.doesNotMatch(route,/window=text\\.slice/);});
-
-test("v2 numeric shaper accepts plus-suffixed scores",()=>{const m="195+ Minimum UTME Score".match(/\b(\d{3})\+?(?!\d)/);assert.equal(m?.[1],"195");});
-
-
-test("v2 numeric score priority ignores unrelated 100+ programme counts",()=>{const text="100+ Programmes Available Online 24/7 Access Important Minimum score of 195 in the 2026 UTME";const patterns=[/(?:cut.?of{1,2}(?:\s+mark)?|minimum(?:\s+utme)?(?:\s+score)?|utme(?:\s+minimum)?(?:\s+score)?|jamb(?:\s+minimum)?(?:\s+score)?|minimum\s+score(?:\s+of)?)\D{0,40}(\d{3})(?:\+)?/i,/(\d{3})(?:\+)?\s*(?:minimum\s*)?(?:utme|jamb)?\s*(?:score|mark)/i];const found=patterns.map(p=>text.match(p)?.[1]).find(Boolean);assert.equal(found,"195");});
-
-
-test("v2 refuses unverified exact answers instead of returning page boilerplate",()=>{assert.match(route,/exactUnverified=/);assert.match(route,/they do not expose the exact answer clearly enough/);assert.match(route,/fallbackLooksLikeBoilerplate=/);assert.match(route,/Site Map\|Staff Directory\|Faculties Departments/);});
-
-
-test("v2 gives a concise JAMB CAPS definition from official JAMB evidence",()=>{assert.match(route,/Central Admissions Processing System used by JAMB/);});
-test("v2 rejects procedural FUOYE guides as Direct Entry requirements",()=>{assert.match(route,/registration guide\|application guide\|walkthrough\|acceptance\|screening fees\|admission status/);});
-
-
-test("verified knowledge retrieval supports ranked general facts",()=>{assert.match(repo,/const scored=facts\.map/);assert.match(repo,/q\.intent===\"general\"&&scored\[0\]\?\.score===0/);});
-
-test("general facts rank by user question rather than CAPS hardcoding",()=>{assert.match(route,/findVerifiedFact\(resolved,safeQuestion\)/);assert.match(repo,/terms\.reduce/);assert.doesNotMatch(repo,/topic\.toLowerCase\(\)\.includes\("caps"\)/);});
-
-test("Ask S.O.H frontend exposes rate limits and backend errors instead of generic search failure",()=>{const ui=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");assert.match(ui,/response\.status===429/);assert.match(ui,/payload\.error/);assert.match(ui,/if \(!response\.ok \|\| payload\.error\)/);});
-
-test("Ask S.O.H handles missing results safely and does not mask empty API responses",()=>{const ui=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");assert.match(ui,/Array\.isArray\(payload\.results\)/);assert.match(ui,/received no usable answer or sources/);assert.doesNotMatch(ui,/I couldn’t retrieve a reliable live result just now/);});
-
-test("official page retrieval has explicit bounded upstream timeouts",()=>{assert.match(route,/redirect:"follow",next:\{revalidate:180\},signal:AbortSignal\.timeout\(4_000\)/);assert.match(route,/next:\{revalidate:180\},signal:AbortSignal\.timeout\(4_000\)/);});
-
-test("general knowledge answers cannot reuse institution-only cache",()=>{assert.match(route,/resolved\.intent!=="general"\?cacheGet/);assert.match(route,/if\(resolved\.intent!=="general"\)cacheSet/);});
-
-test("verified fact topic match outranks incidental mentions in other answers",()=>{assert.match(repo,/topic\.includes\(w\)\?10:body\.includes\(w\)\?1:0/);});
-
-
-test("WAEC and NECO web queries use topic-specific hints without forced JAMB admission",()=>{assert.match(route,/const topicHint=/);assert.match(route,/WAEC examination results certificates/);assert.match(route,/NECO examination results/);assert.match(route,/Nigeria admission JAMB/);assert.doesNotMatch(route,/const googleQuery=`\$\{resolvedQuestion\}\$\{institutionHint\} Nigeria admission JAMB/);assert.match(route,/const googleQuery=`\$\{resolvedQuestion\}\$\{institutionHint\}\$\{topicHint\}\$\{officialHint\}`/);});
+require('../scripts/ask-soh-test-loader.cjs');
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
+const {factApplicable}=require('../lib/ask-soh/knowledge-repository.ts');
+const {resolveQuestion}=require('../lib/ask-soh/question-resolver.ts');
+const {INSTITUTIONS,resolveInstitution}=require('../lib/ask-soh/institution-registry.ts');
+const {fetchOfficialDocument,discoverOfficialSources,searchProviderSources}=require('../lib/ask-soh/source-discovery.ts');
+const {verifyAnswer}=require('../lib/ask-soh/answer-verification.ts');
+const inst=INSTITUTIONS.find(i=>i.key==='unilorin');
+const fact={id:'test',institution_key:'lasu',intent:'cutoff',topic:'UTME minimum',value_text:'195',academic_session:'2026/2027',source_url:'https://lasu.edu.ng/notice',evidence_text:'Minimum score of 195',status:'verified',verified_at:new Date().toISOString(),review_due_at:'2099-01-01'};
+const q=resolveQuestion('LASU 2026/2027 minimum JAMB score');
+test('reviewed applicable fact accepted',()=>assert.equal(factApplicable(fact,q),true));
+for(const [label,patch] of [['draft',{status:'draft'}],['conflict',{conflicting_evidence:true}],['unverified',{verified_at:null}],['expired review',{review_due_at:'2020-01-01'}],['bad date',{valid_until:'bad'}],['future',{valid_from:'2099-01-01'}],['wrong session',{academic_session:'2025/2026'}],['no session',{academic_session:null}],['third party',{source_url:'https://example.org/'}],['no evidence',{evidence_text:null}]])test('fact refuses '+label,()=>assert.equal(factApplicable({...fact,...patch},q),false));
+for(const key of ['unilorin','lasu','fuoye','lasustech','uniosun','jamb','waec','neco'])test('registry and resolver '+key,()=>{assert.equal(resolveInstitution(key.toUpperCase()).key,key);assert.ok(INSTITUTIONS.find(i=>i.key===key).officialDomains.length);});
+test('session separators normalized',()=>assert.equal(resolveQuestion('LASU 2026-2027 deadline').academicSession,'2026/2027'));
+test('non-official redirects rejected before fetch',async()=>{let calls=0;const r=await fetchOfficialDocument({url:'https://unilorin.edu.ng/notice',title:'Notice'},inst,{fetcher:async()=>{calls++;return new Response('',{status:302,headers:{location:'https://example.org/notice'}});}});assert.equal(r.document,null);assert.equal(calls,1);assert.match(r.gap.reason,/Non-official/);});
+test('publication and article body extracted',async()=>{const r=await fetchOfficialDocument({url:'https://unilorin.edu.ng/notice',title:'Notice'},inst,{fetcher:async()=>new Response('<title>Screening notice</title><meta property="article:published_time" content="2026-09-20"><nav>Menus</nav><article>2026/2027 screening registration. Closing date: 15 October 2026. Please apply through the portal.</article>',{headers:{'content-type':'text/html'}})});assert.equal(r.document.publishedAt,'2026-09-20T00:00:00.000Z');assert.doesNotMatch(r.document.snippet,/Menus/);assert.equal(r.document.session,'2026/2027');});
+test('WordPress unavailable does not disable RSS discovery',async()=>{const fetcher=async url=>{url=String(url);if(url.endsWith('/feed/'))return new Response('<rss><item><title>2026/2027 screening notice</title><link>https://unilorin.edu.ng/screening-notice</link><pubDate>2026-09-20</pubDate></item></rss>');if(url.endsWith('screening-notice'))return new Response('<article>2026/2027 screening. Closing date: 15 October 2026. All interested candidates should apply.</article>',{headers:{'content-type':'text/html'}});return new Response('',{status:404});};const r=await discoverOfficialSources(inst,'screening deadline','2026/2027',{fetcher,useCache:false});assert.ok(r.documents.some(d=>d.url.endsWith('screening-notice')));assert.ok(r.gaps.some(g=>g.adapter==='wordpress'));});
+test('non-WordPress homepage links discover articles and PDFs',async()=>{const fetcher=async url=>String(url)==='https://unilorin.edu.ng/'?new Response('<a href="/screening-news">2026/2027 screening notice</a>'):String(url).endsWith('screening-news')?new Response('<article>2026/2027 screening registration closes on 15 October 2026. Interested candidates should apply.</article>',{headers:{'content-type':'text/html'}}):new Response('',{status:404});const r=await discoverOfficialSources(inst,'screening','2026/2027',{fetcher,useCache:false});assert.ok(r.documents.some(d=>d.url.endsWith('/screening-news')));});
+test('provider failures are gaps and cannot produce high confidence',async()=>{const r=await searchProviderSources('deadline',inst,{fetcher:async()=>new Response('',{status:503})});assert.equal(r.documents.length,0);assert.ok(r.gaps.length>=2);assert.equal(verifyAnswer('',resolveQuestion('UNILORIN 2026/2027 deadline'),r.documents).confidence,'low');});
+test('search hits require fetching article body',async()=>{const r=await searchProviderSources('deadline',inst,{fetcher:async url=>String(url).includes('r.jina.ai')?new Response('[Official notice](https://unilorin.edu.ng/notice)\nClosing date 15 October 2026'):new Response('',{status:403})});assert.equal(r.documents.length,0);assert.ok(r.gaps.some(g=>g.adapter==='search-provider'));});
+test('actual PDF parser extracts evidence',async()=>{const {jsPDF}=require('jspdf');const pdf=new jsPDF();pdf.text('2026/2027 Screening. Registration closes on 15 October 2026.',10,20);const r=await fetchOfficialDocument({url:'https://unilorin.edu.ng/notice.pdf',title:'Screening'},inst,{fetcher:async()=>new Response(pdf.output('arraybuffer'),{headers:{'content-type':'application/pdf'}})});assert.ok(r.document,r.gap?.reason);assert.equal(r.document.kind,'pdf');assert.match(r.document.snippet,/15 October 2026/);});
+test('schema keeps existing registry and adds transactional provenance',()=>{const sql=fs.readFileSync('supabase/ask-soh-phase1-evidence.sql','utf8');assert.match(sql,/ask_soh_fact_versions/);assert.match(sql,/before insert or update/);assert.match(sql,/new.status:='review'/);assert.match(sql,/revoke all.*anon,authenticated/);});
