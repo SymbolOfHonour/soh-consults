@@ -74,7 +74,7 @@ function isOfficial(url:string){try{const host=new URL(url).hostname.toLowerCase
 function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:string[],session:string|null){
   if(!session)return null;
   const months="january february march april may june july august september october november december".split(" ");
-  const candidates:Array<{deadline:Date;formatted:string;url:string}>=[];
+  const candidates:Array<{deadline:Date;formatted:string;url:string;extension:boolean}>=[];
   for(const result of results){
     if(!result.official)continue;
     let host:string;try{host=new URL(result.url).hostname.toLowerCase();}catch{continue;}
@@ -110,12 +110,21 @@ function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:
     const deadline=new Date(Date.UTC(year,month,day,23,59,59));
     if(month<0||deadline.getUTCDate()!==day||deadline.getUTCMonth()!==month)continue;
     const formatted=day+" "+match[2][0].toUpperCase()+match[2].slice(1).toLowerCase()+" "+year;
-    candidates.push({deadline,formatted,url:result.url});
+    const extension=/\b(?:extended|extension|postponed|revised)\b/i.test(result.title+" "+text) && /\b(?:extended to|extension to|new closing date|revised deadline|registration closes?)\b/i.test(text);
+    candidates.push({deadline,formatted,url:result.url,extension});
   }
   if(candidates.length===0)return null;
   const dates=[...new Set(candidates.map(candidate=>candidate.deadline.toISOString().slice(0,10)))];
-  if(dates.length>1)return null; // Conflicting official notices may include an extension; do not pick the first.
-  const {deadline,formatted,url}=candidates[0];
+  let selected=candidates[0];
+  if(dates.length>1){
+    const extensions=candidates.filter(candidate=>candidate.extension);
+    const extensionDates=[...new Set(extensions.map(candidate=>candidate.deadline.toISOString().slice(0,10)))];
+    if(extensionDates.length!==1)return null;
+    const latest=Math.max(...candidates.map(candidate=>candidate.deadline.getTime()));
+    if(extensions[0].deadline.getTime()!==latest)return null;
+    selected=extensions[0];
+  }
+  const {deadline,formatted,url}=selected;
   return {answer:deadline.getTime()<Date.now()?("The official "+session+" screening notice lists "+formatted+" as the registration deadline, and that date has passed. This does not rule out a later official extension; check the portal for updates."):("The official "+session+" screening notice lists "+formatted+" as the registration deadline. The date has not yet passed, but confirm that the portal is accepting applications before paying."),url};
 }
 
