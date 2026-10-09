@@ -74,6 +74,7 @@ function isOfficial(url:string){try{const host=new URL(url).hostname.toLowerCase
 function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:string[],session:string|null){
   if(!session)return null;
   const months="january february march april may june july august september october november december".split(" ");
+  const candidates:Array<{deadline:Date;formatted:string;url:string}>=[];
   for(const result of results){
     if(!result.official)continue;
     let host:string;try{host=new URL(result.url).hostname.toLowerCase();}catch{continue;}
@@ -109,9 +110,13 @@ function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:
     const deadline=new Date(Date.UTC(year,month,day,23,59,59));
     if(month<0||deadline.getUTCDate()!==day||deadline.getUTCMonth()!==month)continue;
     const formatted=day+" "+match[2][0].toUpperCase()+match[2].slice(1).toLowerCase()+" "+year;
-    return {answer:deadline.getTime()<Date.now()?("The official "+session+" screening notice lists "+formatted+" as the registration deadline, and that date has passed. This does not rule out a later official extension; check the portal for updates."):("The official "+session+" screening notice lists "+formatted+" as the registration deadline. The date has not yet passed, but confirm that the portal is accepting applications before paying."),url:result.url};
+    candidates.push({deadline,formatted,url:result.url});
   }
-  return null;
+  if(candidates.length===0)return null;
+  const dates=[...new Set(candidates.map(candidate=>candidate.deadline.toISOString().slice(0,10)))];
+  if(dates.length>1)return null; // Conflicting official notices may include an extension; do not pick the first.
+  const {deadline,formatted,url}=candidates[0];
+  return {answer:deadline.getTime()<Date.now()?("The official "+session+" screening notice lists "+formatted+" as the registration deadline, and that date has passed. This does not rule out a later official extension; check the portal for updates."):("The official "+session+" screening notice lists "+formatted+" as the registration deadline. The date has not yet passed, but confirm that the portal is accepting applications before paying."),url};
 }
 
 function shapeEvidenceAnswer(mode:string,results:SearchResult[]){if(mode!=="numeric")return null;for(const result of results.filter(r=>r.official)){const text=cleanText(result.title+" "+result.snippet);const minimumScore=text.match(/minimum\s+score\s+of\s+(\d{3})(?:\+)?/i);if(minimumScore){const n=Number(minimumScore[1]);if(n>=100&&n<=400)return String(n);}const minimumUtme=text.match(/minimum\s+utme\s+score(?:\s+of)?\s*(\d{3})(?:\+)?/i);if(minimumUtme){const n=Number(minimumUtme[1]);if(n>=100&&n<=400)return String(n);}const explicitPatterns=[/(?:cut.?of{1,2}(?:\s+mark)?|minimum(?:\s+utme)(?:\s+score)?|utme(?:\s+minimum)?(?:\s+score)?|jamb(?:\s+minimum)?(?:\s+score)?|minimum\s+score(?:\s+of)?)\D{0,40}(\d{3})(?:\+)?/i,/(\d{3})(?:\+)?\s*(?:minimum\s*)?(?:utme|jamb)?\s*(?:score|mark)/i];for(const pattern of explicitPatterns){const match=text.match(pattern);if(match){const n=Number(match[1]);if(n>=100&&n<=400)return String(n);}}}return null;}
