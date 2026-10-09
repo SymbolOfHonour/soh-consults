@@ -87,7 +87,7 @@ function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:
     if(!text.includes(session)||!/post.?utme|admission screening|screening registration/i.test(text))continue;
     // If the source contains multiple sessions, we cannot reliably bind its dates
     // to the requested session without structured notice-level provenance.
-    const sessions=[...new Set(text.match(/20\\d{2}\\s*\\/\\s*20\\d{2}/g)||[])];
+    const sessions=[...new Set(text.match(/20\\d{2}\\s*\/\\s*20\\d{2}/g)||[])];
     if(sessions.length!==1||sessions[0].replace(/\\s/g,"")!==session)continue;
     const lead=/(?:closing date|registration closes?|application deadline|deadline for (?:registration|application))\s*(?:is|:|-|on|by|will be)?\s*/ig;
     let dateParts:RegExpMatchArray|null=null;
