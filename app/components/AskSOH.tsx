@@ -448,6 +448,21 @@ export default function AskSOH() {
     const pronounFollowUp = question.split(/\s+/).length <= 7 && /\b(it|that|this|they|them|there|its|their)\b/i.test(question);
     const isFollowUp = !explicitSubject && !namedInstitution && Boolean(previousUser) && (followUpCue || pronounFollowUp);
     const subjectContext = isFollowUp ? findFollowUpSubject(recentUserMessages) : "";
+    const acknowledgement=/^(okay|ok|alright|yes|yeah|yep|sure|oya|proceed|continue|go ahead|next)[.! ]*$/i.test(question);
+    const closure=/^(that's all|that is all|stop|end chat|we're done|we are done|no thanks|goodbye|bye)[.! ]*$/i.test(question);
+    const lastAssistant=[...messages].reverse().find(message=>message.role==="assistant"&&message.id!==initialMessage.id);
+    if(closure){
+      addAssistant({id:Date.now()+1,role:"assistant",text:"Understood. I'll stop here. You can return whenever you need more guidance."});
+      return;
+    }
+    if(acknowledgement){
+      const topic=findFollowUpSubject(recentUserMessages);
+      const hasActiveContext=Boolean(lastAssistant&&recentUserMessages.length);
+      addAssistant({id:Date.now()+1,role:"assistant",text:hasActiveContext
+        ?("Understood. We can continue"+(topic?" with "+topic:" from where we left off")+". What would you like me to check or explain next?")
+        :"Welcome! What admission, education or S.O.H CONSULTS question can I help you with?"});
+      return;
+    }
     const match = classifyQuestion(question);
 
     window.setTimeout(() => {
