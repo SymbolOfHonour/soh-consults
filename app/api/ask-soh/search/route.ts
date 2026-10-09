@@ -95,7 +95,7 @@ function verifiedRegistrationDeadline(results:SearchResult[],institutionDomains:
     const month=months.indexOf(match[2].toLowerCase());const day=Number(match[1]);const year=Number(match[3]);
     const deadline=new Date(Date.UTC(year,month,day,23,59,59));
     if(month<0||deadline.getUTCDate()!==day||deadline.getUTCMonth()!==month)continue;
-    const formatted=day+" "+match[2]+" "+year;
+    const formatted=day+" "+match[2][0].toUpperCase()+match[2].slice(1).toLowerCase()+" "+year;
     return {answer:deadline.getTime()<Date.now()?("The official "+session+" screening notice lists "+formatted+" as the registration deadline, and that date has passed. This does not rule out a later official extension; check the portal for updates."):("The official "+session+" screening notice lists "+formatted+" as the registration deadline. The date has not yet passed, but confirm that the portal is accepting applications before paying."),url:result.url};
   }
   return null;
