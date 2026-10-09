@@ -30,3 +30,5 @@ test("registration status bypasses business sales routing",()=>{assert.match(rou
 test("search failure does not return portal boilerplate as exact cutoff",()=>{assert.match(route,/const exactFallback=resolved\.answerMode==="numeric"\|\|resolved\.answerMode==="name"/);assert.match(route,/const composed=exactFallback\?/);});
 
 test("live registration status cannot be inferred from homepage snippets",()=>{assert.match(route,/const registrationStatusQuery=resolved\.intent==="status"/);assert.match(route,/const finalAnswer=statusUnverified\?statusWarning:/);assert.match(route,/const needsReview=statusUnverified\|\|/);assert.match(route,/const generated=exactMode\|\|statusUnverified\?null:/);});
+
+test("dated registration evidence requires session and institution-owned source",()=>{assert.match(route,/function verifiedRegistrationDeadline/);assert.match(route,/if\(!session\)return null/);assert.match(route,/institutionDomains\.some/);assert.match(route,/text\.includes\(session\)/);assert.match(route,/registrationDeadline\?registrationDeadline\.answer/);});
