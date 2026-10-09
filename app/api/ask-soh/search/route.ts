@@ -370,7 +370,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const liveOfficial=results.find(r=>r.official);
     const evidenceDecision=knowledge&&liveOfficial?reconcileEvidence([{value:knowledge.answer,sourceUrl:knowledge.fact.source_url,sourceName:knowledge.fact.source_name,authority:knowledge.fact.source_authority,observedAt:knowledge.fact.verified_at,official:true,verified:true},{value:composed.answer,sourceUrl:liveOfficial.url,sourceName:liveOfficial.title,authority:100,observedAt:new Date().toISOString(),official:true,verified:false}]):null;
     const exactMode=resolved.answerMode==="numeric"||resolved.answerMode==="name";
-    const generated=exactMode||statusUnverified?null:await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
+    const generated=exactMode||registrationStatusQuery?null:await generateGroundedAnswer(resolvedQuestion,history,results,composed.answer,currentSensitive);
     const generatedClean=generated&&!/^(From the strongest source I found:|I checked a current official source\.)/i.test(generated)?generated:null;
     const fallbackLooksLikeBoilerplate=/\b(Site Map|Staff Directory|Faculties Departments|Principal Officers|Quick Links|READ MORE|Webmail|Organogram)\b/i.test(composed.answer);
     const safeFallback=fallbackLooksLikeBoilerplate?"I found official sources, but they do not expose a concise answer clearly enough for me to verify it. I will not guess.":composed.answer;
