@@ -1,5 +1,6 @@
 export type InstitutionRecord={key:string;name:string;aliases:string[];officialDomains:string[]};
 export const INSTITUTIONS:InstitutionRecord[]=[
+ {key:"unilorin",name:"University of Ilorin",aliases:["unilorin","university of ilorin","university of ilorin kwara"],officialDomains:["unilorin.edu.ng"]},
  {key:"lasu",name:"Lagos State University",aliases:["lasu","lagos state university"],officialDomains:["lasu.edu.ng","lidc.lasu.edu.ng","services.lidc.lasu.edu.ng"]},
  {key:"futa",name:"Federal University of Technology Akure",aliases:["futa","federal university of technology akure","federal university of technology, akure"],officialDomains:["futa.edu.ng","admission.futa.edu.ng"]},
  {key:"oau",name:"Obafemi Awolowo University",aliases:["oau","obafemi awolowo university"],officialDomains:["oauife.edu.ng","eportal.oauife.edu.ng"]},
