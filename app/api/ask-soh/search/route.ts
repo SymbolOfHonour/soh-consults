@@ -246,6 +246,9 @@ async function fetchOfficialPage(url:string,title:string):Promise<SearchResult|n
 }
 
 function directOfficialTargets(question:string):Array<{title:string;url:string}>{
+  if(/\bunilorin\b|university of ilorin/i.test(question))return [
+    {title:"University of Ilorin Official Website",url:"https://www.unilorin.edu.ng/"}
+  ];
   if(/\blasu\b|lagos state university/i.test(question)){
     const targets=[
       {title:"LASU 2026/2027 Admission Screening Portal",url:"https://services.lidc.lasu.edu.ng/admissionscreening/"},
@@ -406,7 +409,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     const deduped=[...noticeResults,...officialResults,...internalResults,...webResults].filter((item,index,all)=>isUsableResult(item.title,item.url,item.snippet)&&all.findIndex(other=>other.url===item.url)===index);
     const results=deduped.sort((a,b)=>currentSensitive ? Number(b.official)-Number(a.official) : Number(Boolean(b.internal))-Number(Boolean(a.internal))).slice(0,7);
     const scoreEvidence=institution&&resolved.intent==="cutoff"?results.filter(item=>{if(!item.official)return false;try{const hostname=new URL(item.url).hostname.toLowerCase();return institution.officialDomains.some(domain=>hostname===domain||hostname.endsWith("."+domain));}catch{return false;}}):results;
-    const registrationStatusQuery=resolved.intent==="status"&&/\b(post.?utme|screening|registration|application|admission form|portal)\b/i.test(safeQuestion);
+    const registrationStatusQuery=(resolved.intent==="status"||resolved.intent==="deadline")&&/\b(post.?utme|screening|registration|application|admission form|portal)\b/i.test(safeQuestion);
     const registrationDeadline=registrationStatusQuery&&institution?verifiedRegistrationDeadline(results,institution.officialDomains,resolved.academicSession):null;
     const statusUnverified=registrationStatusQuery&&!registrationDeadline;
     const statusWarning="I found official university pages, but I could not verify from a dated, session-specific registration notice whether applications are currently open or closed. Please check the institution's current screening portal or contact S.O.H CONSULTS for help confirming the deadline. I will not guess.";
