@@ -22,8 +22,8 @@ A shared conversation planner runs in the browser and search API. It carries ins
 | Decomposition | Up to three scoped questions or institutions; each independently verified |
 | Natural conversation | Greetings, acknowledgements, next steps and closure |
 | Concise/detail | Default verified answers; explain-more and shorten preferences |
-| Clarification | Missing institution, session/year or programme prompts |
-| Visitor guidance | Stated programme/score retained, no admission or eligibility promises |
+| Clarification | Missing institution, session/year, programme or UTME/DE route prompts |
+| Visitor guidance | Stated programme and explicitly labelled UTME score retained; unlabelled scores are not assumed to be UTME; no admission or eligibility promises |
 | Long conversations | Compact state survives beyond the bounded transcript |
 | Reset/correction | Reset clears state and cancels in-flight requests; category corrections replace old values |
 | Grounded multi-turn | Detail and follow-up questions retrieve and verify again |
@@ -38,3 +38,5 @@ Actual TypeScript conversation tests cover multi-turn clarification, comparisons
 Limitations: language normalization is conservative and does not claim to understand every Pidgin expression or arbitrary misspelling. Institution coverage remains the reviewed registry. Memory does not survive a new browser tab or its expiry. A programme/score alone never determines admission eligibility. Official evidence gaps remain visible rather than being filled from conversation history.
 
 Phase 2 is prepared on a Preview branch for review before production release.
+
+Full local validation: 403 repository tests passed, TypeScript passed and targeted ESLint passed. Requirement verification and displayed official sources exclude DE-only notices for explicit UTME questions. Actual API and verifier regressions cover this category isolation. Final Preview and CI identifiers are recorded in PR #329.

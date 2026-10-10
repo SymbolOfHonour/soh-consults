@@ -8,7 +8,7 @@ import { findVerifiedFacts,semanticKnowledgeSearch,getInstitution } from "../../
 import { recordQuestion } from "../../../../lib/ask-soh/telemetry";
 
 import { discoverOfficialSources,searchProviderSources,SourceDocument } from "../../../../lib/ask-soh/source-discovery";
-import { verifyAnswer,rankDocuments } from "../../../../lib/ask-soh/answer-verification";
+import { verifyAnswer,rankDocuments,applicableDocument } from "../../../../lib/ask-soh/answer-verification";
 import { formatAnswer } from "../../../../lib/ask-soh/question-resolver";
 import {planConversation,ConversationState,ConversationTurn} from '../../../../lib/ask-soh/conversation';
 type SearchResult=SourceDocument;
@@ -147,7 +147,7 @@ async function answerQuestion(safeQuestion:string,context:string|undefined,histo
   if(knowledgeConflict){decision={...decision,answer:"The verified knowledge registry contains conflicting facts for this topic. Please contact S.O.H CONSULTS for confirmation.",confidence:"low",needsHuman:true,contradiction:true,reason:"Conflicting registry facts"};}
   // Never ask a model to convert a failed verification into a confident answer.
   const generated=decision.confidence!=="low"&&!decision.needsHuman&&!decision.contradiction&&resolved.intent==="general"?await generateGroundedAnswer(safeQuestion,history,decision.citations,decision.answer,resolved.currentSensitive):null;
-  const results=[...decision.citations,...documents,...internalResults].filter((d,i,all)=>all.findIndex(x=>x.url===d.url)===i).slice(0,7);
+  const results=[...decision.citations,...documents,...internalResults].filter(d=>!d.official||applicableDocument(d,resolved,Date.now(),safeQuestion)).filter((d,i,all)=>all.findIndex(x=>x.url===d.url)===i).slice(0,7);
   const sourceType=decision.citations.length?"official_live":internalResults.length?"internal":"none";
   void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:decision.confidence,answered:!decision.needsHuman,sourceType,latencyMs:Date.now()-startedAt});
   return NextResponse.json({query:safeQuestion,results,answer:generated||decision.answer,confidence:decision.confidence,needsHuman:decision.needsHuman,contradiction:decision.contradiction,generative:Boolean(generated),sourceType,intent:resolved.intent,answerMode:resolved.answerMode,currentSensitive:resolved.currentSensitive,searchedAt:new Date().toISOString(),verificationReason:decision.reason,coverageGaps:[...discovery.gaps,...provider.gaps],discoveryCacheHit:discovery.cacheHit,knowledgeMatches:knowledgeFacts.length});
