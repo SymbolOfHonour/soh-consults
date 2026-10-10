@@ -1,3 +1,5 @@
+import { publicOpportunities } from "../lib/content-catalogue";
+import { applicationHref } from "../lib/application-guide";
 import {categorySlug} from "../lib/category-slug";
 import type { MetadataRoute } from "next";
 import { PRIMARY_SITE_URL } from "./site-url";
@@ -32,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/deadlines`, changeFrequency: "daily", priority: .9 },
     { url: `${siteUrl}/guides`, changeFrequency: "weekly", priority: .95 },
   ];
-  core.push(...["tools","screening-calculator","fuoye-calculator","fuadsi-calculator","uniosun-calculator","lasued-calculator","lasustech-calculator","oou-calculator","yabatech-calculator","cgpa-calculator/planner","cgpa-calculator/select-scale"].map(path=>({url:`${siteUrl}/${path}`,changeFrequency:"monthly" as const,priority:.7})));
+  core.push(...["my-school","tools","screening-calculator","fuoye-calculator","fuadsi-calculator","uniosun-calculator","lasued-calculator","lasustech-calculator","oou-calculator","yabatech-calculator","cgpa-calculator/planner","cgpa-calculator/select-scale"].map(path=>({url:`${siteUrl}/${path}`,changeFrequency:"monthly" as const,priority:.7})));
   const updatePages: MetadataRoute.Sitemap = published.map(story => ({
     url: `${siteUrl}/updates/${getStorySlug(story)}`,
     lastModified: safeDate(story.updated_at) || safeDate(story.source_published_at) || safeDate(story.created_at),
@@ -50,5 +52,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: .75,
   }));
   // Slug collisions must not emit duplicate canonical URLs.
-  return Array.from(new Map([...core, ...updatePages, ...categories, ...guidePages].map(entry => [entry.url, entry])).values());
+  return Array.from(new Map([...core, ...updatePages, ...categories, ...guidePages, ...publicOpportunities(published).map(item => ({ url: `${siteUrl}${applicationHref(item)}`, changeFrequency: "weekly" as const, priority: .7 }))].map(entry => [entry.url, entry])).values());
 }
