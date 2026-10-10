@@ -40,8 +40,11 @@ export function publicOpportunities(stories:QueuedStory[]):PublicOpportunity[] {
   const seeded=opportunities.map((o,i):PublicOpportunity=>({id:`opportunity-seed-${i}`,kind:"opportunity",href:`/opportunities?status=all#opportunity-seed-${i}`,title:`${o.institution} ${o.programme}`,institution:o.institution,programme:o.programme,description:o.description,summary:o.description,category:o.category,status:o.status,deadline:o.deadline,deadlineLabel:o.deadline}));
   return [...mapped,...cms,...seeded];
 }
+export function publishedDeadlines(stories:QueuedStory[]):DiscoveryItem[] {
+  return stories.map(storyDiscovery).filter(item=>deadlineDate(item.deadline)).map(item=>({...item,id:`deadline-${item.id}`,kind:"deadline" as const,category:/scholarship/i.test(item.category||"")?"Scholarships":/university/i.test(item.institution||"")?"University":"Other"}));
+}
 export function contentCatalogue(stories:QueuedStory[]):DiscoveryItem[] {
-  return [...stories.map(storyDiscovery),...publicOpportunities(stories),...deadlineContent,...guideContent,...calculatorContent];
+  return [...stories.map(storyDiscovery),...publicOpportunities(stories),...deadlineContent,...publishedDeadlines(stories),...guideContent,...calculatorContent];
 }
 export function newestContent<T extends {publishedAt?:string|Date}>(items:T[]) {
   const date=(item:T)=>item.publishedAt?Date.parse(String(item.publishedAt))||0:0;

@@ -275,3 +275,10 @@ test('published admission application notices are discoverable as opportunities'
  const found=publicOpportunities([story]).find(i=>i.id==='opportunity-new');
  assert.ok(found);assert.equal(found.deadline,'2026-11-13T22:59:59.999Z');assert.equal(found.deadlineLabel,'13 November 2026');
 });
+
+test('new published notices feed the deadline tracker and global deadline search',()=>{
+ const {publishedDeadlines}=load('lib/content-catalogue');
+ const story={id:'new',title:'FUTES Admission Portal Reopened',institution:'FUTES',category:'Admission',summary:'Applications will run from Tuesday, October 6 to Tuesday, October 13, 2026.',details:'Published instructions',source_url:'manual:new',source_published_at:null,created_at:'2026-10-05',updated_at:'2026-10-05'};
+ const deadlines=publishedDeadlines([story]);assert.equal(deadlines.length,1);assert.equal(deadlines[0].deadline,'2026-10-13T22:59:59.999Z');assert.equal(deadlines[0].href,'/updates/futes-admission-portal-reopened');
+ assert.ok(unifiedSearch(contentCatalogue([story]),'FUTES',{now}).some(r=>r.item.kind==='deadline'));
+});
