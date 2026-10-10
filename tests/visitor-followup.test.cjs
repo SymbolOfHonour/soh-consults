@@ -45,6 +45,7 @@ test('WhatsApp enquiries preserve selected service and school as an encoded draf
   assert.equal(url.origin, 'https://wa.me');
   assert.match(url.searchParams.get('text'), /O’Level upload/);
   assert.match(url.searchParams.get('text'), /LASU & UNILAG/);
+  assert.doesNotThrow(() => serviceEnquiryUrl('Admission guidance', 'A' + '𝗟'.repeat(200)));
   assert.match(url.searchParams.get('text'), /Page: https:\/\/sohconsults.com.ng\/applications\/example/);
 });
 test('Unicode plain-text notice headings and labelled fee lines remain usable without guessing values', () => {
