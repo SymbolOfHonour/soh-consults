@@ -9,8 +9,10 @@ test("missing token intent precedes generic result guidance",()=>{assert.ok(rout
 test("WhatsApp number and service CTA configured",()=>{assert.match(ui,/const WHATSAPP = "2348182141088"/);assert.match(ui,/Get Assistance on WhatsApp/);assert.match(ui,/encodeURIComponent\(message\)/);});
 test("official sources and clickable links preserved",()=>{assert.match(ui,/function isSOHSource/);assert.match(ui,/Open Official Source/);assert.match(ui,/renderReadableAnswer\(message.text\)/);assert.match(ui,/rel="noopener noreferrer"/);});
 
-test("multi-turn follow-ups retain latest named institution or examination",()=>{assert.match(ui,/function findFollowUpSubject/);assert.match(ui,/\.reverse\(\)\.find/);assert.match(ui,/findFollowUpSubject\(recentUserMessages\)/);assert.match(ui,/\bneco\|nabteb\|nysc/);});
-test("explicit new subject does not inherit previous conversation",()=>{assert.match(ui,/!explicitSubject && !namedInstitution/);assert.match(ui,/const subjectContext = isFollowUp \?/);});
+require('../scripts/ask-soh-test-loader.cjs');
+const {planConversation}=require('../lib/ask-soh/conversation.ts');
+test("multi-turn follow-ups retain latest named institution or examination",()=>{const initial=planConversation('NECO SSCE external deadline 2026');const next=planConversation('what requirements',initial.state);assert.equal(next.state.institutionKey,'neco');assert.match(next.questions[0],/2026/);});
+test("explicit new subject does not inherit previous conversation",()=>{const initial=planConversation('LASU 2026/2027 deadline');const next=planConversation('WAEC digital certificate',initial.state);assert.equal(next.state.institutionKey,'waec');assert.doesNotMatch(next.questions[0],/LASU|2026\/2027/);});
 
 test("contextual price follow-ups do not invent fees",()=>{assert.match(services,/const priceFollowUp=/);assert.match(services,/priceFollowUp&&/);assert.match(services,/contact us on WhatsApp to confirm availability and the exact price/);assert.doesNotMatch(services,/₦[0-9]/);});
 
@@ -22,4 +24,4 @@ test("context VC intent uses word boundaries",()=>{const resolver=fs.readFileSyn
 
 test("cutoff and fee questions always require current verification",()=>{const resolver=fs.readFileSync("lib/ask-soh/question-resolver.ts","utf8");assert.match(resolver,/currentSensitive:cutoff\|\|CURRENT\.test\(question\)/);assert.match(resolver,/admission status\|admitted\|offered admission/);assert.match(resolver,/fee\|fees\|price\|cost/);});
 
-test("short acknowledgements continue conversation while explicit closure stops",()=>{const ui=fs.readFileSync("app/components/AskSOH.tsx","utf8");assert.match(ui,/const acknowledgement=/);assert.match(ui,/const closure=/);assert.match(ui,/findFollowUpSubject\(recentUserMessages\)/);assert.match(ui,/if\(closure\)/);assert.match(ui,/if\(acknowledgement\)/);});
+test("short acknowledgements continue conversation while explicit closure stops",()=>{const initial=planConversation('LASU 2026/2027 minimum score');assert.equal(planConversation('yes',initial.state).state.intent,'requirements');assert.equal(planConversation('bye',initial.state).closed,true);assert.equal(planConversation('bye',initial.state).state.institutionKey,null);});

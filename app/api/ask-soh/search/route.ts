@@ -10,6 +10,7 @@ import { recordQuestion } from "../../../../lib/ask-soh/telemetry";
 import { discoverOfficialSources,searchProviderSources,SourceDocument } from "../../../../lib/ask-soh/source-discovery";
 import { verifyAnswer,rankDocuments } from "../../../../lib/ask-soh/answer-verification";
 import { formatAnswer } from "../../../../lib/ask-soh/question-resolver";
+import {planConversation,ConversationState,ConversationTurn} from '../../../../lib/ask-soh/conversation';
 type SearchResult=SourceDocument;
 type ChatTurn={role:"user"|"assistant";content:string};
 
@@ -78,7 +79,7 @@ function businessServiceAnswer(question:string,context:string):{answer:string;se
  const match=services.find(([pattern])=>pattern.test(q));return match?{answer:match[2],service:match[1]}:null;
 }
 
-async function handleSearch(request:NextRequest,body?:{question?:string;context?:string;history?:ChatTurn[]}){
+async function handleSearch(request:NextRequest,body?:{question?:string;context?:string;history?:ChatTurn[];conversation?:ConversationState}){
 
   const rate=await checkRateLimit(request,"ask-soh-search",30,60*60);
   if(rate.unavailable)return NextResponse.json({error:"Ask S.O.H is temporarily unavailable. Please try again shortly or contact S.O.H CONSULTS.",results:[]},{status:503,headers:{"Retry-After":"60"}});
@@ -87,9 +88,20 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const question=typeof rawQuestion==="string"?rawQuestion.trim():null;
   const rawContext=body?.context??request.nextUrl.searchParams.get("context");
   const context=typeof rawContext==="string"?rawContext.trim().slice(0,500):undefined;
-  const history=Array.isArray(body?.history)?body!.history!.filter(turn=>turn&&(turn.role==="user"||turn.role==="assistant")&&typeof turn.content==="string").slice(-6):[];
-  if(!question||question.length<3)return NextResponse.json({error:"Please enter a valid question."},{status:400});
-  const safeQuestion=question.slice(0,220);
+  const history=Array.isArray(body?.history)?body!.history!.filter(turn=>turn&&(turn.role==="user"||turn.role==="assistant")&&typeof turn.content==="string").map(turn=>({role:turn.role,content:turn.content.slice(0,500)})).slice(-40):[];
+  if(!question)return NextResponse.json({error:"Please enter a valid question."},{status:400});
+  const safeQuestion=question.slice(0,500);
+  const legacyHistory:ConversationTurn[]=history.length?history:context?[{role:'user',content:context}]:[];
+  const plan=planConversation(safeQuestion,body?.conversation,legacyHistory);
+  if(plan.reply)return NextResponse.json({query:safeQuestion,answer:plan.reply,results:[],confidence:'low',needsHuman:false,sourceType:'none',clarification:Boolean(plan.clarification),conversation:plan.state,reset:plan.reset,closed:plan.closed});
+  const parts=await Promise.all(plan.questions.map(async part=>{const response=await answerQuestion(part,plan.questions.length>1?undefined:plan.context,history);return await response.json();}));
+  const confidence=parts.some(part=>part.confidence==='low')?'low':parts.some(part=>part.confidence==='medium')?'medium':'high';
+  const combined=parts.length===1?parts[0]:{query:safeQuestion,answer:parts.map((part,index)=>`${index+1}. ${plan.questions[index]}\n${part.answer}`).join('\n\n'),results:[...new Map(parts.flatMap(part=>part.results||[]).map((source:SourceDocument)=>[source.url,source])).values()],confidence,needsHuman:parts.some(part=>part.needsHuman),contradiction:parts.some(part=>part.contradiction),sourceType:parts.some(part=>part.sourceType==='official_live')?'official_live':'internal',parts};
+  if(plan.state.detailed&&combined.answer&&combined.confidence!=='low'){const sources=(combined.results||[]).filter((source:SourceDocument)=>source.official).slice(0,3);combined.answer+='\n\n'+(sources.length?'Evidence: '+sources.map((source:SourceDocument)=>source.title+(source.publishedAt?' (published '+source.publishedAt.slice(0,10)+')':'')).join('; ')+'.':'This is guidance, not a guarantee of admission.');}
+  return NextResponse.json({...combined,conversation:plan.state});
+}
+
+async function answerQuestion(safeQuestion:string,context:string|undefined,history:ChatTurn[]){
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
   const startedAt=Date.now();
   const resolved=resolveQuestion(safeQuestion,context);
@@ -144,7 +156,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
 export async function GET(request:NextRequest){return handleSearch(request);}
 export async function POST(request:NextRequest){
   try{
-    const body=await request.json() as {question?:string;context?:string;history?:ChatTurn[]};
+    const body=await request.json() as {question?:string;context?:string;history?:ChatTurn[];conversation?:ConversationState};
     return await handleSearch(request,body);
   }catch{return NextResponse.json({error:"Invalid request.",results:[]},{status:400});}
 }
