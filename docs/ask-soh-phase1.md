@@ -6,7 +6,7 @@ Scope: shared retrieval, reviewed knowledge and official-source evidence. Phases
 
 `resolveQuestion → reviewed facts/optional semantic retrieval + published SOH content → official adapters → provider fallback/refetch → ranked session-bound evidence → deadline/score validation → conflict/freshness gates → cited answer or human escalation`.
 
-`source-discovery.ts` contains WordPress posts, RSS/Atom, XML sitemap/index, HTML/news/portal and PDF adapters. Published, unprotected WordPress REST article content remains cited evidence when the HTML page is unavailable; the actual API retrieval URL is recorded and drafts are excluded. Embedded official PDF links are discovered from article content. Public AJAX fragments retain isolated publisher sessions, legacy news cards keep their own title/date/abstract, and bounded archive pagination reaches older notices. Public SPA assets expose PDF links only; their JavaScript is never executed or treated as evidence. Declarative countdowns retain UTME/Direct Entry scope. Registry settings provide institution aliases, official domains and stable portal roots, not hardcoded announcement URLs. The API consumes these shared adapters. Every fetched article and redirect must retain official HTTPS domain ownership. Search snippets cannot establish facts. Bounded extraction supports 8 MB PDFs; scanned/image-only PDFs need OCR and remain a documented coverage gap.
+`source-discovery.ts` contains WordPress posts, RSS/Atom, XML sitemap/index, HTML/news/portal and PDF adapters. Published, unprotected WordPress REST article content remains cited evidence when the HTML page is unavailable; the actual API retrieval URL is recorded and drafts are excluded. Embedded official PDF links are discovered from article content. Public AJAX fragments retain isolated publisher sessions, legacy news cards keep their own title/date/abstract, and bounded archive pagination reaches older notices. Public SPA assets expose PDF links only; their JavaScript is never executed or treated as evidence. Declarative countdowns retain UTME/Direct Entry scope. Registry settings provide institution aliases, official domains and stable portal roots, not hardcoded announcement URLs. The API consumes these shared adapters. Every fetched article and redirect must retain official HTTPS domain ownership. Search snippets cannot establish facts. Bounded extraction supports 16 MB PDFs with an 80-page cap and destroys the parser after extraction; HTML remains limited to 8 MB; scanned/image-only PDFs need OCR and remain a documented coverage gap.
 
 `answer-verification.ts` ranks articles/PDFs above homepages, requires explicit sessions for session-dependent questions and exam years for JAMB/WAEC/NECO, validates calendar dates, and resolves different deadlines only with a dated later extension. Time-prefixed dates and explicit reopening ranges are supported; relative durations are not calculated into deadlines. SSCE category and normal/late registration stages are kept separate. Accessible portals do not establish open status; explicit category-labelled portal declarations may establish a freshly observed status at medium confidence. Missing evidence, unsupported exact names/scores and conflicts cannot become high confidence. Generic generation can select only exact source quotations, with server-side quotation checks; otherwise the extractive fallback is used.
 
@@ -32,3 +32,30 @@ PR #324 is a draft until corrected Preview verification is complete. The Preview
 Limitations: external sources can timeout, block extraction, omit publication dates or omit academic sessions. Those cases require review. Scanned PDFs need OCR. Institution domains require reviewed registry entries; URLs/aliases can be maintained through the existing institution table. This work does not claim universal notice discovery or proof that no newer extension exists.
 
 Work allowance cannot be measured through the tools. Do not begin Phase 2 until Phase 1 acceptance and the user's remaining allowance are confirmed.
+
+## Recovery checkpoint, 10 October 2026
+
+Resumed PR #324 at `4f7152b9ccb20bbf518832495d49ef54f99c22c6`; its GitHub CI was successful and Preview `soh-consults-3u8yozi9u-symbol-of-honour.vercel.app` was READY. The Preview redirects unauthenticated requests to Vercel SSO. Protection was not disabled and no share/bypass links were created.
+
+Recovery fixes require registration/application wording in a JAMB deadline clause, preventing a neighbouring examination closing date from becoming a registration deadline. Agency REST searches use registration rather than university Post-UTME keywords. PDF extraction accepts up to 16 MB, rejects more than 80 pages, and releases its parser in a finally block. Byte limits remain enforced before and during streaming. These bounds do not resolve network timeouts, OCR, or the existing 24,000-character evidence window.
+
+Validation: 320 repository tests passed, including five new regressions; TypeScript and targeted ESLint passed. The PDF test uses an actual generated PDF exceeding 8 MB; separate tests reject excessive page count and declared byte size. QA read-only inspection confirmed RLS on facts, institutions and versions, the installed guard trigger, transactional history, review demotion for authoritative changes, source ownership and future-review checks. No migration was applied in this recovery; historical rolled-back behavioural QA tests are documented above.
+
+Real eight-institution evaluation (local outbound environment, not Vercel runtime):
+
+| Institution | Result |
+| --- | --- |
+| LASU | High confidence, dated official reopening deadline, 9 August 2026 |
+| UNIOSUN | High confidence, dated official deadline, 17 September 2026 |
+| LASUSTECH | High confidence, dated official reopening deadline, 25 August 2026; earlier Vercel 403 is still unverified |
+| NECO | Medium confidence, official normal external-registration deadline, 26 October 2026; publication metadata unavailable |
+| FUOYE | Low confidence; UTME deadline unverified |
+| WAEC | Low confidence; registration deadline unverified |
+| JAMB | Low confidence; archive 404s, oversized PDFs and network timeouts |
+| UNILORIN | Low confidence; conflicting explicit deadlines remain under review |
+
+UNILORIN's 6 July publication explicitly extends registration to 12 July. Its 2 August publication quotes the Admissions Officer and explicitly lists 9 August, but does not explicitly identify the notice as superseding the July extension. The algorithm therefore continues to flag the conflict rather than choose the later date. Publication, registration, slip-printing and examination dates remain distinct.
+
+Phase 1 is not accepted yet. Remaining work: current protected Preview API evaluation with QA database binding confirmed; JAMB large-document/time-budget and mixed-topic/year evidence coverage; authoritative FUOYE UTME and WAEC registration evidence; UNILORIN supersession resolution; NECO publication metadata; Vercel-specific LASUSTECH access validation. Current source-access failures are safe escalations, not proven retrieval coverage.
+
+Calculators, CMS publishing, branding, production and database schema were not modified. The abandoned Admission Matcher was not revived. Phases 2–5 remain planned and require further authorisation; Phase 2 is not started. Work allowance is not exposed to these tools and cannot be estimated as a measured percentage.
