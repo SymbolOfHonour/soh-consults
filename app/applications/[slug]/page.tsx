@@ -3,7 +3,7 @@ import { cache } from "react";
 import { notFound } from "next/navigation";
 import { getStorySlug, listPublishedStories } from "../../../lib/news-queue";
 import { opportunityStatus, publicOpportunities } from "../../../lib/content-catalogue";
-import { applicationHref, applicationSections, applicationSlug, checklistSection, safeOfficialUrl } from "../../../lib/application-guide";
+import { applicationHref, applicationSections, applicationSlug, checklistSection, officialNoticeUrl, safeOfficialUrl } from "../../../lib/application-guide";
 import { withPublicSocial } from "../../../lib/public-metadata";
 import DiscoveryHeader from "../../components/DiscoveryHeader";
 import ServiceEnquiry from "../../components/ServiceEnquiry";
@@ -31,7 +31,7 @@ export default async function ApplicationPage({ params }: { params: Promise<{ sl
   const { item, story } = application;
   const state = opportunityStatus(item);
   const sections = applicationSections(story);
-  const source = safeOfficialUrl(item.applicationUrl);
+  const source = safeOfficialUrl(item.applicationUrl) || officialNoticeUrl(story);
   const updated = story?.updated_at && !Number.isNaN(Date.parse(story.updated_at)) ? new Date(story.updated_at).toLocaleDateString("en-GB", { timeZone: "Africa/Lagos", day: "numeric", month: "long", year: "numeric" }) : null;
   const href = applicationHref(item);
   return <main className="min-h-screen bg-gray-50 text-gray-900"><DiscoveryHeader/>

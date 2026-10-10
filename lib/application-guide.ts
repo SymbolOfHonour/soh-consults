@@ -32,7 +32,17 @@ export function applicationSections(story?: QueuedStory): NoticeSection[] {
     return sections.filter(section => section.text.trim());
   }
   const text = removeArticleBlocks(story.details);
-  return text ? [{ heading: "Published notice", text }] : [];
+  const sections: NoticeSection[] = [];
+  for (const line of text.split("\n")) {
+    const plain = line.normalize("NFKD").replace(/\*\*/g, "").replace(/^#{1,6}\s+/, "").trim();
+    const heading = plain.length > 0 && plain.length <= 160 && (/^#{1,6}\s+/.test(line) || /^\*\*[^*]+\*\*$/.test(line.trim()) || (/[A-Z]/.test(plain) && plain === plain.toUpperCase() && !/^[-*\d]/.test(plain)));
+    if (heading) sections.push({ heading: line.replace(/^#{1,6}\s+/, "").replace(/^\*\*|\*\*$/g, ""), text: "" });
+    else {
+      if (!sections.length) sections.push({ heading: "Published notice", text: "" });
+      sections[sections.length - 1].text += `${line}\n`;
+    }
+  }
+  return sections.filter(section => section.text.trim());
 }
 export function checklistSection(sections: NoticeSection[], kind: "eligibility" | "documents" | "fees") {
   const match = {
@@ -40,5 +50,15 @@ export function checklistSection(sections: NoticeSection[], kind: "eligibility" 
     documents: /documents|what to bring|what you need|credentials/,
     fees: /fees?|cost|payment|application charge/,
   }[kind];
-  return sections.filter(section => match.test(normaliseText(section.heading)));
+  const matched = sections.filter(section => match.test(normaliseText(section.heading)));
+  if (matched.length || kind !== "fees") return matched;
+  // A fee labelled inside a dates section is still useful; quote only the supplied line.
+  const lines = sections.flatMap(section => section.text.split("\n")).filter(line => /^(?:application|registration|screening|form)\s+(?:fee|cost|charge)\s*:/i.test(line.normalize("NFKD").replace(/\*\*/g, "").trim()));
+  return lines.length ? [{ heading: "Fee stated in the notice", text: lines.join("\n") }] : [];
+}
+export function officialNoticeUrl(story?: QueuedStory) {
+  if (!story) return undefined;
+  const text = applicationSections(story).map(section => section.text).join("\n");
+  const links = [...text.matchAll(/\[([^\]\n]*official[^\]\n]*)\]\((https:\/\/[^\s)]+)\)/gi)].map(match => safeOfficialUrl(match[2])).filter(Boolean);
+  return new Set(links).size === 1 ? links[0] : undefined;
 }

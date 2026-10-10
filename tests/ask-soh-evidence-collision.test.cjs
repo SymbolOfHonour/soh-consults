@@ -1,0 +1,10 @@
+require('../scripts/ask-soh-test-loader.cjs');
+const test=require('node:test'),assert=require('node:assert/strict');
+const {resolveQuestion}=require('../lib/ask-soh/question-resolver.ts');
+const {verifyAnswer,rankDocuments}=require('../lib/ask-soh/answer-verification.ts');
+const question='LASU 2026/2027 minimum JAMB score';
+const q=resolveQuestion(question);
+const reviewed={title:'LASU Admission Screening Portal admission cutoff 2026/2027',url:'https://services.lidc.lasu.edu.ng/admissionscreening/',snippet:'195+ Minimum UTME Score',official:true,verified:true,kind:'article',adapter:'verified-registry',fetchedAt:new Date().toISOString()};
+test('live page at same URL cannot erase reviewed score evidence',()=>{const live={...reviewed,title:'LASU portal',snippet:'Start screening',kind:'homepage'};const result=verifyAnswer(question,q,rankDocuments([reviewed,live],question,q));assert.equal(result.answer,'195');assert.equal(result.confidence,'high');});
+test('different values at same URL remain conflicting evidence',()=>{const live={...reviewed,snippet:'Minimum UTME score: 200'};const result=verifyAnswer(question,q,rankDocuments([reviewed,live],question,q));assert.equal(result.confidence,'low');assert.equal(result.contradiction,true);});
+test('identical duplicate documents are still collapsed',()=>{assert.equal(rankDocuments([reviewed,{...reviewed}],question,q).length,1);});

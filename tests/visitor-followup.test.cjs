@@ -11,13 +11,13 @@ function load(name) {
   return m.exports;
 }
 const { schoolFeed, schoolOptions, parseSchoolPreferences } = load('lib/school-feed');
-const { applicationHref, applicationSections, checklistSection, safeOfficialUrl } = load('lib/application-guide');
+const { applicationHref, applicationSections, checklistSection, officialNoticeUrl, safeOfficialUrl } = load('lib/application-guide');
 const { serviceEnquiryUrl } = load('lib/service-enquiry');
 const { writeArticleBlocks } = load('lib/article-blocks');
 const now = new Date('2026-10-10T12:00:00Z');
 const item = (id, title, extra = {}) => ({ id, title, kind: 'update', href: '/updates/' + id, ...extra });
 test('a saved LASU feed excludes LASUED, LASUSTECH and closed applications but retains national guidance', () => {
-  const source = [item('lasu', 'LASU screening'), item('edu', 'LASUED screening'), item('tech', 'LASUSTECH screening'), item('caps', 'JAMB CAPS admission status', { institution: 'Nigeria', kind: 'guide' }), item('closed', 'LASU screening application', { deadline: '2026-10-09' }), item('soon', 'LASU screening', { status: 'COMING SOON' })];
+  const source = [item('lasu', 'LASU screening'), item('edu', 'LASUED screening'), item('tech', 'LASUSTECH screening'), item('caps', 'JAMB CAPS admission status', { institution: 'Joint Admissions and Matriculation Board (JAMB)', kind: 'guide' }), item('closed', 'LASU screening application', { deadline: '2026-10-09' }), item('soon', 'LASU screening', { status: 'COMING SOON' })];
   assert.deepEqual(schoolFeed(source, { schools: ['LASU'], topics: ['admission'] }, now).map(r => r.item.id).sort(), ['caps', 'lasu']);
   assert.deepEqual(schoolFeed(source, { schools: ['LASU'], topics: [] }, now).map(r => r.item.id).sort(), ['caps', 'lasu']);
   assert.equal(source[0].title, 'LASU screening');
@@ -26,7 +26,7 @@ test('preference restore handles corrupted, old or unknown values without broade
   assert.deepEqual(parseSchoolPreferences({ schools: ['LASU', 'LASU', 'missing', 2], topics: ['admission', 'unknown'] }, ['LASU']), { schools: ['LASU'], topics: ['admission'] });
   assert.deepEqual(parseSchoolPreferences([], ['LASU']), { schools: [], topics: [] });
   assert.equal(schoolFeed([item('a', 'JAMB admission')], { schools: [], topics: [] }, now).length, 0);
-  assert.deepEqual(schoolOptions([item('a', 'Lagos State University of Education screening', { institution: 'Nigeria' }), item('b', 'JAMB CAPS', { institution: 'Nigeria' })]), ['LASUED']);
+  assert.deepEqual(schoolOptions([item('a', 'Lagos State University of Education screening', { institution: 'Nigeria' }), item('b', 'JAMB CAPS', { institution: 'JAMB' })]), ['LASUED']);
 });
 test('application pages use published headings and never manufacture fees or requirements', () => {
   const story = { details: writeArticleBlocks('', [{ type: 'heading', text: 'Eligibility requirements' }, { type: 'paragraph', text: 'Five credits as stated in this notice.' }, { type: 'heading', text: 'Application fee' }, { type: 'paragraph', text: 'See the official notice for charges.' }]) };
@@ -46,4 +46,11 @@ test('WhatsApp enquiries preserve selected service and school as an encoded draf
   assert.match(url.searchParams.get('text'), /O’Level upload/);
   assert.match(url.searchParams.get('text'), /LASU & UNILAG/);
   assert.match(url.searchParams.get('text'), /Page: https:\/\/sohconsults.com.ng\/applications\/example/);
+});
+test('Unicode plain-text notice headings and labelled fee lines remain usable without guessing values', () => {
+  const story = { details: "𝗪𝗛𝗢 𝗜𝗦 𝗘𝗟𝗜𝗚𝗜𝗕𝗟𝗘 𝗧𝗢 𝗔𝗣𝗣𝗟𝗬?\nFive credits as supplied by the editor.\n\n𝗜𝗠𝗣𝗢𝗥𝗧𝗔𝗡𝗧 𝗗𝗔𝗧𝗘𝗦\n𝗔𝗽𝗽𝗹𝗶𝗰𝗮𝘁𝗶𝗼𝗻 𝗳𝗲𝗲: ₦20,000\n\n[Visit the official school website](https://example.edu.ng)" };
+  const sections = applicationSections(story);
+  assert.match(checklistSection(sections, 'eligibility')[0].text, /Five credits/);
+  assert.match(checklistSection(sections, 'fees')[0].text, /₦20,000/);
+  assert.equal(officialNoticeUrl(story), 'https://example.edu.ng/');
 });
