@@ -1,27 +1,53 @@
 // Fold Unicode headlines and punctuation without changing the displayed copy.
 export const normaliseText = (value = "") => value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 const stopWords = new Set(["the", "a", "an", "and", "or", "for", "of", "to", "in", "on", "how", "with", "your", "my"]);
-const aliases: Record<string, string[]> = {
+const institutions: Record<string, string[]> = {
   lasu: ["lagos state university"], unilag: ["university of lagos"],
   fuoye: ["federal university oye ekiti"], lasustech: ["lagos state university of science and technology"],
   uniosun: ["osun state university"], oou: ["olabisi onabanjo university"],
-  waec: ["wassce", "west african examinations council"], neco: ["national examinations council"],
-  cgpa: ["cumulative grade point average"], utme: ["post utme", "postutme"],
+  lasued: ["lagos state university of education"], yabatech: ["yaba college of technology"],
+  fuadsi: ["federal university of agriculture and development studies iragbiji"],
 };
+const aliases: Record<string, string[]> = {
+  ...institutions,
+  waec: ["wassce", "west african examinations council"], neco: ["national examinations council"],
+  cgpa: ["cumulative grade point average"], gpa: ["grade point average"],
+};
+// Resolve longer names first so LASUED and LASUSTECH never become LASU.
+const aliasPhrases = Object.entries(aliases).flatMap(([short, names]) => names.map(name => ({short, name}))).sort((a,b) => b.name.length-a.name.length);
+function canonicalSearchText(value: string) {
+  let text = normaliseText(value);
+  for (const {short, name} of aliasPhrases) text = text.replace(new RegExp(`\\b${name}\\b`, "g"), short);
+  return text.replace(/\bo\s+level\b|\bolevels?\b/g, "olevel")
+    .replace(/\bcut\s+off\b|\bcutoffs\b/g, "cutoff")
+    .replace(/\bpostutme\b/g, "post utme")
+    .replace(/\bscholarships\b/g, "scholarship")
+    .replace(/\bcalculators\b/g, "calculator");
+}
+export function institutionKeys(value: string) {
+  const words = new Set(canonicalSearchText(value).split(" "));
+  return Object.keys(institutions).filter(short => words.has(short));
+}
 export function searchTokens(query: string) {
-  return [...new Set(normaliseText(query).split(" ").filter(token => token && !stopWords.has(token)))];
+  return [...new Set(canonicalSearchText(query).split(" ").filter(token => token && !stopWords.has(token)))];
 }
 export function searchableText(value: string) {
-  let text = normaliseText(value);
+  const canonical = canonicalSearchText(value);
+  let text = `${normaliseText(value)} ${canonical}`;
   for (const [short, names] of Object.entries(aliases)) {
-    if (names.some(name => text.includes(name))) text += ` ${short}`;
-    if (new RegExp(`\\b${short}\\b`).test(text)) text += ` ${names.join(" ")}`;
+    if (canonical.split(" ").includes(short)) text += ` ${names.join(" ")}`;
   }
   return text;
 }
+export function matchesSearchToken(words: string[], token: string) {
+  // Acronyms and numbers identify a specific institution, body or session.
+  if (token in aliases || /^\d+$/.test(token)) return words.includes(token);
+  return words.some(word => word.startsWith(token));
+}
 export function matchesQuery(value: string, query: string) {
   const terms = searchTokens(query), text = searchableText(value);
-  return terms.length > 0 && terms.every(term => text.split(" ").some(word => word.startsWith(term)));
+  const words = text.split(" ");
+  return terms.length > 0 && terms.every(term => matchesSearchToken(words, term));
 }
 const topicRules: Record<string, RegExp> = {
   caps: /\bcaps\b|admission status|accept.*admission/,
