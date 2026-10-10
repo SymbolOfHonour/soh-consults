@@ -46,6 +46,10 @@ function relevance(link:Link,question:string,session:string|null){const text=(li
 export function fetchOfficialDocument(link:Link,institution:InstitutionRecord,options:DiscoveryOptions={},adapter='direct'){return sourceTask(()=>/\.pdf(?:$|\?)/i.test(link.url)?pdfTask(()=>extractOfficialDocument(link,institution,options,adapter)):extractOfficialDocument(link,institution,options,adapter));}
 async function extractOfficialDocument(link:Link,institution:InstitutionRecord,options:DiscoveryOptions,adapter:string):Promise<{document:SourceDocument|null;documents?:SourceDocument[];gap?:CoverageGap}>{
  const fetcher=options.fetcher||fetch;let url=link.url;
+ // JAMB's archive links use a different filename case from its public files.
+ // Try the observed file convention first; retain the archive spelling on 404.
+ const archiveUrl=url;const correctedArchive=institution.key==='jamb'&&/\/JAMBULLETIN_/.test(url);
+ if(correctedArchive)url=url.replace('/JAMBULLETIN_','/JAMBulletin_');
  const cacheKey='official-document:'+institution.key+':'+url;
  const cached=!options.fetcher&&options.useCache!==false?cacheGet<{document:SourceDocument;documents?:SourceDocument[]}>(cacheKey):null;if(cached)return cached;
  try{
@@ -53,7 +57,7 @@ async function extractOfficialDocument(link:Link,institution:InstitutionRecord,o
   for(let hop=0;hop<4;hop++){
    if(!sourceAllowed(url,institution))throw new Error('Non-official URL or redirect');
    response=await fetcher(url,{redirect:'manual',headers:{'User-Agent':'AskSOH/2.0 (+https://sohconsults.com.ng)','Accept':'text/html,application/pdf,text/plain'},signal:requestSignal(options,/\.pdf(?:$|\?)/i.test(url)?Math.max(options.timeoutMs||6000,45000):options.timeoutMs||6000),cache:'no-store'});
-   if(response.status===404&&/\/JAMBULLETIN_[^/]+[.]pdf$/i.test(url)&&/\/JAMBULLETIN_/.test(url)){const corrected=url.replace('/JAMBULLETIN_','/JAMBulletin_');if(sourceAllowed(corrected,institution)){url=corrected;continue;}}
+   if(response.status===404&&correctedArchive&&url!==archiveUrl&&sourceAllowed(archiveUrl,institution)){url=archiveUrl;continue;}
    if(response.status>=300&&response.status<400){const location=response.headers.get('location');if(!location)throw new Error('Redirect without location');url=new URL(location,url).href;continue;}break;
   }
   if(!response?.ok)throw new Error('HTTP '+response?.status);

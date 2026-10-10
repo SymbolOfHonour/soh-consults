@@ -121,7 +121,9 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
     void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"verified_knowledge",latencyMs:Date.now()-startedAt});
     return NextResponse.json({query:safeQuestion,results:[{title:fact.source_name,url:fact.source_url,snippet:fact.evidence_text||answer,official:true,internal:true}],answer,confidence:"high",needsHuman:false,verifiedFact:true,sourceType:facts.length?"verified_knowledge":"verified_semantic",verifiedAt:fact.verified_at});
   }
-  const registryDocuments:SourceDocument[]=knowledgeFacts.map(f=>({title:[f.source_name,f.topic,f.academic_session||""].join(" "),url:f.source_url,snippet:f.evidence_text||"",official:true,verified:true,kind:"article",publishedAt:f.source_published_at||null,fetchedAt:f.verified_at||undefined,adapter:"verified-registry"}));
+  // Applicability checks already enforce review and validity dates. fetchedAt is
+  // when this request read the reviewed record, not when its review was completed.
+  const registryDocuments:SourceDocument[]=knowledgeFacts.map(f=>({title:[f.source_name,f.topic,f.academic_session||""].join(" "),url:f.source_url,snippet:f.evidence_text||"",official:true,verified:true,kind:"article",publishedAt:f.source_published_at||null,fetchedAt:new Date().toISOString(),adapter:"verified-registry"}));
   let documents=[...registryDocuments,...discovery.documents];
   let decision=verifyAnswer(safeQuestion,resolved,documents);
   // Provider failure does not discard directly discovered evidence. Search URLs
