@@ -259,3 +259,19 @@ test('archived opportunity deep links explicitly include the full list',()=>{
  assert.ok(all.length>0);
  assert.ok(all.every(item=>item.href.includes('?status=all#'+item.id)));
 });
+
+test('published application date ranges supply deadlines without inventing a year',()=>{
+ const {statedDeadline}=load('lib/discovery-text');
+ assert.equal(statedDeadline('Applications will run from Tuesday, October 6 to Tuesday, October 13, 2026.'),'2026-10-13T22:59:59.999Z');
+ assert.equal(statedDeadline('Applications are available from 5 October to 13 November 2026.'),'2026-11-13T22:59:59.999Z');
+ assert.equal(statedDeadline('Application deadline: 13 October 2026.'),'2026-10-13T22:59:59.999Z');
+ assert.equal(statedDeadline('Applications are available from 5 October to 13 November.'),null);
+ assert.equal(statedDeadline('Orientation is from 5 October to 13 November 2026.'),null);
+ assert.equal(statedDeadline('Deadline: 13 October 2026. Deadline: 14 October 2026.'),null);
+});
+
+test('published admission application notices are discoverable as opportunities',()=>{
+ const story={id:'new',title:'FUTA RELEASES TOP-UP DEGREE ADMISSION FORM',institution:'FUTA',category:'Admission',summary:'Applications are available from 5 October to 13 November 2026.',details:'Published application instructions.',source_url:'manual:new',source_published_at:null,created_at:'2026-10-05',updated_at:'2026-10-05'};
+ const found=publicOpportunities([story]).find(i=>i.id==='opportunity-new');
+ assert.ok(found);assert.equal(found.deadline,'2026-11-13T22:59:59.999Z');assert.equal(found.deadlineLabel,'13 November 2026');
+});

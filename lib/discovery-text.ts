@@ -78,3 +78,22 @@ export function deadlineDate(value?: string | Date | null): Date | null {
   parsed.setUTCHours(22, 59, 59, 999);
   return parsed;
 }
+
+// Read only clearly labelled closing dates with an explicit year in published copy.
+// Do not borrow the year from a headline, or infer a date from unrelated events.
+export function statedDeadline(value: string): string | null {
+  const text=value.normalize("NFKD").replace(/<[^>]+>/g," ");
+  const weekday="(?:(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\\s+)?";
+  const day="(?:\\d{1,2}\\s+[A-Za-z]+|[A-Za-z]+\\s+\\d{1,2})";
+  const date=`${weekday}(?:20\\d{2}-\\d{2}-\\d{2}|${day},?\\s+20\\d{2})`;
+  const patterns=[
+    new RegExp(`(?:closing date|deadline|applications? close(?:s)?|registration closes|extended (?:to|until))\\s*(?::|is|on|to)?\\s*(${date})`,"gi"),
+    new RegExp(`(?:applications?|registration|screening)[^.!?\\n]{0,90}?(?:from|between)\\s+${weekday}${day}(?:,?\\s+20\\d{2})?\\s+(?:to|and|[–-])\\s+(${date})`,"gi"),
+  ];
+  const dates=new Set<string>();
+  for(const pattern of patterns)for(const match of text.matchAll(pattern)){
+    const parsed=deadlineDate(match[1].replace(new RegExp(`^${weekday}`,"i"),""));
+    if(parsed)dates.add(parsed.toISOString());
+  }
+  return dates.size===1?[...dates][0]:null;
+}
