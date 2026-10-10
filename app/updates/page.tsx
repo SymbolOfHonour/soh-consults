@@ -1,3 +1,4 @@
+import PublishedArchive from "../components/PublishedArchive";
 import type { Viewport } from "next";
 export const viewport:Viewport={width:"device-width",initialScale:1,userScalable:true};
 import type { Metadata } from "next";
@@ -31,7 +32,7 @@ export default async function UpdatesPage() {
           <p className="mx-auto mt-5 max-w-2xl leading-8 text-green-50">Important admission, JAMB and education updates simplified for students and applicants.</p>
         </div>
       </section>
-      <section className="py-8"><div className="mx-auto max-w-5xl px-5 lg:px-8"><UpdatesExplorer importedStories={importedStories} /></div></section>
+      <section className="py-8"><div className="mx-auto max-w-5xl px-5 lg:px-8"><UpdatesExplorer importedStories={importedStories} /><PublishedArchive stories={importedStories} /></div></section>
       <SiteContact />
     </main>
   );

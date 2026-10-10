@@ -1,3 +1,10 @@
+import { withPublicSocial } from "../../lib/public-metadata";
+import type { Metadata } from "next";
+export const metadata: Metadata = withPublicSocial({
+  title: "Admission Deadline Tracker",
+  description: "Track published Nigerian admission and application deadlines, find the supporting updates and get registration guidance from S.O.H CONSULTS.",
+  alternates: { canonical: "/deadlines" },
+});
 import { listPublishedStories } from "../../lib/news-queue";
 import { publishedDeadlines } from "../../lib/content-catalogue";
 import DeadlinesExplorer from "../components/DeadlinesExplorer";
