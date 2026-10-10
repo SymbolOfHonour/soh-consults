@@ -1,0 +1,81 @@
+{
+  "/": {
+    "status": 200,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": true
+  },
+  "/deadlines": {
+    "status": 200,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": true
+  },
+  "/about": {
+    "status": 200,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": true
+  },
+  "/updates": {
+    "status": 200,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": true
+  },
+  "/tools": {
+    "status": 200,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": true
+  },
+  "/updates/category/jamb": {
+    "status": 200,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": true
+  },
+  "/guides/how-to-check-jamb-caps": {
+    "status": 200,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": true
+  },
+  "/opportunities": {
+    "status": 200,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": true
+  },
+  "/robots.txt": {
+    "status": 200,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": false,
+    "h1": false
+  },
+  "/sitemap.xml": {
+    "status": 200,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": false,
+    "h1": false,
+    "unique_urls": 74
+  },
+  "/updates/nonexistent-seo-audit-test": {
+    "status": 404,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": false
+  },
+  "/guides/nonexistent-seo-audit-test": {
+    "status": 404,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": false
+  },
+  "/updates/category/nonexistent-seo-audit-test": {
+    "status": 404,
+    "x_robots_tag": "noindex, nofollow",
+    "canonical_present": true,
+    "h1": false
+  }
+}

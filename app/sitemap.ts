@@ -1,6 +1,6 @@
 import {categorySlug} from "../lib/category-slug";
 import type { MetadataRoute } from "next";
-import { getSiteUrl } from "./site-url";
+import { PRIMARY_SITE_URL } from "./site-url";
 import { guides } from "../data/guides";
 import { getStorySlug, listPublishedStories } from "../lib/news-queue";
 
@@ -15,7 +15,8 @@ function safeDate(value?: string | null): Date | undefined {
 
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = getSiteUrl();
+  // A sitemap describes canonical public URLs, never private deployment URLs.
+  const siteUrl = PRIMARY_SITE_URL;
   // A transient database failure must not masquerade as an empty publication list.
   // Let the request fail so crawlers can retry instead of receiving an incomplete sitemap.
   const published = await listPublishedStories({strict:true});

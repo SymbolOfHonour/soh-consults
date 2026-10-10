@@ -18,7 +18,7 @@ Search Console was not directly available. The supplied baseline says 13 indexed
 | Category breadcrumb absent | Category source | Visible breadcrumb and BreadcrumbList | Build and rendered JSON-LD check |
 | CGPA subpages lack incoming links in audited HTML | Planner and select-scale audit rows | Links on Tools page; calculators unchanged | Build and rendered links |
 | Article sharing metadata omits date fields | Article metadata source | Existing publication/modification dates exposed as article OG dates | Build and rendered metadata |
-| Sitemap duplicate resilience/date fallback | Sitemap source | Deduplicate URLs; use stored publication/creation date only if modification date invalid | Build and XML validation |
+| Sitemap duplicate resilience/date fallback | Sitemap source | Keep URLs on official domain even in Preview; deduplicate URLs; use stored publication/creation date only if modification date invalid | Build and XML validation |
 
 All articles already had at least one incoming link in the audited sitemap-page HTML. This is a discovery improvement, not evidence that all 44 pages were orphaned. No evidence of general crawl blocking or site-wide rendering failure was found. Text counts include common navigation and are not content-quality scores.
 
@@ -42,3 +42,15 @@ All articles already had at least one incoming link in the audited sitemap-page 
 6. “Discovered - currently not indexed” is not itself a confirmed technical error. Do not use Validate Fix for ordinary crawl-selection delays. Redirect pages are normally excluded; inspect their destinations instead.
 
 Google chooses when to crawl and which pages to index. No indexing guarantee or claim that this explains all 44 exclusions is made. No published content was rewritten, databases accessed directly, AdSense changed, calculators modified or Ask S.O.H branch/PR touched. Production remains unchanged by this branch.
+
+## Completed verification
+
+- TypeScript: passed. ESLint: 0 errors, 17 existing warnings; changed TSX files: 0 errors, one existing unused-variable warning.
+- 294 existing tests and 2 new server-rendered archive tests passed.
+- Optimized Next.js production build passed with Preview environment and isolated published-content fixture.
+- Local production server: homepage, deadlines, About, Updates, Tools, JAMB category, guide and opportunities HTTP 200 with canonicals; robots blocks Preview; sitemap has 74 unique URLs. Nonexistent article, guide and category return actual 404.
+- Protected Preview: https://soh-consults-7flx4gdpz-symbol-of-honour.vercel.app. Verified HTTP 200 on representative changed and retained routes, 404 on unknown article, 74 sitemap URLs, crawl-blocking robots and noindex HTTP headers. Custom-domain production canonical remains enforced by existing getSiteUrl production branch.
+- Browser: Preview loads, archive expands to all 37 published articles, canonical JAMB category link opens the category with breadcrumbs and seven matching updates. Production JAMB CAPS search returns five results and updates the shareable URL. WhatsApp links retain the business number and contextual messages; no messages sent.
+- Mobile: responsive wrapping, single-column archive below sm breakpoint and touch-sized links inspected in source; actual mobile viewport/device interaction is not verified because the available browser API does not expose viewport emulation. No mobile performance score or Core Web Vitals improvement is claimed.
+- Direct Search Console inspection/export remains unavailable. Per-URL Google indexing state cannot be inferred from HTTP health.
+- Recommendation: ready for owner review of the private Preview; complete mobile review before production approval. Production, production database, Ask S.O.H PR #324 and calculators remain unchanged.
