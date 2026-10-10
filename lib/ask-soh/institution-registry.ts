@@ -11,7 +11,7 @@ export const INSTITUTIONS:InstitutionRecord[]=[
  {key:"lasued",name:"Lagos State University of Education",aliases:["lasued","lagos state university of education"],officialDomains:["lasued.edu.ng"]},
  {key:"yabatech",name:"Yaba College of Technology",aliases:["yabatech","yaba college of technology"],officialDomains:["yabatech.edu.ng"]},
  {key:"jamb",name:"Joint Admissions and Matriculation Board",aliases:["jamb","joint admissions and matriculation board"],officialDomains:["jamb.gov.ng"],sourceUrls:["https://www.jamb.gov.ng/Bulletins.aspx","https://www.jamb.gov.ng/FAQ.aspx"]},
- {key:"waec",name:"West African Examinations Council",aliases:["waec","west african examinations council"],officialDomains:["waecnigeria.org","waec.org","waecdirect.org"],sourceUrls:["https://www.waecnigeria.org/news","https://www.waecnigeria.org/faq"]},
+ {key:"waec",name:"West African Examinations Council",aliases:["waec","west african examinations council"],officialDomains:["waecnigeria.org","waec.org","waecdirect.org"],sourceUrls:["https://registration.waecdirect.org/","https://www.waecnigeria.org/news","https://www.waecnigeria.org/faq"]},
  {key:"neco",name:"National Examinations Council",aliases:["neco","national examinations council"],officialDomains:["neco.gov.ng"],sourceUrls:["https://neco.gov.ng/exams","https://neco.gov.ng/exams/ssce-external"]},
  {key:"nysc",name:"National Youth Service Corps",aliases:["nysc","national youth service corps"],officialDomains:["nysc.gov.ng"]}
 ];

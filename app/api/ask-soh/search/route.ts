@@ -81,6 +81,7 @@ function businessServiceAnswer(question:string,context:string):{answer:string;se
 async function handleSearch(request:NextRequest,body?:{question?:string;context?:string;history?:ChatTurn[]}){
 
   const rate=await checkRateLimit(request,"ask-soh-search",30,60*60);
+  if(rate.unavailable)return NextResponse.json({error:"Ask S.O.H is temporarily unavailable. Please try again shortly or contact S.O.H CONSULTS.",results:[]},{status:503,headers:{"Retry-After":"60"}});
   if(!rate.allowed)return NextResponse.json({error:"Search limit reached. Please try again later.",results:[]},{status:429,headers:{"Retry-After":String(rate.retryAfter)}});
   const rawQuestion=body?.question??request.nextUrl.searchParams.get("q");
   const question=typeof rawQuestion==="string"?rawQuestion.trim():null;
