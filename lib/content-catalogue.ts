@@ -2,7 +2,7 @@ import { guides } from "../data/guides";
 import { opportunities, updates, getUpdateSlug } from "../data/updates";
 import { getStorySlug, type QueuedStory } from "./news-queue";
 import { type DiscoveryItem } from "./algorithm-phase2";
-import { deadlineDate, normaliseText } from "./discovery-text";
+import { deadlineDate, normaliseText, statedDeadline } from "./discovery-text";
 import { readArticleBlocks } from "./article-blocks";
 import { admissionDeadlines } from "../data/admission-deadlines";
 
@@ -17,7 +17,7 @@ export function storyDiscovery(item:QueuedStory):DiscoveryItem {
   const blocks=readArticleBlocks(item.details);
   const legacy=updates.find(u=>getUpdateSlug(u)===getStorySlug(item));
   const body=blocks?blocks.map(block=>"text" in block?block.text:"").join(" "):item.details;
-  return {id:item.id,href:`/updates/${getStorySlug(item)}`,kind:"update",title:item.title,summary:item.summary,body,institution:item.institution,category:item.category,publishedAt:item.source_published_at||item.created_at,deadline:item.deadline_iso||item.deadline||legacy?.deadlineISO||legacy?.deadline||legacy?.opportunityDeadline,isOfficial:Boolean(item.official_source_url)};
+  return {id:item.id,href:`/updates/${getStorySlug(item)}`,kind:"update",title:item.title,summary:item.summary,body,institution:item.institution,category:item.category,publishedAt:item.source_published_at||item.created_at,deadline:item.deadline_iso||item.deadline||legacy?.deadlineISO||legacy?.deadline||legacy?.opportunityDeadline||statedDeadline(`${item.summary} ${body}`),isOfficial:Boolean(item.official_source_url)};
 }
 export type PublicOpportunity = DiscoveryItem & { programme:string;description:string;status:string;deadlineLabel:string;applicationUrl?:string;detailHref?:string };
 export function opportunityStatus(item:Pick<PublicOpportunity,"deadline"|"status">, now=new Date()) {
@@ -27,19 +27,24 @@ export function opportunityStatus(item:Pick<PublicOpportunity,"deadline"|"status
   if(!deadline)return "Confirm availability";
   return (+deadline-+now)/86_400_000<=7 ? "Closing soon" : "Open";
 }
+const isApplicationNotice=(title:string)=>{const text=normaliseText(title);return /admission|screening|post utme|direct entry/.test(text)&&/\b(?:forms?|applications?|registration|reopens?|reopened)\b/.test(text)&&!/admission list|screening result|cut off/.test(text);};
+const deadlineLabel=(value:DiscoveryItem["deadline"])=>deadlineDate(value)?.toLocaleDateString("en-GB",{timeZone:"Africa/Lagos",day:"numeric",month:"long",year:"numeric"})||"Check official portal";
 export function publicOpportunities(stories:QueuedStory[]):PublicOpportunity[] {
   const published=new Map(stories.map(s=>[getStorySlug(s),s]));
   const mapped=updates.filter(u=>u.isOpportunity && published.has(getUpdateSlug(u))).map(u=>{
     const s=published.get(getUpdateSlug(u))!;
-    return {...storyDiscovery(s),id:`opportunity-${s.id}`,kind:"opportunity" as const,href:`/opportunities#opportunity-${s.id}`,programme:u.opportunityProgramme||s.title,description:s.summary,status:u.opportunityStatus||"OPEN",deadline:s.deadline_iso||s.deadline||u.opportunityDeadline,deadlineLabel:s.deadline||u.opportunityDeadline||"Check official portal",category:u.opportunityCategory||"Other",detailHref:`/updates/${getStorySlug(s)}`,applicationUrl:s.official_source_url||u.sourceUrl};
+    return {...storyDiscovery(s),id:`opportunity-${s.id}`,kind:"opportunity" as const,href:`/opportunities?status=all#opportunity-${s.id}`,programme:u.opportunityProgramme||s.title,description:s.summary,status:u.opportunityStatus||"OPEN",deadline:s.deadline_iso||s.deadline||u.opportunityDeadline,deadlineLabel:s.deadline||u.opportunityDeadline||"Check official portal",category:u.opportunityCategory||"Other",detailHref:`/updates/${getStorySlug(s)}`,applicationUrl:s.official_source_url||u.sourceUrl};
   });
   const known=new Set(mapped.map(o=>o.detailHref));
-  const cms=stories.filter(s=>/scholarship|opportunit/i.test(s.category) && !known.has(`/updates/${getStorySlug(s)}`)).map(s=>({...storyDiscovery(s),id:`opportunity-${s.id}`,kind:"opportunity" as const,href:`/opportunities#opportunity-${s.id}`,programme:s.title,description:s.summary,status:"OPEN",deadlineLabel:s.deadline||"Check official portal",category:/scholarship/i.test(s.category)?"Scholarships":"Other",detailHref:`/updates/${getStorySlug(s)}`,applicationUrl:s.official_source_url||undefined}));
-  const seeded=opportunities.map((o,i):PublicOpportunity=>({id:`opportunity-seed-${i}`,kind:"opportunity",href:`/opportunities#opportunity-seed-${i}`,title:`${o.institution} ${o.programme}`,institution:o.institution,programme:o.programme,description:o.description,summary:o.description,category:o.category,status:o.status,deadline:o.deadline,deadlineLabel:o.deadline}));
+  const cms=stories.filter(s=>(/scholarship|opportunit/i.test(s.category)||isApplicationNotice(s.title)) && !known.has(`/updates/${getStorySlug(s)}`)).map(s=>({...storyDiscovery(s),id:`opportunity-${s.id}`,kind:"opportunity" as const,href:`/opportunities?status=all#opportunity-${s.id}`,programme:s.title,description:s.summary,status:"OPEN",deadlineLabel:s.deadline||deadlineLabel(storyDiscovery(s).deadline),category:/scholarship/i.test(s.category)?"Scholarships":"Other",detailHref:`/updates/${getStorySlug(s)}`,applicationUrl:s.official_source_url||undefined}));
+  const seeded=opportunities.map((o,i):PublicOpportunity=>({id:`opportunity-seed-${i}`,kind:"opportunity",href:`/opportunities?status=all#opportunity-seed-${i}`,title:`${o.institution} ${o.programme}`,institution:o.institution,programme:o.programme,description:o.description,summary:o.description,category:o.category,status:o.status,deadline:o.deadline,deadlineLabel:o.deadline}));
   return [...mapped,...cms,...seeded];
 }
+export function publishedDeadlines(stories:QueuedStory[]):DiscoveryItem[] {
+  return stories.map(storyDiscovery).filter(item=>deadlineDate(item.deadline)).map(item=>({...item,id:`deadline-${item.id}`,kind:"deadline" as const,category:/scholarship/i.test(item.category||"")?"Scholarships":/university/i.test(item.institution||"")?"University":"Other"}));
+}
 export function contentCatalogue(stories:QueuedStory[]):DiscoveryItem[] {
-  return [...stories.map(storyDiscovery),...publicOpportunities(stories),...deadlineContent,...guideContent,...calculatorContent];
+  return [...stories.map(storyDiscovery),...publicOpportunities(stories),...deadlineContent,...publishedDeadlines(stories),...guideContent,...calculatorContent];
 }
 export function newestContent<T extends {publishedAt?:string|Date}>(items:T[]) {
   const date=(item:T)=>item.publishedAt?Date.parse(String(item.publishedAt))||0:0;

@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 // Keep searches shareable and restore them on Back without sending any new tracking data.
-export function useDiscoveryFilters<T extends Record<string,string>>(defaults:T) {
-  const [filters,setFilters]=useState<T>(defaults);
+export function useDiscoveryFilters<T extends Record<string,string>>(defaults:T, initial:Partial<T>={}, choices:Partial<Record<keyof T,readonly string[]>>={}) {
+  const valid=(key:string,value:string)=>choices[key]?.includes(value)===false?defaults[key]:value;
+  const [filters,setFilters]=useState<T>(()=>Object.fromEntries(Object.entries(defaults).map(([key,value])=>[key,valid(key,initial[key]||value)])) as T);
   useEffect(()=>{
-    const read=()=>{const params=new URLSearchParams(window.location.search);setFilters(Object.fromEntries(Object.entries(defaults).map(([key,value])=>[key,params.get(key)||value])) as T);};
+    const read=()=>{const params=new URLSearchParams(window.location.search);setFilters(Object.fromEntries(Object.entries(defaults).map(([key,value])=>[key,valid(key,params.get(key)||value)])) as T);};
     read();window.addEventListener("popstate",read);
     return ()=>window.removeEventListener("popstate",read);
     // Defaults are a fixed schema for this explorer.

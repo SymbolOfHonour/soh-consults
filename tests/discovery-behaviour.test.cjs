@@ -218,3 +218,67 @@ test("Ask S.O.H renders a valid API answer even when no source cards are returne
  assert.ok(noBest>=0 && answerCheck>noBest && retrievalFailure>answerCheck);
  assert.match(widget.slice(answerCheck,retrievalFailure),/text: payload\.answer/);
 });
+
+test('search treats common admission spellings and keyword-only terms consistently',()=>{
+ const content=[item('cutoff','UNIOSUN cut-off marks'),item('upload',"O’Level upload guide"),{...item('tool','Academic tool'),keywords:['semester','course units']}];
+ assert.equal(unifiedSearch(content,'UNIOSUN cutoff',{now})[0].item.id,'cutoff');
+ assert.equal(unifiedSearch(content,'olevel upload',{now})[0].item.id,'upload');
+ assert.equal(unifiedSearch(content,'course units',{now})[0].item.id,'tool');
+});
+
+test('search keeps LASU distinct from LASUED and LASUSTECH, including full names',()=>{
+ const content=[item('lasu','LASU screening'),item('lasued','Lagos State University of Education screening'),item('tech','Lagos State University of Science and Technology screening')];
+ assert.deepEqual(unifiedSearch(content,'LASU screening',{now}).map(r=>r.item.id),['lasu']);
+ assert.deepEqual(unifiedSearch(content,'Lagos State University screening',{now}).map(r=>r.item.id),['lasu']);
+ assert.deepEqual(unifiedSearch(content,'LASUSTECH screening',{now}).map(r=>r.item.id),['tech']);
+ assert.deepEqual(unifiedSearch(content,'LASUED screening',{now}).map(r=>r.item.id),['lasued']);
+});
+
+test('school-specific next steps never send a LASU reader to another school calculator',()=>{
+ const current=item('story','LASU Post-UTME screening',{institution:'Nigeria',category:'Admission'});
+ const corpus=contentCatalogue([]);
+ const related=relatedContent(current,corpus,20,now).map(r=>r.item);
+ assert.ok(related.some(i=>i.href==='/lasu-calculator'));
+ assert.ok(related.some(i=>i.kind==='guide'));
+ assert.ok(!related.some(i=>i.kind==='calculator'&&['/fuoye-calculator','/lasued-calculator','/lasustech-calculator'].includes(i.href)));
+ const general=relatedContent(item('general','JAMB CAPS admission status',{institution:'Nigeria'}),corpus,30,now).map(r=>r.item);
+ assert.ok(!general.some(i=>i.kind==='calculator'&&i.institution));
+});
+
+test('explicitly closed and upcoming opportunities are not recommended as current next steps',()=>{
+ const current=item('current','Scholarship applications');
+ const closed=item('closed','Scholarship application',{status:'CLOSED'});
+ const upcoming=item('upcoming','Scholarship application',{status:'COMING SOON'});
+ const open=item('open','Scholarship application',{deadline:'2026-10-10'});
+ assert.deepEqual(relatedContent(current,[closed,upcoming,open],6,now).map(r=>r.item.id),['open']);
+ assert.ok(rankContent([closed,open],{now}).find(r=>r.item.id==='closed').breakdown.stalenessPenalty>=40);
+});
+
+test('archived opportunity deep links explicitly include the full list',()=>{
+ const all=publicOpportunities([]);
+ assert.ok(all.length>0);
+ assert.ok(all.every(item=>item.href.includes('?status=all#'+item.id)));
+});
+
+test('published application date ranges supply deadlines without inventing a year',()=>{
+ const {statedDeadline}=load('lib/discovery-text');
+ assert.equal(statedDeadline('Applications will run from Tuesday, October 6 to Tuesday, October 13, 2026.'),'2026-10-13T22:59:59.999Z');
+ assert.equal(statedDeadline('Applications are available from 5 October to 13 November 2026.'),'2026-11-13T22:59:59.999Z');
+ assert.equal(statedDeadline('Application deadline: 13 October 2026.'),'2026-10-13T22:59:59.999Z');
+ assert.equal(statedDeadline('Applications are available from 5 October to 13 November.'),null);
+ assert.equal(statedDeadline('Orientation is from 5 October to 13 November 2026.'),null);
+ assert.equal(statedDeadline('Deadline: 13 October 2026. Deadline: 14 October 2026.'),null);
+});
+
+test('published admission application notices are discoverable as opportunities',()=>{
+ const story={id:'new',title:'FUTA RELEASES TOP-UP DEGREE ADMISSION FORM',institution:'FUTA',category:'Admission',summary:'Applications are available from 5 October to 13 November 2026.',details:'Published application instructions.',source_url:'manual:new',source_published_at:null,created_at:'2026-10-05',updated_at:'2026-10-05'};
+ const found=publicOpportunities([story]).find(i=>i.id==='opportunity-new');
+ assert.ok(found);assert.equal(found.deadline,'2026-11-13T22:59:59.999Z');assert.equal(found.deadlineLabel,'13 November 2026');
+});
+
+test('new published notices feed the deadline tracker and global deadline search',()=>{
+ const {publishedDeadlines}=load('lib/content-catalogue');
+ const story={id:'new',title:'FUTES Admission Portal Reopened',institution:'FUTES',category:'Admission',summary:'Applications will run from Tuesday, October 6 to Tuesday, October 13, 2026.',details:'Published instructions',source_url:'manual:new',source_published_at:null,created_at:'2026-10-05',updated_at:'2026-10-05'};
+ const deadlines=publishedDeadlines([story]);assert.equal(deadlines.length,1);assert.equal(deadlines[0].deadline,'2026-10-13T22:59:59.999Z');assert.equal(deadlines[0].href,'/updates/futes-admission-portal-reopened');
+ assert.ok(unifiedSearch(contentCatalogue([story]),'FUTES',{now}).some(r=>r.item.kind==='deadline'));
+});

@@ -1,5 +1,5 @@
 import { rankContent, type RankableContent, type RankingContext } from "./ranking-engine";
-import { normaliseText, searchableText, contentTopics, deadlineDate } from "./discovery-text";
+import { normaliseText, institutionKeys, contentTopics, deadlineDate } from "./discovery-text";
 
 export type DiscoveryKind = "update" | "opportunity" | "deadline" | "guide" | "calculator";
 export type DiscoveryItem = RankableContent & { id: string; href: string; kind: DiscoveryKind; keywords?: string[] };
@@ -24,14 +24,25 @@ export function unifiedSearch<T extends DiscoveryItem>(items:T[], query:string, 
 
 export function relatedContent<T extends DiscoveryItem>(current:T, candidates:T[], limit=6, now=new Date()){
   const topics=contentTopics(`${current.title} ${current.summary||""} ${(current.keywords||[]).join(" ")}`);
+  const schools=(item:T)=>{
+    const value=item.institution||"", keys=institutionKeys(value);
+    if(keys.length)return keys;
+    if(value && !/^(nigeria|national|nationwide|all|general|other|n a)$/i.test(normaliseText(value)))return [normaliseText(value)];
+    return institutionKeys(`${item.title} ${item.summary||""}`);
+  };
+  const currentSchools=schools(current);
   const affinity=(item:T)=>{
+    const itemSchools=schools(item);
+    const sameSchool=itemSchools.some(school=>currentSchools.includes(school));
+    // A school-specific tool is only useful for that school's reader.
+    if(item.kind==="calculator" && itemSchools.length && !sameSchool)return 0;
+    if(currentSchools.length && itemSchools.length && !sameSchool)return 0;
     const shared=contentTopics(`${item.title} ${item.summary||""} ${(item.keywords||[]).join(" ")}`).filter(t=>topics.includes(t)).length;
-    const sameSchool=Boolean(current.institution&&(searchableText(item.institution||"").split(" ").includes(normaliseText(current.institution)) || normaliseText(current.institution)===normaliseText(item.institution)));
     const sameCategory=Boolean(current.category&&normaliseText(current.category)===normaliseText(item.category));
     return shared*12+(sameSchool?14:0)+(sameCategory?4:0);
   };
   const seen=new Set<string>();
-  return rankContent(candidates.filter(item=>item.id!==current.id && item.href!==current.href && affinity(item)>0 && !(deadlineDate(item.deadline) && +deadlineDate(item.deadline)! < +now)),{institution:current.institution,category:current.category,now})
+  return rankContent(candidates.filter(item=>item.id!==current.id && item.href!==current.href && affinity(item)>0 && item.status!=="CLOSED" && item.status!=="COMING SOON" && !(deadlineDate(item.deadline) && +deadlineDate(item.deadline)! < +now)),{institution:current.institution,category:current.category,now})
     .sort((a,b)=>affinity(b.item)-affinity(a.item)||b.score-a.score)
     .filter(({item})=>{if(seen.has(item.href))return false;seen.add(item.href);return true;}).slice(0,limit);
 }
