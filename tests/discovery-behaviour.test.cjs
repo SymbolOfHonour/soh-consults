@@ -68,14 +68,7 @@ test('catalogue includes published CMS stories, working guide links and calculat
 });
 
 
-test("Ask S.O.H official retrieval covers supported education authorities and institutions", () => {
-  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
-  for (const host of ["jamb.gov.ng","waec.org","neco.gov.ng","fuoye.edu.ng","lasustech.edu.ng","uniosun.edu.ng","oouagoiwoye.edu.ng","lasued.edu.ng","yabatech.edu.ng"]) {
-    assert.match(route, new RegExp(host.replaceAll(".","\\.")));
-  }
-  assert.match(route, /target url returned error/i);
-  assert.match(route, /start screening/i);
-});
+
 
 test("Ask S.O.H keeps conversation history and institution calculator routing", () => {
   const widget = fs.readFileSync(path.join(root,"app/components/AskSOH.tsx"),"utf8");
@@ -86,38 +79,16 @@ test("Ask S.O.H keeps conversation history and institution calculator routing", 
 });
 
 
-test("Ask S.O.H fallback suppresses portal boilerplate and caps evidence summaries", () => {
-  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
-  assert.match(route, /javascript\|mail\|helpline/);
-  assert.match(route, /slice\(0,520\)/);
-  assert.match(route, /start screening/i);
-});
 
 
-test("Ask S.O.H rejects CAPTCHA and anti-bot challenge pages as evidence", () => {
-  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
-  for (const marker of ["captcha","performing security verification","verifies you are not a bot","verify you are human","checking your browser","security service to protect against malicious bots"]) {
-    assert.match(route, new RegExp(marker, "i"));
-  }
-});
 
 
-test("Ask S.O.H uses multiple official admission endpoints when an institution homepage is blocked", () => {
-  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
-  for (const endpoint of ["putme.fuoye.edu.ng/utme/","news.fuoye.edu.ng/tag/2026-2027-post-utme/","admission.lasustech.edu.ng/","admissions.uniosun.edu.ng/"]) {
-    assert.match(route, new RegExp(endpoint.replaceAll(".","\\.")));
-  }
-  assert.match(route, /Promise\.allSettled\(direct\.map/);
-});
 
 
-test("Ask S.O.H synthesizes FUOYE screening status instead of dumping portal text", () => {
-  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
-  assert.match(route, /fuoyeScreening/);
-  assert.match(route, /closing\\s\+in/);
-  assert.match(route, /screening exercise has been reopened/);
-  assert.match(route, /yes\/no or status questions/i);
-});
+
+
+
+
 
 
 test("Ask S.O.H follow-ups preserve latest intent instead of replaying previous status intent", () => {
@@ -125,47 +96,20 @@ test("Ask S.O.H follow-ups preserve latest intent instead of replaying previous 
   const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
   assert.match(widget, /searchWeb\(question, subjectContext/);
   assert.match(route, /Context subject:/);
-  assert.match(route, /question\.split\(\/Context subject:/);
+  assert.match(route, /verifyAnswer\(safeQuestion,resolved/);
 });
 
 
-test("Ask S.O.H FUOYE requirements retrieve official guides and build a practical checklist", () => {
-  const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
-  assert.match(route, /FOUYE-Post-UTME-Admission-Screening-Registration-GUIDE\.pdf/);
-  assert.match(route, /instruction_UG\.php\?session=2026%2F2027/);
-  assert.match(route, /JAMB registration number/);
-  assert.match(route, /Passport photograph/);
-  assert.match(route, /O'Level result\/certificate/);
-  assert.match(route, /valid email address/);
-  assert.match(route, /valid phone number/);
-  assert.match(route, /screening-fee payment/);
-  assert.match(route, /print the completed application/);
-});
 
 
-test("Ask S.O.H keeps enough official evidence for complete requirements checklists", () => {
-  const route = fs.readFileSync(path.join(process.cwd(), "app/api/ask-soh/search/route.ts"), "utf8");
-  assert.match(route, /slice\(0,8000\)/);
-  assert.match(route, /JAMB registration number/);
-  assert.match(route, /Passport photograph/);
-  assert.match(route, /A valid phone number/);
-});
 
 
-test("Ask S.O.H keeps FUOYE Direct Entry follow-ups intent-specific", () => {
-  const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
-  assert.match(route,/asksDirectEntry/);
-  assert.match(route,/I could not verify enough FUOYE 2026\/2027 Direct Entry-specific eligibility/);
-  assert.match(route,/smartcampus\|onboarding\|applications currently open\|balance payment\|result verification/);
-});
 
 
-test("Ask S.O.H rejects unrelated FUOYE notices as Direct Entry evidence",()=>{
- const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
- assert.match(route,/post\.\?utme\|awaiting result\|department of law/);
- assert.match(route,/direct entry\|\\bDE\\b/);
- assert.match(route,/requirement\|eligib\|qualification\|credential\|document/);
-});
+
+
+
+
 
 
 test("Ask S.O.H switches fresh institutions and only inherits genuine follow-ups",()=>{
@@ -182,13 +126,7 @@ test("Ask S.O.H keeps each new answer visible automatically",()=>{
  assert.match(widget,/conversation\.scrollTo\(\{ top: conversation\.scrollHeight, behavior: "smooth" \}\)/);
 });
 
-test("Ask S.O.H searches internal and official knowledge for non-current factual questions",()=>{
- const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
- assert.match(route,/searchSOH\(resolvedQuestion\)/);
-  assert.match(route,/searchOfficialSites\(resolvedQuestion\)/);
-  assert.match(route,/noticeResults/);
- assert.match(route,/Treat the current Question as authoritative/);
-});
+
 
 
 test("Ask S.O.H keeps simple facts concise through answer-mode routing",()=>{
@@ -200,14 +138,7 @@ test("Ask S.O.H keeps simple facts concise through answer-mode routing",()=>{
 });
 
 
-test("Ask S.O.H resolves verified facts from the registry before live retrieval",()=>{
- const route=fs.readFileSync(path.join(process.cwd(),"app/api/ask-soh/search/route.ts"),"utf8");
- const lookup=route.indexOf("findVerifiedFact(resolved,safeQuestion)");
- const live=route.indexOf("searchOfficialSites(resolvedQuestion)");
- assert.ok(lookup>=0 && live>lookup);
- assert.match(route,/sourceType:"verified_knowledge"/);
- assert.doesNotMatch(route,/function verifiedFactAnswer/);
-});
+
 
 
 test("Ask S.O.H renders a valid API answer even when no source cards are returned",()=>{

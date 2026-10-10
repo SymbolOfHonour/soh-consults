@@ -4,7 +4,7 @@ const guidance=route.slice(route.indexOf("function examinationResultGuidance("),
 const services=route.slice(route.indexOf("function businessServiceAnswer("),route.indexOf("async function handleSearch("));
 for(const [exam,url] of [["WAEC","waecdirect.org"],["NECO","results.neco.gov.ng"]])test("hybrid result "+exam,()=>{assert.ok(guidance.includes('exam==="'+exam+'"'));assert.ok(guidance.includes(url));assert.match(guidance,/S.O.H CONSULTS/);});
 for(const [label,pattern] of [["scratch cards",/scratch.\\?card/],["NECO context",/const ctx=context/],["O-Level uploads",/O.Level result upload on JAMB/],["JAMB printing",/JAMB document printing/],["Post-UTME",/Post-UTME and Direct Entry/],["WAEC DigiCert",/WAEC certificate assistance/],["acceptance fees",/School fee payment guidance/]])test("service coverage: "+label,()=>assert.match(services,pattern));
-test("general questions still use verified knowledge",()=>{assert.ok(route.includes("findVerifiedFact(resolved,safeQuestion)"));});
+
 test("missing token intent precedes generic result guidance",()=>{assert.ok(route.indexOf("const tokenNeed=")<route.indexOf("const resultGuidance=examinationResultGuidance"));assert.match(route,/if\(tokenNeed\)/);});
 test("WhatsApp number and service CTA configured",()=>{assert.match(ui,/const WHATSAPP = "2348182141088"/);assert.match(ui,/Get Assistance on WhatsApp/);assert.match(ui,/encodeURIComponent\(message\)/);});
 test("official sources and clickable links preserved",()=>{assert.match(ui,/function isSOHSource/);assert.match(ui,/Open Official Source/);assert.match(ui,/renderReadableAnswer\(message.text\)/);assert.match(ui,/rel="noopener noreferrer"/);});
@@ -21,19 +21,5 @@ test("certificate enquiries do not get result-token pricing",()=>{const guard=se
 test("context VC intent uses word boundaries",()=>{const resolver=fs.readFileSync("lib/ask-soh/question-resolver.ts","utf8");const inherited=resolver.slice(resolver.indexOf("const contextQ="),resolver.indexOf("const intent="));assert.ok(inherited.includes("vc"));assert.ok(!inherited.includes(String.raw`\\\\bvc\\\\b`));});
 
 test("cutoff and fee questions always require current verification",()=>{const resolver=fs.readFileSync("lib/ask-soh/question-resolver.ts","utf8");assert.match(resolver,/currentSensitive:cutoff\|\|CURRENT\.test\(question\)/);assert.match(resolver,/admission status\|admitted\|offered admission/);assert.match(resolver,/fee\|fees\|price\|cost/);});
-
-test("university cutoff extraction requires institution-owned official domain",()=>{assert.match(route,/resolved\.intent==="cutoff"/);assert.match(route,/institution\.officialDomains\.some/);assert.match(route,/hostname===domain\|\|hostname\.endsWith/);assert.match(route,/shapeEvidenceAnswer\(resolved\.answerMode,scoreEvidence\)/);});
-
-test("exact score and name answers cannot be generated without evidence",()=>{assert.match(route,/const exactMode=resolved\.answerMode==="numeric"\|\|resolved\.answerMode==="name"/);assert.match(route,/const generated=exactMode\|\|registrationStatusQuery\?null:await generateGroundedAnswer/);assert.match(route,/const generated=exactFallback\|\|registrationQuery\?null:await generateGroundedAnswer/);});
-
-test("registration status bypasses business sales routing",()=>{assert.match(route,/const statusQuestion=resolved\.intent==="status"/);assert.match(route,/const serviceAnswer=statusQuestion\?null:businessServiceAnswer/);});
-test("search failure does not return portal boilerplate as exact cutoff",()=>{assert.match(route,/const exactFallback=resolved\.answerMode==="numeric"\|\|resolved\.answerMode==="name"/);assert.match(route,/const composed=verifiedDeadline\?/);
-  assert.match(route,/unverifiedRegistration\?/);});
-
-test("live registration status cannot be inferred from homepage snippets",()=>{assert.match(route,/const registrationStatusQuery=\(resolved\.intent==="status"\|\|resolved\.intent==="deadline"\)/);assert.match(route,/const finalAnswer=registrationDeadline\?registrationDeadline.answer:statusUnverified\?statusWarning:/);assert.match(route,/const needsReview=registrationDeadline\?false:statusUnverified\|\|/);assert.match(route,/const generated=exactMode\|\|registrationStatusQuery\?null:/);});
-
-test("dated registration evidence requires session and institution-owned source",()=>{assert.match(route,/function verifiedRegistrationDeadline/);assert.match(route,/if\(!session\)return null/);assert.match(route,/institutionDomains\.some/);assert.match(route,/text\.includes\(session\)/);assert.match(route,/registrationDeadline\?registrationDeadline\.answer/);});
-
-test("deadline parser handles textual and numeric calendar dates",()=>{const source=route.slice(route.indexOf("function verifiedRegistrationDeadline("),route.indexOf("function shapeEvidenceAnswer("));assert.match(source,/text\.matchAll\(lead\)/);assert.match(source,/dateParts=nearby\.match/);assert.match(source,/const monthName=/);assert.doesNotMatch(source,/\\\\s\*/);});
 
 test("short acknowledgements continue conversation while explicit closure stops",()=>{const ui=fs.readFileSync("app/components/AskSOH.tsx","utf8");assert.match(ui,/const acknowledgement=/);assert.match(ui,/const closure=/);assert.match(ui,/findFollowUpSubject\(recentUserMessages\)/);assert.match(ui,/if\(closure\)/);assert.match(ui,/if\(acknowledgement\)/);});

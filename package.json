@@ -17,7 +17,8 @@
     "next": "16.3.8",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "tus-js-client": "^4.3.1"
+    "tus-js-client": "^4.3.1",
+    "unpdf": "^1.6.0"
   },
   "devDependencies": {
     "@opennextjs/cloudflare": "1.20.8",
