@@ -26,7 +26,7 @@ export function applicationSections(story?: QueuedStory): NoticeSection[] {
   const blocks = readArticleBlocks(story.details);
   if (blocks) {
     const sections: NoticeSection[] = [];
-    for (const block of blocks) {
+    for (const block of blocks.flatMap(block => block.type === "paragraph" ? block.text.split("\n").map(text => ({ type: "paragraph" as const, text })) : [block])) {
       if (block.type === "heading" || (block.type === "paragraph" && isNoticeHeading(block.text))) sections.push({ heading: block.text, text: "" });
       else if (block.type === "paragraph") {
         if (!sections.length) sections.push({ heading: "Published notice", text: "" });
