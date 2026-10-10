@@ -39,3 +39,7 @@ test('result service price follows the exam without asking an unrelated year',()
 test('nonfinite memory timestamp is invalid',()=>{assert.equal(readConversation({...chat('LASU 2026/2027 deadline').state,updatedAt:NaN},now).institutionKey,null);});
 
 test('programme clarification accepts courses beyond the common aliases',()=>{const r=chat('I scored 220, am I eligible for LASU','Biochemistry','2026/2027');assert.equal(r.state.programme,'biochemistry');assert.match(r.questions[0],/biochemistry/i);});
+
+test('yes to offered programme requirements retrieves requirements, not the deadline',()=>{const r=chat('I scored 220, am I eligible for LASU Marketing 2026/2027','yes');assert.equal(r.state.intent,'requirements');assert.match(r.questions[0],/requirements/i);});
+
+test('explicit school comparison inherits the candidate category',()=>{const r=chat('LASU 2026/2027 Direct Entry deadline','what about FUOYE');assert.equal(r.state.category,'Direct Entry');assert.match(r.questions[0],/Direct Entry/);assert.doesNotMatch(r.questions[0],/LASU/);});
