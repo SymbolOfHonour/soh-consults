@@ -95,7 +95,7 @@ export function verifyAnswer(question:string,q:ResolvedQuestion,documents:Source
  }
  if(q.intent==='cutoff'){
   const values:{value:string;d:SourceDocument}[]=[];
-  for(const d of applicable){if(d.kind==='homepage'||d.kind==='search')continue;for(const m of d.snippet.matchAll(/(?:minimum\s+(?:utme\s+|jamb\s+)?score(?:\s+of)?|cut.?off\s+mark(?:\s+of)?|minimum\s+(?:utme|jamb)(?:\s+score)?)\s*[:=-]?\s*(\d{3})\b/gi)){const n=Number(m[1]);if(n>=100&&n<=400)values.push({value:m[1],d});}}
+  for(const d of applicable){if(d.kind==='homepage'||d.kind==='search')continue;for(const m of d.snippet.matchAll(/(?:minimum\s+(?:utme\s+|jamb\s+)?score(?:\s+of)?|cut.?off\s+mark(?:\s+of)?|minimum\s+(?:utme|jamb)(?:\s+score)?)\s*[:=-]?\s*(\d{3})\b|\b(\d{3})\+?\s+minimum\s+(?:utme|jamb)\s+score\b/gi)){const value=m[1]||m[2],n=Number(value);if(n>=100&&n<=400)values.push({value,d});}}
   if(new Set(values.map(v=>v.value)).size>1)return uncertain('Official minimum scores differ or depend on programme.',true,values.map(v=>v.d));
   if(!values.length)return uncertain('No explicit minimum score matched the requested session.');
   return {answer:values[0].value,confidence:'high',needsHuman:false,contradiction:false,citations:[values[0].d],reason:'Explicit session-bound official minimum score'};
