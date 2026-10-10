@@ -16,6 +16,10 @@ export function safeOfficialUrl(value?: string | null) {
   } catch { return undefined; }
 }
 export type NoticeSection = { heading: string; text: string };
+function isNoticeHeading(value: string) {
+  const plain = value.normalize("NFKD").replace(/\*\*/g, "").replace(/^#{1,6}\s+/, "").trim();
+  return plain.length > 0 && plain.length <= 160 && (/^#{1,6}\s+/.test(value) || /^\*\*[^*]+\*\*$/.test(value.trim()) || (/[A-Z]/.test(plain) && plain === plain.toUpperCase() && !/^[-*\d]/.test(plain)));
+}
 // Show the editor's actual sections. Never derive requirements or fees from a title.
 export function applicationSections(story?: QueuedStory): NoticeSection[] {
   if (!story) return [];
@@ -23,7 +27,7 @@ export function applicationSections(story?: QueuedStory): NoticeSection[] {
   if (blocks) {
     const sections: NoticeSection[] = [];
     for (const block of blocks) {
-      if (block.type === "heading") sections.push({ heading: block.text, text: "" });
+      if (block.type === "heading" || (block.type === "paragraph" && isNoticeHeading(block.text))) sections.push({ heading: block.text, text: "" });
       else if (block.type === "paragraph") {
         if (!sections.length) sections.push({ heading: "Published notice", text: "" });
         sections[sections.length - 1].text += `${block.text}\n\n`;
@@ -34,8 +38,7 @@ export function applicationSections(story?: QueuedStory): NoticeSection[] {
   const text = removeArticleBlocks(story.details);
   const sections: NoticeSection[] = [];
   for (const line of text.split("\n")) {
-    const plain = line.normalize("NFKD").replace(/\*\*/g, "").replace(/^#{1,6}\s+/, "").trim();
-    const heading = plain.length > 0 && plain.length <= 160 && (/^#{1,6}\s+/.test(line) || /^\*\*[^*]+\*\*$/.test(line.trim()) || (/[A-Z]/.test(plain) && plain === plain.toUpperCase() && !/^[-*\d]/.test(plain)));
+    const heading = isNoticeHeading(line);
     if (heading) sections.push({ heading: line.replace(/^#{1,6}\s+/, "").replace(/^\*\*|\*\*$/g, ""), text: "" });
     else {
       if (!sections.length) sections.push({ heading: "Published notice", text: "" });

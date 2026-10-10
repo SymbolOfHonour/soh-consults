@@ -50,6 +50,8 @@ test('WhatsApp enquiries preserve selected service and school as an encoded draf
 });
 test('Unicode plain-text notice headings and labelled fee lines remain usable without guessing values', () => {
   const story = { details: "𝗪𝗛𝗢 𝗜𝗦 𝗘𝗟𝗜𝗚𝗜𝗕𝗟𝗘 𝗧𝗢 𝗔𝗣𝗣𝗟𝗬?\nFive credits as supplied by the editor.\n\n𝗜𝗠𝗣𝗢𝗥𝗧𝗔𝗡𝗧 𝗗𝗔𝗧𝗘𝗦\n𝗔𝗽𝗽𝗹𝗶𝗰𝗮𝘁𝗶𝗼𝗻 𝗳𝗲𝗲: ₦20,000\n\n[Visit the official school website](https://example.edu.ng)" };
+  const blockStory = { details: writeArticleBlocks('', story.details.split('\n').filter(Boolean).map(text => ({ type: 'paragraph', text }))) };
+  assert.match(checklistSection(applicationSections(blockStory), 'eligibility')[0].text, /Five credits/);
   const sections = applicationSections(story);
   assert.match(checklistSection(sections, 'eligibility')[0].text, /Five credits/);
   assert.match(checklistSection(sections, 'fees')[0].text, /₦20,000/);
