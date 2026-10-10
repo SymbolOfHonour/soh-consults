@@ -1,3 +1,4 @@
+import ServiceEnquiry from "./ServiceEnquiry";
 import EmailObfuscationBoundary from "./EmailObfuscationBoundary";
 export default function SiteContact() {
   return (
@@ -11,7 +12,7 @@ export default function SiteContact() {
               <p className="mt-5 max-w-xl leading-8 text-green-50">Send us a message on WhatsApp and tell us what you need help with. We&apos;ll guide you on the next step.</p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div><ServiceEnquiry/><div className="mt-5 grid gap-4 sm:grid-cols-2">
               <a href="https://wa.me/2348182141088?text=Hello%20S.O.H%20CONSULTS%2C%20I%20would%20like%20to%20make%20an%20enquiry." target="_blank" rel="noopener noreferrer" className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50">
                 <p className="text-sm font-bold uppercase tracking-wide text-green-700">WhatsApp</p>
                 <p className="mt-1 text-xl font-black">0818 214 1088</p>
@@ -37,7 +38,7 @@ export default function SiteContact() {
                 <p className="mt-1 font-black">Join S.O.H CONSULTS Updates</p>
               </a>
             </div>
-          </div>
+          </div></div>
         </div>
       </div>
     </section>

@@ -1,0 +1,73 @@
+{
+  "application_routes": [
+    {
+      "path": "/applications/fce-iwo-post-utme-form-for-2026-2027-nce-admission",
+      "status": 200
+    },
+    {
+      "path": "/applications/fedponam-hnd-admission-form-for-2026-2027",
+      "status": 200
+    },
+    {
+      "path": "/applications/fuotuoke-post-utme-form-for-2026-2027-undergraduate-admission",
+      "status": 200
+    },
+    {
+      "path": "/applications/futa-releases-top-up-degree-admission-form-for-2026-2027-academic-session",
+      "status": 200
+    },
+    {
+      "path": "/applications/opportunity-seed-0",
+      "status": 200
+    },
+    {
+      "path": "/applications/opportunity-seed-1",
+      "status": 200
+    },
+    {
+      "path": "/applications/opportunity-seed-2",
+      "status": 200
+    },
+    {
+      "path": "/applications/opportunity-seed-3",
+      "status": 200
+    },
+    {
+      "path": "/applications/opportunity-seed-4",
+      "status": 200
+    },
+    {
+      "path": "/applications/opportunity-seed-5",
+      "status": 200
+    },
+    {
+      "path": "/applications/opportunity-seed-6",
+      "status": 200
+    },
+    {
+      "path": "/applications/opportunity-seed-7",
+      "status": 200
+    },
+    {
+      "path": "/applications/opportunity-seed-8",
+      "status": 200
+    },
+    {
+      "path": "/applications/opportunity-seed-9",
+      "status": 200
+    },
+    {
+      "path": "/applications/schools-still-selling-post-utme-screening-forms-2026-2027",
+      "status": 200
+    },
+    {
+      "path": "/applications/unilag-direct-entry-screening-form-for-2026-2027",
+      "status": 200
+    }
+  ],
+  "my_school": 200,
+  "homepage": 200,
+  "sitemap": 200,
+  "unknown_application": 404,
+  "mobile_viewport_metadata": "device-width; actual browser emulation unavailable"
+}
