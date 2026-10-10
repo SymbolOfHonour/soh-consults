@@ -1,3 +1,6 @@
+import PublishedArchive from "../../../components/PublishedArchive";
+import JsonLd from "../../../components/JsonLd";
+import { getSiteUrl } from "../../../site-url";
 import {categorySlug} from "../../../../lib/category-slug";
 import {withPublicSocial} from "../../../../lib/public-metadata";
 import type { Metadata } from "next";
@@ -33,9 +36,11 @@ export default async function UpdateCategoryPage({ params }: Props) {
   if (!name) notFound();
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900">
+      <JsonLd data={{"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:[{"@type":"ListItem",position:1,name:"Home",item:getSiteUrl()},{"@type":"ListItem",position:2,name:"Updates",item:`${getSiteUrl()}/updates`},{"@type":"ListItem",position:3,name:`${name} Updates`,item:`${getSiteUrl()}/updates/category/${categorySlug(category)}`}]}}/>
+      <nav aria-label="Breadcrumb" className="mx-auto flex max-w-5xl flex-wrap gap-2 px-5 py-3 text-sm"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/updates">Updates</a><span aria-hidden="true">/</span><span>{name}</span></nav>
       <header className="border-b border-gray-100 bg-white"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8"><a href="/"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto" /></a><a href="/updates" className="font-black text-green-700">All Updates</a></div></header>
       <section className="bg-gradient-to-br from-green-950 to-green-700 py-14 text-white"><div className="mx-auto max-w-5xl px-5 text-center"><p className="font-bold uppercase tracking-widest text-green-300">Browse by category</p><h1 className="mt-3 text-4xl font-black">{name} Updates</h1></div></section>
-      <section className="py-14"><div className="mx-auto max-w-5xl px-5 lg:px-8"><UpdatesExplorer initialCategory={name} importedStories={stories} /></div></section>
+      <section className="py-14"><div className="mx-auto max-w-5xl px-5 lg:px-8"><UpdatesExplorer initialCategory={name} importedStories={stories} /><PublishedArchive stories={stories.filter(story => categorySlug(story.category) === categorySlug(category))} /></div></section>
       <SiteContact />
     </main>
   );
