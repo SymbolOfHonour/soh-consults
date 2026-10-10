@@ -1,4 +1,4 @@
-const PRIMARY_SITE_URL = "https://sohconsults.com.ng";
+export const PRIMARY_SITE_URL = "https://sohconsults.com.ng";
 
 export function getSiteUrl() {
   // Canonical URLs must remain stable regardless of Vercel deployment aliases or

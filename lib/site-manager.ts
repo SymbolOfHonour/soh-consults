@@ -1,4 +1,5 @@
 import{createModuleRecord,listModuleRecords,updateModuleRecord}from"./admin-module-store";
+import { isIsolatedPreview } from "./isolated-preview";
 export type CmsSectionType="hero"|"updates"|"services"|"tools"|"opportunities"|"founder"|"contact"|"text"|"cta"|"cards"|"faq"|"gallery"|"stats"|"testimonials"|"partners";
 export type CmsLayout="full"|"contained"|"grid-2"|"grid-3"|"grid-4"|"list"|"split-left"|"split-right";
 export type CmsItem={id:string;title:string;description:string;link:string;image:string};
@@ -12,7 +13,7 @@ async function readSettings(title:string){const row=(await listModuleRecords("se
 async function writeSettings(title:string,value:SiteSettings,details:string){const rows=await listModuleRecords("settings"),row=rows.find(r=>r.title===title),payload=JSON.stringify(value);if(row)return updateModuleRecord("settings",row.id,{...row,value:payload,status:"ACTIVE",details});return createModuleRecord("settings",{title,subtitle:"S.O.H Website Builder / CMS",details,value:payload,status:"ACTIVE"})}
 function alignLatestUpdatesCount(value:SiteSettings){const updates=value.sections.find(s=>s.type==="updates"&&s.visible);const minimum=updates?.layout==="grid-4"?4:updates?.layout==="grid-3"?3:updates?.layout==="grid-2"?2:1;return value.latestUpdatesCount<minimum?{...value,latestUpdatesCount:minimum}:value}
 export async function getSiteSettings(){return alignLatestUpdatesCount((await readSettings(TITLE))||defaultSiteSettings)}
-export async function getPublishedSiteSettings(){return alignLatestUpdatesCount((await readSettings(PUBLISHED_TITLE))||(await getSiteSettings()))}
+export async function getPublishedSiteSettings(){if(isIsolatedPreview()){const{default:settings}=await import("../data/preview-public-settings.json");return alignLatestUpdatesCount({...defaultSiteSettings,...settings} as SiteSettings);}return alignLatestUpdatesCount((await readSettings(PUBLISHED_TITLE))||(await getSiteSettings()))}
 export async function saveSiteSettings(value:SiteSettings){return writeSettings(TITLE,alignLatestUpdatesCount(value),"Professional S.O.H CMS draft configuration managed from Admin.")}
 export async function publishSiteSettings(){const draft=alignLatestUpdatesCount(await getSiteSettings());const published={...draft,publishedVersion:draft.draftVersion};await writeSettings(PUBLISHED_TITLE,published,"Published S.O.H CMS configuration used by the public website.");await saveSiteSettings(published);return published}
 const txt=(v:unknown,f:string,n:number)=>String(v??f).trim().slice(0,n);const bool=(v:unknown,f:boolean)=>typeof v==="boolean"?v:f;
