@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- Node CommonJS test tooling */
 require('./ask-soh-test-loader.cjs');
 const fs=require('node:fs'),assert=require('node:assert/strict');
 const {INSTITUTIONS}=require('../lib/ask-soh/institution-registry.ts');
