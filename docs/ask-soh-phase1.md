@@ -75,3 +75,11 @@ Local validation: 340 tests passed; TypeScript and targeted ESLint passed. Five 
 The current isolated Preview is being built with the existing QA-only Supabase bindings. Both bindings will be restored to qa/production-readiness after the build. Authenticated Vercel connector requests preserve Deployment Protection; temporary authentication links are not published. Final CI, Preview API coverage and acceptance status are recorded in PR #324 after validation. No production merge, migration or release is authorised. Phases 2–5 remain planned.
 
 Preview testing exposed and fixed a registry freshness error: reading a still-valid reviewed fact now sets its evidence observation timestamp to the current record read, while the original review and validity dates remain enforced by fact applicability. A route regression verifies a three-day-old review still returns the exact score and expired review records remain inapplicable. JAMB archive filename spelling is corrected before downloading, with a same-host archive fallback only on HTTP 404.
+
+## Authorised production release
+
+On 11 October 2026 (Africa/Lagos), the user authorised deployment of Phase 1 followed by Phase 2 implementation. The reviewed additive ask_soh_phase1_evidence migration was applied to production rajbswknmdscrilrcwoj. Verification confirmed both new fields, the review/history trigger, seven original facts preserved, no anonymous fact read grant and no service-role audit-history write grant. The scope guard is identical to the installed guard body and does not require a redundant migration.
+
+Phase 1 acceptance completed at bd95943412aa30dd788f9c6ea3de48e5993c9cc6: 341 repository tests, 141 Ask S.O.H tests, TypeScript, full lint (zero errors / 18 existing warnings), CI success and READY protected QA Preview with eleven HTTP 200 evaluations (nine grounded and two safe escalations). Final detailed coverage is recorded in PR #324. JAMB registration and PIN vending were separately verified from the updated bulletin. LASUSTECH access and WAEC/NECO publication metadata remain documented safe limitations.
+
+Production release is awaiting the required current merge-candidate check; repository protections are retained. Phase 2 is now authorised. Phases 3–5 remain planned and are not authorised by this instruction.
