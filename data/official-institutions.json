@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-11",
+  "coverage": "partial",
+  "sources": [
+    "https://enuc.nuc.edu.ng/nus",
+    "https://www.ncce.gov.ng/AccreditedColleges",
+    "https://web.nbte.gov.ng/tvet%20institutions"
+  ],
+  "institutions": [
+    {
+      "name": "Abia State University, Uturu",
+      "category": "State University",
+      "source": "https://enuc.nuc.edu.ng/nus",
+      "status": "verified"
+    },
+    {
+      "name": "Michael Okpara University of Agriculture, Umudike",
+      "category": "Federal University",
+      "source": "https://enuc.nuc.edu.ng/nus",
+      "status": "verified"
+    },
+    {
+      "name": "Gregory University, Uturu, Abia State",
+      "category": "Private University",
+      "source": "https://enuc.nuc.edu.ng/nus",
+      "status": "verified"
+    },
+    {
+      "name": "Federal College of Education, Abeokuta",
+      "category": "Federal College of Education",
+      "source": "https://www.ncce.gov.ng/AccreditedColleges",
+      "status": "verified"
+    },
+    {
+      "name": "A.D. Rufa’i College of Education, Legal and General Studies",
+      "category": "State College of Education",
+      "source": "https://www.ncce.gov.ng/AccreditedColleges",
+      "status": "verified"
+    }
+  ]
+}
