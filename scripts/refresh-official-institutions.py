@@ -51,14 +51,14 @@ def parse_regulator(authority, url):
     result = []
     for table in tables.tables:
         for row in table:
-            if len(row) < 4 or not row[0].strip().isdigit(): continue
+            if len(row) < 2 or not re.fullmatch(r"\\d+\\.?", row[0].strip()): continue
             if authority == "NUC":
                 # NUC official university table: number, name, year, ownership, state
-                if len(row) < 5 or row[3].strip().lower() not in ("federal", "state", "private"): continue
-                name, category = row[1].strip(), row[3].strip().title() + " University"
+                if len(row) < 4 or row[3].strip().lower() not in ("federal", "state", "private"): continue
+                name, category = row[1].strip(), "College of Education".title() + " University"
             else:
                 # NCCE official table: number, name, provost, ownership, state
-                if len(row) < 5 or not any(term in row[3].lower() for term in ("college of education", "nce awarding", "polytechnics offering nce")): continue
+                if len(row) < 2 or "college" not in row[1].lower(): continue
                 name, category = row[1].strip(), row[3].strip()
             if len(name) < 6 or len(name) > 220: continue
             result.append({"name": name, "category": category, "source": url, "status": "verified"})
