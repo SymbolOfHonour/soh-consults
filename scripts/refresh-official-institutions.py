@@ -51,7 +51,7 @@ def parse_regulator(authority, url):
     result = []
     for table in tables.tables:
         for row in table:
-            if len(row) < 2 or not re.fullmatch(r"\\d+\\.?", row[0].strip()): continue
+            if len(row) < 2 or not row[0].strip().rstrip(".").isdigit(): continue
             if authority == "NUC":
                 # NUC official university table: number, name, year, ownership, state
                 if len(row) < 4 or row[3].strip().lower() not in ("federal", "state", "private"): continue
@@ -75,7 +75,7 @@ def main():
             records = parse_regulator(authority, url)
             print(authority, "parsed:", len(records))
             for record in records:
-                key = re.sub(r"\\s+", " ", record["name"].casefold().strip())
+                key = " ".join(record["name"].casefold().split())
                 verified.setdefault(key, record)
         except Exception as exc:
             errors.append(authority + ": " + str(exc))
