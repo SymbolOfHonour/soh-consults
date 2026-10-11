@@ -1,69 +1,82 @@
-/** Official JAMB IBASS institution directory, independent of published news.
- * Upstream availability is not guaranteed; return a clearly marked unavailable state.
+/** JAMB IBASS directory: isolated from the content/news pipeline.
+ * Official endpoints have not been independently certified. Never claim complete coverage
+ * unless every upstream category and page passes validation.
  */
-export type SchoolDirectory = { names: string[]; available: boolean; source: string };
+export type SchoolDirectory = { names: string[]; available: boolean; complete: boolean; source: string; categoryCount: number; warnings: string[] };
 const API = "https://ibass-api.jamb.gov.ng/api";
 const SOURCE = "https://ibass.jamb.gov.ng/brochure-by-institution";
 type Row = Record<string, unknown>;
-async function get(path: string, body?: object): Promise<Row> {
+const isRow = (v: unknown): v is Row => Boolean(v && typeof v === "object" && !Array.isArray(v));
+export function directoryRows(v: unknown): Row[] {
+  if (!Array.isArray(v) || !v.every(isRow)) throw new Error("Invalid IBASS records");
+  return v;
+}
+export function directoryName(row: Row): string {
+  for (const key of ["name", "title", "institution_name", "inst_name"]) {
+    if (typeof row[key] === "string" && row[key].trim()) return row[key].trim();
+  }
+  throw new Error("Institution has no name");
+}
+export function directoryPage(value: unknown, expectedPage: number) {
+  if (!isRow(value) || value.status !== true || !isRow(value.data)) throw new Error("Invalid IBASS envelope");
+  const data = value.data;
+  const page = Number(data.current_page), last = Number(data.last_page), total = Number(data.total);
+  if (page !== expectedPage || !Number.isSafeInteger(last) || last < page || last > 500 ||
+      !Number.isSafeInteger(total) || total < 0) throw new Error("Invalid IBASS pagination");
+  return { records: directoryRows(data.data), page, last, total };
+}
+async function request(path: string, body?: object): Promise<unknown> {
   const response = await fetch(API + path, {
     method: body ? "POST" : "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: { Accept: "application/json", ...(body ? { "Content-Type": "application/json" } : {}) },
     ...(body ? { body: JSON.stringify(body) } : {}),
     next: { revalidate: 86400 },
     signal: AbortSignal.timeout(12000),
   });
-  if (!response.ok) throw new Error("IBASS returned " + response.status);
-  const json: unknown = await response.json();
-  if (!json || typeof json !== "object" || (json as Row).status !== true) throw new Error("IBASS response unavailable");
-  return json as Row;
+  if (!response.ok) throw new Error("IBASS HTTP " + response.status);
+  return response.json();
 }
-function rows(data: unknown): Row[] {
-  return Array.isArray(data) ? data.filter((x): x is Row => !!x && typeof x === "object") : [];
-}
-function label(item: Row): string {
-  for (const field of ["name", "title", "institution_name", "inst_name"]) {
-    const value = item[field];
-    if (typeof value === "string" && value.trim()) return value.trim();
+async function category(id: string | number): Promise<Row[]> {
+  const body = { inst_type: id, inst_category: null, inst_search: "" };
+  const first = directoryPage(await request("/ibass/institutions?page=1", body), 1);
+  const result = [...first.records];
+  for (let p = 2; p <= first.last; p++) {
+    const next = directoryPage(await request("/ibass/institutions?page=" + p, body), p);
+    if (next.last !== first.last || next.total !== first.total) throw new Error("Pagination changed during retrieval");
+    result.push(...next.records);
   }
-  return "";
-}
-async function allPages(typeId: string | number): Promise<Row[]> {
-  const body = { inst_type: typeId, inst_category: null, inst_search: "" };
-  const first = await get("/ibass/institutions?page=1", body);
-  const data = first.data as Row | undefined;
-  if (!data || !Array.isArray(data.data)) throw new Error("Unexpected IBASS pagination");
-  const count = Number(data.last_page);
-  if (!Number.isInteger(count) || count < 1 || count > 100) throw new Error("Unexpected IBASS page count");
-  const all = rows(data.data);
-  for (let page = 2; page <= count; page++) {
-    const result = await get("/ibass/institutions?page=" + page, body);
-    const chunk = result.data as Row | undefined;
-    if (!chunk || Number(chunk.current_page) !== page || !Array.isArray(chunk.data)) throw new Error("IBASS pagination changed");
-    all.push(...rows(chunk.data));
-  }
-  if (Number(data.total) !== all.length) throw new Error("IBASS institution count changed");
-  return all;
+  if (result.length !== first.total) throw new Error("IBASS category total mismatch");
+  return result;
 }
 export async function ibassSchoolDirectory(): Promise<SchoolDirectory> {
+  const warnings: string[] = [];
+  let types: Row[] = [];
   try {
-    const types = rows((await get("/inst-type")).data);
-    if (!types.length) throw new Error("No IBASS institution categories");
-    const groups = await Promise.all(types.map(async type => {
-      const id = type.id;
-      if (typeof id !== "number" && typeof id !== "string") throw new Error("Invalid IBASS category");
-      return allPages(id);
-    }));
-    const byId = new Map<string, string>();
-    for (const row of groups.flat()) {
-      const name = label(row);
-      if (!name || (typeof row.id !== "number" && typeof row.id !== "string")) throw new Error("Incomplete IBASS institution");
-      const id = String(row.id);
-      if (byId.has(id) && byId.get(id) !== name) throw new Error("Conflicting IBASS institution IDs");
-      byId.set(id, name);
-    }
-    return { names: [...new Set(byId.values())].sort((a,b) => a.localeCompare(b)), available: true, source: SOURCE };
+    const response = await request("/inst-type");
+    if (!isRow(response) || response.status !== true) throw new Error("Invalid category envelope");
+    types = directoryRows(response.data);
+    if (!types.length) throw new Error("No institution types");
   } catch {
-    return { names: [], available: false, source: SOURCE };
+    return { names: [], available: false, complete: false, source: SOURCE, categoryCount: 0, warnings: ["Official directory could not be reached."] };
   }
+  const settled = await Promise.allSettled(types.map(async type => {
+    if (typeof type.id !== "string" && typeof type.id !== "number") throw new Error("Invalid institution type");
+    return category(type.id);
+  }));
+  const names = new Map<string, string>();
+  let categoryCount = 0;
+  for (const [index, outcome] of settled.entries()) {
+    if (outcome.status === "rejected") { warnings.push("Institution type " + String(types[index].id ?? index) + " is unavailable."); continue; }
+    categoryCount++;
+    try {
+      for (const row of outcome.value) {
+        const name = directoryName(row);
+        if (typeof row.id !== "string" && typeof row.id !== "number") throw new Error("Missing institution identifier");
+        const key = name.normalize("NFKC").trim().replace(/\\s+/g, " ").toLocaleLowerCase("en");
+        if (!names.has(key)) names.set(key, name);
+      }
+    } catch { warnings.push("An institution type returned invalid records."); }
+  }
+  const complete = warnings.length === 0 && categoryCount === types.length;
+  return { names: [...names.values()].sort((a, b) => a.localeCompare(b)), available: names.size > 0, complete, source: SOURCE, categoryCount, warnings };
 }
