@@ -18,13 +18,16 @@ export default function BreakingNewsTicker({ stories }: { stories: Story[] }) {
       try {
         const response = await fetch("/api/public/updates", { cache: "no-store" });
         if (!response.ok) return;
-        const updates: {title:string;slug:string;publishedAt?:string;breaking?:boolean}[] = await response.json();
+        const updates: {title:string;slug:string;publishedAt?:string;createdAt?:string;breaking?:boolean}[] = await response.json();
         const seen = new Set<string>();
+        const now = Date.now();
         const fresh = updates.filter(item => {
+          const published = Math.max(Date.parse(item.publishedAt || "") || 0, Date.parse(item.createdAt || "") || 0);
+          if (!published || published > now || now - published > 72 * 60 * 60 * 1000) return false;
           if (!item.slug || !item.title || seen.has(item.slug)) return false;
           seen.add(item.slug); return true;
-        }).slice(0, 10).map(item => ({ title: item.title, href: `/updates/${item.slug}` }));
-        if (active && fresh.length) setLiveStories(fresh);
+        }).sort((a,b) => Math.max(Date.parse(b.publishedAt || "") || 0, Date.parse(b.createdAt || "") || 0) - Math.max(Date.parse(a.publishedAt || "") || 0, Date.parse(a.createdAt || "") || 0)).slice(0, 10).map(item => ({ title: item.title, href: `/updates/${item.slug}` }));
+        if (active) setLiveStories(fresh);
       } catch { /* Retain previously loaded headlines on network failure. */ }
     };
     const timer = window.setInterval(refresh, 60000);
