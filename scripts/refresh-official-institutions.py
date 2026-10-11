@@ -62,7 +62,7 @@ def parse_regulator(authority, url):
                 name, category = row[1].strip(), "College of Education"
             if len(name) < 6 or len(name) > 220: continue
             result.append({"name": name, "category": category, "source": url, "status": "verified"})
-    if not result: raise ValueError(authority + " returned no recognisable institution rows")
+    if authority == "NUC" and len(result) < 300:\n        raise ValueError("NUC list is below the independently observed 300+ university minimum")\n    if not result: raise ValueError(authority + " returned no recognisable institution rows")
     return result
 
 def main():
