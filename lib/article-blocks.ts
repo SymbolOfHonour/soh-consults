@@ -6,7 +6,7 @@ export type ArticleBlock =
   | { type: "document"; url: string; name?: string }
   | { type: "video"; url: string; title?: string; mode: "link" | "player" }
   | { type: "ad"; slot: string }
-  | { type: "table"; caption?: string; headers: string[]; rows: string[][] };
+  | { type: "table"; caption?: string; headers: string[]; rows: string[][]; aligns?: ("left"|"center"|"right")[]; widths?: number[] };
 
 const MARKER = /\[SOH_BLOCKS:([^\]]*)\]/g;
 const IMAGE = /^https:\/\/[^\s]+$/i;
@@ -46,7 +46,7 @@ export function readArticleBlocks(details: string): ArticleBlock[] | null {
       } else if (block.type === "video" && typeof block.url === "string" && safeMediaUrl(block.url) && (block.mode === "link" || block.mode === "player")) {
         blocks.push({type:"video",url:block.url,title:typeof block.title==="string"?block.title.slice(0,250):"",mode:block.mode});
       } else if (block.type === "table" && Array.isArray(block.headers) && block.headers.length >= 1 && block.headers.length <= 20 && block.headers.every((v:unknown)=>typeof v==="string" && v.length<=1000) && Array.isArray(block.rows) && block.rows.length<=300 && block.rows.every((row:unknown)=>Array.isArray(row) && row.length===(block.headers as string[]).length && row.every((v:unknown)=>typeof v==="string" && v.length<=3000))) {
-        blocks.push({type:"table",caption:typeof block.caption==="string"?block.caption.slice(0,250):"",headers:block.headers as string[],rows:block.rows as string[][]});
+        blocks.push({type:"table",caption:typeof block.caption==="string"?block.caption.slice(0,250):"",headers:block.headers as string[],rows:block.rows as string[][],aligns:Array.isArray(block.aligns)&&block.aligns.length===block.headers.length&&block.aligns.every((v:unknown)=>v==="left"||v==="center"||v==="right")?block.aligns as ("left"|"center"|"right")[]:undefined,widths:Array.isArray(block.widths)&&block.widths.length===block.headers.length&&block.widths.every((v:unknown)=>typeof v==="number"&&Number.isInteger(v)&&v>=0&&v<=600)?block.widths as number[]:undefined});
       } else if (block.type === "ad" && typeof block.slot === "string" && /^[a-z0-9_-]{1,40}$/i.test(block.slot)) {
         blocks.push({ type: "ad", slot: block.slot });
       } else return null;
@@ -69,6 +69,6 @@ export function safeMediaUrl(value:string):boolean {
 export function articleBlocksError(blocks:ArticleBlock[]):string|null {
   if (blocks.some(block => (block.type === "image" || block.type === "document" || block.type === "video") && !safeMediaUrl(block.url))) return "Complete each image, PDF or video block with a valid HTTPS URL, or remove it.";
   if (blocks.some(block => block.type === "gallery" && !block.urls.length)) return "Upload pictures to each gallery or remove the empty gallery.";
-  if (blocks.some(block=>block.type==="table" && (!block.headers.length || block.rows.some(row=>row.length!==block.headers.length)))) return "Table rows must have the same number of columns as the header.";
+  if (blocks.some(block=>block.type==="table" && (!block.headers.length || block.headers.length>20 || block.rows.length>300 || block.rows.some(row=>row.length!==block.headers.length || row.some(cell=>cell.length>3000))))) return "Table rows must have the same number of columns as the header.";
   return null;
 }
