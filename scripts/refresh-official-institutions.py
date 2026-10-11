@@ -55,11 +55,11 @@ def parse_regulator(authority, url):
             if authority == "NUC":
                 # NUC official university table: number, name, year, ownership, state
                 if len(row) < 4 or row[3].strip().lower() not in ("federal", "state", "private"): continue
-                name, category = row[1].strip(), "College of Education".title() + " University"
+                name, category = row[1].strip(), row[3].strip().title() + " University"
             else:
                 # NCCE official table: number, name, provost, ownership, state
                 if len(row) < 2 or "college" not in row[1].lower(): continue
-                name, category = row[1].strip(), row[3].strip()
+                name, category = row[1].strip(), "College of Education"
             if len(name) < 6 or len(name) > 220: continue
             result.append({"name": name, "category": category, "source": url, "status": "verified"})
     if not result: raise ValueError(authority + " returned no recognisable institution rows")
