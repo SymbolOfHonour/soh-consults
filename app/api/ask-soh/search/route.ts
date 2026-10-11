@@ -94,10 +94,12 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const legacyHistory:ConversationTurn[]=history.length?history:context?[{role:'user',content:context}]:[];
   const plan=planConversation(safeQuestion,body?.conversation,legacyHistory);
   if(plan.reply)return NextResponse.json({query:safeQuestion,answer:plan.reply,results:[],confidence:'low',needsHuman:false,sourceType:'none',clarification:Boolean(plan.clarification),conversation:plan.state,reset:plan.reset,closed:plan.closed});
-  const parts=await Promise.all(plan.questions.map(async part=>{const response=await answerQuestion(part,plan.questions.length>1?undefined:plan.context,history);return await response.json();}));
+  const servicePrice=plan.state.intent==='fees'&&plan.state.serviceQuestion&&plan.questions.length===1;
+  const parts=await Promise.all(plan.questions.map(async part=>{const response=await answerQuestion(servicePrice?'how much':part,plan.questions.length>1?undefined:[plan.context,servicePrice?plan.state.serviceQuestion:''].filter(Boolean).join(' '),history);return await response.json();}));
   const confidence=parts.some(part=>part.confidence==='low')?'low':parts.some(part=>part.confidence==='medium')?'medium':'high';
   const combined=parts.length===1?parts[0]:{query:safeQuestion,answer:parts.map((part,index)=>`${index+1}. ${plan.questions[index]}\n${part.answer}`).join('\n\n'),results:[...new Map(parts.flatMap(part=>part.results||[]).map((source:SourceDocument)=>[source.url,source])).values()],confidence,needsHuman:parts.some(part=>part.needsHuman),contradiction:parts.some(part=>part.contradiction),sourceType:parts.some(part=>part.sourceType==='official_live')?'official_live':'internal',parts};
   if(plan.state.detailed&&combined.answer&&combined.confidence!=='low'){const sources=(combined.results||[]).filter((source:SourceDocument)=>source.official).slice(0,3);combined.answer+='\n\n'+(sources.length?'Evidence: '+sources.map((source:SourceDocument)=>source.title+(source.publishedAt?' (published '+source.publishedAt.slice(0,10)+')':'')).join('; ')+'.':'This is guidance, not a guarantee of admission.');}
+  if(parts.length===1&&combined.serviceLead)plan.state.serviceQuestion=plan.state.serviceQuestion||plan.questions[0];
   return NextResponse.json({...combined,conversation:plan.state});
 }
 

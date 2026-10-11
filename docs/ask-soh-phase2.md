@@ -39,4 +39,6 @@ Limitations: language normalization is conservative and does not claim to unders
 
 Phase 2 is prepared on a Preview branch for review before production release.
 
-Full local validation: 403 repository tests passed, TypeScript passed and targeted ESLint passed. Requirement verification and displayed official sources exclude DE-only notices for explicit UTME questions. Actual API and verifier regressions cover this category isolation. Final Preview and CI identifiers are recorded in PR #329.
+Full local validation: 405 repository tests passed, TypeScript passed and targeted ESLint passed. Requirement verification and displayed official sources exclude DE-only notices for explicit UTME questions. Actual API and verifier regressions cover this category isolation. Final Preview and CI identifiers are recorded in PR #329.
+
+The existing result-card and certificate fee follow-ups preserve their service across repeated price questions and refer current charges to the owner. New unknown topics do not silently reuse the previous minimum-score intent. These are conversation safeguards, not execution of Phase 3.

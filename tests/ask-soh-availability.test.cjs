@@ -35,3 +35,11 @@ test('UTME requirement answers do not expose DE-only pages as their official sou
  const route=routeWithRate({allowed:true},{'/question-resolver':{resolveQuestion,formatAnswer},'/knowledge-repository':{getInstitution:async()=>({key:'lasu'}),findVerifiedFacts:async()=>[]},'/source-discovery':{discoverOfficialSources:async()=>({documents:[doc],gaps:[],cacheHit:false}),searchProviderSources:async()=>({documents:[],gaps:[]})},'/answer-verification':{verifyAnswer,rankDocuments,applicableDocument},'/telemetry':{recordQuestion:async()=>{}}});
  const body=await (await route.GET({nextUrl:new URL('https://qa.invalid/api/ask-soh/search?q=LASU%202026%2F2027%20UTME%20requirements')})).json();assert.equal(body.confidence,'low');assert.equal(body.results.length,0);assert.doesNotMatch(body.answer,/LASU diploma/);
 });
+
+test('result and certificate price follow-ups retain their service without inventing fees',async()=>{
+ const {resolveQuestion,formatAnswer}=require('../lib/ask-soh/question-resolver.ts');const route=routeWithRate({allowed:true},{'/question-resolver':{resolveQuestion,formatAnswer},'/telemetry':{recordQuestion:async()=>{}}});const nextUrl=new URL('https://qa.invalid/api/ask-soh/search');
+ for(const initial of ['how do I check my WAEC result','WAEC digital certificate']){
+  let body=await(await route.POST({nextUrl,json:async()=>({question:initial})})).json();
+  for(let i=0;i<2;i++){body=await(await route.POST({nextUrl,json:async()=>({question:'how much',conversation:body.conversation})})).json();assert.equal(body.serviceLead,true);assert.match(body.answer,/exact price|exact price and payment|current service fee|contact us on WhatsApp/i);assert.doesNotMatch(body.answer,/₦[0-9]/);if(initial.includes('certificate'))assert.doesNotMatch(body.answer,/scratch card or token pricing/i);else assert.match(body.answer,/WAEC result-checking/);}
+ }
+});

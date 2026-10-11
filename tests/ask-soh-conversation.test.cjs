@@ -48,3 +48,5 @@ test('requirements ask the candidate route rather than guessing',()=>{const r=ch
 test('unlabelled score is not silently treated as a UTME result',()=>{const r=chat('I scored 220, am I eligible for LASU Marketing 2026/2027');assert.equal(r.state.utmeScore,null);assert.equal(chat('I scored 220, am I eligible for LASU Marketing 2026/2027','yes').state.pending,'category');});
 
 test('institution clarification preserves the already supplied candidate profile',()=>{const r=chat('I scored 220 in UTME, am I eligible for Marketing 2026/2027','LASU');assert.equal(r.state.utmeScore,220);assert.equal(r.state.programme,'Marketing');assert.equal(r.state.category,'UTME');assert.match(r.questions[0],/requirements/);});
+
+test('a fresh unknown topic cannot replay an earlier minimum-score intent',()=>{const r=chat('LASU 2026/2027 minimum JAMB score','what is the syllabus');assert.equal(r.state.intent,'general');assert.doesNotMatch(r.context,/minimum JAMB score/);});
