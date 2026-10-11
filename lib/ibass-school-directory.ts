@@ -1,3 +1,4 @@
+import snapshot from "../data/official-institutions.json";
 /** JAMB IBASS directory: isolated from the content/news pipeline.
  * Official endpoints have not been independently certified. Never claim complete coverage
  * unless every upstream category and page passes validation.
@@ -57,13 +58,16 @@ export async function ibassSchoolDirectory(): Promise<SchoolDirectory> {
     types = directoryRows(response.data);
     if (!types.length) throw new Error("No institution types");
   } catch {
-    return { names: [], available: false, complete: false, source: SOURCE, categoryCount: 0, warnings: ["Official directory could not be reached."] };
+    return { names: snapshot.institutions.filter(x => x.status === "verified").map(x => x.name).sort((a,b) => a.localeCompare(b)), available: false, complete: false, source: SOURCE, categoryCount: 0, warnings: ["Official JAMB directory unavailable. Showing the verified, partial regulatory snapshot."] };
   }
   const settled = await Promise.allSettled(types.map(async type => {
     if (typeof type.id !== "string" && typeof type.id !== "number") throw new Error("Invalid institution type");
     return category(type.id);
   }));
   const names = new Map<string, string>();
+  for (const institution of snapshot.institutions) {
+    if (institution.status === "verified") names.set(institution.name.normalize("NFKC").trim().toLocaleLowerCase("en"), institution.name);
+  }
   let categoryCount = 0;
   for (const [index, outcome] of settled.entries()) {
     if (outcome.status === "rejected") { warnings.push("Institution type " + String(types[index].id ?? index) + " is unavailable."); continue; }
