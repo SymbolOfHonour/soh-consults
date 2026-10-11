@@ -4,7 +4,7 @@ import {readArticleBlocks,removeArticleBlocks} from "./article-blocks";
 import {deadlineEvidencePresent} from "./source-verification";
 
 /** Deterministic pre-publication checks. Network reachability is verified separately. */
-export function publicationQuality(story:QueuedStory,others:QueuedStory[]){
+export function publicationQuality(story:QueuedStory,_others:QueuedStory[]){
  const issues:string[]=[];
  if(!story.title?.trim())issues.push("Headline is missing.");
  const blocks=readArticleBlocks(story.details||"");
