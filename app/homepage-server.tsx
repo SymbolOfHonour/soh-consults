@@ -21,7 +21,7 @@ export default async function HomepageServer(){
   const breaking = stories.filter(story => {
     const date = Date.parse(String(story.source_published_at || story.created_at));
     const deadline = deadlineDate(story.deadline_iso || story.deadline);
-    return Number.isFinite(date) && date <= +now && +now - date <= 72 * 3600000 && (!deadline || +deadline >= +now) && /admission|jamb|caps|screening|registration|result|scholarship|deadline/i.test(story.title);
+    return Number.isFinite(date) && date <= +now && +now - date <= 7 * 86400000 && (!deadline || +deadline >= +now) && /admission|jamb|caps|screening|registration|result|scholarship|deadline/i.test(story.title);
   }).sort((a,b) => Date.parse(String(b.source_published_at || b.created_at)) - Date.parse(String(a.source_published_at || a.created_at))).slice(0,6).map(story => ({title:story.title,href:`/updates/${getStorySlug(story)}`}));
   return <><LegacyHomepageSectionRedirect/><CmsHomepage settings={settings} initialUpdates={initialUpdates} discoveryHighlights={<><BreakingNewsTicker stories={breaking}/><DiscoveryHighlights items={[...stories.map(storyDiscovery),...publicOpportunities(stories)]}/><EducationDiscoveryPanels items={[...stories.map(storyDiscovery),...publicOpportunities(stories)]} showTrending={false} showUrgent={false}/><HomepageSchoolPreferences/></>}/></>;
 }
