@@ -27,7 +27,7 @@ test('educational article blocks round-trip with TOC, notice, FAQ, quote and sep
  {type:'notice',variant:'deadline',title:'Application closing date',text:'Complete before 30 November 2026'},
  {type:'faq',entries:[{question:'Is it accredited?',answer:'Check the official NUC list.'}]},
  {type:'quote',text:'Education is a priority',attribution:'Source'},
- {type:'divider'},{type:'table',headers:['School','Year'],rows:[['Rivers State University','1979']]}];
+ {type:'divider'},{type:'table',caption:'',headers:['School','Year'],rows:[['Rivers State University','1979']]}];
  const saved=blocks.readArticleBlocks(blocks.writeArticleBlocks('',samples));
  assert.equal(JSON.stringify(saved),JSON.stringify(samples));
  assert.equal(blocks.articleBlocksError(samples),null);
