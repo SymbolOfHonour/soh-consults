@@ -36,6 +36,7 @@ export default function ArticleDraftRecovery<T extends object>({storageKey,snaps
   try{localStorage.removeItem(storageKey);}catch{/* private browsing */}
   // eslint-disable-next-line react-hooks/exhaustive-deps
  },[saveToken,storageKey]);
+ useEffect(()=>{if(!ready||!enabled||serialized===baseline.current)return;function warn(event:BeforeUnloadEvent){event.preventDefault();event.returnValue="";}window.addEventListener("beforeunload",warn);return()=>window.removeEventListener("beforeunload",warn);},[ready,enabled,serialized]);
  function recover(){if(!pending)return;onRestore(pending.snapshot);setPending(null);setEnabled(true);}
  function discard(){try{localStorage.removeItem(storageKey);}catch{}baseline.current=serialized;setPending(null);setEnabled(true);}
  return <div className="rounded-xl border border-gray-200 bg-white p-3 text-sm" aria-label="Draft recovery">
