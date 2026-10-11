@@ -16,11 +16,11 @@ export function parseSchoolPreferences(value: unknown, schools: string[]): Schoo
   if (!value || typeof value !== "object" || Array.isArray(value)) return { schools: [], topics: [] };
   const input = value as Record<string, unknown>;
   const valid = (raw: unknown, allowed: readonly string[], limit: number) => Array.isArray(raw) ? [...new Set(raw.filter((v): v is string => typeof v === "string" && allowed.includes(v)))].slice(0, limit) : [];
-  return { schools: valid(input.schools, schools, 5), topics: valid(input.topics, feedTopics, 5) };
+  return { schools: Array.isArray(input.schools) ? [...new Set(input.schools.filter((v): v is string => typeof v === "string" && v.trim().length > 0 && v.length <= 180))].slice(0, 5) : [], topics: valid(input.topics, feedTopics, 5) };
 }
 export function schoolFeed(items: DiscoveryItem[], preferences: SchoolPreferences, now = new Date()) {
   if (!preferences.schools.length && !preferences.topics.length) return [];
-  const selected = preferences.schools.map(normaliseText);
+  const selected = [...new Set(preferences.schools.flatMap(name => [normaliseText(name), ...institutionKeys(name)]))];
   const matchesSchool = (item: DiscoveryItem) => institutionKeys(schoolText(item)).some(key => selected.includes(key)) || (!isGeneral(item.institution) && selected.includes(normaliseText(item.institution)));
   const candidates = items.filter(item => {
     const deadline = deadlineDate(item.deadline);

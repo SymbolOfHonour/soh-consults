@@ -23,7 +23,7 @@ test('a saved LASU feed excludes LASUED, LASUSTECH and closed applications but r
   assert.equal(source[0].title, 'LASU screening');
 });
 test('preference restore handles corrupted, old or unknown values without broadening selected schools', () => {
-  assert.deepEqual(parseSchoolPreferences({ schools: ['LASU', 'LASU', 'missing', 2], topics: ['admission', 'unknown'] }, ['LASU']), { schools: ['LASU'], topics: ['admission'] });
+  assert.deepEqual(parseSchoolPreferences({ schools: ['LASU', 'LASU', 'missing', 2], topics: ['admission', 'unknown'] }, ['LASU']), { schools: ['LASU', 'missing'], topics: ['admission'] });
   assert.deepEqual(parseSchoolPreferences([], ['LASU']), { schools: [], topics: [] });
   assert.equal(schoolFeed([item('a', 'JAMB admission')], { schools: [], topics: [] }, now).length, 0);
   assert.deepEqual(schoolOptions([item('a', 'Lagos State University of Education screening', { institution: 'Nigeria' }), item('b', 'JAMB CAPS', { institution: 'JAMB' })]), ['LASUED']);

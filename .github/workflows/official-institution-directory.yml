@@ -1,0 +1,24 @@
+name: Audit official institution directory
+on:
+  workflow_dispatch:
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Refresh regulator-attributed snapshot
+        run: python scripts/refresh-official-institutions.py
+      - name: Validate output
+        run: |
+          python -m json.tool data/official-institutions.json > /dev/null
+          python -c 'import json; x=json.load(open("data/official-institutions.json")); assert x["coverage"]=="partial"; assert len(x["institutions"])>=100'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-institutions-candidate
+          path: data/official-institutions.json
+          retention-days: 14
