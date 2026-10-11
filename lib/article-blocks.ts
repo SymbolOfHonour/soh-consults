@@ -45,7 +45,7 @@ export function readArticleBlocks(details: string): ArticleBlock[] | null {
         blocks.push({type:"document",url:block.url,name:typeof block.name==="string"?block.name.slice(0,250):""});
       } else if (block.type === "video" && typeof block.url === "string" && safeMediaUrl(block.url) && (block.mode === "link" || block.mode === "player")) {
         blocks.push({type:"video",url:block.url,title:typeof block.title==="string"?block.title.slice(0,250):"",mode:block.mode});
-      } else if (block.type === "table" && Array.isArray(block.headers) && block.headers.length >= 1 && block.headers.length <= 20 && block.headers.every((v:unknown)=>typeof v==="string" && v.length<=1000) && Array.isArray(block.rows) && block.rows.length<=300 && block.rows.every((row:unknown)=>Array.isArray(row) && row.length===block.headers.length && row.every((v:unknown)=>typeof v==="string" && v.length<=3000))) {
+      } else if (block.type === "table" && Array.isArray(block.headers) && block.headers.length >= 1 && block.headers.length <= 20 && block.headers.every((v:unknown)=>typeof v==="string" && v.length<=1000) && Array.isArray(block.rows) && block.rows.length<=300 && block.rows.every((row:unknown)=>Array.isArray(row) && row.length===(block.headers as string[]).length && row.every((v:unknown)=>typeof v==="string" && v.length<=3000))) {
         blocks.push({type:"table",caption:typeof block.caption==="string"?block.caption.slice(0,250):"",headers:block.headers as string[],rows:block.rows as string[][]});
       } else if (block.type === "ad" && typeof block.slot === "string" && /^[a-z0-9_-]{1,40}$/i.test(block.slot)) {
         blocks.push({ type: "ad", slot: block.slot });
