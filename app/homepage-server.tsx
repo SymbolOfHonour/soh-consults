@@ -1,7 +1,5 @@
 import {getStorySlug,listPublishedStories} from "../lib/news-queue";
-import {newestContent, storyDiscovery, publicOpportunities} from "../lib/content-catalogue";
-import DiscoveryHighlights from "./components/DiscoveryHighlights";
-import EducationDiscoveryPanels from "./components/EducationDiscoveryPanels";
+import {newestContent} from "../lib/content-catalogue";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
 import HomepageSchoolPreferences from "./components/HomepageSchoolPreferences";
 import CmsHomepage from "../components/CmsHomepage";
@@ -20,5 +18,5 @@ export default async function HomepageServer(){
   const breaking = newestContent(stories.map(story => ({...story, publishedAt: story.source_published_at || story.created_at})))
     .filter(story => {const slug = getStorySlug(story); if (seen.has(slug)) return false; seen.add(slug); return true;})
     .slice(0,10).map(story => ({title:story.title,href:`/updates/${getStorySlug(story)}`}));
-  return <><LegacyHomepageSectionRedirect/><CmsHomepage settings={settings} initialUpdates={initialUpdates} discoveryHighlights={<><BreakingNewsTicker stories={breaking}/><DiscoveryHighlights items={[...stories.map(storyDiscovery),...publicOpportunities(stories)]}/><EducationDiscoveryPanels items={[...stories.map(storyDiscovery),...publicOpportunities(stories)]} showTrending={false} showUrgent={false}/><HomepageSchoolPreferences/></>}/></>;
+  return <><LegacyHomepageSectionRedirect/><CmsHomepage settings={settings} initialUpdates={initialUpdates} discoveryHighlights={<BreakingNewsTicker stories={breaking}/>} afterUpdates={<HomepageSchoolPreferences/>}/></>;
 }
