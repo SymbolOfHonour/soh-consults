@@ -27,7 +27,7 @@ test('TSV import retains columns and supports a no-header mode',()=>{
 });
 test('table blocks round trip safely with media, typography and optional layout data',()=>{
  const table={type:'table',caption:'Nigerian state universities',headers:['S/N','University','Official website'],rows:[['1','Rivers State University','[Visit site](https://example.edu.ng)']],aligns:['center','left','left'],widths:[80,320,220]};
- const original=[{type:'heading',text:'State universities'},{type:'paragraph',text:'A list of schools'},{type:'image',url:'https://files.example/photo.png'},table,{type:'document',url:'https://files.example/a.pdf'},{type:'video',url:'https://files.example/demo.mp4',mode:'player'}];
+ const original=[{type:'heading',text:'State universities'},{type:'paragraph',text:'A list of schools'},{type:'image',url:'https://files.example/photo.png',alt:''},table,{type:'document',url:'https://files.example/a.pdf',name:''},{type:'video',url:'https://files.example/demo.mp4',title:'',mode:'player'}];
  assert.equal(JSON.stringify(blocks.readArticleBlocks(blocks.writeArticleBlocks('',original))),JSON.stringify(original));
  assert.equal(blocks.articleBlocksError(original),null);
 });
