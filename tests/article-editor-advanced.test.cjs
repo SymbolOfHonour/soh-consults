@@ -71,3 +71,16 @@ test('manual publishing stays free from duplicate-warning gates',()=>{
  assert.doesNotMatch(route,/duplicateCandidates\s*\(/);
  assert.doesNotMatch(route,/Possible duplicate update detected/);
 });
+
+test('internal update links render safely while unsafe URL schemes remain plain text',()=>{
+ const body=blocks.writeArticleBlocks('',[{type:'paragraph',text:'[Read LASU update](/updates/lasu-update) and [unsafe](javascript:alert(1))'}]);
+ const html=renderToStaticMarkup(React.createElement(renderArticle,{details:body}));
+ assert.match(html,/href="\/updates\/lasu-update"/);
+ assert.doesNotMatch(html,/href="javascript:/);
+});
+test('table imports do not treat untrusted text as executable markup',()=>{
+ const input=[{type:'table',headers:['University','Year'],rows:[['<svg onload=alert(1)>','1982']]}];
+ const html=renderToStaticMarkup(React.createElement(renderArticle,{details:blocks.writeArticleBlocks('',input)}));
+ assert.match(html,/&lt;svg onload=alert\(1\)&gt;/);
+ assert.doesNotMatch(html,/<svg onload=/);
+});
