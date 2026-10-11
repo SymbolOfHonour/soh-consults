@@ -11,8 +11,9 @@ export function parseCalendarDate(raw:string):string|null{
  if(!m)return null;const month=/^\d+$/.test(m[2])?Number(m[2])-1:MONTHS.indexOf(m[2].toLowerCase()),day=Number(m[1]),year=Number(m[3]);const d=new Date(Date.UTC(year,month,day));return month>=0&&month<12&&d.getUTCDate()===day&&d.getUTCFullYear()===year?d.toISOString().slice(0,10):null;
 }
 function fresh(d:SourceDocument,now:number){const observed=Date.parse(d.fetchedAt||'');return Number.isFinite(observed)&&now-observed<=86400000&&now>=observed-60000;}
-export function applicableDocument(d:SourceDocument,q:ResolvedQuestion,now=Date.now()){
+export function applicableDocument(d:SourceDocument,q:ResolvedQuestion,now=Date.now(),question?:string){
  if(d.truncated||!d.official||!d.verified||!isOfficialInstitutionUrl(d.url,q.institutionKey))return false;
+ if(question&&(q.intent==='requirements'&&/post.?utme|\butme\b/i.test(question)&&!/direct entry|\bDE\b/i.test(question)&&/direct entry/i.test(d.title)&&!/(?:post.?utme|100 level)/i.test(d.title)))return false;
  if(q.currentSensitive&&!fresh(d,now))return false;
  if(d.publishedAt&&(!Number.isFinite(Date.parse(d.publishedAt))||Date.parse(d.publishedAt)>now+60000))return false;
  const sessions=sessionsIn(d.title+' '+d.snippet);if(q.academicYear){const years=[...d.title.matchAll(/\b20\d{2}\b/g)].map(m=>m[0]);return (years.length?years.every(y=>y===q.academicYear):new RegExp('\\b'+q.academicYear+'\\b').test(d.snippet))&&!sessions.length;}if(q.academicSession)return sessions.length===1&&sessions[0]===q.academicSession;
@@ -47,7 +48,7 @@ function matchesExamScope(d:SourceDocument,question:string,q:ResolvedQuestion){
 }
 export function verifyAnswer(question:string,q:ResolvedQuestion,documents:SourceDocument[],now=Date.now()):VerifiedAnswer{
  if(['deadline','status','cutoff','requirements'].includes(q.intent)&&!q.academicSession&&!q.academicYear)return uncertain(['jamb','waec','neco'].includes(q.institutionKey||'')?'Which examination year do you mean?':'Which academic session do you mean?');
- const applicable=rankDocuments(documents.filter(d=>applicableDocument(d,q,now)),question,q);
+ const applicable=rankDocuments(documents.filter(d=>applicableDocument(d,q,now,question)),question,q);
  if(!applicable.length)return uncertain('No fresh, session-specific evidence was available.');
  if(q.intent==='deadline'||q.intent==='status'){
   const screening=/post.?utme|screening/i.test(question);

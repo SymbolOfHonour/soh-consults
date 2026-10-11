@@ -1,6 +1,8 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import {emptyConversation,planConversation,readConversation,ConversationState} from "../../lib/ask-soh/conversation";
+import {redactQuestion} from "../../lib/ask-soh/privacy";
 
 type Message = {
   id: number;
@@ -27,7 +29,7 @@ type SearchSource = {
 
 type SearchPayload = {
   query: string;
-  googleUrl: string;
+  googleUrl?: string;
   results: SearchSource[];
   error?: string;
   currentSensitive?: boolean;
@@ -40,6 +42,8 @@ type SearchPayload = {
   contradiction?: boolean;
   serviceLead?: boolean;
   serviceName?: string;
+  conversation?: ConversationState;
+  clarification?: boolean;
 };
 
 const WHATSAPP = "2348182141088";
@@ -289,13 +293,9 @@ function isSOHSource(url: string): boolean {
   } catch { return false; }
 }
 
-function findFollowUpSubject(previousQuestions: string[]): string {
-  const namedSubject = /\b(lasu|fuoye|lasustech|uniosun|oou|lasued|yabatech|fuadsi|futa|oau|jamb|waec|neco|nabteb|nysc)\b/i;
-  return [...previousQuestions].reverse().find((question) => namedSubject.test(question)) || previousQuestions.at(-1) || "";
-}
-
 function buildSearchAnswer(payload: SearchPayload): Message {
   const results = Array.isArray(payload.results) ? payload.results : [];
+  const googleUrl=payload.googleUrl||`https://www.google.com/search?q=${encodeURIComponent(payload.query)}`;
   const internal = results.find((item) => isSOHSource(item.url));
   const official = results.find((item) => item.official);
   const best = payload.currentSensitive ? (official ?? internal ?? results[0]) : (internal ?? official ?? payload.results[0]);
@@ -320,7 +320,7 @@ function buildSearchAnswer(payload: SearchPayload): Message {
       role: "assistant",
       text: "Ask S.O.H received no usable answer or sources from the search service. Please retry; if this persists, contact S.O.H CONSULTS.",
       actions: [
-        { label: "Search Google", type: "external", value: payload.googleUrl },
+        { label: "Search Google", type: "external", value: googleUrl },
         {
           label: "Ask S.O.H CONSULTS",
           type: "whatsapp",
@@ -340,7 +340,7 @@ function buildSearchAnswer(payload: SearchPayload): Message {
     actions: [
       ...(payload.serviceLead ? [{ label: "Get Assistance on WhatsApp", type: "whatsapp" as const, value: `Hello S.O.H CONSULTS, I need assistance with ${payload.serviceName || payload.query}. Please share the requirements and current price.` }] : []),
       { label: isSOHSource(best.url) ? "Open S.O.H Resource" : best.official ? "Open Official Source" : "Open Best Source", type: isSOHSource(best.url) ? "link" : "external", value: best.url },
-      { label: "View Sources", type: "external", value: payload.googleUrl },
+      { label: "View Sources", type: "external", value: googleUrl },
       ...(payload.needsHuman ? [{ label: "Ask S.O.H CONSULTS", type: "whatsapp" as const, value: `Hello S.O.H CONSULTS, Ask S.O.H could not confidently verify this for me: ${payload.query}` }] : []),
     ],
   };
@@ -353,6 +353,14 @@ export default function AskSOH() {
   const [unread, setUnread] = useState(true);
   const [searching, setSearching] = useState(false);
   const conversationRef = useRef<HTMLDivElement | null>(null);
+  const [conversation,setConversation]=useState<ConversationState>(()=>emptyConversation());
+  const [restored,setRestored]=useState(false);
+  const generation=useRef(0);
+  const requestController=useRef<AbortController|null>(null);
+  const storageKey='ask-soh-conversation-v2';
+
+  useEffect(()=>{let cancelled=false;queueMicrotask(()=>{if(cancelled)return;try{const saved=JSON.parse(sessionStorage.getItem(storageKey)||'null');const state=readConversation(saved?.conversation);if(state.lastQuestion||state.institutionKey||state.pending){setConversation(state);const turns=Array.isArray(saved?.messages)?saved.messages.filter((m:Message)=>m&&(m.role==='user'||m.role==='assistant')&&typeof m.text==='string').slice(-60).map((m:Message,index:number)=>({id:index+2,role:m.role,text:redactQuestion(m.text).slice(0,3000)})):[];if(turns.length)setMessages([initialMessage,...turns]);}}catch{/* Storage can be disabled; conversation still works in memory. */}setRestored(true);});return()=>{cancelled=true;requestController.current?.abort();};},[]);
+  useEffect(()=>{if(!restored)return;try{sessionStorage.setItem(storageKey,JSON.stringify({conversation,messages:messages.filter(m=>m.id!==initialMessage.id).slice(-60).map(m=>({role:m.role,text:redactQuestion(m.text).slice(0,3000)}))}));}catch{/* No persistent browser storage is required. */}},[conversation,messages,restored]);
 
   useEffect(() => {
     const conversation = conversationRef.current;
@@ -387,21 +395,26 @@ export default function AskSOH() {
       return;
     }
 
-    addAssistant(getTopicReply(action.value));
+    generation.current++;requestController.current?.abort();setSearching(false);
+    const topicText=action.value.startsWith('caps')?'JAMB CAPS '+action.value.replace('caps-',''):action.value==='de'?'Direct Entry':action.value==='olevel'?"O'Level upload on JAMB":action.value;
+    setConversation(planConversation(topicText,conversation).state);
+    setMessages(current=>[...current,{id:Date.now(),role:'user',text:action.label},getTopicReply(action.value)]);
   }
 
-  async function searchWeb(question: string, context?: string) {
+  async function searchWeb(question: string, prior:ConversationState) {
     setSearching(true);
+    const requestGeneration=++generation.current;const controller=new AbortController();requestController.current=controller;
     try {
-      const history = context
-        ? messages.slice(-6).map((message) => ({ role: message.role, content: message.text }))
-        : [];
+      const history=messages.slice(-40).map(message=>({role:message.role,content:redactQuestion(message.text).slice(0,500)}));
       const response = await fetch("/api/ask-soh/search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question, context, history }),
+        body: JSON.stringify({ question, conversation:prior, history }),
+        signal:controller.signal,
       });
       const payload = (await response.json()) as SearchPayload & {error?:string};
+      if(requestGeneration!==generation.current)return;
+      if(payload.conversation)setConversation(readConversation(payload.conversation));
       if (!response.ok || payload.error) {
         addAssistant({id:Date.now()+1,role:"assistant",text:response.status===429
           ?"Ask S.O.H has reached its temporary search limit. Please try again later. Your question was not processed."
@@ -410,7 +423,8 @@ export default function AskSOH() {
       }
       addAssistant({ ...buildSearchAnswer(payload), feedbackQuestion: question });
     } catch {
-      const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(`${question} Nigeria admission JAMB LASU`)}`;
+      if(controller.signal.aborted||requestGeneration!==generation.current)return;
+      const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(`${question} Nigeria education`)}`;
       addAssistant({
         id: Date.now() + 1,
         role: "assistant",
@@ -425,7 +439,7 @@ export default function AskSOH() {
         ],
       });
     } finally {
-      setSearching(false);
+      if(requestGeneration===generation.current)setSearching(false);
     }
   }
 
@@ -440,57 +454,22 @@ export default function AskSOH() {
     ]);
     setInput("");
 
-    const recentUserMessages = messages.filter((message) => message.role === "user").slice(-3).map((message) => message.text);
-    const previousUser = recentUserMessages.at(-1);
-    const namedInstitution = institutionCalculators.some(([pattern]) => pattern.test(question));
-    const explicitSubject = /\b(lasu|fuoye|lasustech|uniosun|oou|lasued|yabatech|fuadsi|futa|oau|jamb|waec|neco|nysc)\b/i.test(question);
-    const followUpCue = /^(what if|what about|how about|and what|and how|what of|how much|when does|when is|is it|are they|does it|do they|what documents|what requirements|what score|what next|where can|where do|can i|do i need)\b/i.test(question.trim());
-    const pronounFollowUp = question.split(/\s+/).length <= 7 && /\b(it|that|this|they|them|there|its|their)\b/i.test(question);
-    const isFollowUp = !explicitSubject && !namedInstitution && Boolean(previousUser) && (followUpCue || pronounFollowUp);
-    const subjectContext = isFollowUp ? findFollowUpSubject(recentUserMessages) : "";
-    const acknowledgement=/^(okay|ok|alright|yes|yeah|yep|sure|oya|proceed|continue|go ahead|next)[.! ]*$/i.test(question);
-    const closure=/^(that's all|that is all|stop|end chat|we're done|we are done|no thanks|goodbye|bye)[.! ]*$/i.test(question);
-    const lastAssistant=[...messages].reverse().find(message=>message.role==="assistant"&&message.id!==initialMessage.id);
-    if(closure){
-      addAssistant({id:Date.now()+1,role:"assistant",text:"Understood. I'll stop here. You can return whenever you need more guidance."});
-      return;
-    }
-    if(acknowledgement){
-      const topic=findFollowUpSubject(recentUserMessages);
-      const hasActiveContext=Boolean(lastAssistant&&recentUserMessages.length);
-      addAssistant({id:Date.now()+1,role:"assistant",text:hasActiveContext
-        ?("Understood. We can continue"+(topic?" with "+topic:" from where we left off")+". What would you like me to check or explain next?")
-        :"Welcome! What admission, education or S.O.H CONSULTS question can I help you with?"});
-      return;
-    }
-    const match = classifyQuestion(question);
-
-    window.setTimeout(() => {
-      if (match.link) {
-        addAssistant({
-          id: Date.now() + 1,
-          role: "assistant",
-          text: "I have a dedicated S.O.H CONSULTS page for that. You can open it below.",
-          actions: [{ label: "Open Relevant Page", type: "link", value: match.link }],
-        });
-        return;
-      }
-
-      if (match.topic) {
-        addAssistant(getTopicReply(match.topic));
-        return;
-      }
-
-      if (match.shouldSearch) {
-        void searchWeb(question, subjectContext || undefined);
-      }
-    }, 120);
+    const plan=planConversation(question,conversation,messages.slice(-40).map(m=>({role:m.role,content:m.text})));
+    setConversation(plan.state);
+    if(plan.reset||plan.closed){generation.current++;requestController.current?.abort();setMessages([{...initialMessage,id:1},{id:Date.now()+1,role:'assistant',text:plan.reply||''}]);return;}
+    if(plan.reply){addAssistant({id:Date.now()+1,role:'assistant',text:plan.reply});return;}
+    const effective=plan.questions[0]||question;
+    const match=plan.questions.length===1?classifyQuestion(effective):{shouldSearch:true};
+    if(match.link){addAssistant({id:Date.now()+1,role:'assistant',text:'I have a dedicated S.O.H CONSULTS page for that. You can open it below.',actions:[{label:'Open Relevant Page',type:'link',value:match.link}]});return;}
+    if(match.topic){addAssistant(getTopicReply(match.topic));return;}
+    void searchWeb(question,conversation);
   }
 
   async function sendFeedback(message:Message,helpful:boolean){if(!message.feedbackQuestion)return;await fetch("/api/ask-soh/feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:message.feedbackQuestion,helpful})}).catch(()=>{});}
 
   function reset() {
-    setMessages([{ ...initialMessage, id: Date.now() }]);
+    generation.current++;requestController.current?.abort();setConversation(emptyConversation());try{sessionStorage.removeItem(storageKey);}catch{}
+    setMessages([initialMessage]);
     setInput("");
     setSearching(false);
   }
