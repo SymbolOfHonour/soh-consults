@@ -92,7 +92,7 @@ export function articleBlocksError(blocks:ArticleBlock[]):string|null {
 export function hasArticleNarrative(blocks:ArticleBlock[]):boolean {
  return blocks.some(block =>
   (block.type==="paragraph"||block.type==="heading"||block.type==="notice"||block.type==="quote")?Boolean(block.text.trim()):
-  block.type==="table"?Boolean(block.headers.some(h=>h.trim())&&block.rows.some(row=>row.some(cell=>cell.trim()))):
+  block.type==="table"?Boolean(block.headers.some(h=>h.trim())&&block.rows.some(row=>row.some(cell=>/\p{L}/u.test(cell)))):
   block.type==="faq"?block.entries.some(entry=>Boolean(entry.question.trim()&&entry.answer.trim())):false
  );
 }
