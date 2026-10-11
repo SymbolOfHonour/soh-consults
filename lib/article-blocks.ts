@@ -86,3 +86,12 @@ export function articleBlocksError(blocks:ArticleBlock[]):string|null {
   if (blocks.some(block=>block.type==="faq" && block.entries.some(entry=>!entry.question.trim()||!entry.answer.trim()))) return "Complete each FAQ question and answer before publishing.";
   return null;
 }
+
+/** Media-only and empty layout blocks do not count as an article's readable content. */
+export function hasArticleNarrative(blocks:ArticleBlock[]):boolean {
+ return blocks.some(block =>
+  (block.type==="paragraph"||block.type==="heading"||block.type==="notice"||block.type==="quote")?Boolean(block.text.trim()):
+  block.type==="table"?Boolean(block.headers.some(h=>h.trim())&&block.rows.some(row=>row.some(cell=>cell.trim()))):
+  block.type==="faq"?block.entries.some(entry=>Boolean(entry.question.trim()&&entry.answer.trim())):false
+ );
+}
