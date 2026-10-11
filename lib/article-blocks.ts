@@ -80,6 +80,7 @@ export function safeMediaUrl(value:string):boolean {
   try {const url=new URL(value);return url.protocol==="https:" && Boolean(url.hostname) && !url.username && !url.password && !/\s/.test(value);} catch {return false;}
 }
 export function articleBlocksError(blocks:ArticleBlock[]):string|null {
+  if(blocks.length>100)return "An article can contain at most 100 content blocks.";
   if (blocks.some(block => (block.type === "image" || block.type === "document" || block.type === "video") && !safeMediaUrl(block.url))) return "Complete each image, PDF or video block with a valid HTTPS URL, or remove it.";
   if (blocks.some(block => block.type === "gallery" && !block.urls.length)) return "Upload pictures to each gallery or remove the empty gallery.";
   if (blocks.some(block=>block.type==="table" && (!block.headers.length || block.headers.length>20 || block.rows.length>300 || block.rows.some(row=>row.length!==block.headers.length || row.some(cell=>cell.length>3000))))) return "Table rows must have the same number of columns as the header.";
