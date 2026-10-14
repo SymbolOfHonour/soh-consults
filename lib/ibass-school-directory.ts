@@ -76,7 +76,7 @@ export async function ibassSchoolDirectory(): Promise<SchoolDirectory> {
       for (const row of outcome.value) {
         const name = directoryName(row);
         if (typeof row.id !== "string" && typeof row.id !== "number") throw new Error("Missing institution identifier");
-        const key = name.normalize("NFKC").trim().replace(/\\s+/g, " ").toLocaleLowerCase("en");
+        const key = name.normalize("NFKC").trim().replace(/\s+/g, " ").toLocaleLowerCase("en");
         if (!names.has(key)) names.set(key, name);
       }
     } catch { warnings.push("An institution type returned invalid records."); }
