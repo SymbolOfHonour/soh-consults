@@ -21,7 +21,7 @@ test("My School preference storage is device-local and safely handles storage er
 test("My School enforces a five-school selection limit and permits removing selections", () => {
   assert.match(feed, /preferences\.schools\.length >= 5/);
   assert.match(feed, /previous\.includes\(value\) \? previous\.filter/);
-  assert.match(schoolLogic, /\.slice\(0, 5\)/);
+  assert.match(schoolLogic, /valid\(input\.schools, schools, 5\)/);
 });
 
 test("My School search reports when there are no matching schools", () => {
