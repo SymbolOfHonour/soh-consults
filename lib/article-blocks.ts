@@ -7,6 +7,7 @@ export type ArticleBlock =
   | { type: "video"; url: string; title?: string; mode: "link" | "player" }
   | { type: "notice"; variant: "info"|"deadline"|"warning"; title?: string; text: string }
   | { type: "quote"; text: string; attribution?: string }
+  | { type: "collapsible"; title: string; text: string }
   | { type: "divider"; align?: "left"|"center"|"right" }
   | { type: "faq"; entries: {question:string;answer:string}[] }
   | { type: "toc" }
@@ -56,6 +57,8 @@ export function readArticleBlocks(details: string): ArticleBlock[] | null {
         blocks.push({type:"notice",variant:block.variant,title:typeof block.title==="string"?block.title.slice(0,200):"",text:block.text});
       } else if (block.type === "quote" && typeof block.text==="string" && block.text.length<=12000) {
         blocks.push({type:"quote",text:block.text,attribution:typeof block.attribution==="string"?block.attribution.slice(0,250):""});
+      } else if (block.type === "collapsible" && typeof block.title === "string" && block.title.length <= 200 && typeof block.text === "string" && block.text.length <= 30000) {
+        blocks.push({type:"collapsible",title:block.title,text:block.text});
       } else if (block.type === "divider") {
         blocks.push({type:"divider",...(aligns.some(value=>value===block.align)?{align:block.align as "left"|"center"|"right"}:{})});
       } else if (block.type === "toc") {
@@ -86,6 +89,7 @@ export function articleBlocksError(blocks:ArticleBlock[]):string|null {
   if (blocks.some(block => (block.type === "image" || block.type === "document" || block.type === "video") && !safeMediaUrl(block.url))) return "Complete each image, PDF or video block with a valid HTTPS URL, or remove it.";
   if (blocks.some(block => block.type === "gallery" && !block.urls.length)) return "Upload pictures to each gallery or remove the empty gallery.";
   if (blocks.some(block=>block.type==="table" && (!block.headers.length || block.headers.length>20 || block.rows.length>300 || block.rows.some(row=>row.length!==block.headers.length || row.some(cell=>cell.length>3000))))) return "Table rows must have the same number of columns as the header.";
+  if (blocks.some(block=>block.type==="collapsible" && (!block.title.trim() || !block.text.trim() || block.title.length>200 || block.text.length>30000))) return "Complete each expandable section with a title (up to 200 characters) and text (up to 30,000 characters), or remove it.";
   if (blocks.some(block=>block.type==="faq" && block.entries.some(entry=>!entry.question.trim()||!entry.answer.trim()))) return "Complete each FAQ question and answer before publishing.";
   return null;
 }
@@ -94,6 +98,7 @@ export function articleBlocksError(blocks:ArticleBlock[]):string|null {
 export function hasArticleNarrative(blocks:ArticleBlock[]):boolean {
  return blocks.some(block =>
   (block.type==="paragraph"||block.type==="heading"||block.type==="notice"||block.type==="quote")?Boolean(block.text.trim()):
+  block.type==="collapsible"?Boolean(block.title.trim()&&block.text.trim()):
   block.type==="table"?Boolean(block.headers.some(h=>h.trim())&&block.rows.some(row=>row.some(cell=>/\p{L}/u.test(cell)))):
   block.type==="faq"?block.entries.some(entry=>Boolean(entry.question.trim()&&entry.answer.trim())):false
  );
