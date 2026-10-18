@@ -1,10 +1,11 @@
 "use client";
 import type {ArticleBlock} from "../../../lib/article-blocks";
-type Editable=Extract<ArticleBlock,{type:"notice"|"quote"|"faq"}>;
+type Editable=Extract<ArticleBlock,{type:"notice"|"quote"|"faq"|"divider"}>;
 type Props={block:Editable;disabled:boolean;onChange:(updated:Editable)=>void};
 const field="w-full min-w-0 rounded-lg border border-gray-300 bg-white p-3 text-base text-gray-950";
 const button="rounded-lg border border-green-300 bg-white px-3 py-2 text-sm font-semibold text-green-800 disabled:opacity-40";
 export default function ArticleUtilityBlockEditor({block,disabled,onChange}:Props){
+ if(block.type==="divider")return <label className="block text-sm font-semibold">Divider position<select aria-label="Divider position" className={field} disabled={disabled} value={block.align||"center"} onChange={e=>onChange({...block,align:e.target.value as "left"|"center"|"right"})}><option value="left">Left</option><option value="center">Centre</option><option value="right">Right</option></select></label>;
  if(block.type==="notice")return <div className="space-y-3">
   <label className="block text-sm font-semibold">Notice type<select className={field} disabled={disabled} value={block.variant} onChange={e=>onChange({...block,variant:e.target.value as "info"|"warning"|"deadline"})}><option value="info">Information</option><option value="deadline">Deadline</option><option value="warning">Important warning</option></select></label>
   <label className="block text-sm font-semibold">Notice heading<input className={field} maxLength={200} disabled={disabled} value={block.title||""} onChange={e=>onChange({...block,title:e.target.value})}/></label>

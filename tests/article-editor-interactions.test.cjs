@@ -128,6 +128,15 @@ test('notice, quote, FAQ, divider, word count and preview controls function',asy
  const preview=container.querySelector('[aria-label="Live article preview"]');assert.ok(preview.querySelector('blockquote'));assert.ok(preview.querySelector('details summary'));assert.ok(preview.querySelector('[role="separator"][aria-label="Article section divider"]'));
  await click(button('Mobile',preview));assert.ok(preview.querySelector('.max-w-\\[390px\\]'));await click(button('Hide preview',preview));assert.equal(preview.querySelector('blockquote'),null);await click(button('Show preview',preview));assert.ok(preview.querySelector('blockquote'));
 });
+test('each divider position updates independently and survives serialization with safe legacy defaults',async()=>{
+ await editor([{type:'divider'},{type:'divider',align:'right'}]);
+ assert.equal(field('Divider position').value,'center');await change(field('Divider position'),'left');
+ assert.deepEqual(current,[{type:'divider',align:'left'},{type:'divider',align:'right'}]);
+ const restored=readArticleBlocks(writeArticleBlocks('',current));assert.deepEqual(restored,current);
+ const separators=publicDocument(restored).querySelectorAll('[role="separator"]');assert.ok(separators[0].classList.contains('justify-start'));assert.ok(separators[1].classList.contains('justify-end'));
+ await change(field('Divider position'),'center');assert.equal(current[0].align,'center');assert.equal(current[1].align,'right');
+ const legacy=readArticleBlocks(writeArticleBlocks('',[{type:'divider'},{type:'divider',align:'invalid'}]));assert.deepEqual(legacy,[{type:'divider'},{type:'divider'}]);assert.ok(publicDocument(legacy).querySelector('[role="separator"]').classList.contains('justify-center'));
+});
 test('browser draft save clears dirty navigation guard and pending autosave',async()=>{
  let setSnapshot,setToken;function Harness(){const [snapshot,set]=React.useState({text:''});const [token,save]=React.useState(0);setSnapshot=set;setToken=save;return React.createElement(Recovery,{storageKey:'qa-draft',snapshot,saveToken:token,onRestore:set});}
  await mount(React.createElement(Harness));await act(async()=>setSnapshot({text:'Saved work'}));let event=new Event('beforeunload',{cancelable:true});window.dispatchEvent(event);assert.equal(event.defaultPrevented,true);
@@ -165,10 +174,10 @@ test('existing article links select published updates and render safe internal U
 });
 test('new draft saves through the real API and reopens with table, TOC and SEO metadata intact',async()=>{
  await mount(React.createElement(NewPage));const headline=[...container.querySelectorAll('label')].find(l=>l.textContent==='Headline').querySelector('input');await change(headline,'Private CMS QA draft');
- await change(field('paragraph 1'),'Private introduction');await click(button('+ Table of contents'));await click(button('+ heading'));await change(field('heading 3'),'Applications');await click(button('+ heading'));await change(field('heading 4'),'Fees');await click(button('+ table'));await change(field('Row 1, column 2'),'School A');
+ await change(field('paragraph 1'),'Private introduction');await click(button('+ Table of contents'));await click(button('+ heading'));await change(field('heading 3'),'Applications');await click(button('+ heading'));await change(field('heading 4'),'Fees');await click(button('+ table'));await change(field('Row 1, column 2'),'School A');await click(button('+ divider'));await change(field('Divider position'),'left');
  const seo=[...container.querySelectorAll('label')].find(l=>l.textContent.startsWith('Search-result title')).querySelector('input');await change(seo,'Draft SEO title');await click(button('Save Draft'));
  assert.equal(storedStories.length,1);assert.equal(storedStories[0].status,'draft');assert.equal(requests.find(r=>r.method==='POST').body.status,'draft');assert.equal(localStorage.getItem('soh-editor-new-v1'),null);assert.equal(smartMeta(storedStories[0].details).seoTitle,'Draft SEO title');const saved=readArticleBlocks(storedStories[0].details);
- await act(async()=>root.unmount());container.remove();root=null;await mount(React.createElement(EditPage));assert.deepEqual(readArticleBlocks(storedStories[0].details),saved);assert.equal(field('Row 1, column 2').value,'School A');assert.equal(container.querySelectorAll('[aria-label="Live article preview"] nav a').length,2);await click(button('Save Changes'));assert.equal(storedStories[0].status,'draft');assert.deepEqual(readArticleBlocks(storedStories[0].details),saved);
+ await act(async()=>root.unmount());container.remove();root=null;await mount(React.createElement(EditPage));assert.deepEqual(readArticleBlocks(storedStories[0].details),saved);assert.equal(field('Row 1, column 2').value,'School A');assert.equal(field('Divider position').value,'left');assert.equal(container.querySelectorAll('[aria-label="Live article preview"] nav a').length,2);await click(button('Save Changes'));assert.equal(storedStories[0].status,'draft');assert.deepEqual(readArticleBlocks(storedStories[0].details),saved);
 });
 test('saving an existing draft preserves scheduling instants in a non-UTC browser timezone',async()=>{
  const oldTimezone=process.env.TZ;process.env.TZ='Africa/Lagos';try{
