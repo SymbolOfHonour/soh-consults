@@ -23,7 +23,7 @@ const getApplication = cache(async (slug: string) => {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const application = await getApplication((await params).slug);
   if (!application) return { title: "Application not found", robots: { index: false, follow: false } };
-  return withPublicSocial({ title: `${application.item.programme} | Application checklist`, description: application.item.summary, alternates: { canonical: applicationHref(application.item) } });
+  return withPublicSocial({ title: `${application.item.programme} | Application checklist`, description: application.item.summary, alternates: { canonical: application.story ? application.item.detailHref : applicationHref(application.item) }, robots: application.story ? { index: true, follow: true } : { index: false, follow: true } });
 }
 export default async function ApplicationPage({ params }: { params: Promise<{ slug: string }> }) {
   const application = await getApplication((await params).slug);

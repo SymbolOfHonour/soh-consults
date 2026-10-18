@@ -1,5 +1,3 @@
-import { publicOpportunities } from "../lib/content-catalogue";
-import { applicationHref } from "../lib/application-guide";
 import {categorySlug} from "../lib/category-slug";
 import type { MetadataRoute } from "next";
 import { PRIMARY_SITE_URL } from "./site-url";
@@ -51,6 +49,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "daily",
     priority: .75,
   }));
+  // Application checklists reuse notices or lack a full published notice.
+  // Only their canonical articles belong in the sitemap.
   // Slug collisions must not emit duplicate canonical URLs.
-  return Array.from(new Map([...core, ...updatePages, ...categories, ...guidePages, ...publicOpportunities(published).map(item => ({ url: `${siteUrl}${applicationHref(item)}`, changeFrequency: "weekly" as const, priority: .7 }))].map(entry => [entry.url, entry])).values());
+  return Array.from(new Map([...core, ...updatePages, ...categories, ...guidePages].map(entry => [entry.url, entry])).values());
 }
