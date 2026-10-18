@@ -46,7 +46,8 @@ test('article contents navigation, notices, correction-safe quote and FAQs rende
  {type:'notice',variant:'info',title:'Official confirmation',text:'Always use the NUC register.'},
  {type:'quote',text:'<img src=x onerror=alert(1)>',attribution:'Public source'},
  {type:'faq',entries:[{question:'How many?',answer:'Verify using official records.'}]},
- {type:'divider'}
+ {type:'divider'},
+ {type:'heading',text:'Next steps'}
  ];
  const html=renderToStaticMarkup(React.createElement(renderArticle,{details:blocks.writeArticleBlocks('',entries)}));
  assert.match(html,/aria-label="Article table of contents"/);

@@ -27,16 +27,16 @@ export default function ArticleDraftRecovery<T extends object>({storageKey,snaps
  },[storageKey]);
  useEffect(()=>{
   if(!ready||!enabled||serialized===baseline.current)return;
-  const id=setTimeout(()=>{try{localStorage.setItem(storageKey,JSON.stringify({savedAt:Date.now(),snapshot}));}catch{/* Storage may be blocked or full. */}},1200);
+  const id=setTimeout(()=>{if(serialized===baseline.current)return;try{localStorage.setItem(storageKey,JSON.stringify({savedAt:Date.now(),snapshot}));}catch{/* Storage may be blocked or full. */}},1200);
   return()=>clearTimeout(id);
- },[ready,enabled,serialized,snapshot,storageKey]);
+ },[ready,enabled,serialized,snapshot,storageKey,saveToken]);
  useEffect(()=>{
   if(previousSave.current===saveToken)return;
   previousSave.current=saveToken;baseline.current=serialized;
   try{localStorage.removeItem(storageKey);}catch{/* private browsing */}
   // eslint-disable-next-line react-hooks/exhaustive-deps
  },[saveToken,storageKey]);
- useEffect(()=>{if(!ready||!enabled||serialized===baseline.current)return;function warn(event:BeforeUnloadEvent){event.preventDefault();event.returnValue="";}window.addEventListener("beforeunload",warn);return()=>window.removeEventListener("beforeunload",warn);},[ready,enabled,serialized]);
+ useEffect(()=>{if(!ready||!enabled||serialized===baseline.current)return;function warn(event:BeforeUnloadEvent){if(serialized===baseline.current)return;event.preventDefault();event.returnValue="";}window.addEventListener("beforeunload",warn);return()=>window.removeEventListener("beforeunload",warn);},[ready,enabled,serialized,saveToken]);
  function recover(){if(!pending)return;onRestore(pending.snapshot);setPending(null);setEnabled(true);}
  function discard(){try{localStorage.removeItem(storageKey);}catch{}baseline.current=serialized;setPending(null);setEnabled(true);}
  return <div className="rounded-xl border border-gray-200 bg-white p-3 text-sm" aria-label="Draft recovery">

@@ -1,6 +1,6 @@
 export type Typography = { font?: "Arial" | "Georgia" | "Verdana" | "Trebuchet MS" | "Times New Roman"; size?: 12 | 14 | 16 | 18 | 20 | 24 | 28 | 32 | 36 | 40 | 48 | 56 | 64 | 72; align?: "left" | "center" | "right"; color?: "default" | "green" | "blue" | "red"; spacing?: "normal" | "relaxed" | "loose"; highlight?: boolean };
 export type ArticleBlock =
-  | ({ type: "paragraph" | "heading"; text: string } & Typography)
+  | ({ type: "paragraph" | "heading"; text: string; anchor?: string } & Typography)
   | { type: "image"; url: string; alt?: string }
   | { type: "gallery"; urls: string[] }
   | { type: "document"; url: string; name?: string }
@@ -41,7 +41,7 @@ export function readArticleBlocks(details: string): ArticleBlock[] | null {
       if (!item || typeof item !== "object") return null;
       const block = item as Record<string, unknown>;
       if ((block.type === "paragraph" || block.type === "heading") && typeof block.text === "string" && block.text.length <= 30000) {
-        blocks.push({ type: block.type, text: block.text, ...typographyFrom(block) });
+        blocks.push({ type: block.type, text: block.text, ...typographyFrom(block), ...(block.type==="heading"&&typeof block.anchor==="string"&&/^section-[a-z0-9-]{1,80}$/i.test(block.anchor)?{anchor:block.anchor}:{}) });
       } else if (block.type === "image" && typeof block.url === "string" && IMAGE.test(block.url)) {
         blocks.push({ type: "image", url: block.url, alt: typeof block.alt === "string" ? block.alt.slice(0, 250) : "" });
       } else if (block.type === "gallery" && Array.isArray(block.urls) && block.urls.length <= 20 && block.urls.every((url: unknown) => typeof url === "string" && IMAGE.test(url))) {

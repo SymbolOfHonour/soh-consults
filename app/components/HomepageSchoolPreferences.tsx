@@ -27,17 +27,17 @@ export default function HomepageSchoolPreferences() {
   }, []);
   const selected = saved.schools.length > 0 || saved.topics.length > 0;
   return <section aria-label="My school preferences" className="border-b border-green-100 bg-green-50">
-    <div className="mx-auto max-w-7xl px-4 py-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-4 sm:py-5 lg:px-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
           <p className="text-xs font-bold uppercase tracking-wider text-green-800">S.O.H CONSULTS · My School</p>
-          <h2 className="mt-1 text-xl font-black text-green-950">{ready && selected ? "Welcome back! Your institution preferences" : "Your schools. Your next step."}</h2>
+          <h2 className="mt-1 text-lg font-black text-green-950 sm:text-xl">{ready && selected ? "My School: Your personalised updates" : "My School: Follow your institutions"}</h2>
           <p className="mt-1 text-sm text-gray-600">{ready && selected ? "Your choices are saved on this device. Continue to your personalised school feed." : "Choose your preferred institutions and interests to get relevant updates. No account required."}</p>
           {ready && saved.schools.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{saved.schools.map(school => <span key={school} className="max-w-full break-words rounded-full border border-green-200 bg-white px-3 py-1.5 text-sm font-semibold text-green-950">{school}</span>)}</div>}
           {ready && saved.topics.length > 0 && <p className="mt-3 text-xs text-green-900">Interests: {saved.topics.join(", ")}</p>}
           <p className="mt-2 text-xs text-gray-500">Preferences stay in this browser and may disappear if its storage is cleared.</p>
         </div>
-        <a href="/my-school" className="inline-flex min-h-12 items-center justify-center rounded-xl bg-green-800 px-5 py-3 text-sm font-bold text-white hover:bg-green-900">{ready && selected ? "View / manage my preferences →" : "Create my school feed →"}</a>
+        <a href="/my-school" className="inline-flex min-h-12 items-center justify-center rounded-xl bg-green-800 px-5 py-3 text-sm font-bold text-white hover:bg-green-900">{ready && selected ? "View My School Feed →" : "Personalise My Feed →"}</a>
       </div>
     </div>
   </section>;

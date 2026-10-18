@@ -36,12 +36,12 @@ export default function BreakingNewsTicker({ stories }: { stories: Story[] }) {
     return () => { active = false; window.clearInterval(timer); document.removeEventListener("visibilitychange", onVisible); };
   }, []);
   if (!liveStories.length) return null;
-  const links = liveStories.map((story, i) => <a key={i} href={story.href} className="inline-block shrink-0 px-6 font-bold hover:underline focus:underline">{story.title}</a>);
-  return <div aria-label="Important breaking education updates" className="flex min-h-11 items-center overflow-hidden bg-[#f1e8c8] text-[#06452f]">
-    <span className="z-10 flex min-h-11 shrink-0 items-center bg-[#06452f] px-4 text-xs font-black uppercase tracking-wider text-[#efc46e]">⚡ Breaking</span>
+  const links = liveStories.map((story, i) => <a key={i} href={story.href} className="inline-block shrink-0 px-4 sm:px-6 font-bold hover:underline focus:underline">{story.title}</a>);
+  return <div aria-label="Important breaking education updates" className="flex w-full min-h-11 items-center overflow-hidden bg-[#f1e8c8] text-[#06452f]">
+    <span className="z-10 flex min-h-11 shrink-0 items-center bg-[#06452f] px-2.5 sm:px-4 text-[10px] sm:text-xs font-black uppercase tracking-wider text-[#efc46e]">⚡ Breaking</span>
     <div className="relative min-w-0 flex-1 overflow-hidden" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)}>
-      {reduceMotion ? <div className="flex gap-2 overflow-x-auto whitespace-nowrap py-3 text-sm">{links}</div> :
-      <div className="flex w-max whitespace-nowrap py-3 text-sm" style={{ animation: "soh-breaking-scroll 55s linear infinite", animationPlayState: paused ? "paused" : "running" }}>
+      {reduceMotion ? <div className="flex gap-2 overflow-x-auto whitespace-nowrap py-3 text-xs sm:text-sm">{links}</div> :
+      <div className="flex w-max whitespace-nowrap py-3 text-xs sm:text-sm" style={{ animation: "soh-breaking-scroll 38s linear infinite", animationPlayState: paused ? "paused" : "running" }}>
         <span className="flex shrink-0 items-center">{links}</span><span className="flex shrink-0 items-center" aria-hidden="true">{liveStories.map((story,i) => <span key={i} className="inline-block px-6 font-bold">{story.title}</span>)}</span>
       </div>}
     </div>

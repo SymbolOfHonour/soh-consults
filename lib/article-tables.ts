@@ -37,7 +37,9 @@ export function tableFromRows(rows:string[][],firstRowHeaders=true):TableBlock {
  const headings=firstRowHeaders?rows[0]:Array.from({length:width},(_,i)=>"Column "+(i+1));
  const body=firstRowHeaders?rows.slice(1):rows;
  if(body.length>MAX_TABLE_ROWS)throw Error("Tables support a maximum of 300 data rows.");
- return {type:"table",headers:Array.from({length:width},(_,i)=>(headings[i]||"Column "+(i+1)).slice(0,1000)),rows:body.map(row=>Array.from({length:width},(_,i)=>(row[i]||"").slice(0,3000)))};
+ if(headings.some(cell=>cell.length>1000))throw Error("Table headings support a maximum of 1000 characters.");
+ if(body.some(row=>row.some(cell=>cell.length>3000)))throw Error("Table cells support a maximum of 3000 characters.");
+ return {type:"table",headers:Array.from({length:width},(_,i)=>headings[i]||"Column "+(i+1)),rows:body.map(row=>Array.from({length:width},(_,i)=>row[i]||""))};
 }
 /** Runs only in the browser. DOM text is extracted, never inserted as raw HTML. */
 export function tableFromHtml(html:string):TableBlock|null {
@@ -45,19 +47,21 @@ export function tableFromHtml(html:string):TableBlock|null {
  const doc=new DOMParser().parseFromString(html,"text/html");
  doc.querySelectorAll("script,style,iframe,object,embed").forEach(node=>node.remove());
  const table=doc.querySelector("table");if(!table)return null;
- const rows=Array.from(table.querySelectorAll("tr")).slice(0,MAX_TABLE_ROWS+1).map(row=>
-  Array.from(row.children).filter(c=>c.tagName==="TH"||c.tagName==="TD").map(cell=>{
-   const anchor=cell.querySelector("a[href]");const label=(anchor?.textContent||cell.textContent||"").trim();
-   const href=anchor?.getAttribute("href")||"";
-   return (anchor&&safeTableLink(href)?"["+label.replace(/[\[\]]/g,"")+"]("+href+")":label).slice(0,3000);
-  })
- ).filter(row=>row.length);
- if(!rows.length)return null;
- const hasHeaders=Boolean(table.querySelector("tr:first-child th"));
- const value=tableFromRows(rows,hasHeaders);
- if(!hasHeaders) {
-  const headings=Array.from({length:value.headers.length},(_,i)=>"Column "+(i+1));
-  return {...value,headers:headings,rows:rows.slice(0,MAX_TABLE_ROWS).map(row=>Array.from({length:headings.length},(_,i)=>row[i]||""))};
+ function cellText(node:Node):string {
+  if(node.nodeType===3)return node.textContent||"";
+  if(node.nodeType!==1)return "";
+  const element=node as Element;
+  if(element.tagName==="BR")return "\n";
+  const inner=Array.from(element.childNodes).map(cellText).join("");
+  if(element.tagName==="A"){
+   const href=element.getAttribute("href")||"";
+   if(safeTableLink(href))return "["+inner.replace(/[\[\]]/g,"")+"]("+href.replace(/\(/g,"%28").replace(/\)/g,"%29")+")";
+  }
+  return inner+(["P","DIV"].includes(element.tagName)?"\n":"");
  }
- return value;
+ const tableRows=Array.from(table.querySelectorAll("tr")).filter(row=>row.closest("table")===table);
+ const rows=tableRows.map(row=>Array.from(row.children).filter(cell=>cell.tagName==="TH"||cell.tagName==="TD").map(cell=>cellText(cell).trim())).filter(row=>row.length);
+ if(!rows.length)return null;
+ const hasHeaders=Boolean(tableRows[0]&&Array.from(tableRows[0].children).some(cell=>cell.tagName==="TH"));
+ return tableFromRows(rows,hasHeaders);
 }

@@ -46,7 +46,7 @@ export default function ArticleTableEditor({block,disabled,onChange}:Props){
       <option value="left">Align left</option><option value="center">Align centre</option><option value="right">Align right</option>
      </select>
      <select className={field} aria-label={"Column "+(c+1)+" width"} disabled={disabled} value={block.widths?.[c]||0} onChange={e=>widthColumn(c,Number(e.target.value))}>
-      <option value="0">Auto width</option><option value="120">120px</option><option value="220">220px</option><option value="320">320px</option><option value="440">440px</option>
+      <option value="0">Auto width</option><option value="80">80px</option><option value="120">120px</option><option value="220">220px</option><option value="320">320px</option><option value="440">440px</option>
      </select>
     </th>)}<th scope="col" className="border-b p-2">Rows</th></tr></thead>
     <tbody>{block.rows.map((row,r)=><tr key={r} className="even:bg-gray-50">{row.map((cell,c)=><td key={c} className="border-b border-r p-1 align-top">
