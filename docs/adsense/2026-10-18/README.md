@@ -1,6 +1,6 @@
 # AdSense readiness audit — 18 October 2026
 
-Baseline: main commit 09f4918. Scope: public SEO, content depth and attribution, application-checklist duplication, advertising display, repository regression/security checks. This is not a guarantee of AdSense approval or a completed authenticated CMS/Search Console audit.
+Initial baseline: main commit 09f4918. Integrated the concurrent CMS #340 merge at 7dc8a41, preserving editorial SEO fields, featured-image settings and structured tables. Scope: public SEO, content depth and attribution, application-checklist duplication, advertising display, repository regression/security checks. This is not a guarantee of AdSense approval or a completed authenticated CMS/Search Console audit.
 
 ## Evidence
 
@@ -19,7 +19,7 @@ Official references checked: https://jamb.gov.ng/caps and https://support.jamb.g
 
 ## Verification
 
-- All 370 tests pass, including three new behavioral regressions for ad rendering, checklist canonical/noindex behavior and sitemap/error propagation.
+- All 404 tests pass after integration (370 before the CMS merge), including three new behavioral regressions for ad rendering, checklist canonical/noindex behavior and sitemap/error propagation.
 - ESLint: zero errors; 18 existing warnings.
 - Optimized Next.js build, including TypeScript, passes with isolated Preview fixtures, without production credentials.
 - npm audit --omit=dev: zero reported production dependency vulnerabilities at audit time. This is not a penetration test.
