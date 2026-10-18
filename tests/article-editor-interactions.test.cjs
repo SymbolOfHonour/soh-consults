@@ -125,7 +125,7 @@ test('notice, quote, FAQ, divider, word count and preview controls function',asy
  const labels=[...container.querySelectorAll('label')];const find=(s,tag='textarea')=>labels.find(l=>l.textContent.startsWith(s)).querySelector(tag);
  await change(find('Notice heading','input'),'Warning');await change(find('Notice text'),'Read this warning');await change(find('Quotation'),'Keep learning');await change(find('Attribution','input'),'S.O.H');await change(find('Question 1','input'),'How to apply?');await change(find('Answer'),'Read the official portal.');
  assert.equal(articleBlocksError(current),null);assert.equal(hasArticleNarrative(current),true);assert.match(container.textContent,/words · about 1 min read/);
- const preview=container.querySelector('[aria-label="Live article preview"]');assert.ok(preview.querySelector('blockquote'));assert.ok(preview.querySelector('details summary'));assert.ok(preview.querySelector('hr'));
+ const preview=container.querySelector('[aria-label="Live article preview"]');assert.ok(preview.querySelector('blockquote'));assert.ok(preview.querySelector('details summary'));assert.ok(preview.querySelector('[role="separator"][aria-label="Article section divider"]'));
  await click(button('Mobile',preview));assert.ok(preview.querySelector('.max-w-\\[390px\\]'));await click(button('Hide preview',preview));assert.equal(preview.querySelector('blockquote'),null);await click(button('Show preview',preview));assert.ok(preview.querySelector('blockquote'));
 });
 test('browser draft save clears dirty navigation guard and pending autosave',async()=>{
