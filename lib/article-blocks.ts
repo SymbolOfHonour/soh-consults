@@ -7,7 +7,7 @@ export type ArticleBlock =
   | { type: "video"; url: string; title?: string; mode: "link" | "player" }
   | { type: "notice"; variant: "info"|"deadline"|"warning"; title?: string; text: string }
   | { type: "quote"; text: string; attribution?: string }
-  | { type: "divider" }
+  | { type: "divider"; align?: "left"|"center"|"right" }
   | { type: "faq"; entries: {question:string;answer:string}[] }
   | { type: "toc" }
   | { type: "ad"; slot: string }
@@ -56,8 +56,10 @@ export function readArticleBlocks(details: string): ArticleBlock[] | null {
         blocks.push({type:"notice",variant:block.variant,title:typeof block.title==="string"?block.title.slice(0,200):"",text:block.text});
       } else if (block.type === "quote" && typeof block.text==="string" && block.text.length<=12000) {
         blocks.push({type:"quote",text:block.text,attribution:typeof block.attribution==="string"?block.attribution.slice(0,250):""});
-      } else if (block.type === "divider" || block.type === "toc") {
-        blocks.push({type:block.type});
+      } else if (block.type === "divider") {
+        blocks.push({type:"divider",...(aligns.some(value=>value===block.align)?{align:block.align as "left"|"center"|"right"}:{})});
+      } else if (block.type === "toc") {
+        blocks.push({type:"toc"});
       } else if (block.type === "faq" && Array.isArray(block.entries) && block.entries.length<=40 && block.entries.every((v:unknown)=>Boolean(v)&&typeof v==="object"&&typeof (v as Record<string,unknown>).question==="string"&&typeof (v as Record<string,unknown>).answer==="string"&&((v as {question:string}).question.length<=500)&&((v as {answer:string}).answer.length<=10000))) {
         blocks.push({type:"faq",entries:(block.entries as {question:string;answer:string}[]).map(entry=>({question:entry.question,answer:entry.answer}))});
       } else if (block.type === "ad" && typeof block.slot === "string" && /^[a-z0-9_-]{1,40}$/i.test(block.slot)) {
