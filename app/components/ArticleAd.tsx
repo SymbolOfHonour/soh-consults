@@ -15,5 +15,6 @@ export default function ArticleAd({slot,enabled}:{slot:string;enabled:boolean}) 
   observer.observe(ref.current);
   return()=>observer.disconnect();
  },[active]);
+ if(!active)return null;
  return <aside aria-label="Advertisement" className="rounded-xl border border-gray-200 bg-gray-50 px-3 py-2"><p className="mb-2 text-center text-xs text-gray-500">Advertisement</p><div className="h-[250px] overflow-hidden">{active?<ins ref={ref} className="adsbygoogle block h-[250px] w-full" style={{height:250}} data-ad-client="ca-pub-9913781873857877" data-ad-slot={slot}/>:<div className="grid h-full place-items-center text-xs text-gray-500">Reserved advertising space</div>}</div></aside>;
 }

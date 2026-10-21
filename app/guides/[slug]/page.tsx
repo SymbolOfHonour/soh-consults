@@ -99,6 +99,8 @@ export default async function GuidePage({ params }: Props) {
           ))}
         </div>
 
+        {guide.sources?.length ? <section className="mt-10 rounded-2xl border border-[#dfe7df] bg-white p-5 sm:p-7" aria-labelledby="guide-references"><h2 id="guide-references" className="text-xl font-black">Official references</h2><p className="mt-3 leading-7 text-[#52615a]">Use these official resources to check current instructions. S.O.H CONSULTS is an independent guidance service; the practical checklists above do not replace JAMB or institutional decisions.</p><ul className="mt-4 space-y-3">{guide.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="inline-block py-2 font-bold text-[#075738] underline underline-offset-4">{source.label} ↗</a></li>)}</ul></section> : null}
+
         <aside className="mt-10 rounded-2xl bg-[#06452f] p-6 text-white sm:p-8">
           <h2 className="text-2xl font-black">Need admission guidance?</h2>
           <p className="mt-2 leading-7 text-[#e6f0e9]">S.O.H CONSULTS can guide you through JAMB CAPS, admission documentation and your next steps.</p>

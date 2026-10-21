@@ -4,6 +4,7 @@ export type Guide = {
   category: string;
   summary: string;
   sections: { heading: string; body: string }[];
+  sources?: { label: string; url: string }[];
 };
 
 export const guides: Guide[] = [
@@ -18,7 +19,10 @@ export const guides: Guide[] = [
       { heading: "APPROVED FOR ADMISSION", body: "JAMB has approved the admission recommendation. Follow the instructions on CAPS and your institution's portal for the next required steps." },
       { heading: "ADMISSION IN PROGRESS", body: "Your admission is still being processed. Continue monitoring CAPS and avoid taking actions based on unverified messages or screenshots." },
       { heading: "NOT ADMITTED", body: "No admission has been approved for you at that time. This can change while an institution is still processing admission, so continue checking official channels." },
+      { heading: "Read the message alongside your own record", body: "Write down the exact message, admission year, institution and programme shown on your own account. A screenshot from another candidate cannot establish your status. For example, an offer for a different course needs a different enquiry from a record that still shows no offer. Keep these details together so the admissions office can understand your question without guessing." },
+      { heading: "Turn an unclear status into a specific enquiry", body: "Separate what you can see from what someone has told you. If the school says you have been shortlisted, ask its admissions office whether the recommendation has been sent to JAMB. If you see a transfer offer, read the programme details and the official instructions before acting. Keep the reply and check your record again; do not interpret a processing message as a promised admission date." },
     ],
+    sources: [{"label": "JAMB: Central Admissions Processing System", "url": "https://jamb.gov.ng/caps"}, {"label": "JAMB official candidate support FAQs", "url": "https://support.jamb.gov.ng/faqs"}],
   },
   {
     slug: "how-to-check-jamb-caps",
@@ -29,7 +33,10 @@ export const guides: Guide[] = [
       { heading: "BEFORE YOU START", body: "Use your correct JAMB profile details and make sure you are checking the admission year connected to your application." },
       { heading: "CHECK YOUR STATUS", body: "Sign in to the official JAMB e-Facility, open the admission status service and proceed to CAPS. Review the admission status and institution/course information carefully." },
       { heading: "VERIFY BEFORE ACTING", body: "If anything looks unusual, compare it with information from your institution and JAMB. Do not pay anyone solely because they claim they can change your CAPS status." },
+      { heading: "Record what you checked", body: "After opening your own record, note the admission year, institution, programme and exact status. Save a private screenshot with the date you checked. If you later need help, this lets you explain whether a detail changed or whether the same message remains. Avoid posting a screenshot containing your registration number, email or other personal details in a public group." },
+      { heading: "If the page fails to load", body: "Distinguish a login problem, an unavailable page and an actual admission message. A blank screen or failed connection does not mean you were rejected. Check the address against the official JAMB website and retry later if the service is unavailable. Use the official support channel for an account problem, explaining the page and error without including your password or one-time codes." },
     ],
+    sources: [{"label": "JAMB: Central Admissions Processing System", "url": "https://jamb.gov.ng/caps"}, {"label": "JAMB official candidate support FAQs", "url": "https://support.jamb.gov.ng/faqs"}],
   },
   {
     slug: "accept-jamb-admission",
@@ -40,7 +47,10 @@ export const guides: Guide[] = [
       { heading: "CHECK THE DETAILS", body: "Confirm the institution and programme displayed on CAPS. Make sure the offer is the admission you intend to accept." },
       { heading: "ACCEPTING THE OFFER", body: "Once the admission is approved and the details are correct, follow the official CAPS process to accept the offer. Keep evidence of the completed action where possible." },
       { heading: "AFTER ACCEPTANCE", body: "Continue with the institution's own admission instructions, including acceptance fees, clearance or registration where applicable." },
+      { heading: "Compare the offer before confirming", body: "Compare the institution, programme and admission year with your application record and the offer you intend to accept. If the course differs, resolve that specific question through official channels before confirming an action. A message from a group administrator is not a substitute for the offer displayed in your own record. Read any confirmation screen carefully rather than clicking through it quickly." },
+      { heading: "Keep separate records for each next step", body: "After completing the official acceptance process, retain the confirmation and check the institution’s instructions separately. Make a short checklist for its payment, clearance and registration steps, recording where each instruction came from. Completing one step does not show that every other step is complete. If a payment is required, verify the destination through the institution’s portal before paying." },
     ],
+    sources: [{"label": "JAMB: Central Admissions Processing System", "url": "https://jamb.gov.ng/caps"}, {"label": "JAMB official candidate support FAQs", "url": "https://support.jamb.gov.ng/faqs"}],
   },
   {
     slug: "olevel-upload-jamb-caps",
@@ -51,7 +61,10 @@ export const guides: Guide[] = [
       { heading: "WHY IT MATTERS", body: "Institutions use the O'Level results connected to your JAMB record during admission processing. Missing or incorrect results can affect eligibility checks." },
       { heading: "WHAT TO VERIFY", body: "Confirm that the correct examination type, year, subjects and grades are reflected. If you used more than one sitting, make sure the required results are properly captured." },
       { heading: "GET HELP WHEN NEEDED", body: "If your result is missing or incorrect, use an authorised JAMB service point or JAMB office and keep any transaction evidence provided to you." },
+      { heading: "Compare the uploaded entry with your result", body: "Use your original result record as the comparison point. Check each subject and grade, examination type, year and candidate details instead of checking only that some result appears. If two sittings are involved, identify which result each subject belongs to. Keep your own notes of discrepancies so you can describe the correction needed clearly at an authorised service point." },
+      { heading: "Confirm the outcome after receiving assistance", body: "A payment receipt shows a transaction; it does not by itself confirm that every subject and grade was captured correctly. Recheck your record after the service is completed and retain the evidence privately. If a discrepancy remains, return with the exact field that is wrong and the supporting result. Do not send your account password to a person promising to fix the record remotely." },
     ],
+    sources: [{"label": "JAMB: Central Admissions Processing System", "url": "https://jamb.gov.ng/caps"}, {"label": "JAMB official candidate support FAQs", "url": "https://support.jamb.gov.ng/faqs"}],
   },
   {
     slug: "school-admission-vs-jamb-admission",
@@ -62,7 +75,10 @@ export const guides: Guide[] = [
       { heading: "INSTITUTION PROCESSING", body: "An institution may begin processing or communicating admission before the final JAMB approval is reflected on CAPS." },
       { heading: "JAMB CAPS", body: "CAPS is the central JAMB admission platform. Candidates should monitor it alongside the institution's official admission channels." },
       { heading: "WHEN THEY DO NOT MATCH", body: "Do not panic if both systems do not update at exactly the same time. Verify the information and follow official instructions before making payments or major decisions." },
+      { heading: "Compare both records systematically", body: "Create two entries in your notes: what the institution’s portal says and what your JAMB record says. Include the date, programme, admission year and exact wording for each. This prevents a general statement such as “I have admission” from hiding an important mismatch. Use your own records; another applicant may be in a different batch or applying for a different programme." },
+      { heading: "Ask the office responsible for the mismatch", body: "If the institution has communicated an offer but CAPS has not changed, ask the institution about the recommendation rather than paying someone to force an update. If the programme differs between the two records, state both programme names in your enquiry. Keep following official deadlines while seeking clarification; a mismatch is a reason to investigate, not evidence that a third party can guarantee the outcome." },
     ],
+    sources: [{"label": "JAMB: Central Admissions Processing System", "url": "https://jamb.gov.ng/caps"}, {"label": "JAMB official candidate support FAQs", "url": "https://support.jamb.gov.ng/faqs"}],
   },
   {
     slug: "admission-in-progress-meaning",
@@ -73,7 +89,10 @@ export const guides: Guide[] = [
       { heading: "WHAT IT MEANS", body: "Admission in Progress generally indicates that your admission record is still undergoing processing. It is not the same as a final approved admission." },
       { heading: "WHAT TO DO", body: "Keep checking CAPS and your institution's official channels. Make sure your admission requirements and uploaded records are in order." },
       { heading: "AVOID UNVERIFIED CLAIMS", body: "Do not assume a third party can guarantee the final outcome. Admission remains subject to the institution and JAMB processes." },
+      { heading: "Use the waiting period to check your documents", body: "Compare your O’Level details and application records with the programme requirements and current institutional instructions. Keep receipts and screening acknowledgements together. These checks help you identify a specific missing or incorrect item; they do not guarantee that admission will be offered. If a transfer offer is present, read its details separately instead of assuming the processing message answers it." },
+      { heading: "Avoid invented timelines", body: "This message alone does not provide a reliable countdown to an offer. Record when you checked and monitor official announcements, especially any deadline requiring action from you. If you need clarification, ask a precise question with your admission year and programme. Do not pay for a claimed guaranteed change of status, and do not treat an estimated date shared in a group as an official decision." },
     ],
+    sources: [{"label": "JAMB: Central Admissions Processing System", "url": "https://jamb.gov.ng/caps"}, {"label": "JAMB official candidate support FAQs", "url": "https://support.jamb.gov.ng/faqs"}],
   },
   {
     slug: "nigerian-university-admission-checklist",

@@ -27,7 +27,8 @@ export function applicationSections(story?: QueuedStory): NoticeSection[] {
   if (blocks) {
     const sections: NoticeSection[] = [];
     for (const block of blocks.flatMap(block => block.type === "paragraph" ? block.text.split("\n").map(text => ({ type: "paragraph" as const, text })) : [block])) {
-      if (block.type === "heading" || (block.type === "paragraph" && isNoticeHeading(block.text))) sections.push({ heading: block.text, text: "" });
+      if (block.type === "collapsible") sections.push({ heading: block.title, text: block.text });
+      else if (block.type === "heading" || (block.type === "paragraph" && isNoticeHeading(block.text))) sections.push({ heading: block.text, text: "" });
       else if (block.type === "paragraph") {
         if (!sections.length) sections.push({ heading: "Published notice", text: "" });
         sections[sections.length - 1].text += `${block.text}\n\n`;
