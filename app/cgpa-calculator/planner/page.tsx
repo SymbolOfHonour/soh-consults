@@ -343,7 +343,7 @@ export default function CgpaPlannerPage() {
     const guidanceHeight=Math.max(150,92+guidanceLines.length*25); ctx.fillStyle="#dcfce7"; ctx.fillRect(70,y,1100,guidanceHeight); ctx.fillStyle=DARK_GREEN; ctx.font="700 21px Arial"; ctx.fillText("TARGET GUIDANCE",100,y+38);
     ctx.font="400 17px Arial"; guidanceLines.forEach((text,index)=>ctx.fillText(text,100,y+72+index*25)); y+=guidanceHeight+45;
     ctx.strokeStyle=BORDER; ctx.beginPath(); ctx.moveTo(70,y); ctx.lineTo(1170,y); ctx.stroke(); y+=40;
-    ctx.fillStyle=DARK; ctx.font="700 17px Arial"; ctx.fillText("S.O.H CONSULTS",70,y); ctx.font="400 15px Arial"; ctx.fillText("WhatsApp: 0818 214 1088",775,y); ctx.fillText("Oluyepeadetayo@gmail.com",775,y+26);
+    ctx.fillStyle=DARK; ctx.font="700 17px Arial"; ctx.fillText("S.O.H CONSULTS",70,y); ctx.font="400 15px Arial"; ctx.fillText("WhatsApp: 0818 214 1088",775,y); ctx.fillText("support@sohconsults.com.ng",775,y+26);
     const footerY=y+66; ctx.fillStyle="#64748b"; ctx.font="400 13px Arial"; ctx.fillText("Projection only. Confirm your institution's official grading and retake rules.",70,footerY);
     return canvas;
   }

@@ -20,7 +20,7 @@ export function writerArticleValues(body:Record<string,unknown>,member:TeamMembe
  const error=articleBlocksError(blocks);if(error)throw new EditorError(error);
  if(status==='published'&&!hasArticleNarrative(blocks))throw new EditorError('Add readable article content before publishing.');
  // Metadata comes exclusively from the stored article; a writer cannot change authors or schedule expiry.
- details=writeSmartMeta(writeArticleBlocks('',blocks),previous?smartMeta(previous.details):{publisherName:member.name});
+ details=writeSmartMeta(writeArticleBlocks('',blocks),previous?smartMeta(previous.details):{publisherName:member.name,publisherId:member.id});
  if(previous)details=[...['[SOH:FEATURED]','[SOH:BREAKING]'].filter(flag=>previous.details.includes(flag)),details].join('\n');
  for(const key of ['official_source_url','image_url']) {const value=text(key,2000);if(value){try{const url=new URL(value);if(url.protocol!=='https:'||url.username||url.password)throw Error();}catch{throw new EditorError('Use valid HTTPS source and picture links.');}}}
  return {title,institution:text('institution',200)||'To be confirmed',category,summary:text('summary',3000),details,image_url:text('image_url',2000)||null,official_source_name:text('official_source_name',200)||null,official_source_url:text('official_source_url',2000)||null,status};

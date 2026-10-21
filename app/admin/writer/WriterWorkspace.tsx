@@ -88,7 +88,7 @@ export default function WriterWorkspace() {
       <ArticleTemplates blocks={snapshot.blocks} disabled={locked} onChange={blocks => setSnapshot(s => ({ ...s, blocks }))} />
       <ArticleDraftRecovery saveToken={saveToken} storageKey={`soh-writer-${member.id}-${current?.id || "new"}`} snapshot={snapshot} onRestore={setSnapshot} />
       <ArticleBlockEditor value={snapshot.blocks} onChange={blocks => setSnapshot(s => ({ ...s, blocks }))} disabled={locked} onUploadingChange={setUploading} />
-      <ArticleLivePreview blocks={snapshot.blocks} title={snapshot.title} summary={snapshot.summary} featured="" publisherName={member.name} />
+      <ArticleLivePreview blocks={snapshot.blocks} title={snapshot.title} summary={snapshot.summary} featured="" publisherName={member.name} publisherAbout={member.about} publisherPicture={member.picture_url} />
       <p role="status">{saved || "Drafts save automatically after five seconds once you enter a headline."}</p><div className="flex flex-wrap gap-3"><button disabled={locked||autosaving} onClick={() => void save(false)} className="rounded-xl border px-5 py-3 disabled:opacity-50">Save draft</button><button disabled={locked||autosaving} onClick={() => void save(true)} className="rounded-xl bg-green-800 px-5 py-3 font-bold text-white disabled:opacity-50">Submit for review</button></div>
       {member.role === "editor" && <SubmissionReview />}
       </>}

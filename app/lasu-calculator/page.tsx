@@ -3696,7 +3696,7 @@ export default function LASUCalculator() {
     );
 
     ctx.fillText(
-      "Oluyepeadetayo@gmail.com",
+      "support@sohconsults.com.ng",
       775,
       1706
     );

@@ -1,5 +1,5 @@
+import BusinessContacts from "./BusinessContacts";
 import ServiceEnquiry from "./ServiceEnquiry";
-import EmailObfuscationBoundary from "./EmailObfuscationBoundary";
 export default function SiteContact() {
   return (
     <section id="contact" className="scroll-mt-24 py-12">
@@ -12,32 +12,7 @@ export default function SiteContact() {
               <p className="mt-5 max-w-xl leading-8 text-green-50">Send us a message on WhatsApp and tell us what you need help with. We&apos;ll guide you on the next step.</p>
             </div>
 
-            <div><ServiceEnquiry/><div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <a href="https://wa.me/2348182141088?text=Hello%20S.O.H%20CONSULTS%2C%20I%20would%20like%20to%20make%20an%20enquiry." target="_blank" rel="noopener noreferrer" className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50">
-                <p className="text-sm font-bold uppercase tracking-wide text-green-700">WhatsApp</p>
-                <p className="mt-1 text-xl font-black">0818 214 1088</p>
-              </a>
-
-              <EmailObfuscationBoundary/><a href="mailto:support@sohconsults.com.ng" className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50">
-                <p className="text-sm font-bold uppercase tracking-wide text-green-700">Email</p>
-                <p className="mt-1 break-all font-black">support@sohconsults.com.ng</p>
-              </a><EmailObfuscationBoundary end/>
-
-              <a href="https://www.instagram.com/sohconsults" target="_blank" rel="noopener noreferrer" className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50">
-                <p className="text-sm font-bold uppercase tracking-wide text-green-700">Instagram</p>
-                <p className="mt-1 font-black">@sohconsults</p>
-              </a>
-
-              <a href="https://www.facebook.com/share/19Mzqo5Ggg/" target="_blank" rel="noopener noreferrer" className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50">
-                <p className="text-sm font-bold uppercase tracking-wide text-green-700">Facebook</p>
-                <p className="mt-1 font-black">S.O.H CONSULTS</p>
-              </a>
-
-              <a href="https://whatsapp.com/channel/0029VbD6QQp3GJP68dl9TK29" target="_blank" rel="noopener noreferrer" className="block rounded-2xl bg-white p-5 text-green-900 transition hover:bg-green-50 sm:col-span-2">
-                <p className="text-sm font-bold uppercase tracking-wide text-green-700">WhatsApp Channel</p>
-                <p className="mt-1 font-black">Join S.O.H CONSULTS Updates</p>
-              </a>
-            </div>
+            <div><ServiceEnquiry/><BusinessContacts/>
           </div></div>
         </div>
       </div>
