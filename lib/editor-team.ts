@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { isAdmin } from "./admin-auth";
 
 export const WRITER_COOKIE = "soh_writer_session";
-export type TeamMember = { id: string; email: string; name: string; role: "writer" | "editor"; active: boolean; created_at: string };
+export type TeamMember = { id: string; email: string; name: string; role: "writer" | "editor"; active: boolean; created_at: string; about?: string; picture_url?: string; activated_at?: string | null; last_invited_at?: string | null; invitation_cancelled_at?: string | null };
 export type WriterSnapshot = { title: string; institution: string; category: string; summary: string; official_source_name: string; official_source_url: string; blocks: import("./article-blocks").ArticleBlock[] };
 export type Submission = { id: string; author_id: string; author_name: string; status: "draft" | "submitted" | "changes_requested" | "imported"; snapshot: WriterSnapshot; feedback: string; story_id: string | null; created_at: string; updated_at: string };
 export class EditorError extends Error {
@@ -41,6 +41,6 @@ export async function editorActor() {
   if (!member) throw new EditorError("Sign in to the writer workspace.", 401);
   return { owner: false as const, member };
 }
-export const memberFields = "id,email,name,role,active,created_at";
+export const memberFields = "id,email,name,role,active,created_at,about,picture_url,activated_at,last_invited_at,invitation_cancelled_at";
 export function mayReview(actor: Awaited<ReturnType<typeof editorActor>>) { return actor.owner || actor.member.role === "editor"; }
 export function writerCookieOptions(maxAge = 3600) { return { httpOnly: true, sameSite: "strict" as const, secure: process.env.NODE_ENV === "production", path: "/", maxAge }; }

@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     let session: { access_token: string; expires_in: number; user: { id: string } };
     if (typeof body.invite === "string" && /^[a-f0-9]{32,128}$/i.test(body.invite)) {
       session = await teamRequest("/auth/v1/verify", { method: "POST", body: JSON.stringify({ token_hash: body.invite, type: body.recovery === true ? "recovery" : "invite" }) });
-      const members = await teamRequest<TeamMember[]>(`/rest/v1/editor_team?id=eq.${session.user.id}&active=eq.true&select=id`);
+      const members = await teamRequest<TeamMember[]>(`/rest/v1/editor_team?id=eq.${session.user.id}&active=eq.true&select=*`);
       if (!members.length) throw new EditorError("This invitation has no active team access.", 403);
       await teamRequest("/auth/v1/user", { method: "PUT", headers: { Authorization: `Bearer ${session.access_token}` }, body: JSON.stringify({ password: body.password }) });
     } else {
@@ -23,6 +23,11 @@ export async function POST(request: Request) {
     }
     const members = await teamRequest<TeamMember[]>(`/rest/v1/editor_team?id=eq.${session.user.id}&active=eq.true&select=*`);
     if (!members.length) throw new EditorError("This account has no active team access.", 403);
+    if (!members[0].activated_at) {
+      const now=new Date().toISOString();
+      await teamRequest(`/rest/v1/editor_team?id=eq.${session.user.id}&active=eq.true`,{method:"PATCH",body:JSON.stringify({activated_at:now})});
+      members[0].activated_at=now;
+    }
     const response = NextResponse.json({ member: members[0] }, { headers: { "Cache-Control": "no-store" } });
     response.cookies.set(WRITER_COOKIE, session.access_token, writerCookieOptions(Math.min(session.expires_in || 3600, 3600)));
     return response;
