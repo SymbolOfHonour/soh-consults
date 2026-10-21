@@ -17,13 +17,14 @@ function load(file){
  if(cache.has(file))return cache.get(file).exports;
  const mod=new Module(file,module);mod.filename=file;mod.paths=Module._nodeModulePaths(path.dirname(file));cache.set(file,mod);
  mod.require=name=>{
-  if(name==='next/navigation')return {usePathname:()=>window.location.pathname,notFound(){throw Error('NOT_FOUND');}};
+  if(name==='next/navigation')return {usePathname:()=>window.location.pathname,notFound(){throw Error('NOT_FOUND');},permanentRedirect(url){throw Error('REDIRECT '+url);}};
   if(name==='next/link')return {__esModule:true,default:({children,...props})=>React.createElement('a',props,children)};
   if(name==='next/headers')return {headers:async()=>new Headers()};
   if(name==='next/server')return {NextResponse:{json:Response.json}};
   if(name.endsWith('/rate-limit'))return {checkRateLimit:async()=>rate};
   if(name.endsWith('/telemetry'))return {recordQuestion:async()=>{}};
-  if(name.endsWith('/news-queue'))return {...load('lib/news-queue.ts'),listPublishedStories:async()=>structuredClone(stories)};
+  if(name.endsWith('/site-manager'))return {getPublishedSiteSettings:async()=>({adsEnabled:false})};
+  if(name.endsWith('/news-queue'))return {...load('lib/news-queue.ts'),listPublishedStories:async()=>structuredClone(stories),getPublishedStoryBySlug:async slug=>structuredClone(stories.find(story=>load('lib/news-queue.ts').getStorySlug(story)===slug)||null)};
   if(name.startsWith('@/'))return load(name.slice(2));
   if(name.startsWith('.'))return name.endsWith('.json')?require(path.resolve(path.dirname(file),name)):load(path.resolve(path.dirname(file),name));
   return require(name);
@@ -32,6 +33,9 @@ function load(file){
 }
 const {articleText,articleReadingMinutes}=load('lib/article-text.ts');
 const {writeArticleBlocks}=load('lib/article-blocks.ts');
+const {writeSmartMeta}=load('lib/smart-operations.ts');
+const {normalisePublisherName,articlePublisherName,articleAuthor}=load('lib/article-publisher.ts');
+const ArticlePage=load('app/updates/[id]/page.tsx');
 const {storyDiscovery}=load('lib/content-catalogue.ts');
 const {applicationSections,checklistSection}=load('lib/application-guide.ts');
 const Updates=load('app/components/UpdatesExplorer.tsx').default,Search=load('app/components/SearchExplorer.tsx').default;
@@ -101,4 +105,13 @@ test('Ask S.O.H API outage is visible in the widget and does not leave input stu
 
 test('CGPA target planner computes the required GPA from actual fields and responds to an unreachable target',async()=>{
  window.history.replaceState(null,'','/cgpa-calculator/planner?grading=university-5&tool=target');await mount(React.createElement(CGPA));await change(field('Current CGPA'),'3');await change(field('Completed Course Units (CTNUP)'),'60');await change(field('Personal target CGPA'),'3.05');await change(container.querySelector('input[placeholder="Course 1 code"]'),'GST101');assert.match(container.textContent,/approximately 4\.05 \/ 5\.00 average GPA across 3 course units/);await change(field('Personal target CGPA'),'4.5');assert.match(container.textContent,/above the grading scale/);assert.match(container.textContent,/Not possible/);
+});
+
+test('published articles display their own publisher in the headline, card, metadata and structured data',async()=>{
+ const cases=[['Ada Sunday','Ada Sunday'],['Bola Ade','Bola Ade'],[undefined,'S.O.H CONSULTS']];
+ for(let i=0;i<cases.length;i++){const [publisherName,expected]=cases[i];const details=i===2?'Legacy article body':writeArticleBlocks('',[{type:'paragraph',text:'Published body stays intact.'}]);const story=fixture(writeSmartMeta(details,{publisherName}),{id:'publisher-'+i,title:'Publisher article '+i});stories=[story];const params=Promise.resolve({id:queue.getStorySlug(story)});const stream=await renderToReadableStream(await ArticlePage.default({params}));await stream.allReady;const doc=new JSDOM(await new Response(stream).text()).window.document;assert.equal(doc.querySelector('[aria-label="Article publisher"] h2').textContent,expected);assert.match(doc.querySelector('.soh-article-header').textContent,new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));assert.equal((await ArticlePage.generateMetadata({params})).authors[0].name,expected);const schemas=[...doc.querySelectorAll('script[type="application/ld+json"]')].flatMap(n=>JSON.parse(n.textContent));const article=schemas.find(s=>s['@type']==='Article');if(publisherName){assert.equal(article.author.name,publisherName);assert.equal(article.author['@type'],'Person');}else assert.ok(article.author['@id'].endsWith('/#organization'));assert.ok(article.publisher['@id'].endsWith('/#organization'));}
+});
+test('publisher names have safe defaults, bounded Unicode text and escaped public output',async()=>{
+ for(const invalid of [undefined,null,42,{},['Name'],'   '])assert.equal(articlePublisherName(invalid),'S.O.H CONSULTS');assert.equal(normalisePublisherName('  Ada  Sunday\n '),'Ada Sunday');assert.equal(Array.from(normalisePublisherName('𝗔'.repeat(121))).length,120);assert.ok(articleAuthor('', 'https://example.test')['@id'].endsWith('/#organization'));
+ const Publisher=load('app/updates/[id]/ArticlePublisher.tsx').default;const name='<img src=x onerror=alert(1)>';const stream=await renderToReadableStream(React.createElement(Publisher,{name}));await stream.allReady;const doc=new JSDOM(await new Response(stream).text()).window.document;assert.equal(doc.querySelector('img'),null);assert.equal(doc.querySelector('h2').textContent,name);
 });
