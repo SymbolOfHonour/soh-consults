@@ -25,7 +25,7 @@ test('application checklists canonicalize to their original notice and incomplet
     '../../../lib/application-guide': {applicationSlug:i=>i.id,applicationHref:i=>'/applications/'+i.id},
     '../../../lib/public-metadata': {withPublicSocial:x=>x},
     '../../components/DiscoveryHeader': {}, '../../components/ServiceEnquiry': {}, '../../components/JsonLd': {},
-    '../../updates/[id]/RichText': {}, '../../site-url': {PRIMARY_SITE_URL:'https://sohconsults.com.ng'},
+    '../../updates/[id]/RichText': {}, '../../updates/[id]/StructuredArticle': {}, '../../../lib/article-blocks': {}, '../../site-url': {PRIMARY_SITE_URL:'https://sohconsults.com.ng'},
   });
   const original = await generateMetadata({params:Promise.resolve({slug:'notice'})});
   assert.equal(original.alternates.canonical,'/updates/original');

@@ -8,6 +8,8 @@ import { withPublicSocial } from "../../../lib/public-metadata";
 import DiscoveryHeader from "../../components/DiscoveryHeader";
 import ServiceEnquiry from "../../components/ServiceEnquiry";
 import JsonLd from "../../components/JsonLd";
+import {readArticleBlocks} from "../../../lib/article-blocks";
+import StructuredArticle from "../../updates/[id]/StructuredArticle";
 import RichText from "../../updates/[id]/RichText";
 import { PRIMARY_SITE_URL } from "../../site-url";
 
@@ -49,7 +51,7 @@ export default async function ApplicationPage({ params }: { params: Promise<{ sl
             const matches = checklistSection(sections, kind);
             return <section key={kind} className="rounded-2xl border bg-white p-5 sm:p-7"><h2 className="text-xl font-black">{title}</h2><div className="mt-4 space-y-4 break-words text-sm leading-7 text-gray-700">{matches.length ? matches.map((section, index) => <div key={index}><RichText text={section.text}/></div>) : <p>{fallback}</p>}</div></section>;
           })}
-          <section className="rounded-2xl border bg-white p-5 sm:p-7"><h2 className="text-xl font-black">Published application information</h2><div className="mt-4 space-y-6 break-words leading-7">{sections.length ? sections.map((section, index) => <div key={index}><h3 className="mb-3 font-bold"><RichText text={section.heading} heading/></h3><RichText text={section.text}/></div>) : <p>{item.description}</p>}</div>{item.detailHref ? <a href={item.detailHref} className="mt-5 inline-block min-h-11 py-3 font-bold text-green-800">Read the full original notice and attachments →</a> : null}</section>
+          <section className="rounded-2xl border bg-white p-5 sm:p-7"><h2 className="text-xl font-black">Published application information</h2><div className="mt-4 space-y-6 break-words leading-7">{story && readArticleBlocks(story.details) ? <StructuredArticle details={story.details}/> : sections.length ? sections.map((section, index) => <div key={index}><h3 className="mb-3 font-bold"><RichText text={section.heading} heading/></h3><RichText text={section.text}/></div>) : <p>{item.description}</p>}</div>{item.detailHref ? <a href={item.detailHref} className="mt-5 inline-block min-h-11 py-3 font-bold text-green-800">Read the full original notice and attachments →</a> : null}</section>
         </div>
         <aside className="min-w-0 space-y-5">
           <ServiceEnquiry school={`${item.institution || ""} ${item.programme}`.trim()} context={`${PRIMARY_SITE_URL}${href}`}/>

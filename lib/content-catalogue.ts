@@ -3,7 +3,7 @@ import { opportunities, updates, getUpdateSlug } from "../data/updates";
 import { getStorySlug, type QueuedStory } from "./news-queue";
 import { type DiscoveryItem } from "./algorithm-phase2";
 import { deadlineDate, normaliseText, statedDeadline } from "./discovery-text";
-import { readArticleBlocks } from "./article-blocks";
+import { articleText } from "./article-text";
 import { admissionDeadlines } from "../data/admission-deadlines";
 
 export const calculatorContent: DiscoveryItem[] = [
@@ -14,9 +14,8 @@ export const calculatorContent: DiscoveryItem[] = [
 export const guideContent: DiscoveryItem[] = guides.filter(Boolean).map(g=>({id:`guide-${g.slug}`,href:`/guides/${g.slug}`,kind:"guide",title:g.title,summary:g.summary,body:g.sections.map(s=>`${s.heading} ${s.body}`).join(" "),category:g.category}));
 export const deadlineContent: DiscoveryItem[] = admissionDeadlines.map((d,i)=>({id:`deadline-${i}`,href:`/deadlines?q=${encodeURIComponent(d.shortName||d.institution)}`,kind:"deadline",title:`${d.institution} ${d.programme}`,summary:`Application deadline: ${d.deadline}`,institution:d.institution,category:d.category,deadline:d.deadline}));
 export function storyDiscovery(item:QueuedStory):DiscoveryItem {
-  const blocks=readArticleBlocks(item.details);
   const legacy=updates.find(u=>getUpdateSlug(u)===getStorySlug(item));
-  const body=blocks?blocks.map(block=>"text" in block?block.text:"").join(" "):item.details;
+  const body=articleText(item.details);
   return {id:item.id,href:`/updates/${getStorySlug(item)}`,kind:"update",title:item.title,summary:item.summary,body,institution:item.institution,category:item.category,publishedAt:item.source_published_at||item.created_at,deadline:item.deadline_iso||item.deadline||legacy?.deadlineISO||legacy?.deadline||legacy?.opportunityDeadline||statedDeadline(`${item.summary} ${body}`),isOfficial:Boolean(item.official_source_url)};
 }
 export type PublicOpportunity = DiscoveryItem & { programme:string;description:string;status:string;deadlineLabel:string;applicationUrl?:string;detailHref?:string };

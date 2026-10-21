@@ -1,6 +1,6 @@
 # AdSense readiness audit — 18 October 2026
 
-Initial baseline: main commit 09f4918. Integrated the concurrent CMS #340 merge at 7dc8a41, preserving editorial SEO fields, featured-image settings and structured tables. Scope: public SEO, content depth and attribution, application-checklist duplication, advertising display, repository regression/security checks. This is not a guarantee of AdSense approval or a completed authenticated CMS/Search Console audit.
+Initial baseline: main commit 09f4918. Integrated current production main at 8e521fd, preserving CMS #340, structured tables, divider alignment, expandable sections and editorial settings. Scope: public SEO, content depth and attribution, application-checklist duplication, advertising display, repository regression/security checks. This is not a guarantee of AdSense approval or a completed authenticated CMS/Search Console audit.
 
 ## Evidence
 
@@ -17,7 +17,15 @@ The 57 retrieved pages have canonical URLs, descriptions and H1s and no detected
 
 Official references checked: https://jamb.gov.ng/caps and https://support.jamb.gov.ng/faqs. Google requirements checked: https://support.google.com/adsense/answer/9724 and https://support.google.com/adsense/answer/7299563.
 
-## Verification
+## Public visitor corrections and verification
+
+The structured CMS exposed three reproducible public regressions: reading time counted the encoded block marker as one word (1,000 words showed 1 minute instead of 5); search omitted table cells, FAQ entries and section titles; and application checklists discarded structured blocks. A shared readable-text extractor now supplies search and reading time. Checklists reuse the existing public article renderer so tables, FAQs and expandable sections retain their rendering. Expandable eligibility sections also feed the supplied checklist text. No requirements, fees or production CMS records are invented or changed.
+
+Eleven real component/API regressions cover reading time, structured-text discovery, search reset and URL restoration, school preference persistence, WhatsApp draft context, OOU numeric validation, CGPA target planning, structured checklist rendering, navigation toggling, Ask S.O.H service answers and outage recovery. Database, rate-limiter and telemetry transports are isolated; these do not prove production provider availability, real mobile layout or field performance.
+
+Current combined verification: 421 tests pass, TypeScript and optimized build pass, ESLint has zero errors and 18 existing warnings, and the production dependency audit reports zero vulnerabilities. Required GitHub `verify` must pass on the current head before merge. The release uses the existing main-branch Vercel integration; final merge/deployment evidence is recorded in PR #344.
+
+## Initial audit verification
 
 - All 404 tests pass after integration (370 before the CMS merge), including three new behavioral regressions for ad rendering, checklist canonical/noindex behavior and sitemap/error propagation.
 - ESLint: zero errors; 18 existing warnings.
@@ -26,10 +34,10 @@ Official references checked: https://jamb.gov.ng/caps and https://support.jamb.g
 - Local rendered HTTP checks verify guide references, seed noindex, published-checklist canonical targeting the original article, Preview crawl exclusion, and a deduplicated 75-URL fixture sitemap containing no application checklists. Fixture counts differ from the live publication list.
 - Existing security and calculator tests pass; production databases and CMS records were not modified.
 
-## Outstanding verification and deployment blockers
+## Access limits and outstanding verification
 
-GitHub repository access is confirmed with admin permission. Vercel's connected account returns no teams/projects in its default scope; an explicit request for soh-consults under symbol-of-honour returns 403, Not authorized. No Vercel CLI is available. Deployment and live verification therefore cannot be completed with current deployment access.
+GitHub repository access and the existing main-branch Vercel deployment integration are confirmed. Direct Vercel project access under symbol-of-honour returns 403, Not authorized, and no Vercel CLI is available. Deployment state can be checked through Vercel's GitHub integration; direct runtime-log inspection remains unavailable.
 
 Published article bodies could not be read live; fixture content is not a substitute for an audit of the current CMS. Search Console access is not available in the current toolset: indexing, Google-selected canonical, crawl errors and traffic remain unverified. AdSense account settings, regional consent/CMP configuration, Auto ads settings and field Core Web Vitals remain unverified. No invented readiness percentage is provided.
 
-After deployment access is restored: deploy the reviewed corrections, verify representative production articles/checklists/guides and sitemap, inspect affected URLs in Search Console, review the current CMS articles for originality and usefulness, then request an AdSense review only after the outstanding issues are assessed. Do not repeatedly resubmit unchanged pages.
+After the required checks and merge, verify accessible production guides, checklists and sitemap against the merged code. Article/browser checks blocked in this environment must remain reported as unverified. Search Console canonical/indexing checks and an editorial review of current CMS articles remain separate follow-up work before another AdSense review request.
