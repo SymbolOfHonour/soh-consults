@@ -20,14 +20,21 @@ export async function POST(request: Request) {
       const link = await teamRequest<{ hashed_token: string }>("/auth/v1/admin/generate_link", { method: "POST", body: JSON.stringify({ type: "recovery", email }) });
       return NextResponse.json({ invitation: `/admin/writer#recovery=${encodeURIComponent(link.hashed_token)}` }, { headers: { "Cache-Control": "no-store" } });
     }
+    if (body.action === "resend") {
+      const members = await teamRequest<TeamMember[]>(`/rest/v1/editor_team?email=eq.${encodeURIComponent(email)}&active=eq.true&select=${memberFields}`);
+      if (!members[0]) throw new EditorError("An enabled team account is required.", 404);
+      const user = await teamRequest<{ email_confirmed_at?: string }>(`/auth/v1/admin/users/${members[0].id}`);
+      if (user.email_confirmed_at) throw new EditorError("This account is already activated. Use password reset instead.", 409);
+      return sendInvitation(email);
+    }
     const role = body.role === "editor" ? "editor" : "writer";
     // Probe migration readiness before creating a managed Auth account.
     const existing = await teamRequest<TeamMember[]>(`/rest/v1/editor_team?email=eq.${encodeURIComponent(email)}&select=${memberFields}`);
     if (existing.length) throw new EditorError("This email already has a team account. Use its access controls or password reset.", 409);
-    // Generates a link only. No email is sent by this endpoint.
-    const result = await teamRequest<{ id: string; hashed_token: string }>("/auth/v1/admin/generate_link", { method: "POST", body: JSON.stringify({ type: "invite", email, data: { name } }) });
+    // Reserve the Auth user without sending mail, then provision access before delivery.
+    const result = await teamRequest<{ id: string }>("/auth/v1/admin/generate_link", { method: "POST", body: JSON.stringify({ type: "invite", email, data: { name } }) });
     await teamRequest("/rest/v1/editor_team", { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ id: result.id, email, name, role, active: true }) });
-    return NextResponse.json({ invitation: `/admin/writer#invite=${encodeURIComponent(result.hashed_token)}` }, { headers: { "Cache-Control": "no-store" } });
+    return sendInvitation(email);
   } catch (e) { return failure(e); }
 }
 export async function PATCH(request: Request) {
@@ -43,5 +50,14 @@ export async function PATCH(request: Request) {
     if (!rows.length) throw new EditorError("Member not found.", 404);
     return NextResponse.json({ member: rows[0] });
   } catch (e) { return failure(e); }
+}
+async function sendInvitation(email: string) {
+  try {
+    await teamRequest("/auth/v1/invite", { method: "POST", body: JSON.stringify({ email }) });
+    return NextResponse.json({ emailed: true }, { headers: { "Cache-Control": "no-store" } });
+  } catch {
+    // Keep the provisioned account so the owner can retry without creating duplicates.
+    return NextResponse.json({ emailed: false, error: "The team account exists, but email delivery could not be confirmed. Check SMTP settings, then use Resend invitation. Check the recipient's inbox before retrying." }, { status: 503, headers: { "Cache-Control": "no-store" } });
+  }
 }
 function failure(e: unknown) { return NextResponse.json({ error: e instanceof EditorError ? e.message : "Unable to manage the team." }, { status: e instanceof EditorError ? e.status : 500, headers: { "Cache-Control": "no-store" } }); }

@@ -38,8 +38,33 @@ test('malformed and oversized block payloads are rejected; incomplete media draf
 test('team permissions fail closed when account is disabled and secrets stay server-side',async()=>{let token='access';const calls=[];const api=load('lib/editor-team.ts',{'next/headers':{cookies:async()=>({get:()=>({value:token})})},'./admin-auth':{isAdmin:async()=>false}},{process:{env:{SUPABASE_URL:'https://database.test',SUPABASE_SERVICE_ROLE_KEY:'server-only-key'}},fetch:async(url,options)=>{calls.push({url,options});return Response.json(url.includes('/auth/')?{id:author.id}:[]);}});assert.equal(await api.currentWriter(),null);assert.match(calls[1].url,/active=eq.true/);assert.equal(calls[0].options.headers.Authorization,'Bearer access');token='';assert.equal(await api.currentWriter(),null);assert.equal(calls.length,2);});
 test('team tables and import function grant no public access',()=>{const sql=fs.readFileSync('supabase/private-editor-team-migration.sql','utf8');assert.match(sql,/revoke all on public.editor_team, public.editor_submissions from anon, authenticated/);assert.match(sql,/for update/);assert.match(sql,/item.updated_at <> p_expected/);assert.match(sql,/'draft',now\(\),now\(\)/);assert.match(sql,/revoke all on function .* from public, anon, authenticated/);});
 test('templates use independent block objects and duplicate headings get unique anchors',()=>{const t=load('lib/article-templates.ts');const a=t.templateBlocks('admission'),b=t.templateBlocks('admission');assert.notEqual(a[0].anchor,b[0].anchor);assert.equal(a[1].text,'');const block={type:'table',headers:['School'],rows:[['LASU']]};const copy=t.duplicateArticleBlock(block);copy.rows[0][0]='Other';assert.equal(block.rows[0][0],'LASU');assert.notEqual(t.duplicateArticleBlock(a[0]).anchor,a[0].anchor);});
-test('owner invitation consumes the raw GoTrue generate_link response and never sends mail',async()=>{
- const calls=[];const api=load('app/api/admin/team/route.ts',{'next/server':{NextResponse:{json:(v,o)=>Response.json(v,o)}},'../../../../lib/admin-auth':{isAdmin:async()=>true},'../../../../lib/editor-team':{EditorError,memberFields:'id,email,name,role,active,created_at',teamRequest:async(path,init={})=>{calls.push({path,...init});if(path.includes('/admin/generate_link'))return{id:author.id,hashed_token:'a'.repeat(64)};return[];}}});
- const r=await api.POST(new Request('https://editor.test/api/admin/team',{method:'POST',body:JSON.stringify({email:author.email,name:author.name,role:'writer'})}));
- assert.equal(r.status,200);assert.equal((await r.json()).invitation,`/admin/writer#invite=${'a'.repeat(64)}`);const saved=JSON.parse(calls.find(c=>c.path==='/rest/v1/editor_team').body);assert.equal(saved.id,author.id);assert.equal(calls.some(c=>c.path==='/auth/v1/invite'),false);
+function invitationFixture({owner=true,existing=[],confirmed=false,mailFails=false,storageFails=false}={}) {
+ const calls=[];
+ const api=load('app/api/admin/team/route.ts',{'next/server':{NextResponse:{json:(v,o)=>Response.json(v,o)}},'../../../../lib/admin-auth':{isAdmin:async()=>owner},'../../../../lib/editor-team':{EditorError,memberFields:'id,email,name,role,active,created_at',teamRequest:async(path,init={})=>{
+  const body=init.body?JSON.parse(init.body):null;calls.push({path,...init,body});
+  if(path.includes('/admin/generate_link'))return{id:author.id,hashed_token:'a'.repeat(64)};
+  if(path.includes('/admin/users/'))return{email_confirmed_at:confirmed?'2026-10-21':null};
+  if(path==='/auth/v1/invite'&&mailFails)throw Error('secret provider failure');
+  if(path==='/rest/v1/editor_team'&&storageFails)throw Error('storage unavailable');
+  return existing;
+ }}});
+ const post=(extra={})=>api.POST(new Request('https://editor.test/api/admin/team',{method:'POST',body:JSON.stringify({email:author.email,name:author.name,role:'writer',...extra})}));
+ return{calls,post};
+}
+test('invitation provisions membership before sending and exposes no activation token',async()=>{
+ const f=invitationFixture();const r=await f.post();assert.equal(r.status,200);assert.deepEqual(await r.json(),{emailed:true});
+ const saved=f.calls.find(c=>c.path==='/rest/v1/editor_team');assert.equal(saved.body.id,author.id);
+ assert.ok(f.calls.indexOf(saved)<f.calls.findIndex(c=>c.path==='/auth/v1/invite'));
+ assert.equal(f.calls.find(c=>c.path==='/auth/v1/invite').body.email,author.email);
+});
+test('SMTP failure reports unconfirmed delivery and allows retry without recreating membership',async()=>{
+ const f=invitationFixture({mailFails:true});const r=await f.post();assert.equal(r.status,503);const d=await r.json();assert.equal(d.emailed,false);assert.match(d.error,/Resend invitation/);assert.doesNotMatch(d.error,/secret provider/);
+ const retry=invitationFixture({existing:[author]});assert.equal((await retry.post({action:'resend'})).status,200);assert.equal(retry.calls.some(c=>c.path.includes('generate_link')),false);assert.equal(retry.calls.some(c=>c.path==='/rest/v1/editor_team'),false);
+});
+test('mail is not sent if provisioning fails or the owner is unauthenticated',async()=>{
+ for(const options of [{storageFails:true},{owner:false}]){const f=invitationFixture(options);assert.ok((await f.post()).status>=400);assert.equal(f.calls.some(c=>c.path==='/auth/v1/invite'),false);}
+});
+test('disabled, missing and activated accounts cannot receive invitation resends',async()=>{
+ for(const options of [{existing:[]},{existing:[author],confirmed:true}]){const f=invitationFixture(options);assert.ok((await f.post({action:'resend'})).status>=400);assert.equal(f.calls.some(c=>c.path==='/auth/v1/invite'),false);}
+ const f=invitationFixture({existing:[author]});await f.post({action:'resend'});assert.match(f.calls[0].path,/active=eq.true/);
 });
