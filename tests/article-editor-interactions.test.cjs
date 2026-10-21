@@ -241,6 +241,7 @@ test('writer autosave keeps typing enabled and a following save preserves edits 
  const member={id:'writer-ui-test',name:'Test writer',role:'writer'};
  global.fetch=async(url,options={})=>{
   if(url==='/api/admin/writer/session')return Response.json({member});
+  if(url==='/api/admin/writer/articles')return Response.json({stories:[]});
   if(url==='/api/admin/writer/submissions'&&!options.method)return Response.json({submissions:saved?[saved]:[]});
   if(url==='/api/admin/writer/submissions'){
    const body=JSON.parse(options.body);writes++;
@@ -250,7 +251,7 @@ test('writer autosave keeps typing enabled and a following save preserves edits 
   throw Error('Unexpected writer request '+url);
  };
  try{
-  const Workspace=load('app/admin/writer/WriterWorkspace.tsx').default;await mount(React.createElement(Workspace));
+  const Workspace=load('app/admin/writer/WriterWorkspace.tsx').default;await mount(React.createElement(Workspace));await click(button('My review drafts'));
   const headline=[...container.querySelectorAll('label')].find(l=>l.textContent==='Headline').querySelector('input');
   await change(headline,'My draft');await change(field('paragraph 1'),'First version');
   await act(async()=>new Promise(r=>setTimeout(r,5100)));assert.equal(writes,1);assert.ok(pending);
@@ -258,4 +259,22 @@ test('writer autosave keeps typing enabled and a following save preserves edits 
   await change(field('paragraph 1'),'Changed while saving');await act(async()=>pending());
   await click(button('Save draft'));assert.equal(writes,2);assert.equal(saved.snapshot.blocks[0].text,'Changed while saving');assert.equal(saved.status,'draft');
  }finally{global.fetch=previousFetch;}
+});
+test('writer featured-picture upload previews and publishes through the writer API',async()=>{
+ const before=global.fetch;let published;
+ global.fetch=async(url,options={})=>{assert.equal(url,'/api/admin/writer/articles');published=JSON.parse(options.body);return Response.json({story:{...published,id:'writer-published-picture',source_name:'S.O.H CONSULTS',source_url:'manual:writer-published-picture',updated_at:'2026-10-21T21:00:00Z'}});};
+ try{
+  const Page=load('app/admin/writer/WriterArticleEditor.tsx').default;
+  await mount(React.createElement(Page,{member:{id:'writer-image-test',name:'Writer'},article:null,onClose(){},onNavigationBlock(){}}));
+  const headline=[...container.querySelectorAll('label')].find(l=>l.textContent==='Headline').querySelector('input');
+  await change(headline,'Featured picture article');await change(field('paragraph 1'),'This article has a featured picture and readable content.');
+  const picker=[...container.querySelectorAll('input[type="file"]')].find(input=>input.closest('label')?.textContent==='Upload featured picture');assert.ok(picker);
+  const file=new dom.window.File(['verified by upload transport'],'cover.jpg',{type:'image/jpeg'});Object.defineProperty(picker,'files',{value:[file],configurable:true});
+  await act(async()=>picker.dispatchEvent(new Event('change',{bubbles:true})));
+  assert.equal(uploads.at(-1).kind,'image');assert.equal(uploads.at(-1).file.name,'cover.jpg');
+  assert.ok([...container.querySelectorAll('img')].some(img=>img.src==='https://assets.example/cover.jpg'));
+  await click(button('Publish now'));assert.equal(published,undefined);await click(button('Confirm publication'));
+  assert.equal(published.image_url,'https://assets.example/cover.jpg');assert.equal(published.status,'published');assert.equal(readArticleBlocks(published.details)[0].text,'This article has a featured picture and readable content.');
+  assert.ok(container.textContent.includes('Article published.'));
+ }finally{global.fetch=before;}
 });

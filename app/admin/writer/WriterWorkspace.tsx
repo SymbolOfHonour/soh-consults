@@ -6,11 +6,15 @@ import ArticleLivePreview from "../updates/ArticleLivePreview";
 import ArticleDraftRecovery from "../updates/ArticleDraftRecovery";
 import ArticleTemplates from "../updates/ArticleTemplates";
 import SubmissionReview from "./SubmissionReview";
+import WriterArticles from "./WriterArticles";
+import WriterMedia from "./WriterMedia";
 import WriterProfile from "./WriterProfile";
 import ForgotPassword from "./ForgotPassword";
 const blank = (): WriterSnapshot => ({ title: "", institution: "", category: "Admission", summary: "", official_source_name: "", official_source_url: "", blocks: [{ type: "paragraph", text: "" }] });
 const field = "mt-1 w-full rounded-xl border p-3 text-gray-950";
 export default function WriterWorkspace() {
+  const [navigationBlocked,setNavigationBlocked]=useState(false);
+  const [workspace,setWorkspace]=useState<"articles"|"new"|"media"|"review">("articles");
   const [member, setMember] = useState<TeamMember | null>(null), [ready, setReady] = useState(false), [invite, setInvite] = useState("");
   const [rows, setRows] = useState<Submission[]>([]), [current, setCurrent] = useState<Submission | null>(null), [snapshot, setSnapshot] = useState<WriterSnapshot>(blank);
   const [busy, setBusy] = useState(false), [uploading, setUploading] = useState(false), [message, setMessage] = useState(""), [saved, setSaved] = useState(""), [conflict, setConflict] = useState(false);
@@ -22,7 +26,7 @@ export default function WriterWorkspace() {
   const latest=useRef(snapshot);
   useEffect(()=>{latest.current=snapshot;},[snapshot]);
   const baseline = useRef(JSON.stringify(snapshot));
-  const locked = busy || uploading || conflict || !!current && !["draft", "changes_requested"].includes(current.status);
+  const locked = workspace!=="review" || busy || uploading || conflict || !!current && !["draft", "changes_requested"].includes(current.status);
   async function loadRows() { const r = await fetch("/api/admin/writer/submissions"); const d = await r.json(); if (!r.ok) throw Error(d.error); setRows(d.submissions); }
   useEffect(() => {
     const params=new URLSearchParams(window.location.hash.slice(1));
@@ -35,6 +39,13 @@ export default function WriterWorkspace() {
     setBusy(true); setMessage("");
     try { const r = await fetch("/api/admin/writer/session", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...Object.fromEntries(form), invite, recovery }) }); const d = await r.json(); if (!r.ok) throw Error(d.error); setMember(d.member); setInvite(""); await loadRows(); }
     catch (e) { setMessage(e instanceof Error ? e.message : "Sign-in failed."); } finally { setBusy(false); }
+  }
+  async function publishReview() {
+    if(!current||busy||uploading||autosaving)return;
+    if(JSON.stringify(snapshot)!==baseline.current){setMessage("Save your changes before publishing this review draft.");return;}
+    setBusy(true);setMessage("Publishing…");
+    try {const r=await fetch("/api/admin/writer/articles",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({review_id:current.id,review_expected:current.updated_at,status:"published"})});const d=await r.json();if(!r.ok)throw Error(d.error);await loadRows();open(null);setWorkspace("articles");setMessage("Article published. Open it from All articles to make further changes.");}
+    catch(e){setMessage(e instanceof Error?e.message:"Publishing failed.");}finally{setBusy(false);}
   }
   function open(row: Submission | null) {
     const next = row?.snapshot || blank(); setCurrent(row); setSnapshot(next); baseline.current = JSON.stringify(next); setSaved(""); setMessage(""); setConflict(false);setAutoPaused(false);
@@ -60,21 +71,27 @@ export default function WriterWorkspace() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snapshot, current, member, locked, autosaving, autoPaused]);
   const own = member ? rows.filter(r => r.author_id === member.id) : [];
-  return <main className="min-h-screen bg-gray-50 p-4 text-gray-950 sm:p-8"><div className="mx-auto max-w-6xl space-y-5"><header><p className="font-bold text-green-800">S.O.H CONSULTS · PRIVATE</p><h1 className="text-3xl font-black">Writer workspace</h1><p className="mt-2">Write, preview and submit articles for review.</p></header>
+  return <main className="min-h-screen bg-gray-50 p-4 text-gray-950 sm:p-8"><div className="mx-auto max-w-6xl space-y-5"><header><p className="font-bold text-green-800">S.O.H CONSULTS · PRIVATE</p><h1 className="text-3xl font-black">Writer workspace</h1><p className="mt-2">Write, edit and publish articles from your team workspace.</p></header>
     {message && <p role="alert" className="rounded-xl border border-amber-300 bg-amber-50 p-4">{message}</p>}
     {!ready ? <p>Checking your session…</p> : !member ? <><form action={signIn} className="mx-auto max-w-md space-y-4 rounded-2xl border bg-white p-6"><h2 className="text-xl font-bold">{invite ? recovery ? "Reset your password" : "Accept your invitation" : "Writer sign-in"}</h2>{!invite && <label className="block">Team email<input name="email" type="email" autoComplete="username" required className={field} disabled={busy} /></label>}<label className="block">{invite ? "Choose a password (8–128 characters)" : "Password"}<input name="password" type="password" minLength={8} maxLength={128} autoComplete={invite ? "new-password" : "current-password"} required className={field} disabled={busy} /></label><button disabled={busy} className="rounded-xl bg-green-800 px-5 py-3 font-bold text-white">{busy ? "Signing in…" : invite ? recovery ? "Save new password" : "Activate account" : "Sign in"}</button><p className="text-sm text-gray-600">Access is invitation-only. For help, contact support@sohconsults.com.ng.</p></form>{!invite&&<ForgotPassword/>}</> : <>
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-white p-4"><p><strong>{member.name}</strong> · {member.role}</p><button disabled={busy} className="rounded-lg border px-4 py-2" onClick={async () => { await fetch("/api/admin/writer/session", { method: "DELETE" }); window.location.reload(); }}>Sign out</button></div>
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-white p-4"><p><strong>{member.name}</strong> · {member.role}</p><button disabled={busy||navigationBlocked} className="rounded-lg border px-4 py-2" onClick={async () => { await fetch("/api/admin/writer/session", { method: "DELETE" }); window.location.reload(); }}>Sign out</button></div>
+      <nav aria-label="Writer workspace" className="flex flex-wrap gap-2">{([['articles','Articles'],['media','Media library'],['new','New article'],['review','My review drafts']] as const).map(([key,label])=><button key={key} disabled={busy||uploading||autosaving||navigationBlocked} aria-pressed={workspace===key} onClick={()=>setWorkspace(key)} className={`rounded-xl border px-4 py-3 font-bold ${workspace===key?'bg-green-800 text-white':'bg-white'}`}>{label}</button>)}</nav>
       <WriterProfile member={member} onChange={setMember}/>
+      {(workspace==="articles"||workspace==="new")&&<WriterArticles key={workspace} member={member} newArticle={workspace==="new"} onNavigationBlock={setNavigationBlocked}/>}
+      {workspace==="media"&&<WriterMedia/>}
+      {workspace==="review"&&<>
       <section className="rounded-2xl border bg-white p-5"><div className="flex flex-wrap justify-between gap-3"><h2 className="text-xl font-bold">My articles</h2><button disabled={busy || uploading || autosaving} onClick={() => open(null)} className="rounded-lg border px-4 py-2">+ New article</button><button disabled={busy || uploading || autosaving} onClick={() => void loadRows().catch(e => setMessage(e.message))} className="rounded-lg border px-4 py-2">Refresh list</button></div><div className="mt-3 flex flex-wrap gap-2">{own.map(row => <button key={row.id} disabled={busy || uploading || autosaving} className="rounded-xl border px-3 py-2 text-left" onClick={() => open(row)}><strong>{row.snapshot.title || "Untitled"}</strong><span className="block text-sm">{row.status.replaceAll("_", " ")}</span></button>)}{!own.length && <p>No articles yet. Start writing below.</p>}</div></section>
       {current?.feedback && <p className="rounded-xl border border-amber-300 bg-amber-50 p-4"><strong>Reviewer feedback:</strong> {current.feedback}</p>}
-      {current && ["submitted", "imported"].includes(current.status) && <p className="rounded-xl bg-green-50 p-4">This article is {current.status === "submitted" ? "awaiting review" : "in the owner publishing editor"}. It is read-only here.</p>}
+      {current && ["submitted", "imported"].includes(current.status) && <p className="rounded-xl bg-green-50 p-4">This article is {current.status === "submitted" ? "awaiting review" : "in the shared article library"}. It is read-only here.</p>}
       <section className="grid gap-4 rounded-2xl border bg-white p-5 sm:grid-cols-2">{([['title','Headline'],['institution','Institution'],['category','Category'],['summary','Summary'],['official_source_name','Official source name'],['official_source_url','Official source link']] as const).map(([key,label]) => <label key={key} className="font-bold">{label}<input value={snapshot[key]} type={key === "official_source_url" ? "url" : "text"} disabled={locked} className={field} onChange={e => setSnapshot(s => ({ ...s, [key]: e.target.value }))} /></label>)}</section>
+      {current&&current.status!=="imported"&&<button disabled={busy||uploading||autosaving||conflict} onClick={()=>void publishReview()} className="rounded-xl bg-green-800 px-5 py-3 font-bold text-white">Publish this saved review draft</button>}
       <ArticleTemplates blocks={snapshot.blocks} disabled={locked} onChange={blocks => setSnapshot(s => ({ ...s, blocks }))} />
       <ArticleDraftRecovery saveToken={saveToken} storageKey={`soh-writer-${member.id}-${current?.id || "new"}`} snapshot={snapshot} onRestore={setSnapshot} />
       <ArticleBlockEditor value={snapshot.blocks} onChange={blocks => setSnapshot(s => ({ ...s, blocks }))} disabled={locked} onUploadingChange={setUploading} />
       <ArticleLivePreview blocks={snapshot.blocks} title={snapshot.title} summary={snapshot.summary} featured="" publisherName={member.name} />
       <p role="status">{saved || "Drafts save automatically after five seconds once you enter a headline."}</p><div className="flex flex-wrap gap-3"><button disabled={locked||autosaving} onClick={() => void save(false)} className="rounded-xl border px-5 py-3 disabled:opacity-50">Save draft</button><button disabled={locked||autosaving} onClick={() => void save(true)} className="rounded-xl bg-green-800 px-5 py-3 font-bold text-white disabled:opacity-50">Submit for review</button></div>
       {member.role === "editor" && <SubmissionReview />}
+      </>}
     </>}
   </div></main>;
 }
