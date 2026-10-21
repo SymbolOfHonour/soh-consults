@@ -11,6 +11,8 @@ export function writerArticleValues(body:Record<string,unknown>,member:TeamMembe
  const title=text('title',300);if(/^health:/i.test(title)||['whatsapp_click','page_view','install_click'].includes(title.toLowerCase())||/^admin /i.test(text('category',100)))throw new EditorError('Choose an article title and category.');if(!title)throw new EditorError('Enter a headline.');
  if(body.status!==undefined&&!['draft','published'].includes(String(body.status)))throw new EditorError('Writers can save drafts or publish articles.');
  if(previous?.status==='published'&&body.status==='draft')throw new EditorError('Only the owner can unpublish an article.',403);
+ const category=normalizeStoryCategory(text('category',100)||'Admission');
+ if(/^admin /i.test(category))throw new EditorError('Choose a public article category.');
  const status=body.status==='published'?'published':previous?.status||'draft';
  let details=text('details',500000);
  const blocks=readArticleBlocks(details);
@@ -21,7 +23,7 @@ export function writerArticleValues(body:Record<string,unknown>,member:TeamMembe
  details=writeSmartMeta(writeArticleBlocks('',blocks),previous?smartMeta(previous.details):{publisherName:member.name});
  if(previous)details=[...['[SOH:FEATURED]','[SOH:BREAKING]'].filter(flag=>previous.details.includes(flag)),details].join('\n');
  for(const key of ['official_source_url','image_url']) {const value=text(key,2000);if(value){try{const url=new URL(value);if(url.protocol!=='https:'||url.username||url.password)throw Error();}catch{throw new EditorError('Use valid HTTPS source and picture links.');}}}
- return {title,institution:text('institution',200)||'To be confirmed',category:normalizeStoryCategory(text('category',100)||'Admission'),summary:text('summary',3000),details,image_url:text('image_url',2000)||null,official_source_name:text('official_source_name',200)||null,official_source_url:text('official_source_url',2000)||null,status};
+ return {title,institution:text('institution',200)||'To be confirmed',category,summary:text('summary',3000),details,image_url:text('image_url',2000)||null,official_source_name:text('official_source_name',200)||null,official_source_url:text('official_source_url',2000)||null,status};
 }
 
 export async function listWriterArticles():Promise<QueuedStory[]> {
