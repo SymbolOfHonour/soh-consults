@@ -94,7 +94,7 @@ test("Ask S.O.H keeps conversation history and institution calculator routing", 
 test("Ask S.O.H follow-ups preserve latest intent instead of replaying previous status intent", () => {
   const widget = fs.readFileSync(path.join(root,"app/components/AskSOH.tsx"),"utf8");
   const route = fs.readFileSync(path.join(root,"app/api/ask-soh/search/route.ts"),"utf8");
-  assert.match(widget, /searchWeb\(question, subjectContext/);
+  assert.match(widget, /searchWeb\(question,conversation/);
   assert.match(route, /Context subject:/);
   assert.match(route, /verifyAnswer\(safeQuestion,resolved/);
 });
@@ -114,9 +114,8 @@ test("Ask S.O.H follow-ups preserve latest intent instead of replaying previous 
 
 test("Ask S.O.H switches fresh institutions and only inherits genuine follow-ups",()=>{
  const widget=fs.readFileSync(path.join(process.cwd(),"app/components/AskSOH.tsx"),"utf8");
- assert.match(widget,/explicitSubject/);
- assert.match(widget,/followUpCue/);
- assert.match(widget,/classifyQuestion\(question\)/);
+ assert.match(widget,/planConversation\(question,conversation/);
+ assert.match(widget,/classifyQuestion\(effective\)/);
  assert.doesNotMatch(widget,/subjectContext \|\| conversationContext \|\| previousUser/);
 });
 
