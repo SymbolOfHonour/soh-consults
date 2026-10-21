@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const rate = await checkRateLimit(request, "writer-login", 8, 900);
     if (!rate.allowed) return NextResponse.json({ error: rate.unavailable ? "Sign-in is temporarily unavailable." : "Too many attempts. Please try again later." }, { status: rate.unavailable ? 503 : 429, headers: { "Retry-After": String(rate.retryAfter) } });
     const body = await request.json().catch(()=>null);
-    if (!body || typeof body.password !== "string" || body.password.length < 12 || body.password.length > 128) throw new EditorError("Use a password between 12 and 128 characters.");
+    if (!body || typeof body.password !== "string" || body.password.length < 8 || body.password.length > 128) throw new EditorError("Use a password between 8 and 128 characters.");
     let session: { access_token: string; expires_in: number; user: { id: string } };
     if (typeof body.invite === "string" && /^[a-f0-9]{32,128}$/i.test(body.invite)) {
       session = await teamRequest("/auth/v1/verify", { method: "POST", body: JSON.stringify({ token_hash: body.invite, type: body.recovery === true ? "recovery" : "invite" }) });

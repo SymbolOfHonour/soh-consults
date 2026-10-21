@@ -68,3 +68,23 @@ test('disabled, missing and activated accounts cannot receive invitation resends
  for(const options of [{existing:[]},{existing:[author],confirmed:true}]){const f=invitationFixture(options);assert.ok((await f.post({action:'resend'})).status>=400);assert.equal(f.calls.some(c=>c.path==='/auth/v1/invite'),false);}
  const f=invitationFixture({existing:[author]});await f.post({action:'resend'});assert.match(f.calls[0].path,/active=eq.true/);
 });
+
+test('writer login, invitation and recovery accept eight-character passwords and enforce both limits', async()=>{
+ for(const mode of ['login','invite','recovery'])for(const length of [7,8,128,129]){
+  const calls=[];
+  const api=load('app/api/admin/writer/session/route.ts',{
+   'next/server':{NextResponse:{json:(value,options)=>{const response=Response.json(value,options);response.cookies={set:()=>{}};return response;}}},
+   '../../../../../lib/rate-limit':{checkRateLimit:async()=>({allowed:true})},
+   '../../../../../lib/editor-team':{EditorError,WRITER_COOKIE:'writer',writerCookieOptions:()=>({}),teamRequest:async(path,init={})=>{
+    calls.push({path,body:init.body?JSON.parse(init.body):null});
+    if(path.includes('/verify')||path.includes('/token?'))return{access_token:'test-token',expires_in:3600,user:{id:author.id}};
+    if(path.startsWith('/rest/'))return[author];
+    return{};
+   }}
+  });
+  const payload={email:author.email,password:'a'.repeat(length),...(mode==='login'?{}:{invite:'b'.repeat(64),recovery:mode==='recovery'})};
+  const response=await api.POST(new Request('https://editor.test/api/admin/writer/session',{method:'POST',body:JSON.stringify(payload)}));
+  if(length<8||length>128){assert.equal(response.status,400);assert.equal(calls.length,0);}
+  else{assert.equal(response.status,200);assert.equal((await response.json()).member.id,author.id);if(mode!=='login'){assert.equal(calls[0].body.type,mode);assert.equal(calls.find(c=>c.path==='/auth/v1/user').body.password.length,length);}}
+ }
+});
