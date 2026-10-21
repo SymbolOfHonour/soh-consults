@@ -4,8 +4,8 @@ import {stripSmartMeta} from '../../../../../lib/smart-operations';
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { currentWriter, EditorError, teamRequest, type Submission } from "../../../../../lib/editor-team";
-import { getStorySlug, listStories, type QueuedStory } from "../../../../../lib/news-queue";
-import { writerArticleValues, writerArticleVisible } from "../../../../../lib/writer-articles";
+import { getStorySlug, type QueuedStory } from "../../../../../lib/news-queue";
+import { writerArticleValues, writerArticleVisible, listWriterArticles } from "../../../../../lib/writer-articles";
 import { verifyExternalSource } from "../../../../../lib/source-verification";
 import { publicationQuality } from "../../../../../lib/publishing-quality";
 import { checkRateLimit } from "../../../../../lib/rate-limit";
@@ -15,7 +15,7 @@ export async function GET(request:Request){try{
  if(!await currentWriter())return reply({error:'Unauthorized'},401);
  const url=new URL(request.url),id=url.searchParams.get('id');
  if(id){if(!/^[a-f0-9-]{36}$/i.test(id))throw new EditorError('Invalid article.');const rows=await teamRequest<QueuedStory[]>(`/rest/v1/news_queue?id=eq.${id}&select=*`);if(!rows[0]||!writerArticleVisible(rows[0]))throw new EditorError('Article not found.',404);return reply({story:expose(rows[0])});}
- const rows=(await listStories()).filter(writerArticleVisible);return reply({stories:rows.map(expose)});
+ const rows=await listWriterArticles();return reply({stories:rows.map(expose)});
 }catch(e){return failure(e);}}
 export async function POST(request:Request){return save(request,true);}
 export async function PATCH(request:Request){return save(request,false);}
