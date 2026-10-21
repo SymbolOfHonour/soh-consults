@@ -70,7 +70,7 @@ export async function PATCH(request: Request) {
       if (!actor.owner || previous.status !== "submitted") throw new EditorError("Only the owner can move a submitted article into the publishing editor.", 403);
       const error = submissionError(previous.snapshot); if (error) throw new EditorError(error);
       const s = previous.snapshot;
-      const imported = await teamRequest<Submission[]>("/rest/v1/rpc/import_editor_submission", { method: "POST", body: JSON.stringify({ p_id: previous.id, p_expected: previous.updated_at, p_details: writeSmartMeta(writeArticleBlocks("", s.blocks), { publisherName: previous.author_name }) }) });
+      const imported = await teamRequest<Submission[]>("/rest/v1/rpc/import_editor_submission", { method: "POST", body: JSON.stringify({ p_id: previous.id, p_expected: previous.updated_at, p_details: writeSmartMeta(writeArticleBlocks("", s.blocks), { publisherName: previous.author_name, publisherId: previous.author_id }) }) });
       return result({ submission: imported[0] });
     } else {
       if (actor.owner || previous.author_id !== actor.member.id || !["draft", "changes_requested"].includes(previous.status)) throw new EditorError("Only the author can edit a draft returned to them.", 403);
