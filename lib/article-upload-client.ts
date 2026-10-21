@@ -5,7 +5,7 @@ async function uploadRequest(body:Record<string,unknown>) {
   const controller=new AbortController();
   const timer=setTimeout(()=>controller.abort(),30_000);
   try {
-    const response=await fetch("/api/admin/uploads",{method:"POST",credentials:"same-origin",signal:controller.signal,headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    const response=await fetch(typeof window!=="undefined"&&window.location.pathname.startsWith("/admin/writer")?"/api/admin/writer/uploads":"/api/admin/uploads",{method:"POST",credentials:"same-origin",signal:controller.signal,headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
     if(response.status===401)throw Error("Your admin session is no longer valid. Keep this editor open, sign in at /admin in another tab, then retry the upload here.");
     const result=await response.json();
     if(!response.ok)throw Error(result.error||"Upload request failed. Please retry.");

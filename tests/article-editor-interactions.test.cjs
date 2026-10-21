@@ -223,3 +223,39 @@ test('publisher can be changed or cleared on an existing article without changin
 test('browser draft recovery restores publisher name and its preview card',async()=>{
  await mount(React.createElement(NewPage));await change(field('Publisher name'),'Ada Sunday');await act(async()=>new Promise(r=>setTimeout(r,1300)));assert.equal(JSON.parse(localStorage.getItem('soh-editor-new-v1')).snapshot.editorial.publisherName,'Ada Sunday');await act(async()=>root.unmount());container.remove();root=null;await mount(React.createElement(NewPage));await click(button('Restore browser draft'));assert.equal(field('Publisher name').value,'Ada Sunday');assert.equal(container.querySelector('[aria-label="Article publisher"] h2').textContent,'Ada Sunday');
 });
+
+test('duplicate preserves block contents, gives headings a new anchor and participates in undo',async()=>{
+ await editor([{type:'heading',text:'Application guide',anchor:'section-original'}]);
+ await click(button('Duplicate'));assert.equal(current.length,2);assert.equal(current[1].text,'Application guide');assert.notEqual(current[1].anchor,current[0].anchor);
+ await click(button('↶ Undo'));assert.equal(current.length,1);
+ await click(button('Focus writing'));assert.equal(container.querySelectorAll('[aria-label="Font family"]').length,0);assert.equal(field('heading 1').value,'Application guide');
+ await click(button('Show text styling'));assert.equal(field('Font family').value,'Arial');
+});
+test('article templates append sections without replacing an existing article',async()=>{
+ const Templates=load('app/admin/updates/ArticleTemplates.tsx').default;
+ let result;await mount(React.createElement(Templates,{blocks:[{type:'paragraph',text:'Keep this existing article'}],onChange:v=>{result=v;}}));
+ await click(button('Append template sections'));assert.equal(result[0].text,'Keep this existing article');assert.equal(result[1].text,'Admission at a glance');assert.equal(result[2].text,'');
+});
+test('writer autosave keeps typing enabled and a following save preserves edits made during the request',async()=>{
+ const previousFetch=global.fetch;let pending;let saved;let writes=0;
+ const member={id:'writer-ui-test',name:'Test writer',role:'writer'};
+ global.fetch=async(url,options={})=>{
+  if(url==='/api/admin/writer/session')return Response.json({member});
+  if(url==='/api/admin/writer/submissions'&&!options.method)return Response.json({submissions:saved?[saved]:[]});
+  if(url==='/api/admin/writer/submissions'){
+   const body=JSON.parse(options.body);writes++;
+   if(writes===1)return new Promise(resolve=>{pending=()=>{saved={id:'writer-ui-draft',author_id:member.id,author_name:member.name,status:'draft',snapshot:body.snapshot,updated_at:'2026-10-21T10:00:00Z'};resolve(Response.json({submission:saved}));};});
+   saved={...saved,snapshot:body.snapshot,updated_at:'2026-10-21T10:00:01Z'};return Response.json({submission:saved});
+  }
+  throw Error('Unexpected writer request '+url);
+ };
+ try{
+  const Workspace=load('app/admin/writer/WriterWorkspace.tsx').default;await mount(React.createElement(Workspace));
+  const headline=[...container.querySelectorAll('label')].find(l=>l.textContent==='Headline').querySelector('input');
+  await change(headline,'My draft');await change(field('paragraph 1'),'First version');
+  await act(async()=>new Promise(r=>setTimeout(r,5100)));assert.equal(writes,1);assert.ok(pending);
+  assert.equal(headline.disabled,false);assert.equal(field('paragraph 1').disabled,false);
+  await change(field('paragraph 1'),'Changed while saving');await act(async()=>pending());
+  await click(button('Save draft'));assert.equal(writes,2);assert.equal(saved.snapshot.blocks[0].text,'Changed while saving');assert.equal(saved.status,'draft');
+ }finally{global.fetch=previousFetch;}
+});
