@@ -13,8 +13,11 @@
     "deploy:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
   },
   "dependencies": {
+    "imapflow": "2.9.0",
     "jspdf": "^4.2.1",
+    "mailparser": "3.12.3",
     "next": "16.3.8",
+    "nodemailer": "10.2.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tus-js-client": "^4.3.1",
@@ -23,7 +26,9 @@
   "devDependencies": {
     "@opennextjs/cloudflare": "1.20.8",
     "@tailwindcss/postcss": "^4",
+    "@types/mailparser": "3.9.0",
     "@types/node": "^20",
+    "@types/nodemailer": "8.0.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
