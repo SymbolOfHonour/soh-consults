@@ -4,7 +4,7 @@ import { EditorError, memberFields, teamRequest, type TeamMember } from "../../.
 import { sendTeamMail, type EmailEvent } from "../../../../lib/team-mail";
 export async function GET() {
   if (!(await isAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  try { const [members, events] = await Promise.all([teamRequest<TeamMember[]>(`/rest/v1/editor_team?select=${memberFields}&order=created_at.desc`),teamRequest<EmailEvent[]>("/rest/v1/editor_email_events?select=id,member_id,recipient,kind,status,created_at&order=created_at.desc&limit=100")]); return NextResponse.json({ members, events }, { headers: { "Cache-Control": "no-store" } }); }
+  try { const [members, events] = await Promise.all([teamRequest<TeamMember[]>(`/rest/v1/editor_team?select=${memberFields}&order=created_at.desc`),teamRequest<EmailEvent[]>("/rest/v1/editor_email_events?select=id,member_id,recipient,kind,status,created_at,archive_status,delivery_status,delivery_checked_at&order=created_at.desc&limit=100")]); return NextResponse.json({ members, events }, { headers: { "Cache-Control": "no-store" } }); }
   catch (e) { return failure(e); }
 }
 export async function POST(request: Request) {
