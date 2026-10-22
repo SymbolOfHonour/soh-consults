@@ -278,3 +278,18 @@ test('writer featured-picture upload previews and publishes through the writer A
   assert.ok(container.textContent.includes('Article published.'));
  }finally{global.fetch=before;}
 });
+
+test('owner new article autosaves to one server draft and follows with a guarded PATCH',async()=>{
+ await mount(React.createElement(NewPage));
+ const headline=[...container.querySelectorAll('label')].find(l=>l.textContent==='Headline').querySelector('input');
+ await change(headline,'Owner automatic draft');await change(field('paragraph 1'),'First automatic version');
+ await act(async()=>new Promise(r=>setTimeout(r,5200)));
+ assert.equal(storedStories.length,1);assert.equal(storedStories[0].status,'draft');assert.equal(requests.filter(r=>r.method==='POST').length,1);
+ await change(field('paragraph 1'),'Second automatic version');await act(async()=>new Promise(r=>setTimeout(r,5200)));
+ assert.equal(storedStories.length,1);const patch=requests.find(r=>r.method==='PATCH');assert.ok(patch.body.expected_updated_at);assert.equal(readArticleBlocks(storedStories[0].details)[0].text,'Second automatic version');
+});
+test('editing a published article never autosaves changes live',async()=>{
+ storedStories=[{id:nextParams.id,title:'Live article',details:writeArticleBlocks('',[{type:'paragraph',text:'Published content'}]),status:'published',source_name:'S.O.H CONSULTS',institution:'LASU',category:'Admission',summary:'',updated_at:'2030-01-01T00:00:00Z'}];
+ await mount(React.createElement(EditPage));await change(field('paragraph 1'),'Pending live edit');await act(async()=>new Promise(r=>setTimeout(r,5200)));
+ assert.equal(requests.filter(r=>r.method==='PATCH').length,0);assert.equal(readArticleBlocks(storedStories[0].details)[0].text,'Published content');
+});

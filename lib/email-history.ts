@@ -1,0 +1,3 @@
+import type {EmailEvent} from './team-mail';
+export function filterEmailHistory(events:EmailEvent[],query:string,status:string){const term=query.trim().toLowerCase();return events.filter(e=>(status==='all'||e.status===status)&&(!term||`${e.recipient} ${e.kind}`.toLowerCase().includes(term)));}
+export function emailHistoryCsv(events:EmailEvent[]){const cell=(v:string)=>'"'+(/^(?:\s*[=+@\-]|[\t\r\n])/.test(v)?"'":'')+v.replaceAll('"','""')+'"';return '\uFEFF'+[['Recipient','Message','Status','Time (UTC)'],...events.map(e=>[e.recipient,e.kind,e.status,e.created_at])].map(row=>row.map(cell).join(',')).join('\r\n');}

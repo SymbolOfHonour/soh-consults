@@ -1,9 +1,9 @@
 "use client";
 import {useEffect,useRef,useState} from "react";
-type Props<T extends object>={storageKey:string;snapshot:T;onRestore:(snapshot:T)=>void;saveToken?:number};
+type Props<T extends object>={storageKey:string;snapshot:T;onRestore:(snapshot:T)=>void;saveToken?:number;onReadyChange?:(ready:boolean)=>void};
 type Saved<T>={savedAt:number;snapshot:T};
 /** Browser-local crash recovery; not a substitute for an authenticated server draft. */
-export default function ArticleDraftRecovery<T extends object>({storageKey,snapshot,onRestore,saveToken=0}:Props<T>){
+export default function ArticleDraftRecovery<T extends object>({storageKey,snapshot,onRestore,saveToken=0,onReadyChange}:Props<T>){
  const [pending,setPending]=useState<Saved<T>|null>(null);
  const [ready,setReady]=useState(false);
  const [enabled,setEnabled]=useState(false);
@@ -37,6 +37,7 @@ export default function ArticleDraftRecovery<T extends object>({storageKey,snaps
   // eslint-disable-next-line react-hooks/exhaustive-deps
  },[saveToken,storageKey]);
  useEffect(()=>{if(!ready||!enabled||serialized===baseline.current)return;function warn(event:BeforeUnloadEvent){if(serialized===baseline.current)return;event.preventDefault();event.returnValue="";}window.addEventListener("beforeunload",warn);return()=>window.removeEventListener("beforeunload",warn);},[ready,enabled,serialized,saveToken]);
+ useEffect(()=>{onReadyChange?.(ready&&enabled&&!pending);},[ready,enabled,pending,onReadyChange]);
  function recover(){if(!pending)return;onRestore(pending.snapshot);setPending(null);setEnabled(true);}
  function discard(){try{localStorage.removeItem(storageKey);}catch{}baseline.current=serialized;setPending(null);setEnabled(true);}
  return <div className="rounded-xl border border-gray-200 bg-white p-3 text-sm" aria-label="Draft recovery">
