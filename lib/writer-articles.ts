@@ -2,6 +2,7 @@ import { articleBlocksError, hasArticleNarrative, readArticleBlocks, writeArticl
 import { EditorError, teamRequest, type TeamMember } from "./editor-team";
 import type { QueuedStory } from "./news-queue";
 import { normalizeStoryCategory, listStories } from "./news-queue";
+import {scheduleError} from "./publishing-schedule";
 import { smartMeta, writeSmartMeta } from "./smart-operations";
 export function writerArticleVisible(s:QueuedStory) {
  return !/^(S\.O\.H (System:|Trash:|Opportunity:)|Admin:)/i.test(s.source_name)&&!/^admin /i.test(s.category)&&!/^health:/i.test(s.title)&&!['whatsapp_click','page_view','install_click'].includes(s.title.toLowerCase());
@@ -19,8 +20,11 @@ export function writerArticleValues(body:Record<string,unknown>,member:TeamMembe
  if(!blocks)throw new EditorError('Complete the article blocks before saving.');
  const error=articleBlocksError(blocks);if(error)throw new EditorError(error);
  if(status==='published'&&!hasArticleNarrative(blocks))throw new EditorError('Add readable article content before publishing.');
- // Metadata comes exclusively from the stored article; a writer cannot change authors or schedule expiry.
- details=writeSmartMeta(writeArticleBlocks('',blocks),previous?smartMeta(previous.details):{publisherName:member.name,publisherId:member.id});
+ // Author and expiry remain owner controlled. Writers may schedule unpublished articles.
+ const meta=previous?smartMeta(previous.details):{publisherName:member.name,publisherId:member.id};
+ if(body.schedule!==undefined){if(previous?.status==='published'&&body.schedule)throw new EditorError('Only unpublished articles can be scheduled.');const issue=scheduleError(body.schedule);if(issue)throw new EditorError(issue);meta.schedule=typeof body.schedule==='string'&&body.schedule?new Date(body.schedule).toISOString():undefined;}
+ if(status==='published')meta.schedule=undefined;
+ details=writeSmartMeta(writeArticleBlocks('',blocks),meta);
  if(previous)details=[...['[SOH:FEATURED]','[SOH:BREAKING]'].filter(flag=>previous.details.includes(flag)),details].join('\n');
  for(const key of ['official_source_url','image_url']) {const value=text(key,2000);if(value){try{const url=new URL(value);if(url.protocol!=='https:'||url.username||url.password)throw Error();}catch{throw new EditorError('Use valid HTTPS source and picture links.');}}}
  return {title,institution:text('institution',200)||'To be confirmed',category,summary:text('summary',3000),details,image_url:text('image_url',2000)||null,official_source_name:text('official_source_name',200)||null,official_source_url:text('official_source_url',2000)||null,status};

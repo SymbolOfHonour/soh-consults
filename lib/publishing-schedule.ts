@@ -1,0 +1,4 @@
+/** Publishing dates are entered and displayed in Lagos time, independent of the device timezone. */
+export function lagosInputTime(value?:string){if(!value)return '';const date=new Date(value);if(Number.isNaN(date.getTime()))return '';return new Date(date.getTime()+3600000).toISOString().slice(0,16);}
+export function storedLagosTime(value:string,previous?:string){if(previous&&value===lagosInputTime(previous))return previous;return value?new Date(`${value}:00+01:00`).toISOString():undefined;}
+export function scheduleError(value:unknown,now=Date.now()):string|null {if(value===undefined||value===null||value==='')return null;if(typeof value!=='string'||!/(Z|[+-]\d{2}:\d{2})$/.test(value)||!Number.isFinite(Date.parse(value)))return 'Choose a valid publication date and time.';if(Date.parse(value)<=now)return 'Choose a publication time in the future, or clear the schedule to publish now.';return null;}

@@ -12,9 +12,11 @@ function refresh() {
   revalidatePath("/admin/recovery");
 }
 
-export async function GET() {
+export async function GET(request:Request) {
   if (!(await isAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
+    const storyId=new URL(request.url).searchParams.get('story');
+    if(storyId){if(!/^[a-f0-9-]{36}$/i.test(storyId))return NextResponse.json({error:'Invalid article.'},{status:400});return NextResponse.json({history:await listHistory(storyId)},{headers:{'Cache-Control':'no-store'}});}
     const [trash, history, audit] = await Promise.all([listTrash(), listHistory(), listAudit()]);
     return NextResponse.json({ trash, history, audit, retention_days: null });
   } catch (error) {

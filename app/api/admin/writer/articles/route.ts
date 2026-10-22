@@ -1,6 +1,6 @@
 import {readArticleBlocks,writeArticleBlocks,removeArticleBlocks} from '../../../../../lib/article-blocks';
 import {cleanGalleryDetails} from '../../../../../lib/story-gallery';
-import {stripSmartMeta} from '../../../../../lib/smart-operations';
+import {scheduledAt,stripSmartMeta} from '../../../../../lib/smart-operations';
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { currentWriter, EditorError, teamRequest, type Submission } from "../../../../../lib/editor-team";
@@ -44,7 +44,7 @@ async function save(request:Request,create:boolean){try{
   input={...snapshot,details:readArticleBlocks(snapshot.details)?snapshot.details:writeArticleBlocks('',[{type:'paragraph',text:removeArticleBlocks(stripSmartMeta(cleanGalleryDetails(snapshot.details))).replace(/\[SOH:(?:FEATURED|BREAKING)\]/gi,'').trim()}]),status:previous.status==='published'?'published':undefined};
  }
  const values=writerArticleValues(input,member,previous);
- if(values.status==='published'){
+ if(values.status==='published'||scheduledAt({...previous,...values} as QueuedStory)){
   const quality=publicationQuality({...previous,...values,id} as QueuedStory,[]);if(quality.length)throw new EditorError(quality.join(' '));
   if(values.official_source_url){const source=await verifyExternalSource(values.official_source_url);if(!source.ok)throw new EditorError(source.reason);}
  }
