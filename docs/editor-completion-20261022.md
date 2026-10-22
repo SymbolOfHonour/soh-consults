@@ -2,7 +2,7 @@
 
 Implemented in the existing owner and writer editors:
 
-- Owner drafts autosave after five seconds; live article edits remain explicit saves. Failed automatic saves pause, and browser recovery remains available. A browser recovery decision is required before autosave begins. New drafts reuse the returned server ID on subsequent saves.
+- Owner drafts autosave after five seconds; live article edits remain explicit saves. Failed automatic saves pause, and browser recovery remains available. A browser recovery decision is required before autosave begins. New drafts persist a client request identifier before saving, recover the same server record after a timed-out create, and reuse the returned server ID on subsequent saves. A replay leaves newer local edits unsaved for explicit application.
 - Owner saves use optimistic concurrency, including full article edits, to avoid overwriting a writer or another owner tab.
 - Per-article owner revision history includes a preview and explicit restore confirmation. Writer revision restoration retains publication status and authorship.
 - Replaced images/documents are retained for historical restoration and shared media reuse. Permanent deletion continues through the existing recovery workflow.
