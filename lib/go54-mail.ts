@@ -36,14 +36,21 @@ async function patch(id:string, body:Record<string,unknown>, filter="") {
 export async function verifyGo54Mail() {
   const transport=smtp(), client=imap();
   try {
-    try { await transport.verify(); }
-    catch(error) {
-      const code=error && typeof error==="object" && "code" in error ? error.code : null;
-      throw new EditorError(code==="EAUTH" ? "Go54 SMTP rejected the mailbox login. Check the saved support mailbox password." : "Could not establish the secure Go54 SMTP connection. The mailbox password has not been verified.",503);
+    // An SMTP failure must not hide whether the same saved credentials work for IMAP.
+    // Neither check sends a message, reads incoming bodies or changes the mailbox.
+    const [outgoing,incoming]=await Promise.allSettled([transport.verify(),client.connect()]);
+    if(outgoing.status==="rejected") {
+      const error=outgoing.reason;
+      const rejected=error && typeof error==="object" && error.code==="EAUTH";
+      const responseCode=Number(error?.responseCode);
+      const response=Number.isInteger(responseCode)&&responseCode>=400&&responseCode<=599?` (SMTP ${responseCode})`:"";
+      const prefix=incoming.status==="fulfilled"?"IMAP accepted the saved mailbox login. ":"IMAP could not verify the saved mailbox login. ";
+      const failure=rejected ? error?.command==="API" ? "The SMTP client could not use its configured credentials; this does not prove Go54 rejected the password." : `Go54 SMTP rejected authentication${response}; this does not by itself prove the password is wrong.` : "The secure Go54 SMTP connection failed.";
+      throw new EditorError(prefix+failure,503);
     }
-    try { await client.connect(); }
-    catch(error) {
-      const rejected=error && typeof error==="object" && "authenticationFailed" in error && error.authenticationFailed;
+    if(incoming.status==="rejected") {
+      const error=incoming.reason;
+      const rejected=error && typeof error==="object" && error.authenticationFailed;
       throw new EditorError(rejected ? "SMTP verified, but Go54 IMAP rejected the mailbox login." : "SMTP verified, but the secure Go54 IMAP connection failed.",503);
     }
     try { await sentFolder(client); }
