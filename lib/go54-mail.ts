@@ -35,7 +35,21 @@ async function patch(id:string, body:Record<string,unknown>, filter="") {
 }
 export async function verifyGo54Mail() {
   const transport=smtp(), client=imap();
-  try { await transport.verify(); await client.connect(); await sentFolder(client); return {smtp:true,imap:true}; }
+  try {
+    try { await transport.verify(); }
+    catch(error) {
+      const code=error && typeof error==="object" && "code" in error ? error.code : null;
+      throw new EditorError(code==="EAUTH" ? "Go54 SMTP rejected the mailbox login. Check the saved support mailbox password." : "Could not establish the secure Go54 SMTP connection. The mailbox password has not been verified.",503);
+    }
+    try { await client.connect(); }
+    catch(error) {
+      const rejected=error && typeof error==="object" && "authenticationFailed" in error && error.authenticationFailed;
+      throw new EditorError(rejected ? "SMTP verified, but Go54 IMAP rejected the mailbox login." : "SMTP verified, but the secure Go54 IMAP connection failed.",503);
+    }
+    try { await sentFolder(client); }
+    catch { throw new EditorError("SMTP and IMAP verified, but the mailbox’s designated Sent folder could not be found.",503); }
+    return {smtp:true,imap:true};
+  }
   finally { transport.close(); client.close(); }
 }
 async function archiveOne(event:ArchiveEvent, client:ImapFlow, folder:string) {
