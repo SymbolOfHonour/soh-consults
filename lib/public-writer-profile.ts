@@ -2,6 +2,9 @@ import {teamRequest} from './editor-team';
 import {normalisePublisherName} from './article-publisher';
 export type PublicWriterProfile={id:string;name:string;about:string;picture_url:string};
 export async function listPublicWriterProfiles():Promise<PublicWriterProfile[]>{
+ // Existing credential-free previews use the published-content snapshot.
+ // Keep that preview usable without exposing the private team database.
+ if(process.env.VERCEL_ENV==='preview'&&(!process.env.SUPABASE_URL||!process.env.SUPABASE_SERVICE_ROLE_KEY))return [];
  const rows:PublicWriterProfile[]=[];
  for(let offset=0;;offset+=500){
   const page=await teamRequest<PublicWriterProfile[]>(`/rest/v1/editor_team?activated_at=not.is.null&select=id,name,about,picture_url&order=id&limit=500&offset=${offset}`);
