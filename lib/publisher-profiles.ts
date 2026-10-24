@@ -41,4 +41,16 @@ export function buildPublisherCatalogue(stories:QueuedStory[],profiles:PublicWri
  return [...catalogue.values()].sort((a,b)=>b.articles.length-a.articles.length||a.name.localeCompare(b.name));
 }
 export function publisherForStory(catalogue:PublisherProfile[],id:string){return catalogue.find(p=>p.articles.some(a=>a.id===id))||null;}
-export function resolvePublisherSlug(catalogue:PublisherProfile[],slug:string){const exact=catalogue.find(p=>p.slug===slug);if(exact)return exact;const id=slug.match(/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})$/i)?.[1];return id?catalogue.find(p=>p.key===`writer:${id.toLowerCase()}`)||null:null;}
+export function resolvePublisherSlug(catalogue:PublisherProfile[],slug:string){
+ const exact=catalogue.find(p=>p.slug===slug);if(exact)return exact;
+ const id=slug.match(/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})$/i)?.[1];
+ if(id)return catalogue.find(p=>p.key===`writer:${id.toLowerCase()}`)||null;
+ // The owner confirmed authorship of the pre-profile archive. Keep the two
+ // originally shared profile URLs working after those bylines are corrected.
+ const founderName='Oluyepe Adetayo Sunday';
+ if(slug==='soh-consults'||slug===legacyProfile(founderName).slug){
+  const matches=catalogue.filter(p=>nameKey(p.name)===nameKey(founderName)&&p.key.startsWith('writer:'));
+  return matches.length===1?matches[0]:null;
+ }
+ return null;
+}
