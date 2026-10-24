@@ -1,0 +1,2 @@
+import styles from './publisher.module.css';
+export default function PublisherHeader(){return <header className={styles.header}><div className={styles.headerInner}><a href="/" aria-label="S.O.H CONSULTS home"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" width={135} height={74}/></a><nav aria-label="Publisher navigation"><a href="/updates">Latest updates</a><a href="/writers" className={styles.activeNav}>Our writers</a><a href="/search">Search</a></nav><span>Your Guide. Your Success.</span></div></header>}

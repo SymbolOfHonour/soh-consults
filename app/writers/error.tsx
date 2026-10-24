@@ -1,0 +1,2 @@
+"use client";
+export default function WritersError({reset}:{reset:()=>void}){return <main className="min-h-[60vh] bg-[#f6f5f0] px-5 py-16 text-[#173f35]"><div className="mx-auto max-w-xl"><h1 className="text-3xl font-bold">The writer profiles couldn’t load.</h1><p className="mt-4 leading-7">Please try again in a moment.</p><button type="button" onClick={reset} className="mt-6 rounded bg-[#173f35] px-5 py-3 text-white">Try again</button><a href="/updates" className="ml-5 underline">Latest updates</a></div></main>}

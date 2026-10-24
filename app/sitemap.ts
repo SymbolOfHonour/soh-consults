@@ -1,5 +1,7 @@
 import {categorySlug} from "../lib/category-slug";
 import type { MetadataRoute } from "next";
+import {listPublicWriterProfiles} from "../lib/public-writer-profile";
+import {buildPublisherCatalogue} from "../lib/publisher-profiles";
 import { PRIMARY_SITE_URL } from "./site-url";
 import { guides } from "../data/guides";
 import { getStorySlug, listPublishedStories } from "../lib/news-queue";
@@ -33,6 +35,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/guides`, changeFrequency: "weekly", priority: .95 },
   ];
   core.push(...["my-school","tools","screening-calculator","fuoye-calculator","fuadsi-calculator","uniosun-calculator","lasued-calculator","lasustech-calculator","oou-calculator","yabatech-calculator","cgpa-calculator/planner","cgpa-calculator/select-scale"].map(path=>({url:`${siteUrl}/${path}`,changeFrequency:"monthly" as const,priority:.7})));
+  const publishers=buildPublisherCatalogue(published,await listPublicWriterProfiles().catch(()=>[]));
+  core.push({url:`${siteUrl}/writers`,changeFrequency:"weekly",priority:.7},...publishers.map(p=>({url:`${siteUrl}${p.href}`,changeFrequency:"weekly" as const,priority:.65})));
   const updatePages: MetadataRoute.Sitemap = published.map(story => ({
     url: `${siteUrl}/updates/${getStorySlug(story)}`,
     lastModified: safeDate(story.updated_at) || safeDate(story.source_published_at) || safeDate(story.created_at),

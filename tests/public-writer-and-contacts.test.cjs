@@ -1,7 +1,8 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),ts=require('typescript'),React=require('react'),{renderToStaticMarkup}=require('react-dom/server');
 function load(file,imports={}){const m={exports:{}};vm.runInNewContext(ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText,{module:m,exports:m.exports,require:n=>imports[n]||require(n)});return m.exports;}
 const names=load('lib/article-publisher.ts'),contacts=load('lib/business-contacts.ts');
-const Author=load('app/updates/[id]/ArticlePublisher.tsx',{'../../../lib/article-publisher':names}).default;
+const Avatar=load('app/writers/PublisherAvatar.tsx').default;
+const Author=load('app/updates/[id]/ArticlePublisher.tsx',{'../../../lib/article-publisher':names,'../../writers/PublisherAvatar':{default:Avatar}}).default;
 const Boundary=load('app/components/EmailObfuscationBoundary.tsx').default;
 const Contact=load('app/components/BusinessContacts.tsx',{'../../lib/business-contacts':contacts,'./EmailObfuscationBoundary':{default:Boundary}}).default;
 test('public writer card renders the saved About and picture with escaped biography text',()=>{const html=renderToStaticMarkup(React.createElement(Author,{name:'Writer',about:'Admissions writer. <script>unsafe</script>',pictureUrl:'https://images.example.test/writer.jpg'}));assert.match(html,/About the writer/);assert.match(html,/Admissions writer/);assert.match(html,/&lt;script&gt;/);assert.match(html,/src="https:\/\/images.example.test\/writer.jpg"/);assert.doesNotMatch(html,/<script>/);});

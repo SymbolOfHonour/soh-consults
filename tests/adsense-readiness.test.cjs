@@ -40,10 +40,13 @@ test('sitemap includes published notice canonical, excludes derivative checklist
     '../lib/category-slug': {categorySlug:s=>s.toLowerCase()},
     './site-url': {PRIMARY_SITE_URL:'https://sohconsults.com.ng'},
     '../data/guides': {guides:[]},
+    '../lib/public-writer-profile': {listPublicWriterProfiles:async()=>[]},
+    '../lib/publisher-profiles': {buildPublisherCatalogue:()=>[{href:'/writers/soh-consults'}]},
     '../lib/news-queue': {getStorySlug:s=>s.id,listPublishedStories:async options=>{assert.equal(options.strict,true);if(fail)throw Error('unavailable');return [{id:'original',category:'Admission',created_at:'2026-10-01'}];}},
   }).default;
   const rows = await sitemap();
   assert.ok(rows.some(r=>r.url==='https://sohconsults.com.ng/updates/original'));
+  assert.ok(rows.some(r=>r.url==='https://sohconsults.com.ng/writers/soh-consults'));
   assert.ok(rows.every(r=>!r.url.includes('/applications/')));
   fail=true;
   await assert.rejects(sitemap(),/unavailable/);
