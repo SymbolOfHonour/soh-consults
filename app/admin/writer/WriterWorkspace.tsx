@@ -8,12 +8,15 @@ import ArticleTemplates from "../updates/ArticleTemplates";
 import SubmissionReview from "./SubmissionReview";
 import WriterArticles from "./WriterArticles";
 import WriterMedia from "./WriterMedia";
+import WriterMediaPicker from "./WriterMediaPicker";
+import type {MediaKind,ReusableMedia} from "../../../lib/reusable-media";
 import WriterProfile from "./WriterProfile";
 import ForgotPassword from "./ForgotPassword";
 const blank = (): WriterSnapshot => ({ title: "", institution: "", category: "Admission", summary: "", official_source_name: "", official_source_url: "", blocks: [{ type: "paragraph", text: "" }] });
 const field = "mt-1 w-full rounded-xl border p-3 text-gray-950";
 export default function WriterWorkspace() {
   const [navigationBlocked,setNavigationBlocked]=useState(false);
+  const [reviewMedia,setReviewMedia]=useState<{kind:MediaKind;select:(file:ReusableMedia)=>void}|null>(null);
   const [workspace,setWorkspace]=useState<"articles"|"new"|"media"|"review">("articles");
   const [member, setMember] = useState<TeamMember | null>(null), [ready, setReady] = useState(false), [invite, setInvite] = useState("");
   const [rows, setRows] = useState<Submission[]>([]), [current, setCurrent] = useState<Submission | null>(null), [snapshot, setSnapshot] = useState<WriterSnapshot>(blank);
@@ -87,11 +90,11 @@ export default function WriterWorkspace() {
       {current&&current.status!=="imported"&&<button disabled={busy||uploading||autosaving||conflict} onClick={()=>void publishReview()} className="rounded-xl bg-green-800 px-5 py-3 font-bold text-white">Publish this saved review draft</button>}
       <ArticleTemplates blocks={snapshot.blocks} disabled={locked} onChange={blocks => setSnapshot(s => ({ ...s, blocks }))} />
       <ArticleDraftRecovery saveToken={saveToken} storageKey={`soh-writer-${member.id}-${current?.id || "new"}`} snapshot={snapshot} onRestore={setSnapshot} />
-      <ArticleBlockEditor value={snapshot.blocks} onChange={blocks => setSnapshot(s => ({ ...s, blocks }))} disabled={locked} onUploadingChange={setUploading} />
+      <ArticleBlockEditor value={snapshot.blocks} onChange={blocks => setSnapshot(s => ({ ...s, blocks }))} disabled={locked} onUploadingChange={setUploading} onPickMedia={(kind,select)=>setReviewMedia({kind,select})} />
       <ArticleLivePreview blocks={snapshot.blocks} title={snapshot.title} summary={snapshot.summary} featured="" publisherName={member.name} publisherAbout={member.about} publisherPicture={member.picture_url} />
       <p role="status">{saved || "Drafts save automatically after five seconds once you enter a headline."}</p><div className="flex flex-wrap gap-3"><button disabled={locked||autosaving} onClick={() => void save(false)} className="rounded-xl border px-5 py-3 disabled:opacity-50">Save draft</button><button disabled={locked||autosaving} onClick={() => void save(true)} className="rounded-xl bg-green-800 px-5 py-3 font-bold text-white disabled:opacity-50">Submit for review</button></div>
       {member.role === "editor" && <SubmissionReview />}
       </>}
     </>}
-  </div></main>;
+  {reviewMedia&&<WriterMediaPicker kind={reviewMedia.kind} onClose={()=>setReviewMedia(null)} onSelect={file=>{reviewMedia.select(file);setReviewMedia(null);}}/>}</div></main>;
 }

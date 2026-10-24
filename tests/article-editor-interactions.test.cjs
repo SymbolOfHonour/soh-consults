@@ -279,6 +279,35 @@ test('writer featured-picture upload previews and publishes through the writer A
  }finally{global.fetch=before;}
 });
 
+test('writer reuses featured and block media without losing unsaved writing or uploading duplicates',async()=>{
+ const before=global.fetch;let saved;const readRequests=[];
+ dom.window.HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','');};
+ dom.window.HTMLDialogElement.prototype.close=function(){this.removeAttribute('open');};
+ global.fetch=async(url,options={})=>{
+  if(url.startsWith('/api/admin/writer/media?')){readRequests.push(url);const folder=new URL(url,'https://editor.test').searchParams.get('folder'),kind=folder==='documents'?'document':folder==='videos'?'video':'image';return Response.json({files:[{kind,url:`https://assets.example/previous.${kind==='document'?'pdf':kind==='video'?'mp4':'jpg'}`,name:'Previous admission media',usedIn:['Earlier LASU article']}],nextOffset:null});}
+  assert.equal(url,'/api/admin/writer/articles');saved=JSON.parse(options.body);return Response.json({story:{...saved,id:'reused-media-draft',status:'draft',updated_at:'2026-10-24T00:00:00Z'}});
+ };
+ try{
+  const Page=load('app/admin/writer/WriterArticleEditor.tsx').default;
+  await mount(React.createElement(Page,{member:{id:'writer-reuse-test',name:'Writer'},article:null,onClose(){},onNavigationBlock(){}}));
+  const headline=[...container.querySelectorAll('label')].find(l=>l.textContent==='Headline').querySelector('input');
+  await change(headline,'Unsaved headline');await change(field('paragraph 1'),'My unsaved article text.');
+  await click(button('Choose featured picture from media library'));assert.ok(container.querySelector('dialog[open]'));assert.match(container.querySelector('dialog').textContent,/Earlier LASU article/);
+  await click(container.querySelector('[aria-label="Close media library"]'));assert.equal(container.querySelector('dialog'),null);assert.equal(headline.value,'Unsaved headline');
+  await click(button('Choose featured picture from media library'));await change(container.querySelector('input[type="search"]'),'earlier lasu');await click(button('Use this picture'));
+  assert.equal(container.querySelector('dialog'),null);assert.equal(headline.value,'Unsaved headline');assert.equal(field('paragraph 1').value,'My unsaved article text.');assert.ok(container.querySelector('img[alt="Selected featured picture"]'));
+  for(const [add,choose,use] of [['+ gallery','Add existing picture','Use this picture'],['+ PDF attachment','Choose from media library','Use this document'],['+ video','Choose from media library','Use this video']]){await click(button(add));await click([...container.querySelectorAll('button')].filter(b=>b.textContent===choose).at(-1));await click(button(use));}
+  await click(button('Save draft'));
+  assert.equal(saved.title,'Unsaved headline');assert.equal(saved.image_url,'https://assets.example/previous.jpg');const content=readArticleBlocks(saved.details);assert.equal(content[0].text,'My unsaved article text.');assert.deepEqual(content[1].urls,['https://assets.example/previous.jpg']);assert.equal(content[2].url,'https://assets.example/previous.pdf');assert.equal(content[3].mode,'player');assert.equal(uploads.length,0);assert.ok(readRequests.some(url=>url.includes('documents')));assert.ok(readRequests.some(url=>url.includes('videos')));
+ }finally{global.fetch=before;}
+});
+
+test('media library keeps article search context when storage pagination returns the same file',async()=>{
+ const before=global.fetch;
+ global.fetch=async url=>Response.json({files:[url.endsWith('offset=0')?{kind:'image',name:'Admission guide',usedIn:['Earlier LASU article'],url:'https://assets.example/old.jpg'}:{kind:'image',name:'storage-filename.jpg',url:'https://assets.example/old.jpg'}],nextOffset:url.endsWith('offset=0')?100:null});
+ try{const Media=load('app/admin/writer/WriterMedia.tsx').default;await mount(React.createElement(Media));await click(button('Load more files'));await change(container.querySelector('input[type="search"]'),'earlier lasu');assert.equal(container.querySelectorAll('article').length,1);assert.match(container.querySelector('article').textContent,/Admission guide/);assert.match(container.textContent,/1 loaded/);}finally{global.fetch=before;}
+});
+
 test('owner new article autosaves to one server draft and follows with a guarded PATCH',async()=>{
  await mount(React.createElement(NewPage));
  const headline=[...container.querySelectorAll('label')].find(l=>l.textContent==='Headline').querySelector('input');
