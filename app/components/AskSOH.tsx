@@ -236,10 +236,11 @@ function classifyQuestion(question: string): { topic?: string; link?: string; sh
     return { topic: "complex" };
   }
 
-  if (/(accept.*admission|how.*accept.*caps)/.test(q)) return { topic: "accept-admission" };
+  if (/(accept.*admission|how.*accept.*caps)/.test(q)) return { shouldSearch: true };
   if (/(change of course|change course|change of institution|change institution)/.test(q)) return { topic: "change-course" };
   if (/(school admission.*jamb|jamb admission.*school|school portal.*caps|caps.*school portal)/.test(q)) return { topic: "school-vs-jamb" };
   if (/(o.?level|waec|neco).*(upload|jamb|caps)|upload.*(result|waec|neco)/.test(q)) return { topic: "olevel" };
+  if (/(direct entry|\bde\b)/.test(q) && /requirement|eligib|documents?/i.test(q)) return { shouldSearch: true };
   if (/(direct entry|\bde\b)/.test(q) && !/(deadline|closing|form|screening|when|date|latest|current|2026)/.test(q)) return { topic: "de" };
   if (/(proposed)/.test(q)) return { topic: "caps-proposed" };
   if (/(recommended)/.test(q)) return { topic: "caps-recommended" };

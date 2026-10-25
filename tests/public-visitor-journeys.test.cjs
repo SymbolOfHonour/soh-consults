@@ -132,3 +132,7 @@ test('Ask S.O.H sends session-only and Direct Entry follow-ups with subject cont
   await ask('What is LASU cutoff?');await ask('2026/2027');assert.equal(bodies.length,4);assert.equal(bodies[3].context,'What is LASU cutoff?');
  }finally{global.fetch=transport;}
 });
+test('Ask S.O.H routes admission acceptance procedures to evidence checking',async()=>{
+ const transport=global.fetch;const bodies=[];global.fetch=async(url,options)=>{assert.equal(url,'/api/ask-soh/search');bodies.push(JSON.parse(options.body));return Response.json({query:bodies.at(-1).question,answer:'I could not verify the current procedure. Check the official JAMB portal.',results:[],confidence:'low',needsHuman:true});};
+ try{await mount(React.createElement(Ask));await click(button('Open Ask S.O.H admission assistant'));await ask('How do I accept admission on JAMB CAPS?');assert.equal(bodies.length,1);assert.match(container.textContent,/could not verify the current procedure/);}finally{global.fetch=transport;}
+});

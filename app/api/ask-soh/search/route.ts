@@ -118,7 +118,7 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const reviewedConflict=!!reviewed&&facts.some(f=>f.topic===reviewed.topic&&f.value_text.trim()!==reviewed.value_text.trim());
   // Reviewed non-deadline facts already passed source, session and expiry checks.
   // Keep live discovery for cutoffs, status and deadlines that can be superseded.
-  if(reviewed&&!reviewedConflict&&(!resolved.currentSensitive||resolved.intent==="requirements")){
+  if(reviewed&&!reviewedConflict&&(!resolved.currentSensitive||resolved.intent==="requirements"||resolved.answerMode==="name")){
     const answer=formatAnswer(resolved.answerMode,reviewed.value_text,reviewed.answer_text);
     void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"verified_knowledge",latencyMs:Date.now()-startedAt});
     return NextResponse.json({query:safeQuestion,results:[{title:reviewed.source_name,url:reviewed.source_url,snippet:reviewed.evidence_text,official:true,internal:true}],answer,confidence:resolved.intent==="requirements"?"medium":"high",needsHuman:false,verifiedFact:true,sourceType:"verified_knowledge",verifiedAt:reviewed.verified_at,academicSession:reviewed.academic_session,knowledgeMatches:facts.length});
