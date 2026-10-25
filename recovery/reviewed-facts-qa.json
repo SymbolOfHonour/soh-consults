@@ -1,0 +1,62 @@
+[
+  {
+    "id": "4c47555e-857f-5379-b2ec-048ebe6b5f3b",
+    "institution_key": "lasu",
+    "topic": "Medicine UTME subject combination",
+    "intent": "requirements",
+    "value_text": "English Language, Physics, Chemistry and Biology",
+    "answer_text": "LASU's official course checker lists English Language, Physics, Chemistry and Biology for Medicine and Surgery. Select Medicine and Surgery on the linked checker to view the requirements. The checker does not state an admission session, so confirm these against the 2026/2027 admission notice before registering.",
+    "answer_mode": "structured",
+    "academic_session": "2026/2027",
+    "source_name": "LASU official course requirements checker — Medicine and Surgery",
+    "source_url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/",
+    "evidence_text": "Medicine and Surgery. O-Level Subject Requirements: English Language, Mathematics, Physics, Chemistry, Biology. JAMB UTME Subject Requirements: ENG, PHY, CHE, BIO.",
+    "source_authority": 100,
+    "status": "verified",
+    "verified_at": "2026-10-25 15:13:54.696433+00",
+    "review_due_at": "2026-11-08 15:13:54.696433+00",
+    "valid_from": null,
+    "valid_until": null,
+    "metadata": {
+      "course": "medicine",
+      "source_scope": "Course checker does not label a session; answer explicitly qualifies requested session",
+      "change_reason": "Evidence-reviewed reliability recovery 25 October 2026",
+      "admission_route": "utme",
+      "verification_method": "Submitted official public course lookup with course=0710; reviewed returned subject requirements"
+    },
+    "embedding": null,
+    "created_at": "2026-10-25 15:13:54.696433+00",
+    "updated_at": "2026-10-25 15:13:54.696433+00",
+    "source_published_at": null,
+    "conflicting_evidence": false
+  },
+  {
+    "id": "52cb9ec0-b97c-543b-85cb-e502c26be43b",
+    "institution_key": "fuoye",
+    "topic": "Direct Entry general qualifications",
+    "intent": "requirements",
+    "value_text": "FUOYE Direct Entry requires the applicable O'Level requirements plus GCE A'Level, JUPEB, OND or ND Upper Credit, as specified for each course.",
+    "answer_text": "For FUOYE Direct Entry, meet your course's O'Level requirements and its accepted GCE A'Level, JUPEB, OND or ND Upper Credit qualification. The official screening guidance states that A'Level candidates need at least 6 aggregate points. These are general conditions, not confirmation that every qualification is accepted for every course. Which course do you want to study? Check the linked 2026/2027 guidance before applying.",
+    "answer_mode": "structured",
+    "academic_session": "2026/2027",
+    "source_name": "FUOYE official 2026/2027 screening guidance — Direct Entry",
+    "source_url": "https://fuoye.edu.ng/post-utme-screening/",
+    "evidence_text": "Advanced (A) Level candidates must have at least 6 points aggregate. Direct Entry Admission Candidates must satisfy the University SSCE/NECO/GCE O/Level requirements and in addition have GCE A/Level, JUPEB, OND or ND Upper Credit as stated for each course.",
+    "source_authority": 100,
+    "status": "verified",
+    "verified_at": "2026-10-25 15:13:54.696433+00",
+    "review_due_at": "2026-11-08 15:13:54.696433+00",
+    "valid_from": null,
+    "valid_until": null,
+    "metadata": {
+      "change_reason": "Evidence-reviewed reliability recovery 25 October 2026",
+      "admission_route": "direct-entry",
+      "verification_method": "Reviewed General Admission Requirements on official 2026/2027 screening guidance"
+    },
+    "embedding": null,
+    "created_at": "2026-10-25 15:13:54.696433+00",
+    "updated_at": "2026-10-25 15:13:54.696433+00",
+    "source_published_at": null,
+    "conflicting_evidence": false
+  }
+]

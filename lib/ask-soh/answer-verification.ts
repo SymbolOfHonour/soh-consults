@@ -1,3 +1,4 @@
+import {answersRequestedTopic} from './relevance';
 import { ResolvedQuestion } from './question-resolver';
 import { SourceDocument, sessionsIn } from './source-discovery';
 import { isOfficialInstitutionUrl } from './institution-registry';
@@ -94,6 +95,7 @@ export function verifyAnswer(question:string,q:ResolvedQuestion,documents:Source
   return {answer:`The ${scheduleSupersession?'later dated official schedule':'official '+(q.academicSession||q.academicYear)+' notice'} lists ${formatted} as the ${selected.extension?'extended ':''}${deadlineLabel} deadline. ${scheduleSupersession?'It includes an Admissions Officer declaration and matching registration, slip-printing and test dates. The earlier notice is retained in the sources. ':''}${passed?'That date has passed. A later extension or reopening must be confirmed from a newer official notice.':'That date has not passed; confirm the portal is accepting applications before paying.'}`,confidence:!scheduleSupersession&&selected.d.publishedAt?'high':'medium',needsHuman:!selected.d.publishedAt,contradiction:false,citations:scheduleSupersession?[selected.d,...[...new Map(dates.filter(x=>x.date!==selected.date).map(x=>[x.d.url,x.d])).values()].slice(0,2)]:[selected.d],reason:scheduleSupersession?'Later attributed admissions schedule with corroborating dates':selected.d.publishedAt?'Dated official notice':'Official deadline without source publication date'};
  }
  if(q.intent==='cutoff'){
+  if(q.course)return uncertain('A university-wide minimum score does not establish the cutoff for your requested course. Check the course-specific official notice.');
   const values:{value:string;d:SourceDocument}[]=[];
   for(const d of applicable){if(d.kind==='homepage'||d.kind==='search')continue;for(const m of d.snippet.matchAll(/(?:minimum\s+(?:utme\s+|jamb\s+)?score(?:\s+of)?|cut.?off\s+mark(?:\s+of)?|minimum\s+(?:utme|jamb)(?:\s+score)?)\s*[:=-]?\s*(\d{3})\b|\b(\d{3})\+?\s+minimum\s+(?:utme|jamb)\s+score\b/gi)){const value=m[1]||m[2],n=Number(value);if(n>=100&&n<=400)values.push({value,d});}}
   if(new Set(values.map(v=>v.value)).size>1)return uncertain('Official minimum scores differ or depend on programme.',true,values.map(v=>v.d));
@@ -102,7 +104,7 @@ export function verifyAnswer(question:string,q:ResolvedQuestion,documents:Source
  }
  if(q.answerMode==='name')return uncertain('An exact name requires a reviewed knowledge fact.');
  const terms=question.toLowerCase().split(/[^a-z0-9]+/).filter(t=>t.length>3&&!['what','when','where','which','tell','about','please'].includes(t));
- const extracts=applicable.filter(d=>d.kind!=='homepage'&&d.kind!=='search').flatMap(d=>d.snippet.split(/(?<=[.!?])\s+/).filter(s=>s.length>=35&&s.length<=700&&terms.filter(t=>!/^20\d{2}$/.test(t)&&t!==q.institutionKey).some(t=>s.toLowerCase().includes(t))&&(q.intent!=='requirements'||/require|eligib|qualification|credit|subject|document/i.test(s))&&(!/direct entry|\bde\b/i.test(question)||/direct entry|\bDE\b/.test(s))).slice(0,3).map(text=>({text,d})));
+ const extracts=applicable.filter(d=>d.kind!=='homepage'&&d.kind!=='search').flatMap(d=>d.snippet.split(/(?<=[.!?])\s+/).filter(s=>answersRequestedTopic(question,s)&&s.length>=35&&s.length<=700&&terms.filter(t=>!/^20\d{2}$/.test(t)&&t!==q.institutionKey).some(t=>s.toLowerCase().includes(t))&&(q.intent!=='requirements'||/require|eligib|qualification|credit|subject|document/i.test(s))&&(!/direct entry|\bde\b/i.test(question)||/direct entry|\bDE\b/.test(s))).slice(0,3).map(text=>({text,d})));
  if(!extracts.length)return uncertain('Retrieved pages do not state the answer clearly enough.',false,applicable.slice(0,3));
  // Extractive evidence is grounded, but not an assertion that a complete checklist is verified.
  return {answer:'The official source states: '+extracts.slice(0,3).map(x=>x.text).join(' '),confidence:'medium',needsHuman:q.intent==='requirements',contradiction:false,citations:[...new Map(extracts.map(x=>[x.d.url,x.d])).values()].slice(0,3),reason:'Direct relevant official excerpts; completeness needs review'};
