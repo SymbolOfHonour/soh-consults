@@ -115,3 +115,24 @@ test('publisher names have safe defaults, bounded Unicode text and escaped publi
  for(const invalid of [undefined,null,42,{},['Name'],'   '])assert.equal(articlePublisherName(invalid),'S.O.H CONSULTS');assert.equal(normalisePublisherName('  Ada  Sunday\n '),'Ada Sunday');assert.equal(Array.from(normalisePublisherName('𝗔'.repeat(121))).length,120);assert.ok(articleAuthor('', 'https://example.test')['@id'].endsWith('/#organization'));
  const Publisher=load('app/updates/[id]/ArticlePublisher.tsx').default;const name='<img src=x onerror=alert(1)>';const stream=await renderToReadableStream(React.createElement(Publisher,{name}));await stream.allReady;const doc=new JSDOM(await new Response(stream).text()).window.document;assert.equal(doc.querySelector('img'),null);assert.equal(doc.querySelector('h2').textContent,name);
 });
+
+test('Ask S.O.H brand services and contact questions reach the API instead of canned consultation',async()=>{
+ await mount(React.createElement(Ask));await click(button('Open Ask S.O.H admission assistant'));
+ await ask('What services does S.O.H CONSULTS offer?');assert.equal(requests.length,1);assert.match(container.textContent,/Post-UTME and Direct Entry registrations/);
+ await ask('How can I contact S.O.H CONSULTS?');assert.equal(requests.length,2);assert.ok(container.querySelector('a[href="mailto:support@sohconsults.com.ng"]')||container.textContent.includes('support@sohconsults.com.ng'));
+});
+test('Ask S.O.H sends session-only and Direct Entry follow-ups with subject context',async()=>{
+ const transport=global.fetch;const bodies=[];
+ global.fetch=async(url,options)=>{assert.equal(url,'/api/ask-soh/search');bodies.push(JSON.parse(options.body));return Response.json({query:bodies.at(-1).question,answer:'Please clarify the admission details.',results:[],confidence:'low'});};
+ try{
+  await mount(React.createElement(Ask));await click(button('Open Ask S.O.H admission assistant'));
+  await ask('What are FUOYE Post-UTME requirements for 2026/2027?');
+  await ask('And Direct Entry?');assert.equal(bodies.length,2);assert.match(bodies[1].context,/FUOYE.*2026\/2027/);assert.ok(bodies[1].history.length>0);
+  await click(button('Restart Ask S.O.H'));
+  await ask('What is LASU cutoff?');await ask('2026/2027');assert.equal(bodies.length,4);assert.equal(bodies[3].context,'What is LASU cutoff?');
+ }finally{global.fetch=transport;}
+});
+test('Ask S.O.H routes admission acceptance procedures to evidence checking',async()=>{
+ const transport=global.fetch;const bodies=[];global.fetch=async(url,options)=>{assert.equal(url,'/api/ask-soh/search');bodies.push(JSON.parse(options.body));return Response.json({query:bodies.at(-1).question,answer:'I could not verify the current procedure. Check the official JAMB portal.',results:[],confidence:'low',needsHuman:true});};
+ try{await mount(React.createElement(Ask));await click(button('Open Ask S.O.H admission assistant'));await ask('How do I accept admission on JAMB CAPS?');assert.equal(bodies.length,1);assert.match(container.textContent,/could not verify the current procedure/);}finally{global.fetch=transport;}
+});

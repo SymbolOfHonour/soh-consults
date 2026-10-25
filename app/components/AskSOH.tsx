@@ -223,6 +223,7 @@ const institutionCalculators: Array<[RegExp, string, string]> = [
 
 function classifyQuestion(question: string): { topic?: string; link?: string; shouldSearch?: boolean } {
   const q = question.toLowerCase();
+  if (/s\.?\s*o\.?\s*h\.?\s+consults/i.test(question) && /services|contact|reach|whatsapp|email|phone|what.{0,20}(?:offer|do|help)/i.test(question)) return { shouldSearch: true };
   const calculatorRequest = /(calculator|aggregate|screening score|calculate)/i.test(question);
   if (calculatorRequest) {
     const institution = institutionCalculators.find(([pattern]) => pattern.test(question));
@@ -235,10 +236,11 @@ function classifyQuestion(question: string): { topic?: string; link?: string; sh
     return { topic: "complex" };
   }
 
-  if (/(accept.*admission|how.*accept.*caps)/.test(q)) return { topic: "accept-admission" };
+  if (/(accept.*admission|how.*accept.*caps)/.test(q)) return { shouldSearch: true };
   if (/(change of course|change course|change of institution|change institution)/.test(q)) return { topic: "change-course" };
   if (/(school admission.*jamb|jamb admission.*school|school portal.*caps|caps.*school portal)/.test(q)) return { topic: "school-vs-jamb" };
   if (/(o.?level|waec|neco).*(upload|jamb|caps)|upload.*(result|waec|neco)/.test(q)) return { topic: "olevel" };
+  if (/(direct entry|\bde\b)/.test(q) && /requirement|eligib|documents?/i.test(q)) return { shouldSearch: true };
   if (/(direct entry|\bde\b)/.test(q) && !/(deadline|closing|form|screening|when|date|latest|current|2026)/.test(q)) return { topic: "de" };
   if (/(proposed)/.test(q)) return { topic: "caps-proposed" };
   if (/(recommended)/.test(q)) return { topic: "caps-recommended" };
@@ -444,7 +446,7 @@ export default function AskSOH() {
     const previousUser = recentUserMessages.at(-1);
     const namedInstitution = institutionCalculators.some(([pattern]) => pattern.test(question));
     const explicitSubject = /\b(lasu|fuoye|lasustech|uniosun|oou|lasued|yabatech|fuadsi|futa|oau|jamb|waec|neco|nysc)\b/i.test(question);
-    const followUpCue = /^(what if|what about|how about|and what|and how|what of|how much|when does|when is|is it|are they|does it|do they|what documents|what requirements|what score|what next|where can|where do|can i|do i need)\b/i.test(question.trim());
+    const followUpCue = /^(20\d{2}\s*[/_-]\s*20\d{2}|and direct entry|and de|what if|what about|how about|and what|and how|what of|how much|when does|when is|is it|are they|does it|do they|what documents|what requirements|what score|what next|where can|where do|can i|do i need)\b/i.test(question.trim());
     const pronounFollowUp = question.split(/\s+/).length <= 7 && /\b(it|that|this|they|them|there|its|their)\b/i.test(question);
     const isFollowUp = !explicitSubject && !namedInstitution && Boolean(previousUser) && (followUpCue || pronounFollowUp);
     const subjectContext = isFollowUp ? findFollowUpSubject(recentUserMessages) : "";
@@ -463,7 +465,7 @@ export default function AskSOH() {
         :"Welcome! What admission, education or S.O.H CONSULTS question can I help you with?"});
       return;
     }
-    const match = classifyQuestion(question);
+    const match = isFollowUp ? { shouldSearch: true } : classifyQuestion(question);
 
     window.setTimeout(() => {
       if (match.link) {

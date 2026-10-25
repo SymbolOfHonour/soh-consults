@@ -1,3 +1,5 @@
+import { institutionClarification, officialPortalAnswer } from '../../../../lib/ask-soh/direct-answer';
+import { businessOverviewAnswer } from '../../../../lib/ask-soh/business-answer';
 import { NextRequest, NextResponse } from "next/server";
 import { checkRateLimit } from "../../../../lib/rate-limit";
 import { contentCatalogue } from "../../../../lib/content-catalogue";
@@ -93,6 +95,10 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const resolvedQuestion=context && !safeQuestion.toLowerCase().includes(context.toLowerCase()) ? `${safeQuestion}. Context subject: ${context}`.slice(0,360) : safeQuestion;
   const startedAt=Date.now();
   const resolved=resolveQuestion(safeQuestion,context);
+  const overview=businessOverviewAnswer(safeQuestion);
+  if(overview)return NextResponse.json({query:safeQuestion,results:[{title:"S.O.H CONSULTS services and contact",url:"https://sohconsults.com.ng",snippet:overview,official:false,internal:true}],answer:overview,confidence:"high",needsHuman:false,sourceType:"internal",currentSensitive:false});
+  const clarification=!resolved.institutionKey?institutionClarification(safeQuestion):null;
+  if(clarification)return NextResponse.json({query:safeQuestion,results:[],answer:clarification,confidence:"low",needsHuman:false,needsClarification:true,sourceType:"none",currentSensitive:resolved.currentSensitive});
   const tokenNeed=/\b(token|scratch.?card|e.?pin)\b/i.test(safeQuestion)&&/\b(don.t have|do not have|no|need|buy|purchase|get|obtain|where|without)\b/i.test(safeQuestion);
   if(tokenNeed){
     const service=businessServiceAnswer(safeQuestion,context||"");
@@ -101,14 +107,25 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   const resultGuidance=examinationResultGuidance(safeQuestion,context||"");
   if(resultGuidance){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"hybrid_service",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:resultGuidance.exam+" official result checker",url:resultGuidance.exam==="WAEC"?"https://www.waecdirect.org/Default.aspx":"https://results.neco.gov.ng/",snippet:"Official examination result-checking portal",official:true,internal:false}],answer:resultGuidance.answer,confidence:"high",needsHuman:false,serviceLead:true,serviceName:resultGuidance.exam+" result checking and scratch cards",sourceType:"hybrid_service",currentSensitive:false});}
   const statusQuestion=resolved.intent==="status"||/\b(still open|ongoing|closed|closing date|deadline|when.{0,15}close|has.{0,15}started)\b/i.test(safeQuestion);
-  const serviceAnswer=statusQuestion?null:businessServiceAnswer(safeQuestion,context||"");
+  const serviceAnswer=statusQuestion||resolved.intent==="requirements"?null:businessServiceAnswer(safeQuestion,context||"");
   if(serviceAnswer){void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"internal",latencyMs:Date.now()-startedAt});return NextResponse.json({query:safeQuestion,results:[{title:"S.O.H CONSULTS services",url:"https://sohconsults.com.ng",snippet:serviceAnswer.service,official:false,internal:true}],answer:serviceAnswer.answer,confidence:"high",needsHuman:false,serviceLead:true,serviceName:serviceAnswer.service,sourceType:"internal",currentSensitive:false});}
 
   const institution=await getInstitution(resolved.institutionKey);
-  const [facts,internalResults,discovery]=await Promise.all([
-    findVerifiedFacts(resolved,safeQuestion).catch(()=>[]),
+  const portal=officialPortalAnswer(safeQuestion,institution);
+  if(portal)return NextResponse.json({query:safeQuestion,results:[{title:institution!.name+" official admission screening portal",url:portal.url,snippet:"Registered official portal; application status unverified",official:true,internal:false}],answer:portal.answer,confidence:"high",needsHuman:false,sourceType:"official_directory",currentSensitive:false});
+  const facts=await findVerifiedFacts(resolved,safeQuestion).catch(()=>[]);
+  const reviewed=facts[0];
+  const reviewedConflict=!!reviewed&&facts.some(f=>f.topic===reviewed.topic&&f.value_text.trim()!==reviewed.value_text.trim());
+  // Reviewed non-deadline facts already passed source, session and expiry checks.
+  // Keep live discovery for cutoffs, status and deadlines that can be superseded.
+  if(reviewed&&!reviewedConflict&&(!resolved.currentSensitive||resolved.intent==="requirements"||resolved.answerMode==="name")){
+    const answer=formatAnswer(resolved.answerMode,reviewed.value_text,reviewed.answer_text);
+    void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:"high",answered:true,sourceType:"verified_knowledge",latencyMs:Date.now()-startedAt});
+    return NextResponse.json({query:safeQuestion,results:[{title:reviewed.source_name,url:reviewed.source_url,snippet:reviewed.evidence_text,official:true,internal:true}],answer,confidence:resolved.intent==="requirements"?"medium":"high",needsHuman:false,verifiedFact:true,sourceType:"verified_knowledge",verifiedAt:reviewed.verified_at,academicSession:reviewed.academic_session,knowledgeMatches:facts.length});
+  }
+  const [internalResults,discovery]=await Promise.all([
     searchSOH(resolvedQuestion),
-    institution?discoverOfficialSources(institution,safeQuestion,resolved.academicSession):Promise.resolve({documents:[],gaps:[],cacheHit:false})
+    institution?discoverOfficialSources(institution,resolvedQuestion,resolved.academicSession):Promise.resolve({documents:[],gaps:[],cacheHit:false})
   ]);
   const semanticMatches=!facts.length&&!resolved.currentSensitive?await semanticKnowledgeSearch(safeQuestion,resolved).catch(()=>[]):[];
   const knowledgeFacts=facts.length?facts:semanticMatches;
@@ -135,7 +152,8 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
   if(knowledgeConflict){decision={...decision,answer:"The verified knowledge registry contains conflicting facts for this topic. Please contact S.O.H CONSULTS for confirmation.",confidence:"low",needsHuman:true,contradiction:true,reason:"Conflicting registry facts"};}
   // Never ask a model to convert a failed verification into a confident answer.
   const generated=decision.confidence!=="low"&&!decision.needsHuman&&!decision.contradiction&&resolved.intent==="general"?await generateGroundedAnswer(safeQuestion,history,decision.citations,decision.answer,resolved.currentSensitive):null;
-  const results=[...decision.citations,...documents,...internalResults].filter((d,i,all)=>all.findIndex(x=>x.url===d.url)===i).slice(0,7);
+  if(decision.needsHuman&&institution&&resolved.intent==="general"&&/how.*accept.*(?:admission|caps)/i.test(safeQuestion))decision={...decision,answer:"I could not verify the current step-by-step admission acceptance procedure. Check your actual offer in JAMB's official e-Facility portal, then follow the instructions shown there. If acceptance is unavailable, contact official JAMB support: https://support.jamb.gov.ng/. I will not guess an SMS format or acceptance deadline.",citations:[{title:"JAMB official e-Facility",url:"https://efacility.jamb.gov.ng/",snippet:"Official candidate portal; current acceptance instructions must be checked after sign-in",official:true}]};
+  const results=(decision.citations.length?decision.citations:documents.filter(d=>d.official&&d.verified)).filter((d,i,all)=>all.findIndex(x=>x.url===d.url)===i).slice(0,7);
   const sourceType=decision.citations.length?"official_live":internalResults.length?"internal":"none";
   void recordQuestion({question:safeQuestion,institutionKey:resolved.institutionKey,intent:resolved.intent,confidence:decision.confidence,answered:!decision.needsHuman,sourceType,latencyMs:Date.now()-startedAt});
   return NextResponse.json({query:safeQuestion,results,answer:generated||decision.answer,confidence:decision.confidence,needsHuman:decision.needsHuman,contradiction:decision.contradiction,generative:Boolean(generated),sourceType,intent:resolved.intent,answerMode:resolved.answerMode,currentSensitive:resolved.currentSensitive,searchedAt:new Date().toISOString(),verificationReason:decision.reason,coverageGaps:[...discovery.gaps,...provider.gaps],discoveryCacheHit:discovery.cacheHit,knowledgeMatches:knowledgeFacts.length});
@@ -143,8 +161,8 @@ async function handleSearch(request:NextRequest,body?:{question?:string;context?
 
 export async function GET(request:NextRequest){return handleSearch(request);}
 export async function POST(request:NextRequest){
-  try{
-    const body=await request.json() as {question?:string;context?:string;history?:ChatTurn[]};
-    return await handleSearch(request,body);
-  }catch{return NextResponse.json({error:"Invalid request.",results:[]},{status:400});}
+  let body:{question?:string;context?:string;history?:ChatTurn[]};
+  try{body=await request.json();}catch{return NextResponse.json({error:"Invalid request.",results:[]},{status:400});}
+  if(!body||typeof body!=="object"||Array.isArray(body))return NextResponse.json({error:"Invalid request.",results:[]},{status:400});
+  try{return await handleSearch(request,body);}catch{return NextResponse.json({error:"Ask S.O.H is temporarily unavailable. Please try again shortly.",results:[]},{status:503});}
 }

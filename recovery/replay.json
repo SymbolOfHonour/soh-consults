@@ -1,0 +1,1033 @@
+{
+  "method": "Controlled replay of captured API documents and production registry snapshot through modified actual route; no new live source fetches, model calls, or database writes. Captured API results are a subset of full retrieval. Not preview/production QA.",
+  "rows": [
+    {
+      "id": "services",
+      "question": "What services does S.O.H CONSULTS offer?",
+      "status": 200,
+      "actual": {
+        "query": "What services does S.O.H CONSULTS offer?",
+        "results": [
+          {
+            "title": "S.O.H CONSULTS services and contact",
+            "url": "https://sohconsults.com.ng",
+            "snippet": "S.O.H CONSULTS assists with admission guidance, Post-UTME and Direct Entry registrations, O'Level uploads on JAMB, JAMB document printing, examination result-checking cards and tokens, and WAEC certificate guidance. Contact us on WhatsApp for requirements and current fees: https://wa.me/2348182141088.",
+            "official": false,
+            "internal": true
+          }
+        ],
+        "answer": "S.O.H CONSULTS assists with admission guidance, Post-UTME and Direct Entry registrations, O'Level uploads on JAMB, JAMB document printing, examination result-checking cards and tokens, and WAEC certificate guidance. Contact us on WhatsApp for requirements and current fees: https://wa.me/2348182141088.",
+        "confidence": "high",
+        "needsHuman": false,
+        "sourceType": "internal",
+        "currentSensitive": false
+      }
+    },
+    {
+      "id": "contact",
+      "question": "How can I contact S.O.H CONSULTS?",
+      "status": 200,
+      "actual": {
+        "query": "How can I contact S.O.H CONSULTS?",
+        "results": [
+          {
+            "title": "S.O.H CONSULTS services and contact",
+            "url": "https://sohconsults.com.ng",
+            "snippet": "Contact S.O.H CONSULTS on WhatsApp: https://wa.me/2348182141088, phone: 0818 214 1088, or email: support@sohconsults.com.ng.",
+            "official": false,
+            "internal": true
+          }
+        ],
+        "answer": "Contact S.O.H CONSULTS on WhatsApp: https://wa.me/2348182141088, phone: 0818 214 1088, or email: support@sohconsults.com.ng.",
+        "confidence": "high",
+        "needsHuman": false,
+        "sourceType": "internal",
+        "currentSensitive": false
+      }
+    },
+    {
+      "id": "caps",
+      "question": "What does JAMB CAPS mean?",
+      "status": 200,
+      "actual": {
+        "query": "What does JAMB CAPS mean?",
+        "results": [
+          {
+            "title": "JAMB Official Website",
+            "url": "https://www.jamb.gov.ng/",
+            "snippet": "CAPS is listed by JAMB among its admission services.",
+            "official": true,
+            "internal": true
+          }
+        ],
+        "answer": "CAPS means Central Admissions Processing System. JAMB uses CAPS for tertiary admission processing and candidate admission status.",
+        "confidence": "high",
+        "needsHuman": false,
+        "verifiedFact": true,
+        "sourceType": "verified_knowledge",
+        "verifiedAt": "2026-10-07 22:36:34.697844+00",
+        "academicSession": null,
+        "knowledgeMatches": 1
+      }
+    },
+    {
+      "id": "accept",
+      "question": "How do I accept admission on JAMB CAPS?",
+      "status": 200,
+      "actual": {
+        "query": "How do I accept admission on JAMB CAPS?",
+        "results": [
+          {
+            "title": "JAMB official e-Facility",
+            "url": "https://efacility.jamb.gov.ng/",
+            "snippet": "Official candidate portal; current acceptance instructions must be checked after sign-in",
+            "official": true
+          }
+        ],
+        "answer": "I could not verify the current step-by-step admission acceptance procedure. Check your actual offer in JAMB's official e-Facility portal, then follow the instructions shown there. If acceptance is unavailable, contact official JAMB support: https://support.jamb.gov.ng/. I will not guess an SMS format or acceptance deadline.",
+        "confidence": "low",
+        "needsHuman": true,
+        "contradiction": false,
+        "generative": false,
+        "sourceType": "official_live",
+        "intent": "general",
+        "answerMode": "short",
+        "currentSensitive": false,
+        "searchedAt": "2026-10-25T15:16:15.241Z",
+        "verificationReason": "No fresh, session-specific evidence was available.",
+        "coverageGaps": [],
+        "discoveryCacheHit": false,
+        "knowledgeMatches": 0
+      }
+    },
+    {
+      "id": "cutoff",
+      "question": "What is LASU minimum UTME score for 2026/2027?",
+      "status": 200,
+      "actual": {
+        "query": "What is LASU minimum UTME score for 2026/2027?",
+        "results": [
+          {
+            "title": "LASU Admission Screening Portal admission cutoff 2026/2027",
+            "url": "https://services.lidc.lasu.edu.ng/admissionscreening/",
+            "snippet": "195+ Minimum UTME Score",
+            "official": true,
+            "verified": true,
+            "kind": "article",
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:45:21.874Z",
+            "adapter": "verified-registry"
+          }
+        ],
+        "answer": "195",
+        "confidence": "high",
+        "needsHuman": false,
+        "contradiction": false,
+        "generative": false,
+        "sourceType": "official_live",
+        "intent": "cutoff",
+        "answerMode": "numeric",
+        "currentSensitive": true,
+        "searchedAt": "2026-10-25T15:16:15.254Z",
+        "verificationReason": "Explicit session-bound official minimum score",
+        "coverageGaps": [
+          {
+            "adapter": "wordpress",
+            "url": "https://lasu.edu.ng/wp-json/wp/v2/posts?search=post-utme&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://www.lasu.edu.ng/wp-json/wp/v2/posts?search=post-utme&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://www.lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "html",
+            "url": "https://lidc.lasu.edu.ng/",
+            "reason": "fetch failed"
+          }
+        ],
+        "discoveryCacheHit": false,
+        "knowledgeMatches": 1
+      }
+    },
+    {
+      "id": "session",
+      "question": "What is LASU cut off mark?",
+      "status": 200,
+      "actual": {
+        "query": "What is LASU cut off mark?",
+        "results": [
+          {
+            "title": "LASU News - LASU Opens State-Of-The-Art ACEITSE Tier-Three Data Centre to Advance Digital Transformation",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=647",
+            "snippet": "LASU Opens State-Of-The-Art ACEITSE Tier-Three Data Centre to Advance Digital Transformation 22 Jun 2026, 12:16pm 276 Views The Lagos State University, on Thursday, 18th June 2026, officially opened the LASU-ACEITSE Tier-Three Data Centre, a landmark project aimed at strengthening the University's digital infrastructure and advancing its digital transformation agenda. In his welcome address, the Director of Africa Centre of Excellence for Innovative and Transformative (STEM) Education (LASU-ACEITSE), Professor Rasheed SANNI, emphasised the importance of the facility in enhancing the University's capacity for data management, research, digital learning, and information security. The Vice-Chancellor, Distinguished Professor Ibiyemi Ibilola OLATUNJI-BELLO, mni, NPOM, described the project as a significant milestone in Lagos State University's pursuit of excellence and innovation. Distinguished Professor OLATUNJI-BELLO, commended all stakeholders involved in the delivery of the project and reaffirmed the University's commitment to leveraging technology to improve teaching, learning, research, and administrative efficiency. The Vice-Chancellor thereafter performed the ceremonial cutting of the tape and officially declared the facility open, after which members of the University Management inspected the Data Centre. Also speaking at the event, the Deputy Vice-Chancellor (Administration) and Director of the Directorate of Information, Communication and Technology (DICT), Professor Oluwatoyin ENIKUOMEHIN, noted that the facility would enhance the University's information technology infrastructure, strengthen data security, and support the delivery of technology-driven services across the institution. The event concluded with a vote of thanks by the Senior Deputy Registrar, Africa Centre of Excellence for Innovative and Transformative (STEM) Education, Mr Michael TADOPEDE, who expressed appreciation to the University Management, project partners, stakeholders, and guests for their contributions to the successful completion and opening of the facility. Tag: ACEITSE Data Centre Advance Digital Transformation Share on: Share",
+            "official": true,
+            "publishedAt": "2026-06-22T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:45:30.871Z",
+            "session": null,
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU | Graduating Students'Bio-Data Form",
+            "url": "https://lasu.edu.ng/graduates_certificates/index.php",
+            "snippet": "LASU | Graduating Students'Bio-Data Form Lagos State University Javascript is currently disabled on your browser. We strongly recommend that you enable Javascript for best performance. Graduates' Bio-Data Form Matriculation Number Programme Category -- Select programme category -- Full-Time Undergraduate External System Sandwich Diploma PostGraduate Others Surname / Last name Firstname Middlename Upload Passport Maximum of 20 KB and JPEG file only S U B M I T >> &copy;2016 - 2026 DICT All Rights Reserved",
+            "official": true,
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:45:30.815Z",
+            "session": "2016/2026",
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "Lagos State University - Vice Chancellor",
+            "url": "https://lasu.edu.ng/home/officer/?id=vc",
+            "snippet": "Lagos State University - Vice Chancellor Vice Chancellor Home Vice Chancellor Administration Vice Chancellor Prof. Ayodeji Olawunmi BADEJO, FCASSON, FAPROCON, MNAE Prof. Ayodeji Olawunmi BADEJO, FCASSON, FAPROCON, MNAE Vice Chancellor The Vice-Chancellor is the executive head of the University. The Vice-Chancellor has overall responsibility for the policy and administration of the Lagos State University in line with Section 10(1) of the Lagos State University Law, 2004 which states that the Vice-Chancellor shall exercise the general supervision of the University, in addition to any other functions conferred on him by this Law or otherwise, of directing the activities of the University, and shall to the exclusion of any other person or authority be the Chief Executive and Principal Academic Officer of the University and Ex-Officio Chairman of the Senate. Professor Ayodeji Olawunmi BADEJO, a Professor of Counselling Psychology, was born on 4th August 1962. She has over three decades of sustained academic scholarship, teaching, research, institutional leadership, mentorship and pedagogical innovation. She has built an accomplished career spanning academic teaching, research, administration, professional service and student development. Professor BADEJO obtained her NCE in 1983, followed by a Bachelor of Education (B.Ed.) degree in 1986, a Master of Education (M.Ed.) degree in 1988 and a PhD in Guidance and Counselling in 1998. Her academic career has been marked by a steady progression through the lecturer cadre to the rank of Professor, with significant contributions to Counselling Psychology and higher education. At Lagos State University, Professor BADEJO has served in several strategic academic and administrative capacities at departmental, faculty and university-wide levels. Her leadership responsibilities have included membership of the Lagos State University Governing Council, Chairmanship of the Senate Curriculum Committee, and other key university assignments. As Chairman of the Senate Curriculum Committee, Professor BADEJO contributed significantly to curriculum development and validation, academic planning and the alignment of the University's academic programmes with the requirements of the National Universities Commission (NUC). She also facilitated the development and introduction of new academic programmes. As Dean of the Faculty of Education, she provided academic and administrative leadership that contributed to the advancement of the Faculty. During her tenure, approximately 20 academic staff were promoted to the professorial cadre, while all programmes in the Faculty secured full NUC accreditation. Professor BADEJO has also demonstrated considerable capacity in institutional management, financial stewardship and resource mobilisation. As Chairman of the Lagos State University International School Board, she led initiatives that strengthened the School's financial and operational position. Under her leadership, the School's capital reserves increased from approximately ₦88,000 to ₦121million, while structural financial deficits were eliminated. Her tenure also witnessed significant growth in staff strength and student enrolment, alongside sustained exceptional performance in public examinations. A major hallmark of Professor BADEJO'S academic career is her commitment to doctoral education and mentorship. Between 2012 and 2026, she successfully supervised 23 PhD graduates, earning recognition as a “Mentor of Mentors.” Her supervision record includes a recipient of the 2024 Best PhD Thesis Award, further demonstrating the quality and impact of her doctoral mentorship. Professor BADEJO is a prolific scholar with a substantial body of academic work. She has authored four books, contributed 17 book chapters and published over 60 peer-reviewed journal articles, bringing her total scholarly output to more than 80 major publications. Her research and scholarly engagements have extended beyond Nigeria, with visibility across international academic platforms. Her contributions also extend beyond conventional academic scholarship to innovation and social impact. Among her notable creative contributions is the development of a patented Youth Anthem associated with Lagos State University, reflecting her commitment to youth development and initiatives that connect academic expertise with broader societal needs. Professor BADEJO has further distinguished herself in research ethics and governance. As Chairman of the Lagos State University Research Ethics Committee, she has provided leadership in the ethical review of research protocols and in strengthening the capacity of committee members through professional training and collaboration with relevant national and professional bodies. Her professional service extends beyond Lagos State University. She has held leadership responsibilities within professional counselling organisations and contributed to the advancement of the counselling profession in Nigeria. She is a Fellow of the Counselling Association of Nigeria (CASSON) and a Fellow of the Association of Professional Counsellors in Nigeria (APROCON). She is also a member of professional and scholarly organisations, including the American Psychological Association and the Nigerian Academy of Education. Professor BADEJO'S accomplishments have earned her several national and international recognitions. Among these is the Key to the City of Niagara Falls, New York, conferred in recognition of her professional standing and contributions. She received professional fellowship recognition from CASSON in 2015 and APROCON in 2022. In 2025, she was honoured in Pretoria, South Africa, with a Distinguished Personality Award for excellence in higher education in Africa. Professor Ayodeji Olawunmi BADEJO therefore brings to the office of Vice-Chancellor a distinguished record of academic excellence, research productivity, institutional leadership, curriculum development, financial stewardship, ethical governance, innovation and mentorship. Her more than three decades of service demonstrate a sustained commitment to strengthening educational institutions, advancing scholarship, promoting student development and nurturing the next generation of academics and professionals. With her extensive academic experience, institutional knowledge, administrative competence and record of service, Professor BADEJO was appointed the 10th Substantive Vice-Chancellor of the Lagos State University on Monday, 21th Sep, 2026 succeeding Prof. Ibiyemi Olatunji-Bello whose five-year tenure ended on September 19, 2026. Administration The Visitor Chancellor Governing Council The Vice Chancellor Other Principal Officers Deputy VC (Academic) Deputy VC (Administration) Registrar Bursar Librarian Further information &times; Close Launch Modal Login Form SUBSCRIBE TO OUR NEWSLETTER SUBSCRIBE VISITORS COUNTER Today 138,483 25 Oct 2026 Total 157,521,575 Since 18 Nov 2021 Established in 1983 by the enabling law of Lagos State with the vision of pursuing the advancement of learning and academic excellence. The university has been unrelenting in the pursuit of its mission of becoming a citadel of learning, a community with the trademark of excellence in teaching, research and service to humanity. Quicklinks About us Check Result News Events Payment People [A -Z] Research Publications Academic Staff Profile Non-Academic Staff Profile Postgraduate Students Undergraduate Students School CESSED ACEITSE College of Medicine Open & Distance Learning Skills Development & Entrepreneurship Academic Calendar Support FAQs Contact us Mail Support GET IN TOUCH Lagos State University, Ojo (Main campus), Lagos State, Nigeria. Enquiry - 08151044243, 08159109065 Security Unit - 08037161006, 08022913854 mailsupport@lasu.edu.ng LASU on Map (Geolocation) SITE MAP Site Map & Structure",
+            "official": true,
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:45:30.846Z",
+            "session": null,
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU — 2026/2027 Admission Screening",
+            "url": "https://services.lidc.lasu.edu.ng/admissionscreening/",
+            "snippet": "LASU — 2026/2027 Admission Screening Javascript is disabled in your browser. Please enable it for the best experience on this portal. mailsupport@lasu.edu.ng | screeningsupport@lasu.edu.ng 2026/2027 Admission Exercise | Helpline: 0800-LASU-HELP 2026/2027 Academic Session LASU Admission Screening Portal Welcome to the official Lagos State University online admission screening platform. Begin your journey toward a world-class education right here. Start Screening View Requirements 195+ Minimum UTME Score 3 Candidate Categories 100+ Programmes Available Online 24/7 Access Important: All candidates must upload O-Level results at a JAMB-accredited CBT centre and ensure LASU is your first choice on JAMB CAPS before proceeding. View entrepreneurship certificate courses &rarr; Choose Your Category Select Your Candidate Type Each candidate type has specific eligibility criteria. Select yours below to proceed to the login portal. UTME Candidates 100 Level Entry For candidates seeking admission via the Unified Tertiary Matriculation Examination into any full-time undergraduate programme at LASU. Minimum score of 195 in the 2026 UTME LASU must be your first-choice institution O-Level result uploaded to JAMB CAPS Valid JAMB registration number required UTME Candidate Login Direct Entry 200 / 300 Level Entry For candidates with OND, NCE, HND, A-Level, or equivalent qualifications seeking direct entry admission into LASU programmes. Valid JAMB Direct Entry registration LASU must be your first-choice institution Submit hard copies of credentials to Admissions Office Relevant post-secondary qualifications Direct Entry Login LASU JUPEB 2025/2026 Participants Exclusively for candidates who participated in the 2025/2026 Lagos State University JUPEB Programme and have chosen LASU as their first-choice university. Participated in 2025/2026 LASU JUPEB LASU must be your first-choice institution Valid JUPEB result slip required JAMB registration number required JUPEB Candidate Login Simple Process How the Screening Works Six steps to complete your admission screening. Step 1 Choose LASU First Set Lagos State University as your first-choice on JAMB. Step 2 Verify Eligibility Confirm you meet the minimum requirements for your category. Step 3 Login Log in with your JAMB number and surname . Step 4 Make Payment Pay via the dedicated payment link on the portal. Step 5 Start Screening Return to the portal, click Start Screening , enter your transaction ID, then supply your personal, O-Level and JAMB details. Step 6 Check Result Log in after processing to view your screening outcome. Before You Proceed — Important Notice Candidates are required to ensure that Lagos State University (LASU) is selected as their first-choice institution on JAMB before attempting this screening. Applications from candidates who have not chosen LASU as their first choice will not be processed . If you have already sat for JAMB and LASU is not currently your first choice, please visit any JAMB-accredited CBT centre to effect a change of institution before proceeding with this screening. All complaints and enquiries should be directed to mailsupport@lasu.edu.ng or screeningsupport@lasu.edu.ng . Helpful Links Resources & Tools Everything you need to support your admission screening process. Admission Requirements View course-specific O-Level requirements for all programmes offered at LASU. View Requirements IIVC Re-Validation Already cleared by the Indigeneship Verification Committee in 2024 or 2025? Re-validate here. Re-Validate Now Entrepreneurship Courses View the full list of 79 entrepreneurship certificate courses available in the special programme. View Course List Candidate Login Already know your category? Proceed directly to the screening login portal. Go to Login Entrepreneurial Certificate Courses B.A./B.Sc. Special Programme — 79 Courses Access Control Installation and Management Animal Husbandry (Snail breeding, Grass Cutter breeding) Awards, Packaging and Screen Printing Bead making Block making industry (Vibrated or engine molds / Hand molds) Build, Installation and Repair of Inverter / Solar Panel Building Drawing Building Applications in PHP Cake Baking, Snacks, Sugar Craft (Free Hand Modelling) CCTV Camera Installation and Management Certificate in Aquatic food processing Certificate in Aquatic Product Business Certificate in Artisanal Fisheries Operation and Management Certificate in Brood-stock development and Management Certificate in Environmental management in fisheries and aquaculture Certificate in Fish Farm Cluster and Terminal Management Certificate in Fish farm clusters and fish Certificate in Fish farming business Certificate in Fish feed manufacturing Certificate in Fish Fingerling Production, Marketing and Distribution Certificate in Fish health management Certificate in Fisheries and Aquaculture Value Chain Certificate in Industrial Fisheries Operation and Management Certificate in Local and International fish business Certificate in Ornamental fish business Certificate in Public-Private Partnership in Fisheries and Aquaculture (PPP) Certificate in Shrimp and Prawn farming business Certificate in Water quality analysis and management Certification of Trade Apprentice Coconut value chain Computer & Laptop repairs, Networking, Mobile Phone repairs and Maintenance Concrete Mixer Handling Courier and Logistics Management Crop Farming Data Analysis and Data Processing (Excel & SPSS) Database Management Essentials Data Recovery Specialist / Technician Decoders and Internet Marketing Digital Forensic Specialist / Technician Digital Marketing Distribution Channel & Logistics Management Drama and Entertainment Draughtmanship Entrepreneurship Training in Beekeeping Ethical Hacking and Cyber Security Specialist / Technician Event Management & Hall Decoration Event Planning and Management Fiber Optic Cable Installation and Management Food Processing and Cake Production Garment Construction, Pattern Drafting, Bridal Designs and Evening Wears Home Electronics (Domestic Appliances) Repairs and Management Hotel Management Import and Export Processing Entrepreneurship Interlocking / Paving Stones for Private and Commercial Premises Laptop / Desktop / Handset Repairs Leather Works Make-ups and Cosmetics Packaging and Marketing Entrepreneurship Photograph / Image Editing Photography POP (Plaster of Paris) for Buildings Construction Real Estate Entrepreneurship Security Operations and Management Server Technician (Installations and Management) Soap, Detergent and Toiletries Production Structured Cabling & Wireless Installation and Management Tailoring and Fashion Design Tourism Management Training and Teaching of Bread Making Training in Fibre-Reinforced Plastic Tanks Construction Training in Paint Making (Emulsion / Texture Coatings) and Allied Products Training on Borehole Drilling and Water Treatment Training on Solar Energy System, Design, Installation and Maintenance Vegetable Production (Maize farming, Cassava farming) Videography and Finishing School Water Treatment and Packaging Website Development Welding, Metal Works and Fabrication Writing and Publishing Close",
+            "official": true,
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:45:30.795Z",
+            "session": null,
+            "kind": "portal",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU — 2026/2027 Admission Screening",
+            "url": "https://services.lidc.lasu.edu.ng/admissionscreening/index.php",
+            "snippet": "LASU — 2026/2027 Admission Screening Javascript is disabled in your browser. Please enable it for the best experience on this portal. mailsupport@lasu.edu.ng | screeningsupport@lasu.edu.ng 2026/2027 Admission Exercise | Helpline: 0800-LASU-HELP 2026/2027 Academic Session LASU Admission Screening Portal Welcome to the official Lagos State University online admission screening platform. Begin your journey toward a world-class education right here. Start Screening View Requirements 195+ Minimum UTME Score 3 Candidate Categories 100+ Programmes Available Online 24/7 Access Important: All candidates must upload O-Level results at a JAMB-accredited CBT centre and ensure LASU is your first choice on JAMB CAPS before proceeding. View entrepreneurship certificate courses &rarr; Choose Your Category Select Your Candidate Type Each candidate type has specific eligibility criteria. Select yours below to proceed to the login portal. UTME Candidates 100 Level Entry For candidates seeking admission via the Unified Tertiary Matriculation Examination into any full-time undergraduate programme at LASU. Minimum score of 195 in the 2026 UTME LASU must be your first-choice institution O-Level result uploaded to JAMB CAPS Valid JAMB registration number required UTME Candidate Login Direct Entry 200 / 300 Level Entry For candidates with OND, NCE, HND, A-Level, or equivalent qualifications seeking direct entry admission into LASU programmes. Valid JAMB Direct Entry registration LASU must be your first-choice institution Submit hard copies of credentials to Admissions Office Relevant post-secondary qualifications Direct Entry Login LASU JUPEB 2025/2026 Participants Exclusively for candidates who participated in the 2025/2026 Lagos State University JUPEB Programme and have chosen LASU as their first-choice university. Participated in 2025/2026 LASU JUPEB LASU must be your first-choice institution Valid JUPEB result slip required JAMB registration number required JUPEB Candidate Login Simple Process How the Screening Works Six steps to complete your admission screening. Step 1 Choose LASU First Set Lagos State University as your first-choice on JAMB. Step 2 Verify Eligibility Confirm you meet the minimum requirements for your category. Step 3 Login Log in with your JAMB number and surname . Step 4 Make Payment Pay via the dedicated payment link on the portal. Step 5 Start Screening Return to the portal, click Start Screening , enter your transaction ID, then supply your personal, O-Level and JAMB details. Step 6 Check Result Log in after processing to view your screening outcome. Before You Proceed — Important Notice Candidates are required to ensure that Lagos State University (LASU) is selected as their first-choice institution on JAMB before attempting this screening. Applications from candidates who have not chosen LASU as their first choice will not be processed . If you have already sat for JAMB and LASU is not currently your first choice, please visit any JAMB-accredited CBT centre to effect a change of institution before proceeding with this screening. All complaints and enquiries should be directed to mailsupport@lasu.edu.ng or screeningsupport@lasu.edu.ng . Helpful Links Resources & Tools Everything you need to support your admission screening process. Admission Requirements View course-specific O-Level requirements for all programmes offered at LASU. View Requirements IIVC Re-Validation Already cleared by the Indigeneship Verification Committee in 2024 or 2025? Re-validate here. Re-Validate Now Entrepreneurship Courses View the full list of 79 entrepreneurship certificate courses available in the special programme. View Course List Candidate Login Already know your category? Proceed directly to the screening login portal. Go to Login Entrepreneurial Certificate Courses B.A./B.Sc. Special Programme — 79 Courses Access Control Installation and Management Animal Husbandry (Snail breeding, Grass Cutter breeding) Awards, Packaging and Screen Printing Bead making Block making industry (Vibrated or engine molds / Hand molds) Build, Installation and Repair of Inverter / Solar Panel Building Drawing Building Applications in PHP Cake Baking, Snacks, Sugar Craft (Free Hand Modelling) CCTV Camera Installation and Management Certificate in Aquatic food processing Certificate in Aquatic Product Business Certificate in Artisanal Fisheries Operation and Management Certificate in Brood-stock development and Management Certificate in Environmental management in fisheries and aquaculture Certificate in Fish Farm Cluster and Terminal Management Certificate in Fish farm clusters and fish Certificate in Fish farming business Certificate in Fish feed manufacturing Certificate in Fish Fingerling Production, Marketing and Distribution Certificate in Fish health management Certificate in Fisheries and Aquaculture Value Chain Certificate in Industrial Fisheries Operation and Management Certificate in Local and International fish business Certificate in Ornamental fish business Certificate in Public-Private Partnership in Fisheries and Aquaculture (PPP) Certificate in Shrimp and Prawn farming business Certificate in Water quality analysis and management Certification of Trade Apprentice Coconut value chain Computer & Laptop repairs, Networking, Mobile Phone repairs and Maintenance Concrete Mixer Handling Courier and Logistics Management Crop Farming Data Analysis and Data Processing (Excel & SPSS) Database Management Essentials Data Recovery Specialist / Technician Decoders and Internet Marketing Digital Forensic Specialist / Technician Digital Marketing Distribution Channel & Logistics Management Drama and Entertainment Draughtmanship Entrepreneurship Training in Beekeeping Ethical Hacking and Cyber Security Specialist / Technician Event Management & Hall Decoration Event Planning and Management Fiber Optic Cable Installation and Management Food Processing and Cake Production Garment Construction, Pattern Drafting, Bridal Designs and Evening Wears Home Electronics (Domestic Appliances) Repairs and Management Hotel Management Import and Export Processing Entrepreneurship Interlocking / Paving Stones for Private and Commercial Premises Laptop / Desktop / Handset Repairs Leather Works Make-ups and Cosmetics Packaging and Marketing Entrepreneurship Photograph / Image Editing Photography POP (Plaster of Paris) for Buildings Construction Real Estate Entrepreneurship Security Operations and Management Server Technician (Installations and Management) Soap, Detergent and Toiletries Production Structured Cabling & Wireless Installation and Management Tailoring and Fashion Design Tourism Management Training and Teaching of Bread Making Training in Fibre-Reinforced Plastic Tanks Construction Training in Paint Making (Emulsion / Texture Coatings) and Allied Products Training on Borehole Drilling and Water Treatment Training on Solar Energy System, Design, Installation and Maintenance Vegetable Production (Maize farming, Cassava farming) Videography and Finishing School Water Treatment and Packaging Website Development Welding, Metal Works and Fabrication Writing and Publishing Close",
+            "official": true,
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:45:31.106Z",
+            "session": null,
+            "kind": "portal",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU Course Requirements — JAMB Brochure",
+            "url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/",
+            "snippet": "LASU Course Requirements — JAMB Brochure JAMB Course Requirement UTME Lagos State University — Admissions Portal Course Requirements Checker O-Level & UTME subject requirements as listed in the JAMB Brochure Select a programme of study to view the required O-Level subjects and JAMB UTME combination for admission into LASU. Programme of Study — Select a course of study — Accounting Accounting Education Advertising Aerospace Engineering Agricultural Economics and Farm Management Agricultural Extension and Rural Development Animal Science Arabic Arabic Education Architecture Banking and Finance Biochemistry Biology Education Botany Broadcasting Building Business Administration Business Education Chemical Engineering Chemistry Chemistry Education Christian Religious Studies Christian Religious Studies Education Civil Engineering Common/Civil Law Computer Science Computer Science Education Crop Production Cyber Security Data Science Dentistry Development Communication Studies Early Childhood Education Economics Economics Education Educational Management Educational Technology Electronics and Computer Engineering English Education English Language Entrepreneurship Environmental Management Estate Management Film and Multimedia Film Production Fine Arts Fisheries and Aquatic Biology French French Language Education Geography and Planning Geography Education Guidance and Counselling Health Education History and International Studies History Education Industrial Design Industrial Engineering and Production Industrial Relations and Personnel Management Information and Communication Technology Information and Media Studies Insurance Islamic and Common Law Islamic Religious Studies Islamic Religious Studies Education Journalism and Media Studies Library and Information Science Linguistics Local Government Development and Administration Logistics and Supply Chain Management Marketing Mass Communication Mathematics Mathematics Education Mechanical Engineering Medical Laboratory Science Medicine and Surgery Microbiology Music Music Education Nursing Peace Studies Pharmacology Pharmacy Philosophy Physical and Health Education Physics Physics Education Physiology Physiotheraphy Political Science Political Science Education Portuguese/English Project Management Technology Psychology Public Administration Public Relations Quantity Surveying Radiography and Radiation Science Science Laboratory Technology Social Studies and Civic Education Sociology Software Engineering Special Education Strategic Communication Survey and Geo-Informatics Taxation Theatre and Film Arts Tourism and Hospitality Management Transport Management and Operations Urban and Regional Planning Yoruba Yoruba Education Zoology Check Requirement Back to Home Page 2005 &ndash; 2026. Lagos State University Directorate of ICT (LASU-DICT) Visits: 1,215,938",
+            "official": true,
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:45:30.855Z",
+            "session": null,
+            "kind": "portal",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU | Admission Screening",
+            "url": "https://services.lidc.lasu.edu.ng/admissionscreening/login.php",
+            "snippet": "LASU | Admission Screening Lagos State University 2026/2027 Admission Screening Javascript is disabled. Please enable it for best performance on this portal. Candidate Login Enter your JAMB details to access the screening portal JAMB Registration Number 12 digits followed by 2–3 uppercase letters Surname Surname only — no initials or full name Login to Portal Back to Home Page First Choice Ensure LASU is your first-choice institution on JAMB before logging in. Credentials Use your JAMB reg. number and surname exactly as on your JAMB profile. Payment A screening payment link will be provided after login. &copy; 2016 &ndash; 2026 DICT, Lagos State University . All rights reserved.",
+            "official": true,
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:45:30.782Z",
+            "session": "2026/2027",
+            "kind": "portal",
+            "adapter": "discovery",
+            "verified": true
+          }
+        ],
+        "answer": "I could not verify this from directly relevant official evidence. Which academic session do you mean? Please check the official portal or contact S.O.H CONSULTS for confirmation.",
+        "confidence": "low",
+        "needsHuman": true,
+        "contradiction": false,
+        "generative": false,
+        "sourceType": "none",
+        "intent": "cutoff",
+        "answerMode": "numeric",
+        "currentSensitive": true,
+        "searchedAt": "2026-10-25T15:16:15.266Z",
+        "verificationReason": "Which academic session do you mean?",
+        "coverageGaps": [
+          {
+            "adapter": "rss",
+            "url": "https://lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://lasu.edu.ng/wp-json/wp/v2/posts?search=What%20is%20%20cut%20off%20mark%3F&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "html",
+            "url": "https://lidc.lasu.edu.ng/",
+            "reason": "fetch failed"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://www.lasu.edu.ng/wp-json/wp/v2/posts?search=What%20is%20%20cut%20off%20mark%3F&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://www.lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "jina-google",
+            "url": "https://r.jina.ai/http://www.google.com/search?q=What%20is%20LASU%20cut%20off%20mark%3F%20site%3Alasu.edu.ng",
+            "reason": "No institution-owned URLs"
+          },
+          {
+            "adapter": "jina-bing",
+            "url": "https://r.jina.ai/http://www.bing.com/search?q=What%20is%20LASU%20cut%20off%20mark%3F%20site%3Alasu.edu.ng",
+            "reason": "The operation was aborted due to timeout"
+          }
+        ],
+        "discoveryCacheHit": false,
+        "knowledgeMatches": 0
+      }
+    },
+    {
+      "id": "follow-session",
+      "question": "2026/2027",
+      "status": 200,
+      "actual": {
+        "query": "2026/2027",
+        "results": [
+          {
+            "title": "LASU Admission Screening Portal admission cutoff 2026/2027",
+            "url": "https://services.lidc.lasu.edu.ng/admissionscreening/",
+            "snippet": "195+ Minimum UTME Score",
+            "official": true,
+            "verified": true,
+            "kind": "article",
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:45:30.131Z",
+            "adapter": "verified-registry"
+          }
+        ],
+        "answer": "195",
+        "confidence": "high",
+        "needsHuman": false,
+        "contradiction": false,
+        "generative": false,
+        "sourceType": "official_live",
+        "intent": "cutoff",
+        "answerMode": "numeric",
+        "currentSensitive": true,
+        "searchedAt": "2026-10-25T15:16:15.280Z",
+        "verificationReason": "Explicit session-bound official minimum score",
+        "coverageGaps": [
+          {
+            "adapter": "html",
+            "url": "https://lidc.lasu.edu.ng/",
+            "reason": "fetch failed"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://lasu.edu.ng/wp-json/wp/v2/posts?search=2026%2F2027&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://www.lasu.edu.ng/wp-json/wp/v2/posts?search=2026%2F2027&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://www.lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          }
+        ],
+        "discoveryCacheHit": false,
+        "knowledgeMatches": 1
+      }
+    },
+    {
+      "id": "subjects",
+      "question": "What UTME subjects do I need for Medicine at LASU for 2026/2027?",
+      "status": 200,
+      "actual": {
+        "query": "What UTME subjects do I need for Medicine at LASU for 2026/2027?",
+        "results": [
+          {
+            "title": "LASU official course requirements checker — Medicine and Surgery",
+            "url": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/",
+            "snippet": "Medicine and Surgery. O-Level Subject Requirements: English Language, Mathematics, Physics, Chemistry, Biology. JAMB UTME Subject Requirements: ENG, PHY, CHE, BIO.",
+            "official": true,
+            "internal": true
+          }
+        ],
+        "answer": "LASU's official course checker lists English Language, Physics, Chemistry and Biology for Medicine and Surgery. Select Medicine and Surgery on the linked checker to view the requirements. The checker does not state an admission session, so confirm these against the 2026/2027 admission notice before registering.",
+        "confidence": "medium",
+        "needsHuman": false,
+        "verifiedFact": true,
+        "sourceType": "verified_knowledge",
+        "verifiedAt": "2026-10-25 15:13:54.696433+00",
+        "academicSession": "2026/2027",
+        "knowledgeMatches": 1
+      }
+    },
+    {
+      "id": "de",
+      "question": "What are FUOYE Direct Entry requirements for 2026/2027?",
+      "status": 200,
+      "actual": {
+        "query": "What are FUOYE Direct Entry requirements for 2026/2027?",
+        "results": [
+          {
+            "title": "FUOYE official 2026/2027 screening guidance — Direct Entry",
+            "url": "https://fuoye.edu.ng/post-utme-screening/",
+            "snippet": "Advanced (A) Level candidates must have at least 6 points aggregate. Direct Entry Admission Candidates must satisfy the University SSCE/NECO/GCE O/Level requirements and in addition have GCE A/Level, JUPEB, OND or ND Upper Credit as stated for each course.",
+            "official": true,
+            "internal": true
+          }
+        ],
+        "answer": "For FUOYE Direct Entry, meet your course's O'Level requirements and its accepted GCE A'Level, JUPEB, OND or ND Upper Credit qualification. The official screening guidance states that A'Level candidates need at least 6 aggregate points. These are general conditions, not confirmation that every qualification is accepted for every course. Which course do you want to study? Check the linked 2026/2027 guidance before applying.",
+        "confidence": "medium",
+        "needsHuman": false,
+        "verifiedFact": true,
+        "sourceType": "verified_knowledge",
+        "verifiedAt": "2026-10-25 15:13:54.696433+00",
+        "academicSession": "2026/2027",
+        "knowledgeMatches": 1
+      }
+    },
+    {
+      "id": "deadline",
+      "question": "When is LASU 2026/2027 Post-UTME registration deadline?",
+      "status": 200,
+      "actual": {
+        "query": "When is LASU 2026/2027 Post-UTME registration deadline?",
+        "results": [
+          {
+            "title": "LASU News - Reopening of the Online Admission Screening Portal for the 2026/2027 Admission Exercise",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=660",
+            "snippet": "Reopening of the Online Admission Screening Portal for the 2026/2027 Admission Exercise 06 Aug 2026, 09:48pm 4370 Views The Vice-Chancellor has approved the reopening of the University's Online Screening Portal for the 2026/2027 Admission Exercise from Thursday, 6th August 2026 to Sunday, 9th August 2026. This extension is to enable candidates with awaiting results, whose O'Level results have now been released, to register and upload them. The portal will remain open for registration and updating of results and other data until 12 midnight on Sunday, 9th August 2026. Candidates who have not yet completed the screening are encouraged to take advantage of this opportunity. Tag: 2026/2027 Admission Screening Share on: Share",
+            "official": true,
+            "publishedAt": "2026-08-06T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:45:38.038Z",
+            "session": "2026/2027",
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          }
+        ],
+        "answer": "The official 2026/2027 notice lists 9 August 2026 as the extended registration deadline. That date has passed. A later extension or reopening must be confirmed from a newer official notice.",
+        "confidence": "high",
+        "needsHuman": false,
+        "contradiction": false,
+        "generative": false,
+        "sourceType": "official_live",
+        "intent": "deadline",
+        "answerMode": "short",
+        "currentSensitive": true,
+        "searchedAt": "2026-10-25T15:16:15.305Z",
+        "verificationReason": "Dated official notice",
+        "coverageGaps": [
+          {
+            "adapter": "html",
+            "url": "https://lidc.lasu.edu.ng/",
+            "reason": "fetch failed"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://www.lasu.edu.ng/wp-json/wp/v2/posts?search=post-utme&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://lasu.edu.ng/wp-json/wp/v2/posts?search=post-utme&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://www.lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          }
+        ],
+        "discoveryCacheHit": false,
+        "knowledgeMatches": 0
+      }
+    },
+    {
+      "id": "official",
+      "question": "Give me the official LASU admission screening portal",
+      "status": 200,
+      "actual": {
+        "query": "Give me the official LASU admission screening portal",
+        "results": [
+          {
+            "title": "Lagos State University official admission screening portal",
+            "url": "https://services.lidc.lasu.edu.ng/admissionscreening/",
+            "snippet": "Registered official portal; application status unverified",
+            "official": true,
+            "internal": false
+          }
+        ],
+        "answer": "The official Lagos State University admission screening portal is https://services.lidc.lasu.edu.ng/admissionscreening/. This link does not confirm that applications are currently open.",
+        "confidence": "high",
+        "needsHuman": false,
+        "sourceType": "official_directory",
+        "currentSensitive": false
+      }
+    },
+    {
+      "id": "typo",
+      "question": "What is Lasuu cut off mark for 2026/2027?",
+      "status": 200,
+      "actual": {
+        "query": "What is Lasuu cut off mark for 2026/2027?",
+        "results": [],
+        "answer": "Did you mean Lagos State University (LASU)? Please confirm the institution so I can check the correct admission information.",
+        "confidence": "low",
+        "needsHuman": false,
+        "needsClarification": true,
+        "sourceType": "none",
+        "currentSensitive": true
+      }
+    },
+    {
+      "id": "expired",
+      "question": "Who is the LASU Vice Chancellor?",
+      "status": 200,
+      "actual": {
+        "query": "Who is the LASU Vice Chancellor?",
+        "results": [
+          {
+            "title": "LASU News - LASU Vice Chancellor Approves Extension of 2026/2027 Online Admission Screening Exercise for Direct Entry Candidates",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=675",
+            "snippet": "LASU Vice Chancellor Approves Extension of 2026/2027 Online Admission Screening Exercise for Direct Entry Candidates 09 Oct 2026, 10:52am 761 Views ...To end at 12:00 midnight on Sunday, 11th October 2026 The Vice-Chancellor, Professor Ayodeji Olawunmi BADEJO, FCASSON, FAPROCON, MNAE, has graciously approved the extension of online admission screening exercise for the 2026/2027 Direct Entry (DE) candidates, including LASU School of Basic and Advanced Studies (JUPEB Programme) students, who have yet to complete their screening until 12:00 midnight on Sunday, 11th October 2026. With the extension, it is expected that affected Direct Entry (DE) candidates will take advantage of this window to complete their screening process, as there will be no further extensions. Tag: Admission 2026/2027 Direct Entry Share on: Share",
+            "official": true,
+            "publishedAt": "2026-10-09T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:45:54.420Z",
+            "session": "2026/2027",
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU News - Outgoing Vice-Chancellor, Distinguished Professor Ibiyemi Olatunji-Bello, Congratulates Professor Ayodeji Badejo on Appointment as New LASU Vice-Chancellor",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=670",
+            "snippet": "Outgoing Vice-Chancellor, Distinguished Professor Ibiyemi Olatunji-Bello, Congratulates Professor Ayodeji Badejo on Appointment as New LASU Vice-Chancellor 10 Sep 2026, 03:30pm 255 Views The Vice-Chancellor of Lagos State University, Distinguished Professor Ibiyemi Ibilola OLATUNJI-BELLO, mni, NPOM, has congratulated Professor Ayodeji Olawunmi BADEJO on her appointment as the 10th Substantive Vice-Chancellor of the University. Professor BADEJO, a Professor of Counselling Psychology, was appointed as LASU’s 10th Substantive and third female Vice-Chancellor on Wednesday, 9th September 2026, following a rigorous selection process. In a congratulatory telephone conversation, the outgoing Vice-Chancellor, Distinguished Professor OLATUNJI-BELLO, described Professor BADEJO as a worthy successor who is well positioned to lead Lagos State University into its next phase of growth and development. She expressed confidence that, given Professor BADEJO’s impressive record of scholarship, extensive experience in university administration and international exposure, she would provide excellent leadership for the University, adding that she was leaving LASU in capable hands. Distinguished Professor OLATUNJI-BELLO also assured her successor of her full support in whatever capacity may be required, reaffirming her lifelong commitment to the continued success and advancement of the LASU project. Distinguished Professor OLATUNJI-BELLO, a Professor of Physiology and the University’s second female Vice-Chancellor, is set to complete her single five-year tenure on Saturday, 19th September 2026, after an administration widely acknowledged for ushering in unprecedented development across all facets of the University. We are LASU, We are Great! Tag: Vice-Chancellor Distinguished Professor Ibiyemi Olatunji-Bello Professor Ayodeji Badejo New LASU Vice-Chancellor Share on: Share",
+            "official": true,
+            "publishedAt": "2026-09-10T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:45:54.444Z",
+            "session": null,
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU News - LASU Senate Honours Vice-Chancellor, Distinguished Professor Ibiyemi Olatunji-Bello, at Valedictory Session",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=668",
+            "snippet": "LASU Senate Honours Vice-Chancellor, Distinguished Professor Ibiyemi Olatunji-Bello, at Valedictory Session 01 Sep 2026, 05:01pm 233 Views The Senate of Lagos State University (LASU), on Thursday, 27 August 2026, held a valedictory session in honour of the University’s ninth substantive Vice-Chancellor, Distinguished Professor Ibiyemi Ibilola OLATUNJI-BELLO, mni, NPOM, as she approaches the conclusion of her single, five-year tenure. The 332nd Statutory Senate Meeting, held at the Senate Chamber of the Babatunde Raji Fashola Building, LASU Main Campus, Ojo, brought together Principal Officers, members of Senate and other academic leaders to reflect on the Vice-Chancellor’s tenure and the institutional developments recorded under her administration. Opening the proceedings, the Registrar of the University, Mr Emmanuel A. FANU, presented an overview of Distinguished Professor OLATUNJI-BELLO’s tenure and contributions to the University. He recalled that Distinguished Professor OLATUNJI-BELLO was appointed Vice-Chancellor in September 2021 by the Visitor to the University and Governor of Lagos State, upon the recommendation of the 11th Governing Council, and assumed office on Monday, 20 September 2021. Her single non-renewable, five-year tenure will formally end on 19 September 2026. According to the Registrar, Professor OLATUNJI-BELLO presided over 55 statutory Senate meetings, beginning with her inaugural session on 20 October 2021, in addition to several extraordinary meetings held during her tenure. The University also hosted 47 inaugural lectures under her administration, reflecting sustained academic and intellectual engagement across the institution. Professor OLATUNJI-BELLO, mni, NPOM, in her valedictory address, expressed gratitude to God, the Lagos State Government and the University community, while emphasising the role of collective leadership in advancing LASU. She highlighted key achievements of her administration in academic accreditation, research and innovation, infrastructure, financial sustainability, staff and student welfare, including the establishment of LASU as a TETFund Centre of Excellence and the promotion of 127 academic staff to the rank of Professor. She urged Senate to sustain the University’s mission and institutional continuity, stressing that while administrations may change, “LASU must remain.” In the area of academic excellence and accreditation, she cited the systematic accreditation of programmes, strengthened quality assurance processes and the expansion of degree offerings in response to emerging academic and professional demands. Goodwill messages were delivered by several members of Senate, who praised her vision, foresight, courage, motherly approach to leadership, humility, and administrative acumen. Delivering the vote of thanks on behalf of Senate, the Deputy Vice-Chancellor (Academic), Professor Oseni Taiwo AFISI, FSPSP, MCIOD, acknowledged the occasion as a celebration of the institutional transformation recorded under Professor OLATUNJI-BELLO’s leadership. “Today, we are not merely marking the conclusion of your tenure as Chairman of Senate; we are celebrating a lasting transformation,” he said. “Under your stewardship, academic programmes were strengthened, research output expanded, and quality assurance institutionalised. You taught us that leadership is service, and you leave Lagos State University significantly stronger, better positioned, and globally respected.” At the close of the proceedings, Senate noted that the 334th Statutory Senate Meeting, scheduled for September 2026, will mark the transition to a new administrative era following the conclusion of the Vice-Chancellor’s tenure on 19 September 2026. Professor OLATUNJI-BELLO leaves Lagos State University with a record of academic development, research and innovation, infrastructure renewal, institutional governance, and staff and student welfare, as the University prepares for the next phase of its leadership. Tag: Vice-Chancellor Distinguished Professor Ibiyemi Olatunji-Bello Valedictory Session Share on: Share",
+            "official": true,
+            "publishedAt": "2026-09-01T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:45:54.527Z",
+            "session": null,
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU News - LASU Vice-Chancellor Urges Staff to Enrol in “ILERA EKO” as LASHMA Holds Sensitisation at LASU",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=651",
+            "snippet": "LASU Vice-Chancellor Urges Staff to Enrol in “ILERA EKO” as LASHMA Holds Sensitisation at LASU 08 Jul 2026, 08:44am 114 Views The Vice-Chancellor, Lagos State University, Distinguished Professor Ibiyemi OLATUNJI-BELLO, mni, NPOM, has urged staff to prioritise their health and well-being by enrolling in the Lagos State Government’s “Ilera Eko” Health Insurance Scheme. The Vice-Chancellor gave the charge on Thursday, 2nd July 2026, through the Deputy Vice-Chancellor (Administration), Professor Oluwatoyin ENUKUOMEHIN, during a sensitisation exercise organised by the Lagos State Health Management Agency (LASHMA) at the Buba Marwa Auditorium, Main Campus, Ojo, Lagos. Describing the scheme as mandatory for all public and civil servants in the state, Professor OLATUNJI-BELLO said the management remains committed to staff welfare. \"Health is wealth. I encourage every member of staff to take advantage of Ilera Eko. It is designed to ensure that no one is crippled by sudden medical bills,\" she said. She commended LASHMA experts for the engagement and lauded the scheme, noting that “Ilera Eko” has been rated the best state health insurance scheme in Nigeria for the third consecutive year. The Team Lead, LASHMA, Dr Lanre GREEN, explained the key details of the scheme to staff. According to him, for public and civil servants, the package covers a family of four: the principal, spouse, and two children under 23 years of age at the time of registration. He added that a token amount is deducted monthly from the salary of the policyholder, while both the University Management and the Lagos State Government pay counterpart contributions monthly. Members of staff who have not enrolled, already have their details sent to LASHMA and they would be issued policy numbers to access the scheme. The session was interactive, with staff asking questions and seeking clarifications on coverage, hospitals, and claims. In his vote of thanks, the Registrar, Mr Emmanuel A. FANU represented by the Deputy Registrar, (Vice-Chancellor’s Office), Dr Lateef SHEKONI appreciated LASHMA for the sensitisation and urged staff to take the enrolment seriously. Other principal officers present included the Bursar, Mr Olabisi YUSUF, and the University Librarian, Dr Omawumi MAKINDE. The Director of Health Services, LASU, Dr Nasir ARIYIBI, Director, Internal Audit, Dr Margareth OGUNKOYA , Special Deputy Registrar/Special Assistant to the Vice-Chancellor, Dr Lateef SALAMI, Chairperson, Nigeria Labour Congress, Lagos, Comrade Funmi SESSI and other officers from LASHMA were in attendance. “Ilera Eko” is the mandatory social health insurance scheme of the Lagos State Government, run by LASHMA. Launched in December 2018, it aims to provide affordable and accessible healthcare for all Lagos residents and achieve Universal Health Coverage by reducing out-of-pocket spending. Tag: ILERA EKO LASHMA Sensitisation Share on: Share",
+            "official": true,
+            "publishedAt": "2026-07-08T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:45:54.453Z",
+            "session": null,
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU News - Internal and External Advertisement for the Post of Vice-Chancellor",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=646",
+            "snippet": "Internal and External Advertisement for the Post of Vice-Chancellor 15 Jun 2026, 11:14am 444 Views PREAMBLE In consonance with the relevant provisions of the Lagos State University Law 2004 [As amended], the Governing Council hereby invites applications from suitably qualified and interested candidates for the appointment of the 10th substantive Vice- Chancellor of Lagos State University. THE INSTITUTION Lagos State University (LASU) was established in 1983 by the Enabling Law of Lagos State of Nigeria, for the advancement of learning and establishment of academic excellence. The University, which took off with three (3) Faculties - Law and Humanities, Education and Science - has grown to become a citadel of repute with high standards. The University caters for a student population of over 85,000, with enrolment in full- time and part- time programmes at the Diploma, Undergraduate AND Postgraduate Levels. A summary of LASU objectives is given as: to create opportunities for deserving candidates to further their education by providing programmes of studies that will give them not only marketable skills but which will enable them develop their full potential and make them well- rounded scholars and useful members of the society. LASU is also to meet the specific manpower needs of Lagos State for the sustenance of her position as the commercial and industrial hub of the Federal Republic of Nigeria, and the strategic transformation of the industrial capacity of the State and the Nation, as well as undertake any other activities appropriate for a University of the highest standard. Lagos State University was initially conceived as a multi- campus, collegiate AND non-residential University. Today, Lagos State University operates a residential, multi- campus system with three [3] fully owned campuses, having its main campus at Ojo (along the Badagry Expressway) AND other campuses at Epe and Ikeja, while the Lagos State University School of Basic Advanced Studies (LASUSBAS) is located in Badagry. The Ojo Campus houses eight (8) Faculties namely: Arts, Communication and Media Studies, Computing and Information Technology, Education, Law, Science, Management Sciences, and Social Sciences. It also houses five (5) Schools, namely: Library, Archival and Information Science; Creativity, Culture and Tourism Studies; Part- Time Studies; Transport and Logistics; as well as Postgraduate Studies. In addition, the Campus houses the following Centres/Institutes/Directorates: Centre for Environment, Science and Sustainable Development; Centre for General Nigerian Studies; Centre for Planning Studies; Centre for Afro- Brazilian Studies; Centre for Peace and Security Studies; Africa Centre of Excellence for Innovative and Transformative Science, Technology, Engineering, and Mathematics (STEM) Education; Career Development Centre; Lateef Hussain Institute for Radiation Monitoring and Protection; Open and Distance Learning and Research Institute; Directorate of Skills Development and Entrepreneurship; Directorate of Sandwich Degree Programme; Directorate of Information and Communication Technology; among others. At the Ikeja Campus, there is the Lagos State University College of Medicine with six (6) Faculties namely: Allied Health Sciences, Basic Medical Sciences, Basic Clinical Sciences, Clinical Sciences, Dentistry, and Pharmaceutical Sciences. The Epe campus houses the Faculties of Engineering and Environmental Sciences, the School of Agriculture, the Institute for Organic Agriculture & Green Economy, the Pre-Degree Programme, and an arm of the Sandwich Degree Programme. Lagos State University is reputed for high standards and has maintained a tradition of excellence in various disciplines. Currently, all academic programmes offered in the University are accredited by the National Universities Commission (NUC). Lagos State University boasts of a very vibrant, reputable and successful alumni spread all over the world, who are making outstanding contributions in their chosen fields. THE JOB The Lagos State University Law 2004 (As amended) provides that the Vice- Chancellor shall: - exercise general supervision over the University, in addition to other functions conferred or imposed on him by this Law or any other enactments subject to the approval of the Council; - have a general responsibility to the Council for maintaining and promoting the efficiency and good order of the University; - ensure that the provisions of the Law, Ordinances and Regulations are observed; - be a member of Council; - be the Chairman of the University Senate, which is the highest decision making body for all academic matters (i.e. student admissions, examinations and graduation, establishment of new academic programmes etc.) in the University; - be the Chairman of Congregation; AND - have responsibility for maintaining discipline in the University. The job demands a person who can fully harness financial resources in running the University AND who is able to attract grants/endowments from financing bodies, especially international donor agencies. The candidate should be able to cope adequately with varying needs of staff and students as well as emerging contemporary issues, especially those that are related to social life of students in an increasingly dynamic and urban University. THE POST OF VICE- CHANCELLOR, LAGOS STATE UNIVERSITY The Vice- Chancellor is a Principal Officer, as well as the Chief Executive Officer, Chief Academic Officer AND Chief Image Maker of the University. The Vice- Chancellor should have a deep understanding of the systems and operations of a University as well as provide strategic vision and leadership to sustain Lagos State University as a foremost University in Nigeria. The Vice- Chancellor will have to play a pivotal role in taking Lagos State University to global recognition. THE CANDIDATE It will be the duty of the Vice- Chancellor to maintain and improve upon the very high standard in ALL programmes of the University, such that accreditation granted to academic programmes is sustained. The candidate must be a proven and successful manager of human and material resources. He/ She must meet the criteria expected of a contemporary Vice- Chancellor in a 21st Century University. These criteria include, but not limited to the following: - Possession of PhD OR Doctor of Medicine (MD) Degree AND must have supervised PhD students - Full Professor of several years standing and must have delivered his/her professional inaugural lecture - Minimum of fifteen (15) years continuous university teaching/research experience. - Proven record of visionary and transformational leadership in higher education administration. - Strong commitment to solution-driven research with measurable societal and industrial impact. - Demonstrable capacity to attract local and international research grants, endowments, and development partnerships. - Have innovative revenue generation and sustainable income diversification beyond government subventions. - Must have deep understanding of global trends in university education, innovation, entrepreneurship, and digital transformation - Have capacity to promote industrial harmony through inclusive leadership, dialogue, and conflict resolution. - Show strong commitment to staff development, welfare, motivation, and institutional capacity building. - Have a clear passion for students' welfare, mentorship, employability, and holistic development. - Show evidence of excellent national and international networks with academia, industry, government, alumni, and development agencies. - Demonstrate proven ability to establish strategic collaborations, exchange programmes, and institutional partnerships globally. - Show high level of integrity, transparency, accountability, and prudent financial management. - Demonstrate competence in policy formulation, strategic planning, and effective institutional governance. - Demonstrate a strong advocacy for innovation, commercialisation of research outputs, and university-industry linkage. - Commitment to excellence in teaching, learning, accreditation, and quality assurance standards. - Ability to inspire unity, inclusiveness, diversity, and shared institutional vision among stakeholders. - Strong communication, interpersonal, and public engagement skills. - Capacity to leverage technology, artificial intelligence, and digital systems for efficient university administration. - Evidence of administrative experience and successful management of complex institutions or systems. - Commitment to community development, national relevance, and global competitiveness of the university. - Courage, resilience, and strategic thinking required to navigate contemporary challenges in tertiary education. - Must be in excellent physical and mental health, with verifiable certificates to that effect AGE Must not be above sixty- five (65) years of age on assumption of duty as the 10th substantive Vice- Chancellor, if appointed. TENURE The Vice- Chancellor shall hold office for a SINGLE TERM of five (5) years only on such terms and conditions as may be specified in the letter of appointment. REMUNERATION The remuneration and other conditions of service are as applicable to the post of Vice- Chancellor in Nigerian Universities and as may be determined from time to time by the Government/Governing Council, as appropriate. METHOD OF APPLICATION Candidates should submit Fifteen (15) copies of their application accompanied with detailed recent Curriculum Vitae (CV), providing information on the following: - Full Name - Place and Date of Birth. - Marital Status, Number and Ages of Children. - Academic qualifications with dates (degree with classes; copies of certificates to be enclosed). - University Teaching and Research Experience, University Administrative, Managerial and Leadership Experience with dates. - Academic distinctions viz: grants, awards and scholarships; PhD candidate supervision; recognition by national and international professional bodies/fellowships. - provision of researcher profiles and identifiers for verification; - Membership of Academic AND Professional Bodies. - Scholarly Publications (well referenced and listed in chronological order) - Vision for the University in the next five (5) years (NOT more than 5,000 words or a minimum of 1000 words). - Contribution to University and funds attracted through donations and endowments. - Names, addresses and phone numbers of three (3) referees who should be able to attest to the candidate's standing and abilities academically and managerially, as well as morals, character and integrity. Each referee must be contacted by the applicant to forward, directly to the Registrar, a confidential report, in a properly sealed envelope marked \"REFERENCE/POST OF VICE- CHANCELLOR\" at the top left hand corner of the envelope, to reach the Registrar on or before the deadline for submission of application. SUBMISSION OF APPLICATION/DEADLINE All applications are to be submitted under CONFIDENTIAL COVER, with the envelope marked \"POST OF VICE- CHANCELLOR, LASU\" sealed AND addressed to: The Pro- Chancellor AND Chairman, Governing Council, Lagos State University, P. M. B. 0001, LASU Post Office, Lagos- Badagry Expressway, Ojo, Lagos State and submitted to: The Registrar AND Secretary to Council, Registrar's Office, 5th Floor, Babatunde Raji Fashola Senate Building, Lagos State University, Ojo NOT later than six (6) weeks from the date of this publication. SHORTLISTED CANDIDATES Shortlisted candidates will be required to make themselves available for interview before the Joint Committee of Council AND Senate at a DATE that will be duly AND formally conveyed to such candidates in writing. Please note that only candidates who satisfy ALL the above criteria will be shortlisted and contacted for the next stage of the appointment process. Tag: Advertisement Vice-Chancellor Share on: Share",
+            "official": true,
+            "publishedAt": "2026-06-15T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:45:54.474Z",
+            "session": null,
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "Lagos State University - Vice Chancellor",
+            "url": "https://lasu.edu.ng/home/officer/?id=vc",
+            "snippet": "Lagos State University - Vice Chancellor Vice Chancellor Home Vice Chancellor Administration Vice Chancellor Prof. Ayodeji Olawunmi BADEJO, FCASSON, FAPROCON, MNAE Prof. Ayodeji Olawunmi BADEJO, FCASSON, FAPROCON, MNAE Vice Chancellor The Vice-Chancellor is the executive head of the University. The Vice-Chancellor has overall responsibility for the policy and administration of the Lagos State University in line with Section 10(1) of the Lagos State University Law, 2004 which states that the Vice-Chancellor shall exercise the general supervision of the University, in addition to any other functions conferred on him by this Law or otherwise, of directing the activities of the University, and shall to the exclusion of any other person or authority be the Chief Executive and Principal Academic Officer of the University and Ex-Officio Chairman of the Senate. Professor Ayodeji Olawunmi BADEJO, a Professor of Counselling Psychology, was born on 4th August 1962. She has over three decades of sustained academic scholarship, teaching, research, institutional leadership, mentorship and pedagogical innovation. She has built an accomplished career spanning academic teaching, research, administration, professional service and student development. Professor BADEJO obtained her NCE in 1983, followed by a Bachelor of Education (B.Ed.) degree in 1986, a Master of Education (M.Ed.) degree in 1988 and a PhD in Guidance and Counselling in 1998. Her academic career has been marked by a steady progression through the lecturer cadre to the rank of Professor, with significant contributions to Counselling Psychology and higher education. At Lagos State University, Professor BADEJO has served in several strategic academic and administrative capacities at departmental, faculty and university-wide levels. Her leadership responsibilities have included membership of the Lagos State University Governing Council, Chairmanship of the Senate Curriculum Committee, and other key university assignments. As Chairman of the Senate Curriculum Committee, Professor BADEJO contributed significantly to curriculum development and validation, academic planning and the alignment of the University's academic programmes with the requirements of the National Universities Commission (NUC). She also facilitated the development and introduction of new academic programmes. As Dean of the Faculty of Education, she provided academic and administrative leadership that contributed to the advancement of the Faculty. During her tenure, approximately 20 academic staff were promoted to the professorial cadre, while all programmes in the Faculty secured full NUC accreditation. Professor BADEJO has also demonstrated considerable capacity in institutional management, financial stewardship and resource mobilisation. As Chairman of the Lagos State University International School Board, she led initiatives that strengthened the School's financial and operational position. Under her leadership, the School's capital reserves increased from approximately ₦88,000 to ₦121million, while structural financial deficits were eliminated. Her tenure also witnessed significant growth in staff strength and student enrolment, alongside sustained exceptional performance in public examinations. A major hallmark of Professor BADEJO'S academic career is her commitment to doctoral education and mentorship. Between 2012 and 2026, she successfully supervised 23 PhD graduates, earning recognition as a “Mentor of Mentors.” Her supervision record includes a recipient of the 2024 Best PhD Thesis Award, further demonstrating the quality and impact of her doctoral mentorship. Professor BADEJO is a prolific scholar with a substantial body of academic work. She has authored four books, contributed 17 book chapters and published over 60 peer-reviewed journal articles, bringing her total scholarly output to more than 80 major publications. Her research and scholarly engagements have extended beyond Nigeria, with visibility across international academic platforms. Her contributions also extend beyond conventional academic scholarship to innovation and social impact. Among her notable creative contributions is the development of a patented Youth Anthem associated with Lagos State University, reflecting her commitment to youth development and initiatives that connect academic expertise with broader societal needs. Professor BADEJO has further distinguished herself in research ethics and governance. As Chairman of the Lagos State University Research Ethics Committee, she has provided leadership in the ethical review of research protocols and in strengthening the capacity of committee members through professional training and collaboration with relevant national and professional bodies. Her professional service extends beyond Lagos State University. She has held leadership responsibilities within professional counselling organisations and contributed to the advancement of the counselling profession in Nigeria. She is a Fellow of the Counselling Association of Nigeria (CASSON) and a Fellow of the Association of Professional Counsellors in Nigeria (APROCON). She is also a member of professional and scholarly organisations, including the American Psychological Association and the Nigerian Academy of Education. Professor BADEJO'S accomplishments have earned her several national and international recognitions. Among these is the Key to the City of Niagara Falls, New York, conferred in recognition of her professional standing and contributions. She received professional fellowship recognition from CASSON in 2015 and APROCON in 2022. In 2025, she was honoured in Pretoria, South Africa, with a Distinguished Personality Award for excellence in higher education in Africa. Professor Ayodeji Olawunmi BADEJO therefore brings to the office of Vice-Chancellor a distinguished record of academic excellence, research productivity, institutional leadership, curriculum development, financial stewardship, ethical governance, innovation and mentorship. Her more than three decades of service demonstrate a sustained commitment to strengthening educational institutions, advancing scholarship, promoting student development and nurturing the next generation of academics and professionals. With her extensive academic experience, institutional knowledge, administrative competence and record of service, Professor BADEJO was appointed the 10th Substantive Vice-Chancellor of the Lagos State University on Monday, 21th Sep, 2026 succeeding Prof. Ibiyemi Olatunji-Bello whose five-year tenure ended on September 19, 2026. Administration The Visitor Chancellor Governing Council The Vice Chancellor Other Principal Officers Deputy VC (Academic) Deputy VC (Administration) Registrar Bursar Librarian Further information &times; Close Launch Modal Login Form SUBSCRIBE TO OUR NEWSLETTER SUBSCRIBE VISITORS COUNTER Today 138,619 25 Oct 2026 Total 157,521,711 Since 18 Nov 2021 Established in 1983 by the enabling law of Lagos State with the vision of pursuing the advancement of learning and academic excellence. The university has been unrelenting in the pursuit of its mission of becoming a citadel of learning, a community with the trademark of excellence in teaching, research and service to humanity. Quicklinks About us Check Result News Events Payment People [A -Z] Research Publications Academic Staff Profile Non-Academic Staff Profile Postgraduate Students Undergraduate Students School CESSED ACEITSE College of Medicine Open & Distance Learning Skills Development & Entrepreneurship Academic Calendar Support FAQs Contact us Mail Support GET IN TOUCH Lagos State University, Ojo (Main campus), Lagos State, Nigeria. Enquiry - 08151044243, 08159109065 Security Unit - 08037161006, 08022913854 mailsupport@lasu.edu.ng LASU on Map (Geolocation) SITE MAP Site Map & Structure",
+            "official": true,
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:45:54.409Z",
+            "session": null,
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU News - Special Window of LASU 2026/2027 Indigeneship Verification Exercise for LASU JUPEB and Other Direct Entry Candidates",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=676",
+            "snippet": "Special Window of LASU 2026/2027 Indigeneship Verification Exercise for LASU JUPEB and Other Direct Entry Candidates 12 Oct 2026, 10:20am 687 Views The Vice-Chancellor has graciously approved the re-opening of 2026/2027 Lagos State University Independent Indigeneship Verification Exercise (IIVE) portal for JUPEB and other Direct Entry (DE) candidates only. For emphasis, this window of Indigeneship Verification Exercise (IVE) is for JUPEB and other Direct Entry candidates that chose LASU as their First Choice Institution during the 2026 JAMB registration, and are indigenes of Lagos State but yet have not yet participated in the Indigeneship Verification Exercise. Time Frame: This special window will run from Monday, 12th October 2026 to Friday, 16th October 2026. About the LASU Indigeneship Verification Exercise The Indigeneship Verification Exercise is a mandatory pre-admission screening conducted by Lagos State University for all candidates of Lagos State origin. It is administered by the Independent Indigeneship Verification Committee (IIVC) and is a prerequisite for being considered for admission. No Lagos State indigene candidate can be offered admission without first being cleared through this process. Screening Venue for all Lagos State Divisions: New TETFund Building, Faculty of Arts The affected JUPEB and other Direct Entry candidates should attend the verification exercise at the stipulated venue. They can also contact the LASU Admissions Office for necessary guidance. How to Apply: Step by Step Step 1: Confirm Your Eligibility Only JUPEB 2026 graduates and other DE candidates who are indigenes of Lagos State are eligible to participate. Step 2: Make Payment Online Visit the official LASU portal and make your payment through the University’s official online payment link. Do not pay through any individual, agent, or unofficial account. The University has issued a clear disclaimer: any candidate who pays through an unauthorised channel does so entirely at their own risk. Step 3: Complete Online Registration After payment, complete your registration on the portal. Keep your payment receipt and registration confirmation — you will need both for the physical screening exercise. Step 4: Attend the Physical Screening Attend the screening at the venue assigned to your division. Come with all original documents, including your JAMB DE slip, evidence of Lagos State indigeneship, and your payment/registration confirmation. Step 5: Receive Your Clearance Certificate Candidates who are successfully verified will be issued an LASU Indigeneship Clearance Certificate. This certificate is required before any admission offer can be processed. It does not guarantee admission. Tag: 2026/2027 Indigeneship Verification Exercise JUPEB Direct Entry Candidates Share on: Share",
+            "official": true,
+            "publishedAt": "2026-10-12T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:45:54.442Z",
+            "session": "2026/2027",
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          }
+        ],
+        "answer": "I could not verify the exact name from a reviewed fact. Please contact S.O.H CONSULTS for confirmation.",
+        "confidence": "low",
+        "needsHuman": true,
+        "contradiction": false,
+        "generative": false,
+        "sourceType": "none",
+        "intent": "vice_chancellor",
+        "answerMode": "name",
+        "currentSensitive": true,
+        "searchedAt": "2026-10-25T15:16:15.317Z",
+        "verificationReason": "Exact name lacks reviewed registry evidence",
+        "coverageGaps": [
+          {
+            "adapter": "html",
+            "url": "https://lidc.lasu.edu.ng/",
+            "reason": "fetch failed"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://www.lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://www.lasu.edu.ng/wp-json/wp/v2/posts?search=Who%20is%20the%20%20Vice%20Chancellor%3F&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://lasu.edu.ng/wp-json/wp/v2/posts?search=Who%20is%20the%20%20Vice%20Chancellor%3F&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "jina-google",
+            "url": "https://r.jina.ai/http://www.google.com/search?q=Who%20is%20the%20LASU%20Vice%20Chancellor%3F%20site%3Alasu.edu.ng",
+            "reason": "The operation was aborted due to timeout"
+          },
+          {
+            "adapter": "jina-bing",
+            "url": "https://r.jina.ai/http://www.bing.com/search?q=Who%20is%20the%20LASU%20Vice%20Chancellor%3F%20site%3Alasu.edu.ng",
+            "reason": "The operation was aborted due to timeout"
+          }
+        ],
+        "discoveryCacheHit": false,
+        "knowledgeMatches": 0
+      }
+    },
+    {
+      "id": "historical",
+      "question": "What was LASU cutoff for 2025/2026?",
+      "status": 200,
+      "actual": {
+        "query": "What was LASU cutoff for 2025/2026?",
+        "results": [
+          {
+            "title": "LASU News - Advertisement for Admission to LASU School of Part-Time Studies for the 2025/2026 (Epe Campus) and 2026/2027 (Ojo Campus) Academic Sessions",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=669",
+            "snippet": "Advertisement for Admission to LASU School of Part-Time Studies for the 2025/2026 (Epe Campus) and 2026/2027 (Ojo Campus) Academic Sessions 02 Sep 2026, 01:19pm 3087 Views ‎1.0 PREAMBLE ‎The Lagos State University School of Part-Time Studies (LASU-SPTS) invites applications from suitably qualified candidates for admission to the Lagos State University Part-Time Degree Programmes for the 2025/2026 (Epe Campus) and 2026/2027 (Ojo Campus) Academic Sessions. The programme is domiciled at Lagos State University, Ojo and Epe campuses ‎2.0 ADMISSION REQUIREMENTS ‎Candidates seeking admission into the Lagos State University Part-Time Degree Programmes should visit the University website: www.lasu.edu.ng for full details and admission requirements for each degree programme. The minimum age limit for enrolment into the programme is eighteen (18) years. ‎3.0 DIRECT ENTRY REQUIREMENTS ‎Candidates with a Diploma Certificate (OND from any government-approved polytechnic or candidates with a LASU Diploma (Upper Credit — in relevant courses) and the required five [5] O'Level credits are eligible to apply. ‎4.0 AVAILABLE PROGRAMMES ‎The following Part-Time Degree programmes are available for the 2025/2026 (Epe Campus) and 2026/2027 (Ojo Campus) academic sessions: ‎ ‎(i) FACULTY OF ARTS ‎● English Language ‎● History and International Studies ‎● Music ‎● Peace Studies ‎● Philosophy ‎● Yoruba Communication Arts ‎ ‎(ii) FACULTY OF COMMUNICATION AND MEDIA STUDIES ‎● Mass Communication ‎ ‎(iii) FACULTY OF MANAGEMENT SCIENCES ‎● Accounting ‎● Banking and Finance ‎● Business Administration ‎● Industrial Relations and Human Resource Management ‎● Insurance ‎● Marketing ‎● Public Administration ‎ ‎(iv) FACULTY OF COMPUTING AND INFORMATION TECHNOLOGY ‎● Computer Science ‎● Data Science ‎● Information & Communication Technology ‎● Software Engineering ‎● Cybersecurity ‎ ‎(v) FACULTY OF SOCIAL SCIENCES ‎● Economics ‎● Political Science ‎● Psychology ‎● Sociology ‎ ‎5.0 METHOD OF APPLICATION ‎Prospective candidates should visit www.lasu.edu.ng/epayment to pay a non-refundable application fee of Twenty Thousand Naira (₦20,000.00) only to access the application form. ‎Candidates are required to complete the application form, upload their credentials, and submit the forms online. Thereafter, candidates will be invited to sit for a Computer-Based Test (CBT) entrance examination. Successful candidates will be required to pay immediately an acceptance fee of Thirty Thousand Naira (₦30,000.00) only, and a medical fee of Thirty Thousand Naira (₦30,000.00) only. ‎6.0 CLOSING DATE ‎The closing date for applications is six [6] weeks from the date of this publication. ‎7.0 DISCLAIMER ‎Any applicant who pays money to any individual, or into any other account, or through means other than the one above, does so to his/her own disadvantage. ‎Prospective candidates are hereby requested to visit the University website: www.lasu.edu.ng for details on the programme. ‎ SIGNED ‎Emmanuel A. FANU, MANUPA, MNIM, MCIPM, FCAI ‎Registrar and Secretary to Council Tag: School of Part-Time Studies 2025/2026 Epe Campus 2026/2027 Ojo Campus Share on: Share",
+            "official": true,
+            "publishedAt": "2026-09-02T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:46:03.509Z",
+            "session": null,
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU News - Lagos State University (LASU) Releases Merit Admission List for 2025/2026 Academic Session",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=569",
+            "snippet": "Lagos State University (LASU) Releases Merit Admission List for 2025/2026 Academic Session 23 Aug 2025, 12:09pm 54468 Views This is to inform the general public and all prospective candidates who applied for admission into Lagos State University (LASU) that the institution has officially released the first batch of its merit admission list for the 2025/2026 academic session. The list, which contains the names of candidates who have been offered provisional admission, has been uploaded to the university's official admissions portal. How to Check Your Admission Status: All candidates can check their admission status by following these simple steps: 1. Visit the LASU Admission Screening portal: https://services.lidc.lasu.edu.ng/admissionscreening/login.php 2. Enter your JAMB Registration Number and your Surname in the designated fields. 3. Click on the \"Submit\" button. We extend our heartfelt congratulations to all candidates who have been offered provisional admission. For those whose names are not on this list, please remain patient as subsequent lists may be released. Tag: Admission 2025/2026 Merit List Share on: Share",
+            "official": true,
+            "publishedAt": "2025-08-23T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:46:03.663Z",
+            "session": "2025/2026",
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU News - 2025/2026 Online Admission Screening Exercise for 100 Level Regular and Direct Entry Candidates",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=552",
+            "snippet": "2025/2026 Online Admission Screening Exercise for 100 Level Regular and Direct Entry Candidates 27 Jun 2025, 12:29pm 47877 Views 1.0 APPLICATION Applications are invited from suitably qualified candidates for the Lagos State University 2025/2026 Admission Screening Exercise (Regular Students), for candidates seeking admission via UTME (100 level) and DIRECT Entry. This ONLINE screening exercise is mandatory for entry into Lagos State University. CANDIDATES ARE TO NOTE THAT THEY CAN ONLY APPLY FOR THE ABOVE DURING THE ADMISSION SCREENING. 2.0 ELIGIBILITY FOR SCREENING i. Candidates who have chosen Lagos State University as their First Choice of institution in the 2025 Unified Tertiary Matriculation Examination (UTME), and have scored a minimum of 195 marks are eligible to participate in the Online Admission Screening Exercise. In addition, candidates must be at least 16 years of age, by 1st October, 2025. ii. ALL Pre Degree Studies (PDS) students who have successfully completed their studies and wish to be considered for admission into Lagos State University in the 2025/2026 Academic Session, who must have chosen Lagos State University as their First Choice of institution in the 2025 Unified Tertiary Matriculation Examination (UTME), and have scored a minimum of 195 marks are eligible to participate in the Online Admission Screening Exercise. iii. ALL Direct Entry candidates, including LASU Foundation (JUPEB), who wish to be considered for admission into Lagos State University for the 2025/2026 Academic Session, who must have obtained Direct Entry Form from Joint Admissions and Matriculation Board (JAMB) and must have chosen Lagos State University as their first choice of institution are also eligible and must apply for the screening exercise (ONLY LASU DIPLOMA is acceptable for Direct Entry (DE) Admission EXCEPT NCE into Faculty of Education Programmes). iv. Candidates of Lagos State origin, for 100 & 200 levels, who have proved their claims before the Independent Indigeneship Verification Committee (lIVC) set up by the Lagos State University, will have their claims automatically validated in the Online Admission Screening Exercise. 3.0 (A) LIST OF ACCREDITED COURSES Candidates should note that, ONLY the accredited courses listed below are available for the 2025/2026 Academic Session. Therefore, candidates can only apply for ANY of the under-listed courses for which they possess relevant requirements for admission. S/N | FACULTY | DEPARTMENT 1 ARTS - Arabic - Christian Religious Studies - English - French - History & International Studies - Islamic Studies - Linguistics - Music - Peace Studies - Philosophy - Portuguese / English - Theatre Arts - Yoruba 2 COMMUNICATION & MEDIA STUDIES - Mass Communication 3 EDUCATION - Arabic Education - Biology Education - Business Education - Chemistry Education - Christian Religious Studies Education - Computer Science Education - Early Childhood Education - Economics Education - Educational Management - English Education - French Education - Geography Education - Guidance & Counselling - Health Education - History Education - Islamic Studies Education - Mathematics Education - Physical & Health Education - Physics Education - Political Science Education - Special Education - Technology & Vocational Education - Yoruba Education 4 ENGINEERING - Aeronautic & Astronautic Engineering - Chemical Engineering - Civil Engineering - Electronics & Computer Engineering - Industrial Engineering - Mechanical Engineering 5 ENVIRONMENTAL SCIENCES - Architecture - Building - Estate Management - Environmental Management - Fine Arts - Industrial Design - Survey and Geo-Informatics - Quantity Surveying - Urban and Regional Planning 6 LAW - Common/Civil Law - Common/Islamic Law 7 MANAGEMENT SCIENCES - Accounting - Banking & Finance - Business Administration - Industrial Relations & Human Resource Management - Insurance - Local Government Development & Administration - Management Technology - Marketing - Public Administration - Taxation 8 SCIENCE - Biochemistry - Botany - Chemistry - Computer Science - Fisheries & Aquatic Biology - Mathematics - Microbiology - Physics - Science Laboratory Technology - Zoology 9 SOCIAL SCIENCES - Economics - Geography & Planning - Political Science - Sociology - Psychology 10 COLLEGE OF MEDICINE - Dentistry - Medical Laboratory Science - Medicine & Surgery - Nursing - Pharmacy - Pharmacology - Physiology - Physiotherapy - Radiography & Radiation Science 11 SCHOOL OF AGRICULTURE - Agricultural Economics - Agricultural Extension & Rural Development - Animal Science - Crop Production 12 SCHOOL OF LIBRARY, ARCHIVAL AND INFORMATION SCIENCE - Library & Information Science 13 SCHOOL OF TRANSPORT AND LOGISTICS - Transport Management & Operations - Logistics & Supply Chain Management (B) DIRECT ENTRY All Direct Entry Candidates are expected to immediately submit a copy each of the online Admission Screening Report and the notification of Diploma (LASU Diploma)/NCE Result at the Admission Annex/Liaison Office (Room 7, Administrative Block II). 4.0 METHOD OF APPLICATION A. 2025/2026 LASU POST UTME/DE ONLINE PAYMENT REGISTRATION PROCEDURE i. Prospective Candidates should visit www.lasu.edu.ng ii. Point to Student, then click on New Applicants iii. Click on UTME/DE Screening (https://lasu.edu.ng/admissionscreening) iv. Click on UTME CANDIDATE LOGIN v. Enter your UTME REGISTRATION NUMBER, your SURNAME and click on SUBMIT. vi. Click “Make Payment (Admission Screening)” button. vii. On the Payment Page - Supply Jamb Registration Number - Select “Admission Screening Fee” as Description - Select “Ojo” as Campus - Select “Student” as Category viii. After Successful Payment; return to your dashboard. ix. Click Start Admission Screening x. At this time, your basic bio-data information will be displayed. xi. Select mode of entry xii. Supply your Transaction ID used for Payment. xiii. Click “Submit” and continue with self screening process. xiv. Candidate(s) can repeat the above procedure if there is need to update/effect correction(s) on the earlier supplied records. With this, the candidate(s) will be required to make payments for corrections. xv. Candidate(s) can rescreen to make changes on course of study. With this, the candidate(s) will be required to make payment for subsequent screening attempt(s)/correction. B. ONLINE SELF-SCREENING FORM FOR ALL CANDIDATES STEP I  After successful payment for LASU 2025/2026 Admission screening exercise, return to https://lasu.edu.ng/admissionscreening STEP II  Use your UTME Registration Number AND SURNAME to login to the LASU Online Screening Platform and supply your Transaction ID. STEP III  Carefully fill in your personal details as required which includes: 1. Surname 2. First name 3. Middle name 4. Date of Birth 5. Gender 6. Country 7. State of Origin 8. Local Government Area 9. Personal Email Address 10. Personal Phone Number 11. Contact Address 12. Name of Parent/Guardian 13. Phone Number of Parent/Guardian 14. Address of Parent/Guardian 15. Physical Disability  Save and proceed  Carefully select choice of course  Input UTME subjects and respective grades  Save and proceed  Select number of O’ Level sitting(s)  Save and proceed  Input required O’ Level details  Save and proceed  Candidates must possess Five (5) O' Level Credits in subjects relevant to their desired course of study at not more than Two (2) sittings, except Medicine and Dentistry that require ONLY one (1) sitting.  Candidates who wish to study any Engineering Course and wish to use two (2) sittings of O’Level Results must possess Six (6) O' Level Credits including Mathematics, Physics, Chemistry, English Language, two (2) other Science subject and any other subject.  Aeronautic and Astronautic Engineering require a Credit pass in Further Mathematics.  Credit in English Language is compulsory for admission into all courses in Lagos State University.  Candidates must ENSURE they upload their O’Level results on JAMB CAPS before the closure of the Admission Screening Exercise  Candidates of Lagos State Origin MUST have proved their claims before the Independent Indigeneship Verification Committee (IIVC) set up by the Lagos State University, as their claim will be automatically validated before they can proceed with the Online Screening.  Note that any examination taken after July 2025 is not ACCEPTABLE. STEP IV  Carefully preview all details supplied and CERTIFY that they are correct  CHECK THE “I CERTIFY” BUTTON if you agree with all details as displayed in the Preview.  By ticking the “I Certify” button, the candidate confirms that, the screening will be premised ONLY on the supplied information as the screening decision is final. If you do not agree to the stated terms, you will not be permitted to go beyond this point.  Click the continue button STEP V After submission and successful completion of the online screening, you will be redirected to the Screening Homepage  Enter your UTME REGISTRATION NUMBER, then click DOWNLOAD RESULT to generate your SCREENING report. C. ONLINE SCREENING GRADING FOR ALL CANDIDATES  The screening of candidate(s) will be based on Point Grading System, using the UTME Score and SSCE (or equivalent) grades in Five (5) BEST RELEVANT subjects to candidate’s choice of course  The relevant subjects are obtainable from 2025 JAMB brochure available online at www.jamb.gov.ng or http://ibass.jamb.gov.ng/ebrochure.html  Candidates are advised to visit JAMB website to study the O’ Level subject requirements for their course of choice before participating in the online Admission Screening. Candidates should know that both payment and registration/updating would last for Twenty-Seven [27] days i.e., Monday 30th June – Saturday, 26th July, 2025/ (12 midnight). All Online Screening complaints should be channeled to screeningsupport@lasu.edu.ng Tag: 2025/2026 Admission Undergraduate Share on: Share",
+            "official": true,
+            "publishedAt": "2025-06-27T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:46:03.769Z",
+            "session": "2025/2026",
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU News - Notice to all Admitted Full-Time Undergraduate Students in the 2025/2026 Academic Session",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=574",
+            "snippet": "Notice to all Admitted Full-Time Undergraduate Students in the 2025/2026 Academic Session 05 Sep 2025, 11:25am 31329 Views Lagos State University hereby informs all candidates offered provisional admission into full-time undergraduate programmes for the 2025/2026 academic session to secure their admission by completing the following steps: i. Accept the LASU offer of admission on the LASU Post-UTME Self-Screening Portal. ii. Procced to pay the Acceptance Fee on or before Thursday, 11th September 2025. ii. Procced to pay the Medical Fee on or before Tuesday, 16th September 2025. iii. Effect the payment of Admission Clearance (LACACA) Fee in readiness for the commencement of LACACA operations on Wednesday, 17th September 2025. NOTE: Admitted candidates are to fulfil all the above, as they are prerequisites for the commencement of the LACACA operations. Admitted candidates into various programmes at the Lagos State University are expected to participate in the online admissions clearance exercise through the use of the LASU Central Admissions Clearance Application (LACACA). All pre-clearance payments and the LACACA operations are products of the LASU Consult Limited, and as such, all participating and admitted candidates in the 2025/2026 academic session are to pay the required fees through the LASU Consult Ltd payment portal. For further clarification, send an email to: mailsupport@lasu.edu.ng Tag: Admission 2025/2026 Academic Session Share on: Share",
+            "official": true,
+            "publishedAt": "2025-09-05T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:46:03.663Z",
+            "session": "2025/2026",
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU News - LASU to Hold 29th and 30th Convocation Ceremonies for the 2024/2025 and 2025/2026 Academic Sessions",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=650",
+            "snippet": "LASU to Hold 29th and 30th Convocation Ceremonies for the 2024/2025 and 2025/2026 Academic Sessions 04 Jul 2026, 08:47pm 818 Views The 29th and 30th Convocation Ceremonies of Lagos State University (LASU) graduands of the 2024/2025 and 2025/2026 academic sessions will hold from Wednesday, 12th August to Sunday, 23rd August 2026 The comprehensive programme of events for the Convocation Ceremony is detailed below : Pre-Convocation Events: DAY 1 (A) Convocation Press Conference Date: Wednesday, 12th August 2026 Venue: First Floor, Senate Chamber, Babatunde Raji Fashola Senate Building, Main Campus, Ojo, Lagos Time: 10:00 a.m. (B) Convocation Sports Competition for Staff Date: Wednesday, 12th August 2026 Venue: LASU Sports Centre, Main Campus, Ojo, Lagos Time: 12:00 noon Convocation Events: DAY 2 Staff Celebration Day (Dress Code to represent individual tribes) Date: Thursday, 13th August 2026 Venue: Buba Marwa Auditorium, Main Campus, Ojo, Lagos Time: 2:00 p.m. DAY 3 (A) Coconut Breaking and Cultural Day Date: Friday, 14th August 2026 Venue: Badagry Gate Entrance, Main Campus, Ojo, Lagos Time: 9:00 a.m. (B) Convocation Jumat Service Date: Friday, 14th August 2026 Venue: University Mosque, Main Campus, Ojo, Lagos Time: 1:00 p.m. DAY 4 Award of Diplomas, First Degrees, Postgraduate Diplomas and Master’s Degrees in Engineering, Agricultural Sciences and Distinguished Professorship Date: Monday, 17th August 2026 Venue: Olatunji Bello Auditorium, Epe Campus, Epe, Lagos Time: 10:00 a.m. DAY 5 (A) Convocation Lecture Date: Tuesday, 18th August 2026 Venue: Buba Marwa Auditorium, Main Campus, Ojo, Lagos Time: 9:00 a.m. (B) Award of Other Diplomas, First Degrees, Postgraduate Diplomas and Master’s Degrees Date: Tuesday, 18th August 2026 Venue: Buba Marwa Auditorium, Main Campus, Ojo, Lagos Time: 10:00 a.m. DAY 6 Award of Professional and Academic Doctorate Degrees (PhD) and Conferment of Honorary Doctorate Degrees Date: Wednesday, 19th August 2026 Venue: Buba Marwa Auditorium, Main Campus, Ojo, Lagos Time: 10:00 a.m. DAY 7 Special Convocation Thanksgiving Service Date: Sunday, 23rd August 2026 Venue: University Chapel (Chapel of Light), Main Campus, Ojo, Lagos Time: 10:00 a.m. NOTICE TO GRADUANDS FOR THE 2024/2025 & 2025/2026 ACADEMIC SESSIONS 1. To pay for the convocation package, all categories of graduands are to visit: www.lasu.edu.ng/tsa/payment/default.php and follow the steps on the payment portal. 2. Academic Gowns should be returned immediately after the ceremony latest by Friday, 21st August 2026 to avoid penalty. 3. Any graduand who holds on to the Academic Gown beyond Friday, 21st August 2026 will be liable to a fine of One Thousand Naira (₦1000.00) only, for each day of default. Also, any graduand who loses OR damages the Academic Gown would pay a sum of Thirty- Six Thousand Naira (₦36,000.00) and Forty-Five Thousand Naira (₦45,000.00) only, as replacement fee for First Degree and Postgraduate (Diploma and Masters) Graduands, respectively. 4. Graduands are to NOTE that certificates will be available for collection immediately after the Convocation Ceremony, subject to return of academic gown. 5. First degree graduands are to move the tassels of their caps from right to left at a point during the ceremony, when the Vice-Chancellor declares; \"I admit you all\". This signifies their admission into the body of Graduates of Lagos State University (LASU). Higher degree recipients should put on their caps, with the tassels placed at the left-hand side, since they already have their first degrees. 6. ALL graduands should seek the assistance of Faculty Officers/School Secretaries to ensure that the hood and cap are properly worn, with the tassels (cords) of the cap positioned to the right. 7. Female graduands are expected to show courtesy when they shake hands with the Vice-Chancellor, while male graduands bow, but should NOT remove their caps. 8. Parents/Guardians and Invited Guests are advised to be seated NOT later than 8:30 a.m. on each day. 9. Graduands are to STRICTLY ADHERE to the following: i. Graduands are to join the Convocation Procession by 9:00 a.m.; failing which they will not be allowed into the University Auditorium. ii. Graduands in each Faculty are expected to be seated in the sections provided for them in the University Auditorium. iii. Unauthorised movements and taking of photographs will not be allowed during the convocation ceremony. Graduands are, therefore, advised in their own interest to complete such activity before coming into the University Auditorium OR wait till after the ceremony. Any graduand who leaves his/her seat while the ceremony is on will NOT be allowed to return to the Auditorium. This is to ensure ORDERLINESS during the Convocation Ceremony. iv. Graduands and Invited Guests under the canopy outside the University Auditorium are requested to be orderly and rise to their feet as the Academic Procession enters AND leaves the convocation venue. v. Graduands should be properly robed; and are also advised to conform to the colour prescribed for their Faculties. vi. All graduands are required to immediately commence and complete the process of their clearance in their respective College/Schools/Faculties before the convocation, in order to facilitate the collection of their degree certificates. The Vice-Chancellor congratulates all Graduands, Parents/Guardians, Stakeholders, and the entire University Community on the occasion of the combined 29th and 30th Convocation Ceremonies of the University. Tag: Convocation Ceremonies 2024/2025 2025/2026 Share on: Share",
+            "official": true,
+            "publishedAt": "2026-07-04T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:46:03.778Z",
+            "session": null,
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU — 2026/2027 Admission Screening",
+            "url": "https://services.lidc.lasu.edu.ng/admissionscreening/",
+            "snippet": "LASU — 2026/2027 Admission Screening Javascript is disabled in your browser. Please enable it for the best experience on this portal. mailsupport@lasu.edu.ng | screeningsupport@lasu.edu.ng 2026/2027 Admission Exercise | Helpline: 0800-LASU-HELP 2026/2027 Academic Session LASU Admission Screening Portal Welcome to the official Lagos State University online admission screening platform. Begin your journey toward a world-class education right here. Start Screening View Requirements 195+ Minimum UTME Score 3 Candidate Categories 100+ Programmes Available Online 24/7 Access Important: All candidates must upload O-Level results at a JAMB-accredited CBT centre and ensure LASU is your first choice on JAMB CAPS before proceeding. View entrepreneurship certificate courses &rarr; Choose Your Category Select Your Candidate Type Each candidate type has specific eligibility criteria. Select yours below to proceed to the login portal. UTME Candidates 100 Level Entry For candidates seeking admission via the Unified Tertiary Matriculation Examination into any full-time undergraduate programme at LASU. Minimum score of 195 in the 2026 UTME LASU must be your first-choice institution O-Level result uploaded to JAMB CAPS Valid JAMB registration number required UTME Candidate Login Direct Entry 200 / 300 Level Entry For candidates with OND, NCE, HND, A-Level, or equivalent qualifications seeking direct entry admission into LASU programmes. Valid JAMB Direct Entry registration LASU must be your first-choice institution Submit hard copies of credentials to Admissions Office Relevant post-secondary qualifications Direct Entry Login LASU JUPEB 2025/2026 Participants Exclusively for candidates who participated in the 2025/2026 Lagos State University JUPEB Programme and have chosen LASU as their first-choice university. Participated in 2025/2026 LASU JUPEB LASU must be your first-choice institution Valid JUPEB result slip required JAMB registration number required JUPEB Candidate Login Simple Process How the Screening Works Six steps to complete your admission screening. Step 1 Choose LASU First Set Lagos State University as your first-choice on JAMB. Step 2 Verify Eligibility Confirm you meet the minimum requirements for your category. Step 3 Login Log in with your JAMB number and surname . Step 4 Make Payment Pay via the dedicated payment link on the portal. Step 5 Start Screening Return to the portal, click Start Screening , enter your transaction ID, then supply your personal, O-Level and JAMB details. Step 6 Check Result Log in after processing to view your screening outcome. Before You Proceed — Important Notice Candidates are required to ensure that Lagos State University (LASU) is selected as their first-choice institution on JAMB before attempting this screening. Applications from candidates who have not chosen LASU as their first choice will not be processed . If you have already sat for JAMB and LASU is not currently your first choice, please visit any JAMB-accredited CBT centre to effect a change of institution before proceeding with this screening. All complaints and enquiries should be directed to mailsupport@lasu.edu.ng or screeningsupport@lasu.edu.ng . Helpful Links Resources & Tools Everything you need to support your admission screening process. Admission Requirements View course-specific O-Level requirements for all programmes offered at LASU. View Requirements IIVC Re-Validation Already cleared by the Indigeneship Verification Committee in 2024 or 2025? Re-validate here. Re-Validate Now Entrepreneurship Courses View the full list of 79 entrepreneurship certificate courses available in the special programme. View Course List Candidate Login Already know your category? Proceed directly to the screening login portal. Go to Login Entrepreneurial Certificate Courses B.A./B.Sc. Special Programme — 79 Courses Access Control Installation and Management Animal Husbandry (Snail breeding, Grass Cutter breeding) Awards, Packaging and Screen Printing Bead making Block making industry (Vibrated or engine molds / Hand molds) Build, Installation and Repair of Inverter / Solar Panel Building Drawing Building Applications in PHP Cake Baking, Snacks, Sugar Craft (Free Hand Modelling) CCTV Camera Installation and Management Certificate in Aquatic food processing Certificate in Aquatic Product Business Certificate in Artisanal Fisheries Operation and Management Certificate in Brood-stock development and Management Certificate in Environmental management in fisheries and aquaculture Certificate in Fish Farm Cluster and Terminal Management Certificate in Fish farm clusters and fish Certificate in Fish farming business Certificate in Fish feed manufacturing Certificate in Fish Fingerling Production, Marketing and Distribution Certificate in Fish health management Certificate in Fisheries and Aquaculture Value Chain Certificate in Industrial Fisheries Operation and Management Certificate in Local and International fish business Certificate in Ornamental fish business Certificate in Public-Private Partnership in Fisheries and Aquaculture (PPP) Certificate in Shrimp and Prawn farming business Certificate in Water quality analysis and management Certification of Trade Apprentice Coconut value chain Computer & Laptop repairs, Networking, Mobile Phone repairs and Maintenance Concrete Mixer Handling Courier and Logistics Management Crop Farming Data Analysis and Data Processing (Excel & SPSS) Database Management Essentials Data Recovery Specialist / Technician Decoders and Internet Marketing Digital Forensic Specialist / Technician Digital Marketing Distribution Channel & Logistics Management Drama and Entertainment Draughtmanship Entrepreneurship Training in Beekeeping Ethical Hacking and Cyber Security Specialist / Technician Event Management & Hall Decoration Event Planning and Management Fiber Optic Cable Installation and Management Food Processing and Cake Production Garment Construction, Pattern Drafting, Bridal Designs and Evening Wears Home Electronics (Domestic Appliances) Repairs and Management Hotel Management Import and Export Processing Entrepreneurship Interlocking / Paving Stones for Private and Commercial Premises Laptop / Desktop / Handset Repairs Leather Works Make-ups and Cosmetics Packaging and Marketing Entrepreneurship Photograph / Image Editing Photography POP (Plaster of Paris) for Buildings Construction Real Estate Entrepreneurship Security Operations and Management Server Technician (Installations and Management) Soap, Detergent and Toiletries Production Structured Cabling & Wireless Installation and Management Tailoring and Fashion Design Tourism Management Training and Teaching of Bread Making Training in Fibre-Reinforced Plastic Tanks Construction Training in Paint Making (Emulsion / Texture Coatings) and Allied Products Training on Borehole Drilling and Water Treatment Training on Solar Energy System, Design, Installation and Maintenance Vegetable Production (Maize farming, Cassava farming) Videography and Finishing School Water Treatment and Packaging Website Development Welding, Metal Works and Fabrication Writing and Publishing Close",
+            "official": true,
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:45:54.399Z",
+            "session": null,
+            "kind": "portal",
+            "adapter": "discovery",
+            "verified": true
+          },
+          {
+            "title": "LASU News - LASU Retains No. 1 Position in West Africa, Makes Historic Leap to 493rd Globally in UI Greenmetric 2026",
+            "url": "https://lasu.edu.ng/home/news/read.php?id=673",
+            "snippet": "LASU Retains No. 1 Position in West Africa, Makes Historic Leap to 493rd Globally in UI Greenmetric 2026 26 Sep 2026, 07:29am 898 Views ‎Lagos State University (LASU) has once again retained its leadership in sustainable university development, retaining its position as the Overall Best University in West Africa in the 2026 UI GreenMetric Sustainable University Rankings. ‎ ‎ The latest result, announced at the UI GreenMetric Sustainable University Rankings 2026 Results and Awards Ceremony in Baku, Azerbaijan, places LASU 493rd globally among 2,016 institutions across 110 countries, representing a remarkable advancement from its 760th position in the 2025 ranking. ‎ ‎The latest feat extends LASU's remarkable run at the summit of sustainable university rankings in West Africa. Since the University joined the UI GreenMetric ranking in 2022, LASU has consistently emerged as the No. 1 university in West Africa, retaining the position for the fifth consecutive ranking cycle (2022, 2023, 2024, 2025, and 2026). ‎ ‎Beyond its sustained regional leadership, the 2026 result represents a significant leap in LASU's global sustainability standing. The University has progressed from 799th globally in 2024, to 760th in 2025, and now to 493rd in 2026, an advancement of 267 places in just one year and 306 places from its 2024 position. ‎ ‎The 2026 UI GreenMetric ranking assesses universities on sustainability performance across key areas including Setting and Infrastructure, Energy and Climate Change, Waste, Water, Transportation, Education, and Governance and Digitalisation. LASU's 2026 performance reflects the University's continuing institutional commitment to embedding sustainability, environmental responsibility, and innovative practices across its operations. ‎ ‎In August 2026, LASU also received international recognition for its contribution to the UI GreenMetric network, with its National and Regional Coordinatorship renewed, alongside its elevation to Co-Chairmanship of key sessions at UI GreenMetric international events for the 2026/2027 academic session. ‎ ‎The latest achievement reflects the collective efforts of the University Management, staff, students and the various units and committees contributing to LASU's sustainability agenda. It further reinforces the University's growing profile as a leading institution not only in academic excellence, but also in sustainable development, innovation, responsible governance, and institutional transformation. ‎ ‎The Vice-Chancellor, Professor Ayodeji Olawunmi BADEJO, FCASSON, FAPROCON, MNAE, congratulates the entire LASU community on this remarkable achievement and commends all those whose commitment and contributions continue to advance the University's sustainability agenda. ‎ ‎As LASU continues to build on the achievements of previous administrations, the latest UI GreenMetric result provides yet another indication of the University's steady progress and its ambition to remain a leading institution in Africa and on the global higher education landscape. ‎ ‎We are LASU, We are Great! Tag: West Africa No. 1 Position UI Greenmetric 2026 Share on: Share",
+            "official": true,
+            "publishedAt": "2026-09-26T00:00:00.000Z",
+            "fetchedAt": "2026-10-25T14:46:03.790Z",
+            "session": "2026/2027",
+            "kind": "article",
+            "adapter": "discovery",
+            "verified": true
+          }
+        ],
+        "answer": "I could not verify this from directly relevant official evidence. No explicit minimum score matched the requested session. Please check the official portal or contact S.O.H CONSULTS for confirmation.",
+        "confidence": "low",
+        "needsHuman": true,
+        "contradiction": false,
+        "generative": false,
+        "sourceType": "none",
+        "intent": "cutoff",
+        "answerMode": "numeric",
+        "currentSensitive": true,
+        "searchedAt": "2026-10-25T15:16:15.329Z",
+        "verificationReason": "No explicit minimum score matched the requested session.",
+        "coverageGaps": [
+          {
+            "adapter": "wordpress",
+            "url": "https://lasu.edu.ng/wp-json/wp/v2/posts?search=What%20was%20%20cutoff%20for%202025%2F2026%3F&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://www.lasu.edu.ng/wp-json/wp/v2/posts?search=What%20was%20%20cutoff%20for%202025%2F2026%3F&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://www.lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "html",
+            "url": "https://lidc.lasu.edu.ng/",
+            "reason": "fetch failed"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "jina-google",
+            "url": "https://r.jina.ai/http://www.google.com/search?q=What%20was%20LASU%20cutoff%20for%202025%2F2026%3F%20site%3Alasu.edu.ng",
+            "reason": "No institution-owned URLs"
+          },
+          {
+            "adapter": "jina-bing",
+            "url": "https://r.jina.ai/http://www.bing.com/search?q=What%20was%20LASU%20cutoff%20for%202025%2F2026%3F%20site%3Alasu.edu.ng",
+            "reason": "The operation was aborted due to timeout"
+          }
+        ],
+        "discoveryCacheHit": false,
+        "knowledgeMatches": 0
+      }
+    },
+    {
+      "id": "conflict",
+      "question": "LASU cutoff is 195 or 200 for 2026/2027?",
+      "status": 200,
+      "actual": {
+        "query": "LASU cutoff is 195 or 200 for 2026/2027?",
+        "results": [
+          {
+            "title": "LASU Admission Screening Portal admission cutoff 2026/2027",
+            "url": "https://services.lidc.lasu.edu.ng/admissionscreening/",
+            "snippet": "195+ Minimum UTME Score",
+            "official": true,
+            "verified": true,
+            "kind": "article",
+            "publishedAt": null,
+            "fetchedAt": "2026-10-25T14:46:03.751Z",
+            "adapter": "verified-registry"
+          }
+        ],
+        "answer": "195",
+        "confidence": "high",
+        "needsHuman": false,
+        "contradiction": false,
+        "generative": false,
+        "sourceType": "official_live",
+        "intent": "cutoff",
+        "answerMode": "numeric",
+        "currentSensitive": true,
+        "searchedAt": "2026-10-25T15:16:15.341Z",
+        "verificationReason": "Explicit session-bound official minimum score",
+        "coverageGaps": [
+          {
+            "adapter": "html",
+            "url": "https://lidc.lasu.edu.ng/",
+            "reason": "fetch failed"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://www.lasu.edu.ng/wp-json/wp/v2/posts?search=cutoff%20is%20195%20or%20200%20for%202026%2F2027%3F&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "rss",
+            "url": "https://www.lasu.edu.ng/feed/",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "wordpress",
+            "url": "https://lasu.edu.ng/wp-json/wp/v2/posts?search=cutoff%20is%20195%20or%20200%20for%202026%2F2027%3F&per_page=30",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/sitemap.xml",
+            "reason": "HTTP 404"
+          },
+          {
+            "adapter": "sitemap",
+            "url": "https://www.lasu.edu.ng/wp-sitemap.xml",
+            "reason": "HTTP 404"
+          }
+        ],
+        "discoveryCacheHit": false,
+        "knowledgeMatches": 1
+      }
+    },
+    {
+      "id": "follow-route",
+      "question": "And Direct Entry?",
+      "status": 200,
+      "actual": {
+        "query": "And Direct Entry?",
+        "results": [
+          {
+            "title": "FUOYE official 2026/2027 screening guidance — Direct Entry",
+            "url": "https://fuoye.edu.ng/post-utme-screening/",
+            "snippet": "Advanced (A) Level candidates must have at least 6 points aggregate. Direct Entry Admission Candidates must satisfy the University SSCE/NECO/GCE O/Level requirements and in addition have GCE A/Level, JUPEB, OND or ND Upper Credit as stated for each course.",
+            "official": true,
+            "internal": true
+          }
+        ],
+        "answer": "For FUOYE Direct Entry, meet your course's O'Level requirements and its accepted GCE A'Level, JUPEB, OND or ND Upper Credit qualification. The official screening guidance states that A'Level candidates need at least 6 aggregate points. These are general conditions, not confirmation that every qualification is accepted for every course. Which course do you want to study? Check the linked 2026/2027 guidance before applying.",
+        "confidence": "medium",
+        "needsHuman": false,
+        "verifiedFact": true,
+        "sourceType": "verified_knowledge",
+        "verifiedAt": "2026-10-25 15:13:54.696433+00",
+        "academicSession": "2026/2027",
+        "knowledgeMatches": 1
+      }
+    }
+  ]
+}
