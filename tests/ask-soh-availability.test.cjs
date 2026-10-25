@@ -16,3 +16,14 @@ test('reviewed current fact uses record read time while retaining review validit
  const body=await response.json();assert.equal(body.answer,'195');assert.equal(body.confidence,'high');assert.equal(body.knowledgeMatches,1);
  assert.equal(factApplicable({...fact,review_due_at:new Date(Date.now()-1).toISOString()},resolveQuestion(question)),false);
 });
+test('missing admission session clarifies before any source discovery',async()=>{
+ const {resolveQuestion}=require('../lib/ask-soh/question-resolver.ts');let lookups=0;
+ const route=routeWithRate({allowed:true},{'/question-resolver':{resolveQuestion},'/knowledge-repository':{getInstitution:async()=>{lookups++;throw Error('Unexpected lookup')}}});
+ const r=await route.GET({nextUrl:new URL('https://qa.invalid/api/ask-soh/search?q=LASU%20cutoff')});const body=await r.json();assert.equal(lookups,0);assert.equal(body.needsClarification,true);assert.deepEqual(body.results,[]);
+});
+test('unverified historical answer does not expose unrelated retrieved sources as citations',async()=>{
+ const {resolveQuestion}=require('../lib/ask-soh/question-resolver.ts');const {verifyAnswer,rankDocuments}=require('../lib/ask-soh/answer-verification.ts');
+ const docs=[{title:'LASU 2026/2027 screening',url:'https://lasu.edu.ng/new-notice',snippet:'2026/2027 minimum UTME score of 195.',official:true,verified:true,kind:'article',fetchedAt:new Date().toISOString()}];
+ const route=routeWithRate({allowed:true},{'/question-resolver':{resolveQuestion},'/knowledge-repository':{getInstitution:async()=>({key:'lasu'}),findVerifiedFacts:async()=>[]},'/source-discovery':{discoverOfficialSources:async()=>({documents:docs,gaps:[],cacheHit:false}),searchProviderSources:async()=>({documents:[],gaps:[]})},'/answer-verification':{verifyAnswer,rankDocuments},'/telemetry':{recordQuestion:async()=>{}}});
+ const r=await route.GET({nextUrl:new URL('https://qa.invalid/api/ask-soh/search?q=LASU%202025%2F2026%20cutoff')});const body=await r.json();assert.equal(body.confidence,'low');assert.deepEqual(body.results,[]);
+});
