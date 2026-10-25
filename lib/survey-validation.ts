@@ -8,5 +8,9 @@ export function parseSubmission(d:Record<string,unknown>){
  const role=str('roles',100,true);if(!roles.includes(role))throw Error('Please choose your audience group.');
  const permission=str('permission',20,true);if(!['no','anonymous','named'].includes(permission))throw Error('Please check testimonial permission.');
  const name=str('name',120);if(permission==='named'&&!name)throw Error('Please add a name or select anonymous permission.');
- return {id,role,uses:list('uses',uses,1,4),challenge:str('challenge',1500,true),improvement:str('improvement',1500,true),features:list('features',features,0,3),questions:str('student_questions',2000),experience:str('experience',3000),name,permission};
+ const emailRequested=d.email_copy===true||d.email_copy==='on';
+ if(d.email_copy!==undefined&&d.email_copy!==false&&d.email_copy!==true&&d.email_copy!=='on')throw Error('Please check the email copy option.');
+ const receiptEmail=emailRequested&&typeof d.email==='string'?d.email.trim():'';
+ if(emailRequested&&(receiptEmail.length>254||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(receiptEmail)||/[\r\n]/.test(receiptEmail)))throw Error('Enter a valid email address for your answer copy.');
+ return {emailRequested,receiptEmail,id,role,uses:list('uses',uses,1,4),challenge:str('challenge',1500,true),improvement:str('improvement',1500,true),features:list('features',features,0,3),questions:str('student_questions',2000),experience:str('experience',3000),name,permission};
 }
