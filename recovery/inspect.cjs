@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- Node CommonJS recovery test tooling */
 const {registerHooks}=require('node:module');
 registerHooks({resolve(specifier,context,next){try{return next(specifier,context)}catch(e){if(specifier.startsWith('.'))return next(specifier+'.ts',context);throw e}}});
 const {resolveQuestion}=require('../lib/ask-soh/question-resolver.ts');

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- Node CommonJS recovery test tooling */
 require('../scripts/ask-soh-test-loader.cjs');
 const fs=require('node:fs');
 process.env.SUPABASE_URL='https://recovery.invalid';process.env.SUPABASE_SERVICE_ROLE_KEY='recovery-fixture';delete process.env.OPENAI_API_KEY;
