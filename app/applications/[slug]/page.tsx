@@ -15,7 +15,7 @@ import { PRIMARY_SITE_URL } from "../../site-url";
 
 export const dynamic = "force-dynamic";
 const getApplication = cache(async (slug: string) => {
-  const stories = await listPublishedStories();
+  const stories = await listPublishedStories({strict:true});
   const item = publicOpportunities(stories).find(item => applicationSlug(item) === slug);
   if (!item) return null;
   const story = stories.find(story => item.detailHref === `/updates/${getStorySlug(story)}`);

@@ -56,3 +56,9 @@ test('sitemap includes published notice canonical, excludes derivative checklist
   fail=true;
   await assert.rejects(sitemap(),/unavailable/);
 });
+
+test('application and category metadata propagate an upstream outage instead of reporting a missing page',async()=>{
+ const common={'react':{cache:fn=>fn},'next/navigation':{notFound:()=>{throw Error('unexpected 404')}},'../../../lib/news-queue':{listPublishedStories:async options=>{assert.equal(options.strict,true);throw Error('database temporarily unavailable')}},'../../../../lib/news-queue':{listPublishedStories:async options=>{assert.equal(options.strict,true);throw Error('database temporarily unavailable')}},'../../../lib/content-catalogue':{},'../../../lib/application-guide':{},'../../../lib/public-metadata':{},'../../../../lib/public-metadata':{},'../../../../lib/category-slug':{},'../../components/DiscoveryHeader':{},'../../components/ServiceEnquiry':{},'../../components/JsonLd':{},'../../updates/[id]/RichText':{},'../../updates/[id]/StructuredArticle':{},'../../../lib/article-blocks':{},'../../site-url':{},'../../../site-url':{},'../../../components/DiscoveryHeader':{},'../../../components/PublishedArchive':{},'../../../components/JsonLd':{},'../../../components/SiteContact':{},'../../../components/UpdatesExplorer':{}};
+ const app=load('app/applications/[slug]/page.tsx',common);await assert.rejects(app.generateMetadata({params:Promise.resolve({slug:'existing'})}),/temporarily unavailable/);
+ const category=load('app/updates/category/[category]/page.tsx',common);await assert.rejects(category.generateMetadata({params:Promise.resolve({category:'admission'})}),/temporarily unavailable/);
+});
