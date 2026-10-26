@@ -1,3 +1,4 @@
+import DiscoveryHeader from "../../components/DiscoveryHeader";
 import NextSteps from "../../components/NextSteps";
 import {guideContent} from "../../../lib/content-catalogue";
 import type { Metadata } from "next";
@@ -72,16 +73,7 @@ export default async function GuidePage({ params }: Props) {
   return (
     <main className="min-h-screen bg-[#f7f5ef] text-[#102720]">
       <JsonLd data={[{"@context":"https://schema.org","@type":"Article",headline:guide.title,description:guide.summary,mainEntityOfPage:canonicalUrl,author:{"@type":"Organization","name":"S.O.H CONSULTS"},publisher:{"@id":`${getSiteUrl()}/#organization`}},{"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:[{"@type":"ListItem",position:1,name:"Home",item:getSiteUrl()},{"@type":"ListItem",position:2,name:"Guides",item:`${getSiteUrl()}/guides`},{"@type":"ListItem",position:3,name:guide.title,item:canonicalUrl}]}]}/>
-      <header className="border-b border-[#dfe7df] bg-white">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
-          <a href="/" className="font-black text-[#075738]">S.O.H CONSULTS</a>
-          <nav aria-label="Guide navigation" className="flex flex-wrap gap-4 text-sm font-bold">
-            <a href="/guides" className="hover:text-[#087245]">All Guides</a>
-            <a href="/updates" className="hover:text-[#087245]">Updates</a>
-            <a href="https://wa.me/2348182141088" target="_blank" rel="noopener noreferrer" className="text-[#087245]">Get Help</a>
-          </nav>
-        </div>
-      </header>
+      <DiscoveryHeader/>
 
       <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
         <a href="/guides" className="text-sm font-bold text-[#087245] hover:underline">← Back to all guides</a>
