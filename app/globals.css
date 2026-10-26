@@ -94,3 +94,10 @@ html[data-soh-theme=dark] .soh-homepage{color:#e5edf8}
 /* Keep display controls readable when the homepage opens in its wide overview. */
 html[data-soh-wide-touch] .soh-display-dialog{width:calc(var(--soh-screen-width) - 32px);max-width:440px;max-height:calc(var(--soh-visual-height) / var(--soh-zoom-inverse) - 32px);transform:scale(var(--soh-zoom-inverse));transform-origin:center center}
 html[data-soh-density=comfortable] .soh-homepage .soh-discovery-panel{padding:28px}
+/* The top bar covers pages without a shared header, including future routes. */
+.soh-display-fallback{position:sticky;top:0;z-index:50;width:100%;border-bottom:1px solid #e2e8f0;background:#fff;color:#172033}
+.soh-display-fallback>div{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1280px;margin:auto;padding:10px 24px}.soh-display-fallback img{width:90px;height:50px;object-fit:contain}.soh-display-fallback nav{display:flex;align-items:center;gap:8px}.soh-display-fallback nav>a{padding:10px 14px;border:1px solid #166534;border-radius:12px;font-weight:700;color:#166534}
+body:has(header:not(.soh-display-fallback) .soh-display-button) .soh-display-fallback{display:none}
+html[data-soh-theme=dark] .soh-display-fallback{background:#142137;color:#e5edf8;border-color:#334155}html[data-soh-theme=dark] .soh-display-fallback nav>a{color:#b9e5cd}
+html[data-soh-theme=dark] :is(main,div,details,summary,table,thead,tbody,td,th,input,textarea,select)[class*="bg-white"]{background:#142137;color:#e5edf8;border-color:#334155}
+html[data-soh-theme=dark] :is([class*="border-gray-"],[class*="border-slate-"]){border-color:#334155}
