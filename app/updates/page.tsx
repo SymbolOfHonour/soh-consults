@@ -1,6 +1,4 @@
 import PublishedArchive from "../components/PublishedArchive";
-import type { Viewport } from "next";
-export const viewport:Viewport={width:"device-width",initialScale:1,userScalable:true};
 import type { Metadata } from "next";
 import SiteContact from "../components/SiteContact";
 import DiscoveryHeader from "../components/DiscoveryHeader";

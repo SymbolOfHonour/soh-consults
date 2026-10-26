@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { cache } from "react";
 import { notFound } from "next/navigation";
 import { getStorySlug, listPublishedStories } from "../../../lib/news-queue";
@@ -14,7 +14,6 @@ import RichText from "../../updates/[id]/RichText";
 import { PRIMARY_SITE_URL } from "../../site-url";
 
 export const dynamic = "force-dynamic";
-export const viewport: Viewport = { width: "device-width", initialScale: 1, userScalable: true };
 const getApplication = cache(async (slug: string) => {
   const stories = await listPublishedStories();
   const item = publicOpportunities(stories).find(item => applicationSlug(item) === slug);
