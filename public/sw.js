@@ -1,4 +1,4 @@
-const CACHE_NAME = "soh-consults-v6";
+const CACHE_NAME = "soh-consults-v7";
 
 self.addEventListener("install", () => {
   self.skipWaiting();
@@ -46,11 +46,21 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Route data can contain authenticated editor content, even when it is not
+  // a navigation. Cache only asset files; never admin pages or RSC responses.
+  if (
+    url.pathname === "/admin" || url.pathname.startsWith("/admin/") ||
+    request.headers.get("RSC") === "1" || url.searchParams.has("_rsc") ||
+    !/\.(?:avif|gif|ico|jpe?g|png|svg|webp|woff2?|ttf|otf|css|js|webmanifest)$/i.test(url.pathname)
+  ) {
+    return;
+  }
+
   // Only cache ordinary same-origin static resources.
   event.respondWith(
     fetch(request)
       .then((response) => {
-        if (!response || response.status !== 200) {
+        if (!response || response.status !== 200 || /(?:^|,)\s*(?:private|no-store)\b/i.test(response.headers.get("Cache-Control") || "") || /text\/html|text\/x-component/i.test(response.headers.get("Content-Type") || "")) {
           return response;
         }
 
