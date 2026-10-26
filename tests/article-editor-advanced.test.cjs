@@ -13,7 +13,7 @@ function load(file,imports={}){
 }
 const blocks=load('lib/article-blocks.ts');
 const meta=load('lib/smart-operations.ts');
-const rich=load('app/updates/[id]/RichText.tsx');
+const rich=load('app/updates/[id]/RichText.tsx',{'../../../lib/editorial-link':load('lib/editorial-link.ts')});
 const renderArticle=load('app/updates/[id]/StructuredArticle.tsx',{
  '../../../lib/article-blocks':blocks,
  '../../../lib/article-ad-positions':{articleAdPositions:()=>new Set()},
