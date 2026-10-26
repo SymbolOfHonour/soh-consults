@@ -31,5 +31,24 @@ quota exceeded) during the audit. No mobile speed score was obtained or invented
 The domain-property screenshot shows 21 indexed and 98 not indexed, across four
 reasons; its last-update date is 23 October 2026. This later supplied screenshot
 supersedes the earlier overview totals for reporting. It predates the releases
-and must not be attributed to today’s deployment. The four reason labels and
-examples are below the cropped area and have not been provided or inspected.
+and must not be attributed to today’s deployment. The four reason labels were supplied in a subsequent screenshot and are recorded below; URL examples remain unprovided.
+
+## Indexing reasons supplied by owner screenshot
+
+The subsequently supplied reason table accounts for all 98 exclusions:
+
+| Reason | Pages | Interpretation/action |
+|---|---:|---|
+| Alternate page with proper canonical tag | 16 | Check sample alternate/canonical pairs; keep intentional consolidation |
+| Page with redirect | 2 | Check that destinations are the intended canonical pages |
+| Excluded by noindex | 1 | Check the URL before deciding whether exclusion is intentional |
+| Discovered – currently not indexed | 79 | Review the actual URL list and priority content; do not assume all are errors or request indexing in bulk |
+| Crawled – currently not indexed | 0 | No affected URLs shown in this category |
+
+The table provides categories/counts, not the affected URL list. It does not prove
+which of the audited articles fall in the discovered set. Google's validation
+status "Not Started" does not by itself require changing canonical/redirect or
+private-page noindex controls. The report predates today's fixes. Thin-notice
+noindex decisions are based on the actual content audit, not guessed membership
+of the 79-URL set. The next verification is a URL-level export or restored
+Search Console session, not a fabricated diagnosis from aggregate counts.
