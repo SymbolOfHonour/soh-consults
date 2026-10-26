@@ -1,0 +1,8 @@
+/* Keep the cutout grounded in the hero, with no hard photographic edge. */
+.heroStudents {
+  display: block;
+  align-self: end;
+  object-position: center bottom;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
+}
