@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { listPublishedStories } from "../../lib/news-queue";
 import { contentCatalogue, publicOpportunities } from "../../lib/content-catalogue";
 import { applicationHref } from "../../lib/application-guide";
@@ -9,7 +9,6 @@ import MySchoolFeed from "../components/MySchoolFeed";
 import EducationDiscoveryPanels from "../components/EducationDiscoveryPanels";
 import SiteContact from "../components/SiteContact";
 export const dynamic = "force-dynamic";
-export const viewport: Viewport = { width: "device-width", initialScale: 1, userScalable: true };
 export const metadata: Metadata = withPublicSocial({ title: "My School | Personal education feed", description: "Choose schools and interests to find relevant educational updates, opportunities, application guides and calculators from S.O.H CONSULTS.", alternates: { canonical: "/my-school" } });
 export default async function MySchoolPage() {
   const stories = await listPublishedStories();

@@ -1,5 +1,3 @@
-import type { Viewport } from "next";
-export const viewport:Viewport={width:"device-width",initialScale:1,userScalable:true};
 import {withPublicSocial} from "../../lib/public-metadata";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";

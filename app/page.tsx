@@ -1,7 +1,3 @@
-import type { Viewport } from "next";
-// Fit the full homepage overview to a phone screen; native pinch zoom stays available.
-// Clear the root scale so mobile browsers calculate the initial fit from this width.
-export const viewport:Viewport={width:1120,initialScale:undefined,userScalable:true};
 import type { Metadata } from "next";
 import HomepageServer from "./homepage-server";
 import {defaultSiteSettings,getPublishedSiteSettings} from "../lib/site-manager";
