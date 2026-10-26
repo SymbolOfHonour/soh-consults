@@ -91,3 +91,6 @@ html[data-soh-theme=dark] :is([class*="text-green-950"],[class*="text-green-900"
 @media(max-width:767px){.soh-search-panel{padding:0!important;margin-block:0!important}.soh-search-panel>div{padding:14px 12px;gap:12px}.soh-search-panel input,.soh-search-panel button{font-size:12px;padding:10px}.soh-home-header>div{padding-block:0}.soh-home-header img{height:38px;width:auto}html:not([data-soh-density=comfortable]) .soh-home-hero>div{align-items:end}html:not([data-soh-density=comfortable]) .soh-home-hero>div>div:first-child{padding-bottom:18px}}
 html[data-soh-theme=dark] .soh-homepage{color:#e5edf8}
 .soh-popular-copy h3{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+/* Keep display controls readable when the homepage opens in its wide overview. */
+html[data-soh-wide-touch] .soh-display-dialog{width:calc(var(--soh-screen-width) - 32px);max-width:440px;max-height:calc(var(--soh-visual-height) / var(--soh-zoom-inverse) - 32px);transform:scale(var(--soh-zoom-inverse));transform-origin:center center}
+html[data-soh-density=comfortable] .soh-homepage .soh-discovery-panel{padding:28px}
