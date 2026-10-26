@@ -37,6 +37,7 @@ test('application checklists canonicalize to their original notice and incomplet
 test('sitemap includes published notice canonical, excludes derivative checklists and propagates database failure', async () => {
   let fail = false;
   const sitemap = load('app/sitemap.ts', {
+    '../data/services': load('data/services.ts'),
     '../lib/category-slug': {categorySlug:s=>s.toLowerCase()},
     './site-url': {PRIMARY_SITE_URL:'https://sohconsults.com.ng'},
     '../data/guides': {guides:[]},
@@ -46,6 +47,9 @@ test('sitemap includes published notice canonical, excludes derivative checklist
   }).default;
   const rows = await sitemap();
   assert.ok(rows.some(r=>r.url==='https://sohconsults.com.ng/updates/original'));
+  assert.ok(rows.some(r=>r.url==='https://sohconsults.com.ng/schools'));
+  assert.ok(rows.some(r=>r.url==='https://sohconsults.com.ng/services/admission-guidance'));
+  assert.ok(rows.every(r=>!r.url.includes('/schools/')));
   assert.ok(rows.some(r=>r.url==='https://sohconsults.com.ng/writers/soh-consults'));
   assert.ok(rows.every(r=>!r.url.includes('/applications/')));
   fail=true;

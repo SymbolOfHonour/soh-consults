@@ -1,0 +1,949 @@
+{
+  "coverage": [
+    {
+      "id": 1,
+      "title": "NCE",
+      "total": 285,
+      "pages": 15
+    },
+    {
+      "id": 2,
+      "title": "ND",
+      "total": 837,
+      "pages": 42
+    },
+    {
+      "id": 4,
+      "title": "DEGREE AWARDING INSTITUTIONS",
+      "total": 538,
+      "pages": 27
+    }
+  ],
+  "evidence": [
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=1",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:37:50.292603+00:00",
+      "rows": 20,
+      "sha256": "86f3d5c2c8334d1a3b0852c6ac1be8302d4908e90ca97f17de1f798912e82bf9"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=2",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:37:55.465889+00:00",
+      "rows": 20,
+      "sha256": "76613944b0bf741d282fbb2a5d175357094d6d90c3c25fefcc0438501accf578"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=3",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:00.630773+00:00",
+      "rows": 20,
+      "sha256": "44c131b63b5e5439abea32dd7198465e301517f4c994cdfcc472fc8e61627fe1"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=4",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:06.111854+00:00",
+      "rows": 20,
+      "sha256": "81f34c64472ec38bf4942e1346b92cd1e39974766eafcbb7a3a2df03c7900bff"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=5",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:11.207425+00:00",
+      "rows": 20,
+      "sha256": "2b858ed472b2640f56da8541d8fe580656903b3108a661978f2b865489a1dcad"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=6",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:16.761373+00:00",
+      "rows": 20,
+      "sha256": "16379b48b0a0caaf6485a72efaeb4401eae7efb2533d13e2fc269ef7afc57e70"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=7",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:22.002954+00:00",
+      "rows": 20,
+      "sha256": "380a7a47c1a8bbccd2ad08a1cadb956f34feeac5f5404775768e938cba856cd6"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=8",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:30.888844+00:00",
+      "rows": 20,
+      "sha256": "4c6a9457fe3249217c2f252ecefcf8f0895a73387c4925c854b105152e965c80"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=9",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:36.591227+00:00",
+      "rows": 20,
+      "sha256": "93bf572023e98be897f94cae276d8b3275d2418535dea786ade690c31419d3d4"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=10",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:41.692471+00:00",
+      "rows": 20,
+      "sha256": "77fd612c75abcc959db8041d4550f408747ac5886757af171ff0b3da84de46e6"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=11",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:47.655398+00:00",
+      "rows": 20,
+      "sha256": "fb1df2ceeeeda43a60b81dc86f6d836e662786334ef489922495e575ad919ba9"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=12",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:52.809038+00:00",
+      "rows": 20,
+      "sha256": "c9100b822ff8e6db435a93ba2db0d244daab392f6835dbdb962800a00f5e9d45"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=13",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:38:58.341034+00:00",
+      "rows": 20,
+      "sha256": "55032ddcf45bab2a054cfff6b06795f931a6c5bd01dff8c37e0b35b5041883af"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=14",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:02.461255+00:00",
+      "rows": 20,
+      "sha256": "bb3209ccea7d1823f3df9a3e6015af05a433aa365d2fb168b6825a86bcfb4ca7"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=15",
+      "request": {
+        "inst_type": 1,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:07.186286+00:00",
+      "rows": 5,
+      "sha256": "af39592dc493a6285dbffcd1a50aca58e564b87ca74bd9cd645b5f36c1fb52ae"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=1",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:12.278663+00:00",
+      "rows": 20,
+      "sha256": "23c580a11fdedaa823bf1fd6b69b9f4cd80d00b0bdce6828426acf2a4ac9cc29"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=2",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:19.425106+00:00",
+      "rows": 20,
+      "sha256": "5625c759bc50b1aa57d55e8414be2593faf8df8acef270aea93af81943c3158c"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=3",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:24.585054+00:00",
+      "rows": 20,
+      "sha256": "e140b3c20d59d2862aeaba79ee81136f08f090910d32e83257d08b559f457314"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=4",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:29.834900+00:00",
+      "rows": 20,
+      "sha256": "f5edbe89dc2d53583708b9ffadc6dc99599cdb2d41508b53fcb04dd6644170b1"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=5",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:34.935513+00:00",
+      "rows": 20,
+      "sha256": "eb1b1273b0a13e8530a4e79c6c32237f8c1119f6c987928f99a291c27ef7b4ab"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=6",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:40.075025+00:00",
+      "rows": 20,
+      "sha256": "2137e51a6b11e388e02a499a7b816a63de6a39069c2b14107ef4274b2f4cf7e7"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=7",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:45.180407+00:00",
+      "rows": 20,
+      "sha256": "388c28b77e38518f29c1e887b6deb0581dda1c65f40319255cec275e655242e5"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=8",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:51.894427+00:00",
+      "rows": 20,
+      "sha256": "6297f5345e9623a671ac75334fba305cccaff60032624f819acee96252cca964"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=9",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:39:57.002797+00:00",
+      "rows": 20,
+      "sha256": "684121d2013a8cda2c12385a6ede37c1653cb7df1d54c68c448351ac1b7e02fb"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=10",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:02.397277+00:00",
+      "rows": 20,
+      "sha256": "dd23c4ab4827c7e87e0b2c0c9e313478332ef7c11ba51b5b84b1093961ed404d"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=11",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:07.739440+00:00",
+      "rows": 20,
+      "sha256": "4e72eba16948742756a3edc4e057b48e2cb19d3807a4d974ee3dbf60fab4f929"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=12",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:14.252987+00:00",
+      "rows": 20,
+      "sha256": "a1e79277a646acfccf97e0490a578be4b9ebba8870f1aa182e05fc1f985540c2"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=13",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:19.398309+00:00",
+      "rows": 20,
+      "sha256": "30586a139ed6af5cc6850b3b637c6162db8a649823de29c54a87eb7d53e10a8d"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=14",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:24.918449+00:00",
+      "rows": 20,
+      "sha256": "d2a9825997c7bb7ad49ce398146c34ab748637910868227f8ad3173ebf1d5c9b"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=15",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:30.078331+00:00",
+      "rows": 20,
+      "sha256": "6edf88741011927816b5a1e6b6d3f66101ed13e92c635f1631492351ae87ebaf"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=16",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:35.378397+00:00",
+      "rows": 20,
+      "sha256": "424fee05247de92191a8cb428a2118e9eac019d19fedbc1573c9ebc644658da6"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=17",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:40.646370+00:00",
+      "rows": 20,
+      "sha256": "41058f5c106e6c03ac979cee4de0bc751ce947f39000962e9bf3f6002f24775d"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=18",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:45.764142+00:00",
+      "rows": 20,
+      "sha256": "c4de9715467c6f20bb9b55452de7d560cff8cf453011a2d9db09e2949c21e5bb"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=19",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:51.703128+00:00",
+      "rows": 20,
+      "sha256": "c796e19efb8c17182f2940d3c82bc0e10a5cad1ceb5f3b4d01c5fc5b9093b85f"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=20",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:40:57.717104+00:00",
+      "rows": 20,
+      "sha256": "ec1c6aaa4622dfe915edaabc567f136c5e2309a94d673954ae9bdceab4780a93"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=21",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:03.278608+00:00",
+      "rows": 20,
+      "sha256": "bf2d6b4d47813e91c0e3d020ec837abab8e838091d7acd10a4090cd599454f63"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=22",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:09.005692+00:00",
+      "rows": 20,
+      "sha256": "e0249d3dfefef3cc4d0db436776c973142badf30915f978e1e174b71ac50f9cb"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=23",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:14.196194+00:00",
+      "rows": 20,
+      "sha256": "052280db30885e904b7d41dfc7b6dae990aa1ba7c00f6cb26d5de89ba4af24c8"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=24",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:20.858145+00:00",
+      "rows": 20,
+      "sha256": "e1fa77481916171338d2aa507878cee8254b75344e73812a1fce0794540ac225"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=25",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:25.957920+00:00",
+      "rows": 20,
+      "sha256": "35d5902cdbcd5d33cd2dff37097e856d48dafc5271c74ef52f7ffda8d0aef058"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=26",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:31.093871+00:00",
+      "rows": 20,
+      "sha256": "0c23b144dbed6bc9293d4180e58133ab824183407f0d419ded1536efa5b4247e"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=27",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:36.358051+00:00",
+      "rows": 20,
+      "sha256": "698f9bb5203a3cb45690848e913f6e44e778313b8ab58b56c4e1458b92dbe0bf"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=28",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:42.070689+00:00",
+      "rows": 20,
+      "sha256": "c7f17354a41e2f04de034f05be4a0370878b2e49dba2031333fb8faf3ab38d09"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=29",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:49.463544+00:00",
+      "rows": 20,
+      "sha256": "f40db36ddedb1d473fcae0daaf437448793e54aa77bf8ee1e7627ced34075fb4"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=30",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:54.658304+00:00",
+      "rows": 20,
+      "sha256": "058679829e4cf8e2db2a0432f606651ea2935334b4001f0df6197142a4281bd9"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=31",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:41:59.767555+00:00",
+      "rows": 20,
+      "sha256": "68b28b4ab6894a69beb859082fee2acac6da4adc4097a06710b78a010dce7c68"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=32",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:42:06.392771+00:00",
+      "rows": 20,
+      "sha256": "fe517e83a265e20174f6bb6bb371beb3e30e3fb552b6cd4d98d8d4136633094f"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=33",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:42:11.533205+00:00",
+      "rows": 20,
+      "sha256": "6a927c8e46f4596856608211297acd597fcc7333c27d4c556321257b798b9dc2"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=34",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:42:16.694543+00:00",
+      "rows": 20,
+      "sha256": "38fb86670dbd2c17bed55cae2c067373c15dee81cdb62632c2ee095acdc63856"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=35",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:42:21.960620+00:00",
+      "rows": 20,
+      "sha256": "4993688d68934819c190a4bd01d43892851e6a18bd6bcdc0251ca38b20ea0050"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=36",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:42:27.201389+00:00",
+      "rows": 20,
+      "sha256": "7b81d24843ff35375230aa84c2bd5755dc3abf870dee020c847f5cd541318320"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=37",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:42:33.793493+00:00",
+      "rows": 20,
+      "sha256": "c17fd6ca20f13aa72ab02dab982dbb1941922f3f42f9a451adf3477088e39233"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=38",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:42:39.298211+00:00",
+      "rows": 20,
+      "sha256": "1808a35349eb61e9d8c853a1a492636b99e1fd2524b92e4033d0d890229be6d0"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=39",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:42:46.022406+00:00",
+      "rows": 20,
+      "sha256": "8013f4b21680587c13baa1eeef7737dbd3dc3a78bec6d6f79a9ffe10457fa5f4"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=40",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:42:51.959165+00:00",
+      "rows": 20,
+      "sha256": "1d3dc8f5693e3c84ce1c12410f5078fcba863991cb8e9b4d2dd51dcea8014fe6"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=41",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:42:57.117356+00:00",
+      "rows": 20,
+      "sha256": "2cb75c2f9a24a7a1c3347a9e25f559623d30e7def3fe166b4dcc130c6946f6f4"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=42",
+      "request": {
+        "inst_type": 2,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:43:02.854882+00:00",
+      "rows": 17,
+      "sha256": "2e5eea14545e0d696926d7a82fda4c4c55b63428d0dff0da0a73b544818a512d"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=1",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:43:07.935454+00:00",
+      "rows": 20,
+      "sha256": "77817354f2eb1cfd79eb89a9ec03adf2667e3485877e3ba5da9993172a809683"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=2",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:43:13.822105+00:00",
+      "rows": 20,
+      "sha256": "34651e4b8a0082c52632f534fc94a60fdf0b6dc46509086a6c62d56e604d6fbe"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=3",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:43:18.877574+00:00",
+      "rows": 20,
+      "sha256": "4efea8753d2939c7c62042d21cb7ca6a02508b89e1ed599f08935d727c6b3f5b"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=4",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:43:23.995085+00:00",
+      "rows": 20,
+      "sha256": "7b240d0aa2ba792897b678f58953e9a6d6869e874fd7e00ae000b3a57b00becf"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=5",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:43:31.104875+00:00",
+      "rows": 20,
+      "sha256": "c3f39ae789cc2e9288da02c925a6dfb20a752c59c7f1ab01d3b8defa173a21d0"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=6",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:43:36.987402+00:00",
+      "rows": 20,
+      "sha256": "f60508ab0c1a9233f7e3e912cae25e35e424722b13fc085dfb7d123198028367"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=7",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:43:42.208875+00:00",
+      "rows": 20,
+      "sha256": "98da11dc237ec87e869c4b1ae8dda3dcfd0ca36d215ca6b49f85cdad4a5e6370"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=8",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:45:48.080219+00:00",
+      "rows": 20,
+      "sha256": "eef5323c3152259bf7915c88aa628bb47f616727415fbd1b1ea7ec4b76c65740"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=9",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:45:53.221174+00:00",
+      "rows": 20,
+      "sha256": "0014f6baeb6d5ab4fe1def5b8b49e8750638682fed7c09cc8e8778f778a81ef0"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=10",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:45:58.683766+00:00",
+      "rows": 20,
+      "sha256": "bd368c27ea01a288850db972ce1e0e57394eadfdfd53ca15f5bf5ec69e6b2606"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=11",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:46:03.988285+00:00",
+      "rows": 20,
+      "sha256": "c6102bbac9d2b577631b1b9105f7651014393896a480d6536b5ab794f92a66cd"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=12",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:46:09.063495+00:00",
+      "rows": 20,
+      "sha256": "2d7a06781e9489e0f8730f3d845c24bd1574028ba96f5e3d13cc087e1eec5e5a"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=13",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:46:16.619488+00:00",
+      "rows": 20,
+      "sha256": "006ffe2de7456435ee92d6ef807010bc1db4faf635a89f6fed7182dca04a0362"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=14",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:46:22.408620+00:00",
+      "rows": 20,
+      "sha256": "c0b4f01cef778fa9e4c3e1e6127373e181f15a15c3a9204e61730a87d863379c"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=15",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:46:28.807171+00:00",
+      "rows": 20,
+      "sha256": "06b95b291a53d4a5ccdbb84d33426fe63ecf785bd70a23317b8bc00ef1203a21"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=16",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:46:33.932542+00:00",
+      "rows": 20,
+      "sha256": "80f296d008d3219374803f44395f0f7684b877041db66ceb913dc449f7b3e098"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=17",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:46:39.495970+00:00",
+      "rows": 20,
+      "sha256": "9fb29417d0c7a06562587566e3d65c435473ca71c4766733c96eefa4a5013493"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=18",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:46:45.184749+00:00",
+      "rows": 20,
+      "sha256": "9b5b2610c40028295ba64f515508b48eb449e39fc3a51fd8fd74829f36335206"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=19",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:46:50.916776+00:00",
+      "rows": 20,
+      "sha256": "159c5d8abd7300bf943daf23f0d88ccaffa9c1d53e0536272d26f3fedb57fda8"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=20",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:46:56.860165+00:00",
+      "rows": 20,
+      "sha256": "894f1785db5d9b6238cbc86a79cc0ba9da936384e79a8f86a9acdf967616135a"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=21",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:47:02.403826+00:00",
+      "rows": 20,
+      "sha256": "1932e2640ed93279fb91594574d8143b93747f2c5cf8afd819ac5be2ace59551"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=22",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:47:07.966750+00:00",
+      "rows": 20,
+      "sha256": "e9d49b2f4d0fb010a2913aabe3ee58b161a73a4fdc222975eb049734d6da18e1"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=23",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:47:15.392796+00:00",
+      "rows": 20,
+      "sha256": "19927a677a47e37acc950560ff9c706df07476be4a1c76afef8c52e5c7498599"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=24",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:47:20.933368+00:00",
+      "rows": 20,
+      "sha256": "0c3ecc11d5c2677630a8e0b3faf4956e0f2a1902af702c454786fd8db7097357"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=25",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:47:26.119590+00:00",
+      "rows": 20,
+      "sha256": "bce204ae36bb67be746e87b4aa3e11d8c3283f09eaea14579e3b8f472b9348f8"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=26",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:47:32.559265+00:00",
+      "rows": 20,
+      "sha256": "24da0938dddd8482a623771b3b9faa57da1aded5d0843c771111a5a19a097d72"
+    },
+    {
+      "url": "https://ibass-api.jamb.gov.ng/api/ibass/institutions?page=27",
+      "request": {
+        "inst_type": 4,
+        "inst_category": null,
+        "inst_search": ""
+      },
+      "observedAt": "2026-10-26T09:47:37.801977+00:00",
+      "rows": 18,
+      "sha256": "21a4534d4cecba15065a05302ccc71aa65e93d9b59dbfcb6da985172094c27ea"
+    }
+  ],
+  "recordCount": 1660
+}

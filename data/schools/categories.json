@@ -1,0 +1,132 @@
+[
+  {
+    "id": 2,
+    "title": "FEDERAL COLLEGES OF EDUCATION",
+    "typeId": 1
+  },
+  {
+    "id": 3,
+    "title": "PRIVATE COLLEGES OF EDUCATION",
+    "typeId": 1
+  },
+  {
+    "id": 4,
+    "title": "STATE COLLEGES OF EDUCATION",
+    "typeId": 1
+  },
+  {
+    "id": 40,
+    "title": "FEDERAL COLLEGES OF EDUCATION (TECHNICAL)",
+    "typeId": 1
+  },
+  {
+    "id": 41,
+    "title": "FEDERAL COLLEGES OF EDUCATION (SPECIAL)",
+    "typeId": 1
+  },
+  {
+    "id": 5,
+    "title": "SCHOOL OF HEALTH",
+    "typeId": 2
+  },
+  {
+    "id": 7,
+    "title": "FEDERAL MONOTECHNICS",
+    "typeId": 2
+  },
+  {
+    "id": 8,
+    "title": "FEDERAL POLYTECHNICS",
+    "typeId": 2
+  },
+  {
+    "id": 11,
+    "title": "PRIVATE MONOTECHNICS",
+    "typeId": 2
+  },
+  {
+    "id": 12,
+    "title": "PRIVATE POLYTECHNICS",
+    "typeId": 2
+  },
+  {
+    "id": 13,
+    "title": "STATE MONOTECHNICS",
+    "typeId": 2
+  },
+  {
+    "id": 14,
+    "title": "STATE POLYTECHNICS",
+    "typeId": 2
+  },
+  {
+    "id": 17,
+    "title": "FEDERAL UNIVERSITIES",
+    "typeId": 4
+  },
+  {
+    "id": 18,
+    "title": "FEDERAL UNIVERSITIES OF AGRICULTURE",
+    "typeId": 4
+  },
+  {
+    "id": 19,
+    "title": "FEDERAL UNIVERSITIES OF TECHNOLOGY",
+    "typeId": 4
+  },
+  {
+    "id": 21,
+    "title": "PRIVATE UNIVERSITIES",
+    "typeId": 4
+  },
+  {
+    "id": 22,
+    "title": "STATE UNIVERSITIES",
+    "typeId": 4
+  },
+  {
+    "id": 23,
+    "title": "STATE UNIVERSITIES OF TECHNOLOGY",
+    "typeId": 4
+  },
+  {
+    "id": 29,
+    "title": "E-LEARNING UNIVERSITIES OF NIGERIA",
+    "typeId": 4
+  },
+  {
+    "id": 35,
+    "title": "OTHER DEGREE AWARDING INSTITUTIONS",
+    "typeId": 4
+  },
+  {
+    "id": 36,
+    "title": "STATE UNIVERSITY OF EDUCATION",
+    "typeId": 4
+  },
+  {
+    "id": 37,
+    "title": "STATE UNIVERSITIES OF MEDICAL SCIENCES",
+    "typeId": 4
+  },
+  {
+    "id": 38,
+    "title": "SANDWICH PROGRAMMES",
+    "typeId": 4
+  },
+  {
+    "id": 39,
+    "title": "OPEN AND DISTANCE LEARNING PROGRAMMES",
+    "typeId": 4
+  },
+  {
+    "id": 42,
+    "title": "STATE UNIVERSITIES OF AGRICULTURE",
+    "typeId": 4
+  },
+  {
+    "id": 43,
+    "title": "FEDERAL UNIVERSITIES OF HEALTH SCIENCES",
+    "typeId": 4
+  }
+]

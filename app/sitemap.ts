@@ -1,3 +1,4 @@
+import {services} from "../data/services";
 import {categorySlug} from "../lib/category-slug";
 import type { MetadataRoute } from "next";
 import {listPublicWriterProfiles} from "../lib/public-writer-profile";
@@ -23,6 +24,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Let the request fail so crawlers can retry instead of receiving an incomplete sitemap.
   const published = await listPublishedStories({strict:true});
   const core: MetadataRoute.Sitemap = [
+    {url:`${siteUrl}/schools`,changeFrequency:"monthly",priority:.8},
+    {url:`${siteUrl}/services`,changeFrequency:"monthly",priority:.8},
+    ...services.map(s=>({url:`${siteUrl}/services/${s.slug}`,changeFrequency:"monthly" as const,priority:.7})),
     { url: siteUrl, changeFrequency: "weekly", priority: 1 },
     { url: `${siteUrl}/about`, changeFrequency: "monthly", priority: .8 },
     { url: `${siteUrl}/privacy-policy`, changeFrequency: "monthly", priority: .5 },
