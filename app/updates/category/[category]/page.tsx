@@ -17,7 +17,7 @@ type Props = { params: Promise<{ category: string }> };
 export const dynamic = "force-dynamic";
 
 async function getCategory(category: string) {
-  const stories = await listPublishedStories();
+  const stories = await listPublishedStories({strict:true});
   const name = stories.find((item) => categorySlug(item.category) === categorySlug(category))?.category;
   return { stories, name };
 }

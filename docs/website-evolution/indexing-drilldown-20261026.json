@@ -1,0 +1,718 @@
+{
+  "source": "Owner-provided Coverage Drilldown export 2026-10-26; chart ends 2026-10-23",
+  "codeCommitReviewed": "20ca7b3d9dba894f0193a76c0fe6d8e4cab8d18a",
+  "scope": "Source-code classification, not live HTTP or Google-selected canonical verification. Does not prove why Google has not crawled URLs.",
+  "urls": [
+    {
+      "URL": "https://sohconsults.com.ng/applications/fce-iwo-post-utme-form-for-2026-2027-nce-admission",
+      "Last crawled": "1970-01-01",
+      "group": "article-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "canonical points to original update; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/fedponam-hnd-admission-form-for-2026-2027",
+      "Last crawled": "1970-01-01",
+      "group": "article-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "canonical points to original update; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/fuotuoke-post-utme-form-for-2026-2027-undergraduate-admission",
+      "Last crawled": "1970-01-01",
+      "group": "article-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "canonical points to original update; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/indomie-undergraduate-scholarship-program-2026",
+      "Last crawled": "1970-01-01",
+      "group": "article-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "canonical points to original update; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/nigerian-navy-2026-recruitment-batch-39-application-opens-see-requirements-and-d",
+      "Last crawled": "1970-01-01",
+      "group": "article-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "canonical points to original update; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/opportunity-seed-0",
+      "Last crawled": "1970-01-01",
+      "group": "seed-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/opportunity-seed-1",
+      "Last crawled": "1970-01-01",
+      "group": "seed-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/opportunity-seed-2",
+      "Last crawled": "1970-01-01",
+      "group": "seed-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/opportunity-seed-3",
+      "Last crawled": "1970-01-01",
+      "group": "seed-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/opportunity-seed-4",
+      "Last crawled": "1970-01-01",
+      "group": "seed-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/opportunity-seed-6",
+      "Last crawled": "1970-01-01",
+      "group": "seed-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/opportunity-seed-7",
+      "Last crawled": "1970-01-01",
+      "group": "seed-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/opportunity-seed-8",
+      "Last crawled": "1970-01-01",
+      "group": "seed-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/opportunity-seed-9",
+      "Last crawled": "1970-01-01",
+      "group": "seed-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/schools-still-selling-post-utme-screening-forms-2026-2027",
+      "Last crawled": "1970-01-01",
+      "group": "article-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "canonical points to original update; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/applications/unilag-direct-entry-screening-form-for-2026-2027",
+      "Last crawled": "1970-01-01",
+      "group": "article-checklist",
+      "route": "app/applications/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "canonical points to original update; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/cgpa-calculator/planner",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/cgpa-calculator/planner/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/cgpa-calculator/select-scale",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/cgpa-calculator/select-scale/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/disclaimer",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/disclaimer/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/fuadsi-calculator",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/fuadsi-calculator/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/fuoye-calculator",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/fuoye-calculator/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/guides/accept-jamb-admission",
+      "Last crawled": "1970-01-01",
+      "group": "guide",
+      "route": "app/guides/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for known guide",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/guides/admission-in-progress-meaning",
+      "Last crawled": "1970-01-01",
+      "group": "guide",
+      "route": "app/guides/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for known guide",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/guides/how-to-check-jamb-caps",
+      "Last crawled": "1970-01-01",
+      "group": "guide",
+      "route": "app/guides/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for known guide",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/guides/how-to-verify-admission-information-online",
+      "Last crawled": "1970-01-01",
+      "group": "guide",
+      "route": "app/guides/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for known guide",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/guides/jamb-and-school-record-consistency-guide",
+      "Last crawled": "1970-01-01",
+      "group": "guide",
+      "route": "app/guides/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for known guide",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/guides/nigerian-university-admission-checklist",
+      "Last crawled": "1970-01-01",
+      "group": "guide",
+      "route": "app/guides/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for known guide",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/guides/olevel-upload-jamb-caps",
+      "Last crawled": "1970-01-01",
+      "group": "guide",
+      "route": "app/guides/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for known guide",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/guides/school-admission-vs-jamb-admission",
+      "Last crawled": "1970-01-01",
+      "group": "guide",
+      "route": "app/guides/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for known guide",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/guides/understanding-jamb-caps-status",
+      "Last crawled": "1970-01-01",
+      "group": "guide",
+      "route": "app/guides/[slug]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for known guide",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/lasued-calculator",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/lasued-calculator/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/lasustech-calculator",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/lasustech-calculator/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/my-school",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/my-school/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/oou-calculator",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/oou-calculator/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/screening-calculator",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/screening-calculator/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/tools",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/tools/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/uniosun-calculator",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/uniosun-calculator/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/2027-utme-a-safer-start-for-candidate",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/afued-admission-list-for-2026-2027-academic-session",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/bidapoly-admission-list-for-2026-2027-nd-full-time-applicants",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/breaking-lagos-govt-approves-union-demands-moves-to-end-state-varsity-strike",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/category/admission",
+      "Last crawled": "1970-01-01",
+      "group": "category",
+      "route": "app/updates/category/[category]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical when category exists",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/category/admission-list",
+      "Last crawled": "1970-01-01",
+      "group": "category",
+      "route": "app/updates/category/[category]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical when category exists",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/category/campus-news",
+      "Last crawled": "1970-01-01",
+      "group": "category",
+      "route": "app/updates/category/[category]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical when category exists",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/category/jamb",
+      "Last crawled": "1970-01-01",
+      "group": "category",
+      "route": "app/updates/category/[category]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical when category exists",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/category/neco",
+      "Last crawled": "1970-01-01",
+      "group": "category",
+      "route": "app/updates/category/[category]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical when category exists",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/category/o-level",
+      "Last crawled": "1970-01-01",
+      "group": "category",
+      "route": "app/updates/category/[category]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical when category exists",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/category/opportunity",
+      "Last crawled": "1970-01-01",
+      "group": "category",
+      "route": "app/updates/category/[category]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical when category exists",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/category/scholarship",
+      "Last crawled": "1970-01-01",
+      "group": "category",
+      "route": "app/updates/category/[category]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical when category exists",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/delsu-releases-2026-2027-academic-calendar-announces-resumption-dates",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/fce-iwo-post-utme-form-for-2026-2027-nce-admission",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/federal-university-of-technology-environmental-sciences-iyin-ekiti-futes-iyin-ge",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/fedponam-hnd-admission-form-for-2026-2027",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/fg-declares-october-1-public-holiday-for-nigeria-s-66th-independence-anniversary",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/fuotuoke-post-utme-form-for-2026-2027-undergraduate-admission",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/fuoye-admission-list-for-2026-2027-academic-session",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/futa-releases-top-up-degree-admission-form-for-2026-2027-academic-session",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/important-notice-unimaid-extends-portal-registration-deadline-to-october-20-2026",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/indomie-undergraduate-scholarship-program-2026",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/jamb-admission-status-proposed-recommended-approved",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/jamb-caps-platform-temporarily-unavailable",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/jamb-plans-national-digital-pre-registration-app-ahead-of-2027-utme",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/jamb-set-to-introduce-life-skills-and-critical-thinking-questions-in-utme",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/jamb-takes-over-hnd-admissions",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/lagos-state-university-lasu-releases-2026-2027-jupeb-foundation-programme-admiss",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/lasu-vice-chancellor-unveils-eight-pillar-strategic-vision-for-university",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/nigerian-navy-2026-recruitment-batch-39-application-opens-see-requirements-and-d",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/oou-post-utme-results-2026-2027",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/sazu-admission-list-for-2026-2027-academic-session",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/ssu-admission-list-for-2026-2027-academic-session",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/unilag-direct-entry-screening-form-for-2026-2027",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/unimed-admission-list-for-2026-2027-academic-session",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/uniosun-2026-2027-admission-screening-results-now-available-online",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/uniosun-releases-2026-2027-admission-cut-off-marks",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/urgent-jamb-extends-final-deadline-for-2021-2025-outstanding-admission-offers-to",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/waec-releases-previously-withheld-2026-examination-results",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/wassce-private-candidate-2026-second-series-registration-closes-september-18",
+      "Last crawled": "1970-01-01",
+      "group": "article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical for published article",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/updates/zamsut-admission-list-for-2026-2027-academic-session",
+      "Last crawled": "1970-01-01",
+      "group": "placeholder-article",
+      "route": "app/updates/[id]/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "noindex,follow; excluded from sitemap",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    },
+    {
+      "URL": "https://sohconsults.com.ng/yabatech-calculator",
+      "Last crawled": "1970-01-01",
+      "group": "tool-or-utility",
+      "route": "app/yabatech-calculator/page.tsx",
+      "routeExists": true,
+      "sourcePolicy": "self canonical in page or segment layout",
+      "lastCrawledInterpretation": "No meaningful crawl timestamp supplied; export epoch sentinel"
+    }
+  ]
+}
