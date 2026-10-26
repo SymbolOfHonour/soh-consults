@@ -1,0 +1,3 @@
+import {createHash} from "node:crypto";
+import notes from "../../data/article-review-notes.json";
+export default function ArticleReviewNote({id,details}:{id:string;details:string}){const note=notes.find(n=>n.id===id&&n.contentHash===createHash("sha256").update(details).digest("hex"));if(!note)return null;return <aside aria-label="Editorial source check" className="mb-6 rounded-xl border border-green-200 bg-green-50 p-5 text-gray-900"><h2 className="font-bold">Source check · {note.checked}</h2><p className="mt-2 text-sm leading-7">{note.note}</p>{note.url&&<a href={note.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block font-bold text-green-700 underline">Read the official source ↗</a>}</aside>}

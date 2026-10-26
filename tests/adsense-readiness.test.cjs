@@ -38,6 +38,7 @@ test('sitemap includes published notice canonical, excludes derivative checklist
   let fail = false;
   const sitemap = load('app/sitemap.ts', {
     '../data/services': load('data/services.ts'),
+    '../lib/article-review':{articleReview:s=>({indexable:s.id!=='placeholder'})},
     '../lib/category-slug': {categorySlug:s=>s.toLowerCase()},
     './site-url': {PRIMARY_SITE_URL:'https://sohconsults.com.ng'},
     '../data/guides': {guides:[]},

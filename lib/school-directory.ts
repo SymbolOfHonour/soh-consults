@@ -1,3 +1,4 @@
+import regulatorWebsites from "../data/schools/regulator-websites.json";
 import {verifiedSchoolLinks} from "../data/schools/verified-links";
 import snapshot from "../data/schools/ibass-institutions.json";
 import categories from "../data/schools/categories.json";
@@ -18,4 +19,4 @@ export function searchSchools({q="",category="",state="",page="1"}:{q?:string;ca
 export function findSchool(key:string){return directorySchools.find(s=>s.key===key)}
 export function schoolBrochureUrl(school:School){return `https://ibass.jamb.gov.ng/brochure-courses?id=${school.id}&school=${encodeURIComponent(school.name)}`}
 
-export function verifiedSchoolWebsite(school:School){const entry=verifiedSchoolLinks[school.key];return entry?.name===school.name?entry:null}
+export function verifiedSchoolWebsite(school:School){const entry=verifiedSchoolLinks[school.key];if(entry?.name===school.name)return {...entry,source:"",verification:"Homepage checked"};const listed=regulatorWebsites.links.find(link=>link.key===school.key&&link.name===school.name);return listed?{...listed,aliases:[],verification:"Website listed by NUC; destination availability not checked"}:null}

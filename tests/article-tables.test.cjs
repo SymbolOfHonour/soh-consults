@@ -43,7 +43,7 @@ test('invalid row shapes, excessive cells and malformed links cannot publish as 
  assert.equal(tables.safeTableLink('https://example.edu.ng'),true);
 });
 test('public renderer emits accessible scrollable table with safe links and escaped text',()=>{
- const rich=load('app/updates/[id]/RichText.tsx');
+ const rich=load('app/updates/[id]/RichText.tsx',{'../../../lib/editorial-link':load('lib/editorial-link.ts')});
  const renderer=load('app/updates/[id]/StructuredArticle.tsx',{
   '../../../lib/article-blocks':blocks,
   '../../../lib/article-ad-positions':{articleAdPositions:()=>new Set()},

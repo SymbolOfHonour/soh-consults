@@ -1,3 +1,4 @@
+import {articleReview} from "../lib/article-review";
 import {services} from "../data/services";
 import {categorySlug} from "../lib/category-slug";
 import type { MetadataRoute } from "next";
@@ -41,7 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   core.push(...["my-school","tools","screening-calculator","fuoye-calculator","fuadsi-calculator","uniosun-calculator","lasued-calculator","lasustech-calculator","oou-calculator","yabatech-calculator","cgpa-calculator/planner","cgpa-calculator/select-scale"].map(path=>({url:`${siteUrl}/${path}`,changeFrequency:"monthly" as const,priority:.7})));
   const publishers=buildPublisherCatalogue(published,await listPublicWriterProfiles().catch(()=>[]));
   core.push({url:`${siteUrl}/writers`,changeFrequency:"weekly",priority:.7},...publishers.map(p=>({url:`${siteUrl}${p.href}`,changeFrequency:"weekly" as const,priority:.65})));
-  const updatePages: MetadataRoute.Sitemap = published.map(story => ({
+  const updatePages: MetadataRoute.Sitemap = published.filter(story=>articleReview(story).indexable).map(story => ({
     url: `${siteUrl}/updates/${getStorySlug(story)}`,
     lastModified: safeDate(story.updated_at) || safeDate(story.source_published_at) || safeDate(story.created_at),
     changeFrequency: "weekly",
