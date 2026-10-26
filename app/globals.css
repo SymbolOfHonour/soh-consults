@@ -101,3 +101,6 @@ body:has(header:not(.soh-display-fallback) .soh-display-button) .soh-display-fal
 html[data-soh-theme=dark] .soh-display-fallback{background:#142137;color:#e5edf8;border-color:#334155}html[data-soh-theme=dark] .soh-display-fallback nav>a{color:#b9e5cd}
 html[data-soh-theme=dark] :is(main,div,details,summary,table,thead,tbody,td,th,input,textarea,select)[class*="bg-white"]{background:#142137;color:#e5edf8;border-color:#334155}
 html[data-soh-theme=dark] :is([class*="border-gray-"],[class*="border-slate-"]){border-color:#334155}
+/* Keep small category labels and action links readable in the saved dark theme. */
+html[data-soh-theme=dark] :is([class*="bg-green-100"],[class*="bg-emerald-100"]){background:#183a31;color:#b9e5cd}
+html[data-soh-theme=dark] [class*="text-green-700"]{color:#91ddb1}

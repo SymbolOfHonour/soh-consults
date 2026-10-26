@@ -1,5 +1,6 @@
 import {getStorySlug,listPublishedStories} from "../lib/news-queue";
 import {newestContent} from "../lib/content-catalogue";
+import {newsPublicationTime} from "../lib/news-freshness";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
 import HomepageDiscovery from "../components/HomepageDiscovery";
 import {buildHomeDiscovery,recentArticleViews} from "../lib/homepage-discovery";
@@ -21,7 +22,7 @@ export default async function HomepageServer(){
   const now = Date.now();
   const seen = new Set<string>();
   const breaking = stories
-    .map(story => ({story, published: Math.max(Date.parse(String(story.source_published_at || "")) || 0, Date.parse(String(story.created_at || "")) || 0)}))
+    .map(story => ({story, published: newsPublicationTime(story)}))
     .filter(({published}) => published > 0 && published <= now && now - published <= 72 * 60 * 60 * 1000)
     .sort((a,b) => b.published - a.published)
     .filter(({story}) => {const slug = getStorySlug(story); if (seen.has(slug)) return false; seen.add(slug); return true;})
