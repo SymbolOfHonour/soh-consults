@@ -1,4 +1,4 @@
-import {storageConnectSources} from "./lib/storage-origin";
+import {publicStorageOrigin,storageConnectSources} from "./lib/storage-origin";
 import type { NextConfig } from "next";
 
 const privateCsp = [
@@ -34,6 +34,7 @@ const deploymentHeaders = process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "
 
 const nextConfig: NextConfig = {
   poweredByHeader:false,
+  images: { remotePatterns: publicStorageOrigin() ? [{protocol:"https",hostname:new URL(publicStorageOrigin()!).hostname,pathname:"/storage/v1/object/public/news-attachments/**",search:""}] : [] },
   async headers() { return [{ source: "/(.*)", headers: deploymentHeaders },{source:"/api/:path*",headers:[{key:"X-Robots-Tag",value:"noindex, nofollow"},{key:"Content-Security-Policy",value:privateCsp}]}]; },
   async redirects() {
     return [{
