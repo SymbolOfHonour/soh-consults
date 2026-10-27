@@ -1,14 +1,17 @@
 "use client";
 import type {SmartMeta} from "../../../lib/smart-operations";
-export type EditorialFields=Pick<SmartMeta,"publisherName"|"seoTitle"|"seoDescription"|"imageAlt"|"reviewAfter"|"correction">;
-type Props={value:EditorialFields;onChange:(value:EditorialFields)=>void;disabled:boolean};
+export type EditorialFields=Pick<SmartMeta,"publisherName"|"publisherPicture"|"seoTitle"|"seoDescription"|"imageAlt"|"reviewAfter"|"correction">;
+type Props={value:EditorialFields;onChange:(value:EditorialFields)=>void;disabled:boolean;onPictureUpload:(file:File)=>void};
 const field="mt-1 w-full min-w-0 rounded-lg border border-gray-300 bg-white p-3 text-base text-gray-950";
-export default function ArticleEditorialFields({value,onChange,disabled}:Props){
+export default function ArticleEditorialFields({value,onChange,disabled,onPictureUpload}:Props){
  function change(key:keyof EditorialFields,text:string){onChange({...value,[key]:text});}
  return <><section className="rounded-2xl border border-green-200 bg-white p-4 sm:p-6" aria-label="Article publisher settings">
   <h2 className="text-lg font-black text-green-950">Article publisher</h2>
   <label className="mt-3 block text-sm font-bold">Publisher name<input aria-label="Publisher name" className={field} value={value.publisherName||""} disabled={disabled} maxLength={120} placeholder="S.O.H CONSULTS" onChange={e=>change("publisherName",e.target.value)}/></label>
   <p className="mt-2 text-sm text-gray-600">Name of the person credited for this article. It appears below the headline and in the publisher card at the end. Leave blank to show S.O.H CONSULTS.</p>
+  <label className="mt-4 block text-sm font-bold">Publisher picture<input type="file" accept="image/jpeg,image/png,image/webp" disabled={disabled} onChange={e=>{const file=e.target.files?.[0];if(file)onPictureUpload(file);e.target.value="";}} className="mt-2 block w-full text-sm font-normal"/></label>
+  <p className="mt-2 text-sm text-gray-600">JPG, PNG or WebP, up to 10 MB. This picture is used for this article.</p>
+  {value.publisherPicture&&<div className="mt-3 flex items-center gap-4"><img src={value.publisherPicture} alt="Publisher picture preview" className="h-20 w-20 rounded-full object-cover"/><button type="button" disabled={disabled} onClick={()=>change("publisherPicture","")} className="text-sm font-bold text-red-700">Remove picture</button></div>}
  </section><details className="rounded-2xl border border-green-200 bg-white p-4 sm:p-6">
   <summary className="cursor-pointer text-lg font-black text-green-950">SEO, image accessibility and editorial review (optional)</summary>
   <p className="mt-2 text-sm text-gray-600">Leave SEO fields blank to use the the existing article headline and summary. Canonical URLs and permanent redirects continue to be generated automatically.</p>
