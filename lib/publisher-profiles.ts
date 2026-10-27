@@ -6,6 +6,9 @@ import type {PublicWriterProfile} from './public-writer-profile';
 
 export type PublisherArticle={id:string;href:string;title:string;summary:string;category:string;image:string;publishedAt:string};
 export type PublisherProfile={key:string;slug:string;href:string;name:string;about:string;picture_url:string;kind:'person'|'organization';articles:PublisherArticle[]};
+const founderCanonicalId='53b104af-48f5-476c-83ae-38a55e52a4bc';
+const founderDuplicateId='2bf0d075-f87b-4b6b-b64e-38aaa227a8b0';
+const founderName='Oluyepe Adetayo Sunday';
 const uuid=/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const nameKey=(value:unknown)=>normalisePublisherName(value).toLocaleLowerCase('en-US');
 export function publisherSlug(name:string){return normalisePublisherName(name).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70)||'writer';}
@@ -28,7 +31,9 @@ export function buildPublisherCatalogue(stories:QueuedStory[],profiles:PublicWri
   const meta=smartMeta(story.details);const storedName=articlePublisherName(meta.publisherName);
   const matches=byName.get(nameKey(storedName))||[];
   // An explicit identity always wins. Never use a different account as fallback.
-  const member=meta.publisherId?(uuid.test(meta.publisherId)?byId.get(meta.publisherId.toLowerCase()):undefined):(matches.length===1?matches[0]:undefined);
+  const canonicalFounder=byId.get(founderCanonicalId);
+  const isConfirmedFounder=nameKey(storedName)===nameKey(founderName)&&canonicalFounder&&nameKey(canonicalFounder.name)===nameKey(founderName)&&(!meta.publisherId||meta.publisherId.toLowerCase()===founderDuplicateId||meta.publisherId.toLowerCase()===founderCanonicalId);
+  const member=isConfirmedFounder?canonicalFounder:meta.publisherId?(uuid.test(meta.publisherId)?byId.get(meta.publisherId.toLowerCase()):undefined):(matches.length===1?matches[0]:undefined);
   const href=member?teamPublisherPath(member):null;
   const identity=member&&href?{key:`writer:${member.id.toLowerCase()}`,slug:href.slice('/writers/'.length),href,name:normalisePublisherName(member.name),about:member.about||'',picture_url:safePublisherPicture(member.picture_url),kind:'person' as const}:legacyProfile(storedName);
   // A missing explicit account remains an independent historical byline.
@@ -44,10 +49,9 @@ export function publisherForStory(catalogue:PublisherProfile[],id:string){return
 export function resolvePublisherSlug(catalogue:PublisherProfile[],slug:string){
  const exact=catalogue.find(p=>p.slug===slug);if(exact)return exact;
  const id=slug.match(/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})$/i)?.[1];
- if(id)return catalogue.find(p=>p.key===`writer:${id.toLowerCase()}`)||null;
+ if(id){const resolvedId=id.toLowerCase()===founderDuplicateId?founderCanonicalId:id.toLowerCase();return catalogue.find(p=>p.key===`writer:${resolvedId}`)||null;}
  // The owner confirmed authorship of the pre-profile archive. Keep the two
  // originally shared profile URLs working after those bylines are corrected.
- const founderName='Oluyepe Adetayo Sunday';
  if(slug==='soh-consults'||slug===legacyProfile(founderName).slug){
   const matches=catalogue.filter(p=>nameKey(p.name)===nameKey(founderName)&&p.key.startsWith('writer:'));
   return matches.length===1?matches[0]:null;
