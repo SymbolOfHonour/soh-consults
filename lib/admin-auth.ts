@@ -33,15 +33,20 @@ export function adminSessionMaxAge() {
 
 export async function isAdmin() {
   const received = (await cookies()).get(ADMIN_COOKIE)?.value;
-  if (!received || !secret()) return false;
-  const [encoded, signature] = received.split(".");
-  if (!encoded || !signature) return false;
+  if (!received || received.length > 1024 || !secret()) return false;
+  const [encoded, signature, extra] = received.split(".");
+  // Reject malformed cookies before decoding or constant-time comparison.
+  // Comparing character lengths alone can throw on multibyte signatures.
+  if (!encoded || !/^[A-Za-z0-9_-]+$/.test(encoded) || !/^[a-f0-9]{64}$/.test(signature || "") || extra !== undefined) return false;
   const expected = sign(encoded);
   if (!expected || expected.length !== signature.length) return false;
   if (!timingSafeEqual(Buffer.from(expected), Buffer.from(signature))) return false;
   try {
     const payload = JSON.parse(Buffer.from(encoded, "base64url").toString("utf8")) as SessionPayload;
-    return Number.isFinite(payload.exp) && payload.exp > Math.floor(Date.now() / 1000);
+    const now = Math.floor(Date.now() / 1000);
+    return payload !== null && Number.isSafeInteger(payload.exp) && payload.exp > now &&
+      payload.exp <= now + SESSION_TTL_SECONDS && typeof payload.nonce === "string" &&
+      /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(payload.nonce);
   } catch {
     return false;
   }
