@@ -191,6 +191,15 @@ test('archived opportunity deep links explicitly include the full list',()=>{
  assert.ok(all.every(item=>item.href.includes('?status=all#'+item.id)));
 });
 
+test('opportunity search results open the published article or standalone checklist',()=>{
+ const stories=[{id:'admission-notice',title:'Example admission application opens',category:'Admission',summary:'Applications are open.',details:'Requirements and instructions.',institution:'Example School'}];
+ const items=contentCatalogue(stories).filter(item=>item.kind==='opportunity');
+ const notice=items.find(item=>item.id==='opportunity-admission-notice');
+ const standalone=items.find(item=>item.id==='opportunity-seed-0');
+ assert.equal(notice.href,publicOpportunities(stories).find(item=>item.id===notice.id).detailHref);
+ assert.equal(standalone.href,'/applications/opportunity-seed-0');
+});
+
 test('published application date ranges supply deadlines without inventing a year',()=>{
  const {statedDeadline}=load('lib/discovery-text');
  assert.equal(statedDeadline('Applications will run from Tuesday, October 6 to Tuesday, October 13, 2026.'),'2026-10-13T22:59:59.999Z');

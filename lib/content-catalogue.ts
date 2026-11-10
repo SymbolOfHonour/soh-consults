@@ -5,6 +5,7 @@ import { type DiscoveryItem } from "./algorithm-phase2";
 import { deadlineDate, normaliseText, statedDeadline } from "./discovery-text";
 import { articleText } from "./article-text";
 import { admissionDeadlines } from "../data/admission-deadlines";
+import { applicationHref } from "./application-guide";
 
 export const calculatorContent: DiscoveryItem[] = [
   { id:"tool-screening",kind:"calculator",href:"/screening-calculator",title:"Admission & Screening Calculators",summary:"Choose your school to calculate a Post-UTME screening aggregate and check eligibility.",category:"Admission",keywords:["UTME", "O'Level", "screening", "aggregate"] },
@@ -43,7 +44,8 @@ export function publishedDeadlines(stories:QueuedStory[]):DiscoveryItem[] {
   return stories.map(storyDiscovery).filter(item=>deadlineDate(item.deadline)).map(item=>({...item,id:`deadline-${item.id}`,kind:"deadline" as const,category:/scholarship/i.test(item.category||"")?"Scholarships":/university/i.test(item.institution||"")?"University":"Other"}));
 }
 export function contentCatalogue(stories:QueuedStory[]):DiscoveryItem[] {
-  return [...stories.map(storyDiscovery),...publicOpportunities(stories),...deadlineContent,...publishedDeadlines(stories),...guideContent,...calculatorContent];
+  const opportunityDetails = publicOpportunities(stories).map(item => ({ ...item, href: item.detailHref ?? applicationHref(item) }));
+  return [...stories.map(storyDiscovery),...opportunityDetails,...deadlineContent,...publishedDeadlines(stories),...guideContent,...calculatorContent];
 }
 export function newestContent<T extends {publishedAt?:string|Date}>(items:T[]) {
   const date=(item:T)=>item.publishedAt?Date.parse(String(item.publishedAt))||0:0;
