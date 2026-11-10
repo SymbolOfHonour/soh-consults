@@ -33,18 +33,19 @@ export function publicOpportunities(stories:QueuedStory[]):PublicOpportunity[] {
   const published=new Map(stories.map(s=>[getStorySlug(s),s]));
   const mapped=updates.filter(u=>u.isOpportunity && published.has(getUpdateSlug(u))).map(u=>{
     const s=published.get(getUpdateSlug(u))!;
-    return {...storyDiscovery(s),id:`opportunity-${s.id}`,kind:"opportunity" as const,programme:u.opportunityProgramme||s.title,description:s.summary,status:u.opportunityStatus||"OPEN",deadline:s.deadline_iso||s.deadline||u.opportunityDeadline,deadlineLabel:s.deadline||u.opportunityDeadline||"Check official portal",category:u.opportunityCategory||"Other",detailHref:`/updates/${getStorySlug(s)}`,applicationUrl:s.official_source_url||u.sourceUrl};
+    return {...storyDiscovery(s),id:`opportunity-${s.id}`,kind:"opportunity" as const,href:`/opportunities?status=all#opportunity-${s.id}`,programme:u.opportunityProgramme||s.title,description:s.summary,status:u.opportunityStatus||"OPEN",deadline:s.deadline_iso||s.deadline||u.opportunityDeadline,deadlineLabel:s.deadline||u.opportunityDeadline||"Check official portal",category:u.opportunityCategory||"Other",detailHref:`/updates/${getStorySlug(s)}`,applicationUrl:s.official_source_url||u.sourceUrl};
   });
   const known=new Set(mapped.map(o=>o.detailHref));
-  const cms=stories.filter(s=>(/scholarship|opportunit/i.test(s.category)||isApplicationNotice(s.title)) && !known.has(`/updates/${getStorySlug(s)}`)).map(s=>({...storyDiscovery(s),id:`opportunity-${s.id}`,kind:"opportunity" as const,programme:s.title,description:s.summary,status:"OPEN",deadlineLabel:s.deadline||deadlineLabel(storyDiscovery(s).deadline),category:/scholarship/i.test(s.category)?"Scholarships":"Other",detailHref:`/updates/${getStorySlug(s)}`,applicationUrl:s.official_source_url||undefined}));
-  const seeded=opportunities.map((o,i):PublicOpportunity=>({id:`opportunity-seed-${i}`,kind:"opportunity",href:applicationHref({id:`opportunity-seed-${i}`}),title:`${o.institution} ${o.programme}`,institution:o.institution,programme:o.programme,description:o.description,summary:o.description,category:o.category,status:o.status,deadline:o.deadline,deadlineLabel:o.deadline}));
+  const cms=stories.filter(s=>(/scholarship|opportunit/i.test(s.category)||isApplicationNotice(s.title)) && !known.has(`/updates/${getStorySlug(s)}`)).map(s=>({...storyDiscovery(s),id:`opportunity-${s.id}`,kind:"opportunity" as const,href:`/opportunities?status=all#opportunity-${s.id}`,programme:s.title,description:s.summary,status:"OPEN",deadlineLabel:s.deadline||deadlineLabel(storyDiscovery(s).deadline),category:/scholarship/i.test(s.category)?"Scholarships":"Other",detailHref:`/updates/${getStorySlug(s)}`,applicationUrl:s.official_source_url||undefined}));
+  const seeded=opportunities.map((o,i):PublicOpportunity=>({id:`opportunity-seed-${i}`,kind:"opportunity",href:`/opportunities?status=all#opportunity-seed-${i}`,title:`${o.institution} ${o.programme}`,institution:o.institution,programme:o.programme,description:o.description,summary:o.description,category:o.category,status:o.status,deadline:o.deadline,deadlineLabel:o.deadline}));
   return [...mapped,...cms,...seeded];
 }
 export function publishedDeadlines(stories:QueuedStory[]):DiscoveryItem[] {
   return stories.map(storyDiscovery).filter(item=>deadlineDate(item.deadline)).map(item=>({...item,id:`deadline-${item.id}`,kind:"deadline" as const,category:/scholarship/i.test(item.category||"")?"Scholarships":/university/i.test(item.institution||"")?"University":"Other"}));
 }
 export function contentCatalogue(stories:QueuedStory[]):DiscoveryItem[] {
-  return [...stories.map(storyDiscovery),...publicOpportunities(stories),...deadlineContent,...publishedDeadlines(stories),...guideContent,...calculatorContent];
+  const opportunityDetails = publicOpportunities(stories).map(item => ({ ...item, href: item.detailHref ?? applicationHref(item) }));
+  return [...stories.map(storyDiscovery),...opportunityDetails,...deadlineContent,...publishedDeadlines(stories),...guideContent,...calculatorContent];
 }
 export function newestContent<T extends {publishedAt?:string|Date}>(items:T[]) {
   const date=(item:T)=>item.publishedAt?Date.parse(String(item.publishedAt))||0:0;

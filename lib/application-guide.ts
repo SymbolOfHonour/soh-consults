@@ -3,10 +3,10 @@ import type { QueuedStory } from "./news-queue";
 import { readArticleBlocks, removeArticleBlocks } from "./article-blocks";
 import { normaliseText } from "./discovery-text";
 
-export function applicationSlug(item: Pick<PublicOpportunity, "id" | "detailHref">) {
+export function applicationSlug(item: PublicOpportunity) {
   return item.detailHref?.split("/").filter(Boolean).pop() || item.id;
 }
-export function applicationHref(item: Pick<PublicOpportunity, "id" | "detailHref">) {
+export function applicationHref(item: PublicOpportunity) {
   return `/applications/${encodeURIComponent(applicationSlug(item))}`;
 }
 export function safeOfficialUrl(value?: string | null) {
