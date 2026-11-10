@@ -1,4 +1,5 @@
 "use client";
+import PublicPageLink from "./PublicPageLink";
 import {usePathname} from "next/navigation";
 const items=[
  {href:"/",label:"Home",icon:"⌂"},
@@ -7,4 +8,4 @@ const items=[
  {href:"/tools",label:"Tools",icon:"▦"},
  {href:"/#contact",label:"Contact",icon:"☏"},
 ];
-export default function MobileNav(){const pathname=usePathname();if(pathname.startsWith("/admin"))return null;return <nav className="soh-mobile-nav" aria-label="Mobile navigation">{items.map(item=>{const active=item.href==="/"?pathname==="/":item.href==="/tools"?(pathname==="/tools"||pathname.includes("calculator")):item.href.includes("#")?false:pathname.startsWith(item.href);return <a key={item.label} href={item.href} aria-current={active?"page":undefined} className={active?"active":""}><span aria-hidden="true">{item.icon}</span><small>{item.label}</small></a>})}</nav>}
+export default function MobileNav(){const pathname=usePathname();if(pathname.startsWith("/admin"))return null;return <nav className="soh-mobile-nav" aria-label="Mobile navigation">{items.map(item=>{const active=item.href==="/"?pathname==="/":item.href==="/tools"?(pathname==="/tools"||pathname.includes("calculator")):item.href.includes("#")?false:pathname.startsWith(item.href);return <PublicPageLink key={item.label} href={item.href} aria-current={active?"page":undefined} className={active?"active":""}><span aria-hidden="true">{item.icon}</span><small>{item.label}</small></PublicPageLink>})}</nav>}
