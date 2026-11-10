@@ -18,7 +18,7 @@ function load(file){
  const mod=new Module(file,module);mod.filename=file;mod.paths=Module._nodeModulePaths(path.dirname(file));cache.set(file,mod);
  mod.require=name=>{
   if(name==='next/navigation')return {usePathname:()=>window.location.pathname,notFound(){throw Error('NOT_FOUND');},permanentRedirect(url){throw Error('REDIRECT '+url);}};
-  if(name==='next/link')return {__esModule:true,default:({children,...props})=>React.createElement('a',props,children)};
+  if(name==='next/link')return {__esModule:true,useLinkStatus:()=>({pending:false}),default:({children,...props})=>React.createElement('a',props,children)};
   if(name==='next/headers')return {headers:async()=>new Headers()};
   if(name==='next/server')return {NextResponse:{json:Response.json}};
   if(name.endsWith('/rate-limit'))return {checkRateLimit:async()=>rate};
