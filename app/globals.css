@@ -104,3 +104,24 @@ html[data-soh-theme=dark] :is([class*="border-gray-"],[class*="border-slate-"]){
 /* Keep small category labels and action links readable in the saved dark theme. */
 html[data-soh-theme=dark] :is([class*="bg-green-100"],[class*="bg-emerald-100"]){background:#183a31;color:#b9e5cd}
 html[data-soh-theme=dark] [class*="text-green-700"]{color:#91ddb1}
+
+
+/* Keep update article text and cards legible against their dark surfaces. */
+html[data-soh-theme=dark] .soh-zoom-article {
+  --soh-copy: #e5edf8;
+  --soh-copy-green: #91ddb1;
+  --soh-copy-blue: #a9cbff;
+  --soh-copy-red: #ffb5ba;
+}
+html[data-soh-theme=dark] .soh-zoom-article :is(.text-gray-700, .text-gray-800) { color: var(--soh-copy); }
+html[data-soh-theme=dark] .soh-zoom-article .text-gray-500 { color: #aebed2; }
+html[data-soh-theme=dark] .soh-zoom-article :is(a, button).bg-white,
+html[data-soh-theme=dark] .soh-zoom-article [aria-label="Article publisher"] {
+  background: #1c2d46;
+  border-color: #435670;
+  color: var(--soh-copy);
+}
+html[data-soh-theme=dark] .soh-zoom-article .bg-amber-50 { background: #3b2c1a; color: #ffe3a6; }
+html[data-soh-theme=dark] .soh-zoom-article .bg-red-50 { background: #412530; color: #ffced4; }
+html[data-soh-theme=dark] .soh-zoom-article a.soh-article-link { background: #183a31; color: #b9e5cd; }
+html[data-soh-theme=dark] .soh-zoom-article a.soh-article-link:hover { background: #244b3e; color: #d5f5e3; }
