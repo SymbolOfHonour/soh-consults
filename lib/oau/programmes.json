@@ -1,0 +1,629 @@
+{
+  "source": "https://oauife.edu.ng/admission-undergraduate-studies/",
+  "checked": "11 November 2026",
+  "entries": [
+    {
+      "id": "oau-1",
+      "faculty": "Pharmacy",
+      "name": "Pharmacy",
+      "utme": "English, Physics Chemistry and Biology",
+      "oLevel": "English Language, Mathematics, Physics Chemistry and Biology"
+    },
+    {
+      "id": "oau-2",
+      "faculty": "College of Health Sciences",
+      "name": "Medicine",
+      "utme": "English, Physics Chemistry and Biology",
+      "oLevel": "English Language, Mathematics, Physics Chemistry and Biology"
+    },
+    {
+      "id": "oau-3",
+      "faculty": "College of Health Sciences",
+      "name": "Dentistry",
+      "utme": "English, Physics Chemistry and Biology",
+      "oLevel": "English Language, Mathematics, Physics Chemistry and Biology"
+    },
+    {
+      "id": "oau-4",
+      "faculty": "College of Health Sciences",
+      "name": "Nursing",
+      "utme": "English, Physics Chemistry and Biology",
+      "oLevel": "English Language, Mathematics, Physics Chemistry and Biology"
+    },
+    {
+      "id": "oau-5",
+      "faculty": "College of Health Sciences",
+      "name": "Medical Rehabilitation",
+      "utme": "English, Physics Chemistry and Biology",
+      "oLevel": "English Language, Mathematics, Physics Chemistry and Biology"
+    },
+    {
+      "id": "oau-6",
+      "faculty": "Technology",
+      "name": "Electronic and Electrical Engineering",
+      "utme": "English Language, Chemistry, Physics and Mathematics",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric. Science/Economics/Geography/ Further Mathematics."
+    },
+    {
+      "id": "oau-7",
+      "faculty": "Technology",
+      "name": "Mechanical Engineering",
+      "utme": "English, Chemistry, Physics and Mathematics",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric. Science/Economics/Geography/ Further Mathematics."
+    },
+    {
+      "id": "oau-8",
+      "faculty": "Technology",
+      "name": "Civil Engineering",
+      "utme": "English, Chemistry, Physics and Mathematics",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric. Science/Economics/Geography/ Further Mathematics."
+    },
+    {
+      "id": "oau-9",
+      "faculty": "Technology",
+      "name": "Chemical Engineering",
+      "utme": "English, Chemistry, Physics and Mathematics",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric. Science/Further Mathematics."
+    },
+    {
+      "id": "oau-10",
+      "faculty": "Technology",
+      "name": "Metallurgical and Materials Engineering",
+      "utme": "English, Chemistry, Physics and Mathematics",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric. Science/Economics/Geography/ Further Mathematics."
+    },
+    {
+      "id": "oau-11",
+      "faculty": "Technology",
+      "name": "Food Engineering/Food Science & Technology",
+      "utme": "English, Chemistry, Physics and Mathematics",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric. Science/Economics/Geography/ Further Mathematics."
+    },
+    {
+      "id": "oau-12",
+      "faculty": "Technology",
+      "name": "Agricultural & Environmental Engineering",
+      "utme": "English, Chemistry, Physics and Mathematics",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric. Science/Economics/Geography/ Further Mathematics."
+    },
+    {
+      "id": "oau-13",
+      "faculty": "Technology",
+      "name": "Computer Engineering",
+      "utme": "English, Chemistry, Physics and Maths",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric./ Economics/Further Mathematics"
+    },
+    {
+      "id": "oau-14",
+      "faculty": "Technology",
+      "name": "Computer Science with Mathematics",
+      "utme": "English, Chemistry, Physics and Maths",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric. Science/Economics/Geography/ Further Mathematics."
+    },
+    {
+      "id": "oau-15",
+      "faculty": "Technology",
+      "name": "Computer Science with Economics",
+      "utme": "English, Chemistry, Physics and Maths",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric. Science/Economics/Geography/ Further Mathematics."
+    },
+    {
+      "id": "oau-16",
+      "faculty": "Technology",
+      "name": "Aerospace Engineering",
+      "utme": "English, Chemistry, Physics and Maths",
+      "oLevel": "English, Mathematics, Physics, Chemistry, Further Mathematics."
+    },
+    {
+      "id": "oau-17",
+      "faculty": "Science",
+      "name": "Biochemistry",
+      "utme": "English Language, Chemistry, Physics and Biology",
+      "oLevel": "English Language, Chemistry, Mathematics, Physics and Biology"
+    },
+    {
+      "id": "oau-18",
+      "faculty": "Science",
+      "name": "Botany",
+      "utme": "English Language, Chemistry, Biology and Physics",
+      "oLevel": "English Language, Biology Chemistry, Physics and Mathematics"
+    },
+    {
+      "id": "oau-19",
+      "faculty": "Science",
+      "name": "Chemistry",
+      "utme": "English Language, Chemistry, Mathematics, and Physics.",
+      "oLevel": "English Language, Chemistry, Physics, Mathematics and Biology."
+    },
+    {
+      "id": "oau-20",
+      "faculty": "Science",
+      "name": "Industrial Chemistry",
+      "utme": "English Language, Chemistry, Mathematics & Physics.",
+      "oLevel": "English Language, Chemistry, Physics, Mathematics & Biology."
+    },
+    {
+      "id": "oau-21",
+      "faculty": "Science",
+      "name": "Geology",
+      "utme": "English Language, Chemistry, Biology & Physics.",
+      "oLevel": "English Language, Chemistry, Physics, Biology and Mathematics."
+    },
+    {
+      "id": "oau-22",
+      "faculty": "Science",
+      "name": "Applied Geophysics",
+      "utme": "English Language, Chemistry, Physics and Mathematics.",
+      "oLevel": "English Language, Biology, Chemistry, Physics and Mathematics"
+    },
+    {
+      "id": "oau-23",
+      "faculty": "Science",
+      "name": "Mathematics",
+      "utme": "English Language, Mathematics, Physics and Chemistry",
+      "oLevel": "English Language, Biology Mathematics, Physics and Chemistry"
+    },
+    {
+      "id": "oau-24",
+      "faculty": "Science",
+      "name": "Statistics",
+      "utme": "English Language, Physics, Mathematics and Chemistry.",
+      "oLevel": "English Language, Mathematics, Physics, Chemistry & Biology."
+    },
+    {
+      "id": "oau-25",
+      "faculty": "Science",
+      "name": "Microbiology",
+      "utme": "English Language, Biology, Chemistry and Physics.",
+      "oLevel": "English Language, Biology, Chemistry, Physics and Mathematics"
+    },
+    {
+      "id": "oau-26",
+      "faculty": "Science",
+      "name": "Physics /Engineering Physics",
+      "utme": "English Language, Mathematics, Physics & Chemistry.",
+      "oLevel": "English Language, Physics, Chemistry, Mathematics and Biology"
+    },
+    {
+      "id": "oau-27",
+      "faculty": "Science",
+      "name": "Zoology",
+      "utme": "English Language, Biology, Physics and Chemistry or Mathematics,",
+      "oLevel": "English Language, Biology, Physics, Mathematics and Chemistry."
+    },
+    {
+      "id": "oau-28",
+      "faculty": "Social Sciences",
+      "name": "Economics",
+      "utme": "English, Mathematics, Government and Economics",
+      "oLevel": "English, Mathematics, Economics 1 from Government/Geography and one from Biology, Agriculture, Civics, History, IRK/CRK, Yoruba, Literature, Chemistry, Physics, Further Mathematics and ICT"
+    },
+    {
+      "id": "oau-29",
+      "faculty": "Social Sciences",
+      "name": "Demography and Social Statistics",
+      "utme": "English, Mathematics, Economics and any from Government, Civics, Data Processing and Computer Studies",
+      "oLevel": "English, Mathematics, Economics and any two from Geography/Government, Chemistry, Physics, Biology, Agricultural Science, Further Mathematics and Civics"
+    },
+    {
+      "id": "oau-30",
+      "faculty": "Social Sciences",
+      "name": "Geography",
+      "utme": "English, Geography, and any 2 from Economics, Government, Mathematics, Chemistry, Physics, Biology/Agric Science,",
+      "oLevel": "English, Mathematics, Geography, and any 2 from Economics, Government, Chemistry, Physics, Biology/Agric, CRS/IRS, Yoruba, Civics Education, ICT/Animal Husbandry, Cosmetology, Marketing"
+    },
+    {
+      "id": "oau-31",
+      "faculty": "Social Sciences",
+      "name": "Political Science",
+      "utme": "English, Government and any 2 from Economics, Geography, Literature, CRS/IRS, Mathematics",
+      "oLevel": "English, Mathematics, Government and any 2 from Economics, Geography, Literature, CRS/IRS, Civics Education, Yoruba, ICT, Physics/ Chemistry/Biology/Agric Sciences"
+    },
+    {
+      "id": "oau-32",
+      "faculty": "Social Sciences",
+      "name": "Psychology",
+      "utme": "English and any 3 from Mathematics, Economics, Government, Physics, Geography, Chemistry and Biology and Biology",
+      "oLevel": "English, Mathematics, Economics and any 2 from Government, Biology, Geography, Physics, Chemistry, History, Literature, Yoruba, CRS/IRS, Agric Science, ICT, Civics Education, Garment Making, Catering and Craft Practice"
+    },
+    {
+      "id": "oau-33",
+      "faculty": "Social Sciences",
+      "name": "Sociology and Anthropology",
+      "utme": "English, Mathematics and any 3 from Literature, Geography, CRS/IRS, Government, History, Economics",
+      "oLevel": "English, Mathematics and any 3 from Literature, Yoruba, Physics, Chemistry, Economics, Geography, CRS/IRS, Government, Visual Arts, Music, History, Biology, Agriculture and ICT"
+    },
+    {
+      "id": "oau-34",
+      "faculty": "Social Sciences",
+      "name": "Entrepreneurship and Industrial Extension",
+      "utme": "As in other courses in Social Sciences",
+      "oLevel": "English, Mathematics and one Social Science subject (Economics, Government and Geography) plus any 2 subjects from Civics, Physics, Chemistry Biology, Agric. Science, Computer, CRK/IRK, Yoruba/Igbo./Hausa, Fine Arts, Music, Literature and Principles of Accounting."
+    },
+    {
+      "id": "oau-35",
+      "faculty": "Social Sciences",
+      "name": "Mass Communication",
+      "utme": "As in other courses in Social Sciences",
+      "oLevel": "English, Mathematics, Literature in English and any other two of Arts or Social Sciences subject"
+    },
+    {
+      "id": "oau-36",
+      "faculty": "Social Sciences",
+      "name": "Film Production",
+      "utme": "As in other courses in Social Sciences",
+      "oLevel": "English, Mathematics, Literature in English and any other two of Arts or Social Sciences subject"
+    },
+    {
+      "id": "oau-37",
+      "faculty": "Social Sciences",
+      "name": "Broadcast Journalism",
+      "utme": "As in other courses in Social Sciences",
+      "oLevel": "English, Mathematics, Literature in English and any other two of Arts or Social Sciences subject"
+    },
+    {
+      "id": "oau-38",
+      "faculty": "Social Sciences",
+      "name": "Information Science and Media Studies",
+      "utme": "As in other courses in Social Sciences",
+      "oLevel": "English, Mathematics, Literature in English and any other two of Arts or Social Sciences subject"
+    },
+    {
+      "id": "oau-39",
+      "faculty": "Agriculture",
+      "name": "Animal Science",
+      "utme": "English, Physics, Chemistry, Biology or Agric. Science",
+      "oLevel": "English, Mathematics, Chemistry and 2 from Biology/Agric. Science, Physics, Economics, Geography, Further Mathematics"
+    },
+    {
+      "id": "oau-40",
+      "faculty": "Agriculture",
+      "name": "Crop Production and Protection",
+      "utme": "English, Chemistry, Physics and Biology/Agric Science",
+      "oLevel": "English, Mathematics, Chemistry and 2 from Physics, Biology/Agricultural Science, Geography, Further Mathematics"
+    },
+    {
+      "id": "oau-41",
+      "faculty": "Agriculture",
+      "name": "Agricultural Economics",
+      "utme": "English, Chemistry, Physics and Biology/Agric Science",
+      "oLevel": "English, Mathematics, Chemistry and 2 from Biology/Agric. Science, Physics, Economics, Geography, Further Mathematics"
+    },
+    {
+      "id": "oau-42",
+      "faculty": "Agriculture",
+      "name": "Agricultural Extension and Rural Development",
+      "utme": "English, Chemistry, Physics and Biology/Agric Science",
+      "oLevel": "English, Mathematics, Chemistry and 2 from Biology/Agric. Science, Physics, Economics, Geography, Further Mathematics"
+    },
+    {
+      "id": "oau-43",
+      "faculty": "Agriculture",
+      "name": "Soil Science and Land Resources Management",
+      "utme": "English, Chemistry, Physics and Biology/Agric Science",
+      "oLevel": "English, Mathematics, Chemistry and 2 from Biology/Agric. Science, Physics, Economics, Geography, Further Mathematics"
+    },
+    {
+      "id": "oau-44",
+      "faculty": "Agriculture",
+      "name": "Consumer Sciences",
+      "utme": "English, Chemistry, Physics and Biology/Agric Science",
+      "oLevel": "English, Mathematics, Physics, Chemistry and Biology/Agric. Science"
+    },
+    {
+      "id": "oau-45",
+      "faculty": "Arts",
+      "name": "Dramatic Arts",
+      "utme": "",
+      "oLevel": "English Language, Literature in English and 3 other subjects from History, Yoruba/Igbo/ Hausa/French, Music, CRS/IRS, Fine Arts, Government, Geography, Mathematics, Economics, Physics, Biology, Agricultural Science, Home Economics, Chemistry, Food & Nutrition/Civic Education /Principles of Account/Catering & Catering Craft Practice/Animal Husbandry/ Garment Making/ Costmetology, Photography and Office Practice, Computer Studies"
+    },
+    {
+      "id": "oau-46",
+      "faculty": "Arts",
+      "name": "English",
+      "utme": "",
+      "oLevel": "English, Literature in English and 3 other subjects from History/ Yoruba/Igbo/Hausa/French/Music/CRS/IRS/ Fine Art/Government/Geography/Economics/ Civics Education and Principles of Account"
+    },
+    {
+      "id": "oau-47",
+      "faculty": "Arts",
+      "name": "Literature in English",
+      "utme": "",
+      "oLevel": "English, Literature in English and 3 other subjects from History/ Yoruba/Igbo/Hausa/French/Music/CRS/IRS/ Arabic/ Fine Art/Government/Geography/Economics/ Civic Education and Principles of Account"
+    },
+    {
+      "id": "oau-48",
+      "faculty": "Arts",
+      "name": "French",
+      "utme": "",
+      "oLevel": "English Plus 4 other subjects from Literature/Yoruba/ Igbo/CRS/IRS/History/French/Government/ Fine Arts/ Mathematics/Music/Economic/Physics/Chemistry/ Biology, Home Economics/Geography/Food & Nutrition/Civic Education"
+    },
+    {
+      "id": "oau-49",
+      "faculty": "Arts",
+      "name": "German",
+      "utme": "",
+      "oLevel": "English Plus 4 other subjects from Literature/Yoruba/ Igbo/CRS/IRS/History/French/Government/ Fine Arts/ Mathematics/Music/Economic/Physics/Chemistry/Biology Home Economics/Geography/Food & Nutrition/Civic Education, Agric. Science"
+    },
+    {
+      "id": "oau-50",
+      "faculty": "Arts",
+      "name": "Portuguese",
+      "utme": "",
+      "oLevel": "English Plus 4 other subjects from Literature/Yoruba/ Igbo/CRS/IRS/History/French/Government/ Fine Arts/ Mathematics/Music/Economic/Physics/Chemistry/Biology Home Economics/Geography/Food & Nutrition/Civic Education"
+    },
+    {
+      "id": "oau-51",
+      "faculty": "Arts",
+      "name": "History",
+      "utme": "",
+      "oLevel": "English and 4 Credits in History, Government, Civic Education, Literature, CRS/IRS, French, Yoruba, or Hausa or Igbo, Economics, Mathematics, Principles of Accounts"
+    },
+    {
+      "id": "oau-52",
+      "faculty": "Arts",
+      "name": "Yoruba",
+      "utme": "",
+      "oLevel": "English, and 4 others from Literature in English, Yoruba, Igbo, CRS/IRS, History, French, Fine Arts, Mathematics, Biology, Chemistry, Physics, Economics, Geography, Agric. Science, Principles of Accounts, Government, Civic Education, Music"
+    },
+    {
+      "id": "oau-53",
+      "faculty": "Arts",
+      "name": "Linguistics",
+      "utme": "",
+      "oLevel": "English, and 4 others from Literature in English, Yoruba, Igbo, CRS/IRS, History, French, Fine Arts, Mathematics, Biology, Chemistry, Physics, Economics, Geography, Agric. Science, Principles of Accounts, Government, Civic Education, Music"
+    },
+    {
+      "id": "oau-54",
+      "faculty": "Arts",
+      "name": "Music",
+      "utme": "",
+      "oLevel": "English Language and 4 others from Literature, Yoruba/ Igbo/Hausa, Music CRS/IRS, History, French, Fine Arts, Mathematics, Biology, Chemistry, Physics, Economics, Geography, Agric. Science, Principles of Account, Government, Civic Education, Computer Science"
+    },
+    {
+      "id": "oau-55",
+      "faculty": "Arts",
+      "name": "Philosophy",
+      "utme": "",
+      "oLevel": "English Language, Pass in Mathematics, and Credits in 4 other subjects from Literature, Yoruba/Igbo/Hausa, Music, Government, Civic Education, Economics Geography, CRS/IRS, History, French, Biology, Chemistry, Physics, Agric. Science, Fine Arts"
+    },
+    {
+      "id": "oau-56",
+      "faculty": "Arts",
+      "name": "Religious Studies",
+      "utme": "",
+      "oLevel": "English, and 4 others from Literature, Yoruba, Igbo, CRS/IRS, History, French, Fine Arts, Mathematics, Biology, Chemistry, Physics, Economics, Geography, Agric. Science, Principle of Accounts, Government, Civic Education, Music, Hausa"
+    },
+    {
+      "id": "oau-57",
+      "faculty": "Administration",
+      "name": "International Relations",
+      "utme": "English, Mathematics, Government and any other one from Economics, Geography, History, Literature in English",
+      "oLevel": "English, Mathematics, Government and any other two from Economics, Geography, History, Literature, in English Computer Studies/ICT"
+    },
+    {
+      "id": "oau-58",
+      "faculty": "Administration",
+      "name": "Local Government Studies",
+      "utme": "English, Mathematics, Government and one from Accounting, Economics, Geography, History, Yoruba, Computer Studies/ ICT",
+      "oLevel": "English, Mathematics, Government and two from Accounting, Economics, Geography, Yoruba, History, Computer Studies/ICT"
+    },
+    {
+      "id": "oau-59",
+      "faculty": "Administration",
+      "name": "Management & Accounting",
+      "utme": "English, Mathematics, Economics and any other from Accounting, Government, Geography, Computer Studies/ICT",
+      "oLevel": "English, Mathematics, Economics and any 2 from Accounting, Government, Geography, Literature, Biology, Yoruba, Computer Studies/ICT"
+    },
+    {
+      "id": "oau-60",
+      "faculty": "Administration",
+      "name": "Business Administration",
+      "utme": "English, Mathematics, Economics and any other from Accounting, Government, Geography, Computer Studies/ICT",
+      "oLevel": "English, Mathematics, Economics and any 2 from Accounting, Government, Geography, Literature, Biology, Yoruba, Computer Studies/ICT"
+    },
+    {
+      "id": "oau-61",
+      "faculty": "Administration",
+      "name": "Public Administration",
+      "utme": "English, Mathematics, Government, Economics",
+      "oLevel": "English, Mathematics, Government and any 2 from Economics, History, Geography, Yoruba, CRS/IRS, Literature, Biology, Accounting, Civic Education, Computer Studies/ICT"
+    },
+    {
+      "id": "oau-62",
+      "faculty": "Environmental Design and Management",
+      "name": "Architecture",
+      "utme": "Mathematics, English and any 2 from Physics, Chemistry, Economics, Fine Arts.",
+      "oLevel": "Mathematics, English , Physics and 2 from Fine Arts, Technical Drawing, Economics, Physics, Chemistry, Economics, Geography, Biology, Agricultural Science."
+    },
+    {
+      "id": "oau-63",
+      "faculty": "Environmental Design and Management",
+      "name": "Building",
+      "utme": "English, Chemistry, Physics, Mathematics",
+      "oLevel": "English, Mathematics, Physics, Chemistry and any 1 from Technical Drawing, Economics, Further Mathematics, Fine Arts, Geography, Land Surveying and Building Construction."
+    },
+    {
+      "id": "oau-64",
+      "faculty": "Environmental Design and Management",
+      "name": "Surveying and Geoinformatics",
+      "utme": "English, Mathematics, Physics and Geography/ Chemistry",
+      "oLevel": "English, Mathematics, Physics one from Chemistry/ Geography and one from Economics/Biology/Further Mathematics/Technical Drawing"
+    },
+    {
+      "id": "oau-65",
+      "faculty": "Environmental Design and Management",
+      "name": "Quantity Surveying",
+      "utme": "English Language and 2 from Physics, Chemistry, Technical Drawing, Geography, Economics and Biology",
+      "oLevel": "English, Mathematics, Physics and 2 from Chemistry, Technical Drawing, Geography, Economics, Biology, Further Mathematics"
+    },
+    {
+      "id": "oau-66",
+      "faculty": "Environmental Design and Management",
+      "name": "Urban & Regional Planning",
+      "utme": "English, Mathematics, Geography, Economics/ Government",
+      "oLevel": "English, Mathematics, Geography, Economics and l from Biology, Physics, Chemistry, Technical Drawing, Fine Arts, History, Government."
+    },
+    {
+      "id": "oau-67",
+      "faculty": "Environmental Design and Management",
+      "name": "Estate Management",
+      "utme": "English, Mathematics Economics and one from Biology, Physics, Chemistry, Geography and Fine Arts",
+      "oLevel": "English, Mathematics Economics and 1 from Chemistry, Physics, Biology, Geography, Building Construction, Technical Drawing, Fine Arts and 1 from Yoruba, Agriculture, Account, Food & Nutrition, Literature Government, CRS/IRS, Further Mathematics, Home Economics"
+    },
+    {
+      "id": "oau-68",
+      "faculty": "Environmental Design and Management",
+      "name": "Fine and Applied Arts",
+      "utme": "English and any 3 fi–om the Arts, Social Science and Science excluding Commerce, Book Keeping and Shorthand",
+      "oLevel": "English, one Science and any 3 from Sciences, Social Science, Arts, except Commerce, Book Keeping and Shorthand"
+    },
+    {
+      "id": "oau-69",
+      "faculty": "Law",
+      "name": "Law",
+      "utme": "English, Literature plus any two other subjects",
+      "oLevel": "Five O’Level Credit Passes to include English, Literature and any other 3 subject from Government, History, CRS/IRS, French, Maths, Economics, Physics, Chemistry, Biology, Agriculture and Accounting"
+    },
+    {
+      "id": "oau-70",
+      "faculty": "Education",
+      "name": "History Education",
+      "utme": "History and any other 2 from CRK/IRK, French, Literature in English, Yoruba, Geography, Physics, Economics, Government and Hausa",
+      "oLevel": "English and 4 from Agric/Food & Nutrition, Arabic, Fine Arts, Biology, Chemistry, CRK/IRK, Economics, French, Geography, Government, Hausa, Home Economics, Igbo, Literature, Mathematics, Music, Physics, Accounting, Yoruba, Technical Drawing, Further Maths., Building Construction, Land Surveying, PHE, Social Studies and Integrated Science."
+    },
+    {
+      "id": "oau-71",
+      "faculty": "Education",
+      "name": "English Education",
+      "utme": "Literature in English and 1 Arts subject and any other subject",
+      "oLevel": "English, Literature in English, plus any other three subjects from IRS/CRS, Yoruba, Hausa, Igbo, History, Government, French, Biology, Agricultural Science, Food and Nutrition, or 5 Merit/Credit at TC II"
+    },
+    {
+      "id": "oau-72",
+      "faculty": "Education",
+      "name": "Education (Fine and Applied Arts)",
+      "utme": "Fine Arts, one other Arts subject and other subject",
+      "oLevel": "English plus any 4 as listed in Education History Above"
+    },
+    {
+      "id": "oau-73",
+      "faculty": "Education",
+      "name": "Education (French)",
+      "utme": "French plus 2 other Arts subjects",
+      "oLevel": "English plus any 4 from Education History above"
+    },
+    {
+      "id": "oau-74",
+      "faculty": "Education",
+      "name": "Education (Language Arts)",
+      "utme": "Any 3 from Yoruba, Literature in English, IRS/CRS, History and Economics",
+      "oLevel": "English, Literature plus any other 3 subjects from IRS/CRS, Yoruba/Hausa/ Igbo, History/ Government, French, Biology, Agricultural Science/Food Nutrition or 5 Merit/Credit at TC II"
+    },
+    {
+      "id": "oau-75",
+      "faculty": "Education",
+      "name": "Education (Music)",
+      "utme": "Music and any other two Arts, Social Sciences",
+      "oLevel": "English plus any 4 as listed in Education History above"
+    },
+    {
+      "id": "oau-76",
+      "faculty": "Education",
+      "name": "Physical and Health Education",
+      "utme": "Biology and any 2 relevant Subjects",
+      "oLevel": "English, plus any other four subjects from Mathematics, Physics, Chemistry, Agricultural Science, Food and Nutrition, Geography, Economics, Government, Biology, Health Science, Integrated Science, Literature, IRS/CRS, History, Government or five Merit/Credit at TC II"
+    },
+    {
+      "id": "oau-77",
+      "faculty": "Education",
+      "name": "Education (Religious Studies)",
+      "utme": "2 Arts subjects including Religious and 1 other subject",
+      "oLevel": "English Language, IRS/CRS, plus any other three subjects from Literature in English, Yoruba/Hausa/Igbo, History/ Government, French, Economics, Geography, Biology, Agric. Science/ Food and Nutrition or five Merit/Credit at TC II"
+    },
+    {
+      "id": "oau-78",
+      "faculty": "Education",
+      "name": "Education (Yoruba)",
+      "utme": "Yoruba and any other 2 subjects chosen from History, Literature, French, IRK/CRK, Arabic and Geography/Physics",
+      "oLevel": "English, Yoruba and any 3 from Government, Economics, Geography, Agric. Science/Food and Nutrition, French, IRS/CRS, Literature, Biology or Five Merit/Credit at TC II"
+    },
+    {
+      "id": "oau-79",
+      "faculty": "Education",
+      "name": "Education (Biology)",
+      "utme": "Biology and any other 2 subjects chosen from Chemistry, Mathematics and Physics",
+      "oLevel": "English Language, Biology, Chemistry, Mathematics and any one of Agricultural Science/Food and Nutrition, Physics, Health Science or 5 Merit/Credit at TC II"
+    },
+    {
+      "id": "oau-80",
+      "faculty": "Education",
+      "name": "Education (Chemistry)",
+      "utme": "Chemistry and any other 2 subjects chosen from Physics, Biology and Mathematics",
+      "oLevel": "Mathematics, Chemistry, English and any 2 subjects from Physics, Biology, Agricultural Science or 5 merit/credit at TC II"
+    },
+    {
+      "id": "oau-81",
+      "faculty": "Education",
+      "name": "Education (Mathematics)",
+      "utme": "Mathematics and any other 2 of the following Science subjects: Physics, Chemistry and Biology",
+      "oLevel": "English, Mathematics, Physics/ Chemistry and any 2 subjects from Further Maths. Biology, Agricultural Science/Food and Nutrition, Technical Drawing or 5 Merit/Credit at TC II."
+    },
+    {
+      "id": "oau-82",
+      "faculty": "Education",
+      "name": "Education (Mathematics & Integrated Science)",
+      "utme": "Any 3 of Mathematics, Chemistry, Physics, Biology and Agricultural Science",
+      "oLevel": "English Language, Mathematics, and any other 3 subjects from Biology, Chemistry, Physics, General Science, Agricultural Science/Food & Nutrition, Health Science, Technical Drawing or 5 Merit/credit at TC II"
+    },
+    {
+      "id": "oau-83",
+      "faculty": "Education",
+      "name": "Education (Physics)",
+      "utme": "Any 3 of Mathematics, Chemistry, Physics, Biology and Agricultural Science",
+      "oLevel": "English Language, Mathematics, and any other 3 subjects from Biology, Chemistry, Physics, General Science, Agricultural Science/Food & Nutrition, Health Science, Technical Drawing or 5 Merit/credit at TC II"
+    },
+    {
+      "id": "oau-84",
+      "faculty": "Education",
+      "name": "Education (Economics)",
+      "utme": "Economics, Mathematics, and other subject from Geography/ Physics, History, Government and Literature in English",
+      "oLevel": "English Language, Mathematics, Economics and any other two subjects from Government, Geography, IRS/CRS, Yoruba/Hausa/Igbo, Business Education/ Accounting or 5 Merit/Credit at TC II"
+    },
+    {
+      "id": "oau-85",
+      "faculty": "Education",
+      "name": "Education (Geography)",
+      "utme": "",
+      "oLevel": "Geography, English Language, Mathematics and any other two from Economics, Government Biology, Agricultural Science/Food & Nutrition, Chemistry, IRS/CRS,Yoruba/Hausa/ Igbo or 5 merit/credit at TC II"
+    },
+    {
+      "id": "oau-86",
+      "faculty": "Education",
+      "name": "Guidance and Counselling",
+      "utme": "Any 3 subject",
+      "oLevel": "English Language, Mathematics plus any three subjects from Literature in English, History/Government, French, Fine Arts, IRS/CRS, Yoruba/Igbo/Hausa Physics, Chemistry, Biology, Integrated Science, Geography, Further Maths., Secretarial – Studies, Agricultural Science/Food & Nutrition, Economics, Technical Drawing, Physical and Health Education, Music or 5 merit/credit at TC II"
+    },
+    {
+      "id": "oau-87",
+      "faculty": "Education",
+      "name": "Education (Social Studies)",
+      "utme": "Any 3 of CRS, Economics, Geography/Physics, Government, History and IRS",
+      "oLevel": "English Language, at least 1 from Economics/Government/Social Studies/ Geography, three (3) from History, Music, Fine Arts, IRS/CRS, Home Economics, Literature in English. Accounting, Agric. Science, Physics, Chemistry, Biology, Integrated Science, Physical and Health Education or 5 merit/credit at TC II"
+    },
+    {
+      "id": "oau-88",
+      "faculty": "Education",
+      "name": "Education (Political Science)",
+      "utme": "Government or History plus 2 other Arts or Social Sciences subjects",
+      "oLevel": "English Language, Mathematics, Government, and any other 2 subjects from Economics, Geography, History or 5 merit/credit at TC II"
+    },
+    {
+      "id": "oau-89",
+      "faculty": "Education",
+      "name": "Educational Management",
+      "utme": "",
+      "oLevel": "English Language (4) from Economics, Government, Geography, Accounting, Agric. Science, Food & Nutrition, Arabic, Fine Art, Biology, Chemistry, CRS, IRS, French, Hausa, Home Econs. Igbo, Literature, Mathematics, Music, Physics, Yoruba, Further Maths, Technical Drawing, Physical and Health Education, Social Studies, Integrated Science, Civic Education."
+    }
+  ]
+}

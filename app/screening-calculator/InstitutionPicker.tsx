@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import PublicPageLink from "../components/PublicPageLink";
 const schools = [
+  {short:"OAU",name:"Obafemi Awolowo University, Ile-Ife",type:"Post-UTME Examination",location:"Osun",href:"/oau-calculator"},
   {short:"FUSTECH",name:"Federal University of Science and Technology, Epe",type:"Online Screening",location:"Lagos",href:"/fustech-calculator"},
   {short:"LASU",name:"Lagos State University",type:"Online Screening",location:"Lagos",href:"/lasu-calculator"},
   {short:"FUOYE",name:"Federal University Oye-Ekiti",type:"Online Screening",location:"Ekiti",href:"/fuoye-calculator"},
