@@ -1,4 +1,6 @@
 "use client";
+import ScreeningReportDownloads from '../components/ScreeningReportDownloads';
+
 
 import { useMemo, useState } from 'react';
 import PublicPageLink from '../components/PublicPageLink';
@@ -18,8 +20,6 @@ export default function FustechCalculator() {
   const [boards, setBoards] = useState(['WAEC', 'WAEC']);
   const [checked, setChecked] = useState(false);
   const [resetKey, setResetKey] = useState(0);
-  const [exporting, setExporting] = useState(false);
-  const [exportError, setExportError] = useState('');
   const programme = programmes.find(p => p.code === course);
   const activeResults = useMemo(() => results.filter(row => sittings === 2 || row.sitting === 1), [results, sittings]);
   const calculation = useMemo(() => programme ? calculate(programme, score, activeResults, electives) : null, [programme, score, activeResults, electives]);
@@ -33,40 +33,7 @@ export default function FustechCalculator() {
     ...(!boardsValid ? ['NABTEB can only be combined with another NABTEB result.'] : []),
   ];
   function reset() {
-    setCandidate(''); setCourse(''); setScore(''); setElectives(['', '', '']); setResults([]); setSittings(1); setBoards(['WAEC', 'WAEC']); setChecked(false); setResetKey(key => key + 1); setExportError('');
-  }
-  async function download() {
-    if (!programme || !calculation) return;
-    setExporting(true); setExportError('');
-    try {
-      const { jsPDF } = await import('jspdf');
-      const pdf = new jsPDF();
-      let y = 20;
-      const line = (value: string) => {
-        const lines = pdf.splitTextToSize(value.replace(/[’‘]/g, "'").replace(/[–—]/g, "-"), 175);
-        for (const text of lines) {
-          if (y > 275) { pdf.addPage(); y = 20; }
-          pdf.text(text, 17, y); y += 6;
-        }
-        y += 3;
-      };
-      pdf.setFontSize(16); line('S.O.H CONSULTS | FUSTECH Screening'); pdf.setFontSize(10);
-      line(`Candidate: ${candidate.trim() || 'Not supplied'}`); line(`Programme: ${programme.degree} ${programme.name}`);
-      line(`UTME: ${score}/400 | Contribution: ${calculation.utme.toFixed(2)}/70`);
-      line(`O-Level: ${calculation.oLevel}/30 | Estimated aggregate: ${calculation.total.toFixed(2)}/100`);
-      line(`UTME subjects: ${['ENG', ...electives].map(code => jambSubjects[code] || 'Not selected').join(', ')}`);
-      line(`Sittings: ${sittings} | Examination bodies: ${boards.slice(0, sittings).join(' + ')}`);
-      line('Selected five relevant credits:');
-      calculation.selected.forEach(row => line(`${row.subject}: ${row.grade} (${gradePoints[row.grade]} points, sitting ${row.sitting})`));
-      if (!calculation.creditsMet) line('Incomplete relevant credits: aggregate is provisional.');
-      line(notes.length ? `Checks: ${notes.join(' ')}` : 'Entered score and subject requirements met. This is not an admission decision.');
-      if (sittings === 2) line('Sitting policy needs confirmation: the admissions portal allows two sittings, while the university news notice says one.');
-      line(`Official O-Level requirement: ${programme.oLevel}`); line(`Official UTME requirement: ${programme.utme}`);
-      line('First choice and verified O-Level upload on JAMB CAPS are also required. No departmental aggregate cutoff has been assumed.');
-      line(`Sources checked ${sources.checked}:`); line(sources.guidelines); line(sources.requirements);
-      pdf.save('SOH-FUSTECH-Screening-Report.pdf');
-    } catch { setExportError('Could not generate the report. Please try again.'); }
-    finally { setExporting(false); }
+    setCandidate(''); setCourse(''); setScore(''); setElectives(['', '', '']); setResults([]); setSittings(1); setBoards(['WAEC', 'WAEC']); setChecked(false); setResetKey(key => key + 1);
   }
   return <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900 sm:px-6 lg:px-8"><div className="mx-auto max-w-6xl">
     <header className="rounded-3xl bg-gradient-to-br from-green-800 via-green-700 to-emerald-600 p-6 text-white shadow-lg sm:p-8">
@@ -98,7 +65,7 @@ export default function FustechCalculator() {
           {!calculation?.creditsMet && <p className="mt-4 text-sm text-slate-600">Provisional estimate. Complete five relevant credits to include your O’Level points.</p>}
           {!!calculation?.selected.length && <div className="mt-5"><h3 className="text-sm font-black">Five selected credits</h3><ul className="mt-3 space-y-2 text-sm">{calculation.selected.map(row => <li key={row.subject} className="flex justify-between gap-3 border-b border-slate-200 pb-2"><span>{row.subject}</span><b>{row.grade} · {gradePoints[row.grade]} pts</b></li>)}</ul></div>}
           {checked && <div className={'mt-5 rounded-xl p-4 text-sm ' + (notes.length ? 'bg-amber-50 text-amber-900' : 'bg-green-50 text-green-900')}><h3 className="font-black">{notes.length ? 'Requirements need attention' : 'Entered score and subject requirements met'}</h3>{notes.length > 0 && <ul className="mt-2 list-disc space-y-2 pl-4">{notes.map(note => <li key={note}>{note}</li>)}</ul>}<p className="mt-3">This is an estimate, not an admission offer. FUSTECH must be your first choice and your verified O’Level results must be on JAMB CAPS.{sittings === 2 ? ' The sitting policy still needs confirmation.' : ''}</p></div>}
-          {checked && programme && <button className="mt-5 w-full rounded-xl bg-green-700 px-4 py-3 text-sm font-black text-white disabled:opacity-60" disabled={exporting} onClick={download}>{exporting ? 'Preparing report…' : 'Download PDF report'}</button>}{exportError && <p role="alert" className="mt-3 text-sm text-red-700">{exportError}</p>}
+          {checked && programme && calculation && <ScreeningReportDownloads disabled={!calculation.scoreValid} report={{school:'FUSTECH',candidate,programme:programme.name,score:calculation.total.toFixed(2)+' / 100',status:notes.length?'Requirements need attention':'Entered score and subject requirements met',positive:notes.length===0,breakdown:[['UTME score',score+' / 400'],['UTME points (70%)',calculation.utme.toFixed(2)+' / 70'],["O-Level points",calculation.oLevel+' / 30'],['Sittings',String(sittings)],['Exam bodies',boards.slice(0,sittings).join(' + ')]],results:calculation.selected.map(row=>({...row,points:gradePoints[row.grade]})),notes:[...notes,...(sittings===2?['Sitting policy needs confirmation: the admissions portal allows two sittings, while the university news notice says one.']:[]),'O-Level requirement: '+programme.oLevel,'UTME subjects: '+['ENG',...electives].map(code=>jambSubjects[code]||'Not selected').join(', '),'Official UTME requirement: '+programme.utme,'First choice and verified O-Level upload on JAMB CAPS are also required. No departmental aggregate cutoff has been assumed.','Sources checked '+sources.checked+': '+sources.guidelines+' ; '+sources.requirements]}}/>}
         </section>
         <section className={card}><h2 className="text-lg font-black">How your score is calculated</h2><p className="mt-3 text-sm leading-6 text-slate-600">UTME score ÷ 400 × 70, plus the points from five relevant O’Level credits.</p><div className="mt-4 grid grid-cols-3 gap-2 text-center text-sm">{Object.entries(gradePoints).filter(([,points]) => points > 0).map(([grade, points]) => <div className="rounded-xl bg-slate-50 p-3" key={grade}><b>{grade}</b><p className="text-slate-600">{points} {points === 1 ? 'point' : 'points'}</p></div>)}</div><p className="mt-4 text-xs leading-5 text-slate-500">No departmental aggregate cutoff or sitting penalty has been assumed.</p></section>
         <section className={card}><h2 className="text-lg font-black">Official sources</h2><p className="mt-2 text-xs text-slate-500">Checked {sources.checked}</p><a href={sources.guidelines} target="_blank" rel="noreferrer" className="mt-4 block text-sm font-bold text-green-700 underline">FUSTECH screening guidelines ↗</a><a href={sources.requirements} target="_blank" rel="noreferrer" className="mt-3 block text-sm font-bold text-green-700 underline">Programme requirements checker ↗</a><PublicPageLink href="/disclaimer" className="mt-3 block text-xs text-slate-500 underline">Independent guidance disclaimer</PublicPageLink></section>
