@@ -1,0 +1,60 @@
+"use client";
+import { useRef, useState } from 'react';
+import CalculatorShell, { CalculatorHeader } from '../components/CalculatorShell';
+import ScreeningReportDownloads from '../components/ScreeningReportDownloads';
+import { calculateOau, OAU_SOURCES } from '@/lib/oau/calculate';
+import catalogue from '@/lib/oau/programmes.json';
+const faculties = [...new Set(catalogue.entries.map(p=>p.faculty))];
+const field='mt-2 block w-full rounded-xl border border-slate-300 bg-white p-3 text-sm text-slate-900';
+const card='rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200 sm:p-7';
+export default function OauCalculator() {
+ const [name,setName]=useState(''),[programme,setProgramme]=useState('');
+ const [utme,setUtme]=useState(''),[oLevel,setOLevel]=useState(''),[post,setPost]=useState(''),[target,setTarget]=useState('');
+ const [checked,setChecked]=useState(false);
+ const resultRef=useRef<HTMLElement>(null);
+ const c=calculateOau(utme,oLevel,post,target);
+ const selectedProgramme=catalogue.entries.find(p=>p.name===programme);
+ const errors=[...(c.utme===null?['Enter a whole-number UTME score from 0 to 400.']:[]),...(c.oLevel===null?['Enter your official O’Level aggregate points from 0 to 10.']:[]),...(c.post===null?['Enter your Post-UTME score from 0 to 40 to complete the aggregate.']:[])];
+ const status=!c.complete?'Result incomplete':c.thresholdsMet?'Score thresholds met':'Score thresholds not met';
+ const notes=[...errors,...(c.utme!==null&&c.utme<200?['The published 2026 screening entry minimum is 200 UTME.']:[]),...(c.combined!==null&&c.combined<25?['O’Level plus Post-UTME points must reach at least 25 out of 50.']:[]),'This checks score thresholds only. Course subjects, first-choice status, credentials and departmental admission decisions must be confirmed with OAU.','No departmental or catchment cutoff has been assumed.'];
+ function check(){setChecked(true);requestAnimationFrame(()=>{resultRef.current?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});resultRef.current?.focus({preventScroll:true});});}
+ function reset(){setName('');setProgramme('');setUtme('');setOLevel('');setPost('');setTarget('');setChecked(false);}
+ return <CalculatorShell>
+  <CalculatorHeader title="OAU Aggregate Calculator" description="Obafemi Awolowo University, Ile-Ife. Calculate your aggregate or plan the Post-UTME score you need."><div className="mt-5 flex flex-wrap gap-2 text-xs font-bold">{['UTME 50%','Post-UTME 40%','O’Level 10%','2026/2027'].map(x=><span key={x} className="rounded-full bg-white/15 px-3 py-2">{x}</span>)}</div></CalculatorHeader>
+  <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900"><b>Use the correct score scales</b><p>Enter Post-UTME points out of 40 and the official O’Level aggregate out of 10. An O’Level grade total out of 50 or a Post-UTME percentage out of 100 cannot be entered directly.</p></div>
+  <div className="mt-7 grid items-start gap-6 lg:grid-cols-[1.5fr_1fr]">
+   <section className={card}><h2 className="text-xl font-black">Candidate information</h2>
+    <label className="mt-5 block text-sm font-bold">Candidate name (optional)<input className={field} value={name} maxLength={120} onChange={e=>setName(e.target.value)} placeholder="Enter candidate name"/></label>
+    <label className="mt-5 block text-sm font-bold">Programme (optional)<select className={field} value={programme} onChange={e=>setProgramme(e.target.value)}><option value="">Select a programme</option>{faculties.map(f=><optgroup key={f} label={f}>{catalogue.entries.filter(p=>p.faculty===f).map(p=><option key={p.id} value={p.name}>{p.name}</option>)}</optgroup>)}</select></label>
+    <p className="mt-2 text-xs leading-5 text-slate-500">Programme entries follow OAU’s published undergraduate admission table. This version displays requirements and checks scores; it does not automatically assess your subject combination.</p>
+    {selectedProgramme&&<div className="mt-5 space-y-3 rounded-2xl bg-green-50 p-4 text-sm leading-6"><h3 className="font-black text-green-900">Published programme requirements</h3><p><b>UTME:</b> {selectedProgramme.utme||'Not specified in this programme row. Confirm the current combination with OAU.'}</p><p><b>O’Level:</b> {selectedProgramme.oLevel}</p><p className="text-xs text-slate-600">Wording follows the university table. Some entries refer to other rows or contain incomplete combinations; confirm your current programme requirements with OAU before applying.</p><a href={catalogue.source} target="_blank" rel="noreferrer" className="font-bold text-green-700 underline">OAU undergraduate requirements ↗</a></div>}
+    <h2 className="mt-8 text-xl font-black">Your scores</h2>
+    <label className="mt-5 block text-sm font-bold">JAMB UTME score (out of 400)<input className={field} type="number" min="0" max="400" step="1" value={utme} aria-invalid={(checked||utme!=='')&&c.utme===null} onChange={e=>{setUtme(e.target.value);setChecked(false)}} placeholder="e.g. 280"/></label>
+    {(checked||utme!=='')&&c.utme===null&&<p className="mt-2 text-sm text-red-700">Enter a whole-number score from 0 to 400.</p>}
+    {c.utme!==null&&c.utme<200&&<p className="mt-2 text-sm text-amber-800">Below the published 200 UTME screening-entry minimum.</p>}
+    <label className="mt-5 block text-sm font-bold">Official O’Level aggregate (out of 10)<input className={field} type="number" min="0" max="10" step="0.01" value={oLevel} aria-invalid={(checked||oLevel!=='')&&c.oLevel===null} onChange={e=>{setOLevel(e.target.value);setChecked(false)}} placeholder="e.g. 8.00"/></label>
+    <p className="mt-2 text-xs leading-5 text-slate-500">Copy the O’LEVEL AGGREGATE SCORE from your OAU result. Grade-to-point conversion is not applied here.</p>
+    {(checked||oLevel!=='')&&c.oLevel===null&&<p className="mt-2 text-sm text-red-700">Enter official points from 0 to 10.</p>}
+    <label className="mt-5 block text-sm font-bold">Post-UTME score (out of 40)<input className={field} type="number" min="0" max="40" step="0.01" value={post} aria-invalid={(checked||post!=='')&&c.post===null} onChange={e=>{setPost(e.target.value);setChecked(false)}} placeholder="Leave blank if you have not taken the test"/></label>
+    {(checked||post!=='')&&c.post===null&&<p className="mt-2 text-sm text-red-700">Enter a score from 0 to 40 for a complete result.</p>}
+    <div className="mt-7 rounded-2xl bg-green-50 p-4"><h3 className="font-black text-green-900">Plan your Post-UTME target</h3><label className="mt-3 block text-sm font-bold">Desired aggregate (optional, out of 100)<input className={field} type="number" min="0" max="100" step="0.01" value={target} aria-invalid={target!==''&&c.target===null} onChange={e=>setTarget(e.target.value)} placeholder="e.g. 70"/></label>{target!==''&&c.target===null&&<p className="mt-2 text-sm text-red-700">Enter a target from 0 to 100.</p>}<p className="mt-2 text-xs leading-5 text-slate-600">Choose your own target. This is not a departmental cutoff.</p></div>
+    <div className="mt-6 flex flex-wrap gap-3"><button className="rounded-xl bg-green-700 px-5 py-3 text-sm font-black text-white" type="button" onClick={check} aria-controls="oau-result">Check Score &amp; View Report</button><button className="rounded-xl border border-slate-300 px-5 py-3 text-sm font-bold" type="button" onClick={reset}>Reset</button></div>
+   </section>
+   <aside className="space-y-5">
+    <section id="oau-result" aria-labelledby="oau-result-title" tabIndex={-1} ref={resultRef} className={card+' scroll-mt-28'}>
+     <h2 id="oau-result-title" className="text-xs font-black uppercase tracking-widest text-green-700">{c.complete?'Your aggregate':'Aggregate preview'}</h2>
+     <p className="mt-3 text-5xl font-black">{c.total===null?'—':c.total.toFixed(2)}<span className="text-lg text-slate-500"> /100</span></p>
+     <div className="mt-5 grid grid-cols-2 gap-3">{[{label:'UTME',value:c.utmePoints,max:50},{label:'O’Level',value:c.oLevel,max:10},{label:'Post-UTME',value:c.post,max:40}].map(x=><div key={x.label} className="rounded-xl bg-slate-50 p-4"><p className="text-xs font-bold text-slate-500">{x.label}</p><p className="mt-1 font-black">{x.value===null?'—':x.value.toFixed(2)}<span className="text-xs"> /{x.max}</span></p></div>)}</div>
+     {!c.complete&&<p className="mt-4 text-sm leading-6 text-slate-600">Enter all three score components for a complete aggregate. Missing scores are not treated as zero.</p>}
+     {c.utme!==null&&c.oLevel!==null&&<p className="mt-4 text-sm"><b>UTME + O’Level subtotal:</b> {c.subtotal.toFixed(2)} /60.</p>}
+     {c.minimumPost!==null&&<p className="mt-3 text-sm leading-6"><b>Post-UTME needed for the 25/50 threshold:</b> {c.minimumPost.toFixed(2)} /40.</p>}
+     {c.targetPost!==null&&<div className="mt-4 rounded-xl bg-green-50 p-4 text-sm leading-6 text-green-900">{c.targetPost>40?<>Your selected target cannot be reached with these UTME and O’Level points; it would require more than 40 Post-UTME points.</>:<>For your {c.target?.toFixed(2)} aggregate target and the 25/50 threshold, aim for at least <b>{(Math.ceil((c.targetPost-1e-9)*100)/100).toFixed(2)} /40</b> in Post-UTME.</>}</div>}
+     {checked&&<div className={'mt-5 rounded-xl p-4 text-sm leading-6 '+(c.thresholdsMet?'bg-green-50 text-green-900':'bg-amber-50 text-amber-900')} role="status"><h3 className="font-black">{status}</h3><ul className="mt-2 list-disc space-y-2 pl-4">{notes.map(x=><li key={x}>{x}</li>)}</ul>{c.combined!==null&&<p className="mt-3"><b>O’Level + Post-UTME:</b> {c.combined.toFixed(2)} /50.</p>}</div>}
+     {checked&&<ScreeningReportDownloads disabled={!c.complete} report={{school:'OAU',candidate:name,programme:programme||'Not specified',score:c.total===null?'Incomplete':c.total.toFixed(2)+' /100',status,positive:c.thresholdsMet,breakdown:[['UTME score',utme+' /400'],['UTME contribution',c.utmePoints?.toFixed(2)+' /50'],['Official O’Level contribution',oLevel+' /10'],['Post-UTME contribution',post+' /40'],['O’Level + Post-UTME',c.combined?.toFixed(2)+' /50']],notes:[...notes,...(selectedProgramme?['Published UTME subjects: '+(selectedProgramme.utme||'Confirm with OAU'),'Published O’Level requirements: '+selectedProgramme.oLevel,'Programme source: '+catalogue.source]:[]),'Formula: UTME ÷ 8 + official O’Level points + Post-UTME points.','Score structure and 25/50 threshold follow a candidate-supplied 2026/2027 OAU result slip.','Published entry minimum: '+OAU_SOURCES.notice,'Confirm programme requirements: '+OAU_SOURCES.guidelines]}}/>}
+    </section>
+    <section className={card}><h2 className="text-xl font-black">How the calculation works</h2><ol className="mt-4 list-decimal space-y-3 pl-4 text-sm leading-6 text-slate-600"><li>Divide UTME by 8: maximum 50 points.</li><li>Add official O’Level aggregate: maximum 10 points.</li><li>Add Post-UTME points: maximum 40 points.</li></ol><p className="mt-4 text-sm leading-6 text-slate-600">The supplied OAU result slip also requires O’Level plus Post-UTME points to reach 25 out of 50. Meeting this threshold does not guarantee admission.</p></section>
+    <section className={card}><h2 className="text-lg font-black">Sources and scope</h2><p className="mt-3 text-sm leading-6 text-slate-600">The scoring structure and combined-score threshold follow a candidate-supplied 2026/2027 OAU screening result. The public screening notice confirms the 200 UTME entry minimum and first-choice requirement. O’Level grade conversion and course-specific cutoffs are not assumed.</p><a className="mt-4 block text-sm font-bold text-green-700 underline" href={OAU_SOURCES.notice} target="_blank" rel="noreferrer">OAU official screening notice ↗</a><a className="mt-3 block text-sm font-bold text-green-700 underline" href={OAU_SOURCES.guidelines} target="_blank" rel="noreferrer">OAU admission guidelines ↗</a><p className="mt-3 text-xs text-slate-500">Checked {OAU_SOURCES.checked}. UTME route only; Direct Entry is not assessed.</p></section>
+   </aside>
+  </div>
+ </CalculatorShell>;
+}
