@@ -1,18 +1,19 @@
 import records from './programmes.json';
 export const programmes = records;
+export const FUSTECH_SITTING_NOTICE = 'FUSTECH accepts only one O’Level sitting. All five relevant credit passes, including English Language and Mathematics, must be obtained in the same sitting.';
 export type Programme = (typeof programmes)[number];
 export type Result = { subject: string; grade: string; sitting: 1 | 2 };
 export const gradePoints: Record<string, number> = { A1: 6, B2: 5, B3: 4, C4: 3, C5: 2, C6: 1, D7: 0, E8: 0, F9: 0 };
 export const jambSubjects: Record<string, string> = { ENG: 'Use of English', MAT: 'Mathematics', PHY: 'Physics', CHE: 'Chemistry', BIO: 'Biology', AGR: 'Agricultural Science', GEO: 'Geography', ECO: 'Economics', GOV: 'Government', COM: 'Commerce', ACC: 'Principles of Accounts', CSC: 'Computer Studies', LIT: 'Literature in English', CRS: 'Christian Religious Studies', IRS: 'Islamic Studies', HIS: 'History' };
 export const subjects = [...new Set(programmes.flatMap(p => p.oLevelSlots.flat()))].sort();
-export const sources = { requirements: 'https://admissions.fustech.edu.ng/programme-requirements', guidelines: 'https://admissions.fustech.edu.ng/applicant/guidelines', checked: '11 November 2026' };
+export const sources = { requirements: 'https://admissions.fustech.edu.ng/programme-requirements', guidelines: 'https://admissions.fustech.edu.ng/applicant/guidelines', announcement: 'https://fustech.edu.ng/news/20262027-academic-session-online-undergraduate-admission-screening-exercise', checked: '11 November 2026' };
 
 // Assign distinct subjects to all five slots. Search alternatives rather than
 // greedily consuming a subject needed by a later compulsory slot.
 export function bestFive(programme: Programme, results: Result[]) {
   const best = new Map<string, Result>();
   for (const row of results) {
-    if (!(gradePoints[row.grade] > 0)) continue;
+    if (row.sitting !== 1 || !(gradePoints[row.grade] > 0)) continue;
     if (!best.has(row.subject) || gradePoints[row.grade] > gradePoints[best.get(row.subject)!.grade]) best.set(row.subject, row);
   }
   let winner: Result[] = [];
