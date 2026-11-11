@@ -9,7 +9,8 @@ const groups = [
 export default function PortalNavigation(){
   const path=usePathname(),id=useId(),panel=useRef<HTMLDetailsElement>(null);
   const [open,setOpen]=useState(false);
-  useEffect(()=>{panel.current?.removeAttribute('open');},[path]);
+  const previousPath=useRef(path);
+  useEffect(()=>{if(previousPath.current!==path)panel.current?.removeAttribute('open');previousPath.current=path;},[path]);
   useEffect(()=>{
     const outside=(event:PointerEvent)=>{if(panel.current&&!panel.current.contains(event.target as Node))panel.current.removeAttribute('open');};
     const escape=(event:KeyboardEvent)=>{if(event.key==='Escape'&&panel.current?.open){panel.current.removeAttribute('open');panel.current.querySelector('summary')?.focus();}};

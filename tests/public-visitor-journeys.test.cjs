@@ -103,10 +103,10 @@ test('shared header navigation exposes site routes and closes on toggle, link, E
 });
 test('FUSTECH check action focuses its result, explains missing credits and preserves the aggregate',async()=>{
  const oldMatchMedia=window.matchMedia,oldScroll=HTMLElement.prototype.scrollIntoView;let scrolled;
- window.matchMedia=()=>({matches:false});HTMLElement.prototype.scrollIntoView=function(){scrolled=this;};
+ window.matchMedia=()=>({matches:false});HTMLElement.prototype.scrollIntoView=function(){scrolled=this.id;};
  try{
   const Fustech=load('app/fustech-calculator/page.tsx').default;await mount(React.createElement(Fustech));
-  await click(button('Check Eligibility & View Report'));const result=container.querySelector('#fustech-result');assert.equal(scrolled,result);assert.equal(document.activeElement,result);assert.match(result.textContent,/Select your programme/);assert.match(result.textContent,/Subject assessment/);
+  await click(button('Check Eligibility & View Report'));const result=container.querySelector('#fustech-result');assert.equal(scrolled,result.id);assert.equal(document.activeElement,result);assert.match(result.textContent,/Select your programme/);assert.match(result.textContent,/Subject assessment/);
   await change(field('Programme'),'CSC');await change(field('UTME score'),'280');
   for(const [i,v]of [[2,'MAT'],[3,'PHY'],[4,'CHE']])await change(field('UTME subject '+i),v);
   const names=['English Language','Mathematics','Physics','Chemistry','Biology'],grades=['A1','B2','B3','C4','C5'];
