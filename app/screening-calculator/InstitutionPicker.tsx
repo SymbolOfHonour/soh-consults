@@ -13,7 +13,7 @@ const schools = [
   {short:"LASUSTECH",name:"Lagos State University of Science and Technology",type:"Online Screening",location:"Lagos",href:"/lasustech-calculator"},
   {short:"LASUED",name:"Lagos State University of Education",type:"Online Screening",location:"Lagos",href:"/lasued-calculator"},
   {short:"YABATECH",name:"Yaba College of Technology",type:"Post-UTME Screening",location:"Lagos",href:"/yabatech-calculator"},
-];
+].sort((a,b)=>a.short==="LASU"?-1:b.short==="LASU"?1:a.short.localeCompare(b.short));
 const filters = ["All schools","Online screening","Post-UTME"] as const;
 export default function InstitutionPicker() {
  const [query,setQuery] = useState("");
@@ -22,21 +22,15 @@ export default function InstitutionPicker() {
  const visible = schools.filter(s=>words.every(word=>(s.short+" "+s.name+" "+s.location).toLowerCase().includes(word)) && (filter==="All schools" || (filter==="Online screening" ? s.type==="Online Screening" : s.type!=="Online Screening")));
  return <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900 sm:px-6 lg:px-8">
   <div className="mx-auto max-w-6xl">
-   <header className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-green-900 via-green-800 to-emerald-600 p-6 text-white shadow-lg sm:p-9">
-    <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full border-[40px] border-white/5" />
-    <div className="relative">
-     <PublicPageLink href="/" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-xs font-bold text-white transition hover:bg-white/10">← Home</PublicPageLink>
-     <p className="mt-6 text-xs font-bold uppercase tracking-[.2em] text-green-100">S.O.H CONSULTS · STUDENT TOOLS</p>
-     <h1 className="mt-3 max-w-3xl text-3xl font-black leading-tight tracking-tight sm:text-4xl">Find your school.<br/><span className="text-green-100">Calculate your score.</span></h1>
-     <p className="mt-4 max-w-xl text-sm leading-6 text-green-50">Explore your screening aggregate and course requirements with a calculator built for your school.</p>
-     <div className="mt-6 flex flex-wrap gap-2 text-xs font-bold">
-      <span className="rounded-full bg-white/15 px-3 py-2">{schools.length} school calculators</span>
-      <span className="rounded-full bg-white/15 px-3 py-2">Free to use</span>
-      <span className="rounded-full bg-white/15 px-3 py-2">PDF &amp; image reports</span>
-     </div>
+   <header className="rounded-2xl bg-gradient-to-r from-green-900 via-green-800 to-emerald-600 p-4 text-white shadow-sm sm:p-5">
+    <div className="flex flex-wrap items-center justify-between gap-3">
+     <PublicPageLink href="/" className="inline-flex items-center rounded-full border border-white/30 px-3 py-1.5 text-xs font-bold text-white hover:bg-white/10">← Home</PublicPageLink>
+     <span className="text-xs font-semibold text-green-100">{schools.length} school calculators · Free to use</span>
     </div>
+    <h1 className="mt-3 text-xl font-black leading-tight tracking-tight sm:text-2xl">Find your school. Calculate your score.</h1>
+    <p className="mt-2 text-sm leading-5 text-green-50">Choose your school to check your screening score and course requirements.</p>
    </header>
-   <section className="mt-8" aria-labelledby="school-picker-title">
+   <section className="mt-5" aria-labelledby="school-picker-title">
     <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
      <div><p className="text-xs font-bold uppercase tracking-widest text-green-700">YOUR ADMISSION JOURNEY</p><h2 id="school-picker-title" className="mt-2 text-2xl font-black tracking-tight">Choose your institution</h2><p className="mt-2 text-sm text-slate-600">Choose a school to get started. More schools are on the way.</p></div>
      <div className="w-full sm:max-w-sm">
