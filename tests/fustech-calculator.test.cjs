@@ -52,3 +52,8 @@ test('UTME alternatives match every programme, require four distinct subjects an
   assert.equal(validUtme(course('CSC'),['MAT','PHY','ENG']),false);
   assert.equal(validUtme(course('LSC'),['MAT','ECO','ACC']),false);
 });
+test('280 UTME and A1, B2, B3, C4, C5 yield the supplied 69-point example', () => {
+  const grades = ['A1','B2','B3','C4','C5'];
+  const result = calculate(course('CSC'),'280',science.map((row,i)=>({...row,grade:grades[i]})),['MAT','PHY','CHE']);
+  assert.equal(result.utme,49); assert.equal(result.oLevel,20); assert.equal(result.total,69);
+});

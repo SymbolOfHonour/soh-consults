@@ -28,6 +28,9 @@ The credit matcher searches valid assignments to preserve compulsory subjects an
 - Automated cases for all 34 unique programme records and their UTME combinations.
 - Formula boundaries, 185 minimum, invalid scores, missing compulsory credits, duplicate subjects, alternatives and best grades across sittings.
 - Regression: 300 UTME + five relevant A1 grades = 52.50 + 30 = 82.50.
-- Browser and Vercel preview verification status to be recorded after deployment.
+- Vercel preview READY: https://soh-consults-1lknuy1y7-symbol-of-honour.vercel.app/fustech-calculator (runtime commit ebcb2cf).
+- Browser verified: 280 UTME + A1/B2/B3/C4/C5 = 49 + 20 = 69.00; valid subject result; wrong UTME and failed compulsory credit rejection; NABTEB mixing rejection; sitting-policy notice; successful PDF download; readable dark theme.
+- All 34 original course names and requirement texts compared exactly against the official embedded records.
+- The original managed local preview failed because its runner adds unsupported Next.js flags; browser verification was completed on the actual Vercel preview instead.
 
 Production deployment requires owner approval.
