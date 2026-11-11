@@ -1,0 +1,1578 @@
+[
+  {
+    "id": 20,
+    "code": "ARI",
+    "name": "Artificial Intelligence",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Computing and Informatics",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Biology, Agric, Further Maths, or Computer Studies.",
+    "utme": "ENG, MAT, PHY, and any subject from CHE, BIO, AGR.",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "CHE",
+            "BIO",
+            "AGR"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ]
+    ]
+  },
+  {
+    "id": 9,
+    "code": "BME",
+    "name": "Biomedical Engineering",
+    "degree": "B.Eng.",
+    "faculty": "Faculty of Engineering",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Computer Studies, Further Maths.",
+    "utme": "ENG, PHY, CHM, MAT or BIO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "PHY",
+        "CHE"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "MAT",
+            "BIO"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ]
+    ]
+  },
+  {
+    "id": 1,
+    "code": "BTC",
+    "name": "Biotechnology",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Science",
+    "oLevel": "English Language, Mathematics, Biology, Chemistry, and Physics.",
+    "utme": "ENG, BIO, CHE, PHY or MAT",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "BIO",
+        "CHE"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "PHY",
+            "MAT"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 31,
+    "code": "BIT",
+    "name": "Business Information Technology",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Management Science and Technology",
+    "oLevel": "English Language, Mathematics, Economics, Computer Studies, and one (1) other Social Science or Commercial subject such as Commerce, Government, Principles of Accounts, or Geography.",
+    "utme": "ENG, ECO, MAT, and one of GOV, Commerce, Principles of Accounts, or GEO.",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "ECO",
+        "MAT"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "GOV",
+            "COM",
+            "ACC",
+            "GEO"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Economics"
+      ],
+      [
+        "Computer Studies"
+      ],
+      [
+        "Government",
+        "Commerce",
+        "Principles of Accounts",
+        "Geography"
+      ]
+    ]
+  },
+  {
+    "id": 12,
+    "code": "CHE",
+    "name": "Chemical Engineering",
+    "degree": "B.Eng.",
+    "faculty": "Faculty of Engineering",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Computer Studies, Further Maths.",
+    "utme": "ENG, MAT, PHY, CHE",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY",
+        "CHE"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ]
+    ]
+  },
+  {
+    "id": 14,
+    "code": "CVE",
+    "name": "Civil Engineering",
+    "degree": "B.Eng.",
+    "faculty": "Faculty of Engineering",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Computer Studies, Further Maths.",
+    "utme": "ENG, MAT, PHY, CHE",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY",
+        "CHE"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ]
+    ]
+  },
+  {
+    "id": 27,
+    "code": "CAM",
+    "name": "Complementary and Alternative Medicines",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Health Professions",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology.",
+    "utme": "ENG, PHY, CHM, BIO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 18,
+    "code": "CSC",
+    "name": "Computer Science",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Computing and Informatics",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Biology, Agric, Further Maths, or Computer Studies.",
+    "utme": "ENG, MAT, PHY, and any subject from CHE, BIO, AGR.",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "CHE",
+            "BIO",
+            "AGR"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ]
+    ]
+  },
+  {
+    "id": 19,
+    "code": "CYB",
+    "name": "Cyber Security",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Computing and Informatics",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Biology, Agric, Further Maths, or Computer Studies.",
+    "utme": "ENG, MAT, PHY, and any subject from CHE, BIO, AGR.",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "CHE",
+            "BIO",
+            "AGR"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ]
+    ]
+  },
+  {
+    "id": 21,
+    "code": "DSC",
+    "name": "Data Science",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Computing and Informatics",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Biology, Agric, Further Maths, or Computer Studies.",
+    "utme": "ENG, MAT, PHY, and any subject from CHE, BIO, AGR.",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "CHE",
+            "BIO",
+            "AGR"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ]
+    ]
+  },
+  {
+    "id": 16,
+    "code": "EEE",
+    "name": "Electrical and Electronic Engineering",
+    "degree": "B.Eng.",
+    "faculty": "Faculty of Engineering",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Computer Studies, Further Maths.",
+    "utme": "ENG, MAT, PHY, CHE",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY",
+        "CHE"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ]
+    ]
+  },
+  {
+    "id": 32,
+    "code": "ENT",
+    "name": "Entrepreneurship",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Management Science and Technology",
+    "oLevel": "English Language, Mathematics, Economics, one (1) Science subject, and one (1) other Social Science or Commercial subject such as Commerce, Government, Principles of Accounts, or Geography.",
+    "utme": "ENG, ECO, MAT, and one of GOV, Commerce, Principles of Accounts, or GEO.",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "ECO",
+        "MAT"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "GOV",
+            "COM",
+            "ACC",
+            "GEO"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Economics"
+      ],
+      [
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies",
+        "Geography"
+      ],
+      [
+        "Government",
+        "Commerce",
+        "Principles of Accounts",
+        "Geography"
+      ]
+    ]
+  },
+  {
+    "id": 11,
+    "code": "EVE",
+    "name": "Environmental Engineering",
+    "degree": "B.Eng.",
+    "faculty": "Faculty of Engineering",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology or Agric.",
+    "utme": "ENG, CHM, BIO or AGR, MAT or PHY",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "CHE"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "BIO",
+            "AGR"
+          ]
+        },
+        {
+          "count": 1,
+          "subjects": [
+            "MAT",
+            "PHY"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology",
+        "Agricultural Science"
+      ]
+    ]
+  },
+  {
+    "id": 3,
+    "code": "EMT",
+    "name": "Environmental Management and Toxicology",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Science",
+    "oLevel": "English Language, Mathematics, and any three (3) subjects from Physics, Chemistry, Geography, Economics, Biology, Data Processing.",
+    "utme": "ENG, and any subject from PHY, CHE, MAT, GEO, BIO, AGR",
+    "utmeRules": {
+      "compulsory": [
+        "ENG"
+      ],
+      "groups": [
+        {
+          "count": 3,
+          "subjects": [
+            "PHY",
+            "CHE",
+            "MAT",
+            "GEO",
+            "BIO",
+            "AGR"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics",
+        "Chemistry",
+        "Geography",
+        "Economics",
+        "Biology",
+        "Data Processing"
+      ],
+      [
+        "Physics",
+        "Chemistry",
+        "Geography",
+        "Economics",
+        "Biology",
+        "Data Processing"
+      ],
+      [
+        "Physics",
+        "Chemistry",
+        "Geography",
+        "Economics",
+        "Biology",
+        "Data Processing"
+      ]
+    ]
+  },
+  {
+    "id": 2,
+    "code": "FRS",
+    "name": "Forensic Science",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Science",
+    "oLevel": "English Language, Mathematics, Biology, Chemistry, and Physics.",
+    "utme": "ENG, BIO, CHE, PHY or MAT",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "BIO",
+        "CHE"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "PHY",
+            "MAT"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 8,
+    "code": "GME",
+    "name": "Geomatic Engineering",
+    "degree": "B.Eng.",
+    "faculty": "Faculty of Engineering",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Computer Studies, Further Maths.",
+    "utme": "ENG, MAT, PHY, CHM or GEO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "CHE",
+            "GEO"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ]
+    ]
+  },
+  {
+    "id": 28,
+    "code": "HIM",
+    "name": "Health Information Management",
+    "degree": "B.HIM.",
+    "faculty": "Faculty of Health Professions",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology.",
+    "utme": "ENG, PHY, CHM, BIO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 22,
+    "code": "ICT",
+    "name": "Information Communication Technology",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Computing and Informatics",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Biology, Agric, Further Maths, or Computer Studies.",
+    "utme": "ENG, MAT, PHY, and any subject from CHE, BIO, AGR.",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "CHE",
+            "BIO",
+            "AGR"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ]
+    ]
+  },
+  {
+    "id": 33,
+    "code": "LSC",
+    "name": "Logistic and Supply Chain Management",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Management Science and Technology",
+    "oLevel": "English Language, Mathematics, and three (3) other relevant subjects such as Economics, Government, Commerce, Geography, or Accounting.",
+    "utme": "ENG, MAT, ECO, and one of Government, Commerce, or Geography.",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "ECO"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "GOV",
+            "COM",
+            "GEO"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Economics",
+        "Government",
+        "Commerce",
+        "Principles of Accounts",
+        "Geography"
+      ],
+      [
+        "Economics",
+        "Government",
+        "Commerce",
+        "Principles of Accounts",
+        "Geography"
+      ],
+      [
+        "Economics",
+        "Government",
+        "Commerce",
+        "Principles of Accounts",
+        "Geography"
+      ]
+    ]
+  },
+  {
+    "id": 4,
+    "code": "MRS",
+    "name": "Marine Science",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Science",
+    "oLevel": "English Language, Mathematics, Biology, Chemistry, and Physics.",
+    "utme": "ENG, BIO, CHE, PHY or MAT",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "BIO",
+        "CHE"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "PHY",
+            "MAT"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 17,
+    "code": "MEE",
+    "name": "Mechanical Engineering",
+    "degree": "B.Eng.",
+    "faculty": "Faculty of Engineering",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Computer Studies, Further Maths.",
+    "utme": "ENG, MAT, PHY, CHE",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY",
+        "CHE"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ]
+    ]
+  },
+  {
+    "id": 6,
+    "code": "MPH",
+    "name": "Medical Physics",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Science",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any one (1) subject from Science.",
+    "utme": "ENG, MAT, PHY, CHE or BIO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "CHE",
+            "BIO"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies",
+        "Geography"
+      ]
+    ]
+  },
+  {
+    "id": 5,
+    "code": "MCH",
+    "name": "Medicinal Chemistry",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Science",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology.",
+    "utme": "ENG, CHE, and any subject from PHY, BIO, MAT",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "CHE"
+      ],
+      "groups": [
+        {
+          "count": 2,
+          "subjects": [
+            "PHY",
+            "BIO",
+            "MAT"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 15,
+    "code": "MTE",
+    "name": "Metallurgical Engineering",
+    "degree": "B.Eng.",
+    "faculty": "Faculty of Engineering",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Computer Studies, Further Maths.",
+    "utme": "ENG, MAT, PHY, CHE",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY",
+        "CHE"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ]
+    ]
+  },
+  {
+    "id": 7,
+    "code": "NCS",
+    "name": "Nuclear Science",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Science",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any one (1) subject from Science.",
+    "utme": "ENG, MAT, PHY, CHE or BIO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "CHE",
+            "BIO"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies",
+        "Geography"
+      ]
+    ]
+  },
+  {
+    "id": 29,
+    "code": "NSC",
+    "name": "Nursing Science",
+    "degree": "B.NSc.",
+    "faculty": "Faculty of Health Professions",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology.",
+    "utme": "ENG, PHY, CHM, BIO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 26,
+    "code": "OCT",
+    "name": "Occupational Therapy",
+    "degree": "B.OT.",
+    "faculty": "Faculty of Health Professions",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology.",
+    "utme": "ENG, PHY, CHM, BIO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 13,
+    "code": "PTE",
+    "name": "Petroleum Engineering",
+    "degree": "B.Eng.",
+    "faculty": "Faculty of Engineering",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Computer Studies, Further Maths.",
+    "utme": "ENG, MAT, PHY, CHE",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY",
+        "CHE"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ]
+    ]
+  },
+  {
+    "id": 25,
+    "code": "PHT",
+    "name": "Physiotherapy",
+    "degree": "D.PT.",
+    "faculty": "Faculty of Health Professions",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology.",
+    "utme": "ENG, PHY, CHM, BIO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 24,
+    "code": "PAO",
+    "name": "Prosthetics and Orthotics",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Health Professions",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology.",
+    "utme": "ENG, PHY, CHM, BIO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 30,
+    "code": "PUH",
+    "name": "Public Health",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Health Professions",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology.",
+    "utme": "ENG, PHY, CHM, BIO",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      "groups": []
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry"
+      ],
+      [
+        "Biology"
+      ]
+    ]
+  },
+  {
+    "id": 23,
+    "code": "SWE",
+    "name": "Software Engineering",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Computing and Informatics",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Biology, Agric, Further Maths, or Computer Studies.",
+    "utme": "ENG, MAT, PHY, and any subject from CHE, BIO, AGR.",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "MAT",
+        "PHY"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "CHE",
+            "BIO",
+            "AGR"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ],
+      [
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies"
+      ]
+    ]
+  },
+  {
+    "id": 10,
+    "code": "SYE",
+    "name": "System Engineering",
+    "degree": "B.Eng.",
+    "faculty": "Faculty of Engineering",
+    "oLevel": "English Language, Mathematics, Physics, and any two (2) subjects from Chemistry, Computer Studies, Further Maths.",
+    "utme": "ENG, CHM, BIO or AGR, MAT or PHY",
+    "utmeRules": {
+      "compulsory": [
+        "ENG",
+        "CHE"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "BIO",
+            "AGR"
+          ]
+        },
+        {
+          "count": 1,
+          "subjects": [
+            "MAT",
+            "PHY"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ],
+      [
+        "Chemistry",
+        "Computer Studies",
+        "Further Mathematics"
+      ]
+    ]
+  },
+  {
+    "id": 34,
+    "code": "TRM",
+    "name": "Transportation Management",
+    "degree": "B.Sc.",
+    "faculty": "Faculty of Management Science and Technology",
+    "oLevel": "English Language, Mathematics, and any three (3) subjects from Science, Trade or Social Science, Government.",
+    "utme": "ENG, MAT or PHY, and any subject from Arts or Social Science or Science.",
+    "utmeRules": {
+      "compulsory": [
+        "ENG"
+      ],
+      "groups": [
+        {
+          "count": 1,
+          "subjects": [
+            "MAT",
+            "PHY"
+          ]
+        },
+        {
+          "count": 2,
+          "subjects": [
+            "MAT",
+            "PHY",
+            "CHE",
+            "BIO",
+            "AGR",
+            "GEO",
+            "ECO",
+            "GOV",
+            "COM",
+            "ACC",
+            "CSC",
+            "LIT",
+            "CRS",
+            "IRS",
+            "HIS"
+          ]
+        }
+      ]
+    },
+    "oLevelSlots": [
+      [
+        "English Language"
+      ],
+      [
+        "Mathematics"
+      ],
+      [
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies",
+        "Geography",
+        "Economics",
+        "Government",
+        "Commerce",
+        "Principles of Accounts",
+        "Catering Craft",
+        "Marketing",
+        "Technical Drawing",
+        "Building Construction",
+        "Electrical Installation",
+        "Auto Mechanics",
+        "Welding and Fabrication",
+        "Data Processing",
+        "Food and Nutrition",
+        "Home Economics"
+      ],
+      [
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies",
+        "Geography",
+        "Economics",
+        "Government",
+        "Commerce",
+        "Principles of Accounts",
+        "Catering Craft",
+        "Marketing",
+        "Technical Drawing",
+        "Building Construction",
+        "Electrical Installation",
+        "Auto Mechanics",
+        "Welding and Fabrication",
+        "Data Processing",
+        "Food and Nutrition",
+        "Home Economics"
+      ],
+      [
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Agricultural Science",
+        "Further Mathematics",
+        "Computer Studies",
+        "Geography",
+        "Economics",
+        "Government",
+        "Commerce",
+        "Principles of Accounts",
+        "Catering Craft",
+        "Marketing",
+        "Technical Drawing",
+        "Building Construction",
+        "Electrical Installation",
+        "Auto Mechanics",
+        "Welding and Fabrication",
+        "Data Processing",
+        "Food and Nutrition",
+        "Home Economics"
+      ]
+    ]
+  }
+]
