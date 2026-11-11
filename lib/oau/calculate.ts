@@ -23,3 +23,16 @@ export function calculateOau(utmeInput: string, oLevelInput: string, postInput: 
  return {utme,oLevel,post,target,utmePoints,complete,subtotal,combined,total,minimumPost,targetPost,
   thresholdsMet: complete && utme! >= 200 && combined! >= 25};
 }
+
+export const OAU_GRADE_POINTS: Record<string, number> = { A1:2, B2:1.8, B3:1.6, C4:1.4, C5:1.2, C6:1, D7:0, E8:0, F9:0 };
+export function calculateOauGrades(rows: {subject:string;grade:string}[]) {
+ const subjects=rows.map(r=>r.subject.trim().toLowerCase());
+ const complete=rows.length===5&&subjects.every(Boolean)&&new Set(subjects).size===5&&rows.every(r=>r.grade in OAU_GRADE_POINTS);
+ return {complete,points:complete?Math.round(rows.reduce((s,r)=>s+OAU_GRADE_POINTS[r.grade],0)*10)/10:null,credits:rows.filter(r=>OAU_GRADE_POINTS[r.grade]>0).length,duplicate:new Set(subjects.filter(Boolean)).size!==subjects.filter(Boolean).length};
+}
+export function requiredOauUtme(oLevelInput:string,postInput:string,targetInput:string) {
+ const o=numberInRange(oLevelInput,10),p=numberInRange(postInput,40),t=numberInRange(targetInput,100);
+ if(o===null||p===null||t===null)return null;
+ const score=Math.max(200,Math.ceil((t-o-p)*8-1e-9));
+ return {score,possible:score<=400&&o+p>=25,combinedMet:o+p>=25};
+}
