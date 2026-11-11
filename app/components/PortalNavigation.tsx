@@ -1,5 +1,5 @@
 "use client";
-import {useEffect,useId,useRef} from 'react';
+import {useEffect,useId,useRef,useState} from 'react';
 import {usePathname} from 'next/navigation';
 import PublicPageLink from './PublicPageLink';
 const groups = [
@@ -8,6 +8,7 @@ const groups = [
 ];
 export default function PortalNavigation(){
   const path=usePathname(),id=useId(),panel=useRef<HTMLDetailsElement>(null);
+  const [open,setOpen]=useState(false);
   useEffect(()=>{panel.current?.removeAttribute('open');},[path]);
   useEffect(()=>{
     const outside=(event:PointerEvent)=>{if(panel.current&&!panel.current.contains(event.target as Node))panel.current.removeAttribute('open');};
@@ -15,5 +16,5 @@ export default function PortalNavigation(){
     document.addEventListener('pointerdown',outside);document.addEventListener('keydown',escape);
     return()=>{document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',escape);};
   },[]);
-  return <><a href="https://wa.me/2348182141088?text=Hello%20S.O.H%20CONSULTS%2C%20I%20need%20educational%20guidance." target="_blank" rel="noopener noreferrer" className="soh-portal-whatsapp">WhatsApp</a><details className="soh-portal-navigation" ref={panel}><summary aria-label="Website navigation" aria-controls={id}><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span className="soh-portal-menu-label">Menu</span></summary><nav id={id} className="soh-portal-menu" aria-label="Website sections">{groups.map(group=><div key={group.title}><p>{group.title}</p>{group.links.map(([href,label])=><PublicPageLink key={href} href={href} aria-current={path===href?'page':undefined} onClick={()=>panel.current?.removeAttribute('open')}>{label}</PublicPageLink>)}</div>)}</nav></details></>;
+  return <><a href="https://wa.me/2348182141088?text=Hello%20S.O.H%20CONSULTS%2C%20I%20need%20educational%20guidance." target="_blank" rel="noopener noreferrer" className="soh-portal-whatsapp">WhatsApp</a><details className="soh-portal-navigation" ref={panel} onToggle={event=>setOpen(event.currentTarget.open)}><summary role="button" aria-expanded={open} aria-label="Website navigation" aria-controls={id}><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span className="soh-portal-menu-label">Menu</span></summary><nav id={id} className="soh-portal-menu" aria-label="Website sections">{groups.map(group=><div key={group.title}><p>{group.title}</p>{group.links.map(([href,label])=><PublicPageLink key={href} href={href} aria-current={path===href?'page':undefined} onClick={()=>panel.current?.removeAttribute('open')}>{label}</PublicPageLink>)}</div>)}</nav></details></>;
 }

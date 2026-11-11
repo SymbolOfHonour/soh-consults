@@ -159,6 +159,7 @@ html[data-soh-theme=dark][data-soh-private=false] :is(.text-red-700,.text-red-80
 html[data-soh-theme=dark][data-soh-private=false] :is(.text-blue-700,.text-blue-800,.text-blue-900,.text-sky-700,.text-sky-800,.text-indigo-700,.text-indigo-800) { color: #c3daff; }
 
 /* Shared public header navigation, including calculators and the school directory. */
+body:has(.soh-portal-navigation){overflow-x:clip}
 .soh-portal-navigation{position:relative;flex-shrink:0}
 .soh-portal-navigation summary{display:flex;align-items:center;justify-content:center;gap:8px;min-width:44px;min-height:44px;padding:10px 12px;border:1px solid #cbd5e1;border-radius:12px;cursor:pointer;list-style:none}
 .soh-portal-navigation summary::-webkit-details-marker{display:none}

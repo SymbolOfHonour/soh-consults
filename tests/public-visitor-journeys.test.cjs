@@ -90,10 +90,30 @@ test('OOU live calculator validates bounds and combines real score inputs withou
  await mount(React.createElement(OOU));const jamb=container.querySelector('#oou-jamb'),post=field('Post-UTME score (0-100)');await change(jamb,'250');assert.match(container.textContent,/37\.50\/100/);assert.match(container.textContent,/Before Post-UTME/);await change(post,'65');assert.match(container.textContent,/63\.50\/100/);await change(post,'101');assert.equal(post.getAttribute('aria-invalid'),'true');assert.ok(!container.textContent.includes('77.90/100'));await change(post,'');await change(jamb,'401');assert.equal(jamb.getAttribute('aria-invalid'),'true');assert.match(container.textContent,/Enter a JAMB score/);
 });
 test('application page preserves tables, FAQ and expandable blocks from the published rendering path',async()=>{
- const blocks=[{type:'collapsible',title:'Eligibility requirements',text:'Five credits as supplied.'},{type:'table',caption:'Application fees',headers:['Item','Amount'],rows:[['Application','As stated by the school']]},{type:'faq',entries:[{question:'What next?',answer:'Read the official notice.'}]}];const story=fixture(writeArticleBlocks('',blocks));stories=[story];const element=await Application({params:Promise.resolve({slug:queue.getStorySlug(story)})});const stream=await renderToReadableStream(element);await stream.allReady;const doc=new JSDOM(await new Response(stream).text()).window.document;assert.equal(doc.querySelectorAll('table').length,1);assert.equal(doc.querySelectorAll('details').length,2);assert.match(doc.body.textContent,/As stated by the school/);assert.match(doc.body.textContent,/Read the official notice/);assert.equal(checklistSection(applicationSections(story),'eligibility')[0].text,'Five credits as supplied.');
+ const blocks=[{type:'collapsible',title:'Eligibility requirements',text:'Five credits as supplied.'},{type:'table',caption:'Application fees',headers:['Item','Amount'],rows:[['Application','As stated by the school']]},{type:'faq',entries:[{question:'What next?',answer:'Read the official notice.'}]}];const story=fixture(writeArticleBlocks('',blocks));stories=[story];const element=await Application({params:Promise.resolve({slug:queue.getStorySlug(story)})});const stream=await renderToReadableStream(element);await stream.allReady;const doc=new JSDOM(await new Response(stream).text()).window.document;assert.equal(doc.querySelectorAll('table').length,1);assert.equal(doc.querySelectorAll('details:not(.soh-portal-navigation)').length,2);assert.match(doc.body.textContent,/As stated by the school/);assert.match(doc.body.textContent,/Read the official notice/);assert.equal(checklistSection(applicationSections(story),'eligibility')[0].text,'Five credits as supplied.');
 });
-test('small-screen navigation toggle exposes working site routes and closes again',async()=>{
- await mount(React.createElement(Header));await click(button('Toggle navigation'));assert.equal(button('Toggle navigation').getAttribute('aria-expanded'),'true');const menu=container.querySelector('#discovery-menu');for(const route of ['/updates','/opportunities','/deadlines','/guides','/my-school','/tools'])assert.ok(menu.querySelector(`a[href="${route}"]`));await click(button('Toggle navigation'));assert.equal(container.querySelector('#discovery-menu'),null);
+test('shared header navigation exposes site routes and closes on toggle, link, Escape and outside click',async()=>{
+ await mount(React.createElement(Header));const menu=container.querySelector('details.soh-portal-navigation'),toggle=menu.querySelector('summary');
+ await click(toggle);assert.equal(menu.open,true);
+ for(const route of ['/','/updates','/opportunities','/deadlines','/guides','/my-school','/schools','/tools','/screening-calculator','/cgpa-calculator'])assert.ok(menu.querySelector(`a[href="${route}"]`));
+ await click(toggle);assert.equal(menu.open,false);
+ await click(toggle);await click(menu.querySelector('a[href="/tools"]'));assert.equal(menu.open,false);
+ await click(toggle);await act(async()=>document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true})));assert.equal(menu.open,false);assert.equal(document.activeElement,toggle);
+ await click(toggle);await act(async()=>document.body.dispatchEvent(new MouseEvent('pointerdown',{bubbles:true})));assert.equal(menu.open,false);
+});
+test('FUSTECH check action focuses its result, explains missing credits and preserves the aggregate',async()=>{
+ const oldMatchMedia=window.matchMedia,oldScroll=HTMLElement.prototype.scrollIntoView;let scrolled;
+ window.matchMedia=()=>({matches:false});HTMLElement.prototype.scrollIntoView=function(){scrolled=this;};
+ try{
+  const Fustech=load('app/fustech-calculator/page.tsx').default;await mount(React.createElement(Fustech));
+  await click(button('Check Eligibility & View Report'));const result=container.querySelector('#fustech-result');assert.equal(scrolled,result);assert.equal(document.activeElement,result);assert.match(result.textContent,/Select your programme/);assert.match(result.textContent,/Subject assessment/);
+  await change(field('Programme'),'CSC');await change(field('UTME score'),'280');
+  for(const [i,v]of [[2,'MAT'],[3,'PHY'],[4,'CHE']])await change(field('UTME subject '+i),v);
+  const names=['English Language','Mathematics','Physics','Chemistry','Biology'],grades=['A1','B2','B3','C4','C5'];
+  for(let i=0;i<5;i++){await change(field('Subject '+(i+1)),names[i]);const grade=[...container.querySelectorAll('label')].filter(l=>l.textContent.startsWith('Grade'))[i].querySelector('select');await change(grade,grades[i]);}
+  await click(button('Check Eligibility & View Report'));assert.equal(document.activeElement,result);assert.match(result.textContent,/69.00/);assert.match(result.textContent,/Combination matched/);assert.match(result.textContent,/Five relevant credits matched/);assert.ok(button('📄 Download Report (PDF)'));assert.ok(button('🖼️ Download Report (JPG)'));
+  const firstGrade=[...container.querySelectorAll('label')].find(l=>l.textContent.startsWith('Grade')).querySelector('select');await change(firstGrade,'D7');await click(button('Check Eligibility & View Report'));assert.match(result.textContent,/Missing compulsory credits: English Language/);assert.match(result.textContent,/Required credits incomplete/);
+ }finally{window.matchMedia=oldMatchMedia;HTMLElement.prototype.scrollIntoView=oldScroll;}
 });
 async function ask(question){await change(field('Ask S.O.H question'),question);await act(async()=>{container.querySelector('form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await new Promise(r=>setTimeout(r,180));});}
 test('Ask S.O.H question goes through the real API and renders the service answer and contact link',async()=>{
