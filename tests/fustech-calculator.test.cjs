@@ -32,12 +32,14 @@ test('missing compulsory credits, failed grades and duplicate subjects cannot fi
   assert.equal(bestFive(p,science.map(row=>row.subject==='English Language'?{...row,grade:'D7'}:row)).length,0);
   assert.equal(bestFive(p,rows('English Language','Mathematics','Physics','Chemistry','Chemistry')).length,0);
 });
-test('best five preserves lower compulsory credits and chooses valid alternatives', () => {
+test('best five preserves compulsory credits, chooses alternatives and excludes a second sitting', () => {
   const p=course('CSC');
   const result=bestFive(p,[...science.map(row=>row.subject==='English Language'?{...row,grade:'C6'}:row),...rows('Further Mathematics','Computer Studies')]);
   assert.equal(result.length,5); assert.equal(result.find(row=>row.subject==='English Language').grade,'C6');
   const two=bestFive(p,[...science.map(row=>({...row,grade:'C6'})),{subject:'Physics',grade:'A1',sitting:2}]);
-  assert.equal(two.find(row=>row.subject==='Physics').sitting,2);
+  assert.equal(two.find(row=>row.subject==='Physics').sitting,1);
+  assert.equal(two.find(row=>row.subject==='Physics').grade,'C6');
+  assert.equal(bestFive(p,[...science.filter(row=>row.subject!=='Mathematics'),{subject:'Mathematics',grade:'A1',sitting:2}]).length,0);
 });
 test('UTME alternatives match every programme, require four distinct subjects and reject wrong combinations', () => {
   for (const p of data) {
