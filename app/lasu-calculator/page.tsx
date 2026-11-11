@@ -1,4 +1,5 @@
 "use client";
+import CalculatorShell, { CalculatorHeader, CalculatorScore } from "../components/CalculatorShell";
 
 import { useEffect, useMemo, useState } from "react";
 import { jsPDF } from "jspdf";
@@ -3816,70 +3817,13 @@ export default function LASUCalculator() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <header className="overflow-hidden rounded-3xl bg-gradient-to-br from-green-700 via-green-600 to-emerald-500 p-6 text-white shadow-xl sm:p-8">
-          <nav className="mb-6 flex flex-wrap items-center gap-2">
-            <a
-              href="/"
-              className="rounded-full bg-white px-4 py-2 text-xs font-black transition hover:bg-green-50"
-              style={{ color: "#15803d" }}
-            >
-              Home
-            </a>
-
-            <a
-              href="/updates"
-              className="rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white backdrop-blur transition hover:bg-white/25"
-            >
-              Latest Updates
-            </a>
-
-            <a
-              href="/opportunities"
-              className="rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white backdrop-blur transition hover:bg-white/25"
-            >
-              Opportunities
-            </a>
-
-            <a
-              href="/lasu-calculator"
-              className="rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white backdrop-blur transition hover:bg-white/25"
-            >
-              LASU Calculator
-            </a>
-
-            <a
-              href="https://wa.me/2348182141088?text=Hello%20S.O.H%20CONSULTS%2C%20I%20need%20admission%20guidance."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white backdrop-blur transition hover:bg-white/25"
-            >
-              Get Guidance
-            </a>
-          </nav>
-
-          <div className="max-w-4xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-green-100">
-              S.O.H CONSULTS
-            </p>
-
-            <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
-              LASU Aggregate & Eligibility Checker
-            </h1>
-
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-green-50 sm:text-base">
-              Check your estimated LASU aggregate and course eligibility using your JAMB score, JAMB subjects and O-Level results.
-            </p>
-
-            <div className="mt-5 inline-flex rounded-full bg-white/15 px-4 py-2 text-xs font-bold backdrop-blur">
+    <CalculatorShell>
+        <CalculatorHeader title={<>LASU Aggregate & Eligibility Checker</>} description={<>Check your estimated LASU aggregate and course eligibility using your JAMB score, JAMB subjects and O-Level results.</>}><div className="mt-5 inline-flex rounded-full bg-white/15 px-4 py-2 text-xs font-bold backdrop-blur">
               LASU UTME minimum cut-off:{" "}
               {LASU_CUTOFF_MARK}
-            </div>
-          </div>
-        </header>
+            </div></CalculatorHeader>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
+        <div className="mt-7 grid items-start gap-6 lg:grid-cols-[1.5fr_1fr]">
           <section className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200 sm:p-7">
             <div>
               <h2 className="text-xl font-black text-slate-900">
@@ -4625,7 +4569,7 @@ export default function LASUCalculator() {
             )}
           </section>
 
-          <aside className="h-fit space-y-5">
+          <aside className="h-fit space-y-5"><CalculatorScore score={aggregate} parts={[{label:'UTME',value:jambPoints,maximum:60},{label:'O’Level',value:oLevelPoints,maximum:40}]}/>
             <div className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
               <h2 className="text-lg font-black text-slate-900">
                 How the checker works
@@ -4859,7 +4803,6 @@ export default function LASUCalculator() {
           <br />
           For guidance purposes only. This checker does not guarantee admission.
         </footer>
-      </div>
-    </main>
+      </CalculatorShell>
   );
 }
