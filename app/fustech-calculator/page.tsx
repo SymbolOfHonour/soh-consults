@@ -1,4 +1,5 @@
 "use client";
+import CalculatorShell, { CalculatorHeader } from "../components/CalculatorShell";
 import ScreeningReportDownloads from '../components/ScreeningReportDownloads';
 
 
@@ -46,14 +47,8 @@ export default function FustechCalculator() {
   function reset() {
     setCandidate(''); setCourse(''); setScore(''); setElectives(['', '', '']); setResults([]); setBoard('WAEC'); setChecked(false); setResetKey(key => key + 1);
   }
-  return <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900 sm:px-6 lg:px-8"><div className="mx-auto max-w-6xl">
-    <header className="rounded-3xl bg-gradient-to-br from-green-800 via-green-700 to-emerald-600 p-6 text-white shadow-lg sm:p-8">
-      <nav className="mb-6 flex gap-3 text-xs font-bold"><PublicPageLink href="/" className="rounded-full bg-white px-4 py-2 !text-green-800">Home</PublicPageLink><PublicPageLink href="/screening-calculator" className="rounded-full border border-white/40 px-4 py-2">All calculators</PublicPageLink></nav>
-      <p className="text-xs font-bold uppercase tracking-widest text-green-100">S.O.H CONSULTS · 2026/2027</p>
-      <h1 className="mt-3 text-3xl font-black sm:text-4xl">FUSTECH Screening Calculator</h1>
-      <p className="mt-3 max-w-2xl text-sm leading-6 text-green-50">Federal University of Science and Technology, Epe. Calculate your estimated aggregate and check the subjects required for your programme.</p>
-      <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold"><span className="rounded-full bg-white/15 px-3 py-2">UTME 70% + O’Level 30%</span><span className="rounded-full bg-white/15 px-3 py-2">Minimum UTME: 185</span><span className="rounded-full bg-white/15 px-3 py-2">34 programmes</span></div>
-    </header>
+  return <CalculatorShell>
+    <CalculatorHeader title={<>FUSTECH Screening Calculator</>} description={<>Federal University of Science and Technology, Epe. Calculate your estimated aggregate and check the subjects required for your programme.</>}><div className="mt-5 flex flex-wrap gap-2 text-xs font-bold"><span className="rounded-full bg-white/15 px-3 py-2">UTME 70% + O’Level 30%</span><span className="rounded-full bg-white/15 px-3 py-2">Minimum UTME: 185</span><span className="rounded-full bg-white/15 px-3 py-2">34 programmes</span></div></CalculatorHeader>
     <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900"><p className="font-black">One O’Level sitting only</p><p>{FUSTECH_SITTING_NOTICE}</p><a href={sources.announcement} target="_blank" rel="noreferrer" className="mt-2 inline-block font-bold underline">FUSTECH’s official admission announcement ↗</a></div>
     <div className="mt-7 grid items-start gap-6 lg:grid-cols-[1.5fr_1fr]">
       <section className={card}>
@@ -83,5 +78,5 @@ export default function FustechCalculator() {
         <section className={card}><h2 className="text-lg font-black">Official sources</h2><p className="mt-2 text-xs text-slate-500">Checked {sources.checked}</p><a href={sources.guidelines} target="_blank" rel="noreferrer" className="mt-4 block text-sm font-bold text-green-700 underline">FUSTECH screening guidelines ↗</a><a href={sources.requirements} target="_blank" rel="noreferrer" className="mt-3 block text-sm font-bold text-green-700 underline">Programme requirements checker ↗</a><PublicPageLink href="/disclaimer" className="mt-3 block text-xs text-slate-500 underline">Independent guidance disclaimer</PublicPageLink></section>
       </aside>
     </div>
-  </div></main>;
+  </CalculatorShell>;
 }
