@@ -1,4 +1,5 @@
 "use client";
+import { getOLevelSubjectOptions } from "../../lib/olevel-subjects";
 import { useRef, useState } from 'react';
 import CalculatorShell, { CalculatorHeader } from '../components/CalculatorShell';
 import ScreeningReportDownloads from '../components/ScreeningReportDownloads';
@@ -7,7 +8,7 @@ import catalogue from '@/lib/oau/programmes.json';
 import CutoffLookup, {cutoffs} from './CutoffLookup';
 import {OAU_ALIASES} from '@/lib/oau/programme-aliases';
 const faculties = [...new Set(cutoffs.map(p=>p.faculty))].sort();
-const subjects=['English Language','Mathematics','Physics','Chemistry','Biology','Agricultural Science','Further Mathematics','Economics','Government','Geography','History','Literature in English','Christian Religious Studies','Islamic Religious Studies','Yoruba','Igbo','Hausa','French','German','Portuguese','Music','Fine Arts','Civic Education','Accounting','Commerce','Computer Studies','Data Processing','Technical Drawing','Food and Nutrition','Home Economics','Health Science','Physical Education','Social Studies','Integrated Science','Arabic','Other relevant subject'];
+const subjects=getOLevelSubjectOptions(['English Language','Mathematics','Physics','Chemistry','Biology','Agricultural Science','Further Mathematics','Economics','Government','Geography','History','Literature in English','Christian Religious Studies','Islamic Religious Studies','Yoruba','Igbo','Hausa','French','German','Portuguese','Music','Fine Arts','Civic Education','Accounting','Commerce','Computer Studies','Data Processing','Technical Drawing','Food and Nutrition','Home Economics','Health Science','Physical Education','Social Studies','Integrated Science','Arabic','Other relevant subject']);
 const emptyGrades=()=>Array.from({length:5},()=>({subject:'',grade:''}));
 const field='mt-2 block w-full rounded-xl border border-slate-300 bg-white p-3 text-sm text-slate-900';
 const card='rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200 sm:p-7';

@@ -5,7 +5,9 @@ const vm = require('node:vm');
 const ts = require('typescript');
 const source = fs.readFileSync('app/lasu-calculator/page.tsx', 'utf8');
 const logic = source.slice(source.indexOf('type Programme'), source.indexOf('export default function LASUCalculator'));
-const context = { exports: {} };
+const shared = { exports: {} };
+vm.runInNewContext(ts.transpileModule(fs.readFileSync('lib/olevel-subjects.ts', 'utf8'), {compilerOptions: {module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020}}).outputText, shared);
+const context = { exports: {}, getOLevelSubjectOptions: shared.exports.getOLevelSubjectOptions };
 vm.runInNewContext(ts.transpileModule(logic + '\nexports.api = {oLevelSubjects, jambSubjects, getAvailableOLevelOptions, extractSubjects, oLevelAliases};', { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText, context);
 const api = context.exports.api;
 
