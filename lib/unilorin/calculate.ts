@@ -4,6 +4,9 @@ export const programmes=catalogue;
 export type Programme=(typeof programmes)[number];
 export type Result={subject:string;grade:string;sitting:1|2};
 export const subjectLabels:Record<string,string>=labels;
+// JAMB's approved UTME list; O’Level-only trade/technical subjects stay in the result-entry table.
+const utmeCodes=['ENG','AGR','ARA','ART','BIO','CHE','CRS','COM','ECO','FRE','GEO','GOV','HAU','HIS','HEC','IGB','IRS','LIT','MAT','MUS','PHY','ACC','YOR','CST','PHE'];
+export const utmeSubjectLabels:Record<string,string>=Object.fromEntries(utmeCodes.map(code=>[code,code==='PHE'?'Physical and Health Education':subjectLabels[code]]));
 export const gradePoints:Record<string,number>={A1:6,B2:5,B3:4,C4:3,C5:2,C6:1,D7:0,E8:0,F9:0};
 export const subjects=Object.values(labels).sort();
 const codeByLabel=new Map(Object.entries(labels).map(([code,label])=>[label,code]));
@@ -18,7 +21,7 @@ export function describeSlots(slots:string[][]){
 export function assessUtme(p:Programme,electives:string[]){
  if(electives.length!==3||electives.some(x=>!x))return 'incomplete';
  const entered=['ENG',...electives];
- if(new Set(entered).size!==4||entered.some(x=>!subjectLabels[x]))return 'incorrect';
+ if(new Set(entered).size!==4||entered.some(x=>!utmeSubjectLabels[x]))return 'incorrect';
  if(!assign(p.utmeSlots,entered))return 'incorrect';
  return p.reviewRequired?'pending':'matched';
 }
