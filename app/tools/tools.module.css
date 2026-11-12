@@ -33,3 +33,5 @@
 :global(html[data-soh-wide-touch]) .contact h2{font-size:22px}
 :global(html[data-soh-wide-touch]) .contact>p{font-size:14px}
 :global(html[data-soh-wide-touch]) .contact nav a{font-size:14px}
+/* This page already presents the same contact links directly above the legal footer. */
+:global(body):has(.page) :global(footer[aria-label="Legal information"] > div:first-child){display:none}
