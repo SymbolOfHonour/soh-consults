@@ -10,7 +10,7 @@ test('one-sitting programmes choose an intact sitting before higher mixed grades
 test('subject checks reject duplicates and wrong combinations',()=>{assert.equal(assessUtme(p('Biochemistry'),['BIO','CHE','PHY']),'matched');assert.equal(assessUtme(p('Biochemistry'),['BIO','CHE','CHE']),'incorrect');assert.equal(assessUtme(p('Biochemistry'),['BIO','GOV','MAT']),'incorrect');assert.equal(assessUtme(p('Biochemistry'),['BIO','','PHY']),'incomplete');assert.equal(assessUtme(p('Home Economics'),['BIO','CHE','MAT']),'matched');});
 test('targets hold other components fixed, round upward and identify impossible goals',()=>{let t=targetScores('70',35,21,40/3);assert.equal(t.requiredPost,72.23);assert.equal(t.requiredUtme,286);assert.equal(t.postPossible,true);t=targetScores('100',20,0,10);assert.equal(t.postPossible,false);assert.equal(t.utmePossible,false);assert.equal(targetScores('',35,21,20),null);assert.equal(targetScores('70',35,21,null),null);t=targetScores('10',35,21,20);assert.equal(t.requiredPost,0);assert.equal(t.requiredUtme,0);assert.equal(targetScores('70',null,null,20).requiredPost,null);});
 test('catalogue contains unique names, known subjects and complete slot counts',()=>{assert.equal(new Set(programmes.map(x=>x.code)).size,programmes.length);for(const p of programmes){assert.equal(p.slots.length,5,p.name);assert.equal(p.utmeSlots.length,4,p.name);for(const slot of [...p.slots,...p.utmeSlots]){assert.ok(slot.length,p.name);for(const c of slot)assert.ok(subjectLabels[c],p.name+' '+c);}}for(const n of ['Pharmacy','Medicine and Surgery','Computer Engineering','Optometry and Vision Science'])assert.equal(p(n).oneSitting,true);});
-test('owner-supplied table completes the previously missing courses and preserves genuine caveats',()=>{assert.equal(programmes.filter(p=>p.manual).length,0);assert.equal(assessUtme(p('Medical Laboratory Science'),['BIO','CHE','PHY']),'matched');assert.equal(assessUtme(p('Building Technology Education'),['MAT','PHY','CHE']),'matched');assert.equal(assessUtme(p('Business Education'),['MAT','ACC','COM']),'matched');assert.equal(assessUtme(p('Architecture'),['MAT','PHY','GEO']),'pending');assert.equal(assessUtme(p('Hausa'),['HAU','LIT','GOV']),'pending');assert.equal(assessUtme(p('Quantity Surveying'),['MAT','PHY','ECO']),'matched');assert.equal(p('Physiotherapy').oneSitting,true);});
+test('owner-supplied table completes the previously missing courses and preserves genuine caveats',()=>{assert.equal(programmes.filter(p=>p.manual).length,0);assert.equal(assessUtme(p('Medical Laboratory Science'),['BIO','CHE','PHY']),'matched');assert.equal(assessUtme(p('Building Technology Education'),['MAT','PHY','CHE']),'matched');assert.equal(assessUtme(p('Business Education'),['MAT','ACC','COM']),'matched');assert.equal(assessUtme(p('Architecture'),['MAT','PHY','GEO']),'matched');assert.equal(assessUtme(p('Hausa'),['HAU','LIT','GOV']),'matched');assert.equal(assessUtme(p('Quantity Surveying'),['MAT','PHY','ECO']),'matched');assert.equal(p('Physiotherapy').oneSitting,true);});
 test('Agricultural Extension checks additional Physics and conditional Biology passes without scoring them',()=>{const rows=[r('English Language','A1'),r('Mathematics','A1'),r('Chemistry','A1'),r('Agricultural Science','A1'),r('Economics','A1')];let c=calculate(p('Agricultural Extension and Rural Development'),'280','70',rows,['CHE','AGR','ECO'],1);assert.equal(c.extraPassMet,false);c=calculate(p('Agricultural Extension and Rural Development'),'280','70',[...rows,r('Physics','D7'),r('Biology','E8')],['CHE','AGR','ECO'],1);assert.equal(c.extraPassMet,true);assert.equal(c.oLevel,20);});
 const credits=(codes,grade='A1',sitting=1)=>codes.map(code=>r(subjectLabels[code],grade,sitting));
 const pairs=pool=>pool.flatMap((a,i)=>pool.slice(i+1).map(b=>[a,b]));
@@ -117,4 +117,48 @@ test('UTME dropdown and validation share the 25 approved subjects; trade subject
  assert.ok(utmeSubjectLabels.CST);assert.equal(utmeSubjectLabels.PHE,'Physical and Health Education');
  for(const code of ['TDR','RTE','DAT','STA','BLE','FMA'])assert.equal(utmeSubjectLabels[code],undefined);
  assert.match(fs.readFileSync('app/unilorin-calculator/page.tsx','utf8'),/Object.entries\(utmeSubjectLabels\)/);
+});
+test('all 105 programmes clear stale manual review flags without changing grade estimation',()=>{
+ assert.equal(programmes.length,105);assert.ok(programmes.every(p=>!p.reviewRequired&&!p.manual&&!p.sittingReview));
+ for(const p of programmes)assert.doesNotMatch(p.note,/pending|confirm|provisional|differ/i,p.name);
+});
+for(const [name,codes,u,missing] of [
+ ['Architecture',['ENG','MAT','PHY','CHE','BIO'],['MAT','PHY','BIO'],'PHY'],
+ ['Education and English',['ENG','MAT','LIT','HIS','ECO'],['LIT','HIS','ECO'],'LIT'],
+ ['Education and French',['ENG','MAT','FRE','GOV','ECO'],['FRE','GOV','ECO'],'FRE'],
+ ['Education and History',['ENG','MAT','GOV','LIT','ECO'],['GOV','LIT','ECO'],'GOV'],
+ ['Education and Yoruba',['ENG','MAT','YOR','HIS','ECO'],['YOR','HIS','ECO'],'YOR'],
+ ['Educational Management',['ENG','MAT','BIO','ECO','HIS'],['BIO','ECO','HIS'],'MAT'],
+ ['Hausa',['ENG','HAU','LIT','GOV','ECO'],['HAU','LIT','GOV'],'HAU'],
+ ['Igbo',['ENG','MAT','BIO','CHE','PHY'],['IGB','HIS','ECO'],'ENG'],
+ ['Human Kinetics Education',['ENG','MAT','BIO','GOV','ECO'],['BIO','GOV','ECO'],'MAT'],
+ ['Social Studies Education (B.A.)',['ENG','MAT','CRS','HIS','LIT'],['CRS','HIS','ECO'],'MAT'],
+ ['Social Studies Education (B.Sc.)',['ENG','MAT','ECO','GOV','COM'],['MAT','ECO','GOV'],'MAT'],
+]){
+ test(`${name}: formerly flagged valid inputs now pass, missing compulsory credits still fail`,()=>{
+  const course=p(name);const c=calculate(course,'280','70',credits(codes),u,1);
+  assert.equal(c.creditsMet,true);assert.equal(c.utmeStatus,'matched');assert.equal(c.sittingMet,true);assert.equal(c.total,76);
+  assert.equal(bestFive(course,credits(codes.filter(code=>code!==missing)),1).length,0);
+ });
+}
+test('UNILORIN architecture and language exceptions override generic brochure restrictions',()=>{
+ assert.equal(bestFive(p('Architecture'),credits(['ENG','MAT','PHY','CHE','BIO']),1).length,5);
+ assert.equal(bestFive(p('Architecture'),credits(['ENG','MAT','PHY','GOV','COM']),1).length,0);
+ assert.equal(bestFive(p('Igbo'),credits(['ENG','MAT','BIO','CHE','PHY']),1).length,5);
+ assert.equal(bestFive(p('Hausa'),credits(['ENG','HAU','BIO','CHE','PHY']),1).length,0);
+});
+test('Human Kinetics retains the supplied one-sitting rule and Biology/Health/PE alternatives',()=>{
+ for(const alt of ['BIO','HED','PHE'])assert.equal(bestFive(p('Human Kinetics Education'),credits(['ENG','MAT',alt,'ECO','GOV']),1).length,5);
+ const rows=[...credits(['ENG','MAT','BIO','ECO']),...credits(['GOV'],'A1',2)];
+ assert.equal(calculate(p('Human Kinetics Education'),'280','70',rows,['BIO','ECO','GOV'],2).sittingMet,false);
+});
+test('Education named pools reject unrelated substitutions and preserve four distinct UTME subjects',()=>{
+ assert.equal(assessUtme(p('Education and English'),['LIT','PHY','CHE']),'incorrect');
+ assert.equal(assessUtme(p('Education and French'),['FRE','PHY','CHE']),'incorrect');
+ assert.equal(assessUtme(p('Education and History'),['GOV','BIO','CHE']),'incorrect');
+ assert.equal(assessUtme(p('Education and Yoruba'),['YOR','BIO','CHE']),'incorrect');
+ assert.equal(assessUtme(p('Social Studies Education (B.A.)'),['CRS','HIS','PHY']),'matched');
+ assert.equal(assessUtme(p('Social Studies Education (B.A.)'),['ECO','MAT','PHY']),'incorrect');
+ assert.equal(bestFive(p('Social Studies Education (B.Sc.)'),credits(['ENG','MAT','ECO','GOV','PHY']),1).length,0);
+ assert.equal(assessUtme(p('Educational Management'),['GDE','ECO','HIS']),'incorrect');
 });
