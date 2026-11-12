@@ -32,13 +32,13 @@ export default function ToolsPage() {
         <div className={styles.sectionHead}><div><p className={styles.kicker}>WHAT ARE YOU WORKING TOWARDS?</p><h2 id="choose-tool">Choose your next step.</h2></div><span className={styles.free}>Free to use · No sign-up needed</span></div>
         <div className={styles.grid}>
           <PublicPageLink href="/screening-calculator" className={`${styles.card} ${styles.admission}`}>
-            <div className={styles.cardTop}><span className={styles.icon}><ToolIcon /></span><span className={styles.stage}>BEFORE ADMISSION</span></div>
+            <div className={styles.cardTop}><span className={styles.icon}><ToolIcon /></span><span className={styles.stage}>FOR ADMISSION SEEKERS</span></div>
             <h3>Admission &amp;<br />Screening Calculators</h3><p>Find your school, check your estimated screening score and see your course requirements.</p>
             <div className={styles.features}><span>School requirements</span><span>Screening scores</span></div>
             <span className={styles.cta}>Find my school <span aria-hidden="true">→</span></span>
           </PublicPageLink>
           <PublicPageLink href="/cgpa-calculator" className={`${styles.card} ${styles.academic}`}>
-            <div className={styles.cardTop}><span className={styles.icon}><ToolIcon chart /></span><span className={styles.stage}>DURING YOUR STUDIES</span></div>
+            <div className={styles.cardTop}><span className={styles.icon}><ToolIcon chart /></span><span className={styles.stage}>FOR STUDENTS</span></div>
             <h3>CGPA Calculator<br />&amp; Target Planner</h3><p>Understand your GPA and CGPA, explore possible results and plan the grades you need.</p>
             <div className={styles.features}><span>GPA &amp; CGPA</span><span>Targets &amp; projections</span></div>
             <span className={styles.cta}>Plan my grades <span aria-hidden="true">→</span></span>
