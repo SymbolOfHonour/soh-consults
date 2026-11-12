@@ -25,7 +25,7 @@ export default function InstitutionPicker() {
  const [filter,setFilter] = useState<(typeof filters)[number]>("All schools");
  const words = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
  const visible = schools.filter(s=>words.every(word=>(s.short+" "+s.name+" "+s.location).toLowerCase().includes(word)) && (filter==="All schools" || (filter==="Online screening" ? s.type==="Online Screening" : s.type!=="Online Screening")));
- return <main className={styles.page}>
+ return <main className={`${styles.page} soh-screening-layout`}>
   <header className={styles.header}><div className={styles.nav}>
    <PublicPageLink href="/" aria-label="S.O.H CONSULTS homepage"><Image src="/soh-logo.jpg" alt="S.O.H CONSULTS" width={145} height={72} className={styles.logo} priority /></PublicPageLink>
    <nav className={styles.links} aria-label="Student tools navigation"><PublicPageLink href="/">Home</PublicPageLink><PublicPageLink href="/updates">Updates</PublicPageLink><PublicPageLink href="/tools">Student Tools</PublicPageLink></nav>

@@ -3,7 +3,7 @@ import PublicPageLink from './PublicPageLink';
 import styles from './CalculatorShell.module.css';
 
 export default function CalculatorShell({ children }: { children: ReactNode }) {
-  return <main className={styles.page}><div className={styles.content}>{children}</div></main>;
+  return <main className={`${styles.page} soh-screening-layout soh-screening-form`}><div className={styles.content}>{children}</div></main>;
 }
 
 export function CalculatorHeader({ title, description, children }: {

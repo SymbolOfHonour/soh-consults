@@ -4,6 +4,7 @@ import JsonLd from "./components/JsonLd";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./components/screening-layout.css";
 import PWARegister from "./components/PWARegister";
 import InstallApp from "./components/InstallApp";
 import AskSOH from "./components/AskSOH";
