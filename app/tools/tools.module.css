@@ -35,3 +35,26 @@
 :global(html[data-soh-wide-touch]) .contact nav a{font-size:14px}
 /* This page already presents the same contact links directly above the legal footer. */
 :global(body):has(.page) :global(footer[aria-label="Legal information"] > div:first-child){display:none}
+
+/* Let a short Tools page use a tall viewport, rather than ending its footer mid-screen. */
+:global(body):has(.page){min-height:100dvh}
+.page{flex:1;display:flex;flex-direction:column}
+.content{flex:1;display:flex;flex-direction:column}
+.workspace{flex:1;display:flex;flex-direction:column}
+.grid{flex:1}
+/* Desktop site on a portrait phone keeps both columns, with type sized for its tall canvas. */
+@media(min-width:851px) and (max-aspect-ratio:3/4){
+ :global(html:not([data-soh-wide-touch])) .heroInner{padding-top:40px;padding-bottom:72px}
+ :global(html:not([data-soh-wide-touch])) .hero h1{font-size:clamp(44px,4vh,84px)}
+ :global(html:not([data-soh-wide-touch])) .intro{font-size:clamp(16px,1.4vh,26px)}
+ :global(html:not([data-soh-wide-touch])) .workspace{padding:32px}
+ :global(html:not([data-soh-wide-touch])) .sectionHead h2{font-size:clamp(28px,2vh,42px)}
+ :global(html:not([data-soh-wide-touch])) .card{padding:30px}
+ :global(html:not([data-soh-wide-touch])) .card h3{font-size:clamp(30px,2.4vh,48px)}
+ :global(html:not([data-soh-wide-touch])) .card>p{font-size:clamp(16px,1.5vh,30px)}
+ :global(html:not([data-soh-wide-touch])) .page :is(.eyebrow,.kicker,.stage,.features span,.free,.quick,.note){font-size:clamp(12px,.85vh,18px)}
+ :global(html:not([data-soh-wide-touch])) .cta{font-size:clamp(16px,1.1vh,22px);padding:14px 16px}
+ :global(html:not([data-soh-wide-touch])) .contact h2{font-size:clamp(24px,1.6vh,34px)}
+ :global(html:not([data-soh-wide-touch])) .contact>p{font-size:clamp(16px,1vh,22px)}
+ :global(html:not([data-soh-wide-touch])) .contact nav a{font-size:clamp(14px,.95vh,20px)}
+}
