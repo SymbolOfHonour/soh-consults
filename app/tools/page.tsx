@@ -1,12 +1,58 @@
 import PublicPageLink from "../components/PublicPageLink";
-import {withPublicSocial} from "../../lib/public-metadata";
-import type {Metadata} from "next";
+import { DisplaySettingsButton } from "../components/DisplayPreferences";
+import PortalNavigation from "../components/PortalNavigation";
+import BusinessContacts from "../components/BusinessContacts";
+import { withPublicSocial } from "../../lib/public-metadata";
+import type { Metadata } from "next";
+import styles from "./tools.module.css";
 
-export const metadata:Metadata=withPublicSocial({title:"Student Tools",alternates:{canonical:"/tools"}, description:"Access S.O.H CONSULTS admission screening calculators and CGPA tools."});
+export const metadata: Metadata = withPublicSocial({
+  title: "Student Tools",
+  alternates: { canonical: "/tools" },
+  description: "Check school screening scores and requirements, calculate your GPA and CGPA, and plan your next academic goal with S.O.H CONSULTS.",
+});
 
-const tools=[
- {href:"/screening-calculator",icon:"🎓",title:"Admission & Screening Calculators",description:"Check screening scores and eligibility with our available school calculators.",cta:"Open screening tools"},
- {href:"/cgpa-calculator",icon:"📊",title:"CGPA Calculator & Target Planner",description:"Calculate your GPA/CGPA and plan the grades you need to reach your target CGPA.",cta:"Open CGPA tools"},
-];
+function ToolIcon({ chart = false }: { chart?: boolean }) {
+  return <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{chart ? <><path d="M4 20V12h4v8m2 0V4h4v16m2 0V8h4v12M2 20h20" /></> : <><path d="m2 8 10-5 10 5-10 5L2 8Zm4 3v6c4 3 8 3 12 0v-6M22 8v9" /></>}</svg>;
+}
 
-export default function ToolsPage(){return <main className="min-h-screen bg-gray-50 pb-8 text-gray-900"><section className="bg-gradient-to-br from-green-950 to-green-700 px-4 py-8 text-white sm:py-12"><div className="mx-auto max-w-4xl"><PublicPageLink href="/" className="text-xs font-bold text-green-100">← Home</PublicPageLink><p className="mt-5 text-xs font-black uppercase tracking-[.18em] text-green-200">S.O.H CONSULTS</p><h1 className="mt-2 text-3xl font-black leading-tight sm:text-4xl">Student Tools</h1><p className="mt-3 max-w-2xl text-sm leading-6 text-green-50 sm:text-base">Choose the tool you need. Screening and CGPA tools are kept together here for quick access.</p></div></section><section className="mx-auto grid max-w-5xl gap-4 px-4 py-5 sm:grid-cols-2 lg:grid-cols-2 sm:py-8">{tools.map(tool=><PublicPageLink key={tool.href} href={tool.href} className="group flex min-h-48 flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-green-300 hover:shadow-md"><span className="text-3xl" aria-hidden="true">{tool.icon}</span><h2 className="mt-4 text-xl font-black leading-tight text-green-950">{tool.title}</h2><p className="mt-2 flex-1 text-sm leading-6 text-gray-600">{tool.description}</p><span className="mt-5 inline-flex items-center font-black text-green-700">{tool.cta} →</span></PublicPageLink>)}</section><nav aria-label="CGPA planning tools" className="mx-auto flex max-w-5xl flex-wrap gap-3 px-4 pb-5"><PublicPageLink href="/cgpa-calculator/planner" className="rounded-xl border bg-white px-4 py-3 font-bold text-green-800">Open CGPA Academic Planner</PublicPageLink><PublicPageLink href="/cgpa-calculator/select-scale" className="rounded-xl border bg-white px-4 py-3 font-bold text-green-800">Choose Your University Grading Scale</PublicPageLink></nav></main>}
+export default function ToolsPage() {
+  return <main className={styles.page}>
+    <header className={styles.header}><div className={styles.nav}>
+      <PublicPageLink href="/" aria-label="S.O.H CONSULTS homepage"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" width="145" height="72" className={styles.logo} /></PublicPageLink>
+      <nav aria-label="Student tools navigation" className={styles.links}><PublicPageLink href="/">Home</PublicPageLink><PublicPageLink href="/updates">Updates</PublicPageLink><PublicPageLink href="/tools" aria-current="page">Student Tools</PublicPageLink></nav>
+      <div className={styles.actions}><DisplaySettingsButton /><PublicPageLink href="/search" className={styles.search}>Search</PublicPageLink><PortalNavigation /></div>
+    </div></header>
+    <section className={styles.hero}><div className={styles.heroInner}>
+      <div><p className={styles.eyebrow}>S.O.H CONSULTS · STUDENT TOOLS</p><h1>A clearer next step.<br />At every stage.</h1><p className={styles.intro}>Preparing for admission or planning your next semester?<br />Start with the right tool.</p></div>
+      <div className={styles.journey} aria-hidden="true"><span className={styles.journeyIcon}><ToolIcon /></span><p>From your first choice<br />to your next milestone.</p><div><span>Apply</span><i /><span>Study</span><i /><span>Progress</span></div></div>
+    </div></section>
+    <div className={styles.content}>
+      <section aria-labelledby="choose-tool" className={styles.workspace}>
+        <div className={styles.sectionHead}><div><p className={styles.kicker}>WHAT ARE YOU WORKING TOWARDS?</p><h2 id="choose-tool">Choose your next step.</h2></div><span className={styles.free}>Free to use · No sign-up needed</span></div>
+        <div className={styles.grid}>
+          <PublicPageLink href="/screening-calculator" className={`${styles.card} ${styles.admission}`}>
+            <div className={styles.cardTop}><span className={styles.icon}><ToolIcon /></span><span className={styles.stage}>FOR ADMISSION SEEKERS</span></div>
+            <h3>Admission &amp;<br />Screening Calculators</h3><p>Find your school, check your estimated screening score and see your course requirements.</p>
+            <div className={styles.features}><span>School requirements</span><span>Screening scores</span></div>
+            <span className={styles.cta}>Find my school <span aria-hidden="true">→</span></span>
+          </PublicPageLink>
+          <PublicPageLink href="/cgpa-calculator" className={`${styles.card} ${styles.academic}`}>
+            <div className={styles.cardTop}><span className={styles.icon}><ToolIcon chart /></span><span className={styles.stage}>FOR STUDENTS</span></div>
+            <h3>CGPA Calculator<br />&amp; Target Planner</h3><p>Understand your GPA and CGPA, explore possible results and plan the grades you need.</p>
+            <div className={styles.features}><span>GPA &amp; CGPA</span><span>Targets &amp; projections</span></div>
+            <span className={styles.cta}>Plan my grades <span aria-hidden="true">→</span></span>
+          </PublicPageLink>
+        </div>
+        <nav aria-label="CGPA planning tools" className={styles.quick}>
+          <span className={styles.quickTitle}>Know where you’re going?</span>
+          <PublicPageLink href="/cgpa-calculator/planner">Open CGPA Academic Planner <span aria-hidden="true">↗</span></PublicPageLink>
+          <PublicPageLink href="/cgpa-calculator/select-scale">Choose Your University Grading Scale <span aria-hidden="true">↗</span></PublicPageLink>
+          <PublicPageLink href="/schools">Find your school <span aria-hidden="true">↗</span></PublicPageLink>
+        </nav>
+      </section>
+      <section className={styles.contact} aria-labelledby="tools-contact-title"><h2 id="tools-contact-title">Need help? Contact S.O.H CONSULTS</h2><p>Ask about screening, course requirements or using our student tools.</p><BusinessContacts compact /></section>
+      <p className={styles.note}>Screening scores are estimates for guidance. Always confirm your school’s official admission requirements.</p>
+    </div>
+  </main>;
+}
