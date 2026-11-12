@@ -49,5 +49,13 @@
   "CHU": "Crop Husbandry and Horticulture",
   "BUS": "Business Management",
   "BME": "Business Methods",
-  "BKP": "Bookkeeping"
+  "BKP": "Bookkeeping",
+  "FIS": "Fisheries",
+  "FNU": "Foods and Nutrition",
+  "GMT": "Garment Making",
+  "CLT": "Clothing and Textiles",
+  "HMA": "Home Management",
+  "BLE": "Basic Electricity",
+  "AEL": "Applied Electricity",
+  "AME": "Auto Mechanics"
 }

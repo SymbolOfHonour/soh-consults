@@ -20,9 +20,7 @@
         "GEO",
         "BKP",
         "INS",
-        "DAT",
-        "BUS",
-        "MKT"
+        "DAT"
       ],
       [
         "ACC",
@@ -32,9 +30,7 @@
         "GEO",
         "BKP",
         "INS",
-        "DAT",
-        "BUS",
-        "MKT"
+        "DAT"
       ]
     ],
     "utmeSlots": [
@@ -55,11 +51,13 @@
       ]
     ],
     "sourcePage": 747,
-    "note": "Check the programme\u2019s exact permitted pool of additional credits in the linked calendar; broad related-subject alternatives need confirmation.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "adult-education-studies",
@@ -400,7 +398,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=721"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=721",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "agricultural-extension-and-rural-development",
@@ -791,7 +791,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "agricultural-science-education",
@@ -848,7 +850,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=731"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=731",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "agricultural-and-biosystems-engineering",
@@ -889,7 +893,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=739"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=739",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "agriculture",
@@ -937,7 +943,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=706"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=706",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "anatomy",
@@ -978,7 +986,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "aquaculture-and-fisheries",
@@ -995,10 +1005,13 @@
       ],
       [
         "BIO",
-        "AGR"
+        "AGR",
+        "FIS"
       ],
       [
-        "PHY"
+        "PHY",
+        "GEO",
+        "ECO"
       ]
     ],
     "utmeSlots": [
@@ -1021,7 +1034,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=707"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=707",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "arabic",
@@ -1142,11 +1157,13 @@
       ]
     ],
     "sourcePage": 712,
-    "note": "Programme-specific language or certificate waivers require separate confirmation.",
+    "note": "Language and certificate exceptions are assessed separately; these checks use the standard listed credit route.",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "architecture",
@@ -1537,7 +1554,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "biochemistry",
@@ -1578,7 +1597,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "biology-education",
@@ -1633,7 +1654,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=731"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=731",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "biomedical-engineering",
@@ -1674,7 +1697,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=739"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=739",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "building-technology-education",
@@ -2065,7 +2090,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "business-administration",
@@ -2081,110 +2108,22 @@
         "ECO"
       ],
       [
-        "ENG",
-        "MAT",
-        "CHE",
-        "BIO",
-        "AGR",
-        "PHY",
-        "GEO",
-        "ECO",
-        "HEC",
-        "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
         "ACC",
-        "BST",
-        "MKT",
-        "TOU",
-        "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
-        "CCP",
-        "DAT",
-        "DYE",
-        "EIM",
-        "ICT",
-        "MUS",
-        "OPR",
-        "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
-        "CIV",
-        "INS",
-        "CHU",
-        "BUS",
         "BME",
-        "BKP"
+        "COM",
+        "GEO",
+        "INS",
+        "MKT",
+        "GOV"
       ],
       [
-        "ENG",
-        "MAT",
-        "CHE",
-        "BIO",
-        "AGR",
-        "PHY",
-        "GEO",
-        "ECO",
-        "HEC",
-        "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
         "ACC",
-        "BST",
-        "MKT",
-        "TOU",
-        "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
-        "CCP",
-        "DAT",
-        "DYE",
-        "EIM",
-        "ICT",
-        "MUS",
-        "OPR",
-        "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
-        "CIV",
-        "INS",
-        "CHU",
-        "BUS",
         "BME",
-        "BKP"
+        "COM",
+        "GEO",
+        "INS",
+        "MKT",
+        "GOV"
       ]
     ],
     "utmeSlots": [
@@ -2198,25 +2137,20 @@
         "MAT"
       ],
       [
-        "ECO",
-        "GOV",
+        "ACC",
         "GEO",
         "COM",
-        "ACC",
-        "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "GOV"
       ]
     ],
     "sourcePage": 747,
-    "note": "Confirm the permitted additional O\u2019Level subjects with UNILORIN.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "business-education",
@@ -2607,7 +2541,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "chemical-engineering",
@@ -2698,7 +2634,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "chemistry",
@@ -2739,7 +2677,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=751"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=751",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "chemistry-education",
@@ -2793,7 +2733,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=731"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=731",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "christian-studies",
@@ -2918,7 +2860,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "civil-engineering",
@@ -3009,7 +2953,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "common-law",
@@ -3134,7 +3080,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=744"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=744",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "common-and-islamic-law",
@@ -3261,7 +3209,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=745"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=745",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "comparative-religious-studies",
@@ -3504,7 +3454,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=713"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=713",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "computer-engineering",
@@ -3595,7 +3547,9 @@
     "oneSitting": true,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "computer-science",
@@ -3636,7 +3590,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=717"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=717",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "counsellor-education",
@@ -3977,7 +3933,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=721"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=721",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "criminology-and-security-studies",
@@ -3993,80 +3951,22 @@
         "ECO",
         "GOV",
         "GEO",
-        "COM",
-        "ACC",
         "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "COM"
       ],
       [
         "ECO",
         "GOV",
         "GEO",
-        "COM",
-        "ACC",
         "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "COM"
       ],
       [
-        "ENG",
-        "MAT",
-        "CHE",
-        "BIO",
-        "AGR",
-        "PHY",
-        "GEO",
         "ECO",
-        "HEC",
         "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "ACC",
-        "BST",
-        "MKT",
-        "TOU",
-        "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
-        "CCP",
-        "DAT",
-        "DYE",
-        "EIM",
-        "ICT",
-        "MUS",
-        "OPR",
-        "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
+        "GEO",
         "CIV",
-        "INS",
-        "CHU",
-        "BUS",
-        "BME",
-        "BKP"
+        "COM"
       ]
     ],
     "utmeSlots": [
@@ -4079,120 +3979,22 @@
       [
         "ECO",
         "GEO",
-        "ENG",
-        "MAT",
-        "CHE",
-        "BIO",
-        "AGR",
-        "PHY",
-        "GEO",
-        "ECO",
-        "HEC",
-        "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "ACC",
-        "BST",
-        "MKT",
-        "TOU",
-        "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
-        "CCP",
-        "DAT",
-        "DYE",
-        "EIM",
-        "ICT",
-        "MUS",
-        "OPR",
-        "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
-        "CIV",
-        "INS",
-        "CHU",
-        "BUS",
-        "BME",
-        "BKP"
+        "COM"
       ],
       [
         "ECO",
         "GEO",
-        "ENG",
-        "MAT",
-        "CHE",
-        "BIO",
-        "AGR",
-        "PHY",
-        "GEO",
-        "ECO",
-        "HEC",
-        "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "ACC",
-        "BST",
-        "MKT",
-        "TOU",
-        "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
-        "CCP",
-        "DAT",
-        "DYE",
-        "EIM",
-        "ICT",
-        "MUS",
-        "OPR",
-        "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
-        "CIV",
-        "INS",
-        "CHU",
-        "BUS",
-        "BME",
-        "BKP"
+        "COM"
       ]
     ],
     "sourcePage": 754,
-    "note": "Confirm the complete Social Science subject alternatives in the current programme requirements.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=754"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=754",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "economics",
@@ -4239,7 +4041,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=755"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=755",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "economics-education",
@@ -4255,30 +4059,22 @@
         "ECO"
       ],
       [
-        "ECO",
-        "GOV",
-        "GEO",
-        "COM",
+        "SOC",
         "ACC",
         "CIV",
-        "INS",
+        "GOV",
+        "COM",
         "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "BUS"
       ],
       [
-        "ECO",
-        "GOV",
-        "GEO",
-        "COM",
+        "SOC",
         "ACC",
         "CIV",
-        "INS",
+        "GOV",
+        "COM",
         "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "BUS"
       ]
     ],
     "utmeSlots": [
@@ -4293,8 +4089,9 @@
       ],
       [
         "GEO",
-        "GOV",
-        "ACC"
+        "COM",
+        "ACC",
+        "GOV"
       ]
     ],
     "sourcePage": 723,
@@ -4302,7 +4099,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=723"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=723",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "education-and-arabic",
@@ -4318,52 +4117,24 @@
         "ARA"
       ],
       [
-        "ARA",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "HIS",
-        "LIT",
-        "ART",
-        "MUS",
-        "ECO",
+        "CIV",
         "GOV",
         "GEO",
+        "ECO",
         "COM",
-        "ACC",
-        "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "HIS",
+        "SOC",
+        "INS"
       ],
       [
-        "ARA",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "HIS",
-        "LIT",
-        "ART",
-        "MUS",
-        "ECO",
+        "CIV",
         "GOV",
         "GEO",
+        "ECO",
         "COM",
-        "ACC",
-        "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "HIS",
+        "SOC",
+        "INS"
       ]
     ],
     "utmeSlots": [
@@ -4374,60 +4145,32 @@
         "ARA"
       ],
       [
-        "ARA",
-        "CRS",
         "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "HIS",
-        "LIT",
-        "ART",
-        "MUS",
-        "ECO",
         "GOV",
-        "GEO",
+        "LIT",
+        "ECO",
         "COM",
-        "ACC",
-        "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "GEO",
+        "HIS"
       ],
       [
-        "ARA",
-        "CRS",
         "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "HIS",
-        "LIT",
-        "ART",
-        "MUS",
-        "ECO",
         "GOV",
-        "GEO",
+        "LIT",
+        "ECO",
         "COM",
-        "ACC",
-        "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "GEO",
+        "HIS"
       ]
     ],
     "sourcePage": 722,
-    "note": "The Education row restricts the additional subjects to a named relevant pool; confirm your exact combination in the official calendar before relying on eligibility guidance.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "education-and-christian-religious-studies",
@@ -4443,52 +4186,28 @@
         "CRS"
       ],
       [
-        "ARA",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "HIS",
-        "LIT",
-        "ART",
-        "MUS",
-        "ECO",
         "GOV",
-        "GEO",
-        "COM",
-        "ACC",
+        "HIS",
         "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "SOC",
+        "ECO",
+        "COM",
+        "YOR",
+        "LIT",
+        "GEO",
+        "INS"
       ],
       [
-        "ARA",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "HIS",
-        "LIT",
-        "ART",
-        "MUS",
-        "ECO",
         "GOV",
-        "GEO",
-        "COM",
-        "ACC",
+        "HIS",
         "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "SOC",
+        "ECO",
+        "COM",
+        "YOR",
+        "LIT",
+        "GEO",
+        "INS"
       ]
     ],
     "utmeSlots": [
@@ -4499,60 +4218,32 @@
         "CRS"
       ],
       [
-        "ARA",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
+        "GOV",
         "HIS",
         "LIT",
-        "ART",
-        "MUS",
-        "ECO",
-        "GOV",
-        "GEO",
+        "YOR",
         "COM",
-        "ACC",
-        "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "ECO",
+        "GEO"
       ],
       [
-        "ARA",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
+        "GOV",
         "HIS",
         "LIT",
-        "ART",
-        "MUS",
-        "ECO",
-        "GOV",
-        "GEO",
+        "YOR",
         "COM",
-        "ACC",
-        "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "ECO",
+        "GEO"
       ]
     ],
     "sourcePage": 722,
-    "note": "The Education row restricts the additional subjects to a named relevant pool; confirm your exact combination in the official calendar before relying on eligibility guidance.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "education-and-english",
@@ -4677,7 +4368,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "education-and-french",
@@ -4802,7 +4495,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "education-and-history",
@@ -4929,7 +4624,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "education-and-islamic-studies",
@@ -5056,7 +4753,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "education-and-yoruba",
@@ -5181,7 +4880,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "educational-management",
@@ -5522,7 +5223,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=728"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=728",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "educational-technology-arts",
@@ -5623,7 +5326,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=733"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=733",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "educational-technology-computer-science",
@@ -5642,57 +5347,10 @@
         "CHE"
       ],
       [
-        "ENG",
-        "MAT",
-        "CHE",
         "BIO",
-        "AGR",
-        "PHY",
-        "GEO",
-        "ECO",
-        "HEC",
-        "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "ACC",
-        "BST",
-        "MKT",
-        "TOU",
-        "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
-        "CCP",
-        "DAT",
-        "DYE",
-        "EIM",
         "ICT",
-        "MUS",
-        "OPR",
-        "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
-        "CIV",
-        "INS",
-        "CHU",
-        "BUS",
-        "BME",
-        "BKP"
+        "DAT",
+        "CST"
       ]
     ],
     "utmeSlots": [
@@ -5710,11 +5368,13 @@
       ]
     ],
     "sourcePage": 732,
-    "note": "Confirm the fifth-credit subject from the named Science/technical pool in the calendar.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=732"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=732",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "educational-technology-sciences",
@@ -5815,7 +5475,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=733"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=733",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "educational-technology-social-sciences",
@@ -5916,7 +5578,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=733"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=733",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "electrical-and-electronics-engineering",
@@ -6007,7 +5671,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "electrical-electronic-technology-education",
@@ -6398,7 +6064,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "english-language",
@@ -6512,7 +6180,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=713"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=713",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "estate-management",
@@ -6903,7 +6573,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "finance",
@@ -6923,24 +6595,14 @@
         "BME",
         "COM",
         "GOV",
-        "GEO",
-        "BKP",
-        "INS",
-        "DAT",
-        "BUS",
-        "MKT"
+        "GEO"
       ],
       [
         "ACC",
         "BME",
         "COM",
         "GOV",
-        "GEO",
-        "BKP",
-        "INS",
-        "DAT",
-        "BUS",
-        "MKT"
+        "GEO"
       ]
     ],
     "utmeSlots": [
@@ -6961,11 +6623,13 @@
       ]
     ],
     "sourcePage": 747,
-    "note": "Check the programme\u2019s exact permitted pool of additional credits in the linked calendar; broad related-subject alternatives need confirmation.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "food-science",
@@ -6984,6 +6648,7 @@
         "PHY"
       ],
       [
+        "FNU",
         "BIO",
         "AGR"
       ]
@@ -7010,7 +6675,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=709"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=709",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "food-and-bioprocess-engineering",
@@ -7051,7 +6718,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=741"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=741",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "forestry-and-wildlife",
@@ -7094,11 +6763,13 @@
       ]
     ],
     "sourcePage": 711,
-    "note": "A pass in Physics is additionally required. Confirm this separately; the five-credit estimate does not assess pass-level waivers.",
+    "note": "A pass in Physics is also required, in addition to the five specified credits.",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=711"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=711",
+    "reviewRequired": false,
+    "extraPhysicsPass": true
   },
   {
     "code": "french",
@@ -7219,11 +6890,13 @@
       ]
     ],
     "sourcePage": 712,
-    "note": "Programme-specific language or certificate waivers require separate confirmation.",
+    "note": "Language and certificate exceptions are assessed separately; these checks use the standard listed credit route.",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "geography-education",
@@ -7240,29 +6913,23 @@
       ],
       [
         "ECO",
-        "GOV",
-        "GEO",
-        "COM",
+        "SOC",
         "ACC",
         "CIV",
-        "INS",
+        "GOV",
+        "COM",
         "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "BUS"
       ],
       [
         "ECO",
-        "GOV",
-        "GEO",
-        "COM",
+        "SOC",
         "ACC",
         "CIV",
-        "INS",
+        "GOV",
+        "COM",
         "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "BUS"
       ]
     ],
     "utmeSlots": [
@@ -7295,11 +6962,13 @@
       ]
     ],
     "sourcePage": 724,
-    "note": "Check the named pool of additional O\u2019Level subjects in the calendar; automatic eligibility needs confirmation.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=724"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=724",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "geography-and-environmental-sciences",
@@ -7424,7 +7093,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=755"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=755",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "geology",
@@ -7465,7 +7136,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=752"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=752",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "geophysics",
@@ -7508,7 +7181,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=752"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=752",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "hausa",
@@ -7899,7 +7574,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "health-education",
@@ -8290,7 +7967,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "history-and-international-studies",
@@ -8417,7 +8096,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "home-economics",
@@ -8430,163 +8111,24 @@
         "MAT"
       ],
       [
-        "ENG",
-        "MAT",
-        "CHE",
-        "BIO",
-        "AGR",
-        "PHY",
-        "GEO",
-        "ECO",
-        "HEC",
-        "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "ACC",
-        "BST",
-        "MKT",
-        "TOU",
-        "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
-        "CCP",
-        "DAT",
-        "DYE",
-        "EIM",
-        "ICT",
-        "MUS",
-        "OPR",
-        "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
-        "CIV",
-        "INS",
-        "CHU",
-        "BUS",
-        "BME",
-        "BKP"
+        "CHE"
       ],
       [
-        "ENG",
-        "MAT",
-        "CHE",
         "BIO",
-        "AGR",
-        "PHY",
-        "GEO",
-        "ECO",
-        "HEC",
-        "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "ACC",
-        "BST",
-        "MKT",
-        "TOU",
-        "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
-        "CCP",
-        "DAT",
-        "DYE",
-        "EIM",
-        "ICT",
-        "MUS",
-        "OPR",
-        "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
-        "CIV",
-        "INS",
-        "CHU",
-        "BUS",
-        "BME",
-        "BKP"
+        "AGR"
       ],
       [
-        "ENG",
-        "MAT",
-        "CHE",
-        "BIO",
-        "AGR",
         "PHY",
-        "GEO",
         "ECO",
-        "HEC",
-        "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "ACC",
-        "BST",
-        "MKT",
-        "TOU",
-        "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
+        "GMT",
         "CCP",
-        "DAT",
+        "CLT",
+        "FNU",
         "DYE",
-        "EIM",
-        "ICT",
-        "MUS",
-        "OPR",
+        "HMA",
         "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
-        "CIV",
-        "INS",
-        "CHU",
-        "BUS",
-        "BME",
-        "BKP"
+        "TOU",
+        "ICT"
       ]
     ],
     "utmeSlots": [
@@ -8600,65 +8142,18 @@
         "CHE"
       ],
       [
-        "ENG",
-        "MAT",
-        "CHE",
-        "BIO",
-        "AGR",
-        "PHY",
-        "GEO",
         "ECO",
-        "HEC",
-        "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "ACC",
-        "BST",
-        "MKT",
-        "TOU",
-        "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
-        "CCP",
-        "DAT",
-        "DYE",
-        "EIM",
-        "ICT",
-        "MUS",
-        "OPR",
-        "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
-        "CIV",
-        "INS",
-        "CHU",
-        "BUS",
-        "BME",
-        "BKP"
+        "MAT"
       ]
     ],
     "sourcePage": 708,
-    "note": "Confirm the full list of relevant O\u2019Level and fourth UTME subject options with UNILORIN before treating the entered combination as eligible.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=708"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=708",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "human-kinetics-education",
@@ -9049,7 +8544,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "igbo",
@@ -9440,7 +8937,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "industrial-chemistry",
@@ -9481,7 +8980,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=753"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=753",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "industrial-relations-and-personnel-management",
@@ -9536,7 +9037,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=750"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=750",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "information-and-communication-science",
@@ -9616,7 +9119,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=718"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=718",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "islamic-studies",
@@ -9742,7 +9247,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "library-and-information-science",
@@ -10083,7 +9590,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=719"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=719",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "linguistics",
@@ -10332,7 +9841,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=716"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=716",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "marketing",
@@ -10351,25 +9862,23 @@
         "ACC",
         "BME",
         "COM",
-        "GOV",
         "GEO",
         "BKP",
-        "INS",
-        "DAT",
         "BUS",
-        "MKT"
+        "MKT",
+        "INS",
+        "GOV"
       ],
       [
         "ACC",
         "BME",
         "COM",
-        "GOV",
         "GEO",
         "BKP",
-        "INS",
-        "DAT",
         "BUS",
-        "MKT"
+        "MKT",
+        "INS",
+        "GOV"
       ]
     ],
     "utmeSlots": [
@@ -10390,11 +9899,13 @@
       ]
     ],
     "sourcePage": 747,
-    "note": "Check the programme\u2019s exact permitted pool of additional credits in the linked calendar; broad related-subject alternatives need confirmation.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "mass-communication",
@@ -10575,7 +10086,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=720"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=720",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "materials-and-metallurgical-engineering",
@@ -10666,7 +10179,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "mathematics",
@@ -10718,7 +10233,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=753"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=753",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "mathematics-education",
@@ -10766,7 +10283,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=732"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=732",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "mechanical-engineering",
@@ -10857,7 +10376,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "medical-laboratory-science",
@@ -11248,7 +10769,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "medicine-and-surgery",
@@ -11289,7 +10812,9 @@
     "oneSitting": true,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "metalwork-technology-education",
@@ -11680,7 +11205,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "microbiology",
@@ -11721,7 +11248,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "nursing-science",
@@ -11762,7 +11291,9 @@
     "oneSitting": false,
     "sittingReview": true,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "optometry-and-vision-science",
@@ -11803,7 +11334,9 @@
     "oneSitting": true,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "performing-arts",
@@ -12054,7 +11587,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=716"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=716",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "pharmacy",
@@ -12095,7 +11630,9 @@
     "oneSitting": true,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=751"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=751",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "physics",
@@ -12134,11 +11671,13 @@
       ]
     ],
     "sourcePage": 753,
-    "note": "Confirm the fifth-credit alternatives in the current programme requirements before relying on eligibility guidance.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=753"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=753",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "physics-education",
@@ -12157,6 +11696,9 @@
         "CHE"
       ],
       [
+        "BLE",
+        "AEL",
+        "AME",
         "AGR",
         "BIO",
         "FMA"
@@ -12182,7 +11724,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=732"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=732",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "physiology",
@@ -12223,7 +11767,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "physiotherapy",
@@ -12614,7 +12160,9 @@
     "oneSitting": false,
     "sittingReview": true,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "plant-biology",
@@ -12655,7 +12203,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "political-science",
@@ -12708,77 +12258,25 @@
       ],
       [
         "ECO",
-        "GOV",
         "GEO",
         "COM",
-        "ACC",
-        "CIV",
-        "INS",
-        "MKT",
-        "BUS",
-        "BME",
-        "BKP"
+        "ACC"
       ],
       [
-        "ENG",
-        "MAT",
-        "CHE",
-        "BIO",
-        "AGR",
-        "PHY",
-        "GEO",
         "ECO",
-        "HEC",
-        "GOV",
-        "HIS",
-        "LIT",
-        "CRS",
-        "IRS",
-        "FRE",
-        "YOR",
-        "HAU",
-        "IGB",
-        "ACC",
-        "BST",
-        "MKT",
-        "TOU",
+        "GEO",
         "COM",
-        "CST",
-        "FMA",
-        "ARA",
-        "AHU",
-        "TDR",
-        "WWO",
-        "BUI",
-        "CCP",
-        "DAT",
-        "DYE",
-        "EIM",
-        "ICT",
-        "MUS",
-        "OPR",
-        "PAI",
-        "PHO",
-        "HED",
-        "PHE",
-        "BED",
-        "ISS",
-        "ART",
-        "SOC",
-        "CIV",
-        "INS",
-        "CHU",
-        "BUS",
-        "BME",
-        "BKP"
+        "ACC"
       ]
     ],
     "sourcePage": 755,
-    "note": "Confirm all required additional Arts/Social Science options against the current programme row.",
+    "note": "",
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=755"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=755",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "primary-education-studies",
@@ -13119,7 +12617,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=721"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=721",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "psychology",
@@ -13197,7 +12697,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=756"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=756",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "public-administration",
@@ -13248,7 +12750,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=750"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=750",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "quantity-surveying",
@@ -13639,7 +13143,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "social-studies-education-b-a",
@@ -13780,7 +13286,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=726"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=726",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "social-studies-education-b-sc",
@@ -13899,7 +13407,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=725"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=725",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "social-work",
@@ -14160,7 +13670,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=756"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=756",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "sociology",
@@ -14307,7 +13819,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=757"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=757",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "statistics",
@@ -14504,7 +14018,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=754"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=754",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "surveying-and-geo-informatics",
@@ -14895,7 +14411,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "technology-education",
@@ -14966,7 +14484,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=735"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=735",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "telecommunication-science",
@@ -14979,13 +14499,16 @@
         "MAT"
       ],
       [
-        "BIO"
+        "PHY"
       ],
       [
         "CHE"
       ],
       [
-        "PHY"
+        "FMA",
+        "TDR",
+        "ECO",
+        "GEO"
       ]
     ],
     "utmeSlots": [
@@ -15007,7 +14530,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=720"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=720",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "urban-and-regional-planning",
@@ -15398,7 +14923,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "veterinary-medicine",
@@ -15439,7 +14966,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=757"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=757",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "water-resources-and-environmental-engineering",
@@ -15530,7 +15059,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "woodwork-technology-education",
@@ -15921,7 +15452,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": true,
-    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/"
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": true,
+    "extraPhysicsPass": false
   },
   {
     "code": "yoruba",
@@ -16046,7 +15579,9 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   },
   {
     "code": "zoology",
@@ -16087,6 +15622,8 @@
     "oneSitting": false,
     "sittingReview": false,
     "manual": false,
-    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746"
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746",
+    "reviewRequired": false,
+    "extraPhysicsPass": false
   }
 ]

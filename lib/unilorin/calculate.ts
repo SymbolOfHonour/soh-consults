@@ -20,7 +20,7 @@ export function assessUtme(p:Programme,electives:string[]){
  const entered=['ENG',...electives];
  if(new Set(entered).size!==4||entered.some(x=>!subjectLabels[x]))return 'incorrect';
  if(!assign(p.utmeSlots,entered))return 'incorrect';
- return p.note?'pending':'matched';
+ return p.reviewRequired?'pending':'matched';
 }
 export function bestFive(p:Programme,rows:Result[],sittings:1|2):Result[]{
  if(p.oneSitting){
@@ -46,7 +46,8 @@ export function calculate(p:Programme,score:string,postScore:string,rows:Result[
  // Check sittings used by the selected credits, not merely whether the user opened sitting 2.
  const sittingsUsed=new Set(selected.map(r=>r.sitting)).size;
  const sittingMet=!p.oneSitting||sittingsUsed<=1;
- return {selected,scoreValid,postValid,utme,post,oLevel,total:utme!==null&&post!==null&&oLevel!==null?utme+post+oLevel:null,creditsMet:selected.length===5,sittingMet,sittingReview:p.sittingReview&&sittingsUsed>1,utmeStatus:assessUtme(p,electives)};
+ const extraPassMet=!p.extraPhysicsPass||rows.some(r=>r.subject==='Physics'&&r.sitting<=sittings&&Object.hasOwn(gradePoints,r.grade)&&r.grade!=='F9');
+ return {selected,scoreValid,postValid,utme,post,oLevel,total:utme!==null&&post!==null&&oLevel!==null?utme+post+oLevel:null,creditsMet:selected.length===5,sittingMet,extraPassMet,sittingReview:p.sittingReview&&sittingsUsed>1,utmeStatus:assessUtme(p,electives)};
 }
 export function targetScores(target:string,utme:number|null,post:number|null,oLevel:number|null){
  if(!validScore(target,100)||oLevel===null)return null;
