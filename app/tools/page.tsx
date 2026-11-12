@@ -1,6 +1,7 @@
 import PublicPageLink from "../components/PublicPageLink";
 import { DisplaySettingsButton } from "../components/DisplayPreferences";
 import PortalNavigation from "../components/PortalNavigation";
+import BusinessContacts from "../components/BusinessContacts";
 import { withPublicSocial } from "../../lib/public-metadata";
 import type { Metadata } from "next";
 import styles from "./tools.module.css";
@@ -50,6 +51,7 @@ export default function ToolsPage() {
           <PublicPageLink href="/schools">Find your school <span aria-hidden="true">↗</span></PublicPageLink>
         </nav>
       </section>
+      <section className={styles.contact} aria-labelledby="tools-contact-title"><h2 id="tools-contact-title">Need help? Contact S.O.H CONSULTS</h2><p>Ask about screening, course requirements or using our student tools.</p><BusinessContacts compact /></section>
       <p className={styles.note}>Screening scores are estimates for guidance. Always confirm your school’s official admission requirements.</p>
     </div>
   </main>;

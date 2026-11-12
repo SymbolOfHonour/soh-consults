@@ -18,3 +18,18 @@
 :global(html[data-soh-wide-touch]) .card>p{font-size:14px}
 :global(html[data-soh-wide-touch]) .quick{flex-direction:column;align-items:start;gap:16px}
 :global(html[data-soh-theme=dark]) .kicker{color:#9bdfb2}
+
+.contact{margin-top:20px;background:#edf6ef;border:1px solid #d5e4d7;border-radius:16px;padding:24px}
+.contact h2{font-size:clamp(21px,1.5vw,38px);font-weight:800;line-height:1.35;letter-spacing:-.4px}
+.contact>p{margin-top:6px;font-size:clamp(14px,1vw,26px);color:#617269}
+.contact nav{justify-content:flex-start;gap:10px;margin-top:16px}
+.contact nav a{display:inline-flex;align-items:center;white-space:nowrap;max-width:100%;border:1px solid #cfdfd2;background:#fff;border-radius:10px;padding:10px 14px;font-size:clamp(13px,.9vw,24px);font-weight:600;text-decoration:none;color:#08734d}
+.contact nav a:hover{background:#e1f0e5;border-color:#82b695}
+:global(html[data-soh-theme=dark]) .contact{background:#19372a;border-color:#3a6348}
+:global(html[data-soh-theme=dark]) .contact>p{color:#b0c6b8}
+:global(html[data-soh-theme=dark]) .contact nav a{background:#122923;border-color:#42634b;color:#a3d2b1}
+:global(html[data-soh-theme=dark]) .contact nav a:hover{background:#23402f}
+:global(html[data-soh-wide-touch]) .contact{padding:20px 16px}
+:global(html[data-soh-wide-touch]) .contact h2{font-size:22px}
+:global(html[data-soh-wide-touch]) .contact>p{font-size:14px}
+:global(html[data-soh-wide-touch]) .contact nav a{font-size:14px}
