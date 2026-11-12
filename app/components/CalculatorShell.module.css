@@ -1,13 +1,13 @@
 /* Shared presentation only: school-specific state, rules and reports stay in each page. */
-.page { min-height: 100vh; background: #f8fafc; padding: 2rem 1rem; color: #0f172a; }
+.page { min-height: 100vh; background: #f8fafc; padding: 1rem 1rem; color: #0f172a; }
 .content { max-width: 72rem; margin-inline: auto; min-width: 0; }
-.hero { border-radius: 1.5rem; padding: 1.5rem; color: white; background: linear-gradient(135deg,#166534,#15803d,#059669); box-shadow: 0 10px 15px -3px #0000001a; }
-.shortcuts { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.5rem; font-size: .75rem; font-weight: 700; }
-.shortcuts a { border: 1px solid #ffffff66; border-radius: 999px; padding: .5rem 1rem; color: white; }
+.hero { border-radius: 1rem; padding: 1rem; color: white; background: linear-gradient(135deg,#166534,#15803d,#059669); box-shadow: 0 10px 15px -3px #0000001a; }
+.shortcuts { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 0; font-size: .75rem; font-weight: 700; }
+.shortcuts a { border: 1px solid #ffffff66; border-radius: 999px; padding: .35rem .75rem; color: white; }
 .shortcuts .home { background: white; color: #166534 !important; }
-.brand { font-size: .75rem; font-weight: 700; letter-spacing: .1em; }
-.hero h1 { margin-top: .75rem; font-size: clamp(1.875rem,4vw,2.25rem); line-height: 1.15; font-weight: 900; overflow-wrap: anywhere; }
-.description { max-width: 42rem; margin-top: .75rem; font-size: .875rem; line-height: 1.5rem; color: #f0fdf4; }
+.brand { margin: 0; font-size: .625rem; font-weight: 700; letter-spacing: .08em; }
+.hero h1 { margin-top: .5rem; font-size: clamp(1.25rem,2.4vw,1.5rem); line-height: 1.15; font-weight: 900; overflow-wrap: anywhere; }
+.description { max-width: 60rem; margin-top: .375rem; font-size: .8125rem; line-height: 1.25rem; color: #f0fdf4; }
 .page :is(input:not([type="checkbox"]):not([type="radio"]),select) { min-width: 0; max-width: 100%; border: 1px solid #cbd5e1; border-radius: .75rem; background: white; padding: .75rem; color: #0f172a; font-size: .875rem; }
 .page :is(input,select,button,a):focus-visible { outline: 3px solid #16a34a; outline-offset: 3px; }
 .page :is(input,select)[aria-invalid="true"] { border-color: #b91c1c; }
@@ -18,5 +18,10 @@
 :global(html[data-soh-theme="dark"]) .page { background: #0b1322; color: #e5edf8; }
 :global(html[data-soh-theme="dark"]) .page :is(input:not([type="checkbox"]):not([type="radio"]),select) { background: #142137; color: #e5edf8; border-color: #334155; }
 :global(html[data-soh-theme="dark"]) .page :is(hr,[class~="border-t"]) { border-color: #334155; }
-@media(min-width:640px) { .page { padding-inline: 1.5rem; } .hero { padding: 2rem; } .page section[class*="rounded-3xl"] { padding: 1.75rem; } }
+@media(min-width:640px) { .page { padding-inline: 1.5rem; } .hero { padding: 1.25rem; } .page section[class*="rounded-3xl"] { padding: 1.75rem; } }
 @media(min-width:1024px) { .page { padding-inline: 2rem; } .content > div[class*="lg:grid-cols-"] { grid-template-columns: minmax(0,1.5fr) minmax(0,1fr); align-items: start; } }
+
+.heroMeta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; }
+.details { margin-top: .625rem; font-size: .75rem; }
+.details > * { margin-top: 0 !important; }
+.details span { padding: .25rem .5rem; }

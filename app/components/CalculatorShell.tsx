@@ -10,14 +10,14 @@ export function CalculatorHeader({ title, description, children }: {
   title: ReactNode; description: ReactNode; children?: ReactNode;
 }) {
   return <header className={styles.hero}>
-    <nav aria-label="Calculator shortcuts" className={styles.shortcuts}>
+    <div className={styles.heroMeta}><nav aria-label="Calculator shortcuts" className={styles.shortcuts}>
       <PublicPageLink href="/" className={styles.home}>Home</PublicPageLink>
       <PublicPageLink href="/screening-calculator">All calculators</PublicPageLink>
     </nav>
-    <p className={styles.brand}>S.O.H CONSULTS</p>
+    <p className={styles.brand}>S.O.H CONSULTS</p></div>
     <h1>{title}</h1>
     <p className={styles.description}>{description}</p>
-    {children}
+    {children && <div className={styles.details}>{children}</div>}
   </header>;
 }
 
