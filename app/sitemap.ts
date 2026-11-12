@@ -39,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/deadlines`, changeFrequency: "daily", priority: .9 },
     { url: `${siteUrl}/guides`, changeFrequency: "weekly", priority: .95 },
   ];
-  core.push(...["my-school","tools","screening-calculator","fuoye-calculator","fuadsi-calculator","fustech-calculator","uniosun-calculator","lasued-calculator","lasustech-calculator","oou-calculator","oau-calculator","eksu-calculator","yabatech-calculator","cgpa-calculator/planner","cgpa-calculator/select-scale"].map(path=>({url:`${siteUrl}/${path}`,changeFrequency:"monthly" as const,priority:.7})));
+  core.push(...["my-school","tools","screening-calculator","fuoye-calculator","fuadsi-calculator","fustech-calculator","uniosun-calculator","lasued-calculator","lasustech-calculator","oou-calculator","oau-calculator","eksu-calculator","unilorin-calculator","yabatech-calculator","cgpa-calculator/planner","cgpa-calculator/select-scale"].map(path=>({url:`${siteUrl}/${path}`,changeFrequency:"monthly" as const,priority:.7})));
   const publishers=buildPublisherCatalogue(published,await listPublicWriterProfiles().catch(()=>[]));
   core.push({url:`${siteUrl}/writers`,changeFrequency:"weekly",priority:.7},...publishers.map(p=>({url:`${siteUrl}${p.href}`,changeFrequency:"weekly" as const,priority:.65})));
   const updatePages: MetadataRoute.Sitemap = published.filter(story=>articleReview(story).indexable).map(story => ({
