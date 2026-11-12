@@ -8,7 +8,7 @@ export const gradePoints:Record<string,number>={A1:6,B2:5,B3:4,C4:3,C5:2,C6:1,D7
 export const subjects=Object.values(labels).sort();
 const codeByLabel=new Map(Object.entries(labels).map(([code,label])=>[label,code]));
 function assign(slots:string[][],available:string[]):boolean {
- if(!slots.length)return true;
+ if(!slots.length)return available.length===0;
  const ordered=[...slots].sort((a,b)=>a.length-b.length),[slot,...rest]=ordered;
  return available.some((c,i)=>slot.includes(c)&&assign(rest,available.filter((_,j)=>j!==i)));
 }
@@ -46,7 +46,9 @@ export function calculate(p:Programme,score:string,postScore:string,rows:Result[
  // Check sittings used by the selected credits, not merely whether the user opened sitting 2.
  const sittingsUsed=new Set(selected.map(r=>r.sitting)).size;
  const sittingMet=!p.oneSitting||sittingsUsed<=1;
- const extraPassMet=!p.extraPhysicsPass||rows.some(r=>r.subject==='Physics'&&r.sitting<=sittings&&Object.hasOwn(gradePoints,r.grade)&&r.grade!=='F9');
+ const physicsPassMet=!p.extraPhysicsPass||rows.some(r=>r.subject==='Physics'&&r.sitting<=sittings&&Object.hasOwn(gradePoints,r.grade)&&r.grade!=='F9');
+ const biologyPassMet=!p.extraBiologyPassIfAgr||!selected.some(r=>r.subject==='Agricultural Science')||rows.some(r=>r.subject==='Biology'&&r.sitting<=sittings&&Object.hasOwn(gradePoints,r.grade)&&r.grade!=='F9');
+ const extraPassMet=physicsPassMet&&biologyPassMet;
  return {selected,scoreValid,postValid,utme,post,oLevel,total:utme!==null&&post!==null&&oLevel!==null?utme+post+oLevel:null,creditsMet:selected.length===5,sittingMet,extraPassMet,sittingReview:p.sittingReview&&sittingsUsed>1,utmeStatus:assessUtme(p,electives)};
 }
 export function targetScores(target:string,utme:number|null,post:number|null,oLevel:number|null){

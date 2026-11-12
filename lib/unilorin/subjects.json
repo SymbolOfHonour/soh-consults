@@ -57,5 +57,13 @@
   "HMA": "Home Management",
   "BLE": "Basic Electricity",
   "AEL": "Applied Electricity",
-  "AME": "Auto Mechanics"
+  "AME": "Auto Mechanics",
+  "MWO": "Metalwork",
+  "ELT": "Electronics",
+  "LSU": "Land Surveying",
+  "ESU": "Elementary Surveying",
+  "BLK": "Blocklaying",
+  "CJO": "Carpentry and Joinery",
+  "TYP": "Typewriting",
+  "SHO": "Shorthand"
 }
