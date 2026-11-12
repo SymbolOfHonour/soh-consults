@@ -1,0 +1,5289 @@
+[
+  {
+    "code": "accounting",
+    "name": "Accounting",
+    "utme": "ENG, ECO, MAT (+ 1 S.S.)",
+    "oLevel": "ENG, MAT, ECO; 2 from GEO/GOV/ACC/COM/HIS/BST/TOU/CED/YOR/HOS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "actuarial-science",
+    "name": "Actuarial Science",
+    "utme": "ENG, ECO, MAT (+ 1 R.S.)",
+    "oLevel": "ENG, MAT, ECO; 2 from GEO/GOV/ACC/COM/HIS/BST/TOU/CED/YOR/HOS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "adult-education",
+    "name": "Adult Education",
+    "utme": "ENG, HIS/GOV (+ 1 R.S.)",
+    "oLevel": "ENG, MAT; 3 from LIT/ECO/CRS/IRS/GOV/HIS/GEO/YOR/IGB/HAU/FRE/ACC/BKE /BIO",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "LIT",
+        "ECO",
+        "CRS",
+        "IRS",
+        "GOV",
+        "HIS",
+        "GEO",
+        "YOR",
+        "IGB",
+        "HAU",
+        "FRE",
+        "ACC",
+        "BKE",
+        "BIO"
+      ],
+      [
+        "LIT",
+        "ECO",
+        "CRS",
+        "IRS",
+        "GOV",
+        "HIS",
+        "GEO",
+        "YOR",
+        "IGB",
+        "HAU",
+        "FRE",
+        "ACC",
+        "BKE",
+        "BIO"
+      ],
+      [
+        "LIT",
+        "ECO",
+        "CRS",
+        "IRS",
+        "GOV",
+        "HIS",
+        "GEO",
+        "YOR",
+        "IGB",
+        "HAU",
+        "FRE",
+        "ACC",
+        "BKE",
+        "BIO"
+      ]
+    ],
+    "minimum": 150,
+    "note": "Published UTME row lists only three subjects. Confirm the full four-subject combination with EKSU."
+  },
+  {
+    "code": "agricultural-economics-and-extension-services",
+    "name": "Agricultural Economics and Extension Services",
+    "utme": "ENG, CHE, BIO/AGR (+ 1 = MAT/PHY)",
+    "oLevel": "ENG, MAT, CHE, BIO/AGR; 1 from GEO/ECO/PHY/HEC",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "GEO",
+        "ECO",
+        "PHY",
+        "HEC"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "agricultural-education",
+    "name": "Agricultural Education",
+    "utme": "ENG, MAT, PHY, CHE",
+    "oLevel": "ENG, MAT, AGR/BIO, CHE; 1 from PHY/GEO/ECO/CED/ACC/HED/ACC/MKT/AHU/TOU/HOS",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "AGR",
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY",
+        "GEO",
+        "ECO",
+        "CED",
+        "ACC",
+        "HED",
+        "MKT",
+        "AHU",
+        "TOU",
+        "HOS"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "anatomy",
+    "name": "Anatomy",
+    "utme": "ENG, BIO, CHE (+ 1 = PHY, R.S.)",
+    "oLevel": "ENG, MAT, BIO, CHE, PHY",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "animal-production-health-sciences",
+    "name": "Animal Production & Health Sciences",
+    "utme": "ENG, CHE, BIO/AGR (+ 1 = MAT/PHY)",
+    "oLevel": "ENG, MAT, CHE, BIO/AGR; 1 from GEO/ECO/PHY/HEC",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "GEO",
+        "ECO",
+        "PHY",
+        "HEC"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "banking-and-finance",
+    "name": "Banking and Finance",
+    "utme": "ENG. ECO, MAT (+ 1 = GOV, GEO)",
+    "oLevel": "ENG, MAT, ECO; 2 from GEO/GOV/ACC/COM/HIS/BST/TOU/CED/YOR/HOS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "basic-medical-laboratory-science",
+    "name": "Basic Medical Laboratory Science",
+    "utme": "ENG, BIO, CHE (+ 1 = PHY, R.S.)",
+    "oLevel": "ENG, MAT, BIO, CHE, PHY",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "minimum": 220,
+    "note": ""
+  },
+  {
+    "code": "basic-intergrated-sci-education",
+    "name": "Basic/Intergrated Sci. Education",
+    "utme": "ENG (+ 3 = AGR, BIO, MAT/PHY)",
+    "oLevel": "ENG, MAT, BIO, CHE; 1 from PHY/GEO/ECO/AGR/HEC/AHU/CED/TOU/HEC/HOS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY",
+        "GEO",
+        "ECO",
+        "AGR",
+        "HEC",
+        "AHU",
+        "CED",
+        "TOU",
+        "HOS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "biochemistry",
+    "name": "Biochemistry",
+    "utme": "ENG, BIO, CHE, PHY/MAT",
+    "oLevel": "ENG, MAT, BIO, CHE, PHY",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "biology-education",
+    "name": "Biology Education",
+    "utme": "ENG, BIO (+ 2 = CHE, PHY, MAT)",
+    "oLevel": "ENG, MAT, BIO; 1 (atleast) from CHE/PHY + 1 from GEO/ECO/CED/GOV/HIS/HOS/HEC/LIT/YOR/TOU/ACC/COM/B ST/CRS",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE",
+        "PHY"
+      ],
+      [
+        "GEO",
+        "ECO",
+        "CED",
+        "GOV",
+        "HIS",
+        "HOS",
+        "HEC",
+        "LIT",
+        "YOR",
+        "TOU",
+        "ACC",
+        "COM",
+        "BST",
+        "CRS"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "building-and-woodwork-technology",
+    "name": "Building and Woodwork Technology",
+    "utme": "ENG, MAT, PHY, CHE",
+    "oLevel": "ENG, MAT, PHY; 2 from BIO/CHE/AGR/TDR/BUI/WWO/AHU/CCP/DAT/DYE/EIM/ICT/I NS/MAR/MUS/OPR/PAI/PHO/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO",
+        "CHE",
+        "AGR",
+        "TDR",
+        "BUI",
+        "WWO",
+        "AHU",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "CST"
+      ],
+      [
+        "BIO",
+        "CHE",
+        "AGR",
+        "TDR",
+        "BUI",
+        "WWO",
+        "AHU",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "business-administration",
+    "name": "Business Administration",
+    "utme": "ENG, ECO, MAT (+ 1 S.S.)",
+    "oLevel": "ENG, MAT, ECO; 2 from GEO/GOV/ACC/COM/HIS/BST/TOU/CED/YOR/HOS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "business-education-accounting",
+    "name": "Business Education \u2014 Accounting",
+    "utme": "ENG, ECO, MAT (+ 1 = CHE, GEO, GOV, HIS, LIT)",
+    "oLevel": "ENG, MAT, ECO/COM; 2 from GOV/HIS/GEO/CED/FAC/BST/LIT/CRS/IRS/YOR/FRE/MKT/ACC",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "COM"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "GEO",
+        "CED",
+        "ACC",
+        "BST",
+        "LIT",
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "MKT"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "GEO",
+        "CED",
+        "ACC",
+        "BST",
+        "LIT",
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "MKT"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "business-education-marketing",
+    "name": "Business Education \u2014 Marketing",
+    "utme": "ENG, ECO, MAT (+ 1 = CHE, GEO, GOV, HIS, LIT)",
+    "oLevel": "ENG, MAT, ECO/COM; 2 from GOV/HIS/GEO/CED/FAC/BST/LIT/CRS/IRS/YOR/FRE/MKT/ACC",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "COM"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "GEO",
+        "CED",
+        "ACC",
+        "BST",
+        "LIT",
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "MKT"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "GEO",
+        "CED",
+        "ACC",
+        "BST",
+        "LIT",
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "MKT"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "business-education-office-management",
+    "name": "Business Education \u2014 Office Management",
+    "utme": "ENG, ECO, MAT (+ 1 = CHE, GEO, GOV, HIS, LIT)",
+    "oLevel": "ENG, MAT, ECO/COM; 2 from GOV/HIS/GEO/CED/FAC/BST/LIT/CRS/IRS/YOR/FRE/MKT/ACC",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "COM"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "GEO",
+        "CED",
+        "ACC",
+        "BST",
+        "LIT",
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "MKT"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "GEO",
+        "CED",
+        "ACC",
+        "BST",
+        "LIT",
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "MKT"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "chemistry",
+    "name": "Chemistry",
+    "utme": "ENG, CHE (+ 2 = BIO, PHY, MAT)",
+    "oLevel": "ENG, MAT, BIO/AGR, CHE, PHY",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "chemistry-education",
+    "name": "Chemistry Education",
+    "utme": "ENG, CHE (+ 2 = PHY, MAT, BIO)",
+    "oLevel": "ENG, MAT, CHE; 2 from BIO/AGR/PHY",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "christian-religious-studies",
+    "name": "Christian Religious Studies",
+    "utme": "ENG, CRS (+ 2 A.S.)",
+    "oLevel": "ENG; 4 from GOV/HIS/LIT/CED/CRS/IRS/FRE/YOR/HAU/IGB/MAT/ECO/CED /HEC/HOS/ACC/FAC/BST/MKT/BIO/CHE/PHY/AGR",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "civil-engineering",
+    "name": "Civil Engineering",
+    "utme": "ENG, MAT, PHY, CHE",
+    "oLevel": "ENG, MAT, PHY, CHE; 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 180,
+    "note": ""
+  },
+  {
+    "code": "computer-engineering",
+    "name": "Computer Engineering",
+    "utme": "ENG, MAT, PHY, CHE",
+    "oLevel": "ENG, MAT, PHY, CHE; 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 180,
+    "note": ""
+  },
+  {
+    "code": "computer-science",
+    "name": "Computer Science",
+    "utme": "ENG, MAT, PHY (+ 1 = AGR, BIO, CHE, ECO, GEO)",
+    "oLevel": "ENG, MAT, CHE, PHY, BIO",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO"
+      ]
+    ],
+    "minimum": 180,
+    "note": ""
+  },
+  {
+    "code": "computer-science-education",
+    "name": "Computer Science Education",
+    "utme": "ENG, MAT, PHY (+ 1 = BIO, CHE, GEO)",
+    "oLevel": "ENG, MAT, PHY; 2 from BIO/AGR/CHE/GEO/ECO/AGR/CED/HEC/AHU",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "CHE",
+        "GEO",
+        "ECO",
+        "CED",
+        "HEC",
+        "AHU"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "CHE",
+        "GEO",
+        "ECO",
+        "CED",
+        "HEC",
+        "AHU"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "cooperative-studies",
+    "name": "Cooperative Studies",
+    "utme": "ENG, ECO, MAT (+ 1 R.S.)",
+    "oLevel": "ENG, MAT, ECO; 2 from GEO/GOV/ACC/COM/HIS/BST/TOU/CED/YOR/HOS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "crop-horticulture-and-landscape-design",
+    "name": "Crop, Horticulture and Landscape Design",
+    "utme": "ENG, CHE, BIO/AGR (+ 1 = MAT/PHY)",
+    "oLevel": "ENG, MAT, CHE, BIO/AGR; 1 from GEO/ECO/PHY/HEC",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "GEO",
+        "ECO",
+        "PHY",
+        "HEC"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "economics",
+    "name": "Economics",
+    "utme": "ENG, MAT (+ 2 GOV, HIS, GEO, LIT, FRE, CRS/IRS)",
+    "oLevel": "ENG, MAT, ECO; 1 (atleast) from GOV/GEO/CED/FAC/ACC/COM & 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "economics-education",
+    "name": "Economics Education",
+    "utme": "ENG, ECO, MAT (+ 1 = GEO/PHY, GOV, HIS, LIT)",
+    "oLevel": "ENG, MAT, ECO; 2 from GEO/CED/GOV/HIS/CRS/IRS/HOS/HEC/BST/TOU/COM/ACC/B KE/LIT/MKT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "CED",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "LIT",
+        "MKT"
+      ],
+      [
+        "GEO",
+        "CED",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "LIT",
+        "MKT"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "education-arabic-studies",
+    "name": "Education Arabic Studies",
+    "utme": "ENG, ARA (+ 2 Arts or Social Science subjects)",
+    "oLevel": "ENG, IRS; 2 from CRS/FRE/IGB/HAU/GOV/HIS/LIT/YOR + 1 from CED/MAT/ECO/ACC/GEO/COM/BKE/BIO/TOU/BST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "IRS"
+      ],
+      [
+        "CRS",
+        "FRE",
+        "IGB",
+        "HAU",
+        "GOV",
+        "HIS",
+        "LIT",
+        "YOR"
+      ],
+      [
+        "CRS",
+        "FRE",
+        "IGB",
+        "HAU",
+        "GOV",
+        "HIS",
+        "LIT",
+        "YOR"
+      ],
+      [
+        "CED",
+        "MAT",
+        "ECO",
+        "ACC",
+        "GEO",
+        "COM",
+        "BKE",
+        "BIO",
+        "TOU",
+        "BST"
+      ]
+    ],
+    "minimum": 150,
+    "note": "EKSU-specific UTME confirmation pending."
+  },
+  {
+    "code": "education-christian-religious-studies",
+    "name": "Education Christian Religious Studies",
+    "utme": "ENG, IRS/CRS (+ 2 R.S.)",
+    "oLevel": "ENG; 1 (atleast) from CRS/IRS/FRE/IGB/HAU/GOV/HIS/LIT/YOR + 3 from CED/MAT/ECO/ACC/GEO/COM/BKE/BIO/TOU/BST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "CRS",
+        "IRS",
+        "FRE",
+        "IGB",
+        "HAU",
+        "GOV",
+        "HIS",
+        "LIT",
+        "YOR"
+      ],
+      [
+        "CED",
+        "MAT",
+        "ECO",
+        "ACC",
+        "GEO",
+        "COM",
+        "BKE",
+        "BIO",
+        "TOU",
+        "BST"
+      ],
+      [
+        "CED",
+        "MAT",
+        "ECO",
+        "ACC",
+        "GEO",
+        "COM",
+        "BKE",
+        "BIO",
+        "TOU",
+        "BST"
+      ],
+      [
+        "CED",
+        "MAT",
+        "ECO",
+        "ACC",
+        "GEO",
+        "COM",
+        "BKE",
+        "BIO",
+        "TOU",
+        "BST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "education-history",
+    "name": "Education History",
+    "utme": "ENG, HIS/GOV (+ 2 = CRS/IRS, ECO, FRE, GEO/PHY, HAU, LIT, YOR)",
+    "oLevel": "ENG, HIS/GOV; 3 from YOR/LIT/FRE/IGB/HAU/CRS/IRS/CED/ECO/ACC/COM/GEO/BK E/MKT/TOU/HOS/BST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "HIS",
+        "GOV"
+      ],
+      [
+        "YOR",
+        "LIT",
+        "FRE",
+        "IGB",
+        "HAU",
+        "CRS",
+        "IRS",
+        "CED",
+        "ECO",
+        "ACC",
+        "COM",
+        "GEO",
+        "BKE",
+        "MKT",
+        "TOU",
+        "HOS",
+        "BST"
+      ],
+      [
+        "YOR",
+        "LIT",
+        "FRE",
+        "IGB",
+        "HAU",
+        "CRS",
+        "IRS",
+        "CED",
+        "ECO",
+        "ACC",
+        "COM",
+        "GEO",
+        "BKE",
+        "MKT",
+        "TOU",
+        "HOS",
+        "BST"
+      ],
+      [
+        "YOR",
+        "LIT",
+        "FRE",
+        "IGB",
+        "HAU",
+        "CRS",
+        "IRS",
+        "CED",
+        "ECO",
+        "ACC",
+        "COM",
+        "GEO",
+        "BKE",
+        "MKT",
+        "TOU",
+        "HOS",
+        "BST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "educational-management",
+    "name": "Educational Management",
+    "utme": "ENG, MAT, ECO (+ 1 Social Science or Arts subject)",
+    "oLevel": "ENG, MAT, ECO; 2 from GOV/HIS/ACC/GEO/CRS/IRS/COM/TOU/HOS/BST/HEC/YOR/BI O/BKE",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "ACC",
+        "GEO",
+        "CRS",
+        "IRS",
+        "COM",
+        "TOU",
+        "HOS",
+        "BST",
+        "HEC",
+        "YOR",
+        "BIO",
+        "BKE"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "ACC",
+        "GEO",
+        "CRS",
+        "IRS",
+        "COM",
+        "TOU",
+        "HOS",
+        "BST",
+        "HEC",
+        "YOR",
+        "BIO",
+        "BKE"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "educational-technology",
+    "name": "Educational Technology",
+    "utme": "ENG, MAT, PHY (+ 1 S.S.)",
+    "oLevel": "ENG, MAT; 3 from Fine Art/BUI/WWO/TDR/PHY/CHE/BIO/GEO/ ECO/GEO/CED/GOV/HIS/CRS/IRS/HOS/HEC/BST/TOU/COM /ACC/BKE/MKT/LIT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ART",
+        "BUI",
+        "WWO",
+        "TDR",
+        "PHY",
+        "CHE",
+        "BIO",
+        "GEO",
+        "ECO",
+        "CED",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "MKT",
+        "LIT"
+      ],
+      [
+        "ART",
+        "BUI",
+        "WWO",
+        "TDR",
+        "PHY",
+        "CHE",
+        "BIO",
+        "GEO",
+        "ECO",
+        "CED",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "MKT",
+        "LIT"
+      ],
+      [
+        "ART",
+        "BUI",
+        "WWO",
+        "TDR",
+        "PHY",
+        "CHE",
+        "BIO",
+        "GEO",
+        "ECO",
+        "CED",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "MKT",
+        "LIT"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "electrical-electronic-engineering",
+    "name": "Electrical/Electronic Engineering",
+    "utme": "ENG, MAT, PHY, CHE",
+    "oLevel": "ENG, MAT, PHY, CHE; 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 180,
+    "note": ""
+  },
+  {
+    "code": "electrical-electronic-technology",
+    "name": "Electrical/Electronic Technology",
+    "utme": "ENG, MAT, PHY, CHE",
+    "oLevel": "ENG, PHY, MAT; 2 from BIO/CHE/AGR/TDR/BUI/WWO/AHU/CCP/DAT/DYE/EIM/ICT/I NS/MAR/MUS/OPR/PAI/PHO/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO",
+        "CHE",
+        "AGR",
+        "TDR",
+        "BUI",
+        "WWO",
+        "AHU",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "CST"
+      ],
+      [
+        "BIO",
+        "CHE",
+        "AGR",
+        "TDR",
+        "BUI",
+        "WWO",
+        "AHU",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "english-literary-studies",
+    "name": "English & Literary Studies",
+    "utme": "ENG, LIT (+ 2 [S.S] OR [A.S.])",
+    "oLevel": "ENG, LIT; 3 from YOR/GOV/HIS/CRS/IRS/FRE/YOR/HAU/IGB/MAT/ECO/CED",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "YOR",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "FRE",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "CED"
+      ],
+      [
+        "YOR",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "FRE",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "CED"
+      ],
+      [
+        "YOR",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "FRE",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "CED"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "english-education",
+    "name": "English Education",
+    "utme": "ENG, LIT (+ 1 A.S.) (+ 1 R.S.)",
+    "oLevel": "ENG, LIT; 1 (atleast) from GOV/CRS/IRS/HIS/YOR/FRE/CED + 2 from MAT/ECO/COM/GEO/ACC/BKE/BIO/TOU/MKT/BST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "GOV",
+        "CRS",
+        "IRS",
+        "HIS",
+        "YOR",
+        "FRE",
+        "CED"
+      ],
+      [
+        "MAT",
+        "ECO",
+        "COM",
+        "GEO",
+        "ACC",
+        "BKE",
+        "BIO",
+        "TOU",
+        "MKT",
+        "BST"
+      ],
+      [
+        "MAT",
+        "ECO",
+        "COM",
+        "GEO",
+        "ACC",
+        "BKE",
+        "BIO",
+        "TOU",
+        "MKT",
+        "BST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "entrepreneurship",
+    "name": "Entrepreneurship",
+    "utme": "ENG, ECO, MAT (+ 1 S.S.)",
+    "oLevel": "ENG, MAT, ECO/COM; 2 from GEO/GOV/ACC/HIS/BST/TOU/CED/YOR/HOS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "COM"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "environmental-management",
+    "name": "Environmental Management",
+    "utme": "ENG, CHE, BIO (+ 1 = MAT, PHY)",
+    "oLevel": "ENG, MAT, GEO; 1 (atleast) from GOV/ECO/CED/FAC/ACC/COM & 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GEO"
+      ],
+      [
+        "GOV",
+        "ECO",
+        "CED",
+        "ACC",
+        "COM"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "fisheries-and-aquaculture-management",
+    "name": "Fisheries and Aquaculture Management",
+    "utme": "ENG, CHE, BIO/AGR (+ 1 = MAT/PHY)",
+    "oLevel": "ENG, MAT, CHE, BIO/AGR; 1 from GEO/ECO/PHY/HEC",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "GEO",
+        "ECO",
+        "PHY",
+        "HEC"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "food-science-and-technology",
+    "name": "Food Science and Technology",
+    "utme": "ENG, CHE, BIO/AGR (+ 1 = MAT/PHY)",
+    "oLevel": "ENG, MAT, CHE, PHY, BIO/AGR",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "forestry-resources-and-wildlife-management",
+    "name": "Forestry Resources and Wildlife Management",
+    "utme": "ENG, CHE, BIO/AGR (+ 1 = MAT/PHY)",
+    "oLevel": "ENG, MAT, CHE, BIO/AGR; 1 from GEO/ECO/PHY/HEC",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "GEO",
+        "ECO",
+        "PHY",
+        "HEC"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "french",
+    "name": "French",
+    "utme": "ENG, FRE (+ 2 [S.S] OR [A.S.])",
+    "oLevel": "ENG; 4 from HIS/GOV/CRS/IRS/LIT/YOR/YOR/FRE/CED/MAT/ECO/CED/HEC /HOS/ACC/FAC/BST/MKT/BIO/CHE/PHY/AGR",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "LIT",
+        "YOR",
+        "FRE",
+        "CED",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "LIT",
+        "YOR",
+        "FRE",
+        "CED",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "LIT",
+        "YOR",
+        "FRE",
+        "CED",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "LIT",
+        "YOR",
+        "FRE",
+        "CED",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "french-education",
+    "name": "French Education",
+    "utme": "ENG, FRE (+ 2 A.S.)",
+    "oLevel": "ENG; 1 (atleast) from GOV/CRS/IRS/YOR/HIS/LIT/FRE + 3 from CED/ACC/ECO/COM/BIO/MKT/BKE/GEO/MAT/BST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "GOV",
+        "CRS",
+        "IRS",
+        "YOR",
+        "HIS",
+        "LIT",
+        "FRE"
+      ],
+      [
+        "CED",
+        "ACC",
+        "ECO",
+        "COM",
+        "BIO",
+        "MKT",
+        "BKE",
+        "GEO",
+        "MAT",
+        "BST"
+      ],
+      [
+        "CED",
+        "ACC",
+        "ECO",
+        "COM",
+        "BIO",
+        "MKT",
+        "BKE",
+        "GEO",
+        "MAT",
+        "BST"
+      ],
+      [
+        "CED",
+        "ACC",
+        "ECO",
+        "COM",
+        "BIO",
+        "MKT",
+        "BKE",
+        "GEO",
+        "MAT",
+        "BST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "geo-physics",
+    "name": "Geo-Physics",
+    "utme": "ENG (+ 3 = BIO, CHE, MAT, PHY)",
+    "oLevel": "ENG, MAT, PHY, CHE/BIO; 1 from AGR/GEO",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE",
+        "BIO"
+      ],
+      [
+        "AGR",
+        "GEO"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "geography-education",
+    "name": "Geography Education",
+    "utme": "ENG, GEO (+ 2 [S.S.] OR [A.S.])",
+    "oLevel": "ENG, MAT, GEO; 2 from ECO/GOV/HIS/CED/COM/ACC/BKE/BED/LIT/BST/TOU/HOS/C RS/IRS/HEC/MKT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GEO"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "HIS",
+        "CED",
+        "COM",
+        "ACC",
+        "BKE",
+        "BED",
+        "LIT",
+        "BST",
+        "TOU",
+        "HOS",
+        "CRS",
+        "IRS",
+        "HEC",
+        "MKT"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "HIS",
+        "CED",
+        "COM",
+        "ACC",
+        "BKE",
+        "BED",
+        "LIT",
+        "BST",
+        "TOU",
+        "HOS",
+        "CRS",
+        "IRS",
+        "HEC",
+        "MKT"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "geography-and-planning-science",
+    "name": "Geography and Planning Science",
+    "utme": "ENG, GEO (+ 2 [S.S.] OR [A.S.])",
+    "oLevel": "ENG, MAT, GEO; 1 (atleast) from GOV/ECO/COM/CED/FAC/ACC & 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GEO"
+      ],
+      [
+        "GOV",
+        "ECO",
+        "COM",
+        "CED",
+        "ACC"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "geology",
+    "name": "Geology",
+    "utme": "ENG (+ 3 = BIO, CHE, GEO, MAT, PHY)",
+    "oLevel": "ENG, MAT, CHE, BIO; 1 from PHY/AGR/GEO",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "PHY",
+        "AGR",
+        "GEO"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "guidance-and-counselling",
+    "name": "Guidance and Counselling",
+    "utme": "ENG (+ 3 S.)",
+    "oLevel": "ENG, MAT; 3 from ECO/GOV/HIS/GEO/CRS/IRS/YOR/ACC/BST/TOU/FRE/LIT/HEC /COM/HOS/PHY/CHE/BIO",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "HIS",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ACC",
+        "BST",
+        "TOU",
+        "FRE",
+        "LIT",
+        "HEC",
+        "COM",
+        "HOS",
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "HIS",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ACC",
+        "BST",
+        "TOU",
+        "FRE",
+        "LIT",
+        "HEC",
+        "COM",
+        "HOS",
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "HIS",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ACC",
+        "BST",
+        "TOU",
+        "FRE",
+        "LIT",
+        "HEC",
+        "COM",
+        "HOS",
+        "PHY",
+        "CHE",
+        "BIO"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "his-international-studies",
+    "name": "HIS & International Studies",
+    "utme": "ENG (+ 3 = [S.S.] OR [A.R.])",
+    "oLevel": "ENG, HIS/GOV; 1 (atleast) from YOR/CRS/IRS/LIT/FRE/HAU/IGB/CED & 2 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "HIS",
+        "GOV"
+      ],
+      [
+        "YOR",
+        "CRS",
+        "IRS",
+        "LIT",
+        "FRE",
+        "HAU",
+        "IGB",
+        "CED"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "health-education",
+    "name": "Health Education",
+    "utme": "ENG, BIO (+ 2 R.S)",
+    "oLevel": "ENG, MAT, BIO/HED/PHE; 2 from GOV/HIS/ACC/GEO/CRS/IRS/YOR/ECO/TOU/HOS/COM/HEC/B ST/CHE/PHY/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO",
+        "HED",
+        "PHE"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "ACC",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ECO",
+        "TOU",
+        "HOS",
+        "COM",
+        "HEC",
+        "BST",
+        "CHE",
+        "PHY",
+        "CST"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "ACC",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ECO",
+        "TOU",
+        "HOS",
+        "COM",
+        "HEC",
+        "BST",
+        "CHE",
+        "PHY",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "human-kinetics-physical-health-edu",
+    "name": "Human Kinetics/Physical & Health Edu.",
+    "utme": "ENG, BIO (+ 2 R.S)",
+    "oLevel": "ENG, BIO; 3 from GOV/HIS/ACC/GEO/CRS/IRS/YOR/ECO/TOU/HOS/COM/HEC/B ST/FRE/MAT/CST/CHE/PHY",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "ACC",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ECO",
+        "TOU",
+        "HOS",
+        "COM",
+        "HEC",
+        "BST",
+        "FRE",
+        "MAT",
+        "CST",
+        "CHE",
+        "PHY"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "ACC",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ECO",
+        "TOU",
+        "HOS",
+        "COM",
+        "HEC",
+        "BST",
+        "FRE",
+        "MAT",
+        "CST",
+        "CHE",
+        "PHY"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "ACC",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ECO",
+        "TOU",
+        "HOS",
+        "COM",
+        "HEC",
+        "BST",
+        "FRE",
+        "MAT",
+        "CST",
+        "CHE",
+        "PHY"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "industrial-chemistry",
+    "name": "Industrial Chemistry",
+    "utme": "ENG, CHE, MAT (+ 1 = AGR, BIO, PHY)",
+    "oLevel": "ENG, MAT, BIO/AGR, CHE, PHY",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "industrial-relations-and-personnel-management",
+    "name": "Industrial Relations and Personnel Management",
+    "utme": "ENG, ECO, MAT (+ 1 R.S.)",
+    "oLevel": "ENG, MAT, ECO; 2 from GEO/GOV/ACC/COM/HIS/BST/TOU/CED/YOR/HOS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "insurance",
+    "name": "Insurance",
+    "utme": "ENG, ECO/COM, MAT (+ 1 R.S.)",
+    "oLevel": "ENG, MAT, ECO; 2 from GEO/GOV/ACC/COM/HIS/BST/TOU/CED/YOR/HOS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "intelligence-and-security-studies",
+    "name": "Intelligence and Security Studies",
+    "utme": "ENG, GOV (+ 2 [S.S.])",
+    "oLevel": "ENG, MAT, GOV (+2 [S.S]; )GOV/GEO/CED/FAC/ACC/COM",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "international-relations",
+    "name": "International Relations",
+    "utme": "ENG, GOV (+ 2 [S.S.])",
+    "oLevel": "ENG, MAT, GOV (+2 [S.S]; )GOV/GEO/CED/FAC/ACC/COM",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "islamic-religious-studies-arabic",
+    "name": "Islamic Religious Studies/Arabic",
+    "utme": "ENG, ARA (+ 2 R.S.)",
+    "oLevel": "ENG; 4 from GOV/HIS/LIT/CED/CRS/IRS/FRE/YOR/HAU/IGB/MAT/ECO/CED /HEC/HOS/ACC/FAC/BST/MKT/BIO/CHE/PHY/AGR",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "law",
+    "name": "Law",
+    "utme": "ENG (+ 3 = [S.S] OR [A.S.])",
+    "oLevel": "ENG, LIT, MAT, GOV; 1 from CRS/IRS",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV"
+      ],
+      [
+        "CRS",
+        "IRS"
+      ]
+    ],
+    "minimum": 250,
+    "note": ""
+  },
+  {
+    "code": "library-and-information-science",
+    "name": "Library and Information Science",
+    "utme": "ENG (+ 3 R.S.)",
+    "oLevel": "ENG, MAT; 3 from LIT/YOR/FRE/HIS/GOV/CRS/IRS/PHY/CHE/BIO/ECO/GEO/CED/ CRS/IRS/HOS/HEC/BST/TOU/COM/ACC/BKE",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "LIT",
+        "YOR",
+        "FRE",
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "PHY",
+        "CHE",
+        "BIO",
+        "ECO",
+        "GEO",
+        "CED",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE"
+      ],
+      [
+        "LIT",
+        "YOR",
+        "FRE",
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "PHY",
+        "CHE",
+        "BIO",
+        "ECO",
+        "GEO",
+        "CED",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE"
+      ],
+      [
+        "LIT",
+        "YOR",
+        "FRE",
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "PHY",
+        "CHE",
+        "BIO",
+        "ECO",
+        "GEO",
+        "CED",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "linguistics-nigeria-languages",
+    "name": "Linguistics & Nigeria Languages",
+    "utme": "ENG, YOR/IGB/HAU (+ 2 R.S.)",
+    "oLevel": "ENG; 1 (atleast) from YOR/CRS/IRS/LIT/FRE/HAU/IGB/CED/GOV/HIS & 3 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "YOR",
+        "CRS",
+        "IRS",
+        "LIT",
+        "FRE",
+        "HAU",
+        "IGB",
+        "CED",
+        "GOV",
+        "HIS"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "marketing",
+    "name": "Marketing",
+    "utme": "ENG. ECO, MAT (+ 1 R.S.)",
+    "oLevel": "ENG, MAT, ECO; 2 from GEO/GOV/ACC/COM/HIS/BST/TOU/CED/YOR/HOS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ACC",
+        "COM",
+        "HIS",
+        "BST",
+        "TOU",
+        "CED",
+        "YOR",
+        "HOS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "mass-communication",
+    "name": "Mass Communication",
+    "utme": "ENG, GOV (+ 2 [S.S.])",
+    "oLevel": "ENG, MAT, GOV (+2 [S.S]; )GOV/GEO/CED/FAC/ACC/COM",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ]
+    ],
+    "minimum": 200,
+    "note": ""
+  },
+  {
+    "code": "mathematics",
+    "name": "Mathematics",
+    "utme": "ENG, MAT (+ 2 = CHE, PHY, ECO/GEO)",
+    "oLevel": "ENG, MAT, CHE, PHY, BIO/AGR",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "mathematics-education",
+    "name": "Mathematics Education",
+    "utme": "ENG, MAT (+ 2 = PHY, CHE, BIO)",
+    "oLevel": "ENG, MAT; 1 (atleast) from CHE/BIO/PHY + 2 from ECO/AGR/CED/GEO/AHU/ACC/BST/COM/CRS/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE",
+        "BIO",
+        "PHY"
+      ],
+      [
+        "ECO",
+        "AGR",
+        "CED",
+        "GEO",
+        "AHU",
+        "ACC",
+        "BST",
+        "COM",
+        "CRS",
+        "CST"
+      ],
+      [
+        "ECO",
+        "AGR",
+        "CED",
+        "GEO",
+        "AHU",
+        "ACC",
+        "BST",
+        "COM",
+        "CRS",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "mechanical-engineering",
+    "name": "Mechanical Engineering",
+    "utme": "ENG, MAT, PHY, CHE",
+    "oLevel": "ENG, MAT, PHY, CHE; 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 180,
+    "note": ""
+  },
+  {
+    "code": "mechanical-technology",
+    "name": "Mechanical Technology",
+    "utme": "ENG, MAT, PHY, CHE",
+    "oLevel": "ENG, MAT, PHY; 2 from CHE/BIO/AGR/TDR/WWO/BUI/AHU/CCP/DAT/DYE/EIM/ICT/I NS/MAR/MUS/OPR/PAI/PHO/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE",
+        "BIO",
+        "AGR",
+        "TDR",
+        "WWO",
+        "BUI",
+        "AHU",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "CST"
+      ],
+      [
+        "CHE",
+        "BIO",
+        "AGR",
+        "TDR",
+        "WWO",
+        "BUI",
+        "AHU",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "medical-biochemistry",
+    "name": "Medical Biochemistry",
+    "utme": "ENG, BIO, CHE, PHY",
+    "oLevel": "Five credit passes in English Language, Mathematics, Biology, Chemistry and Physics, at not more than two sittings.",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "minimum": 180,
+    "note": ""
+  },
+  {
+    "code": "medicine-and-surgery",
+    "name": "Medicine and Surgery",
+    "utme": "ENG, BIO, CHE (+ 1 = PHY, R.S.)",
+    "oLevel": "ENG, MAT, BIO, CHE, PHY",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "minimum": 260,
+    "note": ""
+  },
+  {
+    "code": "microbiology",
+    "name": "Microbiology",
+    "utme": "ENG, BIO, CHE, PHY/MAT",
+    "oLevel": "ENG, MAT, CHE, PHY, BIO",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "nurs-primary-early-childhood-education",
+    "name": "Nurs & Primary/Early Childhood Education",
+    "utme": "ENG (+ 3 R.S.)",
+    "oLevel": "ENG; 4 from MAT/BIO/CHE/PHY/AGR/TDR/BUI/WWO/GEO/CED/ACC/BKE/ COM/BST/AHU/CCP/DAT/DYE/ICT/INS/MAR/MUS /OPR/PAI/PHO/GOV/LIT/YOR/CRS/IRS/FRE",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR",
+        "TDR",
+        "BUI",
+        "WWO",
+        "GEO",
+        "CED",
+        "ACC",
+        "BKE",
+        "COM",
+        "BST",
+        "AHU",
+        "CCP",
+        "DAT",
+        "DYE",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "GOV",
+        "LIT",
+        "YOR",
+        "CRS",
+        "IRS",
+        "FRE"
+      ],
+      [
+        "MAT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR",
+        "TDR",
+        "BUI",
+        "WWO",
+        "GEO",
+        "CED",
+        "ACC",
+        "BKE",
+        "COM",
+        "BST",
+        "AHU",
+        "CCP",
+        "DAT",
+        "DYE",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "GOV",
+        "LIT",
+        "YOR",
+        "CRS",
+        "IRS",
+        "FRE"
+      ],
+      [
+        "MAT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR",
+        "TDR",
+        "BUI",
+        "WWO",
+        "GEO",
+        "CED",
+        "ACC",
+        "BKE",
+        "COM",
+        "BST",
+        "AHU",
+        "CCP",
+        "DAT",
+        "DYE",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "GOV",
+        "LIT",
+        "YOR",
+        "CRS",
+        "IRS",
+        "FRE"
+      ],
+      [
+        "MAT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR",
+        "TDR",
+        "BUI",
+        "WWO",
+        "GEO",
+        "CED",
+        "ACC",
+        "BKE",
+        "COM",
+        "BST",
+        "AHU",
+        "CCP",
+        "DAT",
+        "DYE",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "GOV",
+        "LIT",
+        "YOR",
+        "CRS",
+        "IRS",
+        "FRE"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "nursing",
+    "name": "Nursing",
+    "utme": "ENG, BIO, CHE (+ 1 = PHY, R.S.)",
+    "oLevel": "ENG, MAT, BIO, CHE, PHY",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "minimum": 230,
+    "note": ""
+  },
+  {
+    "code": "peace-and-conflict-resolution",
+    "name": "Peace and Conflict Resolution",
+    "utme": "ENG, GOV (+ 2 [S.S.])",
+    "oLevel": "ENG, MAT, GOV (+2 [S.S]; )GOV/GEO/CED/FAC/ACC/COM",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "pharmacy",
+    "name": "Pharmacy",
+    "utme": "ENG, BIO, CHE, PHY",
+    "oLevel": "Five credit passes in English Language, Mathematics, Biology, Chemistry and Physics, at not more than two sittings.",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "minimum": 240,
+    "note": ""
+  },
+  {
+    "code": "philosophy",
+    "name": "Philosophy",
+    "utme": "ENG (+ 3 R.R.)",
+    "oLevel": "ENG; 4 from MAT(atleast a pass)/HIS/GOV/CRS/IRS/LIT/YOR/YOR/FRE/ECO/GEO/CED/TO U/BST/FAC/ACC/BKE/HOS/MAT/ECO/BIO/CHE/PHY/AGR",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT",
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "LIT",
+        "YOR",
+        "FRE",
+        "ECO",
+        "GEO",
+        "CED",
+        "TOU",
+        "BST",
+        "ACC",
+        "BKE",
+        "HOS",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "MAT",
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "LIT",
+        "YOR",
+        "FRE",
+        "ECO",
+        "GEO",
+        "CED",
+        "TOU",
+        "BST",
+        "ACC",
+        "BKE",
+        "HOS",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "MAT",
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "LIT",
+        "YOR",
+        "FRE",
+        "ECO",
+        "GEO",
+        "CED",
+        "TOU",
+        "BST",
+        "ACC",
+        "BKE",
+        "HOS",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "MAT",
+        "HIS",
+        "GOV",
+        "CRS",
+        "IRS",
+        "LIT",
+        "YOR",
+        "FRE",
+        "ECO",
+        "GEO",
+        "CED",
+        "TOU",
+        "BST",
+        "ACC",
+        "BKE",
+        "HOS",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": "The source includes a Mathematics pass exception. Confirm this exception with EKSU; automatic credit matching uses five credits."
+  },
+  {
+    "code": "physics",
+    "name": "Physics",
+    "utme": "ENG, MAT, PHY (+ 1 = BIO, CHE)",
+    "oLevel": "ENG, MAT, CHE, PHY; 1 from BIO/AGR/TDR/GEO",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "TDR",
+        "GEO"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "physics-education",
+    "name": "Physics Education",
+    "utme": "ENG, MAT/CHE, PHY (+ 1 R.S.)",
+    "oLevel": "ENG, MAT, PHY, CHE/BIO; 1 from GEO/ECO/AGR/CED/HEC/AHU/CST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE",
+        "BIO"
+      ],
+      [
+        "GEO",
+        "ECO",
+        "AGR",
+        "CED",
+        "HEC",
+        "AHU",
+        "CST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "physiology",
+    "name": "Physiology",
+    "utme": "ENG, BIO, CHE (+ 1 = PHY, R.S.)",
+    "oLevel": "ENG, MAT, BIO, CHE, PHY",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "plant-sciences-and-biotechnology",
+    "name": "Plant Sciences and BioTechnology",
+    "utme": "ENG, BIO, CHE (+ 1 SC.S)",
+    "oLevel": "ENG, MAT, CHE, BIO/AGR; 1 from PHY/GEO",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "PHY",
+        "GEO"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "political-science",
+    "name": "Political Science",
+    "utme": "ENG, HIS/GOV (+ 2 A.S.)",
+    "oLevel": "ENG, MAT, GOV; 1 (atleast) from GEO/ECO/COM/CED/FAC/ACC & 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV"
+      ],
+      [
+        "GEO",
+        "ECO",
+        "COM",
+        "CED",
+        "ACC"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "political-science-education",
+    "name": "Political Science Education",
+    "utme": "ENG, HIS/GOV (+ 2 R.S.)",
+    "oLevel": "ENG, MAT, GOV; 2 from GEO/CED/HIS/CRS/IRS/HOS/HEC/BST/TOU/COM/ACC/BKE/LIT /YOR/IGB/HAU/MKT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV"
+      ],
+      [
+        "GEO",
+        "CED",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "LIT",
+        "YOR",
+        "IGB",
+        "HAU",
+        "MKT"
+      ],
+      [
+        "GEO",
+        "CED",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "LIT",
+        "YOR",
+        "IGB",
+        "HAU",
+        "MKT"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "psychology",
+    "name": "Psychology",
+    "utme": "ENG (+ 3 [S.S.] OR [A.S.])",
+    "oLevel": "ENG, MAT, BIO; 1 (atleast) from GOV/GEO/ECO/COM/CED/FAC/ACC & 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "ECO",
+        "COM",
+        "CED",
+        "ACC"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "public-administration",
+    "name": "Public Administration",
+    "utme": "ENG, GOV (+ 2 [S.S.])",
+    "oLevel": "ENG, MAT, GOV (+2 [S.S]; )GOV/GEO/CED/FAC/ACC/COM",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "CED",
+        "ACC",
+        "COM"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "religious-studies",
+    "name": "Religious Studies",
+    "utme": "ENG, CRS/IRS (+ 2 R.S.)",
+    "oLevel": "ENG; 4 from GOV/HIS/LIT/CED/CRS/IRS/FRE/YOR/HAU/IGB/MAT/ECO/CED /HEC/HOS/ACC/FAC/BST/MKT/BIO/CHE/PHY/AGR",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "science-laboratory-technology",
+    "name": "Science Laboratory Technology",
+    "utme": "ENG, BIO, CHE (+ 1 MAT, PHY)",
+    "oLevel": "ENG, MAT, CHE, PHY; 1 from BIO/AGR",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "social-studies",
+    "name": "Social Studies",
+    "utme": "ENG (+ 3 = CRS/IRS, ECO, GEO/PHY, GOV, HIS)",
+    "oLevel": "ENG; 4 from ECO/GEO/CED/GOV/HIS/CRS/IRS/HOS/HEC/BST/TOU/COM/A CC/BKE/MAT/YOR/IGB/HAU/LIT/BIO",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "ECO",
+        "GEO",
+        "CED",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "MAT",
+        "YOR",
+        "IGB",
+        "HAU",
+        "LIT",
+        "BIO"
+      ],
+      [
+        "ECO",
+        "GEO",
+        "CED",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "MAT",
+        "YOR",
+        "IGB",
+        "HAU",
+        "LIT",
+        "BIO"
+      ],
+      [
+        "ECO",
+        "GEO",
+        "CED",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "MAT",
+        "YOR",
+        "IGB",
+        "HAU",
+        "LIT",
+        "BIO"
+      ],
+      [
+        "ECO",
+        "GEO",
+        "CED",
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "HOS",
+        "HEC",
+        "BST",
+        "TOU",
+        "COM",
+        "ACC",
+        "BKE",
+        "MAT",
+        "YOR",
+        "IGB",
+        "HAU",
+        "LIT",
+        "BIO"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "social-work",
+    "name": "Social Work",
+    "utme": "ENG, GOV (+ 2 [S.S.])",
+    "oLevel": "ENG, MAT (+3 [R.S])",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 150,
+    "note": "The published O\u2019Level row does not define its relevant elective list. Confirm subject relevance with EKSU."
+  },
+  {
+    "code": "sociology",
+    "name": "Sociology",
+    "utme": "ENG (+ 3 [S.S.] OR [A.S.])",
+    "oLevel": "ENG, MAT; 2 (atleast) from GOV/ECO/GEO/COM/CED/FAC/ACC & 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV",
+        "ECO",
+        "GEO",
+        "COM",
+        "CED",
+        "ACC"
+      ],
+      [
+        "GOV",
+        "ECO",
+        "GEO",
+        "COM",
+        "CED",
+        "ACC"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "soil-resources-and-environmental-management",
+    "name": "Soil Resources and Environmental Management",
+    "utme": "ENG, CHE, BIO/AGR (+ 1 = MAT/PHY)",
+    "oLevel": "ENG, MAT, CHE, BIO/AGR; 1 from GEO/ECO/PHY/HEC",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "GEO",
+        "ECO",
+        "PHY",
+        "HEC"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "statistics",
+    "name": "Statistics",
+    "utme": "ENG, MAT (+ 2 = CHE, PHY, ECO)",
+    "oLevel": "ENG, MAT, PHY,; 2 from BIO/AGR/CHE/GEO/ECO/GOV/TOU/HOS/CED",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "CHE",
+        "GEO",
+        "ECO",
+        "GOV",
+        "TOU",
+        "HOS",
+        "CED"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "CHE",
+        "GEO",
+        "ECO",
+        "GOV",
+        "TOU",
+        "HOS",
+        "CED"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "test-measurement-and-evaluation",
+    "name": "Test, Measurement and Evaluation",
+    "utme": "",
+    "oLevel": "ENG, MAT; 3 from PHY/CHE/BIO/GEO/ECO/GOV/COM/ACC/BKE/CED/BED/LIT/Y OR/IGB/HAU/MKT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "GEO",
+        "ECO",
+        "GOV",
+        "COM",
+        "ACC",
+        "BKE",
+        "CED",
+        "BED",
+        "LIT",
+        "YOR",
+        "IGB",
+        "HAU",
+        "MKT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "GEO",
+        "ECO",
+        "GOV",
+        "COM",
+        "ACC",
+        "BKE",
+        "CED",
+        "BED",
+        "LIT",
+        "YOR",
+        "IGB",
+        "HAU",
+        "MKT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "GEO",
+        "ECO",
+        "GOV",
+        "COM",
+        "ACC",
+        "BKE",
+        "CED",
+        "BED",
+        "LIT",
+        "YOR",
+        "IGB",
+        "HAU",
+        "MKT"
+      ]
+    ],
+    "minimum": 150,
+    "note": "Published UTME combination is not specified. Confirm with EKSU."
+  },
+  {
+    "code": "theatre-and-media-arts",
+    "name": "Theatre and Media Arts",
+    "utme": "ENG, LIT (+ 2 R.S.)",
+    "oLevel": "ENG, LIT; 3 from YOR/FRE/CRS/IRS/GOV/HIS/ECO/GEO/CED/TOU/HOS/ACC/CO M/BST/MAT/HEC/HOS/ACC/FAC/BST/MKT/BIO/CHE/PHY/AG R",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "YOR",
+        "FRE",
+        "CRS",
+        "IRS",
+        "GOV",
+        "HIS",
+        "ECO",
+        "GEO",
+        "CED",
+        "TOU",
+        "HOS",
+        "ACC",
+        "COM",
+        "BST",
+        "MAT",
+        "HEC",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "YOR",
+        "FRE",
+        "CRS",
+        "IRS",
+        "GOV",
+        "HIS",
+        "ECO",
+        "GEO",
+        "CED",
+        "TOU",
+        "HOS",
+        "ACC",
+        "COM",
+        "BST",
+        "MAT",
+        "HEC",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "YOR",
+        "FRE",
+        "CRS",
+        "IRS",
+        "GOV",
+        "HIS",
+        "ECO",
+        "GEO",
+        "CED",
+        "TOU",
+        "HOS",
+        "ACC",
+        "COM",
+        "BST",
+        "MAT",
+        "HEC",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "tourism-studies",
+    "name": "Tourism Studies",
+    "utme": "ENG, ECO, MAT (+ 1 R.S.)",
+    "oLevel": "ENG, MAT; 2 (atleast) from GOV/GEO/ECO/ACC/COM/CHE/PHY/BIO/AGR/CED/FAC & 1 (ANY) OTHER SUBJECT",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "ECO",
+        "ACC",
+        "COM",
+        "CHE",
+        "PHY",
+        "BIO",
+        "AGR",
+        "CED"
+      ],
+      [
+        "GOV",
+        "GEO",
+        "ECO",
+        "ACC",
+        "COM",
+        "CHE",
+        "PHY",
+        "BIO",
+        "AGR",
+        "CED"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CED",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "BKE",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "INS",
+        "MAR",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "yoruba",
+    "name": "Yoruba",
+    "utme": "ENG, YOR (+ 2 [S.S] OR [A.S.])",
+    "oLevel": "ENG, YOR; 3 from CRS/IRS/FRE/IGB/HAU/GOV/HIS/CED/LIT/MAT/ECO/CED/HEC /HOS/ACC/FAC/BST/MKT/BIO/CHE/PHY/AGR",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "YOR"
+      ],
+      [
+        "CRS",
+        "IRS",
+        "FRE",
+        "IGB",
+        "HAU",
+        "GOV",
+        "HIS",
+        "CED",
+        "LIT",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "CRS",
+        "IRS",
+        "FRE",
+        "IGB",
+        "HAU",
+        "GOV",
+        "HIS",
+        "CED",
+        "LIT",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ],
+      [
+        "CRS",
+        "IRS",
+        "FRE",
+        "IGB",
+        "HAU",
+        "GOV",
+        "HIS",
+        "CED",
+        "LIT",
+        "MAT",
+        "ECO",
+        "HEC",
+        "HOS",
+        "ACC",
+        "BST",
+        "MKT",
+        "BIO",
+        "CHE",
+        "PHY",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "yoruba-education",
+    "name": "Yoruba Education",
+    "utme": "ENG, YOR (+ 2 = ARA, CRS, IRS, GEO, ISS, LIT, PHY)",
+    "oLevel": "ENG, YOR; 1 (atleast) from CRS/IRS/FRE/IGB/HAU/GOV/HIS/LIT + 2 from CED/ECO/COM/ACC/GEO/BIO/BKE/MKT/MAT/TOU/BST",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "YOR"
+      ],
+      [
+        "CRS",
+        "IRS",
+        "FRE",
+        "IGB",
+        "HAU",
+        "GOV",
+        "HIS",
+        "LIT"
+      ],
+      [
+        "CED",
+        "ECO",
+        "COM",
+        "ACC",
+        "GEO",
+        "BIO",
+        "BKE",
+        "MKT",
+        "MAT",
+        "TOU",
+        "BST"
+      ],
+      [
+        "CED",
+        "ECO",
+        "COM",
+        "ACC",
+        "GEO",
+        "BIO",
+        "BKE",
+        "MKT",
+        "MAT",
+        "TOU",
+        "BST"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  },
+  {
+    "code": "zoology",
+    "name": "Zoology",
+    "utme": "ENG, BIO (+ 2 = CHE, PHY, MAT)",
+    "oLevel": "ENG, MAT, CHE, PHY, BIO/AGR",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ]
+    ],
+    "minimum": 150,
+    "note": ""
+  }
+]
