@@ -1,4 +1,5 @@
 "use client";
+import { getOLevelSubjectOptions } from "../../lib/olevel-subjects";
 import CalculatorShell, { CalculatorHeader, CalculatorScore } from "../components/CalculatorShell";
 
 import { useEffect, useMemo, useState } from "react";
@@ -86,7 +87,7 @@ const jambSubjects = [
   "Yoruba",
 ];
 
-const oLevelSubjects = [
+const oLevelSubjects = getOLevelSubjectOptions([
   "Accounting",
   "Agriculture",
   "Arabic",
@@ -123,8 +124,8 @@ const oLevelSubjects = [
   "Solar Photovoltaic Installation and Maintenance",
   "Technical Drawing",
   "Visual Art",
-  "Yoruba Language",
-].sort((a, b) => a.localeCompare(b));
+  "Yoruba Language"
+]);
 
 const jambAliases: Record<string, string[]> = {
   Accounting: ["accounting", "acc"],
@@ -199,6 +200,9 @@ const oLevelAliases: Record<string, string[]> = {
     "civic education",
   ],
   Commerce: ["commerce"],
+  "Computer Studies": ["computer studies", "computer science"],
+  "Data Processing": ["data processing"],
+  "Digital Technologies": ["digital technologies"],
   Economics: ["economics"],
   "English Language": [
     "english language",
