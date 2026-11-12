@@ -65,5 +65,13 @@
   "BLK": "Blocklaying",
   "CJO": "Carpentry and Joinery",
   "TYP": "Typewriting",
-  "SHO": "Shorthand"
+  "SHO": "Shorthand",
+  "STA": "Statistics",
+  "PIC": "Picture Making",
+  "CER": "Ceramics",
+  "GDE": "Graphic Design",
+  "SCU": "Sculpture",
+  "TEX": "Textiles",
+  "PDE": "Printing and Decorating",
+  "RTE": "Radio, Television and Electronic Work"
 }
