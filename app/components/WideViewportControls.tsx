@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
+import { usesMobileLayout } from "../../lib/mobile-viewport";
 
 // Keep the existing navigation and assistant at finger-friendly sizes while
 // every page uses the browser's native wide viewport and pinch zoom.
 export default function WideViewportControls() {
   useEffect(() => {
     const viewport = window.visualViewport;
-    if (!viewport || !window.matchMedia("(pointer: coarse)").matches) return;
+    if (!viewport || !window.matchMedia("(pointer: coarse)").matches || !usesMobileLayout(navigator)) return;
     const root = document.documentElement;
     const names = ["--soh-zoom-inverse", "--soh-visual-left", "--soh-visual-top", "--soh-visual-width", "--soh-visual-height", "--soh-screen-width"];
     let frame = 0;
