@@ -388,7 +388,7 @@ export default function CgpaPlannerPage() {
       {id:"target", title:"Target CGPA Planner", text:"Have a CGPA in mind? Find out the grades you need to work towards it.", action:"Plan my target"},
       {id:"projector", title:"CGPA Projector", text:"Try different grades and see how your next results could change your CGPA.", action:"Explore my CGPA"},
       {id:"retake", title:"Retake Impact", text:"See how improving a failed course could affect your overall CGPA.", action:"Check retake impact"},
-    ] as const).map((tool,i)=><PublicPageLink key={tool.id} href={`/cgpa-calculator/planner?grading=${system}&tool=${tool.id}`} className={`cgpa-card ${i===0?"cgpa-featured":""}`}><PlannerIcon kind={i}/><h3>{tool.title}</h3><p>{tool.text}</p><span className="cgpa-go">{tool.action}<span aria-hidden="true">→</span></span></PublicPageLink>)}</div>
+    ] as const).map((tool,i)=><a key={tool.id} href={`/cgpa-calculator/planner?grading=${system}&tool=${tool.id}`} className={`cgpa-card ${i===0?"cgpa-featured":""}`}><PlannerIcon kind={i}/><h3>{tool.title}</h3><p>{tool.text}</p><span className="cgpa-go">{tool.action}<span aria-hidden="true">→</span></span></a>)}</div>
     <div className="cgpa-note"><PublicPageLink href="/cgpa-calculator" className="cgpa-back">← Change grading system</PublicPageLink></div>
   </PlannerShell>;
   return <main className="cgpa-design min-h-screen bg-gray-50 text-gray-900"><PlannerHeader/><PlannerHero/>
