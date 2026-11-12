@@ -1,3 +1,4 @@
+import "./planner-design.css";
 import {withPublicSocial} from "../../lib/public-metadata";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";

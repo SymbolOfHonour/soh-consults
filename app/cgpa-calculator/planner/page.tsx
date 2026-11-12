@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import PublicPageLink from "../../components/PublicPageLink";
+import { PlannerShell, PlannerHeader, PlannerHero, PlannerIcon } from "../PlannerDesign";
 import { REPORT_TAGLINE } from "@/data/branding";
 
 type System = "lasu" | "university-5" | "university-4" | "polytechnic-4" | "nce-5" | "nce-4";
@@ -379,27 +381,17 @@ export default function CgpaPlannerPage() {
     : targetSemesterPlan.requiredGpa <= 0 ? `Your current record already meets or exceeds the ${targetSemesterPlan.target.toFixed(2)} target. Keep your semester GPA as strong as possible to protect or improve it.`
     : `To move from ${targetSemesterPlan.oldCgpa.toFixed(2)} to ${targetSemesterPlan.target.toFixed(2)} after ${targetPeriod === "future" ? `the end of ${effectiveTargetEndStage}` : targetPeriod === "session" ? "this session" : "this semester"}, you need approximately ${targetSemesterPlan.requiredGpa.toFixed(2)} / ${maxPoint.toFixed(2)} average GPA across ${targetSemesterPlan.units} course units. That is about ${Math.ceil(targetSemesterPlan.requiredPoints)} credit points across the target period.`;
 
-  return <main className="min-h-screen bg-gray-50 text-gray-900">
-    <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4"><a href="/"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" className="h-16 w-auto" /></a><nav className="hidden gap-6 text-sm font-semibold md:flex"><a href="/">Home</a><a href="/updates">Updates</a><a href="/screening-calculator">Screening Calculator</a></nav><a href="https://wa.me/2348182141088" className="rounded-full bg-green-700 px-5 py-3 text-sm font-bold text-white">WhatsApp Us</a></div></header>
-    <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 py-14 text-white"><div className="mx-auto max-w-5xl px-5 text-center"><p className="font-bold uppercase tracking-widest text-green-300">S.O.H CONSULTS Academic Tool</p><h1 className="mt-3 text-4xl font-black sm:text-5xl">CGPA Academic Planner</h1><p className="mx-auto mt-5 max-w-3xl leading-8 text-green-50">Plan one semester, a full session or an extended academic journey, including 7-year programmes and extra years, and see your CGPA journey before the results arrive.</p></div></section>
-
-    {!plannerMode && <section className="py-10">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="rounded-3xl border bg-white p-6 shadow-sm sm:p-8">
-          <p className="text-sm font-black uppercase tracking-widest text-green-700">CGPA Simulator / Planner</p>
-          <p className="mt-2 text-sm font-bold text-green-800">Using: {systemLabel(system)}</p>
-          <h2 className="mt-2 text-3xl font-black">What do you want to calculate?</h2>
-          <p className="mt-2 text-gray-600">Choose one tool to continue.</p>
-          <div className="mt-7 grid gap-4 md:grid-cols-3">
-            {([{ id: "target", icon: "🎯", title: "Target CGPA Planner", text: "What do I need to do to reach the CGPA I want?" }, { id: "projector", icon: "📊", title: "CGPA Projector", text: "What will my CGPA become if I get these grades?" }, { id: "retake", icon: "🔄", title: "Retake Impact", text: "If I improve a failed course, how could my CGPA change?" }] as const).map((tool) => (
-              <a key={tool.id} href={`/cgpa-calculator/planner?grading=${system}&tool=${tool.id}`} className={`rounded-2xl border p-5 text-left transition ${plannerMode === tool.id ? "border-green-700 bg-green-50 ring-2 ring-green-200" : "hover:border-green-400"}`}><span className="text-2xl">{tool.icon}</span><h3 className="mt-3 text-xl font-black">{tool.title}</h3><p className="mt-2 text-sm text-gray-600">{tool.text}</p><p className="mt-4 font-black text-green-700">Open Tool →</p></a>
-            ))}
-          </div>
-          <div className="mt-6"><a href="/cgpa-calculator" className="text-sm font-black text-green-700">← Change grading system</a></div>
-        </div>
-      </div>
-    </section>}
-
+  if (!plannerMode) return <PlannerShell step={2}>
+    <div className="cgpa-sectionhead"><div><h2>What would you like to achieve?</h2><p>Choose a tool and take the next step towards your goal.</p></div><span className="cgpa-badge">{systemLabel(system)}</span></div>
+    <p className="cgpa-selected">Using: {systemLabel(system)}</p>
+    <div className="cgpa-grid cgpa-tools">{([
+      {id:"target", title:"Target CGPA Planner", text:"Have a CGPA in mind? Find out the grades you need to work towards it.", action:"Plan my target"},
+      {id:"projector", title:"CGPA Projector", text:"Try different grades and see how your next results could change your CGPA.", action:"Explore my CGPA"},
+      {id:"retake", title:"Retake Impact", text:"See how improving a failed course could affect your overall CGPA.", action:"Check retake impact"},
+    ] as const).map((tool,i)=><PublicPageLink key={tool.id} href={`/cgpa-calculator/planner?grading=${system}&tool=${tool.id}`} className={`cgpa-card ${i===0?"cgpa-featured":""}`}><PlannerIcon kind={i}/><h3>{tool.title}</h3><p>{tool.text}</p><span className="cgpa-go">{tool.action}<span aria-hidden="true">→</span></span></PublicPageLink>)}</div>
+    <div className="cgpa-note"><PublicPageLink href="/cgpa-calculator" className="cgpa-back">← Change grading system</PublicPageLink></div>
+  </PlannerShell>;
+  return <main className="cgpa-design min-h-screen bg-gray-50 text-gray-900"><PlannerHeader/><PlannerHero/>
     {plannerMode && <div className="mx-auto max-w-7xl px-5 pt-8 lg:px-8"><div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border bg-white p-4"><div><p className="text-xs font-black uppercase tracking-widest text-green-700">CGPA Simulator / Planner</p><p className="font-black">{plannerMode === "target" ? "🎯 Target CGPA Planner" : plannerMode === "projector" ? "📊 CGPA Projector" : "🔄 Retake Impact"} · {systemLabel(system)}</p></div><a href={`/cgpa-calculator/planner?grading=${system}`} className="rounded-xl border px-4 py-2 text-sm font-black text-green-700">← Choose another tool</a></div></div>}
 
     {plannerMode && <section className="py-10"><div className="mx-auto max-w-7xl space-y-8 px-5 lg:px-8">
