@@ -1,0 +1,10141 @@
+[
+  {
+    "code": "accounting",
+    "name": "Accounting",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "ACC",
+        "BME",
+        "COM",
+        "GOV",
+        "GEO",
+        "BKP",
+        "INS",
+        "DAT"
+      ],
+      [
+        "ACC",
+        "BME",
+        "COM",
+        "GOV",
+        "GEO",
+        "BKP",
+        "INS",
+        "DAT"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "COM",
+        "ACC",
+        "GOV",
+        "GEO"
+      ]
+    ],
+    "sourcePage": 747,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "adult-education-studies",
+    "name": "Adult Education Studies",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 721,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=721",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "agricultural-extension-and-rural-development",
+    "name": "Agricultural Extension and Rural Development",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "SOC",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE",
+        "ISS"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "PHY",
+        "MAT",
+        "ECO",
+        "GEO"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "At least a pass in Physics is required. If Agricultural Science is used instead of Biology, at least a pass in Biology is also required.",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": true,
+    "requirementBasis": "Owner-supplied requirements table, 12 November 2026; linked brochure/department references checked where available.",
+    "extraBiologyPassIfAgr": true,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "agricultural-science-education",
+    "name": "Agricultural Science Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "AGR",
+        "BIO",
+        "CHE",
+        "ECO",
+        "GEO"
+      ],
+      [
+        "AGR",
+        "BIO",
+        "CHE",
+        "ECO",
+        "GEO"
+      ],
+      [
+        "AGR",
+        "BIO",
+        "CHE",
+        "ECO",
+        "GEO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "MAT",
+        "PHY",
+        "GEO",
+        "AGR",
+        "ECO"
+      ]
+    ],
+    "sourcePage": 731,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=731",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "agricultural-and-biosystems-engineering",
+    "name": "Agricultural and Biosystems Engineering",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 739,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=739",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Physics, Chemistry and Biology.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "agriculture",
+    "name": "Agriculture",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY",
+        "GEO",
+        "ECO",
+        "AHU",
+        "CHU"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "PHY",
+        "MAT"
+      ]
+    ],
+    "sourcePage": 706,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=706",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "anatomy",
+    "name": "Anatomy",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "aquaculture-and-fisheries",
+    "name": "Aquaculture and Fisheries",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "FIS"
+      ],
+      [
+        "PHY",
+        "GEO",
+        "ECO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ]
+    ],
+    "sourcePage": 707,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=707",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "arabic",
+    "name": "Arabic",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ARA"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ARA"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 712,
+    "note": "Language and certificate exceptions are assessed separately; these checks use the standard listed credit route.",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "architecture",
+    "name": "Architecture",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "TDR",
+        "ART",
+        "BUI",
+        "GDE",
+        "GEO",
+        "CHE",
+        "BIO",
+        "ECO"
+      ],
+      [
+        "TDR",
+        "ART",
+        "BUI",
+        "GDE",
+        "GEO",
+        "CHE",
+        "BIO",
+        "ECO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "GEO",
+        "BIO",
+        "ART",
+        "CHE",
+        "ECO"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://architecture.environmental.unilorin.edu.ng/apply-now/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics, Physics and two of Technical Drawing, Fine Arts, Building Construction, Graphic Design, Geography, Chemistry, Biology or Economics.",
+    "utmeDescription": "Use of English, Mathematics, Physics and one of Geography, Biology, Fine Arts, Chemistry or Economics."
+  },
+  {
+    "code": "biochemistry",
+    "name": "Biochemistry",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 746,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "biology-education",
+    "name": "Biology Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "GEO",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "TDR",
+        "AHU",
+        "CHU"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "MAT",
+        "PHY",
+        "GEO",
+        "AGR"
+      ]
+    ],
+    "sourcePage": 731,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=731",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "biomedical-engineering",
+    "name": "Biomedical Engineering",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 739,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=739",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Physics, Chemistry and Biology.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "building-technology-education",
+    "name": "Building Technology Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics and three related Science/technical credits, including Physics, Chemistry, Biology, Computer Studies, Technical Drawing, Electronics, Auto Mechanics, Basic/Applied Electricity, Metalwork, Woodwork, Building Construction or the listed electrical/electronic trade subjects.",
+    "utmeDescription": "Use of English, Mathematics, Physics and Chemistry."
+  },
+  {
+    "code": "business-administration",
+    "name": "Business Administration",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "ACC",
+        "BME",
+        "COM",
+        "GEO",
+        "INS",
+        "MKT",
+        "GOV"
+      ],
+      [
+        "ACC",
+        "BME",
+        "COM",
+        "GEO",
+        "INS",
+        "MKT",
+        "GOV"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ACC",
+        "GEO",
+        "COM",
+        "GOV"
+      ]
+    ],
+    "sourcePage": 747,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "business-education",
+    "name": "Business Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "BKP",
+        "ACC",
+        "BUS",
+        "BME",
+        "COM",
+        "TYP",
+        "SHO"
+      ],
+      [
+        "ECO",
+        "BKP",
+        "ACC",
+        "BUS",
+        "BME",
+        "COM",
+        "TYP",
+        "SHO"
+      ],
+      [
+        "ECO",
+        "BKP",
+        "ACC",
+        "BUS",
+        "BME",
+        "COM",
+        "TYP",
+        "SHO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "COM",
+        "ACC",
+        "ECO",
+        "GEO"
+      ],
+      [
+        "COM",
+        "ACC",
+        "ECO",
+        "GEO"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner-supplied requirements table, 12 November 2026; linked brochure/department references checked where available.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "chemical-engineering",
+    "name": "Chemical Engineering",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "GEO",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 738,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Physics, Chemistry and one additional relevant Science subject.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "chemistry",
+    "name": "Chemistry",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "BIO"
+      ]
+    ],
+    "sourcePage": 751,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=751",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "chemistry-education",
+    "name": "Chemistry Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "PHY",
+        "AGR"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY",
+        "BIO",
+        "MAT"
+      ],
+      [
+        "PHY",
+        "BIO",
+        "MAT"
+      ]
+    ],
+    "sourcePage": 731,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=731",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "utmeDescription": "Use of English, Chemistry and any two of Physics, Biology and Mathematics.",
+    "oLevelDescription": ""
+  },
+  {
+    "code": "christian-studies",
+    "name": "Christian Studies",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CRS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CRS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 712,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "civil-engineering",
+    "name": "Civil Engineering",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "GEO",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 738,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Physics, Chemistry and one additional relevant Science subject.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "common-law",
+    "name": "Common Law",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 744,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=744",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "common-and-islamic-law",
+    "name": "Common and Islamic Law",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "IRS",
+        "ARA"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ARA",
+        "IRS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 745,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=745",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "comparative-religious-studies",
+    "name": "Comparative Religious Studies",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CRS",
+        "IRS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CRS",
+        "IRS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE"
+      ]
+    ],
+    "sourcePage": 713,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=713",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, CRS or IRS, and two other Arts, Social Science or Science credits. West African Traditional Religion is not compulsory.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "computer-engineering",
+    "name": "Computer Engineering",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "GEO",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 738,
+    "note": "",
+    "oneSitting": true,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Physics, Chemistry and one additional relevant Science subject.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "computer-science",
+    "name": "Computer Science",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 717,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=717",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "counsellor-education",
+    "name": "Counsellor Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 721,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=721",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "criminology-and-security-studies",
+    "name": "Criminology and Security Studies",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "CIV",
+        "COM"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "CIV",
+        "COM"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "CIV",
+        "COM"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "GOV"
+      ],
+      [
+        "ECO",
+        "GEO",
+        "COM"
+      ],
+      [
+        "ECO",
+        "GEO",
+        "COM"
+      ]
+    ],
+    "sourcePage": 754,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=754",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "economics",
+    "name": "Economics",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "COM",
+        "GEO",
+        "GOV"
+      ],
+      [
+        "COM",
+        "GEO",
+        "GOV"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "COM",
+        "GEO",
+        "GOV"
+      ]
+    ],
+    "sourcePage": 755,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=755",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "economics-education",
+    "name": "Economics Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "SOC",
+        "ACC",
+        "CIV",
+        "GOV",
+        "COM",
+        "MKT",
+        "BUS"
+      ],
+      [
+        "SOC",
+        "ACC",
+        "CIV",
+        "GOV",
+        "COM",
+        "MKT",
+        "BUS"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "COM",
+        "ACC",
+        "GOV"
+      ]
+    ],
+    "sourcePage": 723,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=723",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "education-and-arabic",
+    "name": "Education and Arabic",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ARA"
+      ],
+      [
+        "CIV",
+        "GOV",
+        "GEO",
+        "ECO",
+        "COM",
+        "HIS",
+        "SOC",
+        "INS"
+      ],
+      [
+        "CIV",
+        "GOV",
+        "GEO",
+        "ECO",
+        "COM",
+        "HIS",
+        "SOC",
+        "INS"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ARA"
+      ],
+      [
+        "IRS",
+        "GOV",
+        "LIT",
+        "ECO",
+        "COM",
+        "GEO",
+        "HIS"
+      ],
+      [
+        "IRS",
+        "GOV",
+        "LIT",
+        "ECO",
+        "COM",
+        "GEO",
+        "HIS"
+      ]
+    ],
+    "sourcePage": 722,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "education-and-christian-religious-studies",
+    "name": "Education and Christian Religious Studies",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CRS"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "CIV",
+        "SOC",
+        "ECO",
+        "COM",
+        "YOR",
+        "LIT",
+        "GEO",
+        "INS"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "CIV",
+        "SOC",
+        "ECO",
+        "COM",
+        "YOR",
+        "LIT",
+        "GEO",
+        "INS"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CRS"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "YOR",
+        "COM",
+        "ECO",
+        "GEO"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "LIT",
+        "YOR",
+        "COM",
+        "ECO",
+        "GEO"
+      ]
+    ],
+    "sourcePage": 722,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "education-and-english",
+    "name": "Education and English",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ARA",
+        "FRE",
+        "GEO",
+        "COM",
+        "ECO",
+        "SOC",
+        "CIV",
+        "INS"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ARA",
+        "FRE",
+        "GEO",
+        "COM",
+        "ECO",
+        "SOC",
+        "CIV",
+        "INS"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "ART",
+        "MUS"
+      ],
+      [
+        "GOV",
+        "HIS",
+        "CRS",
+        "IRS",
+        "YOR",
+        "ARA",
+        "FRE",
+        "GEO",
+        "COM",
+        "ECO"
+      ]
+    ],
+    "sourcePage": 722,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=726",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics, Literature in English and two of Government, History, CRS, IRS, Yoruba, Arabic, French, Geography, Commerce, Economics, Social Studies, Civic Education or Insurance.",
+    "utmeDescription": "Use of English, Literature in English, one other Arts subject and one of Government, History, CRS, IRS, Yoruba, Arabic, French, Geography, Commerce or Economics.",
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026."
+  },
+  {
+    "code": "education-and-french",
+    "name": "Education and French",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "FRE"
+      ],
+      [
+        "HIS",
+        "GOV",
+        "CIV",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "COM",
+        "ECO",
+        "INS",
+        "SOC"
+      ],
+      [
+        "HIS",
+        "GOV",
+        "CIV",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "COM",
+        "ECO",
+        "INS",
+        "SOC"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "FRE"
+      ],
+      [
+        "HIS",
+        "GOV",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "COM",
+        "ECO",
+        "LIT"
+      ],
+      [
+        "HIS",
+        "GOV",
+        "GEO",
+        "CRS",
+        "IRS",
+        "YOR",
+        "COM",
+        "ECO",
+        "LIT"
+      ]
+    ],
+    "sourcePage": 722,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=727",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics, French and two of History, Government, Civic Education, Geography, CRS, IRS, Yoruba, Commerce, Economics, Insurance or Social Studies.",
+    "utmeDescription": "Use of English, French and two of History, Government, Geography, CRS, IRS, Yoruba, Commerce, Economics or Literature in English.",
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026."
+  },
+  {
+    "code": "education-and-history",
+    "name": "Education and History",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "HIS",
+        "GOV"
+      ],
+      [
+        "LIT",
+        "SOC",
+        "INS",
+        "GEO",
+        "CIV",
+        "ECO",
+        "YOR",
+        "COM",
+        "TOU",
+        "SCU"
+      ],
+      [
+        "LIT",
+        "SOC",
+        "INS",
+        "GEO",
+        "CIV",
+        "ECO",
+        "YOR",
+        "COM",
+        "TOU",
+        "SCU"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "HIS",
+        "GOV"
+      ],
+      [
+        "LIT",
+        "GEO",
+        "ECO",
+        "YOR",
+        "COM"
+      ],
+      [
+        "LIT",
+        "GEO",
+        "ECO",
+        "YOR",
+        "COM"
+      ]
+    ],
+    "sourcePage": 722,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=727",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics, History or Government and two of Literature in English, Social Studies, Insurance, Geography, Civic Education, Economics, Yoruba, Commerce, Tourism or Sculpture.",
+    "utmeDescription": "Use of English, History or Government and two of Literature in English, Geography, Economics, Yoruba or Commerce.",
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026."
+  },
+  {
+    "code": "education-and-islamic-studies",
+    "name": "Education and Islamic Studies",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "IRS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "IRS",
+        "ARA"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 722,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=722",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Islamic Religious Studies and two relevant Arts/Social Science credits.",
+    "utmeDescription": "Use of English, Islamic Studies or Arabic, and two Arts/Social Science subjects."
+  },
+  {
+    "code": "education-and-yoruba",
+    "name": "Education and Yoruba",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "YOR"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "HIS",
+        "SOC",
+        "CIV",
+        "ECO",
+        "COM",
+        "INS",
+        "CRS",
+        "IRS",
+        "ARA"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "HIS",
+        "SOC",
+        "CIV",
+        "ECO",
+        "COM",
+        "INS",
+        "CRS",
+        "IRS",
+        "ARA"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "YOR"
+      ],
+      [
+        "HIS",
+        "LIT",
+        "FRE",
+        "CRS",
+        "IRS",
+        "ARA",
+        "GEO",
+        "ECO",
+        "COM"
+      ],
+      [
+        "HIS",
+        "LIT",
+        "FRE",
+        "CRS",
+        "IRS",
+        "ARA",
+        "GEO",
+        "ECO",
+        "COM"
+      ]
+    ],
+    "sourcePage": 722,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=730",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics, Yoruba and two of Geography, Government, History, Social Studies, Civic Education, Economics, Commerce, Insurance, CRS, IRS or Arabic.",
+    "utmeDescription": "Use of English, Yoruba and two of History, Literature in English, French, CRS, IRS, Arabic, Geography, Economics or Commerce.",
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026."
+  },
+  {
+    "code": "educational-management",
+    "name": "Educational Management",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "FRE",
+        "YOR",
+        "CRS",
+        "HIS",
+        "IRS",
+        "ARA",
+        "LIT",
+        "GOV",
+        "ECO",
+        "GEO",
+        "SOC",
+        "MAT",
+        "BIO",
+        "PHY",
+        "CHE",
+        "PHE",
+        "HED"
+      ],
+      [
+        "FRE",
+        "YOR",
+        "CRS",
+        "HIS",
+        "IRS",
+        "ARA",
+        "LIT",
+        "GOV",
+        "ECO",
+        "GEO",
+        "SOC",
+        "MAT",
+        "BIO",
+        "PHY",
+        "CHE",
+        "PHE",
+        "HED"
+      ],
+      [
+        "FRE",
+        "YOR",
+        "CRS",
+        "HIS",
+        "IRS",
+        "ARA",
+        "LIT",
+        "GOV",
+        "ECO",
+        "GEO",
+        "SOC",
+        "MAT",
+        "BIO",
+        "PHY",
+        "CHE",
+        "PHE",
+        "HED"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "FRE",
+        "YOR",
+        "CRS",
+        "HIS",
+        "IRS",
+        "ARA",
+        "LIT",
+        "GOV",
+        "ECO",
+        "GEO",
+        "MAT",
+        "BIO",
+        "PHY",
+        "CHE",
+        "PHE"
+      ],
+      [
+        "FRE",
+        "YOR",
+        "CRS",
+        "HIS",
+        "IRS",
+        "ARA",
+        "LIT",
+        "GOV",
+        "ECO",
+        "GEO",
+        "MAT",
+        "BIO",
+        "PHY",
+        "CHE",
+        "PHE"
+      ],
+      [
+        "FRE",
+        "YOR",
+        "CRS",
+        "HIS",
+        "IRS",
+        "ARA",
+        "LIT",
+        "GOV",
+        "ECO",
+        "GEO",
+        "MAT",
+        "BIO",
+        "PHY",
+        "CHE",
+        "PHE"
+      ]
+    ],
+    "sourcePage": 728,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=728",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics and three of French, Yoruba, CRS, History, IRS, Arabic, Literature in English, Government, Economics, Geography, Social Studies, Biology, Physics, Chemistry or Physical/Health Education.",
+    "utmeDescription": "Use of English and three relevant Arts, Social Science or Science subjects from the programme\u2019s named pool.",
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026."
+  },
+  {
+    "code": "educational-technology-arts",
+    "name": "Educational Technology (Arts)",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "PIC",
+        "CER",
+        "CJO",
+        "GDE",
+        "SCU",
+        "WWO",
+        "TEX",
+        "ICT",
+        "PDE",
+        "PAI"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "PIC",
+        "CER",
+        "CJO",
+        "GDE",
+        "SCU",
+        "WWO",
+        "TEX",
+        "ICT",
+        "PDE",
+        "PAI"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 733,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=733",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, two Arts credits and one Social Science credit. Published Arts/technical alternatives include Picture Making, Ceramics, Carpentry and Joinery, Graphic Design, Sculpture, Woodwork, Textiles, ICT, Printing and Decorating, and Visual Arts.",
+    "utmeDescription": "Use of English and three Arts subjects, OR Use of English, two Arts subjects and one Social Science subject."
+  },
+  {
+    "code": "educational-technology-computer-science",
+    "name": "Educational Technology (Computer Science)",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "ICT",
+        "DAT",
+        "CST"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 732,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=732",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "educational-technology-sciences",
+    "name": "Educational Technology (Sciences)",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "GEO",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE",
+        "BLE",
+        "AEL",
+        "EIM",
+        "RTE",
+        "TDR",
+        "ELT",
+        "AME",
+        "MWO",
+        "WWO",
+        "BUI"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "GEO",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE",
+        "BLE",
+        "AEL",
+        "EIM",
+        "RTE",
+        "TDR",
+        "ELT",
+        "AME",
+        "MWO",
+        "WWO",
+        "BUI"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "GEO",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE",
+        "BLE",
+        "AEL",
+        "EIM",
+        "RTE",
+        "TDR",
+        "ELT",
+        "AME",
+        "MWO",
+        "WWO",
+        "BUI"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "CST",
+        "GEO",
+        "PHE"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "CST",
+        "GEO",
+        "PHE"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "CST",
+        "GEO",
+        "PHE"
+      ]
+    ],
+    "sourcePage": 733,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=733",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics and three Science or technical credits. Published technical alternatives include ICT, Basic Electricity, Applied Electricity, Electrical Installation and Maintenance Work, and Radio, Television and Electronic Work.",
+    "utmeDescription": "Use of English and three Science subjects."
+  },
+  {
+    "code": "educational-technology-social-sciences",
+    "name": "Educational Technology (Social Sciences)",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "DAT",
+        "CST"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "DAT",
+        "CST"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "DAT",
+        "CST"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC"
+      ]
+    ],
+    "sourcePage": 733,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=733",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics and three Social Science credits. Published alternatives include Data Processing, Computer Studies, Business Management, Insurance and Marketing.",
+    "utmeDescription": "Use of English and three Social Science subjects."
+  },
+  {
+    "code": "electrical-and-electronics-engineering",
+    "name": "Electrical and Electronics Engineering",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "GEO",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 738,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Physics, Chemistry and one additional relevant Science subject.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "electrical-electronic-technology-education",
+    "name": "Electrical/Electronic Technology Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics and three related Science/technical credits, including Physics, Chemistry, Biology, Computer Studies, Technical Drawing, Electronics, Auto Mechanics, Basic/Applied Electricity, Metalwork, Woodwork, Building Construction or the listed electrical/electronic trade subjects.",
+    "utmeDescription": "Use of English, Mathematics, Physics and Chemistry."
+  },
+  {
+    "code": "english-language",
+    "name": "English Language",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 713,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=713",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "estate-management",
+    "name": "Estate Management",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      [
+        "GEO",
+        "TDR",
+        "ART",
+        "ACC"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "GEO",
+        "ACC",
+        "PHY",
+        "CHE",
+        "BIO",
+        "TDR",
+        "ART"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner-supplied requirements table, 12 November 2026; linked brochure/department references checked where available.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "finance",
+    "name": "Finance",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "ACC",
+        "BME",
+        "COM",
+        "GOV",
+        "GEO"
+      ],
+      [
+        "ACC",
+        "BME",
+        "COM",
+        "GOV",
+        "GEO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "COM",
+        "ACC",
+        "GOV",
+        "GEO"
+      ]
+    ],
+    "sourcePage": 747,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "food-science",
+    "name": "Food Science",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "FNU",
+        "BIO",
+        "AGR"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY",
+        "MAT",
+        "ECO"
+      ]
+    ],
+    "sourcePage": 709,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=709",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "food-and-bioprocess-engineering",
+    "name": "Food and Bioprocess Engineering",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 741,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=741",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Physics, Chemistry and Biology.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "forestry-and-wildlife",
+    "name": "Forestry and Wildlife",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "GEO",
+        "ECO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "GEO",
+        "ECO",
+        "PHY",
+        "MAT"
+      ]
+    ],
+    "sourcePage": 711,
+    "note": "A pass in Physics is also required, in addition to the five specified credits.",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=711",
+    "reviewRequired": false,
+    "extraPhysicsPass": true,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "french",
+    "name": "French",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "FRE"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "FRE"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 712,
+    "note": "Language and certificate exceptions are assessed separately; these checks use the standard listed credit route.",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "geography-education",
+    "name": "Geography Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GEO"
+      ],
+      [
+        "ECO",
+        "SOC",
+        "ACC",
+        "CIV",
+        "GOV",
+        "COM",
+        "MKT",
+        "BUS"
+      ],
+      [
+        "ECO",
+        "SOC",
+        "ACC",
+        "CIV",
+        "GOV",
+        "COM",
+        "MKT",
+        "BUS"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ECO",
+        "MAT",
+        "COM",
+        "ACC",
+        "GEO",
+        "GOV"
+      ],
+      [
+        "ECO",
+        "MAT",
+        "COM",
+        "ACC",
+        "GEO",
+        "GOV"
+      ],
+      [
+        "ECO",
+        "MAT",
+        "COM",
+        "ACC",
+        "GEO",
+        "GOV"
+      ]
+    ],
+    "sourcePage": 724,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=724",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "geography-and-environmental-sciences",
+    "name": "Geography and Environmental Sciences",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GEO"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "TDR",
+        "AHU",
+        "CHU"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "TDR",
+        "AHU",
+        "CHU"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "GEO"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "TDR",
+        "AHU",
+        "CHU"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "TDR",
+        "AHU",
+        "CHU"
+      ]
+    ],
+    "sourcePage": 755,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=755",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "geology",
+    "name": "Geology",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 752,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=752",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "geophysics",
+    "name": "Geophysics",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "FMA",
+        "BIO",
+        "GEO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 752,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=752",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "hausa",
+    "name": "Hausa",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "HAU"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "SOC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "HAU"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "HIS",
+        "ARA"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://lnl.arts.unilorin.edu.ng/apply-now/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Hausa and three other Arts/Social Science credits; maximum two sittings.",
+    "utmeDescription": "Use of English, Hausa, Literature in English and one of Economics, Government, History or Arabic."
+  },
+  {
+    "code": "health-education",
+    "name": "Health Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE",
+        "ISS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "SOC",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE",
+        "ISS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "SOC",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE",
+        "ISS"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "SOC",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE",
+        "ISS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "SOC",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE",
+        "ISS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "SOC",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE",
+        "ISS"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner-supplied requirements table, 12 November 2026; linked brochure/department references checked where available.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "history-and-international-studies",
+    "name": "History and International Studies",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "HIS",
+        "GOV"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "HIS",
+        "GOV"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 712,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "home-economics",
+    "name": "Home Economics",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR"
+      ],
+      [
+        "PHY",
+        "ECO",
+        "GMT",
+        "CCP",
+        "CLT",
+        "FNU",
+        "DYE",
+        "HMA",
+        "PAI",
+        "TOU",
+        "ICT"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "ECO",
+        "MAT"
+      ]
+    ],
+    "sourcePage": 708,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=708",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "human-kinetics-education",
+    "name": "Human Kinetics Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO",
+        "HED",
+        "PHE"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP",
+        "FIS",
+        "FNU",
+        "GMT",
+        "CLT",
+        "HMA",
+        "BLE",
+        "AEL",
+        "AME",
+        "MWO",
+        "ELT",
+        "LSU",
+        "ESU",
+        "BLK",
+        "CJO",
+        "TYP",
+        "SHO"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP",
+        "FIS",
+        "FNU",
+        "GMT",
+        "CLT",
+        "HMA",
+        "BLE",
+        "AEL",
+        "AME",
+        "MWO",
+        "ELT",
+        "LSU",
+        "ESU",
+        "BLK",
+        "CJO",
+        "TYP",
+        "SHO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ENG",
+        "AGR",
+        "ARA",
+        "ART",
+        "BIO",
+        "CHE",
+        "CRS",
+        "COM",
+        "ECO",
+        "FRE",
+        "GEO",
+        "GOV",
+        "HAU",
+        "HIS",
+        "HEC",
+        "IGB",
+        "IRS",
+        "LIT",
+        "MAT",
+        "MUS",
+        "PHY",
+        "ACC",
+        "YOR",
+        "CST",
+        "PHE"
+      ],
+      [
+        "ENG",
+        "AGR",
+        "ARA",
+        "ART",
+        "BIO",
+        "CHE",
+        "CRS",
+        "COM",
+        "ECO",
+        "FRE",
+        "GEO",
+        "GOV",
+        "HAU",
+        "HIS",
+        "HEC",
+        "IGB",
+        "IRS",
+        "LIT",
+        "MAT",
+        "MUS",
+        "PHY",
+        "ACC",
+        "YOR",
+        "CST",
+        "PHE"
+      ],
+      [
+        "ENG",
+        "AGR",
+        "ARA",
+        "ART",
+        "BIO",
+        "CHE",
+        "CRS",
+        "COM",
+        "ECO",
+        "FRE",
+        "GEO",
+        "GOV",
+        "HAU",
+        "HIS",
+        "HEC",
+        "IGB",
+        "IRS",
+        "LIT",
+        "MAT",
+        "MUS",
+        "PHY",
+        "ACC",
+        "YOR",
+        "CST",
+        "PHE"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": true,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics, Biology or Health Science or Physical Education, and two other credits, at one sitting.",
+    "utmeDescription": "Use of English and three other relevant UTME subjects."
+  },
+  {
+    "code": "igbo",
+    "name": "Igbo",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP",
+        "FIS",
+        "FNU",
+        "GMT",
+        "CLT",
+        "HMA",
+        "BLE",
+        "AEL",
+        "AME",
+        "MWO",
+        "ELT",
+        "LSU",
+        "ESU",
+        "BLK",
+        "CJO",
+        "TYP",
+        "SHO",
+        "STA",
+        "PIC",
+        "CER",
+        "GDE",
+        "SCU",
+        "TEX",
+        "PDE",
+        "RTE"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP",
+        "FIS",
+        "FNU",
+        "GMT",
+        "CLT",
+        "HMA",
+        "BLE",
+        "AEL",
+        "AME",
+        "MWO",
+        "ELT",
+        "LSU",
+        "ESU",
+        "BLK",
+        "CJO",
+        "TYP",
+        "SHO",
+        "STA",
+        "PIC",
+        "CER",
+        "GDE",
+        "SCU",
+        "TEX",
+        "PDE",
+        "RTE"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP",
+        "FIS",
+        "FNU",
+        "GMT",
+        "CLT",
+        "HMA",
+        "BLE",
+        "AEL",
+        "AME",
+        "MWO",
+        "ELT",
+        "LSU",
+        "ESU",
+        "BLK",
+        "CJO",
+        "TYP",
+        "SHO",
+        "STA",
+        "PIC",
+        "CER",
+        "GDE",
+        "SCU",
+        "TEX",
+        "PDE",
+        "RTE"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP",
+        "FIS",
+        "FNU",
+        "GMT",
+        "CLT",
+        "HMA",
+        "BLE",
+        "AEL",
+        "AME",
+        "MWO",
+        "ELT",
+        "LSU",
+        "ESU",
+        "BLK",
+        "CJO",
+        "TYP",
+        "SHO",
+        "STA",
+        "PIC",
+        "CER",
+        "GDE",
+        "SCU",
+        "TEX",
+        "PDE",
+        "RTE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "IGB"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "SOC"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP",
+        "SOC"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://lnl.arts.unilorin.edu.ng/apply-now/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "Five credit passes including English Language, in no more than two sittings, following UNILORIN\u2019s departmental requirement.",
+    "utmeDescription": "Use of English, Igbo and two Arts/Social Science subjects."
+  },
+  {
+    "code": "industrial-chemistry",
+    "name": "Industrial Chemistry",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "MAT"
+      ]
+    ],
+    "sourcePage": 753,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=753",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "industrial-relations-and-personnel-management",
+    "name": "Industrial Relations and Personnel Management",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "ACC",
+        "BME",
+        "COM",
+        "GOV",
+        "INS",
+        "SOC",
+        "GEO"
+      ],
+      [
+        "ACC",
+        "BME",
+        "COM",
+        "GOV",
+        "INS",
+        "SOC",
+        "GEO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "ACC",
+        "GEO",
+        "COM"
+      ]
+    ],
+    "sourcePage": 750,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=750",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "information-and-communication-science",
+    "name": "Information and Communication Science",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "AGR",
+        "ECO",
+        "GEO",
+        "CST",
+        "DAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "AGR",
+        "ECO",
+        "GEO",
+        "CST",
+        "DAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "AGR",
+        "ECO",
+        "GEO",
+        "CST",
+        "DAT"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT",
+        "PHY",
+        "CHE",
+        "BIO",
+        "AGR",
+        "ECO",
+        "GEO"
+      ],
+      [
+        "MAT",
+        "PHY",
+        "CHE",
+        "BIO",
+        "AGR",
+        "ECO",
+        "GEO"
+      ],
+      [
+        "MAT",
+        "PHY",
+        "CHE",
+        "BIO",
+        "AGR",
+        "ECO",
+        "GEO"
+      ]
+    ],
+    "sourcePage": 718,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=718",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "islamic-studies",
+    "name": "Islamic Studies",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "IRS",
+        "ARA"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "IRS"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 712,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "library-and-information-science",
+    "name": "Library and Information Science",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 719,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=719",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "linguistics",
+    "name": "Linguistics",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ARA",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ARA",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 716,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=716",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "marketing",
+    "name": "Marketing",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "ACC",
+        "BME",
+        "COM",
+        "GEO",
+        "BKP",
+        "BUS",
+        "MKT",
+        "INS",
+        "GOV"
+      ],
+      [
+        "ACC",
+        "BME",
+        "COM",
+        "GEO",
+        "BKP",
+        "BUS",
+        "MKT",
+        "INS",
+        "GOV"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "COM",
+        "ACC",
+        "GOV",
+        "GEO"
+      ]
+    ],
+    "sourcePage": 747,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=747",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "mass-communication",
+    "name": "Mass Communication",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 720,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=720",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "materials-and-metallurgical-engineering",
+    "name": "Materials and Metallurgical Engineering",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "GEO",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 738,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Physics, Chemistry and one additional relevant Science subject.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "mathematics",
+    "name": "Mathematics",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "FMA",
+        "BIO",
+        "ECO",
+        "GEO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "ECO",
+        "GEO",
+        "BIO"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "ECO",
+        "GEO",
+        "BIO"
+      ]
+    ],
+    "sourcePage": 753,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=753",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "mathematics-education",
+    "name": "Mathematics Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "ECO",
+        "GEO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO"
+      ]
+    ],
+    "sourcePage": 732,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=732",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "utmeDescription": "Use of English, Mathematics and any two of Physics, Chemistry and Biology.",
+    "oLevelDescription": ""
+  },
+  {
+    "code": "mechanical-engineering",
+    "name": "Mechanical Engineering",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "GEO",
+        "ISS",
+        "STA",
+        "DAT",
+        "ICT",
+        "HED",
+        "PHE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 738,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Physics, Chemistry and one additional relevant Science subject.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "medical-laboratory-science",
+    "name": "Medical Laboratory Science",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://mls.basicclinical.unilorin.edu.ng/apply-now/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner-supplied requirements table, 12 November 2026; linked brochure/department references checked where available.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "medicine-and-surgery",
+    "name": "Medicine and Surgery",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": true,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "metalwork-technology-education",
+    "name": "Metalwork Technology Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics and three related Science/technical credits, including Physics, Chemistry, Biology, Computer Studies, Technical Drawing, Electronics, Auto Mechanics, Basic/Applied Electricity, Metalwork, Woodwork, Building Construction or the listed electrical/electronic trade subjects.",
+    "utmeDescription": "Use of English, Mathematics, Physics and Chemistry."
+  },
+  {
+    "code": "microbiology",
+    "name": "Microbiology",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 746,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "nursing-science",
+    "name": "Nursing Science",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": true,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "optometry-and-vision-science",
+    "name": "Optometry and Vision Science",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 746,
+    "note": "",
+    "oneSitting": true,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "performing-arts",
+    "name": "Performing Arts",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "LIT"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 716,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=716",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "pharmacy",
+    "name": "Pharmacy",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 751,
+    "note": "",
+    "oneSitting": true,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=751",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "physics",
+    "name": "Physics",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "FMA",
+        "BIO",
+        "AGR"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 753,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=753",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "physics-education",
+    "name": "Physics Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BLE",
+        "AEL",
+        "AME",
+        "AGR",
+        "BIO",
+        "FMA"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE",
+        "FMA"
+      ]
+    ],
+    "sourcePage": 732,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=732",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "physiology",
+    "name": "Physiology",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=705",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "physiotherapy",
+    "name": "Physiotherapy",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": true,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/admissions_/undergraduate/general-requirements/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner-supplied requirements table, 12 November 2026; linked brochure/department references checked where available.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "plant-biology",
+    "name": "Plant Biology",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 746,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "political-science",
+    "name": "Political Science",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV",
+        "HIS"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "GOV",
+        "HIS"
+      ],
+      [
+        "ECO",
+        "GEO",
+        "COM",
+        "ACC"
+      ],
+      [
+        "ECO",
+        "GEO",
+        "COM",
+        "ACC"
+      ]
+    ],
+    "sourcePage": 755,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=755",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "primary-education-studies",
+    "name": "Primary Education Studies",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 721,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=721",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "psychology",
+    "name": "Psychology",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "GOV",
+        "ECO",
+        "GEO",
+        "COM",
+        "CIV",
+        "SOC"
+      ],
+      [
+        "GOV",
+        "ECO",
+        "GEO",
+        "COM",
+        "CIV",
+        "SOC"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "GOV",
+        "ECO",
+        "GEO",
+        "COM"
+      ],
+      [
+        "GOV",
+        "ECO",
+        "GEO",
+        "COM"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "BIO",
+        "AGR",
+        "PHY",
+        "CHE",
+        "MAT",
+        "FMA",
+        "CST",
+        "DAT",
+        "TDR",
+        "AHU",
+        "CHU"
+      ]
+    ],
+    "sourcePage": 756,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=756",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "public-administration",
+    "name": "Public Administration",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GOV",
+        "CIV"
+      ],
+      [
+        "HIS"
+      ],
+      [
+        "ECO",
+        "GEO",
+        "COM",
+        "CRS",
+        "IRS"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "HIS",
+        "GOV"
+      ],
+      [
+        "ECO"
+      ],
+      [
+        "MAT",
+        "COM",
+        "GEO",
+        "CRS",
+        "IRS"
+      ]
+    ],
+    "sourcePage": 750,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=750",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Government or Civic Education, History, and one of Economics, Geography, Commerce, CRS or IRS.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "quantity-surveying",
+    "name": "Quantity Surveying",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "GEO",
+        "TDR",
+        "ECO",
+        "CHE",
+        "COM",
+        "BUI",
+        "BIO",
+        "BLK",
+        "CJO",
+        "WWO"
+      ],
+      [
+        "GEO",
+        "TDR",
+        "ECO",
+        "CHE",
+        "COM",
+        "BUI",
+        "BIO",
+        "BLK",
+        "CJO",
+        "WWO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "GEO",
+        "TDR",
+        "ECO",
+        "CHE"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner-supplied requirements table, 12 November 2026; linked brochure/department references checked where available.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "social-studies-education-b-a",
+    "name": "Social Studies Education (B.A.)",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "CIV",
+        "HIS",
+        "GOV",
+        "LIT"
+      ],
+      [
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "CIV",
+        "HIS",
+        "GOV",
+        "LIT"
+      ],
+      [
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "CIV",
+        "HIS",
+        "GOV",
+        "LIT"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "HIS",
+        "GOV",
+        "LIT"
+      ],
+      [
+        "CRS",
+        "IRS",
+        "YOR",
+        "FRE",
+        "HIS",
+        "GOV",
+        "LIT"
+      ],
+      [
+        "ENG",
+        "AGR",
+        "ARA",
+        "ART",
+        "BIO",
+        "CHE",
+        "CRS",
+        "COM",
+        "ECO",
+        "FRE",
+        "GEO",
+        "GOV",
+        "HAU",
+        "HIS",
+        "HEC",
+        "IGB",
+        "IRS",
+        "LIT",
+        "MAT",
+        "MUS",
+        "PHY",
+        "ACC",
+        "YOR",
+        "CST",
+        "PHE"
+      ]
+    ],
+    "sourcePage": 726,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=726",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics and three of CRS, IRS, Yoruba, French, Civic Education, History, Government or Literature in English.",
+    "utmeDescription": "Use of English, two of CRS, IRS, Yoruba, French, History, Government or Literature in English, and one other UTME subject.",
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026."
+  },
+  {
+    "code": "social-studies-education-b-sc",
+    "name": "Social Studies Education (B.Sc.)",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "SOC",
+        "ACC",
+        "CIV",
+        "GOV",
+        "COM",
+        "MKT",
+        "BUS"
+      ],
+      [
+        "ECO",
+        "SOC",
+        "ACC",
+        "CIV",
+        "GOV",
+        "COM",
+        "MKT",
+        "BUS"
+      ],
+      [
+        "ECO",
+        "SOC",
+        "ACC",
+        "CIV",
+        "GOV",
+        "COM",
+        "MKT",
+        "BUS"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "ACC",
+        "GOV",
+        "COM",
+        "GEO"
+      ],
+      [
+        "ECO",
+        "ACC",
+        "GOV",
+        "COM",
+        "GEO"
+      ]
+    ],
+    "sourcePage": 725,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=725",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics and three of Economics, Social Studies, Financial Accounting, Civic Education, Government, Commerce, Marketing or Business Management.",
+    "utmeDescription": "Use of English, Mathematics and two of Economics, Financial Accounting, Government, Commerce or Geography.",
+    "requirementBasis": "Resolved against owner-supplied tables and UNILORIN-first policy; named programme pools reconciled 12 November 2026."
+  },
+  {
+    "code": "social-work",
+    "name": "Social Work",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "ECO",
+        "GEO"
+      ],
+      [
+        "ENG",
+        "AGR",
+        "ARA",
+        "ART",
+        "BIO",
+        "CHE",
+        "CRS",
+        "COM",
+        "ECO",
+        "FRE",
+        "GEO",
+        "GOV",
+        "HAU",
+        "HIS",
+        "HEC",
+        "IGB",
+        "IRS",
+        "LIT",
+        "MAT",
+        "MUS",
+        "PHY",
+        "ACC",
+        "YOR",
+        "CST",
+        "PHE"
+      ]
+    ],
+    "sourcePage": 756,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=756",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "utmeDescription": "Use of English, Mathematics, Economics or Geography, and one other UTME subject.",
+    "oLevelDescription": ""
+  },
+  {
+    "code": "sociology",
+    "name": "Sociology",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ECO"
+      ],
+      [
+        "GEO",
+        "GOV",
+        "ECO"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "GOV",
+        "HIS"
+      ],
+      [
+        "GEO",
+        "ECO"
+      ],
+      [
+        "ENG",
+        "MAT",
+        "CHE",
+        "BIO",
+        "AGR",
+        "PHY",
+        "GEO",
+        "ECO",
+        "HEC",
+        "GOV",
+        "HIS",
+        "LIT",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "ACC",
+        "BST",
+        "MKT",
+        "TOU",
+        "COM",
+        "CST",
+        "FMA",
+        "ARA",
+        "AHU",
+        "TDR",
+        "WWO",
+        "BUI",
+        "CCP",
+        "DAT",
+        "DYE",
+        "EIM",
+        "ICT",
+        "MUS",
+        "OPR",
+        "PAI",
+        "PHO",
+        "HED",
+        "PHE",
+        "BED",
+        "ISS",
+        "ART",
+        "SOC",
+        "CIV",
+        "INS",
+        "CHU",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 757,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=757",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "statistics",
+    "name": "Statistics",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "STA",
+        "CHE",
+        "FMA",
+        "ECO",
+        "GEO"
+      ],
+      [
+        "PHY",
+        "STA",
+        "CHE",
+        "FMA",
+        "ECO",
+        "GEO"
+      ],
+      [
+        "PHY",
+        "STA",
+        "CHE",
+        "FMA",
+        "ECO",
+        "GEO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "ECO",
+        "GEO"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "ECO",
+        "GEO"
+      ]
+    ],
+    "sourcePage": 754,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=754",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics and three of Physics, Statistics, Chemistry, Further Mathematics, Economics and Geography.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "surveying-and-geo-informatics",
+    "name": "Surveying and Geo-Informatics",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE",
+        "GEO",
+        "FMA",
+        "TDR",
+        "ESU"
+      ],
+      [
+        "CHE",
+        "GEO",
+        "FMA",
+        "TDR",
+        "ESU"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "GEO",
+        "CHE",
+        "TDR",
+        "FMA"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner-supplied requirements table, 12 November 2026; linked brochure/department references checked where available.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "technology-education",
+    "name": "Technology Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 735,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=735",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics and three related Science/technical credits, including Physics, Chemistry, Biology, Computer Studies, Technical Drawing, Electronics, Auto Mechanics, Basic/Applied Electricity, Metalwork, Woodwork, Building Construction or the listed electrical/electronic trade subjects.",
+    "utmeDescription": "Use of English, Mathematics, Physics and Chemistry."
+  },
+  {
+    "code": "telecommunication-science",
+    "name": "Telecommunication Science",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "FMA",
+        "TDR",
+        "ECO",
+        "GEO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 720,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=720",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "urban-and-regional-planning",
+    "name": "Urban and Regional Planning",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GEO"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "ECO",
+        "BIO",
+        "TDR",
+        "ART",
+        "TOU"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "ECO",
+        "BIO",
+        "TDR",
+        "ART",
+        "TOU"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "GEO"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "ECO",
+        "BIO",
+        "TDR",
+        "ART"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner-supplied requirements table, 12 November 2026; linked brochure/department references checked where available.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "veterinary-medicine",
+    "name": "Veterinary Medicine",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 757,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=757",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "water-resources-and-environmental-engineering",
+    "name": "Water Resources and Environmental Engineering",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "BIO"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 738,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=738",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "oLevelDescription": "English Language, Mathematics, Physics, Chemistry and Biology.",
+    "utmeDescription": ""
+  },
+  {
+    "code": "woodwork-technology-education",
+    "name": "Woodwork Technology Education",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ],
+      [
+        "PHY",
+        "CHE",
+        "BIO",
+        "CST",
+        "TDR",
+        "ELT",
+        "AME",
+        "BLE",
+        "AEL",
+        "MWO",
+        "WWO",
+        "BUI",
+        "EIM",
+        "RTE"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "PHY"
+      ],
+      [
+        "CHE"
+      ]
+    ],
+    "sourcePage": 705,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://cie.unilorin.edu.ng/undergraduates/",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "requirementBasis": "Owner final decisions, 12 November 2026; UNILORIN programme requirements take precedence over generic entries.",
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "English Language, Mathematics and three related Science/technical credits, including Physics, Chemistry, Biology, Computer Studies, Technical Drawing, Electronics, Auto Mechanics, Basic/Applied Electricity, Metalwork, Woodwork, Building Construction or the listed electrical/electronic trade subjects.",
+    "utmeDescription": "Use of English, Mathematics, Physics and Chemistry."
+  },
+  {
+    "code": "yoruba",
+    "name": "Yoruba",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "YOR"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "YOR"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ],
+      [
+        "ARA",
+        "CRS",
+        "IRS",
+        "FRE",
+        "YOR",
+        "HAU",
+        "IGB",
+        "HIS",
+        "LIT",
+        "ART",
+        "MUS",
+        "ECO",
+        "GOV",
+        "GEO",
+        "COM",
+        "ACC",
+        "CIV",
+        "INS",
+        "MKT",
+        "BUS",
+        "BME",
+        "BKP"
+      ]
+    ],
+    "sourcePage": 712,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=712",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  },
+  {
+    "code": "zoology",
+    "name": "Zoology",
+    "slots": [
+      [
+        "ENG"
+      ],
+      [
+        "MAT"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "utmeSlots": [
+      [
+        "ENG"
+      ],
+      [
+        "BIO"
+      ],
+      [
+        "CHE"
+      ],
+      [
+        "PHY"
+      ]
+    ],
+    "sourcePage": 746,
+    "note": "",
+    "oneSitting": false,
+    "sittingReview": false,
+    "manual": false,
+    "sourceUrl": "https://www.unilorin.edu.ng/wp-content/uploads/2025/03/University-Calendar.pdf#page=746",
+    "reviewRequired": false,
+    "extraPhysicsPass": false,
+    "extraBiologyPassIfAgr": false,
+    "oLevelDescription": "",
+    "utmeDescription": ""
+  }
+]
