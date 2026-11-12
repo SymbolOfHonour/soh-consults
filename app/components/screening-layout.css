@@ -27,3 +27,18 @@ html[data-soh-wide-touch] body:has(.soh-screening-layout) .soh-portal-menu{width
 html[data-soh-wide-touch] body:has(.soh-screening-layout) .soh-portal-menu-label{display:none}
 html[data-soh-wide-touch] body:has(.soh-screening-form) .soh-display-fallback nav{gap:4px}
 html[data-soh-wide-touch] body:has(.soh-screening-form) .soh-display-fallback nav>a{padding:8px;font-size:12px}
+
+/* Keep the enquiry and contact cards wide enough for complete contact details. */
+.soh-screening-form .soh-contact{padding-block:24px}
+.soh-screening-form .soh-contact-inner{max-width:none;padding-inline:0}
+.soh-screening-form .soh-contact-panel{padding:clamp(20px,2vw,48px);container-type:inline-size}
+.soh-screening-form .soh-contact-grid{display:block}
+.soh-screening-form .soh-contact-grid>div:first-child{margin-bottom:24px}
+.soh-screening-form .soh-contact-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.soh-screening-form .soh-contact-cards{margin-top:0;grid-template-columns:minmax(0,1fr)}
+.soh-screening-form .soh-contact-cards a{padding:16px 20px}
+.soh-screening-form .soh-contact-cards a>span:last-child{font-size:clamp(16px,1vw,28px);line-height:1.5;word-break:normal;overflow-wrap:anywhere}
+@container(max-width:800px){.soh-screening-form .soh-contact-actions{grid-template-columns:minmax(0,1fr)}}
+html[data-soh-wide-touch] .soh-screening-form .soh-contact-panel{padding:20px}
+html[data-soh-wide-touch] .soh-screening-form .soh-contact-actions{grid-template-columns:minmax(0,1fr);gap:18px}
+html[data-soh-wide-touch] .soh-screening-form .soh-contact-cards a>span:last-child{font-size:16px}
