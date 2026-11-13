@@ -51,6 +51,14 @@ export default function ToolsPage() {
           <PublicPageLink href="/schools">Find your school <span aria-hidden="true">↗</span></PublicPageLink>
         </nav>
       </section>
+      <section className={styles.guide} aria-labelledby="tools-guide-title">
+        <p className={styles.kicker}>MAKE THE MOST OF YOUR TOOLS</p>
+        <h2 id="tools-guide-title">A few steps to your next decision.</h2>
+        <div className={styles.guideGrid}>
+          <article><span className={styles.guideTag}>FOR ADMISSION SEEKERS</span><h3>Check your school requirements first.</h3><ol><li><strong>Choose your school.</strong><p>Open the screening calculators and select your institution.</p></li><li><strong>Enter your results.</strong><p>Have your UTME score, subject combination and O’Level grades ready. Follow your school’s sitting policy.</p></li><li><strong>Review your assessment.</strong><p>Check your estimated score and subject requirements. Confirm admission decisions with your school.</p></li></ol><PublicPageLink href="/screening-calculator">Start with your school →</PublicPageLink></article>
+          <article><span className={styles.guideTag}>FOR STUDENTS</span><h3>Turn your grades into a plan.</h3><ol><li><strong>Select your grading system.</strong><p>Choose the scale your institution uses before entering your grades.</p></li><li><strong>Gather your course records.</strong><p>Keep your course units, grades and previous academic totals ready.</p></li><li><strong>Explore your next semester.</strong><p>Calculate your GPA or CGPA, then explore the grades you may need to work towards your target.</p></li></ol><PublicPageLink href="/cgpa-calculator">Choose your grading system →</PublicPageLink></article>
+        </div>
+      </section>
       <section className={styles.contact} aria-labelledby="tools-contact-title"><h2 id="tools-contact-title">Need help? Contact S.O.H CONSULTS</h2><p>Ask about screening, course requirements or using our student tools.</p><BusinessContacts compact /></section>
       <p className={styles.note}>Screening scores are estimates for guidance. Always confirm your school’s official admission requirements.</p>
     </div>

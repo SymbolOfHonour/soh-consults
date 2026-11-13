@@ -17,3 +17,29 @@
 :global(html[data-soh-theme=dark]) .contact nav a:hover{background:#23402f}
 /* This page already presents the same contact links directly above the legal footer. */
 :global(body):has(.page) :global(footer[aria-label="Legal information"] > div:first-child){display:none}
+
+
+.guide{margin-top:20px;padding:26px;background:#fff;border:1px solid #e4eae5;border-radius:20px}
+.guide>h2{font-size:25px;font-weight:800;line-height:1.3;margin:5px 0 22px;letter-spacing:-.7px}
+.guideGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.guideGrid article{padding:22px;background:#f6f8f6;border:1px solid #e4eae5;border-radius:14px}
+.guideTag{font-size:10px;letter-spacing:1.2px;color:#08734d;font-weight:800}
+.guideGrid h3{font-size:21px;font-weight:750;line-height:1.35;margin:10px 0 18px}
+.guideGrid ol{list-style:decimal;padding-left:22px;margin:0 0 20px}
+.guideGrid li{padding-left:6px;margin-bottom:18px;font-size:14px}
+.guideGrid li::marker{color:#08734d;font-weight:800}
+.guideGrid p{color:#617269;margin-top:5px;line-height:1.7}
+.guideGrid article>a{font-size:13px;color:#08734d;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+:global(html[data-soh-theme=dark]) .guide{background:#142137;border-color:#334155}
+:global(html[data-soh-theme=dark]) .guideGrid article{background:#1c2d46;border-color:#334155}
+:global(html[data-soh-theme=dark]) .guideGrid p{color:#aebed2}
+:global(html[data-soh-theme=dark]) :is(.guideTag,.guideGrid article>a){color:#b9e5cd}
+@media(max-width:700px){.guideGrid{grid-template-columns:1fr}.guide{padding:22px 17px}}
+/* A short Tools page fills the phone height through its guide, keeping the
+   compact tool cards intact and the footer above the fixed navigation. */
+:global(html[data-soh-wide-touch]) .page{flex:1;display:flex;flex-direction:column}
+:global(html[data-soh-wide-touch]) .content{flex:1;display:flex;flex-direction:column}
+:global(html[data-soh-wide-touch]) .guide{flex:1;display:flex;flex-direction:column}
+:global(html[data-soh-wide-touch]) .guideGrid{flex:1}
+:global(html[data-soh-wide-touch]) .guideGrid article{display:flex;flex-direction:column}
+:global(html[data-soh-wide-touch]) .guideGrid ol{flex:1;display:flex;flex-direction:column;justify-content:space-between}
