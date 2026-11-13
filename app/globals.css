@@ -177,3 +177,10 @@ html[data-soh-theme=dark] .soh-portal-menu a:hover,html[data-soh-theme=dark] .so
 html[data-soh-theme=dark] .soh-portal-whatsapp,html[data-soh-theme=dark] .soh-display-fallback nav>a.soh-portal-whatsapp{color:#fff}
 @media(max-width:600px){.soh-display-fallback>div{padding:10px 12px;gap:8px}.soh-display-fallback img{width:76px;height:44px}.soh-display-fallback nav{gap:5px}.soh-display-fallback nav>a{padding:10px}.soh-portal-menu-label{display:none}.soh-display-fallback .soh-portal-menu,.soh-portal-menu{width:calc(100vw - 24px);gap:8px;padding:12px}.soh-portal-menu a{font-size:13px;padding:10px 8px}.soh-portal-whatsapp,.soh-display-fallback nav>a.soh-portal-whatsapp{padding:10px;font-size:12px}}
 #fustech-result{scroll-margin-top:100px}
+
+/* Short Student Tools routes share the phone's available page height. Keep all
+   normal-flow footer/install content inside that height above the touch nav. */
+html[data-soh-wide-touch] body:has(> main:is(.soh-tools-page,.cgpa-design,.soh-screening-layout)){min-height:100svh}
+html[data-soh-wide-touch] body>main:is(.soh-tools-page,.cgpa-design,.soh-screening-layout){flex:1 0 auto}
+html[data-soh-wide-touch] body:has(> main:is(.soh-tools-page,.cgpa-design,.soh-screening-layout))>footer,
+html[data-soh-wide-touch] body:has(> main:is(.soh-tools-page,.cgpa-design,.soh-screening-layout))>aside[aria-label="Install S.O.H CONSULTS"]{flex-shrink:0}
