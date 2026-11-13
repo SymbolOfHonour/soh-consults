@@ -17,7 +17,7 @@ function ToolIcon({ chart = false }: { chart?: boolean }) {
 }
 
 export default function ToolsPage() {
-  return <main className={styles.page}>
+  return <main className={`${styles.page} soh-tools-page`}>
     <header className={styles.header}><div className={styles.nav}>
       <PublicPageLink href="/" aria-label="S.O.H CONSULTS homepage"><img src="/soh-logo.jpg" alt="S.O.H CONSULTS" width="145" height="72" className={styles.logo} /></PublicPageLink>
       <nav aria-label="Student tools navigation" className={styles.links}><PublicPageLink href="/">Home</PublicPageLink><PublicPageLink href="/updates">Updates</PublicPageLink><PublicPageLink href="/tools" aria-current="page">Student Tools</PublicPageLink></nav>
