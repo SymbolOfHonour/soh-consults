@@ -1241,8 +1241,6 @@ export default function LASUCalculator() {
     setProgrammesLoading,
   ] = useState(true);
 
-  const [programmesBackup, setProgrammesBackup] = useState(false);
-
   const [
     programmesError,
     setProgrammesError,
@@ -1376,7 +1374,6 @@ export default function LASUCalculator() {
 
         if (!cancelled) {
           setProgrammes(data.programmes);
-          setProgrammesBackup(data.mode === "backup");
         }
       } catch (error) {
         if (!cancelled) {
@@ -3931,7 +3928,7 @@ export default function LASUCalculator() {
                       {
                         programmes.length
                       }{" "}
-                      {programmesBackup ? "programmes from the saved LASU catalogue (1 October 2026)." : "programmes loaded from LASU."}
+                      programmes available.
                     </p>
                   )}
               </div>
@@ -3961,7 +3958,6 @@ export default function LASUCalculator() {
                   {lasuRequirement &&
                     !requirementLoading && (
                       <div className="space-y-3">
-                        {lasuRequirement.mode === "backup" && <p role="status" className="rounded-xl bg-amber-50 p-3 text-sm text-amber-900">LASU’s portal is temporarily unavailable. Showing saved official requirements. Last verified: {lasuRequirement.retrievedAt ? new Date(lasuRequirement.retrievedAt).toLocaleDateString("en-GB", { timeZone: "Africa/Lagos" }) : "unavailable"}.</p>}
                         <div className="rounded-2xl bg-green-50 p-4 ring-1 ring-green-100">
                           <p className="text-xs font-black uppercase tracking-wider text-green-700">
                             LASU O-Level Requirement

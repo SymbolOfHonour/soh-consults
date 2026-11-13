@@ -21,3 +21,13 @@ test('LASU live and outage recovery',async t=>{
  await t.test('durable backup survives new reads',async()=>{process.env.SUPABASE_URL='https://storage.example';process.env.SUPABASE_SERVICE_ROLE_KEY='test';let saved;global.fetch=async(url,init)=>{if(init.method==='POST'){saved=JSON.parse(init.body);return new Response(null,{status:204})}return Response.json([{details:saved.details}])};const record={courseId:'0631',programme:'Political Science',oLevel:'Updated official O-Level',utme:'Updated official UTME',retrievedAt:'2026-11-13T10:00:00Z'};await saveLasuBackup(record);assert.equal(saved.status,'archived');assert.deepEqual(await readLasuBackup('0631'),record);await assert.rejects(()=>saveLasuBackup({...record,utme:''}));});
  } finally {global.fetch=original;if(oldUrl===undefined)delete process.env.SUPABASE_URL;else process.env.SUPABASE_URL=oldUrl;if(oldKey===undefined)delete process.env.SUPABASE_SERVICE_ROLE_KEY;else process.env.SUPABASE_SERVICE_ROLE_KEY=oldKey;}
 });
+
+test('fallback catalogue preserves all 113 official programmes and corrected IDs',()=>{
+ const rows=require('../data/lasu-requirements-snapshot.json');
+ assert.equal(rows.length,113);assert.equal(new Set(rows.map(r=>r.courseId)).size,113);
+ assert.equal(rows.find(r=>r.programme==='Accounting').courseId,'0811');
+ assert.equal(rows.find(r=>r.programme==='Social Studies and Civic Education').courseId,'0160');
+ const page=require('node:fs').readFileSync('app/lasu-calculator/page.tsx','utf8');
+ assert.ok(!page.includes('Showing saved official requirements'));
+ assert.ok(!page.includes('programmes from the saved LASU catalogue'));
+});

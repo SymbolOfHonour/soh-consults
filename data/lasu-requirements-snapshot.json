@@ -1,5 +1,12 @@
 [
   {
+    "programme": "Accounting",
+    "courseId": "0811",
+    "oLevel": "",
+    "utme": "",
+    "retrievedAt": "2026-10-01T00:00:00.000Z"
+  },
+  {
     "programme": "Accounting Education",
     "courseId": "0143",
     "oLevel": "English Language, Mathematics, Economics, and any subject from Social Science JAMB",
@@ -294,16 +301,16 @@
     "retrievedAt": "2026-10-01T00:00:00.000Z"
   },
   {
-    "programme": "Film and Multimedia",
-    "courseId": "0991",
-    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science JAMB",
+    "programme": "Film Production",
+    "courseId": "2121",
+    "oLevel": "English Language, Literature In English, and any subject from Arts or Social Science JAMB",
     "utme": "",
     "retrievedAt": "2026-10-01T00:00:00.000Z"
   },
   {
-    "programme": "Film Production",
-    "courseId": "2121",
-    "oLevel": "English Language, Literature In English, and any subject from Arts or Social Science JAMB",
+    "programme": "Film and Multimedia",
+    "courseId": "0991",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science JAMB",
     "utme": "",
     "retrievedAt": "2026-10-01T00:00:00.000Z"
   },
@@ -336,17 +343,17 @@
     "retrievedAt": "2026-10-01T00:00:00.000Z"
   },
   {
-    "programme": "Geography and Planning",
-    "courseId": "0621",
-    "oLevel": "English Language, Mathematics, Geography, and any subject from Arts, Social Science, Science or Trade JAMB",
-    "utme": "ENG, GEO, and any subject from Arts or Social Science",
-    "retrievedAt": "2026-10-01T00:00:00.000Z"
-  },
-  {
     "programme": "Geography Education",
     "courseId": "0128",
     "oLevel": "English Language, Mathematics, Geography, and any subject from Arts, Social Science, Science or Trade JAMB",
     "utme": "ENG, GOV or ECO, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-10-01T00:00:00.000Z"
+  },
+  {
+    "programme": "Geography and Planning",
+    "courseId": "0621",
+    "oLevel": "English Language, Mathematics, Geography, and any subject from Arts, Social Science, Science or Trade JAMB",
+    "utme": "ENG, GEO, and any subject from Arts or Social Science",
     "retrievedAt": "2026-10-01T00:00:00.000Z"
   },
   {
@@ -364,17 +371,17 @@
     "retrievedAt": "2026-10-01T00:00:00.000Z"
   },
   {
-    "programme": "History and International Studies",
-    "courseId": "0341",
-    "oLevel": "English Language, Government or History, and any subject from Arts or Social Science JAMB",
-    "utme": "ENG, GOV or HIS, and any subject from Arts or Social Science",
-    "retrievedAt": "2026-10-01T00:00:00.000Z"
-  },
-  {
     "programme": "History Education",
     "courseId": "0126",
     "oLevel": "English Language, History or Government, and any subject from Arts or Social Science JAMB",
     "utme": "ENG, GOV or HIS, and any subject from Arts or Social Science, PHY, Arts or Social Science",
+    "retrievedAt": "2026-10-01T00:00:00.000Z"
+  },
+  {
+    "programme": "History and International Studies",
+    "courseId": "0341",
+    "oLevel": "English Language, Government or History, and any subject from Arts or Social Science JAMB",
+    "utme": "ENG, GOV or HIS, and any subject from Arts or Social Science",
     "retrievedAt": "2026-10-01T00:00:00.000Z"
   },
   {
@@ -420,13 +427,6 @@
     "retrievedAt": "2026-10-01T00:00:00.000Z"
   },
   {
-    "programme": "Islamic and Common Law",
-    "courseId": "0412",
-    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts, Social Science, Science or Trade JAMB",
-    "utme": "ENG, and any subject from Arts or Social Science",
-    "retrievedAt": "2026-10-01T00:00:00.000Z"
-  },
-  {
     "programme": "Islamic Religious Studies",
     "courseId": "0352",
     "oLevel": "English Language, Islamic Religious Studies or Arabic , and any subject from Arts or Social Science JAMB",
@@ -438,6 +438,13 @@
     "courseId": "0125",
     "oLevel": "English Language, Islamic Religious Studies, and any subject from Arts or Social Science JAMB",
     "utme": "ENG, IRS or ARA, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-10-01T00:00:00.000Z"
+  },
+  {
+    "programme": "Islamic and Common Law",
+    "courseId": "0412",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts, Social Science, Science or Trade JAMB",
+    "utme": "ENG, and any subject from Arts or Social Science",
     "retrievedAt": "2026-10-01T00:00:00.000Z"
   },
   {
@@ -687,7 +694,7 @@
   },
   {
     "programme": "Social Studies and Civic Education",
-    "courseId": "0131",
+    "courseId": "0160",
     "oLevel": "English Language, Civic Education or Government, and any subject from Arts or Social Science JAMB",
     "utme": "ENG, and any subject from Arts or Social Science",
     "retrievedAt": "2026-10-01T00:00:00.000Z"
