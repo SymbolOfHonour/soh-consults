@@ -1,3 +1,4 @@
+import { readLasuBackup, saveLasuBackup } from "../../../../lib/lasu-backup";
 import { NextRequest, NextResponse } from "next/server";
 
 const LASU_REQUIREMENTS_URL =
@@ -113,12 +114,13 @@ function extractRequirementSections(html: string) {
 }
 
 export async function POST(request: NextRequest) {
+  let courseId = "";
   try {
     const body = await request.json();
 
-    const courseId = String(body.courseId ?? "").trim();
+    courseId = String(body.courseId ?? "").trim();
 
-    if (!courseId) {
+    if (!/^\d{1,8}$/.test(courseId)) {
       return NextResponse.json(
         {
           success: false,
@@ -143,6 +145,7 @@ export async function POST(request: NextRequest) {
       },
       body: formData.toString(),
       cache: "no-store",
+      signal: AbortSignal.timeout(6000),
     });
 
     if (!response.ok) {
@@ -154,35 +157,26 @@ export async function POST(request: NextRequest) {
     const programme = extractProgrammeName(html);
     const requirements = extractRequirementSections(html);
 
-    if (!requirements.oLevel && !requirements.utme) {
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "LASU returned the page, but the requirement could not be read.",
-        },
-        {
-          status: 502,
-        }
-      );
+    if (!programme || !requirements.oLevel || !requirements.utme) {
+      throw new Error("LASU returned incomplete requirements");
     }
-
-    return NextResponse.json({
-      success: true,
-      source: "LASU",
-      courseId,
-      programme,
-      oLevel: requirements.oLevel,
-      utme: requirements.utme,
-      retrievedAt: new Date().toISOString(),
-    });
+    // Reject redirects or a response for a different programme ID.
+    if (response.redirected) throw new Error("LASU redirected the request");
+    const selected = html.match(/<option\b[^>]*value=["']([^"']+)["'][^>]*selected[^>]*>/i);
+    if (selected && selected[1] !== courseId) throw new Error("LASU returned a different programme");
+    const record = { courseId, programme, oLevel: requirements.oLevel, utme: requirements.utme, retrievedAt: new Date().toISOString() };
+    await saveLasuBackup(record).catch(() => console.warn("LASU live result loaded but backup could not be saved"));
+    return NextResponse.json({ success: true, source: "LASU", mode: "live", ...record });
   } catch (error) {
     console.error("LASU requirement fetch failed:", error);
+
+    const backup = /^\d{1,8}$/.test(courseId) ? await readLasuBackup(courseId) : null;
+    if (backup) return NextResponse.json({ success: true, source: "LASU", mode: "backup", ...backup });
 
     return NextResponse.json(
       {
         success: false,
-        error: "Unable to retrieve the LASU course requirement.",
+        error: "LASU requirements are temporarily unavailable and no complete verified backup exists for this course. Please try again later.",
       },
       {
         status: 502,

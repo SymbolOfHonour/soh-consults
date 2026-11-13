@@ -20,6 +20,7 @@ type LasuRequirement = {
   oLevel?: string;
   utme?: string;
   retrievedAt?: string;
+  mode?: "live" | "backup";
   error?: string;
 };
 
@@ -1240,6 +1241,8 @@ export default function LASUCalculator() {
     setProgrammesLoading,
   ] = useState(true);
 
+  const [programmesBackup, setProgrammesBackup] = useState(false);
+
   const [
     programmesError,
     setProgrammesError,
@@ -1356,7 +1359,7 @@ export default function LASUCalculator() {
           );
 
         const data =
-          await response.json();
+          await response.json().catch(() => { throw new Error("LASU requirements are temporarily unavailable. Please try again shortly."); });
 
         if (
           !response.ok ||
@@ -1372,9 +1375,8 @@ export default function LASUCalculator() {
         }
 
         if (!cancelled) {
-          setProgrammes(
-            data.programmes
-          );
+          setProgrammes(data.programmes);
+          setProgrammesBackup(data.mode === "backup");
         }
       } catch (error) {
         if (!cancelled) {
@@ -1453,7 +1455,7 @@ export default function LASUCalculator() {
 
         const data:
           LasuRequirement =
-          await response.json();
+          await response.json().catch(() => { throw new Error("LASU requirements are temporarily unavailable. Please try again shortly."); });
 
         if (
           !response.ok ||
@@ -3929,7 +3931,7 @@ export default function LASUCalculator() {
                       {
                         programmes.length
                       }{" "}
-                      programmes loaded from LASU.
+                      {programmesBackup ? "programmes from the saved LASU catalogue (1 October 2026)." : "programmes loaded from LASU."}
                     </p>
                   )}
               </div>
@@ -3959,9 +3961,10 @@ export default function LASUCalculator() {
                   {lasuRequirement &&
                     !requirementLoading && (
                       <div className="space-y-3">
+                        {lasuRequirement.mode === "backup" && <p role="status" className="rounded-xl bg-amber-50 p-3 text-sm text-amber-900">LASU’s portal is temporarily unavailable. Showing saved official requirements. Last verified: {lasuRequirement.retrievedAt ? new Date(lasuRequirement.retrievedAt).toLocaleDateString("en-GB", { timeZone: "Africa/Lagos" }) : "unavailable"}.</p>}
                         <div className="rounded-2xl bg-green-50 p-4 ring-1 ring-green-100">
                           <p className="text-xs font-black uppercase tracking-wider text-green-700">
-                            Current LASU O-Level Requirement
+                            LASU O-Level Requirement
                           </p>
 
                           <p className="mt-2 text-sm leading-6 text-slate-700">
@@ -3973,7 +3976,7 @@ export default function LASUCalculator() {
 
                         <div className="rounded-2xl bg-blue-50 p-4 ring-1 ring-blue-100">
                           <p className="text-xs font-black uppercase tracking-wider text-blue-700">
-                            Current LASU UTME Requirement
+                            LASU UTME Requirement
                           </p>
 
                           <p className="mt-2 text-sm leading-6 text-slate-700">
