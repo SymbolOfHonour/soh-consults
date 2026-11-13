@@ -30,31 +30,3 @@
  .links{font-size:clamp(14px,1vw,28px)}
  .logo{width:clamp(145px,10vw,270px);height:clamp(72px,5vw,135px)}
 }
-/* The site retains its wide viewport on phones; scale this route locally. */
-:global(html[data-soh-wide-touch]) .page{font-size:16px}
-:global(html[data-soh-wide-touch]) .nav,:global(html[data-soh-wide-touch]) .heroInner,:global(html[data-soh-wide-touch]) .content,:global(html[data-soh-wide-touch]) .signoff{width:94%;max-width:none;padding-inline:0}
-:global(html[data-soh-wide-touch]) .nav{min-height:72px;gap:8px}
-:global(html[data-soh-wide-touch]) .logo{width:100px;height:56px}
-:global(html[data-soh-wide-touch]) .links,:global(html[data-soh-wide-touch]) .planner,:global(html[data-soh-wide-touch]) .visual{display:none}
-:global(html[data-soh-wide-touch]) .heroInner{padding-top:25px;padding-bottom:48px}
-:global(html[data-soh-wide-touch]) .hero h1{font-size:30px;letter-spacing:-1px}
-:global(html[data-soh-wide-touch]) .eyebrow,:global(html[data-soh-wide-touch]) .kicker{font-size:10px}
-:global(html[data-soh-wide-touch]) .intro{font-size:14px}
-:global(html[data-soh-wide-touch]) .workspace{padding:20px 16px}
-:global(html[data-soh-wide-touch]) .steps{gap:10px;font-size:10px;margin-bottom:22px}
-:global(html[data-soh-wide-touch]) .steps li{gap:4px}
-:global(html[data-soh-wide-touch]) .steps b{width:21px;height:21px;font-size:10px}
-:global(html[data-soh-wide-touch]) .sectionhead{flex-direction:column;align-items:stretch;gap:18px}
-:global(html[data-soh-wide-touch]) .sectionhead h2{font-size:24px}
-:global(html[data-soh-wide-touch]) .sectionhead p:not(.kicker){font-size:14px}
-:global(html[data-soh-wide-touch]) .search{width:100%;min-width:0}
-:global(html[data-soh-wide-touch]) .search input{font-size:16px}
-:global(html[data-soh-wide-touch]) .filters{gap:6px;margin-top:18px}
-:global(html[data-soh-wide-touch]) .filters button{font-size:12px;padding:9px 12px}
-:global(html[data-soh-wide-touch]) .grid{grid-template-columns:minmax(0,1fr);gap:14px}
-:global(html[data-soh-wide-touch]) .card{padding:20px;min-height:0}
-:global(html[data-soh-wide-touch]) .cardTop img{width:65px;height:65px}
-:global(html[data-soh-wide-touch]) .card h3{font-size:20px}
-:global(html[data-soh-wide-touch]) .card p,:global(html[data-soh-wide-touch]) .go,:global(html[data-soh-wide-touch]) .directory{font-size:14px}
-:global(html[data-soh-wide-touch]) .location,:global(html[data-soh-wide-touch]) .type,:global(html[data-soh-wide-touch]) .count,:global(html[data-soh-wide-touch]) .note,:global(html[data-soh-wide-touch]) .signoff{font-size:11px}
-:global(html[data-soh-wide-touch]) .directory{flex-direction:column}

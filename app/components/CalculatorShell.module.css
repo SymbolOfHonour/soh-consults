@@ -39,11 +39,3 @@
  .page section>h2{font-size:clamp(20px,1.4vw,40px);line-height:1.4}
  .page :is(input:not([type="checkbox"]):not([type="radio"]),select){font-size:clamp(14px,.95vw,28px);padding:clamp(12px,.8vw,24px)}
 }
-:global(html[data-soh-wide-touch]) .page{padding:16px 3%;font-size:16px}
-:global(html[data-soh-wide-touch]) .content>div[class*="lg:grid-cols-"]{grid-template-columns:minmax(0,1fr)}
-:global(html[data-soh-wide-touch]) .hero{padding:18px}
-:global(html[data-soh-wide-touch]) .hero h1{font-size:24px}
-:global(html[data-soh-wide-touch]) .description{font-size:14px}
-:global(html[data-soh-wide-touch]) .page section[class*="rounded-3xl"]{padding:20px}
-:global(html[data-soh-wide-touch]) .page section>h2{font-size:20px}
-:global(html[data-soh-wide-touch]) .page :is(input:not([type="checkbox"]):not([type="radio"]),select){font-size:16px;padding:12px}
