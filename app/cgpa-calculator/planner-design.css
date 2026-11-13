@@ -35,28 +35,45 @@ html[data-soh-theme=dark] .cgpa-design{background:#0b1920;color:#e2efe8}html[dat
 }
 
 
-.cgpa-prepare{margin-top:22px;background:#fff;border:1px solid #e4eae5;border-radius:20px;padding:28px;color:inherit}
+.cgpa-prepare{margin-top:22px;border:1px solid #dbe7df;border-radius:20px;padding:30px;background:linear-gradient(135deg,#edf6ef,#f8faf5);color:inherit}
+.cgpa-prepare-heading{max-width:760px;margin-bottom:24px}
 .cgpa-prepare-kicker{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#08734d}
-.cgpa-prepare h2{font-size:23px;font-weight:800;line-height:1.3;margin:6px 0 8px}
-.cgpa-prepare>div>p:last-child{font-size:13px;color:#6a7b72}
-.cgpa-prepare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:20px}
-.cgpa-prepare article{padding:22px;background:#f6f8f6;border:1px solid #e4eae5;border-radius:14px}
-.cgpa-prepare h3{font-size:18px;font-weight:750;margin-bottom:18px}
-.cgpa-prepare ul{list-style:disc;padding-left:18px;display:flex;flex-direction:column;gap:18px}
-.cgpa-prepare li{font-size:13px;padding-left:3px}
-.cgpa-prepare li::marker{color:#08734d}
-.cgpa-prepare li p{color:#6a7b72;line-height:1.65;margin-top:5px}
-html[data-soh-theme=dark] .cgpa-prepare{background:#122923;border-color:#345046}
-html[data-soh-theme=dark] .cgpa-prepare article{background:#19372a;border-color:#345046}
-html[data-soh-theme=dark] .cgpa-prepare :is(li p,div>p:last-child){color:#b0c6b8}
+.cgpa-prepare h2{font-size:27px;font-weight:800;line-height:1.2;letter-spacing:-.6px;margin:9px 0 10px}
+.cgpa-prepare-heading>p:last-child{font-size:15px;line-height:1.6;color:#607269}
+.cgpa-prepare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+.cgpa-prepare article{background:#fff;border:1px solid #dce6df;border-radius:16px;overflow:hidden;min-width:0}
+.cgpa-prepare h3{display:flex;align-items:center;gap:12px;padding:20px 22px;font-size:19px;font-weight:750;line-height:1.4;border-bottom:1px solid #e7eee9}
+.cgpa-prepare h3>span{display:grid;place-items:center;width:32px;height:32px;flex-shrink:0;border-radius:10px;background:#eaf5ee;color:#08734d;font-size:20px}
+.cgpa-prepare h3>span svg{width:20px;height:20px}
+.cgpa-prepare article:nth-child(2) h3>span{background:#f7f0df;color:#886a31}
+.cgpa-prepare ul{list-style:none;padding:0 22px;margin:0;counter-reset:guide-row}
+.cgpa-prepare li{position:relative;padding:20px 0 20px 38px;counter-increment:guide-row}
+.cgpa-prepare li+li{border-top:1px solid #e7eee9}
+.cgpa-prepare li::before{content:counter(guide-row,decimal-leading-zero);position:absolute;left:0;top:22px;font-size:11px;font-weight:800;color:#719381}
+.cgpa-prepare strong{display:block;font-size:15px;font-weight:750;line-height:1.4}
+.cgpa-prepare li p{font-size:14px;line-height:1.6;color:#607269;margin-top:5px;max-width:46em}
+html[data-soh-theme=dark] .cgpa-prepare{background:linear-gradient(135deg,#142c23,#182c28);border-color:#345046}
+html[data-soh-theme=dark] .cgpa-prepare article{background:#122923;border-color:#345046}
+html[data-soh-theme=dark] .cgpa-prepare :is(h3,li+li){border-color:#345046}
+html[data-soh-theme=dark] .cgpa-prepare :is(li p,.cgpa-prepare-heading>p:last-child){color:#b0c6b8}
 html[data-soh-theme=dark] .cgpa-prepare-kicker{color:#8fe2b0}
-@media(max-width:540px){.cgpa-prepare-grid{grid-template-columns:1fr}.cgpa-prepare{padding:22px 17px}}
-/* Short selection screens use the same available phone height as Tools.
-   Keep the choice cards compact; give the preparation guide the free space. */
 html[data-soh-wide-touch] .cgpa-design{display:flex;flex-direction:column}
 html[data-soh-wide-touch] .cgpa-main{flex:1;display:flex;flex-direction:column;width:94%;min-width:0}
-html[data-soh-wide-touch] .cgpa-prepare{flex:1;display:flex;flex-direction:column}
-html[data-soh-wide-touch] .cgpa-prepare-grid{flex:1}
-html[data-soh-wide-touch] .cgpa-prepare article{display:flex;flex-direction:column}
-html[data-soh-wide-touch] .cgpa-prepare ul{flex:1;justify-content:space-between}
 html[data-soh-wide-touch] .cgpa-signoff{margin-top:0;margin-bottom:0}
+/* The overview above stays compact. This reading section uses one comfortable
+   column on phones, with content-sized rows instead of stretched panels. */
+html[data-soh-wide-touch] .cgpa-prepare{flex:none;padding:36px;margin-top:28px}
+html[data-soh-wide-touch] .cgpa-prepare-heading{max-width:none;margin-bottom:28px}
+html[data-soh-wide-touch] .cgpa-prepare-kicker{font-size:22px}
+html[data-soh-wide-touch] .cgpa-prepare h2{font-size:42px;margin:14px 0 16px;letter-spacing:-.7px}
+html[data-soh-wide-touch] .cgpa-prepare-heading>p:last-child{font-size:32px;line-height:1.5}
+html[data-soh-wide-touch] .cgpa-prepare-grid{grid-template-columns:1fr;gap:24px}
+html[data-soh-wide-touch] .cgpa-prepare h3{font-size:36px;padding:26px 28px;gap:18px}
+html[data-soh-wide-touch] .cgpa-prepare h3>span{width:52px;height:52px;font-size:32px;border-radius:14px}
+html[data-soh-wide-touch] .cgpa-prepare h3>span svg{width:32px;height:32px}
+html[data-soh-wide-touch] .cgpa-prepare ul{padding:0 28px}
+html[data-soh-wide-touch] .cgpa-prepare li{padding:26px 0 26px 58px}
+html[data-soh-wide-touch] .cgpa-prepare li::before{top:32px;font-size:24px}
+html[data-soh-wide-touch] .cgpa-prepare strong{font-size:34px}
+html[data-soh-wide-touch] .cgpa-prepare li p{font-size:32px;line-height:1.5;margin-top:8px}
+@media(max-width:700px){html:not([data-soh-wide-touch]) .cgpa-prepare-grid{grid-template-columns:1fr}.cgpa-prepare{padding:22px 17px}.cgpa-prepare h2{font-size:24px}}
