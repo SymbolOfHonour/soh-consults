@@ -2,21 +2,7 @@
 :global(html[data-soh-theme=dark]) .page{background:#0b1920;color:#e2efe8}:global(html[data-soh-theme=dark]) .page :is(.header,.workspace){background:#122923;border-color:#345046}:global(html[data-soh-theme=dark]) .admission{background:linear-gradient(145deg,#19372a,#142e25);border-color:#3a6348}:global(html[data-soh-theme=dark]) .academic{background:linear-gradient(145deg,#302e24,#252d25);border-color:#5c5742}:global(html[data-soh-theme=dark]) .page :is(.links,.card>p,.note,.quickTitle){color:#b0c6b8}:global(html[data-soh-theme=dark]) .page :is(.features span,.free){background:#23402f;color:#c4dfc5;border-color:#42634b}:global(html[data-soh-theme=dark]) .page :is(.stage,.quick a,.links a[aria-current=page]){color:#a3d2b1}:global(html[data-soh-theme=dark]) .quick{border-color:#345046}:global(html[data-soh-theme=dark]) .logo{background:white;border-radius:8px}
 @media(min-width:1700px){.logo{width:clamp(145px,9vw,250px);height:clamp(72px,4.5vw,125px)}.links,.cta{font-size:clamp(14px,1vw,28px)}.eyebrow,.kicker,.features span,.free,.quick,.note{font-size:clamp(11px,.8vw,22px)}.stage{font-size:clamp(10px,.75vw,20px)}.icon{width:70px;height:70px}.icon svg{width:60%;height:60%}.journey{min-width:22%;padding:30px}.journey p{font-size:clamp(22px,1.6vw,42px)}.journey>div{font-size:clamp(11px,.8vw,22px)}}
 @media(max-width:1000px){.links{display:none}.journey{min-width:250px;padding:20px}.hero h1{font-size:36px}}@media(max-width:700px){.journey,.free{display:none}.grid{grid-template-columns:1fr}.logo{width:110px;height:58px}.nav{min-height:72px;gap:8px}.search{display:none}.heroInner{padding:26px 0 48px}.hero h1{font-size:33px}.workspace{padding:22px 17px}.card{padding:22px}.card h3{font-size:27px}.quick{align-items:start;flex-direction:column;gap:16px}}
-/* Normal phone browsing adapts locally; requested Desktop site keeps the wide layout. */
-:global(html[data-soh-wide-touch]) .page{zoom:calc(100vw / var(--soh-screen-width,100vw))}
-:global(html[data-soh-wide-touch]) .page :is(.links,.journey,.free,.search){display:none}
-:global(html[data-soh-wide-touch]) .nav{min-height:72px;gap:7px}
-:global(html[data-soh-wide-touch]) .logo{width:100px;height:56px}
-:global(html[data-soh-wide-touch]) .heroInner{padding:26px 0 48px}
-:global(html[data-soh-wide-touch]) .hero h1{font-size:32px}
-:global(html[data-soh-wide-touch]) .intro{font-size:14px}
-:global(html[data-soh-wide-touch]) .workspace{padding:22px 16px}
-:global(html[data-soh-wide-touch]) .sectionHead h2{font-size:24px}
-:global(html[data-soh-wide-touch]) .grid{grid-template-columns:minmax(0,1fr);gap:16px}
-:global(html[data-soh-wide-touch]) .card{padding:22px}
-:global(html[data-soh-wide-touch]) .card h3{font-size:27px}
-:global(html[data-soh-wide-touch]) .card>p{font-size:14px}
-:global(html[data-soh-wide-touch]) .quick{flex-direction:column;align-items:start;gap:16px}
+
 :global(html[data-soh-theme=dark]) .kicker{color:#9bdfb2}
 
 .contact{margin-top:20px;background:#edf6ef;border:1px solid #d5e4d7;border-radius:16px;padding:24px}
@@ -29,32 +15,5 @@
 :global(html[data-soh-theme=dark]) .contact>p{color:#b0c6b8}
 :global(html[data-soh-theme=dark]) .contact nav a{background:#122923;border-color:#42634b;color:#a3d2b1}
 :global(html[data-soh-theme=dark]) .contact nav a:hover{background:#23402f}
-:global(html[data-soh-wide-touch]) .contact{padding:20px 16px}
-:global(html[data-soh-wide-touch]) .contact h2{font-size:22px}
-:global(html[data-soh-wide-touch]) .contact>p{font-size:14px}
-:global(html[data-soh-wide-touch]) .contact nav a{font-size:14px}
 /* This page already presents the same contact links directly above the legal footer. */
 :global(body):has(.page) :global(footer[aria-label="Legal information"] > div:first-child){display:none}
-
-/* Let a short Tools page use a tall viewport, rather than ending its footer mid-screen. */
-:global(body):has(.page){min-height:100dvh}
-.page{flex:1;display:flex;flex-direction:column}
-.content{flex:1;display:flex;flex-direction:column}
-.workspace{flex:1;display:flex;flex-direction:column}
-.grid{flex:1}
-/* Desktop site on a portrait phone keeps both columns, with type sized for its tall canvas. */
-@media(min-width:851px) and (max-aspect-ratio:3/4){
- :global(html:not([data-soh-wide-touch])) .heroInner{padding-top:40px;padding-bottom:72px}
- :global(html:not([data-soh-wide-touch])) .hero h1{font-size:clamp(44px,4vh,84px)}
- :global(html:not([data-soh-wide-touch])) .intro{font-size:clamp(16px,1.4vh,26px)}
- :global(html:not([data-soh-wide-touch])) .workspace{padding:32px}
- :global(html:not([data-soh-wide-touch])) .sectionHead h2{font-size:clamp(28px,2vh,42px)}
- :global(html:not([data-soh-wide-touch])) .card{padding:30px}
- :global(html:not([data-soh-wide-touch])) .card h3{font-size:clamp(30px,2.4vh,48px)}
- :global(html:not([data-soh-wide-touch])) .card>p{font-size:clamp(16px,1.5vh,30px)}
- :global(html:not([data-soh-wide-touch])) .page :is(.eyebrow,.kicker,.stage,.features span,.free,.quick,.note){font-size:clamp(12px,.85vh,18px)}
- :global(html:not([data-soh-wide-touch])) .cta{font-size:clamp(16px,1.1vh,22px);padding:14px 16px}
- :global(html:not([data-soh-wide-touch])) .contact h2{font-size:clamp(24px,1.6vh,34px)}
- :global(html:not([data-soh-wide-touch])) .contact>p{font-size:clamp(16px,1vh,22px)}
- :global(html:not([data-soh-wide-touch])) .contact nav a{font-size:clamp(14px,.95vh,20px)}
-}

@@ -9,24 +9,7 @@ body:has(.soh-screening-layout) .soh-display-fallback>div{max-width:none;width:9
  .soh-screening-form [class~="text-2xl"]{font-size:clamp(24px,1.6vw,48px);line-height:1.3}
  .soh-screening-form [class~="text-5xl"]{font-size:clamp(48px,3.2vw,96px);line-height:1.1}
 }
-/* Zoom compensates for the inherited 1120px viewport only inside these pages.
-   Physical screen width stays constant during pinch zoom, so user zoom remains usable. */
-html[data-soh-wide-touch] .soh-screening-layout{zoom:calc(100vw / var(--soh-screen-width,100vw))}
-html[data-soh-wide-touch] .soh-screening-form [class~="text-xs"]{font-size:12px}
-html[data-soh-wide-touch] .soh-screening-form [class~="text-sm"]{font-size:14px}
-html[data-soh-wide-touch] .soh-screening-form [class~="text-base"]{font-size:16px}
-html[data-soh-wide-touch] .soh-screening-form [class~="text-lg"]{font-size:18px}
-html[data-soh-wide-touch] .soh-screening-form [class~="text-xl"]{font-size:20px}
-html[data-soh-wide-touch] .soh-screening-form [class~="text-2xl"]{font-size:24px}
-html[data-soh-wide-touch] .soh-screening-form [class~="text-5xl"]{font-size:42px}
-html[data-soh-wide-touch] .soh-screening-form [class~="sm:grid-cols-2"]{grid-template-columns:minmax(0,1fr)}
-html[data-soh-wide-touch] body:has(.soh-screening-form) .soh-display-fallback{zoom:calc(100vw / var(--soh-screen-width,100vw))}
-html[data-soh-wide-touch] body:has(.soh-screening-form) .soh-display-fallback>div{padding-block:8px;gap:6px}
-html[data-soh-wide-touch] body:has(.soh-screening-form) .soh-display-fallback img{width:70px;height:44px}
-html[data-soh-wide-touch] body:has(.soh-screening-layout) .soh-portal-menu{width:min(340px,calc(var(--soh-screen-width,390px) - 32px));max-height:70vh;grid-template-columns:1fr;gap:12px}
-html[data-soh-wide-touch] body:has(.soh-screening-layout) .soh-portal-menu-label{display:none}
-html[data-soh-wide-touch] body:has(.soh-screening-form) .soh-display-fallback nav{gap:4px}
-html[data-soh-wide-touch] body:has(.soh-screening-form) .soh-display-fallback nav>a{padding:8px;font-size:12px}
+
 
 /* Keep the enquiry and contact cards wide enough for complete contact details. */
 .soh-screening-form .soh-contact{padding-block:24px}
@@ -39,6 +22,3 @@ html[data-soh-wide-touch] body:has(.soh-screening-form) .soh-display-fallback na
 .soh-screening-form .soh-contact-cards a{padding:16px 20px}
 .soh-screening-form .soh-contact-cards a>span:last-child{font-size:clamp(16px,1vw,28px);line-height:1.5;word-break:normal;overflow-wrap:anywhere}
 @container(max-width:800px){.soh-screening-form .soh-contact-actions{grid-template-columns:minmax(0,1fr)}}
-html[data-soh-wide-touch] .soh-screening-form .soh-contact-panel{padding:20px}
-html[data-soh-wide-touch] .soh-screening-form .soh-contact-actions{grid-template-columns:minmax(0,1fr);gap:18px}
-html[data-soh-wide-touch] .soh-screening-form .soh-contact-cards a>span:last-child{font-size:16px}
