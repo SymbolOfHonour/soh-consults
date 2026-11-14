@@ -102,6 +102,6 @@ export async function GET() {
     console.error("LASU programme fetch failed:", error);
 
     const programmes = snapshot.map(row => ({ id: row.courseId, name: row.programme })).sort((a, b) => a.name.localeCompare(b.name));
-    return NextResponse.json({ success: true, source: "LASU", mode: "backup", count: programmes.length, updatedAt: "2026-10-01T00:00:00.000Z", programmes });
+    return NextResponse.json({ success: true, source: "LASU", mode: "backup", count: programmes.length, updatedAt: snapshot.reduce((latest, row) => row.retrievedAt > latest ? row.retrievedAt : latest, ""), programmes });
   }
 }
