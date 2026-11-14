@@ -1,124 +1,18 @@
+import { parseLasuRequirements } from "../../../../lib/lasu-portal";
+import { readLasuBackup, saveLasuBackup } from "../../../../lib/lasu-backup";
 import { NextRequest, NextResponse } from "next/server";
 
 const LASU_REQUIREMENTS_URL =
   "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php";
 
-function decodeHtml(value: string) {
-  return value
-    .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, '"')
-    .replace(/&#039;/g, "'")
-    .replace(/&#39;/g, "'")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&nbsp;/g, " ")
-    .trim();
-}
-
-function htmlToText(value: string) {
-  return decodeHtml(
-    value
-      .replace(/<br\s*\/?>/gi, "\n")
-      .replace(/<\/p>/gi, "\n")
-      .replace(/<\/li>/gi, "\n")
-      .replace(/<li\b[^>]*>/gi, "")
-      .replace(/<[^>]*>/g, "")
-      .replace(/\r/g, "")
-      .replace(/[ \t]+/g, " ")
-      .replace(/\n\s+/g, "\n")
-      .replace(/\n{3,}/g, "\n\n")
-      .trim()
-  );
-}
-
-function extractProgrammeName(html: string) {
-  const resultBand = html.match(
-    /<div\b[^>]*class=["'][^"']*\bresult-band\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/i
-  );
-
-  if (resultBand) {
-    const heading = resultBand[1].match(
-      /<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>/i
-    );
-
-    if (heading) {
-      return htmlToText(heading[1]);
-    }
-  }
-
-  return "";
-}
-
-function cleanRequirement(text: string) {
-  let cleaned = text;
-
-  const stopPhrases = [
-    "Back to Home Page",
-    "Lagos State University Directorate",
-    "Visits:",
-    "Select a programme of study",
-  ];
-
-  for (const phrase of stopPhrases) {
-    const index = cleaned
-      .toLowerCase()
-      .indexOf(phrase.toLowerCase());
-
-    if (index >= 0) {
-      cleaned = cleaned.slice(0, index);
-    }
-  }
-
-  return cleaned.replace(/\s+/g, " ").trim();
-}
-
-function extractRequirementSections(html: string) {
-  const resultStart = html.search(
-    /class=["'][^"']*\bresult-box\b/i
-  );
-
-  const resultHtml =
-    resultStart >= 0 ? html.slice(resultStart) : html;
-
-  const oLevelMatch =
-    /O[\s-]*Level\s+Subject\s+Requirements/i.exec(resultHtml);
-
-  const utmeMatch =
-    /UTME\s+Subject\s+Requirements/i.exec(resultHtml);
-
-  let oLevel = "";
-  let utme = "";
-
-  if (oLevelMatch) {
-    const start = oLevelMatch.index + oLevelMatch[0].length;
-
-    const end =
-      utmeMatch && utmeMatch.index > start
-        ? utmeMatch.index
-        : resultHtml.length;
-
-    oLevel = htmlToText(resultHtml.slice(start, end));
-  }
-
-  if (utmeMatch) {
-    const start = utmeMatch.index + utmeMatch[0].length;
-
-    utme = htmlToText(resultHtml.slice(start));
-  }
-
-  return {
-    oLevel: cleanRequirement(oLevel),
-    utme: cleanRequirement(utme),
-  };
-}
-
 export async function POST(request: NextRequest) {
+  let courseId = "";
   try {
     const body = await request.json();
 
-    const courseId = String(body.courseId ?? "").trim();
+    courseId = String(body.courseId ?? "").trim();
 
-    if (!courseId) {
+    if (!/^\d{1,8}$/.test(courseId)) {
       return NextResponse.json(
         {
           success: false,
@@ -143,6 +37,7 @@ export async function POST(request: NextRequest) {
       },
       body: formData.toString(),
       cache: "no-store",
+      signal: AbortSignal.timeout(12000),
     });
 
     if (!response.ok) {
@@ -151,38 +46,24 @@ export async function POST(request: NextRequest) {
 
     const html = await response.text();
 
-    const programme = extractProgrammeName(html);
-    const requirements = extractRequirementSections(html);
-
-    if (!requirements.oLevel && !requirements.utme) {
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "LASU returned the page, but the requirement could not be read.",
-        },
-        {
-          status: 502,
-        }
-      );
-    }
-
-    return NextResponse.json({
-      success: true,
-      source: "LASU",
-      courseId,
-      programme,
-      oLevel: requirements.oLevel,
-      utme: requirements.utme,
-      retrievedAt: new Date().toISOString(),
-    });
+    const parsed = parseLasuRequirements(html, courseId);
+    if (response.redirected) throw new Error("LASU redirected the response");
+    // Keep confirmed source blanks as blanks. The calculator requires both sections
+    // before producing eligibility; an older response must not fill a current source gap.
+    if (!parsed.oLevel && !parsed.utme) throw new Error("LASU returned no requirements");
+    const record = { ...parsed, retrievedAt: new Date().toISOString() };
+    await saveLasuBackup(record).catch(() => console.warn("LASU live result loaded but backup could not be saved"));
+    return NextResponse.json({ success: true, source: "LASU", mode: "live", ...record });
   } catch (error) {
     console.error("LASU requirement fetch failed:", error);
+
+    const backup = /^\d{1,8}$/.test(courseId) ? await readLasuBackup(courseId) : null;
+    if (backup) return NextResponse.json({ success: true, source: "LASU", mode: "backup", ...backup });
 
     return NextResponse.json(
       {
         success: false,
-        error: "Unable to retrieve the LASU course requirement.",
+        error: "Requirements for this course are temporarily unavailable. Please confirm with LASU or try again later.",
       },
       {
         status: 502,

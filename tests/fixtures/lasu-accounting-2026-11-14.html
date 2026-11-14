@@ -1,0 +1,433 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>LASU Course Requirements — JAMB Brochure</title>
+    <meta name="keywords" content="LASU, Lagos State University, Admission, Course Requirement, JAMB Brochure, Olevel Subject, Jamb Subject"/>
+    <link rel="shortcut icon" href="images/lasu.ico"/>
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <!-- Bootstrap 4 (keeping same Bootstrap version as original) -->
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+
+    <style>
+      /* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: #0f1d13;
+    min-height: 100vh;
+    color: #1a2e24;
+}
+
+/* ── Top bar ── */
+.topbar {
+    background: #091410;
+    border-bottom: 3px solid #8ab99a;
+    padding: 14px 0;
+}
+.topbar-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 0 16px;
+}
+.logo-circle {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #8ab99a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.logo-circle img {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+}
+.logo-circle.jamb {
+    background: #b03a2e;
+    border-color: #b03a2e;
+}
+.logo-circle.jamb img {
+    width: 52px;
+    height: 36px;
+}
+.header-text { text-align: center; }
+.header-text h1 {
+    color: #fff;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+.header-text h1 i { color: #8ab99a; margin-right: 8px; }
+.header-text p {
+    color: #8ab99a;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-top: 4px;
+}
+.header-text p i { font-size: 10px; margin-right: 4px; }
+.utme-badge {
+    background: #b03a2e;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+/* ── Page shell ── */
+.page-shell {
+    max-width: 700px;
+    margin: 32px auto 48px;
+    padding: 0 16px;
+}
+
+/* ── Main card ── */
+.main-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.40);
+}
+
+/* Card header band */
+.card-band {
+    background: #0f4a2a;
+    padding: 18px 28px;
+    border-bottom: 3px solid #8ab99a;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.card-band i { color: #8ab99a; font-size: 24px; flex-shrink: 0; }
+.card-band h2 { color: #fff; font-size: 15px; font-weight: 700; margin: 0; }
+.card-band p  { color: #b2d4be; font-size: 12px; margin: 3px 0 0; }
+
+/* Card body */
+.card-body-custom { padding: 28px 32px; }
+
+/* Info strip */
+.info-strip {
+    background: #f0f7f3;
+    border: 1px solid #b8d4c2;
+    border-left: 4px solid #0f4a2a;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 26px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.info-strip i { color: #0f4a2a; font-size: 15px; margin-top: 2px; flex-shrink: 0; }
+.info-strip p { font-size: 13px; color: #1a2e24; line-height: 1.6; }
+
+/* Form label */
+.field-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f4a2a;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+.field-label i { color: #8ab99a; margin-right: 7px; }
+
+/* Select */
+.select-wrap { position: relative; }
+.select-wrap .fa-chevron-down {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 12px;
+    pointer-events: none;
+}
+.styled-select {
+    width: 100%;
+    padding: 12px 40px 12px 14px;
+    border: 1.5px solid #b8d4c2;
+    border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #1a2e24;
+    background: #f6faf7;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+.styled-select:focus {
+    outline: none;
+    border-color: #0f4a2a;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(15,74,42,0.1);
+}
+
+/* Submit button */
+.btn-submit {
+    width: 100%;
+    padding: 13px;
+    background: #0f4a2a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+    letter-spacing: 0.4px;
+    transition: background 0.2s, transform 0.1s;
+}
+.btn-submit:hover  { background: #1a6338; }
+.btn-submit:active { transform: scale(0.99); }
+
+/* Result box */
+.result-box {
+    margin-top: 28px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #b8d4c2;
+}
+.result-band {
+    background: #0f4a2a;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.result-band i { color: #8ab99a; font-size: 18px; }
+.result-band h3 { color: #fff; font-size: 15px; font-weight: 700; margin: 0; }
+.result-content { background: #f5f9f6; padding: 22px 24px; }
+.result-section { margin-bottom: 20px; }
+.result-section:last-child { margin-bottom: 0; }
+.section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    color: #2e7d50;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+.subject-pill-wrap {
+    background: #fff;
+    border: 1px solid #c8dece;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #1a2e24;
+    line-height: 1.8;
+}
+.result-divider {
+    border: none;
+    border-top: 1px solid #c8dece;
+    margin: 18px 0;
+}
+
+/* Back link */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #8dbba0;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 22px;
+    transition: color 0.2s;
+}
+.back-link:hover { color: #fff; text-decoration: none; }
+.back-link i { font-size: 13px; }
+
+/* Footer */
+.card-footer-custom {
+    background: #091410;
+    border-top: 2px solid #8ab99a;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.footer-copy {
+    font-size: 12px;
+    color: #7a9e8a;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.footer-copy i  { color: #8ab99a; }
+.footer-copy a  { color: #8dbba0; text-decoration: none; }
+.footer-copy a:hover { color: #fff; }
+.visits-badge {
+    background: #162d1e;
+    border: 1px solid #2a4833;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: #8ab99a;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+.visits-badge i { font-size: 13px; }
+
+/* Responsive */
+@media (max-width: 520px) {
+    .card-body-custom { padding: 20px 18px; }
+    .topbar-inner { gap: 10px; }
+    .header-text h1 { font-size: 15px; }
+}
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ TOP BAR ═══════════════════════════ -->
+<div class="topbar">
+    <div class="topbar-inner">
+        <div class="logo-circle">
+            <img src="images/lasu.png" alt="LASU Logo"/>
+        </div>
+        <div class="header-text">
+            <h1>
+                <i class="fa-solid fa-book-open"></i>JAMB Course Requirement
+                <span class="utme-badge">UTME</span>
+            </h1>
+            <p><i class="fa-solid fa-location-dot"></i>Lagos State University — Admissions Portal</p>
+        </div>
+        <div class="logo-circle jamb">
+            <img src="images/jamb.png" alt="JAMB Logo"/>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ MAIN CONTENT ═══════════════════════════ -->
+<div class="page-shell">
+    <div class="main-card">
+
+        <!-- Card header band -->
+        <div class="card-band">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <div>
+                <h2>Course Requirements Checker</h2>
+                <p>O-Level &amp; UTME subject requirements as listed in the JAMB Brochure</p>
+            </div>
+        </div>
+
+        <!-- Card body -->
+        <div class="card-body-custom">
+
+            <!-- Info strip -->
+            <div class="info-strip">
+                <i class="fa-solid fa-circle-info"></i>
+                <p>Select a programme of study to view the required O-Level subjects and JAMB UTME combination for admission into LASU.</p>
+            </div>
+
+            <!-- Form -->
+            <form action="/admissionscreening/courserequirement/index.php" method="POST">
+
+                <label class="field-label" for="course">
+                    <i class="fa-solid fa-book"></i>Programme of Study
+                </label>
+
+                <div class="select-wrap">
+                    <select class="styled-select" name="course" id="course" required>
+                        <option value="">— Select a course of study —</option>
+                        <option value='0811' selected>Accounting</option><option value='0143'>Accounting Education</option><option value='0951'>Advertising</option><option value='0251'>Aerospace Engineering</option><option value='1321'>Agricultural Economics and Farm Management</option><option value='1322'>Agricultural Extension and Rural Development</option><option value='1323'>Animal Science</option><option value='0331'>Arabic</option><option value='0121'>Arabic Education</option><option value='1811'>Architecture</option><option value='0812'>Banking and Finance</option><option value='0511'>Biochemistry</option><option value='0111'>Biology Education</option><option value='0521'>Botany</option><option value='0943'>Broadcasting</option><option value='1821'>Building</option><option value='0821'>Business Administration</option><option value='0144'>Business Education</option><option value='0231'>Chemical Engineering</option><option value='0531'>Chemistry</option><option value='0112'>Chemistry Education</option><option value='0351'>Christian Religious Studies</option><option value='0122'>Christian Religious Studies Education</option><option value='0241'>Civil Engineering</option><option value='0411'>Common/Civil Law</option><option value='1911'>Computer Science</option><option value='0115'>Computer Science Education</option><option value='1324'>Crop Production</option><option value='1921'>Cyber Security</option><option value='1951'>Data Science</option><option value='1211'>Dentistry</option><option value='0901'>Development Communication Studies</option><option value='0152'>Early Childhood Education</option><option value='0611'>Economics</option><option value='0129'>Economics Education</option><option value='0145'>Educational Management</option><option value='0194'>Educational Technology</option><option value='0211'>Electronics and Computer Engineering</option><option value='0123'>English Education</option><option value='0321'>English Language</option><option value='0824'>Entrepreneurship</option><option value='1841'>Environmental Management</option><option value='1831'>Estate Management</option><option value='0991'>Film and Multimedia</option><option value='2121'>Film Production</option><option value='1891'>Fine Arts</option><option value='0541'>Fisheries and Aquatic Biology</option><option value='0332'>French</option><option value='0124'>French Language Education</option><option value='0621'>Geography and Planning</option><option value='0128'>Geography Education</option><option value='0151'>Guidance and Counselling</option><option value='0142'>Health Education</option><option value='0341'>History and International Studies</option><option value='0126'>History Education</option><option value='1851'>Industrial Design </option><option value='0261'>Industrial Engineering and Production</option><option value='0831'>Industrial Relations and Personnel Management</option><option value='1941'>Information and Communication Technology</option><option value='0961'>Information and Media Studies</option><option value='0813'>Insurance</option><option value='0412'>Islamic and Common Law</option><option value='0352'>Islamic Religious Studies</option><option value='0125'>Islamic Religious Studies Education</option><option value='0925'>Journalism and Media Studies</option><option value='5011'>Library and Information Science</option><option value='0391'>Linguistics</option><option value='0833'>Local Government Development and Administration</option><option value='1004'>Logistics and Supply Chain Management</option><option value='0823'>Marketing</option><option value='0910'>Mass Communication</option><option value='0551'>Mathematics</option><option value='0113'>Mathematics Education</option><option value='0221'>Mechanical Engineering</option><option value='1721'>Medical Laboratory Science </option><option value='0710'>Medicine and Surgery</option><option value='0561'>Microbiology</option><option value='0372'>Music</option><option value='0132'>Music Education</option><option value='1212'>Nursing</option><option value='0353'>Peace Studies</option><option value='1502'>Pharmacology</option><option value='1506'>Pharmacy</option><option value='0361'>Philosophy</option><option value='0141'>Physical and Health Education</option><option value='0571'>Physics</option><option value='0114'>Physics Education</option><option value='1101'>Physiology</option><option value='1102'>Physiotheraphy</option><option value='0631'>Political Science</option><option value='0130'>Political Science Education</option><option value='0333'>Portuguese/English</option><option value='0822'>Project Management Technology</option><option value='0651'>Psychology</option><option value='0832'>Public Administration</option><option value='0971'>Public Relations</option><option value='1871'>Quantity Surveying</option><option value='1711'>Radiography and Radiation Science </option><option value='0501'>Science Laboratory Technology </option><option value='0160'>Social Studies and Civic Education</option><option value='0641'>Sociology</option><option value='1931'>Software Engineering</option><option value='0153'>Special Education</option><option value='0981'>Strategic Communication</option><option value='1861'>Survey and Geo-Informatics</option><option value='0841'>Taxation</option><option value='0371'>Theatre and Film Arts</option><option value='2131'>Tourism and Hospitality Management</option><option value='1001'>Transport Management and Operations</option><option value='1881'>Urban and Regional Planning</option><option value='0311'>Yoruba</option><option value='0127'>Yoruba Education</option><option value='0581'>Zoology</option>                    </select>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-magnifying-glass"></i> Check Requirement
+                </button>
+
+            </form>
+
+            <!-- Results -->
+                        <div class="result-box">
+                <div class="result-band">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <h3>Accounting</h3>
+                </div>
+                <div class="result-content">
+
+                    <div class="result-section">
+                        <div class="section-label">
+                            <i class="fa-solid fa-scroll"></i> O-Level Subject Requirements
+                        </div>
+                        <div class="subject-pill-wrap">
+                            English Language, Mathematics, Economics, and any subject from Social Science                        </div>
+                    </div>
+
+                    <hr class="result-divider"/>
+
+                    <div class="result-section">
+                        <div class="section-label">
+                            <i class="fa-solid fa-pen-to-square"></i> JAMB UTME Subject Requirements
+                        </div>
+                        <div class="subject-pill-wrap">
+                            ENG, MAT, ECO, and any subject from Social Science                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <a href="../" class="back-link">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home Page
+            </a>
+
+        </div><!-- /card-body-custom -->
+
+        <!-- Footer -->
+        <div class="card-footer-custom">
+            <div class="footer-copy">
+                <i class="fa-regular fa-copyright"></i>
+                <span>
+                    2005 &ndash; 2026.
+                    <a href="https://lidc.lasu.edu.ng/" target="_blank">
+                        Lagos State University Directorate of ICT (LASU-DICT)
+                    </a>
+                </span>
+            </div>
+            <div class="visits-badge">
+                <i class="fa-solid fa-eye"></i>
+                Visits: 1,222,592            </div>
+        </div>
+
+    </div><!-- /main-card -->
+</div><!-- /page-shell -->
+
+</body>
+</html>

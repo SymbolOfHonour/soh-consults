@@ -1,3 +1,4 @@
+import snapshot from "../../../../data/lasu-requirements-snapshot.json";
 import { NextResponse } from "next/server";
 
 const LASU_REQUIREMENTS_URL =
@@ -32,9 +33,8 @@ export async function GET() {
         Accept: "text/html,application/xhtml+xml",
         "User-Agent": "Mozilla/5.0 S.O.H CONSULTS LASU Calculator",
       },
-      next: {
-        revalidate: 3600,
-      },
+      cache: "no-store",
+      signal: AbortSignal.timeout(6000),
     });
 
     if (!response.ok) {
@@ -101,14 +101,7 @@ export async function GET() {
   } catch (error) {
     console.error("LASU programme fetch failed:", error);
 
-    return NextResponse.json(
-      {
-        success: false,
-        error: "Unable to retrieve the current LASU programme list.",
-      },
-      {
-        status: 502,
-      }
-    );
+    const programmes = snapshot.map(row => ({ id: row.courseId, name: row.programme })).sort((a, b) => a.name.localeCompare(b.name));
+    return NextResponse.json({ success: true, source: "LASU", mode: "backup", count: programmes.length, updatedAt: snapshot.reduce((latest, row) => row.retrievedAt > latest ? row.retrievedAt : latest, ""), programmes });
   }
 }

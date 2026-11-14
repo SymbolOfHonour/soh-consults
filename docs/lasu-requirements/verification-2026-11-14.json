@@ -1,0 +1,45 @@
+{
+  "sourceUrl": "https://services.lidc.lasu.edu.ng/admissionscreening/courserequirement/index.php",
+  "programmes": 113,
+  "complete": 106,
+  "firstRetrievedAt": "2026-11-14T13:31:09.965274+00:00",
+  "lastRetrievedAt": "2026-11-14T13:35:58.655235+00:00",
+  "incomplete": [
+    {
+      "courseId": "0951",
+      "programme": "Advertising",
+      "missing": "UTME"
+    },
+    {
+      "courseId": "0943",
+      "programme": "Broadcasting",
+      "missing": "UTME"
+    },
+    {
+      "courseId": "0991",
+      "programme": "Film and Multimedia",
+      "missing": "UTME"
+    },
+    {
+      "courseId": "0961",
+      "programme": "Information and Media Studies",
+      "missing": "UTME"
+    },
+    {
+      "courseId": "0925",
+      "programme": "Journalism and Media Studies",
+      "missing": "UTME"
+    },
+    {
+      "courseId": "0971",
+      "programme": "Public Relations",
+      "missing": "UTME"
+    },
+    {
+      "courseId": "0981",
+      "programme": "Strategic Communication",
+      "missing": "UTME"
+    }
+  ],
+  "verification": "Every field compared against independently parsed official subject-pill-wrap DOM text; no page labels or inferred requirements included."
+}

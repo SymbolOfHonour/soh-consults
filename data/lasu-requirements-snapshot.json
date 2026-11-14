@@ -1,0 +1,793 @@
+[
+  {
+    "courseId": "0811",
+    "programme": "Accounting",
+    "oLevel": "English Language, Mathematics, Economics, and any subject from Social Science",
+    "utme": "ENG, MAT, ECO, and any subject from Social Science",
+    "retrievedAt": "2026-11-14T13:31:11.504855+00:00"
+  },
+  {
+    "courseId": "0143",
+    "programme": "Accounting Education",
+    "oLevel": "English Language, Mathematics, Economics, and any subject from Social Science",
+    "utme": "ENG, MAT, ECO, and any subject from Social Science",
+    "retrievedAt": "2026-11-14T13:31:10.199468+00:00"
+  },
+  {
+    "courseId": "0951",
+    "programme": "Advertising",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science",
+    "utme": "",
+    "retrievedAt": "2026-11-14T13:31:09.965274+00:00"
+  },
+  {
+    "courseId": "0251",
+    "programme": "Aerospace Engineering",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Further Mathematics, and any subject from Science",
+    "utme": "ENG, MAT, PHY, CHE",
+    "retrievedAt": "2026-11-14T13:31:18.171418+00:00"
+  },
+  {
+    "courseId": "1321",
+    "programme": "Agricultural Economics and Farm Management",
+    "oLevel": "English Language, Chemistry, Biology or Agricultural Science, and any subject from Mathematics, Physics, Geography, Economics, Science",
+    "utme": "ENG, CHE, BIO or AGR, and any subject from MAT, PHY",
+    "retrievedAt": "2026-11-14T13:31:17.887695+00:00"
+  },
+  {
+    "courseId": "1322",
+    "programme": "Agricultural Extension and Rural Development",
+    "oLevel": "English Language, Chemistry, Biology or Agricultural Science, and any subject from Mathematics, Physics, Geography, Economics, Science",
+    "utme": "ENG, CHE, BIO or AGR, and any subject from MAT, PHY",
+    "retrievedAt": "2026-11-14T13:31:17.888277+00:00"
+  },
+  {
+    "courseId": "1323",
+    "programme": "Animal Science",
+    "oLevel": "English Language, Chemistry, Biology or Agricultural Science, and any subject from Mathematics, Physics, Geography, Economics, Science",
+    "utme": "ENG, CHE, BIO or AGR, and any subject from MAT, PHY",
+    "retrievedAt": "2026-11-14T13:31:25.838812+00:00"
+  },
+  {
+    "courseId": "0331",
+    "programme": "Arabic",
+    "oLevel": "English Language, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, ARA, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:31:25.795169+00:00"
+  },
+  {
+    "courseId": "0121",
+    "programme": "Arabic Education",
+    "oLevel": "English Language, Arabic, and any subject from Arts or Social Science",
+    "utme": "ENG, ARA, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:31:25.836249+00:00"
+  },
+  {
+    "courseId": "1811",
+    "programme": "Architecture",
+    "oLevel": "English Language, Mathematics, Physics, and any subject from Chemistry, Technical Drawing, Geography, Fine Arts, Biology, Economics",
+    "utme": "ENG, MAT, PHY, and any subject from CHE, GEO, ART, ECO",
+    "retrievedAt": "2026-11-14T13:31:33.739113+00:00"
+  },
+  {
+    "courseId": "0812",
+    "programme": "Banking and Finance",
+    "oLevel": "English Language, Mathematics, Economics, and any subject from Commerce, Office Practice, Accounting",
+    "utme": "ENG, MAT, ECO, GOV or GEO",
+    "retrievedAt": "2026-11-14T13:31:33.711043+00:00"
+  },
+  {
+    "courseId": "0511",
+    "programme": "Biochemistry",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, BIO, CHE, PHY or MAT",
+    "retrievedAt": "2026-11-14T13:31:33.703342+00:00"
+  },
+  {
+    "courseId": "0111",
+    "programme": "Biology Education",
+    "oLevel": "English Language, Mathematics, Biology, Chemistry, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, BIO, and any subject from CHE, MAT, PHY",
+    "retrievedAt": "2026-11-14T13:31:41.666949+00:00"
+  },
+  {
+    "courseId": "0521",
+    "programme": "Botany",
+    "oLevel": "English Language, Mathematics, Chemistry, Biology, and any subject from Physics, Science",
+    "utme": "ENG, BIO, CHE, and any subject from Science",
+    "retrievedAt": "2026-11-14T13:31:41.623351+00:00"
+  },
+  {
+    "courseId": "0943",
+    "programme": "Broadcasting",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science",
+    "utme": "",
+    "retrievedAt": "2026-11-14T13:31:41.651194+00:00"
+  },
+  {
+    "courseId": "1821",
+    "programme": "Building",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any subject from Technical Drawing, Economics, Geography, Wood Work, Building Construction",
+    "utme": "ENG, MAT, PHY, and any subject from ECO, GEO, CHE",
+    "retrievedAt": "2026-11-14T13:31:49.531579+00:00"
+  },
+  {
+    "courseId": "0821",
+    "programme": "Business Administration",
+    "oLevel": "English Language, Mathematics, and any subject from Geography, Accounting, Commerce, Government, Economics",
+    "utme": "ENG, MAT, ECO, and any subject from COM, GEO, GOV",
+    "retrievedAt": "2026-11-14T13:31:49.475208+00:00"
+  },
+  {
+    "courseId": "0144",
+    "programme": "Business Education",
+    "oLevel": "English Language, Mathematics, Economics, and any subject from Commerce, Accounting, Business Method, Arts or Social Science, Book Keeping",
+    "utme": "ENG, MAT, ECO, and any subject from LIT, GEO, Arts",
+    "retrievedAt": "2026-11-14T13:31:49.532375+00:00"
+  },
+  {
+    "courseId": "0231",
+    "programme": "Chemical Engineering",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any subject from Science",
+    "utme": "ENG, MAT, PHY, CHE",
+    "retrievedAt": "2026-11-14T13:31:57.383214+00:00"
+  },
+  {
+    "courseId": "0531",
+    "programme": "Chemistry",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, CHE, and any subject from PHY, BIO, MAT",
+    "retrievedAt": "2026-11-14T13:31:57.423296+00:00"
+  },
+  {
+    "courseId": "0112",
+    "programme": "Chemistry Education",
+    "oLevel": "English Language, Mathematics, Chemistry, Biology, and any subject from Physics, Agricultural Science",
+    "utme": "ENG, CHE, and any subject from PHY, BIO, MAT",
+    "retrievedAt": "2026-11-14T13:31:57.367775+00:00"
+  },
+  {
+    "courseId": "0351",
+    "programme": "Christian Religious Studies",
+    "oLevel": "English Language, Christian Religious Studies, and any subject from Arts or Social Science",
+    "utme": "ENG, CRS, and any subject from Arts",
+    "retrievedAt": "2026-11-14T13:32:05.419182+00:00"
+  },
+  {
+    "courseId": "0122",
+    "programme": "Christian Religious Studies Education",
+    "oLevel": "English Language, Christian Religious Studies, and any subject from Arts or Social Science",
+    "utme": "ENG, CRS, and any subject from Arts, Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:32:05.731235+00:00"
+  },
+  {
+    "courseId": "0241",
+    "programme": "Civil Engineering",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any subject from Technical Drawing, Further Mathematics, Science",
+    "utme": "ENG, MAT, PHY, CHE",
+    "retrievedAt": "2026-11-14T13:32:05.454986+00:00"
+  },
+  {
+    "courseId": "0411",
+    "programme": "Common/Civil Law",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:32:13.335204+00:00"
+  },
+  {
+    "courseId": "1911",
+    "programme": "Computer Science",
+    "oLevel": "English Language, Mathematics, Physics, and any subject from Chemistry, Further Mathematics, Computer Studies, Science",
+    "utme": "ENG, MAT, PHY, and any subject from BIO, CHE, AGR, ECO, GEO",
+    "retrievedAt": "2026-11-14T13:32:13.415327+00:00"
+  },
+  {
+    "courseId": "0115",
+    "programme": "Computer Science Education",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any subject from Science",
+    "utme": "ENG, MAT, PHY, CHE",
+    "retrievedAt": "2026-11-14T13:32:13.356967+00:00"
+  },
+  {
+    "courseId": "1324",
+    "programme": "Crop Production",
+    "oLevel": "English Language, Chemistry, Biology or Agricultural Science, and any subject from Mathematics, Physics, Geography, Economics, Science",
+    "utme": "ENG, CHE, BIO or AGR, and any subject from MAT, PHY",
+    "retrievedAt": "2026-11-14T13:32:21.259101+00:00"
+  },
+  {
+    "courseId": "1921",
+    "programme": "Cyber Security",
+    "oLevel": "English Language, Mathematics, Physics, and any subject from Chemistry, Further Mathematics, Computer Studies, Science",
+    "utme": "ENG, MAT, PHY, and any subject from BIO, CHE, AGR, ECO, GEO",
+    "retrievedAt": "2026-11-14T13:32:21.267012+00:00"
+  },
+  {
+    "courseId": "1951",
+    "programme": "Data Science",
+    "oLevel": "English Language, Mathematics, Physics, and any subject from Chemistry, Further Mathematics, Computer Studies, Science",
+    "utme": "ENG, MAT, PHY, and any subject from BIO, CHE, AGR, ECO, GEO",
+    "retrievedAt": "2026-11-14T13:32:21.219315+00:00"
+  },
+  {
+    "courseId": "1211",
+    "programme": "Dentistry",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, CHE, BIO, and any subject from Science",
+    "retrievedAt": "2026-11-14T13:32:29.219048+00:00"
+  },
+  {
+    "courseId": "0901",
+    "programme": "Development Communication Studies",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:32:29.175158+00:00"
+  },
+  {
+    "courseId": "0152",
+    "programme": "Early Childhood Education",
+    "oLevel": "English Language, Mathematics, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:32:29.211127+00:00"
+  },
+  {
+    "courseId": "0611",
+    "programme": "Economics",
+    "oLevel": "English Language, Mathematics, Economics, and any subject from Arts or Social Science",
+    "utme": "ENG, MAT, ECO, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:32:37.127552+00:00"
+  },
+  {
+    "courseId": "0129",
+    "programme": "Economics Education",
+    "oLevel": "English Language, Mathematics, Economics, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, MAT, ECO, and any subject from GEO, HIS, Arts",
+    "retrievedAt": "2026-11-14T13:32:37.099214+00:00"
+  },
+  {
+    "courseId": "0145",
+    "programme": "Educational Management",
+    "oLevel": "English Language, Mathematics, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, MAT, ECO, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:32:37.128498+00:00"
+  },
+  {
+    "courseId": "0194",
+    "programme": "Educational Technology",
+    "oLevel": "English Language, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:32:45.047302+00:00"
+  },
+  {
+    "courseId": "0211",
+    "programme": "Electronics and Computer Engineering",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any subject from Science",
+    "utme": "ENG, MAT, PHY, CHE",
+    "retrievedAt": "2026-11-14T13:32:45.011236+00:00"
+  },
+  {
+    "courseId": "0123",
+    "programme": "English Education",
+    "oLevel": "English Language, Literature In English, and any subject from Arts or Social Science",
+    "utme": "ENG, LIT, and any subject from Arts, Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:32:45.283206+00:00"
+  },
+  {
+    "courseId": "0321",
+    "programme": "English Language",
+    "oLevel": "English Language, Literature In English, and any subject from Arts or Social Science",
+    "utme": "ENG, LIT, and any subject from Arts, Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:32:51.207228+00:00"
+  },
+  {
+    "courseId": "0824",
+    "programme": "Entrepreneurship",
+    "oLevel": "English Language, Mathematics, and any subject from Geography, Accounting, Commerce, Government, Economics",
+    "utme": "ENG, MAT, ECO, and any subject from COM, GEO, GOV",
+    "retrievedAt": "2026-11-14T13:32:51.219264+00:00"
+  },
+  {
+    "courseId": "1841",
+    "programme": "Environmental Management",
+    "oLevel": "English Language, Mathematics, and any subject from Physics, Chemistry, Geography, Economics, Biology, Data Processing",
+    "utme": "ENG, and any subject from PHY, CHE, MAT, GEO, BIO, AGR",
+    "retrievedAt": "2026-11-14T13:32:51.323125+00:00"
+  },
+  {
+    "courseId": "1831",
+    "programme": "Estate Management",
+    "oLevel": "English Language, Mathematics, Economics, and any subject from Chemistry, Physics, Commerce, Biology, Technical Drawing, Geography",
+    "utme": "ENG, MAT, and any subject from ECO, CHE, PHY, GEO, BIO",
+    "retrievedAt": "2026-11-14T13:32:59.107327+00:00"
+  },
+  {
+    "courseId": "0991",
+    "programme": "Film and Multimedia",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science",
+    "utme": "",
+    "retrievedAt": "2026-11-14T13:32:59.168128+00:00"
+  },
+  {
+    "courseId": "2121",
+    "programme": "Film Production",
+    "oLevel": "English Language, Literature In English, and any subject from Arts or Social Science",
+    "utme": "ENG, LIT, and any subject from Arts, Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:32:59.167150+00:00"
+  },
+  {
+    "courseId": "1891",
+    "programme": "Fine Arts",
+    "oLevel": "English Language, and any subject from Geography, Economics, Metal Work, Dyeing and Bleaching, Science, Arts",
+    "utme": "ENG, and any subject from GEO, ECO, Arts, Science",
+    "retrievedAt": "2026-11-14T13:33:07.163129+00:00"
+  },
+  {
+    "courseId": "0541",
+    "programme": "Fisheries and Aquatic Biology",
+    "oLevel": "English Language, Mathematics, Chemistry, Biology or Agricultural Science, and any subject from Physics, Geography, Economics",
+    "utme": "ENG, CHE, BIO or AGR, and any subject from PHY, MAT",
+    "retrievedAt": "2026-11-14T13:33:07.171050+00:00"
+  },
+  {
+    "courseId": "0332",
+    "programme": "French",
+    "oLevel": "English Language, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:33:07.183023+00:00"
+  },
+  {
+    "courseId": "0124",
+    "programme": "French Language Education",
+    "oLevel": "English Language, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:33:15.039065+00:00"
+  },
+  {
+    "courseId": "0621",
+    "programme": "Geography and Planning",
+    "oLevel": "English Language, Mathematics, Geography, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, GEO, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:33:15.054986+00:00"
+  },
+  {
+    "courseId": "0128",
+    "programme": "Geography Education",
+    "oLevel": "English Language, Mathematics, Geography, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, GOV or ECO, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:33:15.003170+00:00"
+  },
+  {
+    "courseId": "0151",
+    "programme": "Guidance and Counselling",
+    "oLevel": "English Language, Mathematics, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:33:22.875128+00:00"
+  },
+  {
+    "courseId": "0142",
+    "programme": "Health Education",
+    "oLevel": "English Language, Biology or Agricultural Science, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:33:22.911032+00:00"
+  },
+  {
+    "courseId": "0341",
+    "programme": "History and International Studies",
+    "oLevel": "English Language, Government or History, and any subject from Arts or Social Science",
+    "utme": "ENG, GOV or HIS, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:33:22.918951+00:00"
+  },
+  {
+    "courseId": "0126",
+    "programme": "History Education",
+    "oLevel": "English Language, History or Government, and any subject from Arts or Social Science",
+    "utme": "ENG, GOV or HIS, and any subject from Arts or Social Science, PHY, Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:33:30.751199+00:00"
+  },
+  {
+    "courseId": "1851",
+    "programme": "Industrial Design",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any subject from Technical Drawing, Science",
+    "utme": "ENG, MAT, PHY, CHE",
+    "retrievedAt": "2026-11-14T13:33:30.815238+00:00"
+  },
+  {
+    "courseId": "0261",
+    "programme": "Industrial Engineering and Production",
+    "oLevel": "English Language, Mathematics, and any subject from Physics, Chemistry, Biology, Geography, Economics, Technical Drawing",
+    "utme": "ENG, and any subject from MAT, PHY, CHE, GEO, ECO, BIO",
+    "retrievedAt": "2026-11-14T13:33:30.771189+00:00"
+  },
+  {
+    "courseId": "0831",
+    "programme": "Industrial Relations and Personnel Management",
+    "oLevel": "English Language, Mathematics, Economics, and any subject from Arts or Social Science",
+    "utme": "ENG, MAT, ECO, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:33:38.639445+00:00"
+  },
+  {
+    "courseId": "1941",
+    "programme": "Information and Communication Technology",
+    "oLevel": "English Language, Mathematics, Physics, and any subject from Chemistry, Further Mathematics, Computer Studies, Science",
+    "utme": "ENG, MAT, PHY, and any subject from BIO, CHE, AGR, ECO, GEO",
+    "retrievedAt": "2026-11-14T13:33:38.643166+00:00"
+  },
+  {
+    "courseId": "0961",
+    "programme": "Information and Media Studies",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science",
+    "utme": "",
+    "retrievedAt": "2026-11-14T13:33:38.695525+00:00"
+  },
+  {
+    "courseId": "0813",
+    "programme": "Insurance",
+    "oLevel": "English Language, Mathematics, Economics, and any subject from Geography, Accounting, Commerce, Business Method, Government, Statistics",
+    "utme": "ENG, MAT, ECO, and any subject from GEO, COM",
+    "retrievedAt": "2026-11-14T13:33:46.763752+00:00"
+  },
+  {
+    "courseId": "0412",
+    "programme": "Islamic and Common Law",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:33:46.536560+00:00"
+  },
+  {
+    "courseId": "0352",
+    "programme": "Islamic Religious Studies",
+    "oLevel": "English Language, Islamic Religious Studies or Arabic , and any subject from Arts or Social Science",
+    "utme": "ENG, IRS, and any subject from Arts",
+    "retrievedAt": "2026-11-14T13:33:46.516520+00:00"
+  },
+  {
+    "courseId": "0125",
+    "programme": "Islamic Religious Studies Education",
+    "oLevel": "English Language, Islamic Religious Studies, and any subject from Arts or Social Science",
+    "utme": "ENG, IRS or ARA, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:33:54.387210+00:00"
+  },
+  {
+    "courseId": "0925",
+    "programme": "Journalism and Media Studies",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science",
+    "utme": "",
+    "retrievedAt": "2026-11-14T13:33:54.431043+00:00"
+  },
+  {
+    "courseId": "5011",
+    "programme": "Library and Information Science",
+    "oLevel": "English Language, Mathematics, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:33:54.399011+00:00"
+  },
+  {
+    "courseId": "0391",
+    "programme": "Linguistics",
+    "oLevel": "English Language, and any subject from Arts or Social Science",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:34:02.287287+00:00"
+  },
+  {
+    "courseId": "0833",
+    "programme": "Local Government Development and Administration",
+    "oLevel": "English Language, Economics, Government or History, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, ECO, GOV or HIS, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:34:02.267194+00:00"
+  },
+  {
+    "courseId": "1004",
+    "programme": "Logistics and Supply Chain Management",
+    "oLevel": "English Language, Mathematics, and any subject from Science, Trade or Social Science, Government",
+    "utme": "ENG, MAT or PHY, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:34:02.319063+00:00"
+  },
+  {
+    "courseId": "0823",
+    "programme": "Marketing",
+    "oLevel": "English Language, Mathematics, and any subject from Marketing, Commerce, Book Keeping, Economics, Accounting, Government",
+    "utme": "ENG, MAT, ECO, and any subject from Social Science, GOV",
+    "retrievedAt": "2026-11-14T13:34:10.295253+00:00"
+  },
+  {
+    "courseId": "0910",
+    "programme": "Mass Communication",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:34:10.251177+00:00"
+  },
+  {
+    "courseId": "0551",
+    "programme": "Mathematics",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any subject from Biology, Economics, Geography",
+    "utme": "ENG, MAT, CHE, PHY",
+    "retrievedAt": "2026-11-14T13:34:10.219388+00:00"
+  },
+  {
+    "courseId": "0113",
+    "programme": "Mathematics Education",
+    "oLevel": "English Language, Mathematics, Physics, and any subject from Science",
+    "utme": "ENG, MAT, and any subject from PHY, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:34:18.166952+00:00"
+  },
+  {
+    "courseId": "0221",
+    "programme": "Mechanical Engineering",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any subject from Science",
+    "utme": "ENG, MAT, PHY, CHE",
+    "retrievedAt": "2026-11-14T13:34:18.135551+00:00"
+  },
+  {
+    "courseId": "1721",
+    "programme": "Medical Laboratory Science",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, PHY, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:34:18.159727+00:00"
+  },
+  {
+    "courseId": "0710",
+    "programme": "Medicine and Surgery",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, PHY, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:34:24.763117+00:00"
+  },
+  {
+    "courseId": "0561",
+    "programme": "Microbiology",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, BIO, CHE, PHY or MAT",
+    "retrievedAt": "2026-11-14T13:34:24.766911+00:00"
+  },
+  {
+    "courseId": "0372",
+    "programme": "Music",
+    "oLevel": "English Language, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:34:24.803136+00:00"
+  },
+  {
+    "courseId": "0132",
+    "programme": "Music Education",
+    "oLevel": "English Language, and any subject from AGS",
+    "utme": "ENG, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:34:32.670936+00:00"
+  },
+  {
+    "courseId": "1212",
+    "programme": "Nursing",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, PHY, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:34:32.667204+00:00"
+  },
+  {
+    "courseId": "0353",
+    "programme": "Peace Studies",
+    "oLevel": "English Language, and any subject from Arts or Social Science",
+    "utme": "ENG, GOV, and any subject from Social Science",
+    "retrievedAt": "2026-11-14T13:34:32.707172+00:00"
+  },
+  {
+    "courseId": "1502",
+    "programme": "Pharmacology",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, PHY, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:34:40.614900+00:00"
+  },
+  {
+    "courseId": "1506",
+    "programme": "Pharmacy",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, PHY, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:34:40.607313+00:00"
+  },
+  {
+    "courseId": "0361",
+    "programme": "Philosophy",
+    "oLevel": "English Language, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:34:40.583231+00:00"
+  },
+  {
+    "courseId": "0141",
+    "programme": "Physical and Health Education",
+    "oLevel": "English Language, Biology or Agricultural Science, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, BIO, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:34:48.555054+00:00"
+  },
+  {
+    "courseId": "0571",
+    "programme": "Physics",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, and any subject from Science",
+    "utme": "ENG, MAT, PHY, CHE or BIO",
+    "retrievedAt": "2026-11-14T13:34:48.507150+00:00"
+  },
+  {
+    "courseId": "0114",
+    "programme": "Physics Education",
+    "oLevel": "English Language, Mathematics, Physics, and any subject from Science",
+    "utme": "ENG, PHY, MAT or CHE, and any subject from Science",
+    "retrievedAt": "2026-11-14T13:34:48.535142+00:00"
+  },
+  {
+    "courseId": "1101",
+    "programme": "Physiology",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, PHY, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:34:56.439186+00:00"
+  },
+  {
+    "courseId": "1102",
+    "programme": "Physiotheraphy",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, PHY, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:34:56.402988+00:00"
+  },
+  {
+    "courseId": "0631",
+    "programme": "Political Science",
+    "oLevel": "English Language, Mathematics, Government or History, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, MAT, GOV or HIS, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:34:56.400029+00:00"
+  },
+  {
+    "courseId": "0130",
+    "programme": "Political Science Education",
+    "oLevel": "English Language, Mathematics, Government or History, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, GOV or HIS, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:35:04.307219+00:00"
+  },
+  {
+    "courseId": "0333",
+    "programme": "Portuguese/English",
+    "oLevel": "English Language, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:35:04.259582+00:00"
+  },
+  {
+    "courseId": "0822",
+    "programme": "Project Management Technology",
+    "oLevel": "English Language, Mathematics, and any subject from Economics, Physics, Biology, Government, Social Science, Science",
+    "utme": "ENG, and any subject from MAT, ECO, GEO, CHE, PHY, BIO",
+    "retrievedAt": "2026-11-14T13:35:04.275195+00:00"
+  },
+  {
+    "courseId": "0651",
+    "programme": "Psychology",
+    "oLevel": "English Language, Mathematics, Biology, and any subject from Commerce, Economics, Geography, Government",
+    "utme": "ENG, and any subject from Arts or Social Science, Science, Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:35:12.907111+00:00"
+  },
+  {
+    "courseId": "0832",
+    "programme": "Public Administration",
+    "oLevel": "English Language, Mathematics, Government, Economics, and any subject from Arts or Social Science",
+    "utme": "ENG, MAT, ECO, GOV",
+    "retrievedAt": "2026-11-14T13:35:12.859119+00:00"
+  },
+  {
+    "courseId": "0971",
+    "programme": "Public Relations",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science",
+    "utme": "",
+    "retrievedAt": "2026-11-14T13:35:12.891085+00:00"
+  },
+  {
+    "courseId": "1871",
+    "programme": "Quantity Surveying",
+    "oLevel": "English Language, Mathematics, Physics, and any subject from Chemistry, Technical Drawing, Geography, Economics, Biology",
+    "utme": "ENG, MAT, PHY, and any subject from ECO, GEO, CHE",
+    "retrievedAt": "2026-11-14T13:35:20.839132+00:00"
+  },
+  {
+    "courseId": "1711",
+    "programme": "Radiography and Radiation Science",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, PHY, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:35:20.875246+00:00"
+  },
+  {
+    "courseId": "0501",
+    "programme": "Science Laboratory Technology",
+    "oLevel": "English Language, Mathematics, Physics, Chemistry, Biology",
+    "utme": "ENG, PHY, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:35:20.842905+00:00"
+  },
+  {
+    "courseId": "0160",
+    "programme": "Social Studies and Civic Education",
+    "oLevel": "English Language, Civic Education or Government, and any subject from Arts or Social Science",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:35:28.751117+00:00"
+  },
+  {
+    "courseId": "0641",
+    "programme": "Sociology",
+    "oLevel": "English Language, Mathematics, and any subject from Arts, Social Science, Science or Trade",
+    "utme": "ENG, GOV or HIS, and any subject from ECO, COM, Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:35:28.703080+00:00"
+  },
+  {
+    "courseId": "1931",
+    "programme": "Software Engineering",
+    "oLevel": "English Language, Mathematics, Physics, and any subject from Chemistry, Further Mathematics, Computer Studies, Science",
+    "utme": "ENG, MAT, PHY, and any subject from BIO, CHE, AGR, ECO, GEO",
+    "retrievedAt": "2026-11-14T13:35:28.767126+00:00"
+  },
+  {
+    "courseId": "0153",
+    "programme": "Special Education",
+    "oLevel": "English Language, Mathematics, and any subject from Arts or Social Science",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:35:36.543059+00:00"
+  },
+  {
+    "courseId": "0981",
+    "programme": "Strategic Communication",
+    "oLevel": "English Language, Mathematics, Literature In English, and any subject from Arts or Social Science",
+    "utme": "",
+    "retrievedAt": "2026-11-14T13:35:36.603557+00:00"
+  },
+  {
+    "courseId": "1861",
+    "programme": "Survey and Geo-Informatics",
+    "oLevel": "English Language, Mathematics, Physics, and any subject from Chemistry, Technical Drawing, Data Processing, Geography, Economics, Biology",
+    "utme": "ENG, MAT, PHY, and any subject from ECO, GEO, CHE, BIO",
+    "retrievedAt": "2026-11-14T13:35:36.603525+00:00"
+  },
+  {
+    "courseId": "0841",
+    "programme": "Taxation",
+    "oLevel": "English Language, Mathematics, Economics, and any subject from Book Keeping, Accounting, Commerce, Office Practice, Government, Civic Education",
+    "utme": "ENG, MAT, and any subject from COM, GOV, P_A, ECO",
+    "retrievedAt": "2026-11-14T13:35:44.542956+00:00"
+  },
+  {
+    "courseId": "0371",
+    "programme": "Theatre and Film Arts",
+    "oLevel": "English Language, Literature In English, and any subject from Arts or Social Science",
+    "utme": "ENG, LIT, and any subject from Arts, Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:35:44.498991+00:00"
+  },
+  {
+    "courseId": "2131",
+    "programme": "Tourism and Hospitality Management",
+    "oLevel": "English Language, Literature In English, and any subject from Arts or Social Science",
+    "utme": "ENG, LIT, and any subject from Arts, Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:35:44.491127+00:00"
+  },
+  {
+    "courseId": "1001",
+    "programme": "Transport Management and Operations",
+    "oLevel": "English Language, Mathematics, and any subject from Science, Trade or Social Science, Government",
+    "utme": "ENG, MAT or PHY, and any subject from Arts or Social Science or Science",
+    "retrievedAt": "2026-11-14T13:35:52.431081+00:00"
+  },
+  {
+    "courseId": "1881",
+    "programme": "Urban and Regional Planning",
+    "oLevel": "English Language, Mathematics, and any subject from Geography, Biology, Physics, Technical Drawing, Government, Economics",
+    "utme": "ENG, MAT, and any subject from GEO, CHE, ECO, PHY, GOV, BIO",
+    "retrievedAt": "2026-11-14T13:35:52.450980+00:00"
+  },
+  {
+    "courseId": "0311",
+    "programme": "Yoruba",
+    "oLevel": "English Language, Literature In English, and any subject from Arts or Social Science",
+    "utme": "ENG, and any subject from Arts or Social Science",
+    "retrievedAt": "2026-11-14T13:35:52.403586+00:00"
+  },
+  {
+    "courseId": "0127",
+    "programme": "Yoruba Education",
+    "oLevel": "English Language, Yoruba Language, and any subject from Arts or Social Science",
+    "utme": "ENG, YOR, and any subject from Arts, GEO, Arts",
+    "retrievedAt": "2026-11-14T13:35:58.655235+00:00"
+  },
+  {
+    "courseId": "0581",
+    "programme": "Zoology",
+    "oLevel": "English Language, Mathematics, Biology, Chemistry, and any subject from Geography, Science",
+    "utme": "ENG, BIO, and any subject from PHY, CHE, MAT",
+    "retrievedAt": "2026-11-14T13:35:58.623167+00:00"
+  }
+]
