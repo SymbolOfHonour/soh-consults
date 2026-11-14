@@ -3965,7 +3965,7 @@ export default function LASUCalculator() {
 
                           <p className="mt-2 text-sm leading-6 text-slate-700">
                             {
-                              lasuRequirement.oLevel || "LASU has not provided the O-Level requirements for this course. Confirm with LASU."
+                              lasuRequirement.oLevel
                             }
                           </p>
                         </div>
@@ -3977,7 +3977,7 @@ export default function LASUCalculator() {
 
                           <p className="mt-2 text-sm leading-6 text-slate-700">
                             {
-                              lasuRequirement.utme || "LASU has not provided the UTME requirements for this course. Confirm with LASU."
+                              lasuRequirement.utme
                             }
                           </p>
                         </div>
