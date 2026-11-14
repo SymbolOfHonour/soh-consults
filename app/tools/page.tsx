@@ -59,7 +59,7 @@ export default function ToolsPage() {
           <article><span className={styles.guideTag}>FOR STUDENTS</span><h3>Turn your grades into a plan.</h3><ol><li><strong>Select your grading system.</strong><p>Choose the scale your institution uses before entering your grades.</p></li><li><strong>Gather your course records.</strong><p>Keep your course units, grades and previous academic totals ready.</p></li><li><strong>Explore your next semester.</strong><p>Calculate your GPA or CGPA, then explore the grades you may need to work towards your target.</p></li></ol><PublicPageLink href="/cgpa-calculator">Choose your grading system →</PublicPageLink></article>
         </div>
       </section>
-      <section className={styles.contact} aria-labelledby="tools-contact-title"><h2 id="tools-contact-title">Need help? Contact S.O.H CONSULTS</h2><p>Ask about screening, course requirements or using our student tools.</p><BusinessContacts compact /></section>
+      <section className={styles.contact} aria-labelledby="tools-contact-title"><h2 id="tools-contact-title">Need help? Contact S.O.H CONSULTS</h2><p>Ask about screening, course requirements or using our student tools.</p><BusinessContacts /></section>
       <p className={styles.note}>Screening scores are estimates for guidance. Always confirm your school’s official admission requirements.</p>
     </div>
   </main>;
