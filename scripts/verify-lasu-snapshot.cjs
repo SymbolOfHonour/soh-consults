@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- CommonJS verification tool loads the shared TypeScript test loader. */
 // Build the bundled backup only from a complete, independently checked portal capture.
 require('./ask-soh-test-loader.cjs');
 const fs=require('node:fs'),path=require('node:path'),zlib=require('node:zlib'),crypto=require('node:crypto');
